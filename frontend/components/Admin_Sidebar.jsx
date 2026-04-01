@@ -5,8 +5,13 @@ const Admin_SideBar = () => {
             <div className="border-b-1 border-gray-100 h-12 w-full">
                 <h1 className="text-md">LMLC Online Library System</h1>
             </div>
-
-           <button className="bg-white border-2 border-gray-100 h-12 w-full rounded-md mt-10 cursor-pointer hover:bg-gray-100">Dashboard</button>
+            <div className="space-y-2 mt-10 w-full">
+                <button className="bg-white border-2 border-gray-100 h-12 w-full rounded-md cursor-pointer text-xs hover:bg-gray-100">Dashboard</button>
+                <button className="bg-white border-2 border-gray-100 h-12 w-full rounded-md cursor-pointer text-xs hover:bg-gray-100">Materials</button>
+                <button className="bg-white border-2 border-gray-100 h-12 w-full rounded-md cursor-pointer text-xs hover:bg-gray-100">Students</button>
+                <button className="bg-white border-2 border-gray-100 h-12 w-full rounded-md cursor-pointer text-xs hover:bg-gray-100">Teachers</button>
+            </div>
+           
         </div>
     )
 }

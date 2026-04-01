@@ -26,7 +26,7 @@ const LoginModal = ({ onClose }) => {
           <input type="password" placeholder="Your Password" className="bg-gray-100 h-12 w-full rounded-xl p-2"/>
         </div>
 
-        <button className="bg-black h-12 w-full text-white rounded-xl cursor-pointer mt-6" onClick={() => navigate('/admin-dashboard-page')}>Sign Up</button>
+        <button className="bg-black h-12 w-full text-white rounded-xl cursor-pointer mt-6" onClick={() => navigate('/admin-page')}>Sign Up</button>
 
       </div>
    </section>

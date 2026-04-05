@@ -1,8 +1,14 @@
-
+import { useState } from "react"
+import RegisterStudentModal from "../modals/RegisterStudentModal"
 
 const Admin_UserManagement = () => {
+
+    const [showRegisterStudentModal, setShowRegisterStudentModal] = useState(false)
+
     return(
         <section className="bg-white w-full p-10 border-t-1 border-gray-300 ">
+            {showRegisterStudentModal && <RegisterStudentModal onClose={() => setShowRegisterStudentModal(false)} />}
+                
               <h1 className="text-xl">User Management</h1>
               <div className="w-full space-y-2 space-y-10">
                    {/* Parent/Student Container */}
@@ -13,7 +19,8 @@ const Admin_UserManagement = () => {
                             <input type="search" name="search" id="" placeholder="Search Student Name"
                                 className="bg-gray-100 h-full w-100 rounded-xl px-4" 
                             />
-                            <button className="bg-green-500 h-full w-10 rounded-xl text-xl text-white cursor-pointer">+</button>
+                            <button className="bg-green-500 h-full w-10 rounded-xl text-xl text-white cursor-pointer" onClick={() => setShowRegisterStudentModal(true)}>+</button>
+                            
                         </div>
                         
                         </div>

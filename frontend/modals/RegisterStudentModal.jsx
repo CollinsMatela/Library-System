@@ -1,4 +1,5 @@
 import { use, useState } from "react";
+import axios from "axios";
 
 const RegisterStudentModal = ({ onClose }) => {
     const currentYear = new Date().getFullYear();
@@ -20,7 +21,7 @@ const RegisterStudentModal = ({ onClose }) => {
     const [parentRelationship, setParentRelationship] = useState("")
     const [gradeLevel, setGradeLevel] = useState("")
 
-    const handleStudentRegistration = () => {
+    const handleStudentRegistration = async () => {
         const studentInformation = {
              lasname: lastname,
              firstname: firstname,
@@ -39,6 +40,7 @@ const RegisterStudentModal = ({ onClose }) => {
              gradeLevel: gradeLevel
         }
         try {
+            const res = await axios.post("API", studentInformation);
             console.log("Student Information:", studentInformation);
         } catch (error) {
             console.log("Error registering student account:", error);

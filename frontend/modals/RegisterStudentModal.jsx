@@ -22,6 +22,21 @@ const RegisterStudentModal = ({ onClose }) => {
     const [parentRelationship, setParentRelationship] = useState("")
     const [gradeLevel, setGradeLevel] = useState("")
 
+    const [isLastname, setIsLastname] = useState(false);
+    const [isFirstname, setIsFirstname] = useState(false);
+    const [isMiddlename, setIsMiddlename] = useState(false);
+    const [isYear, setIsYear] = useState(false);
+    const [isMonth, setIsMonth] = useState(false);
+    const [isDay, setIsDay] = useState(false);
+    const [isGender, setIsGender] = useState(false);
+    const [isParentLastname, setIsParentLastname] = useState(false);
+    const [isParentFirstname, setIsParentFirstname] = useState(false);
+    const [isParentMiddlename, setIsParentMiddlename] = useState(false);
+    const [isParentEmail, setIsParentEmail] = useState(false);
+    const [isParentContact, setIsParentContact] = useState(false);
+    const [isParentRelationship, setIsParentRelationship] = useState(false);
+    const [isGradeLevel, setIsGradeLevel] = useState(false);
+
     const calculateAge = (year, month, day) => {
         const today = new Date();
         const birthDate = new Date(year, month - 1, day);
@@ -37,7 +52,36 @@ const RegisterStudentModal = ({ onClose }) => {
         }
     },[year, month, day])
 
+    const ErrorChecker = () => {
+        // Empty Field or Default Value Checker
+        if(!lastname) return setIsLastname(true);
+        if(!firstname) return setIsFirstname(true);
+        if(!middlename) return setIsMiddlename(true);
+        if(!year) return setIsYear(true);
+        if(!month) return setIsMonth(true);
+        if(!day) return setIsDay(true);
+        if(!gender) return setIsGender(true);
+        if(!parentLastname) return setIsParentLastname(true);
+        if(!parentFirstname) return setIsParentFirstname(true);
+        if(!parentMiddlename) return setIsParentMiddlename(true);
+        if(!parentEmail) return setIsParentEmail(true);
+        if(!parentContact) return setIsParentContact(true);
+        if(!parentRelationship) return setIsParentRelationship(true);
+        if(!gradeLevel) return setIsGradeLevel(true);
+
+        // Email format checker
+        if(!parentEmail.includes("@") || !parentEmail.includes(".") || parentEmail.length <= 5) {
+            setIsParentEmail(true);
+        }
+        // Contact number format checker
+        if(parentContact.length !== 11 || !parentContact.startsWith("09") || isNaN(parentContact)) {
+            setIsParentContact(true);
+        }
+    }
+
     const handleStudentRegistration = async () => {
+        ErrorChecker();
+
         const studentInformation = {
              lastname: lastname,
              firstname: firstname,
@@ -58,6 +102,7 @@ const RegisterStudentModal = ({ onClose }) => {
         try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/register-student`, studentInformation);
             console.log("Student Information:", res.data.message);
+            onClose();
         } catch (error) {
             console.log("Error registering student account:", error);
         }
@@ -76,15 +121,36 @@ const RegisterStudentModal = ({ onClose }) => {
                         <h1 className="text-sm font-bold text-gray-500">Student Information</h1>
                         <div className="w-full">
                             <h1 className="text-xs text-gray-500">Last Name <span className="text-red-500">*</span></h1>
-                            <input type="text" placeholder="Last Name" className="border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4" value={lastname} onChange={(e) => setLastname(e.target.value)} />
+                            <input type="text" 
+                                   placeholder="Last Name" 
+                                   className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 ${isLastname ? 'border-red-500' : ''}`} 
+                                   value={lastname} 
+                                   onChange={(e) => {setLastname(e.target.value);
+                                                    if(e.target.value !== "") setIsLastname(false);}
+                                   } 
+                                   />
                         </div>
                         <div className="w-full">
                             <h1 className="text-xs text-gray-500">First Name <span className="text-red-500">*</span></h1>
-                            <input type="text" placeholder="First Name" className="border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
+                            <input type="text" 
+                                   placeholder="First Name" 
+                                   className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 ${isFirstname ? 'border-red-500' : ''}`} 
+                                   value={firstname} 
+                                   onChange={(e) => {setFirstname(e.target.value);
+                                                    if(e.target.value !== "") setIsFirstname(false);}
+                                   } 
+                                   />
                         </div>
                         <div className="w-full">
                             <h1 className="text-xs text-gray-500">Middle Name <span className="text-red-500">*</span></h1>
-                            <input type="text" placeholder="Middle Name" className="border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4" value={middlename} onChange={(e) => setMiddlename(e.target.value)} />
+                            <input type="text" 
+                                   placeholder="Middle Name" 
+                                   className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 ${isMiddlename ? 'border-red-500' : ''}`} 
+                                   value={middlename} 
+                                   onChange={(e) => {setMiddlename(e.target.value);
+                                                    if(e.target.value !== "") setIsMiddlename(false);}
+                                   } 
+                                   />
                         </div>
                         
                         <div className="w-full justify-center items-center flex gap-2">
@@ -92,14 +158,24 @@ const RegisterStudentModal = ({ onClose }) => {
                             <div className="w-full justify-center items-start flex flex-col">
                                 <h1 className="text-xs text-gray-500">Date of birth <span className="text-red-500">*</span></h1>
                                 <div className="justify-center items-center flex gap-2">
-                                    <select name="Year" className="border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-2 text-gray-500" value={year} onChange={(e) => setYear(e.target.value)}>
+                                    <select name="Year" 
+                                            className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-2 text-gray-500 ${isYear ? 'border-red-500' : ''}`} 
+                                            value={year} 
+                                            onChange={(e) => {setYear(e.target.value)
+                                                             if(e.target.value !== "") setIsYear(false);
+                                            }}>
                                         <option value="">Year</option>
                                         {Array.from({ length: currentYear - 1999 }, (currentValue, index) => {
                                             const year = currentYear - index;
                                             return <option key={year} value={year}>{year}</option>;
                                         })}
                                     </select>
-                                    <select name="Month" className="border-1 border-gray-300 h-12 w-35 outline-none rounded-xl px-2 text-gray-500" value={month} onChange={(e) => setMonth(e.target.value)}>
+                                    <select name="Month" 
+                                            className={`border-1 border-gray-300 h-12 w-35 outline-none rounded-xl px-2 text-gray-500 ${isMonth ? 'border-red-500' : ''}`} 
+                                            value={month} 
+                                            onChange={(e) => {setMonth(e.target.value)
+                                                             if(e.target.value !== "") setIsMonth(false);
+                                            }}>
                                         <option value="">Month</option>
                                         <option value="1">January</option>
                                         <option value="2">February</option>
@@ -114,7 +190,13 @@ const RegisterStudentModal = ({ onClose }) => {
                                         <option value="11">November</option>
                                         <option value="12">December</option>
                                     </select>
-                                    <select name="Day" className="border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-2 text-gray-500" value={day} onChange={(e) => setDay(e.target.value)}>
+                                    <select name="Day" 
+                                            className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-2 text-gray-500 ${isDay ? 'border-red-500' : ''}`} 
+                                            value={day} 
+                                            onChange={(e) => {setDay(e.target.value)
+                                                             if(e.target.value !== "") setIsDay(false);
+                                            }}>
+                                                <option value="">Day</option>
                                         {Array.from({ length: 31 }, (currentValue, index) => {
                                             const day = index + 1;
                                             return <option key={day} value={day}>{day}</option>;
@@ -133,7 +215,11 @@ const RegisterStudentModal = ({ onClose }) => {
                         
                         <div className="w-full">
                             <h1 className="text-xs text-gray-500">Gender <span className="text-red-500">*</span></h1>
-                            <select className="border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500" value={gender} onChange={(e) => setGender(e.target.value)}>
+                            <select className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500 ${isGender ? 'border-red-500' : ''}`} 
+                                    value={gender} 
+                                    onChange={(e) => {setGender(e.target.value)
+                                                     if(e.target.value !== "") setIsGender(false);
+                                                    }}>
                             <option value="">Select Gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -147,29 +233,63 @@ const RegisterStudentModal = ({ onClose }) => {
                         <h1 className="text-sm font-bold text-gray-500">Parent/Guardian Information</h1>
                         <div className="w-full">
                             <h1 className="text-xs text-gray-500">Last Name <span className="text-red-500">*</span></h1>
-                            <input type="text" placeholder="Last Name" className="border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4" value={parentLastname} onChange={(e) => setParentLastname(e.target.value)}/>
+                            <input type="text" 
+                                   placeholder="Last Name" 
+                                   className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 ${isParentLastname ? 'border-red-500' : ''}`} 
+                                   value={parentLastname} 
+                                   onChange={(e) => {setParentLastname(e.target.value);
+                                                    if(e.target.value !== "") setIsParentLastname(false);
+                                   }}/>
                         </div>
                         <div className="w-full">
                             <h1 className="text-xs text-gray-500">First Name <span className="text-red-500">*</span></h1>
-                            <input type="text" placeholder="First Name" className="border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4" value={parentFirstname} onChange={(e) => setParentFirstname(e.target.value)}/>
+                            <input type="text" 
+                                   placeholder="First Name" 
+                                   className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 ${isParentFirstname ? 'border-red-500' : ''}`} 
+                                   value={parentFirstname} 
+                                   onChange={(e) => {setParentFirstname(e.target.value);
+                                                      if(e.target.value !== "") setIsParentFirstname(false);
+                                    }}/>                                                                                     
                         </div>
                         <div className="w-full">
                             <h1 className="text-xs text-gray-500">Middle Name <span className="text-red-500">*</span></h1>
-                            <input type="text" placeholder="Middle Name" className="border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4" value={parentMiddlename} onChange={(e) => setParentMiddlename(e.target.value)}/>
+                            <input type="text" 
+                                   placeholder="Middle Name" 
+                                   className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 ${isParentMiddlename ? 'border-red-500' : ''}`} 
+                                   value={parentMiddlename} 
+                                   onChange={(e) => {setParentMiddlename(e.target.value);
+                                                     if(e.target.value !== "") setIsParentMiddlename(false);
+                                   }}/>
                         </div>
                         <div className="w-full flex gap-2">
                             <div className="flex-1">
                                 <h1 className="text-xs text-gray-500">Email Address <span className="text-red-500">*</span></h1>
-                                <input type="text" placeholder="Email Address" className="border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4" value={parentEmail} onChange={(e) => setParentEmail(e.target.value)}/>
+                                <input type="text" 
+                                       placeholder="Email Address" 
+                                       className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 ${isParentEmail ? 'border-red-500' : ''}`} 
+                                       value={parentEmail} 
+                                       onChange={(e) => {setParentEmail(e.target.value);
+                                                          if(e.target.value !== "") setIsParentEmail(false);
+                                       }}/>
                             </div>
                             <div className="flex-1">
                                 <h1 className="text-xs text-gray-500">Contact No. <span className="text-red-500">*</span></h1>
-                                <input type="text" placeholder="Contact No." className="border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4" value={parentContact} onChange={(e) => setParentContact(e.target.value)}/>
+                                <input type="text" 
+                                       placeholder="Contact No." 
+                                       className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 ${isParentContact ? 'border-red-500' : ''}`} 
+                                       value={parentContact} 
+                                       onChange={(e) => {setParentContact(e.target.value);
+                                                        if(e.target.value !== "") setIsParentContact(false);
+                                        }}/>                                                                           
                             </div>
                         </div>
                         <div className="w-full">
                             <h1 className="text-xs text-gray-500">Relationship <span className="text-red-500">*</span></h1>
-                            <select className="border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500" value={parentRelationship} onChange={(e) => setParentRelationship(e.target.value)}>
+                            <select className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500 ${isParentRelationship ? 'border-red-500' : ''}`} 
+                                    value={parentRelationship} 
+                                    onChange={(e) => {setParentRelationship(e.target.value);
+                                                      if(e.target.value !== "") setIsParentRelationship(false);
+                                    }}>
                                 <option value="">Select Relationship</option>
                                 <option value="Father">Father</option>
                                 <option value="Mother">Mother</option>
@@ -186,7 +306,10 @@ const RegisterStudentModal = ({ onClose }) => {
                         <h1 className="text-sm font-bold text-gray-500">School Information</h1>
                         <div className="w-full">
                             <h1 className="text-xs text-gray-500">Grade Level <span className="text-red-500">*</span></h1>
-                             <select className="border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500" value={gradeLevel} onChange={(e) => setGradeLevel(e.target.value)}>
+                             <select className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500 ${isGradeLevel ? 'border-red-500' : ''}`} 
+                                     value={gradeLevel} onChange={(e) => {setGradeLevel(e.target.value);
+                                                                          if(e.target.value !== "") setIsGradeLevel(false);
+                                     }}>
                                 <option value="">Select Grade Level</option>
                                 <option value="Kindergarten">Kindergarten</option>
                                 <option value="Grade 1">Grade 1</option>
@@ -197,7 +320,20 @@ const RegisterStudentModal = ({ onClose }) => {
                         </div>
                     </div>
 
-                    <div className="w-full justify-end items-center flex">
+                    <div className="w-full justify-end items-center flex gap-2">
+                        <div className={`${isLastname || isFirstname || isMiddlename || isYear || isMonth || isDay || isGender || isParentLastname || isParentFirstname || isParentMiddlename || isParentEmail || isParentContact || isParentRelationship || isGradeLevel ? "" : "hidden"} h-full w-full bg-red-100 p-2 rounded-xl justify-center items-start flex flex-col`}>
+                            {isLastname || isFirstname || isMiddlename || isYear || isMonth || isDay || isGender || isParentLastname || isParentFirstname || isParentMiddlename || isParentEmail || isParentContact || isParentRelationship || isGradeLevel ? (
+                                <p className="text-red-500 text-xs">• Please fill out all required fields and ensure the information is correct. </p>
+                                
+                            ) : null}
+
+                            {isParentEmail ? (
+                                <p className="text-red-500 text-xs">• The email address must contain an "@" symbol and ".com".</p>
+                            ) : null}
+                            {isParentContact ? (
+                                <p className="text-red-500 text-xs">• The contact number must starts with (09) and contain (11) digits.</p>
+                            ) : null}
+                        </div>
                         <button className="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 cursor-pointer font-bold text-sm" onClick={handleStudentRegistration}>Register</button>
                     </div>
                </div>

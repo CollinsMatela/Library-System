@@ -1,5 +1,6 @@
-import { use, useState } from "react";
+import {useEffect, useState } from "react";
 import axios from "axios";
+
 
 const RegisterStudentModal = ({ onClose }) => {
     const currentYear = new Date().getFullYear();
@@ -21,9 +22,24 @@ const RegisterStudentModal = ({ onClose }) => {
     const [parentRelationship, setParentRelationship] = useState("")
     const [gradeLevel, setGradeLevel] = useState("")
 
+    const calculateAge = (year, month, day) => {
+        const today = new Date();
+        const birthDate = new Date(year, month - 1, day);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+
+        return (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) ? age - 1 : age;
+    }
+
+    useEffect(()=> {
+        if(year && month && day) {
+            setAge(calculateAge(year, month, day));
+        }
+    },[year, month, day])
+
     const handleStudentRegistration = async () => {
         const studentInformation = {
-             lasname: lastname,
+             lastname: lastname,
              firstname: firstname,
              middlename: middlename,
              year: year,
@@ -40,8 +56,8 @@ const RegisterStudentModal = ({ onClose }) => {
              gradeLevel: gradeLevel
         }
         try {
-            const res = await axios.post("API", studentInformation);
-            console.log("Student Information:", studentInformation);
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/register-student`, studentInformation);
+            console.log("Student Information:", res.data.message);
         } catch (error) {
             console.log("Error registering student account:", error);
         }
@@ -109,7 +125,7 @@ const RegisterStudentModal = ({ onClose }) => {
                             
                             <div>
                                 <h1 className="text-xs text-gray-500">Age<span className="text-red-500">*</span></h1>
-                                <input type="text" placeholder="Age" className="bg-gray-100 h-12 w-20 outline-none rounded-xl px-4 text-gray-500 cursor-not-allowed" disabled value={age} onChange={(e) => setAge(e.target.value)}/>
+                                <input type="text" placeholder="Age" className="bg-gray-100 h-12 w-20 outline-none rounded-xl px-4 text-gray-500 cursor-not-allowed" disabled value={age}/>
                             </div>
                             
                         </div>
@@ -118,6 +134,7 @@ const RegisterStudentModal = ({ onClose }) => {
                         <div className="w-full">
                             <h1 className="text-xs text-gray-500">Gender <span className="text-red-500">*</span></h1>
                             <select className="border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500" value={gender} onChange={(e) => setGender(e.target.value)}>
+                            <option value="">Select Gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             </select>

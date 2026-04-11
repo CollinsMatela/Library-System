@@ -1,6 +1,6 @@
 import Student_Registration_Model from "../models/Student_Registration_Model.js";
 const Student_Registration_Controller = async (req, res) => {
-    const { lastname, firstname, middlename, year, month, day, age, gender, parentLastname, parentFirstname, parentMiddlename, parentEmail, parentContact, parentRelationship, gradeLevel } = req.body;
+    const { lastname, firstname, middlename, year, month, day, age, gender, parentLastname, parentFirstname, parentMiddlename, parentEmail, parentContact, parentRelationship, gradeLevel, branch } = req.body;
     try {
 
         const newStudent = await Student_Registration_Model.create({
@@ -20,7 +20,8 @@ const Student_Registration_Controller = async (req, res) => {
             parentContact: parentContact,
             parentRelationship: parentRelationship,
             gradeLevel: gradeLevel,
-            username: `${firstname}.${lastname}`,
+            branch: branch,
+            username: `${firstname}.${lastname}@lmlc.com`,
             password: `LMLC${year}${month}${day}`
 
         })

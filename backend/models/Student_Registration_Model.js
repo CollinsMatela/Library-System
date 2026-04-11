@@ -17,6 +17,7 @@ const StudentRegistrationSchema = new moonggose.Schema({
       parentContact: {type: String, required:true},
       parentRelationship: {type: String, required:true},
       gradeLevel: {type: String, required:true},
+      branch: {type: String, required:true},
       username: {type: String, required:true},
       password: {type: String, required:true}
 })

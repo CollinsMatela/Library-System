@@ -21,6 +21,7 @@ const RegisterStudentModal = ({ onClose }) => {
     const [parentContact, setParentContact] = useState("")
     const [parentRelationship, setParentRelationship] = useState("")
     const [gradeLevel, setGradeLevel] = useState("")
+    const [branch, setBranch] = useState("");
 
     const [isLastname, setIsLastname] = useState(false);
     const [isFirstname, setIsFirstname] = useState(false);
@@ -36,6 +37,7 @@ const RegisterStudentModal = ({ onClose }) => {
     const [isParentContact, setIsParentContact] = useState(false);
     const [isParentRelationship, setIsParentRelationship] = useState(false);
     const [isGradeLevel, setIsGradeLevel] = useState(false);
+    const [isBranch, setIsBranch] = useState(false);
 
     const calculateAge = (year, month, day) => {
         const today = new Date();
@@ -68,6 +70,7 @@ const RegisterStudentModal = ({ onClose }) => {
         if(!parentContact) return setIsParentContact(true);
         if(!parentRelationship) return setIsParentRelationship(true);
         if(!gradeLevel) return setIsGradeLevel(true);
+        if(!branch) return setIsBranch(true);
 
         // Email format checker
         if(!parentEmail.includes("@") || !parentEmail.includes(".") || parentEmail.length <= 5) {
@@ -97,7 +100,8 @@ const RegisterStudentModal = ({ onClose }) => {
              parentEmail: parentEmail,
              parentContact: parentContact,
              parentRelationship: parentRelationship,
-             gradeLevel: gradeLevel
+             gradeLevel: gradeLevel,
+             branch: branch
         }
         try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/register-student`, studentInformation);
@@ -304,7 +308,7 @@ const RegisterStudentModal = ({ onClose }) => {
                     
                     <div className="w-full justify-start items-start flex flex-col gap-2">
                         <h1 className="text-sm font-bold text-gray-500">School Information</h1>
-                        <div className="w-full">
+                        <div className="w-full space-y-2">
                             <h1 className="text-xs text-gray-500">Grade Level <span className="text-red-500">*</span></h1>
                              <select className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500 ${isGradeLevel ? 'border-red-500' : ''}`} 
                                      value={gradeLevel} onChange={(e) => {setGradeLevel(e.target.value);
@@ -317,12 +321,23 @@ const RegisterStudentModal = ({ onClose }) => {
                                 <option value="Grade 3">Grade 3</option>
                                 <option value="Grade 4">Grade 4</option>
                         </select>
+                        <h1 className="text-xs text-gray-500">School Branch <span className="text-red-500">*</span></h1>
+                        <select className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500 ${isBranch ? 'border-red-500' : ''}`} 
+                                     value={branch} onChange={(e) => {setBranch(e.target.value);
+                                                                          if(e.target.value !== "") setIsBranch(false);
+                                     }}>
+                                <option value="">Select Branch</option>
+                                <option value="Dasmariñas Cavite">Dasmariñas Cavite</option>
+                                <option value="Trece Martires Cavite">Trece Martires Cavite</option>
+                                <option value="Rosario Cavite">Rosario Cavite</option>
+                                <option value="Silang Cavite">Silang Cavite</option>
+                                <option value="Las Piñas Cavite">Las Piñas Cavite</option>
+                        </select>
                         </div>
                     </div>
 
-                    <div className="w-full justify-end items-center flex gap-2">
-                        <div className={`${isLastname || isFirstname || isMiddlename || isYear || isMonth || isDay || isGender || isParentLastname || isParentFirstname || isParentMiddlename || isParentEmail || isParentContact || isParentRelationship || isGradeLevel ? "" : "hidden"} h-full w-full bg-red-100 p-2 rounded-xl justify-center items-start flex flex-col`}>
-                            {isLastname || isFirstname || isMiddlename || isYear || isMonth || isDay || isGender || isParentLastname || isParentFirstname || isParentMiddlename || isParentEmail || isParentContact || isParentRelationship || isGradeLevel ? (
+                    <div className={`${isLastname || isFirstname || isMiddlename || isYear || isMonth || isDay || isGender || isParentLastname || isParentFirstname || isParentMiddlename || isParentEmail || isParentContact || isParentRelationship || isGradeLevel || isBranch ? "" : "hidden"} h-full w-full bg-red-100 p-2 rounded-xl justify-center items-start flex flex-col`}>
+                            {isLastname || isFirstname || isMiddlename || isYear || isMonth || isDay || isGender || isParentLastname || isParentFirstname || isParentMiddlename || isParentEmail || isParentContact || isParentRelationship || isGradeLevel || isBranch ? (
                                 <p className="text-red-500 text-xs">• Please fill out all required fields and ensure the information is correct. </p>
                                 
                             ) : null}
@@ -333,7 +348,9 @@ const RegisterStudentModal = ({ onClose }) => {
                             {isParentContact ? (
                                 <p className="text-red-500 text-xs">• The contact number must starts with (09) and contain (11) digits.</p>
                             ) : null}
-                        </div>
+                    </div>
+                    
+                    <div className="w-full justify-end items-center flex gap-2">
                         <button className="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 cursor-pointer font-bold text-sm" onClick={handleStudentRegistration}>Register</button>
                     </div>
                </div>

@@ -21,7 +21,7 @@ const Student_Registration_Controller = async (req, res) => {
             parentRelationship: parentRelationship,
             gradeLevel: gradeLevel,
             branch: branch,
-            username: `${firstname}.${lastname}@lmlc.com`,
+            username: `${firstname}.${Math.floor(Math.random() * 1000) + 1000}@lmlc.com`,
             password: `LMLC${year}${month}${day}`
 
         })

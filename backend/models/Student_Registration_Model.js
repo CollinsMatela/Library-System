@@ -1,6 +1,6 @@
-import moonggose from "mongoose";
+import mongoose from "mongoose";
 
-const StudentRegistrationSchema = new moonggose.Schema({
+const StudentRegistrationSchema = new mongoose.Schema({
       id: {type: String, required:true},
       lastname: {type: String, required:true},
       firstname: {type: String, required:true},
@@ -19,7 +19,8 @@ const StudentRegistrationSchema = new moonggose.Schema({
       gradeLevel: {type: String, required:true},
       branch: {type: String, required:true},
       username: {type: String, required:true},
-      password: {type: String, required:true}
-})
+      password: {type: String, required:true},
+}, {timestamps: true});
 
-export default moonggose.model("Student_Registration", StudentRegistrationSchema);
+const Student_Registration_Model = mongoose.model("Student_Registration", StudentRegistrationSchema);
+export default Student_Registration_Model;

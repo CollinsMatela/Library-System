@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const RegisterEmployeeModal = ({ onClose }) => {
 
@@ -53,38 +54,69 @@ const RegisterEmployeeModal = ({ onClose }) => {
        }, [year, month, day]);
 
         const ErrorChecker = () => {
-              // Empty Field or Default Value Checker
-              if(!lastname) return setIsLastname(true);
-              if(!firstname) return setIsFirstname(true);
-              if(!middlename) return setIsMiddlename(true);
-              if(!year) return setIsYear(true);
-              if(!month) return setIsMonth(true);
-              if(!day) return setIsDay(true);
-              if(!gender) return setIsGender(true);
-              // if(!email) return setIsEmail(true);
-              // if(!contact) return setIsContact(true);
-              if(!role) return setIsRole(true);
-              if(!gradeLevel) return setIsGradeLevel(true);
-              if(!branch) return setIsBranch(true);
+            let hasError = false;
 
-              // Email format checker
-              if (
-              email === "" ||
-              !email.includes("@") ||
-              !email.includes(".") ||
-              email.length <= 5
-              ) {
-              return setIsEmail(true);
-              }
-              // Contact number format checker
-              if(contact.length !== 11 || !contact.startsWith("09") || isNaN(contact) || email === "") {
-              return setIsContact(true);
-              }
-       }
+            // Empty field checks
+            if (!lastname) { setIsLastname(true); hasError = true; }
+            if (!firstname) { setIsFirstname(true); hasError = true; }
+            if (!middlename) { setIsMiddlename(true); hasError = true; }
+            if (!year) { setIsYear(true); hasError = true; }
+            if (!month) { setIsMonth(true); hasError = true; }
+            if (!day) { setIsDay(true); hasError = true; }
+            if (!gender) { setIsGender(true); hasError = true; }
+            if (!role) { setIsRole(true); hasError = true; }
+            if (!gradeLevel) { setIsGradeLevel(true); hasError = true; }
+            if (!branch) { setIsBranch(true); hasError = true; }
+
+            // Regex patterns
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const contactRegex = /^09\d{9}$/;
+
+            // Email validation
+            if (!emailRegex.test(email)) {
+                setIsEmail(true);
+                hasError = true;
+            }
+
+            // Contact validation
+            if (!contactRegex.test(contact)) {
+                setIsContact(true);
+                hasError = true;
+            }
+            return hasError;
+        };
+
        const handleSubmit = async () => {
-               ErrorChecker();
+               const itHasError = ErrorChecker();
+
+               // If the user role in Admin it does not need to fill out the grade level and branch
+               if(role === "Administrator") {
+                    setIsGradeLevel(false);
+                    setIsBranch(false);
+               }
+
+               if(itHasError) return;
+
                try {
-                     
+                
+                    const employeeInformation = {
+                        lastname: lastname,
+                        firstname: firstname,
+                        middlename: middlename,
+                        year: year,
+                        month: month,
+                        day: day,
+                        age: age,
+                        gender: gender,
+                        email: email,
+                        contact: contact,
+                        role: role,
+                        gradeLevel: gradeLevel || "N/A",
+                        branch: branch || "N/A",
+                    }
+                    const res = await axios.post(`${import.meta.env.VITE_API_URL}/register-employee`, employeeInformation)
+                    console.log(res.data.message);
+                    
                } catch (error) {
                      console.log(error);
                }

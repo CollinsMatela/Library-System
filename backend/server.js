@@ -4,6 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 
 import Student_Registration_Route from "./routes/Sudent_Registration_Route.js";
+import Employee_Registration_Route from "./routes/Employee_Registration_Route.js";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 
 // Routes
 app.use("/", Student_Registration_Route);
+app.use("/", Employee_Registration_Route);
 
 const PORT = process.env.PORT || 5000;
 

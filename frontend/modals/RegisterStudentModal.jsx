@@ -55,35 +55,48 @@ const RegisterStudentModal = ({ onClose }) => {
     },[year, month, day])
 
     const ErrorChecker = () => {
-        // Empty Field or Default Value Checker
-        if(!lastname) return setIsLastname(true);
-        if(!firstname) return setIsFirstname(true);
-        if(!middlename) return setIsMiddlename(true);
-        if(!year) return setIsYear(true);
-        if(!month) return setIsMonth(true);
-        if(!day) return setIsDay(true);
-        if(!gender) return setIsGender(true);
-        if(!parentLastname) return setIsParentLastname(true);
-        if(!parentFirstname) return setIsParentFirstname(true);
-        if(!parentMiddlename) return setIsParentMiddlename(true);
-        if(!parentEmail) return setIsParentEmail(true);
-        if(!parentContact) return setIsParentContact(true);
-        if(!parentRelationship) return setIsParentRelationship(true);
-        if(!gradeLevel) return setIsGradeLevel(true);
-        if(!branch) return setIsBranch(true);
+        let hasError = false;
 
-        // Email format checker
-        if(!parentEmail.includes("@") || !parentEmail.includes(".") || parentEmail.length <= 5) {
-            setIsParentEmail(true);
-        }
-        // Contact number format checker
-        if(parentContact.length !== 11 || !parentContact.startsWith("09") || isNaN(parentContact)) {
-            setIsParentContact(true);
-        }
+        // Empty Field or Default Value Checker
+        if(!lastname)  setIsLastname(true);
+        if(!firstname) { setIsFirstname(true); hasError = true; }
+        if(!middlename) { setIsMiddlename(true); hasError = true; }
+        if(!year) { setIsYear(true); hasError = true; }
+        if(!month) { setIsMonth(true); hasError = true; }
+        if(!day) { setIsDay(true); hasError = true; }
+        if(!gender) { setIsGender(true); hasError = true; }
+        if(!parentLastname) { setIsParentLastname(true); hasError = true; }
+        if(!parentFirstname) { setIsParentFirstname(true); hasError = true; }
+        if(!parentMiddlename) { setIsParentMiddlename(true); hasError = true; }
+        if(!parentEmail) { setIsParentEmail(true); hasError = true; }
+        if(!parentContact) { setIsParentContact(true); hasError = true; }
+        if(!parentRelationship) { setIsParentRelationship(true); hasError = true; }
+        if(!gradeLevel) { setIsGradeLevel(true); hasError = true; }
+        if(!branch) { setIsBranch(true); hasError = true; }
+
+         // Regex patterns
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const contactRegex = /^09\d{9}$/;
+
+            // Email validation
+            if (!emailRegex.test(parentEmail)) {
+                setIsParentEmail(true);
+                hasError = true;
+            }
+
+            // Contact validation
+            if (!contactRegex.test(parentContact)) {
+                setIsParentContact(true);
+                hasError = true;
+            }
+
+        return hasError;
     }
 
     const handleStudentRegistration = async () => {
-        ErrorChecker();
+        const itHasError = ErrorChecker();
+
+        if(itHasError) return;
 
         const studentInformation = {
              lastname: lastname,

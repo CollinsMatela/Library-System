@@ -118,8 +118,11 @@ const RegisterStudentModal = ({ onClose }) => {
         }
         try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/register-student`, studentInformation);
-            console.log("Student Information:", res.data.message);
-            onClose();
+            if(res.data.isSuccess){
+               alert(res.data.message);
+               onClose();
+            }
+            
         } catch (error) {
             console.log("Error registering student account:", error);
         }

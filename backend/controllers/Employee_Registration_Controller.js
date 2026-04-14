@@ -30,7 +30,7 @@ const Employee_Registration_Controller = async (req, res) => {
             password: hashedPassword
         })
 
-        res.status(201).json({message: "Employee registered successfully", employee: newEmployee});
+        res.status(201).json({message: "Employee registered successfully", isSuccess: true});
         
       } catch (error) {
         console.error(error);

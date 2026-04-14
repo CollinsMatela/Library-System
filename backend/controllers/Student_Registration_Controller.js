@@ -11,28 +11,36 @@ const Student_Registration_Controller = async (req, res) => {
     try {
 
         const newStudent = await Student_Registration_Model.create({
-            id: crypto.randomUUID(),
-            lastname: lastname,
-            firstname: firstname,
-            middlename: middlename,
-            year: year,
-            month: month,
-            day: day,
-            age: age,
-            gender: gender,
-            parentLastname: parentLastname,
-            parentFirstname: parentFirstname,
-            parentMiddlename: parentMiddlename,
-            parentEmail: parentEmail,
-            parentContact: parentContact,
-            parentRelationship: parentRelationship,
-            gradeLevel: gradeLevel,
-            branch: branch,
-            username: username,
-            password: hashedPassword
-        })
+            student: {
+                id: crypto.randomUUID(),
+                lastname: lastname,
+                firstname: firstname,
+                middlename: middlename,
+                year: year,
+                month: month,
+                day: day,
+                age: age,
+                gender: gender
+            },
+            parent: {
+                parentLastname: parentLastname,
+                parentFirstname: parentFirstname,
+                parentMiddlename: parentMiddlename,
+                parentEmail: parentEmail,
+                parentContact: parentContact,
+                parentRelationship: parentRelationship
+            },
+            school: {
+                gradeLevel: gradeLevel,
+                branch: branch
+            },
+            account: {
+                username: username,
+                password: hashedPassword
+            }
+        });
         
-        res.status(201).json({ message: "Student registered successfully", student: newStudent});
+        res.status(201).json({ message: "Student registered successfully", isSuccess: true });
     } catch (error) {
         console.error("Error registering student:", error);
         res.status(500).json({ message: "Internal server error" });

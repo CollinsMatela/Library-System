@@ -115,7 +115,10 @@ const RegisterEmployeeModal = ({ onClose }) => {
                         branch: branch || "N/A",
                     }
                     const res = await axios.post(`${import.meta.env.VITE_API_URL}/register-employee`, employeeInformation)
-                    console.log(res.data.message);
+                    if(res.data.isSuccess){
+                        alert(res.data.message);
+                        onClose();
+                    }
                     
                } catch (error) {
                      console.log(error);

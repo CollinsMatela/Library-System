@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const RegisterEmployeeModal = ({ onClose }) => {
+
+const RegisterEmployeeModal = ({ triggerRefreshEmployeeTable, closeEmployeeModal }) => { 
 
        const [lastname, setLastname] = useState("");
        const [firstname, setFirstname] = useState("");
@@ -117,7 +118,9 @@ const RegisterEmployeeModal = ({ onClose }) => {
                     const res = await axios.post(`${import.meta.env.VITE_API_URL}/register-employee`, employeeInformation)
                     if(res.data.isSuccess){
                         alert(res.data.message);
-                        onClose();
+                        closeEmployeeModal();
+                        triggerRefreshEmployeeTable();
+
                     }
                     
                } catch (error) {
@@ -128,7 +131,7 @@ const RegisterEmployeeModal = ({ onClose }) => {
 
     return(
         <section className="fixed inset-0 justify-center items-center flex">
-               <div className="absolute bg-black/80 inset-0" onClick={onClose}></div>
+               <div className="absolute bg-black/80 inset-0" onClick={() => closeEmployeeModal()}></div>
 
                <div className="relative bg-white w-[1000px] p-4 rounded-xl">
                 <div className="w-full justify-center items-center flex border-b-1 border-gray-100 pb-4"> 

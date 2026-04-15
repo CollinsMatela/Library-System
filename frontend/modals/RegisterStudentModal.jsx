@@ -1,8 +1,7 @@
 import {useEffect, useState } from "react";
 import axios from "axios";
 
-
-const RegisterStudentModal = ({ onClose }) => {
+const RegisterStudentModal = ({ triggerRefreshStudentTable, closeStudentModal }) => {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
 
@@ -120,7 +119,9 @@ const RegisterStudentModal = ({ onClose }) => {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/register-student`, studentInformation);
             if(res.data.isSuccess){
                alert(res.data.message);
-               onClose();
+               closeStudentModal();
+               triggerRefreshStudentTable();
+
             }
             
         } catch (error) {
@@ -130,7 +131,7 @@ const RegisterStudentModal = ({ onClose }) => {
 
     return(
         <section className="fixed inset-0 justify-center items-center flex">
-               <div className="absolute inset-0 bg-black/80" onClick={onClose}></div>
+               <div className="absolute inset-0 bg-black/80" onClick={closeStudentModal}></div>
                
                <div className="relative bg-white w-[1000px] rounded-xl justify-start items-start flex flex-col p-4 gap-4">
                     <div className="w-full border-b-1 border-gray-100 justify-center items-center flex pb-4">

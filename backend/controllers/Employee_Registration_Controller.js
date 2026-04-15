@@ -12,22 +12,30 @@ const Employee_Registration_Controller = async (req, res) => {
       try {
 
         const newEmployee = await Employee_Registration_Model.create({
-            id: crypto.randomUUID(),
-            lastname: lastname,
-            firstname: firstname,
-            middlename: middlename,
-            year: year,
-            month: month,
-            day: day,
-            age: age,
-            gender: gender,
-            email: email,
-            contact: contact,
-            role: role,
-            gradeLevel: gradeLevel,
-            branch: branch,
-            username: username,
-            password: hashedPassword
+            personal_information:{
+              lastname: lastname,
+              firstname: firstname,
+              middlename: middlename,
+              year: year,
+              month: month,
+              day: day,
+              age: age,
+              gender: gender,
+              email: email,
+              contact: contact,
+            },
+              employee_information: {
+              id: crypto.randomUUID(),
+              role: role,
+              gradeLevel: gradeLevel,
+              branch: branch,
+            },
+            account_information: {
+              username: username,
+              password: hashedPassword 
+            }
+            
+            
         })
 
         res.status(201).json({message: "Employee registered successfully", isSuccess: true});

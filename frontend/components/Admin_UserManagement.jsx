@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 
-const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentModal, openEmployeeModal}) => {
+const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentModal, openEmployeeModal, handleEditStudent}) => {
 
     const [studentList, setStudentList] = useState([])
     const [employeeList, setEmployeeList] = useState([])
@@ -152,10 +152,17 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                                     <div className="w-[10%] break-words">
                                         <p className="text-sm text-gray-500">{updatedCreatedAt}</p>
                                     </div>
-                                    <div className="w-[10%] break-words">
+                                    <div className="w-[10%] break-words gap-2 flex">
+                                        <button className="bg-gray-500 text-white h-8 w-8 rounded-lg cursor-pointer hover:bg-gray-600">
+                                            Vw
+                                        </button>
+                                        <button className="bg-blue-500 text-white h-8 w-8 rounded-lg cursor-pointer hover:bg-gray-600" onClick={() => handleEditStudent(student)}>
+                                            Edt
+                                        </button>
                                         <button className="bg-red-500 text-white h-8 w-8 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteStudent(student.student.id)}>
                                             Del
                                         </button>
+                                        
                                     </div>
                                 </div>
                               )

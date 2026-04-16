@@ -4,11 +4,20 @@ import Admin_Materials from "../components/Admin_Materials"
 import Admin_UserManagement from "../components/Admin_UserManagement"
 import RegisterEmployeeModal from "../modals/RegisterEmployeeModal"
 import RegisterStudentModal from "../modals/RegisterStudentModal"
+import Edit_Student_Modal from "../modals/Edit_Student_Modal"
 import { useState } from "react"
 
 const Admin_Page = () =>{
     const [showRegisterEmployeeModal, setShowRegisterEmployeeModal] = useState(false);
     const [showRegisterStudentModal, setShowRegisterStudentModal] = useState(false);
+
+    const [showEditStudentModal, setShowEditStudentModal] = useState(false);
+    const [selectedStudentToEdit, setSelectedStudentToEdit] = useState("");
+
+    const handleEditStudent = (student) => {
+            setSelectedStudentToEdit(student);
+            setShowEditStudentModal(true);
+    }
 
     const [refreshStudentTable, setRefreshStudentTable] = useState(false);
     const [refreshEmployeeTable, setRefreshEmployeeTable] = useState(false);
@@ -29,6 +38,7 @@ const Admin_Page = () =>{
                                 refreshEmployees={refreshEmployeeTable}
                                 openStudentModal={() => setShowRegisterStudentModal(true)}
                                 openEmployeeModal={() => setShowRegisterEmployeeModal(true)}
+                                handleEditStudent={handleEditStudent}
                                 />
 
           {showRegisterEmployeeModal && (
@@ -41,6 +51,12 @@ const Admin_Page = () =>{
                 <RegisterStudentModal
                     triggerRefreshStudentTable={triggerRefreshStudentTable}
                     closeStudentModal={() => setShowRegisterStudentModal(false)}
+                />
+          )}
+          {showEditStudentModal && (
+                <Edit_Student_Modal
+                    selectedStudent={selectedStudentToEdit}
+                    closeEditStudentModal={() => setShowEditStudentModal(false)}
                 />
           )}
         </section>

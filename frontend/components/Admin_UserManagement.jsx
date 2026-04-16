@@ -106,35 +106,35 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                                 const updatedCreatedAt = new Date(student.createdAt).toISOString().split("T")[0];;
                                 
                                 return (
-                                <div key={student.student.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-300 justify-center items-center flex px-4 py-2 mt-2">
-                                    <div className="flex-1">
+                                <div key={student.student.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-300 justify-center items-center flex px-4 py-2 mt-2 hover:bg-gray-300 cursor-pointer">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-sm text-gray-500">{index + 1}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-sm text-gray-500">{student.student.lastname}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-sm text-gray-500">{student.student.firstname}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-sm text-gray-500">{`${student.student.month}/${student.student.day}/${student.student.year}`}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-sm text-gray-500">{student.parent.parentEmail}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-sm text-gray-500">{student.parent.parentContact}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-sm text-gray-500">{student.school.gradeLevel}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-sm text-gray-500">{student.school.branch}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-sm text-gray-500">{updatedCreatedAt}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <button className="bg-red-500 text-white px-2 py-1 rounded-md" onClick={() => handleDeleteStudent(student.student.id)}>
                                             D
                                         </button>
@@ -202,35 +202,35 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                             const updatedCreatedAt = new Date(employee.createdAt).toISOString().split("T")[0];
 
                             return(
-                                <div key={employee.employee_information.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-300 justify-center items-center flex px-4 py-2 mt-2">
-                                    <div className="flex-1">
+                                <div key={employee.employee_information.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-300 justify-center items-center flex px-4 py-2 mt-2 hover:bg-gray-300 cursor-pointer">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-gray-500">{index + 1}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-gray-500">{employee.personal_information.lastname}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-gray-500">{employee.personal_information.firstname}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-gray-500">{employee.personal_information.year}-{employee.personal_information.month}-{employee.personal_information.day}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-gray-500">{employee.personal_information.email}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-gray-500">{employee.personal_information.contact}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-gray-500">{employee.employee_information.gradeLevel}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-gray-500">{employee.employee_information.branch}</p>
                                     </div>
-                                    <div className="flex-1">
+                                    <div className="w-[10%] break-words">
                                         <p className="text-gray-500">{updatedCreatedAt}</p>
                                     </div>
-                                    <div className="flex-1 flex gap-2">
+                                    <div className="w-[10%] break-words flex">
                                             <button className="flex-1 w-full bg-blue-500 text-white rounded-full">Edit</button>
                                             <button className="flex-1 w-full bg-blue-500 text-white rounded-full">Edit</button>
                                             <button className="flex-1 w-full bg-blue-500 text-white rounded-full">Edit</button>

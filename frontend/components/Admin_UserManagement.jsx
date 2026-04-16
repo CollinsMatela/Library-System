@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import RegisterStudentModal from "../modals/RegisterStudentModal"
-import RegisterEmployeeModal from "../modals/RegisterEmployeeModal"
 
 const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentModal, openEmployeeModal}) => {
 
@@ -41,18 +39,29 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
             console.log(error)
         }
     }
+    const deleteStudent = async (studentId) => {
+          try {
+            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-student/${studentId}`);
+            console.log(res.data.message);
+            fetchStudents();
+
+          } catch (error) {
+            console.log(error)
+          }
+    }
 
     return(
         <section className="bg-gray-50 w-full p-10 border-t-1 border-gray-300 ">
             
                 
-              <h1 className="text-xl">User Management</h1>
-                <div className="w-full space-y-2 space-y-10">
+              <h1 className="text-2xl font-semibold mb-4">User Management</h1>
+                <div className="w-full space-y-5">
+
                    {/* Parent/Student Container */}
                   <div className="border-2 border-gray-300 rounded-xl">
 
                     <div className="bg-white h-20 w-full justify-between items-center flex rounded-t-xl px-4">
-                        <h1 className="text-base text-black">Parent | Student Management Account</h1>
+                        <h1 className="text-base text-black">Parent | Student Management Account +{studentList.length}</h1>
 
                         <div className="space-x-2 justtify-center ittems-center flex">
                             <input type="search" name="search" id="" placeholder="Search Student Name" className="bg-white border-2 border-gray-300 h-10 w-80 rounded-xl px-4"/>
@@ -60,7 +69,7 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                         </div>
                     </div>   
                     
-                    <div className="bg-white h-100 w-full rounded-b-xl px-4">
+                    <div className="bg-white h-100 w-full rounded-b-xl px-4 overflow-y-scroll pb-10">
                         {/* Columns */}
                         <div className="bg-black h-12 w-full rounded-xl justify-center items-center flex px-4">
                             <div className="flex-1">
@@ -135,7 +144,7 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                                         <p className="text-sm text-gray-500">{updatedCreatedAt}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <button className="bg-red-500 text-white px-2 py-1 rounded-md" onClick={() => handleDeleteStudent(student.student.id)}>
+                                        <button className="bg-red-500 text-white px-2 py-1 rounded-md cursor-pointer" onClick={() => deleteStudent(student.student.id)}>
                                             D
                                         </button>
                                     </div>
@@ -157,7 +166,7 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                         </div>
                       </div>
                       
-                        <div className="bg-white h-100 w-full rounded-b-xl px-4">
+                        <div className="bg-white h-100 w-full rounded-b-xl px-4 overflow-y-scroll pb-10">
                             {/* Columns */}
                         <div className="bg-black h-12 w-full rounded-xl justify-center items-center flex px-4">
                             <div className="flex-1">
@@ -183,6 +192,9 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                             </div>
                             <div className="flex-1">
                                 <h1 className="text-sm text-white">Branch</h1>
+                            </div>
+                            <div className="flex-1">
+                                <h1 className="text-sm text-white">Role</h1>
                             </div>
                             <div className="flex-1">
                                 <h1 className="text-sm text-white">Created At</h1>
@@ -226,6 +238,9 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                                     </div>
                                     <div className="w-[10%] break-words">
                                         <p className="text-gray-500">{employee.employee_information.branch}</p>
+                                    </div>
+                                    <div className="w-[10%] break-words">
+                                            <p className={`text-white ${employee.employee_information.role === "Administrator" ? "bg-green-500" : "bg-blue-500"} rounded-full inline-flex px-2`}>{employee.employee_information.role}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
                                         <p className="text-gray-500">{updatedCreatedAt}</p>

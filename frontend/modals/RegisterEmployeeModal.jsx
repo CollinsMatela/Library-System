@@ -66,8 +66,8 @@ const RegisterEmployeeModal = ({ triggerRefreshEmployeeTable, closeEmployeeModal
             if (!day) { setIsDay(true); hasError = true; }
             if (!gender) { setIsGender(true); hasError = true; }
             if (!role) { setIsRole(true); hasError = true; }
-            if (!gradeLevel) { setIsGradeLevel(true); hasError = true; }
-            if (!branch) { setIsBranch(true); hasError = true; }
+            // if (!gradeLevel) { setIsGradeLevel(true); hasError = true; }
+            // if (!branch) { setIsBranch(true); hasError = true; }
 
             // Regex patterns
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -90,10 +90,10 @@ const RegisterEmployeeModal = ({ triggerRefreshEmployeeTable, closeEmployeeModal
        const handleSubmit = async () => {
                const itHasError = ErrorChecker();
 
-               // If the user role in Admin it does not need to fill out the grade level and branch
-               if(role === "Administrator") {
-                    setIsGradeLevel(false);
-                    setIsBranch(false);
+               // If the user role in Administrator it does not need to fill out the grade level and branch
+               if(role === "Teacher") {
+                if (!gradeLevel) { return setIsGradeLevel(true); }
+                if (!branch) { return setIsBranch(true); }
                }
 
                if(itHasError) return;

@@ -8,6 +8,7 @@ import Employee_Registration_Route from "./routes/Employee_Registration_Route.js
 import Fetch_Student_Route from "./routes/Fetch_Student_Route.js";
 import Fetch_Employee_Route from './routes/Fetch_Employee_Route.js';
 import Delete_Student_Route from './routes/Delete_Student_Route.js';
+import Delete_Employee_Route from './routes/Delete_Employee_Route.js';
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use("/", Employee_Registration_Route);
 app.use("/", Fetch_Student_Route);
 app.use("/", Fetch_Employee_Route);
 app.use("/", Delete_Student_Route);
+app.use("/", Delete_Employee_Route);
 
 const PORT = process.env.PORT || 5000;
 

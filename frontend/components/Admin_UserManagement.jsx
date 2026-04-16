@@ -49,6 +49,15 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
             console.log(error)
           }
     }
+    const deleteEmployee = async (employeeId) => {
+        try {
+            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-employee/${employeeId}`);
+            console.log(res.data.message);
+            fetchEmployees();
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return(
         <section className="bg-gray-50 w-full p-10 border-t-1 border-gray-300 ">
@@ -144,8 +153,8 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                                         <p className="text-sm text-gray-500">{updatedCreatedAt}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <button className="bg-red-500 text-white px-2 py-1 rounded-md cursor-pointer" onClick={() => deleteStudent(student.student.id)}>
-                                            D
+                                        <button className="bg-red-500 text-white h-8 w-8 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteStudent(student.student.id)}>
+                                            Del
                                         </button>
                                     </div>
                                 </div>
@@ -246,7 +255,7 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                                         <p className="text-gray-500">{updatedCreatedAt}</p>
                                     </div>
                                     <div className="w-[10%] break-words flex">
-                                            <button className="flex-1 w-full bg-blue-500 text-white rounded-full">Edit</button>
+                                            <button className="bg-red-500 text-white h-8 w-8 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteEmployee(employee.employee_information.id)}>Del</button>
                                             <button className="flex-1 w-full bg-blue-500 text-white rounded-full">Edit</button>
                                             <button className="flex-1 w-full bg-blue-500 text-white rounded-full">Edit</button>
                                         </div>

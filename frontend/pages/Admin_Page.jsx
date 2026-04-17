@@ -56,6 +56,7 @@ const Admin_Page = () =>{
           {showEditStudentModal && (
                 <Edit_Student_Modal
                     selectedStudent={selectedStudentToEdit}
+                    triggerRefreshStudentTable={triggerRefreshStudentTable}
                     closeEditStudentModal={() => setShowEditStudentModal(false)}
                 />
           )}

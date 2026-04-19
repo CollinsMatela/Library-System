@@ -73,7 +73,7 @@ const Edit_Student_Modal = ({selectedStudent, triggerRefreshStudentTable, closeE
                 gradeLevel: gradeLevel,
                 branch: branch
             }
-            // console.log(updatedStudentDetails);
+
               try {
                 const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-student-account/${selectedStudent.student.id}`, updatedStudentDetails);
                 console.log(res.data.message);

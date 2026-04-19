@@ -5,6 +5,7 @@ import Admin_UserManagement from "../components/Admin_UserManagement"
 import RegisterEmployeeModal from "../modals/RegisterEmployeeModal"
 import RegisterStudentModal from "../modals/RegisterStudentModal"
 import Edit_Student_Modal from "../modals/Edit_Student_Modal"
+import Edit_Employee_Modal from "../modals/Edit_Employee_Modal"
 import { useState } from "react"
 
 const Admin_Page = () =>{
@@ -14,9 +15,16 @@ const Admin_Page = () =>{
     const [showEditStudentModal, setShowEditStudentModal] = useState(false);
     const [selectedStudentToEdit, setSelectedStudentToEdit] = useState("");
 
+    const [showEditEmployeeModal, setShowEditEmployeeModal] = useState(false);
+    const [selectedEmployeeToEdit, setSelectedEmployeeToEdit] = useState("");
+
     const handleEditStudent = (student) => {
             setSelectedStudentToEdit(student);
             setShowEditStudentModal(true);
+    }
+    const handleEditEmployee = (employee) => {
+           setSelectedEmployeeToEdit(employee);
+           setShowEditEmployeeModal(true);
     }
 
     const [refreshStudentTable, setRefreshStudentTable] = useState(false);
@@ -39,6 +47,7 @@ const Admin_Page = () =>{
                                 openStudentModal={() => setShowRegisterStudentModal(true)}
                                 openEmployeeModal={() => setShowRegisterEmployeeModal(true)}
                                 handleEditStudent={handleEditStudent}
+                                handleEditEmployee={handleEditEmployee}
                                 />
 
           {showRegisterEmployeeModal && (
@@ -58,6 +67,13 @@ const Admin_Page = () =>{
                     selectedStudent={selectedStudentToEdit}
                     triggerRefreshStudentTable={triggerRefreshStudentTable}
                     closeEditStudentModal={() => setShowEditStudentModal(false)}
+                />
+          )}
+          {showEditEmployeeModal && (
+                <Edit_Employee_Modal
+                    selectedEmployee={selectedEmployeeToEdit}
+                    triggerRefreshEmployeeTable={triggerRefreshEmployeeTable}
+                    closeEditEmployeeModal={() => setShowEditEmployeeModal(false)}
                 />
           )}
         </section>

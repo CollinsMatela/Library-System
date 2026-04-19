@@ -38,7 +38,11 @@ const Admin_Page = () =>{
     }
 
     return(
-        <section className="h-screen w-full bg-gray-100 justify-start items-center flex flex-col pl-80">
+        <section className="w-full bg-white justify-start items-center flex flex-col pl-80">
+          <nav className="bg-white h-20 w-full justify-between items-center flex px-10">
+               <h1>Dashboard</h1>
+               <button className="bg-red-100 p-2 rounded-full text-xs cursor-pointer hover:bg-red-200 border-1 border-red-400 text-red-500">Logout</button>
+          </nav>
           <Admin_SideBar/>
           <Admin_Dashboard/>
           <Admin_Materials/>

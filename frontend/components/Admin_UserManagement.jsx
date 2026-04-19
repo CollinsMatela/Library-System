@@ -60,17 +60,17 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
     }
 
     return(
-        <section className="bg-gray-50 w-full p-10 border-t-1 border-gray-300 ">
+        <section className="w-full p-10">
             
                 
               <h1 className="text-2xl font-semibold mb-4">User Management</h1>
                 <div className="w-full space-y-5">
 
                    {/* Parent/Student Container */}
-                  <div className="border-2 border-gray-300 rounded-xl">
+                  <div className="border-2 border-gray-200 rounded-xl pb-2">
 
                     <div className="bg-white h-20 w-full justify-between items-center flex rounded-t-xl px-4">
-                        <h1 className="text-base text-black">Parent | Student Management Account +{studentList.length}</h1>
+                        <h1 className="text-md text-gray-500 rounded-full">Registered Students</h1>
 
                         <div className="space-x-2 justtify-center ittems-center flex">
                             <input type="search" name="search" id="" placeholder="Search Student Name" className="bg-white border-2 border-gray-300 h-10 w-80 rounded-xl px-4"/>
@@ -173,9 +173,9 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                    
 
                    {/* Teacher Container */}
-                   <div className="border-2 border-gray-300 rounded-xl">
+                   <div className="border-2 border-gray-200 rounded-xl pb-2">
                       <div className="bg-white h-20 w-full justify-between items-center flex rounded-t-xl px-4">
-                        <h1 className="text-base text-black">Employee Management Account +{employeeList.length}</h1>
+                        <h1 className="ttext-md text-gray-500 rounded-full">Registered Employees</h1>
                         <div className="h-full space-x-2 justtify-center items-center flex">
                             <input type="search" name="search" id="" placeholder="Search Teacher Name" className="bg-white border-2 border-gray-300 h-10 w-80 rounded-xl px-4"/>
                             <button className="bg-black h-10 rounded-full text-white cursor-pointer text-sm px-4" onClick={openEmployeeModal}>+ New Employee</button>

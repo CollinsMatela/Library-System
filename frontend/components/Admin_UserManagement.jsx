@@ -153,13 +153,13 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                                         <p className="text-sm text-gray-500">{updatedCreatedAt}</p>
                                     </div>
                                     <div className="w-[10%] break-words gap-2 flex">
-                                        <button className="bg-gray-500 text-white h-8 w-8 rounded-lg cursor-pointer hover:bg-gray-600">
+                                        <button className="bg-gray-300 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-gray-400">
                                             Vw
                                         </button>
-                                        <button className="bg-blue-500 text-white h-8 w-8 rounded-lg cursor-pointer hover:bg-gray-600" onClick={() => handleEditStudent(student)}>
+                                        <button className="bg-blue-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-gray-600" onClick={() => handleEditStudent(student)}>
                                             Edt
                                         </button>
-                                        <button className="bg-red-500 text-white h-8 w-8 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteStudent(student.student.id)}>
+                                        <button className="bg-red-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteStudent(student.student.id)}>
                                             Del
                                         </button>
                                         
@@ -262,8 +262,9 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                                         <p className="text-gray-500">{updatedCreatedAt}</p>
                                     </div>
                                     <div className="w-[10%] break-words flex gap-2">
-                                            <button className="h-8 w-8 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => handleEditEmployee(employee)}>Edit</button>
-                                            <button className="bg-red-500 text-white h-8 w-8 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteEmployee(employee.employee_information.id)}>Del</button>
+                                            <button className="h-10 w-10 bg-gray-300 text-white rounded-lg cursor-pointer hover:bg-gray-400" onClick={() => alert('Soon')}>Vw</button>
+                                            <button className="h-10 w-10 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => handleEditEmployee(employee)}>Edit</button>
+                                            <button className="h-10 w-10 bg-red-500 text-white rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteEmployee(employee.employee_information.id)}>Del</button>
                                             
                                         </div>
                                         

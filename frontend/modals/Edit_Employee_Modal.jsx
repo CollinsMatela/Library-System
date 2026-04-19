@@ -60,6 +60,12 @@ const Edit_Employee_Modal = ({selectedEmployee, triggerRefreshEmployeeTable, clo
             if (!gender) { setIsGender(true); hasError = true; }
             if (!role) { setIsRole(true); hasError = true; }
 
+            // Teacher-only fields
+            if (role === "Teacher") {
+                if (!gradeLevel) { setIsGradeLevel(true); hasError = true; }
+                if (!branch) { setIsBranch(true); hasError = true; }
+            }
+
             // Regex patterns
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             const contactRegex = /^09\d{9}$/;
@@ -79,15 +85,38 @@ const Edit_Employee_Modal = ({selectedEmployee, triggerRefreshEmployeeTable, clo
         };
 
         const updateEmployeeAccount = async () => {
-            const itHasError = ErrorChecker();
+            const employeeId = selectedEmployee.employee_information.id;
 
-            // If the user role in Administrator it does not need to fill out the grade level and branch
-               if(role === "Teacher") {
-                if (!gradeLevel) { return setIsGradeLevel(true); }
-                if (!branch) { return setIsBranch(true); }
-               }
-
+               const itHasError = ErrorChecker();
                if(itHasError) return;
+
+               const updatedEmployeeDetails = {
+                     lastname: lastname,
+                     firstname: firstname,
+                     middlename: middlename,
+                     year: year,
+                     month: month,
+                     day: day,
+                     gender: gender,
+                     email: email,
+                     contact: contact,
+                     role: role,
+                     gradeLevel: gradeLevel,
+                     branch: branch
+               }
+               console.log(employeeId);
+               try {
+                 const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-employee-account/${employeeId}`, updatedEmployeeDetails);
+                 if(res.data.isSuccess){
+                    console.log(res.data.message)
+                    triggerRefreshEmployeeTable();
+                    closeEditEmployeeModal();
+                 }
+                 
+
+               } catch (error) {
+                console.log(error)
+               }
         }
 
     return(

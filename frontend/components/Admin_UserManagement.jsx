@@ -74,42 +74,42 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
 
                         <div className="space-x-2 justtify-center ittems-center flex">
                             <input type="search" name="search" id="" placeholder="Search Student Name" className="bg-white border-2 border-gray-300 h-10 w-80 rounded-xl px-4"/>
-                            <button className="bg-black h-10 rounded-full text-white cursor-pointer text-sm px-4" onClick={openStudentModal}>+ New Student</button>    
+                            <button className="bg-emerald-500 h-10 rounded-full text-white cursor-pointer text-sm px-4" onClick={openStudentModal}>+ New Student</button>    
                         </div>
                     </div>   
                     
                     <div className="bg-white h-100 w-full rounded-b-xl px-4 overflow-y-scroll pb-10">
                         {/* Columns */}
-                        <div className="bg-black h-12 w-full rounded-xl justify-center items-center flex px-4">
+                        <div className="bg-gray-300 h-12 w-full rounded-xl justify-center items-center flex px-4">
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">No.</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">No.</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Lastname</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Lastname</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Firstname</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Firstname</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Date of birth</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Date of birth</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Parent email</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Parent email</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Parent contact</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Parent contact</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Grade level</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Grade level</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Branch</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Branch</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Created At</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Created At</h1>
                             </div>
                             <div className="flex-1 bg">
-                                <h1 className="text-sm text-white">Actions</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Actions</h1>
                             </div>
                         </div>
                         {/* Rows */}
@@ -178,45 +178,45 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                         <h1 className="ttext-md text-gray-500 rounded-full">Registered Employees</h1>
                         <div className="h-full space-x-2 justtify-center items-center flex">
                             <input type="search" name="search" id="" placeholder="Search Teacher Name" className="bg-white border-2 border-gray-300 h-10 w-80 rounded-xl px-4"/>
-                            <button className="bg-black h-10 rounded-full text-white cursor-pointer text-sm px-4" onClick={openEmployeeModal}>+ New Employee</button>
+                            <button className="bg-emerald-500 h-10 rounded-full text-white cursor-pointer text-sm px-4" onClick={openEmployeeModal}>+ New Employee</button>
                         </div>
                       </div>
                       
                         <div className="bg-white h-100 w-full rounded-b-xl px-4 overflow-y-scroll pb-10">
                             {/* Columns */}
-                        <div className="bg-black h-12 w-full rounded-xl justify-center items-center flex px-4">
+                        <div className="bg-gray-300 h-12 w-full rounded-xl justify-center items-center flex px-4">
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">No.</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">No.</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Lastname</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Lastname</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Firstname</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Firstname</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Date of birth</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Date of birth</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Email</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Email</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Contact</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Contact</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Grade level</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Grade level</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Branch</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Branch</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Role</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Role</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm text-white">Created At</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Created At</h1>
                             </div>
                             <div className="flex-1 bg">
-                                <h1 className="text-sm text-white">Actions</h1>
+                                <h1 className="text-sm font-semibold text-gray-400">Actions</h1>
                             </div>
                         </div>
                         {/* Rows */}

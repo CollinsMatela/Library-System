@@ -38,48 +38,53 @@ const Admin_Page = () =>{
     }
 
     return(
-        <section className="w-full bg-white justify-start items-center flex flex-col pl-80">
-          <nav className="bg-white h-20 w-full justify-between items-center flex px-10">
-               <h1>Dashboard</h1>
-               <button className="bg-red-100 p-2 rounded-full text-xs cursor-pointer hover:bg-red-200 border-1 border-red-400 text-red-500">Logout</button>
-          </nav>
-          <Admin_SideBar/>
-          <Admin_Dashboard/>
-          <Admin_Materials/>
-          <Admin_UserManagement refreshStudents={refreshStudentTable} 
-                                refreshEmployees={refreshEmployeeTable}
-                                openStudentModal={() => setShowRegisterStudentModal(true)}
-                                openEmployeeModal={() => setShowRegisterEmployeeModal(true)}
-                                handleEditStudent={handleEditStudent}
-                                handleEditEmployee={handleEditEmployee}
-                                />
+        <section className="w-full justify-start items-start flex pl-20">
 
-          {showRegisterEmployeeModal && (
-                <RegisterEmployeeModal
-                    triggerRefreshEmployeeTable={triggerRefreshEmployeeTable}
-                    closeEmployeeModal={() => setShowRegisterEmployeeModal(false)}
-                />
-          )}
-          {showRegisterStudentModal && (
-                <RegisterStudentModal
-                    triggerRefreshStudentTable={triggerRefreshStudentTable}
-                    closeStudentModal={() => setShowRegisterStudentModal(false)}
-                />
-          )}
-          {showEditStudentModal && (
-                <Edit_Student_Modal
-                    selectedStudent={selectedStudentToEdit}
-                    triggerRefreshStudentTable={triggerRefreshStudentTable}
-                    closeEditStudentModal={() => setShowEditStudentModal(false)}
-                />
-          )}
-          {showEditEmployeeModal && (
-                <Edit_Employee_Modal
-                    selectedEmployee={selectedEmployeeToEdit}
-                    triggerRefreshEmployeeTable={triggerRefreshEmployeeTable}
-                    closeEditEmployeeModal={() => setShowEditEmployeeModal(false)}
-                />
-          )}
+          <Admin_SideBar/>
+
+          <div className="h-screen w-full overflow-auto">
+                <nav className="h-15 w-full justify-start items-center flex border-b-1 gap-2 border-gray-300 px-10">
+                        <h1 className="text-xl">Overview</h1>
+                </nav>
+                <Admin_Dashboard/>
+                {/* <Admin_Materials/> */}
+                <Admin_UserManagement refreshStudents={refreshStudentTable} 
+                                        refreshEmployees={refreshEmployeeTable}
+                                        openStudentModal={() => setShowRegisterStudentModal(true)}
+                                        openEmployeeModal={() => setShowRegisterEmployeeModal(true)}
+                                        handleEditStudent={handleEditStudent}
+                                        handleEditEmployee={handleEditEmployee}
+                                        />
+
+                {showRegisterEmployeeModal && (
+                        <RegisterEmployeeModal
+                            triggerRefreshEmployeeTable={triggerRefreshEmployeeTable}
+                            closeEmployeeModal={() => setShowRegisterEmployeeModal(false)}
+                        />
+                )}
+                {showRegisterStudentModal && (
+                        <RegisterStudentModal
+                            triggerRefreshStudentTable={triggerRefreshStudentTable}
+                            closeStudentModal={() => setShowRegisterStudentModal(false)}
+                        />
+                )}
+                {showEditStudentModal && (
+                        <Edit_Student_Modal
+                            selectedStudent={selectedStudentToEdit}
+                            triggerRefreshStudentTable={triggerRefreshStudentTable}
+                            closeEditStudentModal={() => setShowEditStudentModal(false)}
+                        />
+                )}
+                {showEditEmployeeModal && (
+                        <Edit_Employee_Modal
+                            selectedEmployee={selectedEmployeeToEdit}
+                            triggerRefreshEmployeeTable={triggerRefreshEmployeeTable}
+                            closeEditEmployeeModal={() => setShowEditEmployeeModal(false)}
+                        />
+                )}
+          </div>
+
+          
         </section>
     )
 }

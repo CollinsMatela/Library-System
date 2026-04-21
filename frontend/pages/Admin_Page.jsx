@@ -72,7 +72,7 @@ const Admin_Page = () =>{
 
           <div className="h-screen w-full overflow-auto">
                 <nav className="fixed top-0 bg-white h-15 w-full justify-start items-center flex border-b-1 gap-2 border-gray-300 px-20">
-                        <h1 className="text-xl font-semibold text-emerald-500">Overview</h1>
+                        <h1 className="text-xl font-semibold text-emerald-500">Dashboard Overview</h1>
                 </nav>
                 <Admin_Dashboard AllStudents={studentList} 
                                  AllEmployees={employeeList}

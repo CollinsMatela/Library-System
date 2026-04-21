@@ -14,7 +14,7 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
 
             <div className="bg-white h-full w-100 border-1 border-emerald-500 justify-between items-start flex flex-col p-4 rounded-xl gap-2">
                 <div className="w-full space-y-2">
-                    <div className=" h-12 w-full bg-emerald-700 rounded-xl justify-center items-center flex">
+                    <div className=" h-12 w-full bg-emerald-500 rounded-xl justify-center items-center flex">
                         <h1 className="text-sm font-semibold text-white">Little Me Library System</h1>
                     </div>
                     <div className="space-y-2 w-full">
@@ -34,51 +34,58 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
                     
             </div>
 
-            <div className="h-full w-3/4 justify-center items-center flex flex-col gap-6">
+            <div className="h-full w-full justify-start items-center flex flex-col gap-2">
                     
-                    <div className="w-full justify-start items-start flex flex-col">
+                    <div className="min-h-[100px] w-full justify-start items-start flex flex-col rounded-xl p-2">
+                        <p className="text-xl">Hello User, Good day 👋</p>
+                        <p className="text-sm text-gray-500">Let's check today's activity</p>
+                        <p className="text-sm bg-emerald-100 text-emerald-400 rounded-full px-2 border-1 mt-2">User - Admin Page</p>
+                    </div>
+
+                    <div className=" max-h-[500px] w-full grid grid-cols-3 gap-2">
                         
-                        <h1 className="text-4xl">Hello User, Good day 👋</h1>
-                        <h1 className="text-sm text-gray-500">Let's check today's activity</h1>
-                        <h1 className="text-sm bg-emerald-100 text-emerald-400 rounded-full px-2 border-1 mt-2">User - Admin Page</h1>
-                    </div>
-
-                    <div className="h-50 w-full grid grid-cols-3 gap-2 mb-4">
-                        {set_data.map((data, index) => (
-                            <div key={index} className="h-full w-full bg-gradient-to-tl from-green-500 via-emerald-600 to-emerald-500 rounded-xl p-4 space-y-2">
-                                <h1 className="text-sm text-white">{data.header}</h1>
-                                <h1 className="text-4xl text-white font-bold">{data.value}</h1>
+                            <div className="w-full bg-gradient-to-tl from-green-500 via-emerald-600 to-emerald-500 rounded-xl p-4 space-y-2">
+                                <h1 className="text-sm text-white">{set_data[0].header}</h1>
+                                <h1 className="text-4xl text-white font-bold">{set_data[0].value}</h1>
                             </div>
-                        ))}
+                            <div className="w-full bg-gradient-to-tl from-green-500 via-emerald-600 to-emerald-500 rounded-xl p-4 space-y-2">
+                                <h1 className="text-sm text-white">{set_data[1].header}</h1>
+                                <h1 className="text-4xl text-white font-bold">{set_data[1].value}</h1>
+                            </div>
+                            <div className="w-full bg-gradient-to-tl from-green-500 via-emerald-600 to-emerald-500 rounded-xl p-4 space-y-2">
+                                <h1 className="text-sm text-white">{set_data[2].header}</h1>
+                                <h1 className="text-4xl text-white font-bold">{set_data[2].value}</h1>
+                            </div>
+                       
                     </div>
+                    
+                    <div className="h-full w-full justify-center items-start flex gap-2">
+                        <div className="h-full w-full p-2 flex flex-col gap-2 rounded-xl shadow-md">
+                                <div className="h-12 w-full border-b-1 border-emerald-500 justify-between items-center flex p-2">
+                                    <h1 className="text-sm font-semibold text-emerald-500">Newest Added Students</h1>
+                                    <h1 className="text-sm font-semibold text-emerald-500 underline">View all</h1>
+                                </div>
+                                {studentList.length < 1 && (
+                                        <div className="h-12 w-full bg-emerald-100 rounded-xl justify-center items-center flex">
+                                            <h1 className="text-emerald-500 text-sm">No students found.</h1>
+                                        </div>
+                                    )}
+                        </div>
 
-                    <div className="h-80 w-full gap-2 flex">
-                         <div className="h-full w-1/2 p-2 flex flex-col gap-2 rounded-xl shadow-md">
-                               <div className="h-12 w-full border-b-1 border-emerald-500 justify-between items-center flex p-2">
-                                 <h1 className="text-sm font-semibold text-emerald-500">Newest Added Students</h1>
-                                 <h1 className="text-sm font-semibold text-emerald-500 underline">View all</h1>
-                               </div>
-                               {studentList.length < 1 && (
-                                    <div className="h-12 w-full bg-emerald-100 rounded-xl justify-center items-center flex">
-                                         <h1 className="text-emerald-500 text-sm">No students found.</h1>
-                                    </div>
-                                )}
-                         </div>
-
-                         <div className="h-full w-1/2 p-2 flex flex-col gap-2 rounded-xl shadow-md">
-                               <div className="h-12 w-full border-b-1 border-emerald-500 justify-between items-center flex p-2">
-                                 <h1 className="text-sm font-semibold text-emerald-500">Newest Added Employee</h1>
-                                 <h1 className="text-sm font-semibold text-emerald-500 underline">View all</h1>
-                               </div>
-                               {studentList.length < 1 && (
-                                    <div className="h-12 w-full bg-emerald-100 rounded-xl justify-center items-center flex">
-                                         <h1 className="text-emerald-500 text-sm">No employee found.</h1>
-                                    </div>
-                                )}
-                         </div>
-                         
-                         
+                            <div className="h-full w-full p-2 flex flex-col gap-2 rounded-xl shadow-md">
+                                <div className="h-12 w-full border-b-1 border-emerald-500 justify-between items-center flex p-2">
+                                    <h1 className="text-sm font-semibold text-emerald-500">Newest Added Employee</h1>
+                                    <h1 className="text-sm font-semibold text-emerald-500 underline">View all</h1>
+                                </div>
+                                {studentList.length < 1 && (
+                                        <div className="h-12 w-full bg-emerald-100 rounded-xl justify-center items-center flex">
+                                            <h1 className="text-emerald-500 text-sm">No employee found.</h1>
+                                        </div>
+                                    )}
+                            </div>
                     </div>
+                    
+
             </div>
 
             <div className=" h-full w-1/4 justify-center items-center flex p-4">

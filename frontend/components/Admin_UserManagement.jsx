@@ -24,56 +24,56 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, openStudentModal, open
     }
 
     return(
-        <section className="w-full p-10">
+        <section className="w-full py-10 px-20">
             
                 
-              <h1 className="text-2xl font-semibold mb-4">User Management</h1>
+              <h1 className="text-xl font-semibold text-emerald-500 mb-4">Accounts Management</h1>
                 <div className="w-full space-y-5">
 
-                   {/* Parent/Student Container */}
-                  <div className="border-2 border-gray-200 rounded-xl pb-2">
+                   {/* Student Container */}
+                  <div className="border-2 border-gray-300 rounded-xl pb-2">
 
                     <div className="bg-white h-20 w-full justify-between items-center flex rounded-t-xl px-4">
                         <h1 className="text-md text-gray-500 rounded-full">Registered Students</h1>
 
-                        <div className="space-x-2 justtify-center ittems-center flex">
+                        <div className="space-x-2 justify-center ittems-center flex">
                             <input type="search" name="search" id="" placeholder="Search Student Name" className="bg-white border-2 border-gray-300 h-10 w-80 rounded-xl px-4"/>
-                            <button className="bg-emerald-500 h-10 rounded-full text-white cursor-pointer text-sm px-4" onClick={openStudentModal}>+ New Student</button>    
+                            <button className="border-1 border-emerald-500 h-10 rounded-full text-emerald-500 cursor-pointer text-sm font-semibold px-4 hover:bg-emerald-500 hover:text-white" onClick={openStudentModal}>+ New Student</button>    
                         </div>
                     </div>   
                     
                     <div className="bg-white h-100 w-full rounded-b-xl px-4 overflow-y-scroll pb-10">
                         {/* Columns */}
-                        <div className="bg-gray-300 h-12 w-full rounded-xl justify-center items-center flex px-4">
+                        <div className="bg-gradient-to-tl from-green-500 via-emerald-600 to-emerald-500 h-12 w-full rounded-xl justify-center items-center flex px-4">
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">No.</h1>
+                                <h1 className="text-sm font-semibold text-white">No.</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Lastname</h1>
+                                <h1 className="text-sm font-semibold text-white">Lastname</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Firstname</h1>
+                                <h1 className="text-sm font-semibold text-white">Firstname</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Date of birth</h1>
+                                <h1 className="text-sm font-semibold text-white">Date of birth</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Parent email</h1>
+                                <h1 className="text-sm font-semibold text-white">Parent email</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Parent contact</h1>
+                                <h1 className="text-sm font-semibold text-white">Parent contact</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Grade level</h1>
+                                <h1 className="text-sm font-semibold text-white">Grade level</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Branch</h1>
+                                <h1 className="text-sm font-semibold text-white">Branch</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Created At</h1>
+                                <h1 className="text-sm font-semibold text-white">Created At</h1>
                             </div>
                             <div className="flex-1 bg">
-                                <h1 className="text-sm font-semibold text-gray-400">Actions</h1>
+                                <h1 className="text-sm font-semibold text-white">Actions</h1>
                             </div>
                         </div>
                         {/* Rows */}
@@ -117,13 +117,13 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, openStudentModal, open
                                         <p className="text-sm text-gray-500">{updatedCreatedAt}</p>
                                     </div>
                                     <div className="w-[10%] break-words gap-2 flex">
-                                        <button className="bg-gray-300 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-gray-400">
+                                        <button className="bg-emerald-300 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-gray-400">
                                             Vw
                                         </button>
-                                        <button className="bg-blue-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-gray-600" onClick={() => handleEditStudent(student)}>
+                                        <button className="bg-emerald-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-gray-600" onClick={() => handleEditStudent(student)}>
                                             Edt
                                         </button>
-                                        <button className="bg-red-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteStudent(student.student.id)}>
+                                        <button className="bg-emerald-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteStudent(student.student.id)}>
                                             Del
                                         </button>
                                         
@@ -137,50 +137,50 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, openStudentModal, open
                    
 
                    {/* Teacher Container */}
-                   <div className="border-2 border-gray-200 rounded-xl pb-2">
+                   <div className="border-2 border-gray-300 rounded-xl pb-2">
                       <div className="bg-white h-20 w-full justify-between items-center flex rounded-t-xl px-4">
                         <h1 className="ttext-md text-gray-500 rounded-full">Registered Employees</h1>
                         <div className="h-full space-x-2 justtify-center items-center flex">
                             <input type="search" name="search" id="" placeholder="Search Teacher Name" className="bg-white border-2 border-gray-300 h-10 w-80 rounded-xl px-4"/>
-                            <button className="bg-emerald-500 h-10 rounded-full text-white cursor-pointer text-sm px-4" onClick={openEmployeeModal}>+ New Employee</button>
+                            <button className="border-1 border-emerald-500 h-10 rounded-full text-emerald-500 cursor-pointer text-sm font-semibold px-4 hover:bg-emerald-500 hover:text-white" onClick={openEmployeeModal}>+ New Employee</button>
                         </div>
                       </div>
                       
                         <div className="bg-white h-100 w-full rounded-b-xl px-4 overflow-y-scroll pb-10">
                             {/* Columns */}
-                        <div className="bg-gray-300 h-12 w-full rounded-xl justify-center items-center flex px-4">
+                        <div className="bg-gradient-to-tl from-green-500 via-emerald-600 to-emerald-500 h-12 w-full rounded-xl justify-center items-center flex px-4">
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">No.</h1>
+                                <h1 className="text-sm font-semibold text-white">No.</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Lastname</h1>
+                                <h1 className="text-sm font-semibold text-white">Lastname</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Firstname</h1>
+                                <h1 className="text-sm font-semibold text-white">Firstname</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Date of birth</h1>
+                                <h1 className="text-sm font-semibold text-white">Date of birth</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Email</h1>
+                                <h1 className="text-sm font-semibold text-white">Email</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Contact</h1>
+                                <h1 className="text-sm font-semibold text-white">Contact</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Grade level</h1>
+                                <h1 className="text-sm font-semibold text-white">Grade level</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Branch</h1>
+                                <h1 className="text-sm font-semibold text-white">Branch</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Role</h1>
+                                <h1 className="text-sm font-semibold text-white">Role</h1>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-gray-400">Created At</h1>
+                                <h1 className="text-sm font-semibold text-white">Created At</h1>
                             </div>
                             <div className="flex-1 bg">
-                                <h1 className="text-sm font-semibold text-gray-400">Actions</h1>
+                                <h1 className="text-sm font-semibold text-white">Actions</h1>
                             </div>
                         </div>
                         {/* Rows */}
@@ -226,9 +226,9 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, openStudentModal, open
                                         <p className="text-gray-500">{updatedCreatedAt}</p>
                                     </div>
                                     <div className="w-[10%] break-words flex gap-2">
-                                            <button className="h-10 w-10 bg-gray-300 text-white rounded-lg cursor-pointer hover:bg-gray-400" onClick={() => alert('Soon')}>Vw</button>
-                                            <button className="h-10 w-10 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => handleEditEmployee(employee)}>Edit</button>
-                                            <button className="h-10 w-10 bg-red-500 text-white rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteEmployee(employee.employee_information.id)}>Del</button>
+                                            <button className="h-10 w-10 bg-emerald-300 text-white rounded-lg cursor-pointer hover:bg-gray-400" onClick={() => alert('Soon')}>Vw</button>
+                                            <button className="h-10 w-10 bg-emerald-500 text-white rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => handleEditEmployee(employee)}>Edit</button>
+                                            <button className="h-10 w-10 bg-emerald-500 text-white rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteEmployee(employee.employee_information.id)}>Del</button>
                                             
                                         </div>
                                         

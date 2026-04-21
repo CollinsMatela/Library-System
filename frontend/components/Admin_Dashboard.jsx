@@ -10,7 +10,29 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
     const [studentList, setStudentList] = useState([]);
 
     return(
-        <section className="w-full justify-start items-center flex px-10 py-10">
+        <section className="h-screen w-full border-b-1 border-gray-300 justify-start items-center flex px-20 py-25 gap-4">
+
+            <div className="bg-white h-full w-100 border-1 border-emerald-500 justify-between items-start flex flex-col p-4 rounded-xl gap-2">
+                <div className="w-full space-y-2">
+                    <div className=" h-12 w-full bg-emerald-700 rounded-xl justify-center items-center flex">
+                        <h1 className="text-sm font-semibold text-white">Little Me Library System</h1>
+                    </div>
+                    <div className="space-y-2 w-full">
+                        <button className="h-12 w-full text-start px-10 rounded-xl cursor-pointer text-sm font-bold text-emerald-600 hover:bg-emerald-600 hover:text-white">➜ Overview</button>
+                        <button className="h-12 w-full text-start px-10 rounded-xl cursor-pointer text-sm font-bold text-emerald-600 hover:bg-emerald-600 hover:text-white">➜ Materials</button>
+                        <button className="h-12 w-full text-start px-10 rounded-xl cursor-pointer text-sm font-bold text-emerald-600 hover:bg-emerald-600 hover:text-white">➜ Users</button>
+
+                    </div>
+                </div>
+
+                <div className="space-y-2 w-full">
+                        <button className="bg-red-100 h-12 w-full text-start px-10 rounded-xl cursor-pointer text-sm font-bold text-red-600 hover:bg-red-600 hover:text-white">➜ Logout</button>
+
+                </div>
+
+                    
+                    
+            </div>
 
             <div className="h-full w-3/4 justify-center items-center flex flex-col gap-6">
                     
@@ -23,9 +45,9 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
 
                     <div className="h-50 w-full grid grid-cols-3 gap-2 mb-4">
                         {set_data.map((data, index) => (
-                            <div key={index} className="h-full w-full border-1 border-gray-300 rounded-xl p-4">
-                                <h1 className="text-sm text-gray-500">{data.header}</h1>
-                                <h1 className="text-xl text-black font-bold">{data.value}</h1>
+                            <div key={index} className="h-full w-full bg-gradient-to-tl from-green-500 via-emerald-600 to-emerald-500 rounded-xl p-4 space-y-2">
+                                <h1 className="text-sm text-white">{data.header}</h1>
+                                <h1 className="text-4xl text-white font-bold">{data.value}</h1>
                             </div>
                         ))}
                     </div>
@@ -59,9 +81,9 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
                     </div>
             </div>
 
-            <div className="h-full w-1/4 justify-center items-center flex p-4">
-                <div className="border-l-2 border-gray-300 h-full w-full justify-center items-center flex">
-                    <h1 className="text-md font-bold text-gray-300">Coming Soon!</h1>
+            <div className=" h-full w-1/4 justify-center items-center flex p-4">
+                <div className="border-l-2 border-emerald-500 h-full w-full justify-center items-center flex">
+                    <h1 className="text-md font-bold text-emerald-300">Nothing yet this part!</h1>
                 </div>
                     
             </div>

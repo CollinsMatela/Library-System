@@ -1,4 +1,3 @@
-import Admin_SideBar from "../components/Admin_Sidebar"
 import Admin_Dashboard from "../components/Admin_Dashboard"
 import Admin_Materials from "../components/Admin_Materials"
 import Admin_UserManagement from "../components/Admin_UserManagement"
@@ -69,13 +68,11 @@ const Admin_Page = () =>{
     }
 
     return(
-        <section className="w-full justify-start items-start flex pl-20">
-
-          <Admin_SideBar/>
+        <section className="w-full justify-start items-start flex">
 
           <div className="h-screen w-full overflow-auto">
-                <nav className="h-15 w-full justify-start items-center flex border-b-1 gap-2 border-gray-300 px-10">
-                        <h1 className="text-xl">Overview</h1>
+                <nav className="fixed top-0 bg-white h-15 w-full justify-start items-center flex border-b-1 gap-2 border-gray-300 px-20">
+                        <h1 className="text-xl font-semibold text-emerald-500">Overview</h1>
                 </nav>
                 <Admin_Dashboard AllStudents={studentList} 
                                  AllEmployees={employeeList}

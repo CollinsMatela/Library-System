@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-const Admin_Dashboard = () => {
+const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
     const set_data = [
-            { header: "Total no. of students", value: 0 },
-            { header: "Total no. of employees", value: 0 },
+            { header: "Total no. of students", value: AllStudents.length },
+            { header: "Total no. of employees", value: AllEmployees.length },
             { header: "Total no. of materials", value: 0 }
     ];
 
@@ -22,9 +22,10 @@ const Admin_Dashboard = () => {
                     </div>
 
                     <div className="h-50 w-full grid grid-cols-3 gap-2 mb-4">
-                        {set_data.map((data) => (
-                            <div className="h-full w-full border-1 border-gray-300 rounded-xl p-4">
+                        {set_data.map((data, index) => (
+                            <div key={index} className="h-full w-full border-1 border-gray-300 rounded-xl p-4">
                                 <h1 className="text-sm text-gray-500">{data.header}</h1>
+                                <h1 className="text-xl text-black font-bold">{data.value}</h1>
                             </div>
                         ))}
                     </div>

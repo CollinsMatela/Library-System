@@ -1,44 +1,8 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 
-const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentModal, openEmployeeModal, handleEditStudent, handleEditEmployee}) => {
+const Admin_UserManagement = ({AllStudents, AllEmployees, openStudentModal, openEmployeeModal, handleEditStudent, handleEditEmployee}) => {
 
-    const [studentList, setStudentList] = useState([])
-    const [employeeList, setEmployeeList] = useState([])
-
-    useEffect(() => {
-        fetchStudents()
-        fetchEmployees()
-    }, [])
-
-    useEffect(() => {
-        fetchStudents()
-    },[refreshStudents])
-
-    useEffect(() => {
-        fetchEmployees()
-    },[refreshEmployees])
-
-    const fetchStudents = async () => {
-
-        try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-students`)
-            console.log(res.data.message);
-            setStudentList(res.data.students);
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    const fetchEmployees = async () => {
-        try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-employees`);
-            console.log(res.data.message);
-            setEmployeeList(res.data.employees);
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
     const deleteStudent = async (studentId) => {
           try {
             const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-student/${studentId}`);
@@ -113,13 +77,13 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                             </div>
                         </div>
                         {/* Rows */}
-                        {studentList.length < 1 && (
+                        {AllStudents.length < 1 && (
                             <div className="bg-gray-100 h-12 w-full rounded-xl justify-center items-center flex px-4 py-2 mt-2">
                                 <p className="text-gray-500">No students found.</p>
                             </div>
                         )}
                         {
-                            studentList.map((student, index) => {
+                            AllStudents.map((student, index) => {
 
                                 const updatedCreatedAt = new Date(student.createdAt).toISOString().split("T")[0];;
                                 
@@ -220,12 +184,12 @@ const Admin_UserManagement = ({refreshStudents, refreshEmployees, openStudentMod
                             </div>
                         </div>
                         {/* Rows */}
-                        {employeeList.length < 1 && (
+                        {AllEmployees.length < 1 && (
                             <div className="bg-gray-100 h-12 w-full justify-center items-center flex rounded-b-xl px-4 mt-2">
                                 <p className="text-gray-500">No employees found.</p>
                             </div>
                         )}
-                        {employeeList.map((employee, index) => {
+                        {AllEmployees.map((employee, index) => {
 
                             const updatedCreatedAt = new Date(employee.createdAt).toISOString().split("T")[0];
 

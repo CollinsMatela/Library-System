@@ -1,7 +1,7 @@
 import {useEffect, useState } from "react";
 import axios from "axios";
 
-const RegisterStudentModal = ({ triggerRefreshStudentTable, closeStudentModal }) => {
+const RegisterStudentModal = ({ reFetchStudent, closeStudentModal }) => {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
 
@@ -120,7 +120,7 @@ const RegisterStudentModal = ({ triggerRefreshStudentTable, closeStudentModal })
             if(res.data.isSuccess){
                alert(res.data.message);
                closeStudentModal();
-               triggerRefreshStudentTable();
+               reFetchStudent();
 
             }
             

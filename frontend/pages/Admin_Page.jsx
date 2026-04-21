@@ -6,9 +6,40 @@ import RegisterEmployeeModal from "../modals/RegisterEmployeeModal"
 import RegisterStudentModal from "../modals/RegisterStudentModal"
 import Edit_Student_Modal from "../modals/Edit_Student_Modal"
 import Edit_Employee_Modal from "../modals/Edit_Employee_Modal"
-import { useState } from "react"
+import { useState, useEffect} from "react"
+import axios from "axios"
 
 const Admin_Page = () =>{
+
+    const [studentList, setStudentList] = useState([])
+    const [employeeList, setEmployeeList] = useState([])
+
+    const fetchStudents = async () => {
+
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-students`)
+            console.log(res.data.message);
+            setStudentList(res.data.students);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const fetchEmployees = async () => {
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-employees`);
+            console.log(res.data.message);
+            setEmployeeList(res.data.employees);
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchStudents()
+        fetchEmployees()
+    }, [])
+
     const [showRegisterEmployeeModal, setShowRegisterEmployeeModal] = useState(false);
     const [showRegisterStudentModal, setShowRegisterStudentModal] = useState(false);
 
@@ -46,10 +77,12 @@ const Admin_Page = () =>{
                 <nav className="h-15 w-full justify-start items-center flex border-b-1 gap-2 border-gray-300 px-10">
                         <h1 className="text-xl">Overview</h1>
                 </nav>
-                <Admin_Dashboard/>
+                <Admin_Dashboard AllStudents={studentList} 
+                                 AllEmployees={employeeList}
+                                />
                 {/* <Admin_Materials/> */}
-                <Admin_UserManagement refreshStudents={refreshStudentTable} 
-                                        refreshEmployees={refreshEmployeeTable}
+                <Admin_UserManagement   AllStudents={studentList} 
+                                        AllEmployees={employeeList}
                                         openStudentModal={() => setShowRegisterStudentModal(true)}
                                         openEmployeeModal={() => setShowRegisterEmployeeModal(true)}
                                         handleEditStudent={handleEditStudent}
@@ -58,13 +91,13 @@ const Admin_Page = () =>{
 
                 {showRegisterEmployeeModal && (
                         <RegisterEmployeeModal
-                            triggerRefreshEmployeeTable={triggerRefreshEmployeeTable}
+                            reFetchEmployee={fetchEmployees}
                             closeEmployeeModal={() => setShowRegisterEmployeeModal(false)}
                         />
                 )}
                 {showRegisterStudentModal && (
                         <RegisterStudentModal
-                            triggerRefreshStudentTable={triggerRefreshStudentTable}
+                            reFetchStudent={fetchStudents}
                             closeStudentModal={() => setShowRegisterStudentModal(false)}
                         />
                 )}

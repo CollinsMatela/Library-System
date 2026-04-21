@@ -1,3 +1,4 @@
+import { useState } from "react";
 
 const Admin_Dashboard = () => {
     const set_data = [
@@ -5,8 +6,11 @@ const Admin_Dashboard = () => {
             { header: "Total no. of employees", value: 0 },
             { header: "Total no. of materials", value: 0 }
     ];
+
+    const [studentList, setStudentList] = useState([]);
+
     return(
-        <section className="bg-white h-100 w-full justify-start items-center flex px-10 py-10">
+        <section className="w-full justify-start items-center flex px-10 py-10">
 
             <div className="h-full w-3/4 justify-center items-center flex flex-col gap-6">
                     
@@ -23,6 +27,34 @@ const Admin_Dashboard = () => {
                                 <h1 className="text-sm text-gray-500">{data.header}</h1>
                             </div>
                         ))}
+                    </div>
+
+                    <div className="h-80 w-full gap-2 flex">
+                         <div className="h-full w-1/2 p-2 flex flex-col gap-2 rounded-xl shadow-md">
+                               <div className="h-12 w-full border-b-1 border-emerald-500 justify-between items-center flex p-2">
+                                 <h1 className="text-sm font-semibold text-emerald-500">Newest Added Students</h1>
+                                 <h1 className="text-sm font-semibold text-emerald-500 underline">View all</h1>
+                               </div>
+                               {studentList.length < 1 && (
+                                    <div className="h-12 w-full bg-emerald-100 rounded-xl justify-center items-center flex">
+                                         <h1 className="text-emerald-500 text-sm">No students found.</h1>
+                                    </div>
+                                )}
+                         </div>
+
+                         <div className="h-full w-1/2 p-2 flex flex-col gap-2 rounded-xl shadow-md">
+                               <div className="h-12 w-full border-b-1 border-emerald-500 justify-between items-center flex p-2">
+                                 <h1 className="text-sm font-semibold text-emerald-500">Newest Added Employee</h1>
+                                 <h1 className="text-sm font-semibold text-emerald-500 underline">View all</h1>
+                               </div>
+                               {studentList.length < 1 && (
+                                    <div className="h-12 w-full bg-emerald-100 rounded-xl justify-center items-center flex">
+                                         <h1 className="text-emerald-500 text-sm">No employee found.</h1>
+                                    </div>
+                                )}
+                         </div>
+                         
+                         
                     </div>
             </div>
 

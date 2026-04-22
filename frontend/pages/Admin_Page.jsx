@@ -1,5 +1,5 @@
 import Admin_Dashboard from "../components/Admin_Dashboard"
-import Admin_Materials from "../components/Admin_Materials"
+import Admin_Stories from "../components/Admin_Stories"
 import Admin_UserManagement from "../components/Admin_UserManagement"
 import RegisterEmployeeModal from "../modals/RegisterEmployeeModal"
 import RegisterStudentModal from "../modals/RegisterStudentModal"
@@ -77,6 +77,7 @@ const Admin_Page = () =>{
                 <Admin_Dashboard AllStudents={studentList} 
                                  AllEmployees={employeeList}
                                 />
+                <Admin_Stories/>
                 {/* <Admin_Materials/> */}
                 <Admin_UserManagement   AllStudents={studentList} 
                                         AllEmployees={employeeList}

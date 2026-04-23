@@ -11,8 +11,8 @@ const Student_Registration_Controller = async (req, res) => {
     try {
 
         const newStudent = await Student_Registration_Model.create({
+            id: crypto.randomUUID(),
             student: {
-                id: crypto.randomUUID(),
                 lastname: lastname,
                 firstname: firstname,
                 middlename: middlename,

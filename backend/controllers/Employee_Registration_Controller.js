@@ -12,6 +12,7 @@ const Employee_Registration_Controller = async (req, res) => {
       try {
 
         const newEmployee = await Employee_Registration_Model.create({
+            id: crypto.randomUUID(),
             personal_information:{
               lastname: lastname,
               firstname: firstname,
@@ -25,7 +26,6 @@ const Employee_Registration_Controller = async (req, res) => {
               contact: contact,
             },
               employee_information: {
-              id: crypto.randomUUID(),
               role: role,
               gradeLevel: gradeLevel,
               branch: branch,

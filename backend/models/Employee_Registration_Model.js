@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const Employee_Registration_Schema = new mongoose.Schema({
+    id: { type: String, required: true },
     personal_information:{
         lastname: { type: String, required: true },
         firstname: { type: String, required: true },
@@ -14,7 +15,6 @@ const Employee_Registration_Schema = new mongoose.Schema({
         contact: { type: String, required: true },
     },
     employee_information: {
-        id: { type: String, required: true },
         role: { type: String, required: true },
         gradeLevel: { type: String, required: true },
         branch: { type: String, required: true },

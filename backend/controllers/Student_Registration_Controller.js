@@ -31,6 +31,7 @@ const Student_Registration_Controller = async (req, res) => {
                 parentRelationship: parentRelationship
             },
             school: {
+                role: "Student",
                 gradeLevel: gradeLevel,
                 branch: branch
             },

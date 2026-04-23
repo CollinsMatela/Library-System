@@ -21,6 +21,7 @@ const StudentRegistrationSchema = new mongoose.Schema({
                   parentRelationship: {type: String, required:true},       
       },
       school: {
+                  role: {type: String, required:true},
                   gradeLevel: {type: String, required:true},
                   branch: {type: String, required:true},
       },

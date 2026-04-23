@@ -31,6 +31,7 @@ const LoginModal = ({ onClose }) => {
   }
 
   const loginAccount = async () => {
+
         let itHasError = ErrorChecker();
         if(itHasError) return;
 
@@ -41,8 +42,16 @@ const LoginModal = ({ onClose }) => {
 
         try {
           const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, account);
+          console.log(res.data.message);
           if(res.data.isSuccess){
             console.log(res.data.message);
+            localStorage.setItem("token", res.data.token)
+            localStorage.setItem("user", JSON.stringify(res.data.user))
+            if(res.data.role.toLowerCase() === "student"){
+              //Navigate to student library page
+            } else if (res.data.role.toLowerCase() === "administrator"){
+              navigate(`/admin-page/${res.data.user.id}`);
+            }
           }
         } catch (error) {
           console.log(error)
@@ -73,7 +82,7 @@ const LoginModal = ({ onClose }) => {
           value={password} onChange={(e) => setPassword(e.target.value)}/>
         </div>
 
-        <button className="bg-black h-12 w-full text-white rounded-xl cursor-pointer mt-6" onClick={() => loginAccount}>Sign Up</button>
+        <button className="bg-black h-12 w-full text-white rounded-xl cursor-pointer mt-6" onClick={loginAccount}>Sign Up</button>
 
       </div>
    </section>

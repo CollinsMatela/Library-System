@@ -5,6 +5,7 @@ import RegisterEmployeeModal from "../modals/RegisterEmployeeModal"
 import RegisterStudentModal from "../modals/RegisterStudentModal"
 import Edit_Student_Modal from "../modals/Edit_Student_Modal"
 import Edit_Employee_Modal from "../modals/Edit_Employee_Modal"
+import Account_Conformation from "../popup/Account_Conformation"
 import { useState, useEffect} from "react"
 import axios from "axios"
 
@@ -48,6 +49,9 @@ const Admin_Page = () =>{
     const [showEditEmployeeModal, setShowEditEmployeeModal] = useState(false);
     const [selectedEmployeeToEdit, setSelectedEmployeeToEdit] = useState("");
 
+    const [showAccountConfirmation, setShowAccountConfirmation] = useState(false);
+    const [newStudentDetails, setNewAccountDetails] = useState(null);
+
     const handleEditStudent = (student) => {
             setSelectedStudentToEdit(student);
             setShowEditStudentModal(true);
@@ -55,6 +59,10 @@ const Admin_Page = () =>{
     const handleEditEmployee = (employee) => {
            setSelectedEmployeeToEdit(employee);
            setShowEditEmployeeModal(true);
+    }
+    const PopUpStudentInfo = (account) =>{
+          setShowAccountConfirmation(true);
+          setNewAccountDetails(account);
     }
 
     const [refreshStudentTable, setRefreshStudentTable] = useState(false);
@@ -97,6 +105,7 @@ const Admin_Page = () =>{
                         <RegisterStudentModal
                             reFetchStudent={fetchStudents}
                             closeStudentModal={() => setShowRegisterStudentModal(false)}
+                            openAccountConfirmation={PopUpStudentInfo}
                         />
                 )}
                 {showEditStudentModal && (
@@ -112,6 +121,12 @@ const Admin_Page = () =>{
                             triggerRefreshEmployeeTable={triggerRefreshEmployeeTable}
                             closeEditEmployeeModal={() => setShowEditEmployeeModal(false)}
                         />
+                )}
+                {showAccountConfirmation && (
+                    <Account_Conformation 
+                            newStudentDetails={newStudentDetails}
+                            closeAccountConfirmation={() => setShowAccountConfirmation(false)}
+                    />
                 )}
           </div>
 

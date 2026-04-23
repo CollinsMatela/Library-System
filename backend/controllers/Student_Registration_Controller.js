@@ -4,14 +4,14 @@ import bcrypt from "bcrypt";
 const Student_Registration_Controller = async (req, res) => {
     const { lastname, firstname, middlename, year, month, day, age, gender, parentLastname, parentFirstname, parentMiddlename, parentEmail, parentContact, parentRelationship, gradeLevel, branch } = req.body;
 
-    const username = `${firstname}.${Math.floor(Math.random() * 1000) + 1000}@lmlc.com`;
-    const password = `${lastname}${firstname}${Math.floor(Math.random() * 1000) + 1000}`;
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const StudentId = `${new Date().getFullYear()}-${Math.floor(Math.random() * 1000) + 1000}`;
+    const PIN = `${Math.floor(Math.random() * 1000) + 1000}`;
+    const hashedPassword = await bcrypt.hash(PIN, 10);
 
     try {
 
         const newStudent = await Student_Registration_Model.create({
-            id: crypto.randomUUID(),
+            id: StudentId,
             student: {
                 lastname: lastname,
                 firstname: firstname,
@@ -36,12 +36,18 @@ const Student_Registration_Controller = async (req, res) => {
                 branch: branch
             },
             account: {
-                username: username,
+                username: StudentId,
                 password: hashedPassword
             }
         });
+
+        const AccountData = {
+              name: `${firstname} ${lastname}`,
+              studentId: StudentId,
+              pin: PIN
+        }
         
-        res.status(201).json({ message: "Student registered successfully", isSuccess: true });
+        res.status(201).json({ message: "Student registered successfully", isSuccess: true, account: AccountData});
     } catch (error) {
         console.error("Error registering student:", error);
         res.status(500).json({ message: "Internal server error" });

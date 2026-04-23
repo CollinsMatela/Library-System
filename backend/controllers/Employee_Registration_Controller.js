@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 const Employee_Registration_Controller = async (req, res) => {
     const { lastname, firstname, middlename, year, month, day, age, gender, email, contact, role, gradeLevel, branch } = req.body;
 
-    const username = `${lastname}.${Math.floor(Math.random() * 1000) + 1000}@lmlc.com`;
+    const username = `${new Date().getFullYear()}-${Math.floor(Math.random() * 1000) + 1000}`;
     const password = `123456`;
 
     const hashedPassword = await bcrypt.hash(password, 10);

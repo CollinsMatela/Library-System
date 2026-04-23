@@ -1,7 +1,7 @@
 import {useEffect, useState } from "react";
 import axios from "axios";
 
-const RegisterStudentModal = ({ reFetchStudent, closeStudentModal }) => {
+const RegisterStudentModal = ({ reFetchStudent, closeStudentModal, openAccountConfirmation}) => {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
 
@@ -121,7 +121,7 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal }) => {
                alert(res.data.message);
                closeStudentModal();
                reFetchStudent();
-
+               openAccountConfirmation(res.data.account);
             }
             
         } catch (error) {

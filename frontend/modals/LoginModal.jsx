@@ -41,7 +41,9 @@ const LoginModal = ({ onClose }) => {
 
         try {
           const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, account);
-          console.log(res.data.error);
+          if(res.data.isSuccess){
+            console.log(res.data.message);
+          }
         } catch (error) {
           console.log(error)
         }
@@ -61,12 +63,14 @@ const LoginModal = ({ onClose }) => {
 
         <div className="w-full mb-2">
           <h1 className="text-xs">Username</h1>
-          <input type="text" placeholder="Your Username" className="bg-gray-100 h-12 w-full rounded-xl p-2"/>
+          <input type="text" placeholder="Your Username" className="bg-gray-100 h-12 w-full rounded-xl p-2"
+          value={username} onChange={(e) => setUsername(e.target.value)}/>
         </div>
 
         <div className="w-full">
           <h1 className="text-xs">Password</h1>
-          <input type="password" placeholder="Your Password" className="bg-gray-100 h-12 w-full rounded-xl p-2"/>
+          <input type="password" placeholder="Your Password" className="bg-gray-100 h-12 w-full rounded-xl p-2"
+          value={password} onChange={(e) => setPassword(e.target.value)}/>
         </div>
 
         <button className="bg-black h-12 w-full text-white rounded-xl cursor-pointer mt-6" onClick={() => loginAccount}>Sign Up</button>

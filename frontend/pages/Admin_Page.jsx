@@ -50,7 +50,7 @@ const Admin_Page = () =>{
     const [selectedEmployeeToEdit, setSelectedEmployeeToEdit] = useState("");
 
     const [showAccountConfirmation, setShowAccountConfirmation] = useState(false);
-    const [newStudentDetails, setNewAccountDetails] = useState(null);
+    const [newAccountDetails, setNewAccountDetails] = useState(null);
 
     const handleEditStudent = (student) => {
             setSelectedStudentToEdit(student);
@@ -99,6 +99,7 @@ const Admin_Page = () =>{
                         <RegisterEmployeeModal
                             reFetchEmployee={fetchEmployees}
                             closeEmployeeModal={() => setShowRegisterEmployeeModal(false)}
+                            openAccountConfirmation={PopUpStudentInfo}
                         />
                 )}
                 {showRegisterStudentModal && (
@@ -124,7 +125,7 @@ const Admin_Page = () =>{
                 )}
                 {showAccountConfirmation && (
                     <Account_Conformation 
-                            newStudentDetails={newStudentDetails}
+                            newAccountDetails={newAccountDetails}
                             closeAccountConfirmation={() => setShowAccountConfirmation(false)}
                     />
                 )}

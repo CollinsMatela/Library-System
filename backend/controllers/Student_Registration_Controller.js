@@ -43,7 +43,8 @@ const Student_Registration_Controller = async (req, res) => {
 
         const AccountData = {
               name: `${firstname} ${lastname}`,
-              studentId: StudentId,
+              role: "Student",
+              username: StudentId,
               pin: PIN
         }
         

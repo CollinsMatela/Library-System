@@ -4,10 +4,10 @@ import bcrypt from "bcrypt";
 const Employee_Registration_Controller = async (req, res) => {
     const { lastname, firstname, middlename, year, month, day, age, gender, email, contact, role, gradeLevel, branch } = req.body;
 
-    const username = `${new Date().getFullYear()}-${Math.floor(Math.random() * 1000) + 1000}`;
-    const password = `123456`;
+    const username = `${lastname}.${Math.floor(Math.random() * 1000) + 1000}@lmlc.edu`;
+    const PIN = `${Math.floor(Math.random() * 1000) + 1000}`;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPIN = await bcrypt.hash(PIN, 10);
 
       try {
 
@@ -32,13 +32,18 @@ const Employee_Registration_Controller = async (req, res) => {
             },
             account_information: {
               username: username,
-              password: hashedPassword 
+              password: hashedPIN 
             }
-            
-            
         })
 
-        res.status(201).json({message: "Employee registered successfully", isSuccess: true});
+        const accountDetail = {
+              name: `${firstname} ${lastname}`,
+              role: "Teacher",
+              username: username,
+              pin: PIN
+        }
+
+        res.status(201).json({message: "Employee registered successfully", isSuccess: true, account: accountDetail});
         
       } catch (error) {
         console.error(error);

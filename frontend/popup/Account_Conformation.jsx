@@ -1,12 +1,12 @@
 
 import { useState } from "react";
 
-const Account_Conformation = ({newStudentDetails, closeAccountConfirmation}) => {
+const Account_Conformation = ({newAccountDetails, closeAccountConfirmation}) => {
 
     return (
         <section className="flex items-center justify-center h-screen">
             
-                <div className="fixed inset-0 flex items-center justify-center bg-black/80 bg-opacity-50 z-50">
+                <div className="fixed inset-0 flex items-center justify-center bg-black/80 bg-opacity-50 z-50" onClick={closeAccountConfirmation}>
                     
                     <div className="bg-white rounded-2xl p-6 w-[500px] shadow-xl">
                         <h2 className="text-xl text-emerald-800 font-bold mb-3">
@@ -36,9 +36,9 @@ const Account_Conformation = ({newStudentDetails, closeAccountConfirmation}) => 
                             <h1 className="text-lg font-bold text-emerald-800 mb-2">
                                 Account Details
                             </h1>
-                            <h1 className="text-md font-semibold text-gray-500">Student Name: {newStudentDetails.name}</h1>
-                            <h1 className="text-md font-semibold text-gray-500">Student ID: {newStudentDetails.studentId}</h1>
-                            <h1 className="text-md font-semibold text-gray-500">Student PIN: {newStudentDetails.pin}</h1>
+                            <h1 className="text-md font-semibold text-gray-500">Name: {newAccountDetails.role} {newAccountDetails.name}</h1>
+                            <h1 className="text-md font-semibold text-gray-500">ID: {newAccountDetails.username}</h1>
+                            <h1 className="text-md font-semibold text-gray-500">PIN: {newAccountDetails.pin}</h1>
                         </div>
 
                         <div className="flex justify-end gap-3">
@@ -47,7 +47,7 @@ const Account_Conformation = ({newStudentDetails, closeAccountConfirmation}) => 
                                     alert("Confirmed!");
                                     closeAccountConfirmation;
                                 }}
-                                className="px-4 py-2 bg-emerald-500 text-white rounded-lg mt-4"
+                                className="px-4 py-2 bg-emerald-500 text-white rounded-lg mt-4 cursor-pointer"
                             >
                                 Confirm
                             </button>

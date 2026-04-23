@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 
-const RegisterEmployeeModal = ({ reFetchEmployee, closeEmployeeModal }) => { 
+const RegisterEmployeeModal = ({openAccountConfirmation, reFetchEmployee, closeEmployeeModal }) => { 
 
        const [lastname, setLastname] = useState("");
        const [firstname, setFirstname] = useState("");
@@ -120,7 +120,7 @@ const RegisterEmployeeModal = ({ reFetchEmployee, closeEmployeeModal }) => {
                         alert(res.data.message);
                         closeEmployeeModal();
                         reFetchEmployee();
-
+                        openAccountConfirmation(res.data.account);
                     }
                     
                } catch (error) {

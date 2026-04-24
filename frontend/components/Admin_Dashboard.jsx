@@ -10,12 +10,12 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
     const [studentList, setStudentList] = useState([]);
 
     return(
-        <section className="h-screen w-full border-b-1 border-gray-300 justify-start items-center flex px-20 py-25 gap-4">
+        <section className="h-screen w-full border-b-1 border-gray-300 justify-start items-center flex px-20 pt-20 pb-10 gap-4">
 
-            <div className="bg-white h-full w-100 border-1 border-emerald-500 justify-between items-start flex flex-col p-4 rounded-xl gap-2">
+            <aside className="bg-white h-full w-100 shadow-md justify-between items-start flex flex-col p-4 rounded-2xl gap-2">
                 <div className="w-full space-y-2">
-                    <div className=" h-12 w-full bg-emerald-500 rounded-xl justify-center items-center flex">
-                        <h1 className="text-sm font-semibold text-white">Little Me Library System</h1>
+                    <div className=" h-12 w-full rounded-xl justify-center items-center flex">
+                        <h1 className="text-sm font-semibold text-emerald-500">Little Me Library System</h1>
                     </div>
                     <div className="space-y-2 w-full">
                         <button className="h-12 w-full text-start px-10 rounded-xl cursor-pointer text-sm font-bold text-emerald-600 hover:bg-emerald-600 hover:text-white">➜ Overview</button>
@@ -26,15 +26,15 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
                 </div>
 
                 <div className="space-y-2 w-full">
-                        <button className="bg-red-100 h-12 w-full text-start px-10 rounded-xl cursor-pointer text-sm font-bold text-red-600 hover:bg-red-600 hover:text-white">➜ Logout</button>
+                        <button className="bg-gray-100 h-12 w-full text-start px-10 rounded-xl cursor-pointer text-sm font-bold text-gray-600 hover:bg-gray-600 hover:text-white">➜ Logout</button>
 
                 </div>
 
                     
                     
-            </div>
+            </aside>
 
-            <div className="h-full w-full justify-start items-center flex flex-col gap-2">
+            <div className="h-full w-full justify-start items-center flex flex-col gap-2 pt-4 space-y-4">
                     
                     <div className="min-h-[100px] w-full justify-start items-start flex flex-col rounded-xl p-2">
                         <p className="text-xl">Hello User, Good day 👋</p>
@@ -59,8 +59,8 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
                        
                     </div>
                     
-                    <div className="h-full w-full justify-center items-start flex gap-2">
-                        <div className="h-full w-full p-2 flex flex-col gap-2 rounded-xl shadow-md">
+                    <div className="w-full justify-center items-start flex gap-2">
+                        <div className="bg-white w-full p-2 flex flex-col gap-2 rounded-xl shadow-md">
                                 <div className="h-12 w-full border-b-1 border-emerald-500 justify-between items-center flex p-2">
                                     <h1 className="text-sm font-semibold text-emerald-500">Newest Added Students</h1>
                                     <h1 className="text-sm font-semibold text-emerald-500 underline">View all</h1>
@@ -72,7 +72,7 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
                                     )}
                         </div>
 
-                            <div className="h-full w-full p-2 flex flex-col gap-2 rounded-xl shadow-md">
+                        <div className="bg-white w-full p-2 flex flex-col gap-2 rounded-xl shadow-md">
                                 <div className="h-12 w-full border-b-1 border-emerald-500 justify-between items-center flex p-2">
                                     <h1 className="text-sm font-semibold text-emerald-500">Newest Added Employee</h1>
                                     <h1 className="text-sm font-semibold text-emerald-500 underline">View all</h1>
@@ -82,7 +82,23 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
                                             <h1 className="text-emerald-500 text-sm">No employee found.</h1>
                                         </div>
                                     )}
-                            </div>
+                        </div>
+
+                        <div className="bg-white w-full p-2 flex flex-col gap-2 rounded-xl shadow-md">
+                                <div className="h-12 w-full border-b-1 border-emerald-500 justify-between items-center flex p-2">
+                                    <h1 className="text-sm font-semibold text-emerald-500">Newest Added Employee</h1>
+                                    <h1 className="text-sm font-semibold text-emerald-500 underline">View all</h1>
+                                </div>
+                                {studentList.length < 1 && (
+                                        <div className="h-12 w-full bg-emerald-100 rounded-xl justify-center items-center flex">
+                                            <h1 className="text-emerald-500 text-sm">No employee found.</h1>
+                                        </div>
+                                    )}
+                        </div>
+                    </div>
+
+                    <div className="bg-white h-full w-full shadow-md rounded-xl p-4">
+                        <h1 className="font-semibold text-gray-500">Top Visited Stories</h1>
                     </div>
                     
 

@@ -1,7 +1,7 @@
 
 const Admin_Materials = () => {
     return(
-        <section className="bg-white h-screen w-full flex py-10 px-20 border-t-1 border-gray-300 gap-4">
+        <section className="h-screen w-full flex py-10 px-20 gap-4">
               {/* <h1 className="text-xl font-semibold text-emerald-500 mb-4">Story Management</h1> */}
               {/* Upload Story Container */}
               

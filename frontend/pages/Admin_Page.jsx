@@ -76,7 +76,7 @@ const Admin_Page = () =>{
     }
 
     return(
-        <section className="w-full justify-start items-start flex">
+        <section className="bg-gradient-to-tr from-white via-gray-50 to-emerald-100 w-full justify-start items-start flex">
 
           <div className="h-screen w-full overflow-auto">
                 <nav className="fixed top-0 bg-white h-15 w-full justify-start items-center flex border-b-1 gap-2 border-gray-300 px-20">

@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
+    const navigate = useNavigate();
+
     const set_data = [
             { header: "Total no. of students", value: AllStudents.length },
             { header: "Total no. of employees", value: AllEmployees.length },
@@ -18,9 +21,10 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
                         <h1 className="text-sm font-semibold text-emerald-500">Little Me Library System</h1>
                     </div>
                     <div className="space-y-2 w-full">
-                        <button className="h-12 w-full text-start px-10 rounded-xl cursor-pointer text-sm font-bold text-emerald-600 hover:bg-emerald-600 hover:text-white">➜ Overview</button>
-                        <button className="h-12 w-full text-start px-10 rounded-xl cursor-pointer text-sm font-bold text-emerald-600 hover:bg-emerald-600 hover:text-white">➜ Materials</button>
-                        <button className="h-12 w-full text-start px-10 rounded-xl cursor-pointer text-sm font-bold text-emerald-600 hover:bg-emerald-600 hover:text-white">➜ Users</button>
+                        <button className="h-10 w-full text-start px-10 rounded-xl cursor-pointer text-sm font-semibold text-gray-400 hover:bg-emerald-600 hover:text-white">➜ Overview</button>
+                        <button className="h-10 w-full text-start px-10 rounded-xl cursor-pointer text-sm font-semibold text-gray-400 hover:bg-emerald-600 hover:text-white" onClick={() => navigate(`/admin-page/upload`)}>➜ Upload Story</button>
+                        <button className="h-10 w-full text-start px-10 rounded-xl cursor-pointer text-sm font-semibold text-gray-400 hover:bg-emerald-600 hover:text-white">➜ View Stories</button>
+                        <button className="h-10 w-full text-start px-10 rounded-xl cursor-pointer text-sm font-semibold text-gray-400 hover:bg-emerald-600 hover:text-white">➜ Accounts</button>
 
                     </div>
                 </div>

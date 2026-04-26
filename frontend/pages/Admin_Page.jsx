@@ -89,6 +89,8 @@ const Admin_Page = () =>{
                 {/* <Admin_Materials/> */}
                 <Admin_UserManagement   AllStudents={studentList} 
                                         AllEmployees={employeeList}
+                                        reFetchEmployee={fetchEmployees}
+                                        reFetchStudent={fetchStudents}
                                         openStudentModal={() => setShowRegisterStudentModal(true)}
                                         openEmployeeModal={() => setShowRegisterEmployeeModal(true)}
                                         handleEditStudent={handleEditStudent}

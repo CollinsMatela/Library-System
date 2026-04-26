@@ -17,8 +17,7 @@ const RegisterEmployeeModal = ({openAccountConfirmation, reFetchEmployee, closeE
        const [role, setRole] = useState("");
        const [gradeLevel, setGradeLevel] = useState("");
        const [branch, setBranch] = useState("");
-       const [username, setUsername] = useState("");
-       const [password, setPassword] = useState("");
+
 
        const [isLastname, setIsLastname] = useState(false);
        const [isFirstname, setIsFirstname] = useState(false);
@@ -49,7 +48,6 @@ const RegisterEmployeeModal = ({openAccountConfirmation, reFetchEmployee, closeE
        useEffect(() => {
             if(year && month && day) {
                 const calculatedAge = calculateAge(year, month, day);
-                console.log(calculatedAge);
                 setAge(calculatedAge);
             }
        }, [year, month, day]);

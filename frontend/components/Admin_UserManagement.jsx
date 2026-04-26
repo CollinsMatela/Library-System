@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react"
 import axios from "axios"
 
-const Admin_UserManagement = ({AllStudents, AllEmployees, openStudentModal, openEmployeeModal, handleEditStudent, handleEditEmployee}) => {
+const Admin_UserManagement = ({AllStudents, AllEmployees, reFetchEmployee, reFetchStudent, openStudentModal, openEmployeeModal, handleEditStudent, handleEditEmployee}) => {
 
     const deleteStudent = async (studentId) => {
           try {
             const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-student/${studentId}`);
             console.log(res.data.message);
-            fetchStudents();
+            reFetchStudent();
 
           } catch (error) {
             console.log(error)
@@ -17,7 +16,7 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, openStudentModal, open
         try {
             const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-employee/${employeeId}`);
             console.log(res.data.message);
-            fetchEmployees();
+            reFetchEmployee();
         } catch (error) {
             console.log(error)
         }
@@ -194,7 +193,7 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, openStudentModal, open
                             const updatedCreatedAt = new Date(employee.createdAt).toISOString().split("T")[0];
 
                             return(
-                                <div key={employee.employee_information.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-300 justify-center items-center flex px-4 py-2 mt-2 hover:bg-gray-300 cursor-pointer">
+                                <div key={employee.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-300 justify-center items-center flex px-4 py-2 mt-2 hover:bg-gray-300 cursor-pointer">
                                     <div className="w-[10%] break-words">
                                         <p className="text-gray-500">{index + 1}</p>
                                     </div>
@@ -228,7 +227,7 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, openStudentModal, open
                                     <div className="w-[10%] break-words flex gap-2">
                                             <button className="h-10 w-10 bg-emerald-300 text-white rounded-lg cursor-pointer hover:bg-gray-400" onClick={() => alert('Soon')}>Vw</button>
                                             <button className="h-10 w-10 bg-emerald-500 text-white rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => handleEditEmployee(employee)}>Edit</button>
-                                            <button className="h-10 w-10 bg-emerald-500 text-white rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteEmployee(employee.employee_information.id)}>Del</button>
+                                            <button className="h-10 w-10 bg-emerald-500 text-white rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteEmployee(employee.id)}>Del</button>
                                             
                                         </div>
                                         

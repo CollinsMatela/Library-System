@@ -3,7 +3,7 @@ import EmployeeModel from "../models/Employee_Registration_Model.js";
 const Delete_Employee_Controller = async (req, res) => {
     const { employeeId } = req.params;
     try {
-        const employee = await EmployeeModel.findOneAndDelete({"employee_information.id": employeeId });
+        const employee = await EmployeeModel.findOneAndDelete({"id": employeeId });
         if (!employee) {
             return res.status(404).json({ message: "Employee not found" });
         }

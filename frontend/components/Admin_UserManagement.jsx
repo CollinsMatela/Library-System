@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const Admin_UserManagement = ({AllStudents, AllEmployees, reFetchEmployee, reFetchStudent, openStudentModal, openEmployeeModal, handleEditStudent, handleEditEmployee}) => {
+const Admin_UserManagement = ({AllStudents, AllEmployees, reFetchEmployee, reFetchStudent,  openStudentModal, openEmployeeModal, handleEditStudent, handleEditEmployee}) => {
 
     const deleteStudent = async (studentId) => {
           try {

@@ -48,9 +48,9 @@ const LoginModal = ({ onClose }) => {
             localStorage.setItem("token", res.data.token)
             localStorage.setItem("user", JSON.stringify(res.data.user))
             if(res.data.role.toLowerCase() === "student"){
-              //Navigate to student library page
+              navigate(`/library`);
             } else if (res.data.role.toLowerCase() === "administrator"){
-              navigate(`/admin-page/${res.data.user.id}`);
+              navigate(`/admin-page`);
             }
           }
         } catch (error) {

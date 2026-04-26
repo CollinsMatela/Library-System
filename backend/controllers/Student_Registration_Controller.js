@@ -1,17 +1,18 @@
 import Student_Registration_Model from "../models/Student_Registration_Model.js";
 import bcrypt from "bcrypt";
+import { nanoid } from 'nanoid'
 
 const Student_Registration_Controller = async (req, res) => {
     const { lastname, firstname, middlename, year, month, day, age, gender, parentLastname, parentFirstname, parentMiddlename, parentEmail, parentContact, parentRelationship, gradeLevel, branch } = req.body;
 
-    const StudentId = `${new Date().getFullYear()}-${Math.floor(Math.random() * 1000) + 1000}`;
-    const PIN = `${Math.floor(Math.random() * 1000) + 1000}`;
-    const hashedPassword = await bcrypt.hash(PIN, 10);
+    const username = `${lastname}.${Math.floor(Math.random() * 1000) + 1000}@lmlc.edu`;
+    const defaultPassword = nanoid(10);
+    const hashedPassword = await bcrypt.hash(defaultPassword, 10);
 
     try {
 
         const newStudent = await Student_Registration_Model.create({
-            id: StudentId,
+            id: crypto.randomUUID(),
             student: {
                 lastname: lastname,
                 firstname: firstname,
@@ -36,7 +37,7 @@ const Student_Registration_Controller = async (req, res) => {
                 branch: branch
             },
             account: {
-                username: StudentId,
+                username: username,
                 password: hashedPassword
             }
         });
@@ -45,7 +46,7 @@ const Student_Registration_Controller = async (req, res) => {
               name: `${firstname} ${lastname}`,
               role: "Student",
               username: StudentId,
-              pin: PIN
+              password: defaultPassword
         }
         
         res.status(201).json({ message: "Student registered successfully", isSuccess: true, account: AccountData});

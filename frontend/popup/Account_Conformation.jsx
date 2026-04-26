@@ -38,7 +38,7 @@ const Account_Conformation = ({newAccountDetails, closeAccountConfirmation}) => 
                             </h1>
                             <h1 className="text-md font-semibold text-gray-500">Name: {newAccountDetails.role} {newAccountDetails.name}</h1>
                             <h1 className="text-md font-semibold text-gray-500">ID: {newAccountDetails.username}</h1>
-                            <h1 className="text-md font-semibold text-gray-500">PIN: {newAccountDetails.pin}</h1>
+                            <h1 className="text-md font-semibold text-gray-500">PIN: {newAccountDetails.password}</h1>
                         </div>
 
                         <div className="flex justify-end gap-3">

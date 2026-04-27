@@ -42,13 +42,6 @@ const Admin_Upload_Page = () => {
             if (genre === "") { setIsGenre(true); hasError = true; }
             if (gradeCategory === "") { setIsGradeCategory(true); hasError = true; }
 
-            if (question === "") { setIsQuestion(true); hasError = true; }
-            if (choiceA === "") { setIsChoiceA(true); hasError = true; }
-            if (choiceB === "") { setIsChoiceB(true); hasError = true; }
-            if (choiceC === "") { setIsChoiceC(true); hasError = true; }
-            if (choiceD === "") { setIsChoiceD(true); hasError = true; }
-            if (answer === "") { setIsAnswer(true); hasError = true; }
-
             return hasError;
     };
 
@@ -62,12 +55,15 @@ const Admin_Upload_Page = () => {
           setIsManual(false);
           setIsAIAssistant(true);
     }
-    const nextQuestion = () => {
-        let itHasError = ErrorChecker();
-        if(itHasError) {
-            alert('Has errors')
-            return
-        }
+    const addQuestion = () => {
+        
+            if (question === "") { setIsQuestion(true); return}
+            if (choiceA === "") { setIsChoiceA(true); return}
+            if (choiceB === "") { setIsChoiceB(true); return}
+            if (choiceC === "") { setIsChoiceC(true); return}
+            if (choiceD === "") { setIsChoiceD(true); return}
+            if (answer === "") { setIsAnswer(true); return}
+
           const newQuestion = {
             question: question,
             choices: [choiceA, choiceB, choiceC, choiceD],
@@ -85,6 +81,13 @@ const Admin_Upload_Page = () => {
           setChoiceC("");
           setChoiceD("");
           setAnswer("");
+    }
+    const uploadStory = () => {
+        let itHasError = ErrorChecker();
+        if(itHasError) {
+            alert('Has errors')
+            return
+        }
     }
 
     return (
@@ -108,10 +111,10 @@ const Admin_Upload_Page = () => {
             </div>
 
                 {/* MANUALLY UPLOAD STORY CONTAINER */}
-                <div className={`${isManual ? "" : "hidden"} w-full max-w-5xl flex gap-6`}>
+                <div className={`${isManual ? "" : "hidden"} w-full max-w-5xl flex bg-white rounded-xl p-4`}>
                     
                     {/* Story Details */}
-                    <div className="bg-white w-full rounded-xl shadow-lg p-6 flex flex-col gap-4">
+                    <div className="bg-white w-full p-6 flex flex-col gap-4">
                         <h2 className="text-xl font-semibold">Story Details</h2>
 
                         <input type="text" placeholder="Title" className={`${isTitle ? "bg-red-200" : "bg-gray-200"} outline-none p-2 rounded-lg`} 
@@ -170,11 +173,62 @@ const Admin_Upload_Page = () => {
                         </select>
                     </div>
 
-                    {/* Quiz Creation */}
-                    <div className="bg-white w-full rounded-xl shadow-lg p-6 flex flex-col gap-4">
+                    <div className="bg-white w-full p-6 flex flex-col gap-5 rounded-xl shadow-sm">
+  
+                            {/* Header */}
+                            <h2 className="text-xl font-semibold text-gray-800">Preview</h2>
+
+                            {/* Image */}
+                            <div className="w-full h-52 bg-gray-200 rounded-xl overflow-hidden">
+                                <img
+                                src=""
+                                alt="Story Preview"
+                                className="w-full h-full object-cover"
+                                />
+                            </div>
+
+                            {/* Content */}
+                            <div className="flex flex-col gap-3">
+                                
+                                {/* Title */}
+                                <h1 className="text-2xl font-bold text-gray-900">
+                                {title || "Story Title"}
+                                </h1>
+
+                                {/* Description */}
+                                <p className="text-gray-600 text-sm leading-relaxed">
+                                {description || "Short description of the story will appear here."}
+                                </p>
+
+                                {/* Tags */}
+                                <div className="flex flex-wrap gap-2 mt-2">
+                                
+                                <span className="px-3 py-1 text-sm bg-blue-100 text-blue-600 rounded-full">
+                                    {genre || "Genre"}
+                                </span>
+
+                                <span className="px-3 py-1 text-sm bg-green-100 text-green-600 rounded-full">
+                                    {gradeCategory || "Grade"}
+                                </span>
+
+                                </div>
+
+                                {/* Author */}
+                                <p className="text-xs text-gray-400 mt-2">
+                                By {author || "Author Name"}
+                                </p>
+
+                            </div>
+                        </div>
+
+                    
+                </div>
+
+        <div className={`${isManual ? null : "hidden"} w-full max-w-5xl flex p-4 bg-white rounded-xl`}>
+                {/* Quiz Creation */}
+                    <div className={`bg-white w-full p-6 flex flex-col gap-4`}>
                         <div className="w-ful justify-between items-center flex">
-                            <h2 className="text-xl font-semibold">Quiz Creation</h2>
-                            <h2 className="text-xl font-semibold">{`${quizList.length} out of 5`}</h2>
+                            <h2 className="text-xl font-semibold">Quiz Creation <span className="text-sm text-gray-300">{`| ${quizList.length} out of 5`}</span></h2>
                         </div>
                         
 
@@ -223,35 +277,46 @@ const Admin_Upload_Page = () => {
                                 <option value={choiceB}>B</option>
                                 <option value={choiceC}>C</option>
                                 <option value={choiceD}>D</option>
-                                </select>
+                        </select>
 
-                        <button className={`${isAddQuestion ? 'hidden' : null} bg-green-500 text-white py-2 rounded-lg hover:bg-green-600`} onClick={nextQuestion}>
-                            Add Question
-                        </button>
-                    </div>
-                </div>
-
-        <div className="w-full max-w-5xl flex gap-6">
-                {/* RIGHT: Preview */}
-                {/* <div className="bg-white w-1/2 rounded-xl shadow-lg p-6 flex flex-col justify-between gap-4">
-                    
-                    <div className="w-full space-y-2">
-                        <h2 className="text-xl font-semibold">Preview</h2>
-
-                        <div className="bg-gray-200 h-40 rounded-lg flex items-center justify-center text-gray-500">
-                            Image Preview
+                        <div className="w-full h-10 justify-end items-center flex">
+                            <button className={`${isAddQuestion ? 'hidden' : null} bg-blue-500 px-2 text-white py-2 rounded-full cursor-pointer hover:bg-blue-600`} onClick={addQuestion}>
+                            + Question
+                            </button>
                         </div>
 
-                        <h3 className="text-lg font-bold">Story Title</h3>
-                        <p className="text-gray-600 text-sm">
-                            Story description will appear here...
-                        </p>
                     </div>
 
-                    <button className="bg-blue-600 w-full text-white py-2 rounded-lg hover:bg-blue-700 transition">
-                        Upload Story
-                    </button>
-                </div> */}
+                    <div className="bg-white w-full max-w-5xl flex flex-col border-l-2 border-gray-300 gap-4 py-6 pl-4 overflow-y-auto">
+                         <h2 className="text-xl font-semibold">Questionnaires</h2>
+                         {quizList.length <= 0 && (
+                            <div className="bg-gray-100 text-gray-400 text-sm text-center py-4 rounded-xl">
+                                No questions added yet
+                            </div>
+                         )}
+                         {quizList.length > 0 && (
+                            quizList.map((questionnaire, index) => (
+                                <div key={index} className="bg-white border-2 border-gray-300 py-4 rounded-xl p-2 space-y-2">
+                                   <p className="font-semibold">{`Q${index + 1}. ${questionnaire.question}`}</p>
+                                   <ul className="h-8 w-full flex gap-2">
+                                        <li className="px-2 py-1 text-sm bg-blue-100 text-blue-600 rounded-full">{questionnaire.choices[0]}</li>
+                                        <li className="px-2 py-1 text-sm bg-blue-100 text-blue-600 rounded-full">{questionnaire.choices[1]}</li>
+                                        <li className="px-2 py-1 text-sm bg-blue-100 text-blue-600 rounded-full">{questionnaire.choices[2]}</li>
+                                        <li className="px-2 py-1 text-sm bg-blue-100 text-blue-600 rounded-full">{questionnaire.choices[3]}</li>
+                                   </ul>
+                                   <div className="h-8 w-full border-t-2 border-gray-300 py-2">
+                                        <p className="px-2 py-1 text-sm bg-green-100 text-green-600 rounded-full inline-flex">Answer key: {questionnaire.answer}</p>
+                                   </div>
+                                </div>
+                            ))
+                            
+                         )}
+                    </div>
+                    
+            </div>
+
+            <div className={`${isManual ? null : "hidden"} bg-white h-20 w-5xl rounded-xl justify-end px-6 items-center flex`}>
+                <button className="h-12 px-4 text-white font-semibold bg-blue-500 hover:bg-blue-600 rounded-full cursor-pointer">Upload Story</button>
             </div>
         </section>
     )

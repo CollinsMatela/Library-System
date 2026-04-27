@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const Admin_Upload_Page = () => {
     const [isManual, setIsManual] = useState(false);
@@ -33,19 +33,24 @@ const Admin_Upload_Page = () => {
 
     const [quizList, setQuizList] = useState([]);
 
-    const ErrorChecker = () => {
-            let hasError = false;
-
-            if (title === "") { setIsTitle(true); hasError = true; }
-            if (author === "") { setIsAuthor(true); hasError = true; }
-            if (description === "") { setIsDescription(true); hasError = true; }
-            if (genre === "") { setIsGenre(true); hasError = true; }
-            if (gradeCategory === "") { setIsGradeCategory(true); hasError = true; }
-
-            return hasError;
-    };
-
     
+    const [file, setFile] = useState(null);
+    const [preview, setPreview] = useState("");
+
+    useEffect(() => {
+    return () => {
+        if (preview) {
+        URL.revokeObjectURL(preview);
+        }
+    };
+    }, [preview]);
+
+    const handleImagePreview = async (e) => {
+         const selected = e.target.files[0];
+         setFile(selected);
+        //  console.log(file);
+         setPreview(URL.createObjectURL(selected)); // 👈 local preview
+    }
 
     const clickManualBtn = () => {
           setIsManual(true);
@@ -83,11 +88,17 @@ const Admin_Upload_Page = () => {
           setAnswer("");
     }
     const uploadStory = () => {
-        let itHasError = ErrorChecker();
-        if(itHasError) {
-            alert('Has errors')
-            return
+        if (title === "") { setIsTitle(true);}
+        if (author === "") { setIsAuthor(true);}
+        if (description === "") { setIsDescription(true);}
+        if (genre === "") { setIsGenre(true);}
+        if (gradeCategory === "") { setIsGradeCategory(true);}
+
+        if(quizList.length < 4){
+            alert("Create five (5) questionnaires")
+            return;
         }
+        alert("Congrats")
     }
 
     return (
@@ -171,20 +182,27 @@ const Admin_Upload_Page = () => {
                             <option value="grade 3">Grade 3</option>
                             <option value="grade 4">Grade 4</option>
                         </select>
+
+                        <input type="file" className="bg-gray-200 outline-none p-2 rounded-lg cursor-pointer" onChange={handleImagePreview} />
                     </div>
 
                     <div className="bg-white w-full p-6 flex flex-col gap-5 rounded-xl shadow-sm">
   
                             {/* Header */}
-                            <h2 className="text-xl font-semibold text-gray-800">Preview</h2>
+                            <div className="w-full flex gap-2">
+                                <h2 className="text-xl font-semibold text-gray-800">Preview</h2>
+                            </div>
+                            
 
                             {/* Image */}
                             <div className="w-full h-52 bg-gray-200 rounded-xl overflow-hidden">
-                                <img
-                                src=""
-                                alt="Story Preview"
-                                className="w-full h-full object-cover"
-                                />
+                                {preview && (
+                                    <img
+                                    src={preview}
+                                    alt="preview"
+                                    className="w-full"
+                                    />
+                                )}
                             </div>
 
                             {/* Content */}
@@ -316,7 +334,7 @@ const Admin_Upload_Page = () => {
             </div>
 
             <div className={`${isManual ? null : "hidden"} bg-white h-20 w-5xl rounded-xl justify-end px-6 items-center flex`}>
-                <button className="h-12 px-4 text-white font-semibold bg-blue-500 hover:bg-blue-600 rounded-full cursor-pointer">Upload Story</button>
+                <button className="h-12 px-4 text-white font-semibold bg-blue-500 hover:bg-blue-600 rounded-full cursor-pointer" onClick={uploadStory}>Upload Story</button>
             </div>
         </section>
     )

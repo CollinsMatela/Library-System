@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import axios from 'axios'
 
 const Admin_Upload_Page = () => {
     const [isManual, setIsManual] = useState(false);
@@ -10,12 +11,14 @@ const Admin_Upload_Page = () => {
     const [description, setDescription] = useState("");
     const [genre, setGenre] = useState("");
     const [gradeCategory, setGradeCategory] = useState("");
+    const [textStory, setTextStory] = useState("")
 
     const [isTitle, setIsTitle] = useState(false);
     const [isAuthor, setIsAuthor] = useState(false);
     const [isDescription, setIsDescription] = useState(false);
     const [isGenre, setIsGenre] = useState(false);
     const [isGradeCategory, setIsGradeCategory] = useState(false);
+    const [isTextStory, setIsTextStory] = useState(false)
 
     const [question, setQuestion] = useState("");
     const [choiceA, setChoiceA] = useState("");
@@ -48,7 +51,6 @@ const Admin_Upload_Page = () => {
     const handleImagePreview = async (e) => {
          const selected = e.target.files[0];
          setFile(selected);
-        //  console.log(file);
          setPreview(URL.createObjectURL(selected)); // 👈 local preview
     }
 
@@ -87,22 +89,45 @@ const Admin_Upload_Page = () => {
           setChoiceD("");
           setAnswer("");
     }
-    const uploadStory = () => {
-        if (title === "") { setIsTitle(true);}
-        if (author === "") { setIsAuthor(true);}
-        if (description === "") { setIsDescription(true);}
-        if (genre === "") { setIsGenre(true);}
-        if (gradeCategory === "") { setIsGradeCategory(true);}
-
-        if(quizList.length < 4){
+    const uploadStory = async () => {
+        if (title === "") { setIsTitle(true); return;}
+        if (author === "") { setIsAuthor(true); return;}
+        if (description === "") { setIsDescription(true); return;}
+        if (textStory === "") {setIsTextStory(true); return;}
+        if (genre === "") { setIsGenre(true); return;}
+        if (gradeCategory === "") { setIsGradeCategory(true); return;}
+        if(file === null){
+            alert("Insert image of the story")
+            return;
+        }
+        if(quizList.length < 5){
             alert("Create five (5) questionnaires")
             return;
         }
-        alert("Congrats")
+
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("author", author);
+        formData.append("description", description);
+        formData.append("genre", genre);
+        formData.append("gradeCategory", gradeCategory);
+        formData.append("textStory", textStory);
+        formData.append("image", file);
+        formData.append("questionnaire", JSON.stringify(quizList));
+
+        try {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/upload-manually`, formData);
+            if(res.data.isSuccess){
+                alert(res.data.message);
+            }
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
 
     return (
-        <section className="bg-gray-50 min-h-screen w-full flex flex-col items-center px-6 py-10 gap-6">
+        <section className="bg-gray-50 min-h-screen w-full flex flex-col items-center px-50 py-10 gap-6">
             
             {/* Header */}
             <div className="w-full max-w-5xl justify-between items-end flex">
@@ -125,7 +150,7 @@ const Admin_Upload_Page = () => {
                 <div className={`${isManual ? "" : "hidden"} w-full max-w-5xl flex bg-white rounded-xl p-4`}>
                     
                     {/* Story Details */}
-                    <div className="bg-white w-full p-6 flex flex-col gap-4">
+                    <div className="bg-white w-1/2 p-6 flex flex-col gap-4">
                         <h2 className="text-xl font-semibold">Story Details</h2>
 
                         <input type="text" placeholder="Title" className={`${isTitle ? "bg-red-200" : "bg-gray-200"} outline-none p-2 rounded-lg`} 
@@ -141,10 +166,19 @@ const Admin_Upload_Page = () => {
 
                         <textarea 
                             placeholder="Description"
-                            className={`${isDescription ? "bg-red-200" : "bg-gray-200"} h-25 outline-none p-2 rounded-lg`}
+                            className={`${isDescription ? "bg-red-200" : "bg-gray-200"} h-10 outline-none p-2 rounded-lg`}
                             value={description}
                             onChange={(e) => {setDescription(e.target.value)
                                               setIsDescription(e.target.value === "");
+                            }}
+                        />
+
+                        <textarea 
+                            placeholder="Summary of the story"
+                            className={`${isTextStory ? "bg-red-200" : "bg-gray-200"} h-25 outline-none p-2 rounded-lg`}
+                            value={textStory}
+                            onChange={(e) => {setTextStory(e.target.value)
+                                              setIsTextStory(e.target.value === "");
                             }}
                         />
 
@@ -184,9 +218,10 @@ const Admin_Upload_Page = () => {
                         </select>
 
                         <input type="file" className="bg-gray-200 outline-none p-2 rounded-lg cursor-pointer" onChange={handleImagePreview} />
+
                     </div>
 
-                    <div className="bg-white w-full p-6 flex flex-col gap-5 rounded-xl shadow-sm">
+                    <div className="bg-white w-1/2 p-6 flex flex-col gap-5 rounded-xl shadow-sm">
   
                             {/* Header */}
                             <div className="w-full flex gap-2">
@@ -235,6 +270,13 @@ const Admin_Upload_Page = () => {
                                 <p className="text-xs text-gray-400 mt-2">
                                 By {author || "Author Name"}
                                 </p>
+
+                                <div className="w-full">
+                                <p className="text-gray-600 text-sm leading-relaxed break-words">
+                                {textStory || "Summary of the story will appear here."}
+                                </p> 
+                                </div>
+                                
 
                             </div>
                         </div>

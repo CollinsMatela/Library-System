@@ -1,4 +1,9 @@
 import dotenv from 'dotenv';
+dotenv.config();
+
+import { connectCloudinary } from "./config/cloudinary.js";
+connectCloudinary(); // 👈 IMPORTANT: run AFTER dotenv
+
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
@@ -12,8 +17,7 @@ import Delete_Employee_Route from './routes/Delete_Employee_Route.js';
 import Edit_Student_Route from './routes/Edit_Student_Route.js';
 import Edit_Employee_Route from './routes/Edit_Employee_Route.js'
 import Login_Route from './routes/Login_Route.js';
-
-dotenv.config();
+import Upload_Manually_Route from './routes/Upload_Manually_Route.js'
 
 const app = express();
 app.use(cors());
@@ -29,6 +33,7 @@ app.use("/", Delete_Employee_Route);
 app.use("/", Edit_Student_Route);
 app.use("/", Edit_Employee_Route);
 app.use("/", Login_Route);
+app.use("/", Upload_Manually_Route);
 
 const PORT = process.env.PORT || 5000;
 

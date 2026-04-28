@@ -76,7 +76,7 @@ const Admin_Page = () =>{
     }
 
     return(
-        <section className="bg-gradient-to-tr from-white via-gray-50 to-emerald-100 w-full justify-start items-start flex">
+        <section className="bg-gradient-to-tr from-gray-200 via-white to-gray-100 w-full justify-start items-start flex">
 
           <div className="h-screen w-full overflow-auto">
                 <nav className="fixed top-0 bg-white h-15 w-full justify-start items-center flex border-b-1 gap-2 border-gray-300 px-20">
@@ -85,8 +85,7 @@ const Admin_Page = () =>{
                 <Admin_Dashboard AllStudents={studentList} 
                                  AllEmployees={employeeList}
                                 />
-                <Admin_Stories/>
-                {/* <Admin_Materials/> */}
+
                 <Admin_UserManagement   AllStudents={studentList} 
                                         AllEmployees={employeeList}
                                         reFetchEmployee={fetchEmployees}

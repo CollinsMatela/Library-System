@@ -8,8 +8,10 @@ import Edit_Employee_Modal from "../modals/Edit_Employee_Modal"
 import Account_Conformation from "../popup/Account_Conformation"
 import { useState, useEffect} from "react"
 import axios from "axios"
+import useAuthStore from "../store/useAuthStore"
 
 const Admin_Page = () =>{
+    const user = useAuthStore((state) => state.user);
 
     const [studentList, setStudentList] = useState([])
     const [employeeList, setEmployeeList] = useState([])

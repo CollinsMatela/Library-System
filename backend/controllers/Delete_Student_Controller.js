@@ -3,7 +3,7 @@ import StudentModel from "../models/Student_Registration_Model.js";
 const Delete_Student_Controller = async (req, res) => {
     const { studentId } = req.params;
     try {
-        const student = await StudentModel.findOneAndDelete({"student.id": studentId});
+        const student = await StudentModel.findOneAndDelete({id: studentId});
         if(!student){
             res.status(404).json({message: "Student not found"});
         } else {

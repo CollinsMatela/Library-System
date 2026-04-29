@@ -14,7 +14,7 @@ const Change_Password_Page = () => {
                     Default passwords are easy to guess and can put your account at risk.
                 </p>
             </div>
-            <h1 className="text-sm text-gray-800 font-semibold mb-2">Name:</h1>
+            <h1 className="text-sm text-gray-800 font-semibold mb-2">Name: </h1>
             <input type="password" 
                    placeholder="Enter new password"
                    className="w-full bg-gray-200 h-12 rounded-md outline-none px-4 mb-4"

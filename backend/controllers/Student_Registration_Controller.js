@@ -13,39 +13,32 @@ const Student_Registration_Controller = async (req, res) => {
 
         const newStudent = await Student_Registration_Model.create({
             id: crypto.randomUUID(),
-            student: {
-                lastname: lastname,
-                firstname: firstname,
-                middlename: middlename,
-                year: year,
-                month: month,
-                day: day,
-                age: age,
-                gender: gender
-            },
-            parent: {
-                parentLastname: parentLastname,
-                parentFirstname: parentFirstname,
-                parentMiddlename: parentMiddlename,
-                parentEmail: parentEmail,
-                parentContact: parentContact,
-                parentRelationship: parentRelationship
-            },
-            school: {
-                role: "Student",
-                gradeLevel: gradeLevel,
-                branch: branch
-            },
-            account: {
-                username: username,
-                password: hashedPassword
-            }
+            lastname: lastname,
+            firstname: firstname,
+            middlename: middlename,
+            year: year,
+            month: month,
+            day: day,
+            age: age,
+            gender: gender,
+            parentLastname: parentLastname,
+            parentFirstname: parentFirstname,
+            parentMiddlename: parentMiddlename,
+            parentEmail: parentEmail,
+            parentContact: parentContact,
+            parentRelationship: parentRelationship,
+            role: "Student",
+            gradeLevel: gradeLevel,
+            branch: branch,
+            username: username,
+            password: hashedPassword
+
         });
 
         const AccountData = {
               name: `${firstname} ${lastname}`,
               role: "Student",
-              username: StudentId,
+              username: username,
               password: defaultPassword
         }
         

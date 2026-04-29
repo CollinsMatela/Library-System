@@ -9,9 +9,13 @@ import Account_Conformation from "../popup/Account_Conformation"
 import { useState, useEffect} from "react"
 import axios from "axios"
 import useAuthStore from "../store/useAuthStore"
+import { useNavigate } from "react-router-dom"
 
 const Admin_Page = () =>{
     const user = useAuthStore((state) => state.user);
+    const logout = useAuthStore((state) => state.logout);
+
+    const navigate = useNavigate();
 
     const [studentList, setStudentList] = useState([])
     const [employeeList, setEmployeeList] = useState([])
@@ -77,13 +81,19 @@ const Admin_Page = () =>{
         setRefreshEmployeeTable(prev => !prev);
     }
 
+    const handleLogout = () =>{
+          logout();
+          localStorage.removeItem("token");
+          navigate("/");
+    }
+
     return(
         <section className="bg-gradient-to-tr from-gray-200 via-white to-gray-100 w-full justify-start items-start flex">
 
           <div className="h-screen w-full overflow-auto">
                 <nav className="fixed top-0 bg-white h-15 w-full justify-between items-center flex border-b-1 gap-2 border-gray-300 px-30">
                         <h1 className="text-xl font-semibold text-blue-500">Admin Overview</h1>
-                        <button className="bg-gray-100 px-4 py-1 rounded-full shadow-lg text-sm font-semibold text-gray-400 cursor-pointer">Logout</button>
+                        <button className="bg-gray-100 px-4 py-1 rounded-full shadow-lg text-sm font-semibold text-gray-400 cursor-pointer" onClick={handleLogout}>Logout</button>
                 </nav>
                 <Admin_Dashboard AllStudents={studentList} 
                                  AllEmployees={employeeList}

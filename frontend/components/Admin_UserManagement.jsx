@@ -85,30 +85,30 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, reFetchEmployee, reFet
                                 const updatedCreatedAt = new Date(student.createdAt).toISOString().split("T")[0];;
                                 
                                 return (
-                                <div key={student.student.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-100 justify-center items-center flex px-4 py-2 mt-2 hover:bg-blue-100 cursor-pointer">
+                                <div key={student.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-100 justify-center items-center flex px-4 py-2 mt-2 hover:bg-blue-100 cursor-pointer">
                                     <div className="w-[10%] break-words">
                                         <p className="text-sm text-gray-500">{index + 1}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.student.lastname}</p>
+                                        <p className="text-sm text-gray-500">{student.lastname}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.student.firstname}</p>
+                                        <p className="text-sm text-gray-500">{student.firstname}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{`${student.student.month}/${student.student.day}/${student.student.year}`}</p>
+                                        <p className="text-sm text-gray-500">{`${student.month}/${student.day}/${student.year}`}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.parent.parentEmail}</p>
+                                        <p className="text-sm text-gray-500">{student.parentEmail}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.parent.parentContact}</p>
+                                        <p className="text-sm text-gray-500">{student.parentContact}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.school.gradeLevel}</p>
+                                        <p className="text-sm text-gray-500">{student.gradeLevel}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.school.branch}</p>
+                                        <p className="text-sm text-gray-500">{student.branch}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
                                         <p className="text-sm text-gray-500">{updatedCreatedAt}</p>
@@ -196,28 +196,28 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, reFetchEmployee, reFet
                                         <p className="text-gray-500">{index + 1}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-gray-500">{employee.personal_information.lastname}</p>
+                                        <p className="text-gray-500">{employee.lastname}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-gray-500">{employee.personal_information.firstname}</p>
+                                        <p className="text-gray-500">{employee.firstname}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-gray-500">{employee.personal_information.year}-{employee.personal_information.month}-{employee.personal_information.day}</p>
+                                        <p className="text-gray-500">{employee.year}/{employee.month}/{employee.day}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-gray-500">{employee.personal_information.email}</p>
+                                        <p className="text-gray-500">{employee.email}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-gray-500">{employee.personal_information.contact}</p>
+                                        <p className="text-gray-500">{employee.contact}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-gray-500">{employee.employee_information.gradeLevel}</p>
+                                        <p className="text-gray-500">{employee.gradeLevel}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-gray-500">{employee.employee_information.branch}</p>
+                                        <p className="text-gray-500">{employee.branch}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                            <p className={`text-white ${employee.employee_information.role === "Administrator" ? "bg-green-500" : "bg-blue-500"} rounded-full inline-flex px-2`}>{employee.employee_information.role}</p>
+                                            <p className={`text-white ${employee.role === "Administrator" ? "bg-green-500" : "bg-blue-500"} rounded-full inline-flex px-2`}>{employee.role}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
                                         <p className="text-gray-500">{updatedCreatedAt}</p>

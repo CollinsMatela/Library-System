@@ -56,12 +56,20 @@ const LoginModal = ({ onClose }) => {
             localStorage.setItem("token", token)
 
             setAuth(user, token, role);
-
-            if(role.toLowerCase() === "student"){
-              navigate(`/library`);
-            } else if (role.toLowerCase() === "administrator"){
-              navigate(`/admin-page`);
+            
+            if(user.isChangePassword === false){
+              navigate(`/change-password`);
             }
+            else {
+              if(role.toLowerCase() === "student"){
+              navigate(`/library`);
+              } 
+              else if (role.toLowerCase() === "administrator"){
+                navigate(`/admin-page`);
+              }
+            }
+
+            
           }
         } catch (error) {
           console.log(error)

@@ -33,7 +33,7 @@ const Employee_Registration_Controller = async (req, res) => {
             },
             account_information: {
               username: username,
-              password: hashedPIN 
+              password: hashedPassword 
             }
         })
 

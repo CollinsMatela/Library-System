@@ -22,7 +22,8 @@ const Employee_Registration_Schema = new mongoose.Schema({
     account_information: {
         username: { type: String, required: true },
         password: { type: String, required: true },
-    }
+    },
+    isChangePassword: { type: Boolean, default: false },
     
 }, { timestamps: true });
 

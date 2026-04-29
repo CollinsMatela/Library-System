@@ -13,14 +13,14 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
     const [studentList, setStudentList] = useState([]);
 
     return(
-        <section className="h-screen w-full border-b-1 border-gray-300 justify-start items-center flex px-30 pt-20 pb-10 gap-4">
+        <section className="h-screen w-full border-b-1 border-gray-300 justify-start items-center flex px-30 pt-15 pb-5 gap-4">
 
-            <div className="h-full w-full justify-start items-center flex flex-col gap-2 pt-4 space-y-4">
+            <div className="h-full w-full justify-start items-center flex flex-col gap-2 pt-4 space-y-2">
                     
-                    <div className="min-h-[100px] w-full justify-start items-start flex flex-col rounded-xl p-2">
-                        <p className="text-xl">Hello User, Good day 👋</p>
+                    <div className="w-full justify-start items-start flex flex-col rounded-xl p-2">
+                        <p className="text-2xl text-gray-700 font-semibold">Hello User, Good day 👋</p>
                         <p className="text-sm text-gray-500">Let's check today's activity</p>
-                        <p className="text-sm bg-emerald-100 text-emerald-400 rounded-full px-2 border-1 mt-2">User - Admin Page</p>
+                        {/* <p className="text-sm bg-emerald-100 text-emerald-400 rounded-full px-2 border-1 mt-2">User - Admin Page</p> */}
                     </div>
 
                     <div className="w-full bg-white rounded-xl flex p-2 gap-2">
@@ -35,7 +35,7 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
                     >
                         Manual Upload
                     </button>
-
+  
                     <button className="h-12 w-full text-left px-4 cursor-pointer text-xs font-semibold text-gray-400 hover:bg-gray-200 hover:text-white">
                         AI Upload
                     </button>
@@ -75,8 +75,8 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
 
             </div>
 
-            <div className="border-l-2 border-gray-300 h-full w-1/4 justify-center items-center flex p-4">
-                 <div className="bg-white w-full p-2 flex flex-col gap-2 rounded-xl shadow-md">
+            <div className="border-l-2 border-gray-300 h-full w-100 justify-start items-start flex flex-col p-4">
+                 <div className=" w-full p-2 flex flex-col gap-2 rounded-xl shadow-md">
                                 <div className="h-12 w-full border-b-1 border-emerald-500 justify-between items-center flex p-2">
                                     <h1 className="text-sm font-semibold text-emerald-500">Newest Added Employee</h1>
                                     <h1 className="text-sm font-semibold text-emerald-500 underline">View all</h1>

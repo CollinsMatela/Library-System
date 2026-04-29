@@ -79,8 +79,9 @@ const Admin_Page = () =>{
         <section className="bg-gradient-to-tr from-gray-200 via-white to-gray-100 w-full justify-start items-start flex">
 
           <div className="h-screen w-full overflow-auto">
-                <nav className="fixed top-0 bg-white h-15 w-full justify-start items-center flex border-b-1 gap-2 border-gray-300 px-20">
-                        <h1 className="text-xl font-semibold text-emerald-500">Dashboard Overview</h1>
+                <nav className="fixed top-0 bg-white h-15 w-full justify-between items-center flex border-b-1 gap-2 border-gray-300 px-30">
+                        <h1 className="text-xl font-semibold text-blue-500">Admin Overview</h1>
+                        <button className="bg-gray-100 px-4 py-1 rounded-full shadow-lg text-sm font-semibold text-gray-400 cursor-pointer">Logout</button>
                 </nav>
                 <Admin_Dashboard AllStudents={studentList} 
                                  AllEmployees={employeeList}

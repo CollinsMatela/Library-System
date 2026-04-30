@@ -85,7 +85,7 @@ const Admin_Page = () =>{
           logout();
           localStorage.removeItem("token");
           navigate("/");
-    }
+    }  
 
     return(
         <section className="bg-gradient-to-tr from-gray-200 via-white to-gray-100 w-full justify-start items-start flex">

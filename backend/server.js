@@ -18,6 +18,7 @@ import Edit_Student_Route from './routes/Edit_Student_Route.js';
 import Edit_Employee_Route from './routes/Edit_Employee_Route.js'
 import Login_Route from './routes/Login_Route.js';
 import Upload_Manually_Route from './routes/Upload_Manually_Route.js'
+import Change_Password_Route from './routes/Change_Password_Route.js'
 
 const app = express();
 app.use(cors());
@@ -34,6 +35,7 @@ app.use("/", Edit_Student_Route);
 app.use("/", Edit_Employee_Route);
 app.use("/", Login_Route);
 app.use("/", Upload_Manually_Route);
+app.use("/", Change_Password_Route);
 
 const PORT = process.env.PORT || 5000;
 

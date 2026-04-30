@@ -6,9 +6,8 @@ import Admin_Upload_Page from "../pages/Admin_Upload_Page";
 import Change_Password_Page from "../pages/Change_Password_Page";
 
 function App() {
-
   return (
-      <BrowserRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home_Page/>}/>
         <Route path="/library" element={<Library_Page/>}/>
@@ -16,9 +15,8 @@ function App() {
         <Route path="/admin-page/upload" element={<Admin_Upload_Page/>}/>
         <Route path="/change-password" element={<Change_Password_Page/>}/>
       </Routes>
-      </BrowserRouter>
-
+    </BrowserRouter>
   )
 }
 
-export default App
+export default App;

@@ -14,29 +14,13 @@ const LoginModal = ({ onClose }) => {
 
   const [isUsername, setIsUsername] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
-
-  const ErrorChecker = () =>{
-        let hasError = false;
-
-        if(username === "") {
-          setIsUsername(true)
-          return hasError = true;       
-        } else {
-          setIsUsername(false);
-        }
-        if(password === "") {
-          setIsPassword(true)
-          return hasError = true;       
-        } else {
-          setIsPassword(false);
-        }
-        return hasError;
-  }
+  const [isErrorContainer, setIsErrorContainer] = useState(false);
+  const [Message, setIsMessage ] = useState("");
 
   const loginAccount = async () => {
 
-        let itHasError = ErrorChecker();
-        if(itHasError) return;
+        if(username === ""){setIsUsername(true); return}
+        if(password === ""){setIsPassword(true); return}
 
         const account = {
           username: username,
@@ -45,10 +29,8 @@ const LoginModal = ({ onClose }) => {
 
         try {
           const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, account);
-          console.log(res.data.message);
-          if(res.data.isSuccess){
-            console.log(res.data.message);
-            
+
+          if(res.data.isSuccess){     
             const user = res.data.user;
             const token = res.data.token;
             const role = res.data.role;
@@ -68,11 +50,15 @@ const LoginModal = ({ onClose }) => {
                 navigate(`/admin-page`);
               }
             }
-
-            
+          } else {
+            setIsMessage(res.data.message) // if login failed
+            setIsErrorContainer(true)
           }
         } catch (error) {
-          console.log(error)
+          setIsMessage(
+            error.response?.data?.message || "Login failed. Please try again."
+          );
+          setIsErrorContainer(true);
         }
   }
 
@@ -80,27 +66,37 @@ const LoginModal = ({ onClose }) => {
     <section className="fixed inset-0 flex justify-center items-center z-50">
 
       <div
-        className="absolute inset-0 bg-black/50 z-0"
+        className="absolute inset-0 bg-white/50 z-0"
         onClick={onClose}
       ></div>
 
       <div className="relative z-10 bg-white w-[400px] justify-center items-center flex flex-col rounded-xl p-6">
-        <h1 className="text-2xl">Login your Account</h1>
-        <h1 className="mb-6 text-xs">Welcome Students! please sign-up your account.</h1>
+        <h1 className="text-xl font-semibold">Join the Learning Adventure!</h1>
+        <h1 className="mb-6 text-xs text-gray-500 mb-6">Sign up now and discover fun stories, games, and activities.</h1>
 
-        <div className="w-full mb-2">
-          <h1 className="text-xs">Username</h1>
-          <input type="text" placeholder="Your Username" className="bg-gray-100 h-12 w-full rounded-xl p-2"
-          value={username} onChange={(e) => setUsername(e.target.value)}/>
+        <div className={`${isErrorContainer ? "" : "hidden"} bg-red-100 w-full h-12 p-2 justify-center items-center flex rounded-xl mb-4`}>
+            <p className="text-red-500 text-xs">
+              {Message}
+            </p>
         </div>
 
-        <div className="w-full">
-          <h1 className="text-xs">Password</h1>
-          <input type="password" placeholder="Your Password" className="bg-gray-100 h-12 w-full rounded-xl p-2"
-          value={password} onChange={(e) => setPassword(e.target.value)}/>
+        <div className={`w-full justify-center items-start flex flex-col mb-2`}>
+          <h1 className="text-xs text-gray-500">Username</h1>
+          <input type="text" placeholder="Your Username" className={`${isUsername ? "bg-red-100" : "bg-gray-100"} h-12 w-full rounded-xl p-2 outline-none`}
+          value={username} onChange={(e) => {setUsername(e.target.value)
+                                             if(username){setIsUsername(false)}
+          }}/>
         </div>
 
-        <button className="bg-black h-12 w-full text-white rounded-xl cursor-pointer mt-6" onClick={loginAccount}>Sign Up</button>
+        <div className="w-full justify-center items-start flex flex-col">
+          <h1 className="text-xs text-gray-500">Password</h1>
+          <input type="password" placeholder="Your Password" className={`${isPassword ? "bg-red-100" : "bg-gray-100"} h-12 w-full rounded-xl p-2 outline-none`}
+          value={password} onChange={(e) => {setPassword(e.target.value)
+                                             if(password){setIsPassword(false)}
+          }}/>
+        </div>
+
+        <button className="bg-pink-500 h-12 w-full text-white font-semibold rounded-xl cursor-pointer outline-none hover:bg-pink-600 mt-6" onClick={loginAccount}>Sign Up</button>
 
       </div>
    </section>

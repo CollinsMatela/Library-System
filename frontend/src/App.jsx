@@ -4,6 +4,10 @@ import Admin_Page from '../pages/Admin_Page'
 import Library_Page from '../pages/Library_Page'
 import Admin_Upload_Page from "../pages/Admin_Upload_Page";
 import Change_Password_Page from "../pages/Change_Password_Page";
+import Unauthorized_Page from "../pages/Unauthorized_Page";
+import Not_Found_Page from "../pages/Not_Found_Page";
+
+
 
 function App() {
   return (
@@ -14,6 +18,9 @@ function App() {
         <Route path="/admin-page" element={<Admin_Page/>}/>
         <Route path="/admin-page/upload" element={<Admin_Upload_Page/>}/>
         <Route path="/change-password" element={<Change_Password_Page/>}/>
+        <Route path="/unauthorized" element={<Unauthorized_Page/>}/>
+        <Route path="*" element={<Not_Found_Page/>}/>
+
       </Routes>
     </BrowserRouter>
   )

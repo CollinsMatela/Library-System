@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 const Home_Page = () => {
   return (
     <>
-      <section className="min-h-screen w-full bg-pink-600 flex flex-col items-center justify-center px-10 text-center relative overflow-hidden">
+      <section className="min-h-screen w-full bg-gradient-to-br from-purple-200 via-pink-200 to-yellow-100 flex flex-col items-center justify-center px-10 text-center relative overflow-hidden">
         
         <Navigation />
 
@@ -17,7 +17,7 @@ const Home_Page = () => {
           ✨ Welcome to Little Me Learning Center ✨
         </div>
 
-        <h1 className="text-2xl md:text-8xl font-extrabold text-white leading-tight">
+        <h1 className="text-2xl md:text-8xl font-extrabold text-pink-500 leading-tight">
         ONLINE LIBRARY
       </h1>
 

@@ -19,7 +19,7 @@ const Not_Found_Page = () => {
         <div className="mt-6 flex flex-col gap-3">
           
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate(-1)}
             className="w-full py-2 px-4 bg-purple-500 text-white rounded-xl font-semibold hover:bg-purple-600 transition"
           >
             Return to page 🏠

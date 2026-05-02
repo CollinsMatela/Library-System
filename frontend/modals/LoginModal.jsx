@@ -7,6 +7,10 @@ const LoginModal = ({ onClose }) => {
 
   const setAuth = useAuthStore((state) => state.setAuth);
 
+  const thisUser = useAuthStore((state) => state.user);
+  const thisToken = useAuthStore((state) => state.token);
+  const thisRole = useAuthStore((state) => state.role);
+
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -34,9 +38,7 @@ const LoginModal = ({ onClose }) => {
             const user = res.data.user;
             const token = res.data.token;
             const role = res.data.role;
-
-            localStorage.setItem("token", token)
-
+            
             setAuth(user, token, role);
             
             if(user.isChangePassword === false){
@@ -47,8 +49,9 @@ const LoginModal = ({ onClose }) => {
               navigate(`/library`);
               } 
               else if (role.toLowerCase() === "administrator"){
-                navigate(`/admin-page`);
+                navigate(`/admin`);
               }
+
             }
           } else {
             setIsMessage(res.data.message) // if login failed

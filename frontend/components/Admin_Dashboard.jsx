@@ -53,15 +53,15 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
 
                     <div className=" max-h-[500px] w-full grid grid-cols-3 gap-2">
                         
-                            <div className="w-full bg-blue-600 rounded-xl p-4 space-y-2">
+                            <div className="w-full bg-pink-600 rounded-xl p-4 space-y-2">
                                 <h1 className="text-sm text-white">{set_data[0].header}</h1>
                                 <h1 className="text-4xl text-white font-bold">{set_data[0].value}</h1>
                             </div>
-                            <div className="w-full bg-blue-600 rounded-xl p-4 space-y-2">
+                            <div className="w-full bg-pink-600 rounded-xl p-4 space-y-2">
                                 <h1 className="text-sm text-white">{set_data[1].header}</h1>
                                 <h1 className="text-4xl text-white font-bold">{set_data[1].value}</h1>
                             </div>
-                            <div className="w-full bg-blue-600 rounded-xl p-4 space-y-2">
+                            <div className="w-full bg-pink-600 rounded-xl p-4 space-y-2">
                                 <h1 className="text-sm text-white">{set_data[2].header}</h1>
                                 <h1 className="text-4xl text-white font-bold">{set_data[2].value}</h1>
                             </div>
@@ -73,22 +73,6 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
                     </div>
                     
 
-            </div>
-
-            <div className="border-l-2 border-gray-300 h-full w-100 justify-start items-start flex flex-col p-4">
-                 <div className=" w-full p-2 flex flex-col gap-2 rounded-xl shadow-md">
-                                <div className="h-12 w-full border-b-1 border-emerald-500 justify-between items-center flex p-2">
-                                    <h1 className="text-sm font-semibold text-emerald-500">Newest Added Employee</h1>
-                                    <h1 className="text-sm font-semibold text-emerald-500 underline">View all</h1>
-                                </div>
-                                {studentList.length < 1 && (
-                                        <div className="h-12 w-full bg-emerald-100 rounded-xl justify-center items-center flex">
-                                            <h1 className="text-emerald-500 text-sm">No employee found.</h1>
-                                        </div>
-                                    )}
-                </div>
-                
-                    
             </div>
             
               

@@ -37,7 +37,7 @@ const Login_Controller = async (req, res) => {
       );
 
       if (!isMatch) {
-        return res.status(401).json({ message: "Invalid credentials" });
+        return res.status(401).json({ message: "Login failed. Please try again." });
       }
 
       user = student;
@@ -53,7 +53,7 @@ const Login_Controller = async (req, res) => {
       );
 
       if (!isMatch) {
-        return res.status(401).json({ message: "Invalid credentials" });
+        return res.status(401).json({ message: "Login failed. Please try again." });
       }
 
       user = employee;

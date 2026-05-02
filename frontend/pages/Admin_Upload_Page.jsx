@@ -143,7 +143,7 @@ const Admin_Upload_Page = () => {
                     <p className="text-gray-500">Create and publish a new story</p>
                 </div>
                 <div className={`rounded-xl justify-end items-center flex gap-2`}>
-                <button className="h-10 px-4 text-gray-500 font-semibold bg-white shadow-lg hover:bg-gray-200 rounded-full cursor-pointer" onClick={() => navigate('/admin-page')}>⟵</button>
+                <button className="h-10 px-4 text-gray-500 font-semibold bg-white shadow-lg hover:bg-gray-200 rounded-full cursor-pointer" onClick={() => navigate('/admin')}>⟵</button>
                 <button className="h-10 px-4 text-white font-semibold bg-blue-500 shadow-lg hover:bg-blue-600 rounded-full cursor-pointer" onClick={handleConfirmation}>+ Upload Story</button>
                 </div>
                 

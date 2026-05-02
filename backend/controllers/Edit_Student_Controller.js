@@ -5,28 +5,28 @@ const Edit_Student_Controller = async (req, res) => {
     const { lastname, firstname, middlename, year, month, day, gender, parentLastname, parentFirstname, parentMiddlename, parentEmail, parentContact, parentRelationship, gradeLevel, branch } = req.body;
 
     try {
-        const findStudent = await StudentModel.findOne({"student.id": studentId})
+        const findStudent = await StudentModel.findOne({id: studentId})
         if(!findStudent) {
             return res.status(404).json({message: "Student not found"});
         }
 
-        const updatedStudent = await StudentModel.findOneAndUpdate({"student.id": studentId}, 
+        const updatedStudent = await StudentModel.findOneAndUpdate({id: studentId}, 
             {
-                "student.lastname": lastname,
-                "student.firstname": firstname,
-                "student.middlename": middlename,
-                "student.year": year,
-                "student.month": month,
-                "student.day": day,
-                "student.gender": gender,
-                "parent.lastname": parentLastname,
-                "parent.firstname": parentFirstname,
-                "parent.middlename": parentMiddlename,
-                "parent.email": parentEmail,
-                "parent.contact": parentContact,
-                "parent.parentRelationship": parentRelationship,
-                "school.gradeLevel": gradeLevel,
-                "school.branch": branch
+                lastname: lastname,
+                firstname: firstname,
+                middlename: middlename,
+                year: year,
+                month: month,
+                day: day,
+                gender: gender,
+                parentLastname: parentLastname,
+                parentFirstname: parentFirstname,
+                parentMiddlename: parentMiddlename,
+                parentEmail: parentEmail,
+                parentContact: parentContact,
+                parentRelationship: parentRelationship,
+                gradeLevel: gradeLevel,
+                branch: branch
              })
              res.status(200).json({message: "Student account updated successfully", updatedStudent: updatedStudent});
         

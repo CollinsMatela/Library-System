@@ -10,11 +10,11 @@ const Login_Controller = async (req, res) => {
     
     // 1. Find user in both collections
     const student = await StudentModel.findOne({
-      "account.username": username,
+      username: username,
     });
 
     const employee = await EmployeeModel.findOne({
-      "account_information.username": username,
+      username: username,
     });
 
     console.log("STUDENT:", student);
@@ -30,10 +30,10 @@ const Login_Controller = async (req, res) => {
 
     // 3. Student login
     if (student) {
-        console.log("STUDENT PASSWORD FIELD:", student.account.password);
+        console.log("STUDENT PASSWORD FIELD:", student.password);
       const isMatch = await bcrypt.compare(
         password,
-        student.account.password
+        student.password
       );
 
       if (!isMatch) {
@@ -46,10 +46,10 @@ const Login_Controller = async (req, res) => {
 
     // 4. Employee login
     else if (employee) {
-        console.log("EMPLOYEE PASSWORD FIELD:", employee.account_information.password);
+        console.log("EMPLOYEE PASSWORD FIELD:", employee.password);
       const isMatch = await bcrypt.compare(
         password,
-        employee.account_information.password
+        employee.password
       );
 
       if (!isMatch) {

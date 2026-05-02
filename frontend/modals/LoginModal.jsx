@@ -1,8 +1,11 @@
 import {useNavigate} from "react-router-dom";
 import axios from 'axios'
+import useAuthStore from "../store/useAuthStore";
 import { useState } from "react";
 
 const LoginModal = ({ onClose }) => {
+
+  const setAuth = useAuthStore((state) => state.setAuth);
 
   const navigate = useNavigate();
 
@@ -45,13 +48,28 @@ const LoginModal = ({ onClose }) => {
           console.log(res.data.message);
           if(res.data.isSuccess){
             console.log(res.data.message);
-            localStorage.setItem("token", res.data.token)
-            localStorage.setItem("user", JSON.stringify(res.data.user))
-            if(res.data.role.toLowerCase() === "student"){
-              navigate(`/library`);
-            } else if (res.data.role.toLowerCase() === "administrator"){
-              navigate(`/admin-page`);
+            
+            const user = res.data.user;
+            const token = res.data.token;
+            const role = res.data.role;
+
+            localStorage.setItem("token", token)
+
+            setAuth(user, token, role);
+            
+            if(user.isChangePassword === false){
+              navigate(`/change-password`);
             }
+            else {
+              if(role.toLowerCase() === "student"){
+              navigate(`/library`);
+              } 
+              else if (role.toLowerCase() === "administrator"){
+                navigate(`/admin-page`);
+              }
+            }
+
+            
           }
         } catch (error) {
           console.log(error)

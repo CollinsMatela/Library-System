@@ -4,36 +4,24 @@ import Footer from "../components/Footer";
 const Home_Page = () => {
   return (
     <>
-      <section className="min-h-screen w-full bg-gradient-to-b from-yellow-100 via-pink-100 to-blue-100 flex flex-col items-center justify-center px-6 sm:px-10 md:px-16 text-center relative overflow-hidden">
-
+      <section className="min-h-screen w-full bg-pink-600 flex flex-col items-center justify-center px-10 text-center relative overflow-hidden">
+        
         <Navigation />
+.
+        <div className="absolute top-40 left-30 text-7xl animate-bounce">🌟</div>
+        <div className="absolute top-40 right-30 text-7xl animate-bounce">📚</div>
+        <div className="absolute bottom-20 left-20 text-7xl animate-bounce">🧸</div>
+        <div className="absolute bottom-32 right-10 text-7xl animate-bounce">🎨</div>
 
-        <div className="absolute top-28 left-4 sm:left-10 md:left-20 text-3xl sm:text-4xl md:text-5xl animate-bounce">
-          🌟
-        </div>
-
-        <div className="absolute top-28 right-4 sm:right-10 md:right-20 text-3xl sm:text-4xl md:text-5xl animate-bounce">
-          📚
-        </div>
-
-        <div className="absolute bottom-16 left-4 sm:left-10 md:left-20 text-3xl sm:text-4xl md:text-5xl animate-bounce">
-          🧸
-        </div>
-
-        <div className="absolute bottom-24 right-4 sm:right-10 md:right-20 text-3xl sm:text-4xl md:text-5xl animate-bounce">
-          🎨
-        </div>
-
-        <div className="bg-white shadow-md rounded-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base md:text-lg font-semibold text-pink-500 mb-6 mt-20">
+        <div className="bg-white rounded-full px-6 py-2 text-sm font-semibold text-pink-500">
           ✨ Welcome to Little Me Learning Center ✨
         </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-purple-600 leading-tight">
-          Read, Play, <br />
-          <span className="text-pink-500">and Learn Every Day!</span>
-        </h1>
+        <h1 className="text-2xl md:text-8xl font-extrabold text-white leading-tight">
+        ONLINE LIBRARY
+      </h1>
 
-        <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mt-6 px-2">
+        <p className="text-sm text-white font-semibold max-w-3xl">
           A magical place where little learners can discover stories,
           play fun games, and let their imagination grow every day.
         </p>

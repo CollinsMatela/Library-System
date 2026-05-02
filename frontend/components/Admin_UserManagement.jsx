@@ -23,27 +23,25 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, reFetchEmployee, reFet
     }
 
     return(
-        <section className="w-full py-10 px-20">
+        <section className="w-full py-5 px-30">
             
-                
-              <h1 className="text-xl font-semibold text-emerald-500 mb-4">Accounts Management</h1>
                 <div className="w-full space-y-5">
 
                    {/* Student Container */}
-                  <div className="border-2 border-gray-300 rounded-xl pb-2">
+                  <div className="bg-white shadow-lg rounded-xl pb-2">
 
-                    <div className="bg-white h-20 w-full justify-between items-center flex rounded-t-xl px-4">
-                        <h1 className="text-md text-gray-500 rounded-full">Registered Students</h1>
+                    <div className="h-20 w-full justify-between items-center flex rounded-t-xl px-4">
+                        <h1 className="text-lg font-semibold text-gray-700 rounded-full">Students Account</h1>
 
                         <div className="space-x-2 justify-center ittems-center flex">
-                            <input type="search" name="search" id="" placeholder="Search Student Name" className="bg-white border-2 border-gray-300 h-10 w-80 rounded-xl px-4"/>
-                            <button className="border-1 border-emerald-500 h-10 rounded-full text-emerald-500 cursor-pointer text-sm font-semibold px-4 hover:bg-emerald-500 hover:text-white" onClick={openStudentModal}>+ New Student</button>    
+                            <input type="search" name="search" id="" placeholder="Search Student Name" className="bg-white border-1 border-gray-300 h-10 w-80 rounded-xl px-4"/>
+                            <button className="border-1 border-blue-500 h-10 rounded-full text-blue-500 cursor-pointer text-sm font-semibold px-4 hover:bg-blue-500 hover:text-white" onClick={openStudentModal}>+ New Student</button>    
                         </div>
                     </div>   
                     
-                    <div className="bg-white h-100 w-full rounded-b-xl px-4 overflow-y-scroll pb-10">
+                    <div className="h-100 w-full rounded-b-xl px-4 overflow-y-scroll pb-10">
                         {/* Columns */}
-                        <div className="bg-gradient-to-tl from-green-500 via-emerald-600 to-emerald-500 h-12 w-full rounded-xl justify-center items-center flex px-4">
+                        <div className="bg-gray-300 h-12 w-full rounded-xl justify-center items-center flex px-4">
                             <div className="flex-1">
                                 <h1 className="text-sm font-semibold text-white">No.</h1>
                             </div>
@@ -77,7 +75,7 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, reFetchEmployee, reFet
                         </div>
                         {/* Rows */}
                         {AllStudents.length < 1 && (
-                            <div className="bg-gray-100 h-12 w-full rounded-xl justify-center items-center flex px-4 py-2 mt-2">
+                            <div className="bg-gray-100 h-15 w-full rounded-xl justify-center items-center flex px-4 py-2 mt-2">
                                 <p className="text-gray-500">No students found.</p>
                             </div>
                         )}
@@ -87,42 +85,42 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, reFetchEmployee, reFet
                                 const updatedCreatedAt = new Date(student.createdAt).toISOString().split("T")[0];;
                                 
                                 return (
-                                <div key={student.student.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-300 justify-center items-center flex px-4 py-2 mt-2 hover:bg-gray-300 cursor-pointer">
+                                <div key={student.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-100 justify-center items-center flex px-4 py-2 mt-2 hover:bg-blue-100 cursor-pointer">
                                     <div className="w-[10%] break-words">
                                         <p className="text-sm text-gray-500">{index + 1}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.student.lastname}</p>
+                                        <p className="text-sm text-gray-500">{student.lastname}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.student.firstname}</p>
+                                        <p className="text-sm text-gray-500">{student.firstname}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{`${student.student.month}/${student.student.day}/${student.student.year}`}</p>
+                                        <p className="text-sm text-gray-500">{`${student.month}/${student.day}/${student.year}`}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.parent.parentEmail}</p>
+                                        <p className="text-sm text-gray-500">{student.parentEmail}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.parent.parentContact}</p>
+                                        <p className="text-sm text-gray-500">{student.parentContact}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.school.gradeLevel}</p>
+                                        <p className="text-sm text-gray-500">{student.gradeLevel}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.school.branch}</p>
+                                        <p className="text-sm text-gray-500">{student.branch}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
                                         <p className="text-sm text-gray-500">{updatedCreatedAt}</p>
                                     </div>
                                     <div className="w-[10%] break-words gap-2 flex">
-                                        <button className="bg-emerald-300 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-gray-400">
+                                        <button className="bg-blue-600 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-blue-700">
                                             Vw
                                         </button>
-                                        <button className="bg-emerald-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-gray-600" onClick={() => handleEditStudent(student)}>
+                                        <button className="bg-blue-600 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-blue-700" onClick={() => handleEditStudent(student)}>
                                             Edt
                                         </button>
-                                        <button className="bg-emerald-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteStudent(student.student.id)}>
+                                        <button className="bg-blue-600 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-blue-700" onClick={() => deleteStudent(student.student.id)}>
                                             Del
                                         </button>
                                         
@@ -136,18 +134,18 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, reFetchEmployee, reFet
                    
 
                    {/* Teacher Container */}
-                   <div className="border-2 border-gray-300 rounded-xl pb-2">
+                   <div className="bg-white shadow-lg rounded-xl pb-2">
                       <div className="bg-white h-20 w-full justify-between items-center flex rounded-t-xl px-4">
-                        <h1 className="ttext-md text-gray-500 rounded-full">Registered Employees</h1>
+                        <h1 className="text-lg font-semibold text-gray-800 rounded-full">Employees Account</h1>
                         <div className="h-full space-x-2 justtify-center items-center flex">
-                            <input type="search" name="search" id="" placeholder="Search Teacher Name" className="bg-white border-2 border-gray-300 h-10 w-80 rounded-xl px-4"/>
-                            <button className="border-1 border-emerald-500 h-10 rounded-full text-emerald-500 cursor-pointer text-sm font-semibold px-4 hover:bg-emerald-500 hover:text-white" onClick={openEmployeeModal}>+ New Employee</button>
+                            <input type="search" name="search" id="" placeholder="Search Teacher Name" className="bg-white border-1 border-gray-300 h-10 w-80 rounded-xl px-4"/>
+                            <button className="border-1 border-blue-500 h-10 rounded-full text-blue-500 cursor-pointer text-sm font-semibold px-4 hover:bg-blue-600 hover:text-white" onClick={openEmployeeModal}>+ New Employee</button>
                         </div>
                       </div>
                       
                         <div className="bg-white h-100 w-full rounded-b-xl px-4 overflow-y-scroll pb-10">
                             {/* Columns */}
-                        <div className="bg-gradient-to-tl from-green-500 via-emerald-600 to-emerald-500 h-12 w-full rounded-xl justify-center items-center flex px-4">
+                        <div className="bg-gray-300 h-12 w-full rounded-xl justify-center items-center flex px-4">
                             <div className="flex-1">
                                 <h1 className="text-sm font-semibold text-white">No.</h1>
                             </div>
@@ -184,7 +182,7 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, reFetchEmployee, reFet
                         </div>
                         {/* Rows */}
                         {AllEmployees.length < 1 && (
-                            <div className="bg-gray-100 h-12 w-full justify-center items-center flex rounded-b-xl px-4 mt-2">
+                            <div className="bg-gray-100 h-15 w-full justify-center items-center flex rounded-b-xl px-4 mt-2">
                                 <p className="text-gray-500">No employees found.</p>
                             </div>
                         )}
@@ -193,41 +191,41 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, reFetchEmployee, reFet
                             const updatedCreatedAt = new Date(employee.createdAt).toISOString().split("T")[0];
 
                             return(
-                                <div key={employee.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-300 justify-center items-center flex px-4 py-2 mt-2 hover:bg-gray-300 cursor-pointer">
+                                <div key={employee.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-100 justify-center items-center flex px-4 py-2 mt-2 hover:bg-blue-100 cursor-pointer">
                                     <div className="w-[10%] break-words">
                                         <p className="text-gray-500">{index + 1}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-gray-500">{employee.personal_information.lastname}</p>
+                                        <p className="text-gray-500">{employee.lastname}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-gray-500">{employee.personal_information.firstname}</p>
+                                        <p className="text-gray-500">{employee.firstname}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-gray-500">{employee.personal_information.year}-{employee.personal_information.month}-{employee.personal_information.day}</p>
+                                        <p className="text-gray-500">{employee.year}/{employee.month}/{employee.day}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-gray-500">{employee.personal_information.email}</p>
+                                        <p className="text-gray-500">{employee.email}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-gray-500">{employee.personal_information.contact}</p>
+                                        <p className="text-gray-500">{employee.contact}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-gray-500">{employee.employee_information.gradeLevel}</p>
+                                        <p className="text-gray-500">{employee.gradeLevel}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                        <p className="text-gray-500">{employee.employee_information.branch}</p>
+                                        <p className="text-gray-500">{employee.branch}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
-                                            <p className={`text-white ${employee.employee_information.role === "Administrator" ? "bg-green-500" : "bg-blue-500"} rounded-full inline-flex px-2`}>{employee.employee_information.role}</p>
+                                            <p className={`text-white ${employee.role === "Administrator" ? "bg-green-500" : "bg-blue-500"} rounded-full inline-flex px-2`}>{employee.role}</p>
                                     </div>
                                     <div className="w-[10%] break-words">
                                         <p className="text-gray-500">{updatedCreatedAt}</p>
                                     </div>
                                     <div className="w-[10%] break-words flex gap-2">
-                                            <button className="h-10 w-10 bg-emerald-300 text-white rounded-lg cursor-pointer hover:bg-gray-400" onClick={() => alert('Soon')}>Vw</button>
-                                            <button className="h-10 w-10 bg-emerald-500 text-white rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => handleEditEmployee(employee)}>Edit</button>
-                                            <button className="h-10 w-10 bg-emerald-500 text-white rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteEmployee(employee.id)}>Del</button>
+                                            <button className="h-10 w-10 bg-blue-600 text-white rounded-lg cursor-pointer hover:bg-blue-700" onClick={() => alert('Soon')}>Vw</button>
+                                            <button className="h-10 w-10 bg-blue-600 text-white rounded-lg cursor-pointer hover:bg-blue-700" onClick={() => handleEditEmployee(employee)}>Edit</button>
+                                            <button className="h-10 w-10 bg-blue-600 text-white rounded-lg cursor-pointer hover:bg-blue-700" onClick={() => deleteEmployee(employee.id)}>Del</button>
                                             
                                         </div>
                                         

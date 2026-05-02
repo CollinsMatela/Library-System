@@ -8,10 +8,10 @@ const Home_Page = () => {
         
         <Navigation />
 
-        <div className="absolute top-40 left-30 text-7xl animate-bounce">🌟</div>
-        <div className="absolute top-40 right-30 text-7xl animate-bounce">📚</div>
-        <div className="absolute bottom-20 left-20 text-7xl animate-bounce">🧸</div>
-        <div className="absolute bottom-32 right-10 text-7xl animate-bounce">🎨</div>
+        <div className="bg-gradient-to-br from-white via-pink-300 to-purple-200 -rotate-10 border-b-4 border-purple-300 shadow-pink-900 h-40 w-40 justify-center items-center flex rounded-full absolute top-40 left-80 text-7xl animate-bounce">🌟</div>
+        <div className="bg-gradient-to-br from-white via-pink-300 to-purple-200 -rotate-10 border-b-4 border-purple-300 shadow-pink-900 h-50 w-50 justify-center items-center flex rounded-full absolute top-60 right-40 text-7xl animate-bounce">📚</div>
+        <div className="bg-gradient-to-br from-white via-pink-300 to-purple-200 -rotate-10 border-b-4 border-purple-300 shadow-pink-900 h-60 w-60 justify-center items-center flex rounded-full absolute bottom-30 left-50 text-7xl animate-bounce">🧸</div>
+        <div className="bg-gradient-to-br from-white via-pink-300 to-purple-200 -rotate-10 border-b-4 border-purple-300 shadow-pink-900 h-45 w-45 justify-center items-center flex rounded-full absolute bottom-20 right-80 text-7xl animate-bounce">🎨</div>
 
         <div className="bg-white rounded-full px-6 py-2 text-sm font-semibold text-pink-500">
           ✨ Welcome to Little Me Learning Center ✨

@@ -5,6 +5,7 @@ import Admin_Page from '../pages/Admin_Page'
 import Library_Page from '../pages/Library_Page'
 import Admin_Upload_Page from '../pages/Admin_Upload_Page'
 import Unauthorized_Page from "../pages/Unauthorized_Page";
+import Change_Password_Page from "../pages/Change_Password_Page"
 import Not_Found_Page from "../pages/Not_Found_Page";
 
 
@@ -39,11 +40,13 @@ function App() {
         
          <Route element={<ProtectedRoute allowedRoles={["Student", "Teacher"]}/>}>
                 <Route path="/library" element={<Library_Page/>}/>
+                <Route path="/change-password" element={<Change_Password_Page/>}/>
          </Route>
 
          <Route element={<ProtectedRoute allowedRoles={["Administrator"]} />}>
                 <Route path="/admin" element={<Admin_Page />} />
                 <Route path="/admin/upload" element={<Admin_Upload_Page />} />
+                <Route path="/change-password" element={<Change_Password_Page/>}/>
         </Route>
 
         <Route path="*" element={<Not_Found_Page/>}/>

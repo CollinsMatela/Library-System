@@ -50,8 +50,8 @@ const Library_Page = () => {
             <div className="bg-white min-h-screen w-full just-center items-center flex flex-col rounded-2xl pb-4">
                  <nav className="h-20 w-full border-b-1 border-pink-500 justify-between items-center flex px-6">
                       <div className=" rounded-xl justify-center items-center flex gap-2">
-                        <img src="" alt="" className='h-10 w-10 bg-gray-300 rounded-xl' />
-                        <h1 className="text-lg text-gray-800 font-semibold">{`Welcome! ${user?.firstname} ${user?.lastname}`}</h1>
+                        <img src="none" className='h-10 w-10 bg-gray-300 rounded-full' />
+                        <h1 className="text-medium text-gray-800 font-semibold">{`Welcome! ${user?.firstname} ${user?.lastname}`}</h1>
                       </div>
                       <div className='gap-2 justify-center items-center flex'>
                         <button className='h-10 w-10 bg-gray-300 rounded-full'></button>

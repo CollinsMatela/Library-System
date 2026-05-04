@@ -81,7 +81,7 @@ const Home_Page = () => {
         </div>
       </section>
 
-      <section className="w-full py-15 bg-blue-100 px-6 md:px-30">
+      <section className="w-full py-15 bg-blue-300 px-6 md:px-35">
   <h2 className="text-4xl font-extrabold text-center text-blue-700 mb-12">
     Popular Stories ⭐
   </h2>
@@ -146,7 +146,6 @@ const Home_Page = () => {
           Browse Library
         </button>
       </section>
-
 
       <Footer />
     </>

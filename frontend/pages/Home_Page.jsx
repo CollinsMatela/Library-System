@@ -28,7 +28,7 @@ const Home_Page = () => {
   return (
     <>
 
-      <section className="min-h-screen w-full bg-pink-600 flex flex-col items-center justify-center px-6 md:px-10 text-center relative overflow-hidden">
+      <section className="min-h-screen w-full bg-pink-500 flex flex-col items-center justify-center px-6 md:px-10 text-center relative overflow-hidden">
         <Navigation />
 
         <div className="absolute top-32 left-8 md:left-30 text-5xl md:text-7xl animate-bounce">

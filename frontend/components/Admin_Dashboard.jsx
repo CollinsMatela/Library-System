@@ -31,7 +31,7 @@ const Admin_Dashboard = ({AllStudents, AllEmployees}) => {
 
                     <button
                         className="h-12 w-full text-left px-4 cursor-pointer text-xs font-semibold text-gray-400 hover:bg-gray-200 hover:text-white"
-                        onClick={() => navigate(`/admin-page/upload`)}
+                        onClick={() => navigate(`/admin/upload`)}
                     >
                         Manual Upload
                     </button>

@@ -80,13 +80,7 @@ const Home_Page = () => {
           </div>
         </div>
       </section>
-
-    
-
       
-
-      
-
       <Footer />
     </>
   );

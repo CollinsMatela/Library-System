@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import Confirmation_Popup from "../popup/Confirmation_Popup";
 
 const Admin_Upload_Page = () => {
     const navigate = useNavigate();
+
+    const fileInputRef = useRef();
 
     const [showConfirmation, setShowConfirmation] = useState(false);
 
@@ -42,7 +44,7 @@ const Admin_Upload_Page = () => {
 
     
     const [file, setFile] = useState(null);
-    const [preview, setPreview] = useState("");
+    const [preview, setPreview] = useState(null);
 
     useEffect(() => {
     return () => {
@@ -57,6 +59,11 @@ const Admin_Upload_Page = () => {
          setFile(selected);
          setPreview(URL.createObjectURL(selected)); // 👈 local preview
     }
+    const openFileExplorer = () => {
+        setPreview(null)
+        setFile(null)
+          fileInputRef.current.click();
+    }
 
     const handleConfirmation = () => {
         if (title === "") { setIsTitle(true); alert('Please fill the all fields'); return;}
@@ -65,7 +72,7 @@ const Admin_Upload_Page = () => {
         if (textStory === "") {setIsTextStory(true); alert('Please fill the all fields'); return;}
         if (genre === "") { setIsGenre(true); alert('Please fill the all fields'); return;}
         if (gradeCategory === "") { setIsGradeCategory(true); alert('Please fill the all fields'); return;}
-        if(file === null){
+        if(!file){
             alert("Insert image of the story")
             return;
         }
@@ -93,9 +100,6 @@ const Admin_Upload_Page = () => {
           }
           setQuizList(prev => [...prev, newQuestion])
 
-          if(quizList.length == 4){
-            setIsAddQuestion(true);
-          }
           // Reset
           setQuestion("");
           setChoiceA("");
@@ -119,11 +123,29 @@ const Admin_Upload_Page = () => {
         try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/upload-manually`, formData);
             if(res.data.isSuccess){
-                alert(res.data.message);
+               setTitle("")
+               setAuthor("")
+               setDescription("")
+               setTextStory("")
+               setGenre("")
+               setGradeCategory("")
+
+               setQuizList([])
+               setPreview("")
+               setFile(null)
+
+               setQuestion("");
+                setChoiceA("");
+                setChoiceB("");
+                setChoiceC("");
+                setChoiceD("");
+                setAnswer("");
             }
         } catch (error) {
             console.log(error)
         }
+
+         setShowConfirmation(false);
         
     }
 
@@ -143,8 +165,8 @@ const Admin_Upload_Page = () => {
                     <p className="text-gray-500">Create and publish a new story</p>
                 </div>
                 <div className={`rounded-xl justify-end items-center flex gap-2`}>
-                <button className="h-10 px-4 text-gray-500 font-semibold bg-white shadow-lg hover:bg-gray-200 rounded-full cursor-pointer" onClick={() => navigate('/admin-page')}>⟵</button>
-                <button className="h-10 px-4 text-white font-semibold bg-blue-500 shadow-lg hover:bg-blue-600 rounded-full cursor-pointer" onClick={handleConfirmation}>+ Upload Story</button>
+                <button className="h-10 px-4 text-gray-500 font-semibold bg-white shadow-lg hover:bg-gray-200 rounded-full cursor-pointer" onClick={() => navigate('/admin')}>⟵</button>
+                <button className="h-10 px-4 text-white font-semibold bg-pink-500 shadow-lg hover:bg-pink-600 rounded-full cursor-pointer" onClick={handleConfirmation}>+ Upload Story</button>
                 </div>
                 
             </div>
@@ -190,7 +212,7 @@ const Admin_Upload_Page = () => {
                             onChange={(e) => {setGenre(e.target.value)
                                               setIsGenre(e.target.value === "")
                             }}
-                            className={`${isGenre ? "bg-red-200" : "bg-gray-200"} outline-none p-2 rounded-lg`}
+                            className={`${isGenre ? "bg-red-200" : "bg-gray-200"} outline-none text-gray-500 p-2 rounded-lg`}
                         >
                             <option value="">Select Genre</option>
                             <option value="horror">Horror</option>
@@ -210,7 +232,7 @@ const Admin_Upload_Page = () => {
                             onChange={(e) => {setGradeCategory(e.target.value)
                                               setIsGradeCategory(e.target.value === "");
                             }}
-                            className={`${isGradeCategory ? "bg-red-200" : "bg-gray-200"} outline-none p-2 rounded-lg`}
+                            className={`${isGradeCategory ? "bg-red-200" : "bg-gray-200"} outline-none text-gray-500 p-2 rounded-lg`}
                         >
                             <option value="">Select Grade Category</option>
                             <option value="kindergarten">Kindergarten</option>
@@ -220,7 +242,14 @@ const Admin_Upload_Page = () => {
                             <option value="grade 4">Grade 4</option>
                         </select>
 
-                        <input type="file" className="bg-gray-200 outline-none p-2 rounded-lg cursor-pointer" onChange={handleImagePreview} />
+                        <div className="bg-pink-500 w-fit outline-none p-2 rounded-lg cursor-pointer text-white font-semibold px-2" onClick={openFileExplorer}> Upload Image
+                            <input type="file" 
+                                ref={fileInputRef} 
+                                className="hidden" 
+                                onChange={handleImagePreview} 
+                            />
+                        </div>
+                        
 
                     </div>
 
@@ -292,7 +321,7 @@ const Admin_Upload_Page = () => {
                     <div className={`bg-white w-full p-6 flex flex-col gap-4`}>
                         <div className="w-ful justify-between items-center flex">
                             <h2 className="text-xl font-semibold">Quiz Creation <span className="text-sm text-gray-300">{`| ${quizList.length} out of 5`}</span></h2>
-                            <button className={`${isAddQuestion ? 'hidden' : null} shadow-lg font-semibold text-sm bg-blue-500 px-2 text-white py-1 rounded-lg cursor-pointer hover:bg-blue-600`} onClick={addQuestion}>
+                            <button className={`${quizList.length === 5 ? 'hidden' : null} shadow-lg font-semibold text-sm bg-pink-500 px-2 text-white py-1 rounded-lg cursor-pointer hover:bg-blue-600`} onClick={addQuestion}>
                             + Question
                             </button>
                         </div>

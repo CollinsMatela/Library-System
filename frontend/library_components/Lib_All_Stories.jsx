@@ -6,8 +6,9 @@ const Lib_All_Stories = ({stories, genre}) => {
     return(
         <>
         <header className='h-20 w-[1500px] border-b-1 border-pink-500 justify-between items-center flex py-4'>
-                        <h1 className="text-lg font-semibold text-gray-800">Select and explore stories | <span className="text-xl font-bold">{genre}</span></h1>
-                        <button className="bg-gray-300 h-10 w-10 rounded-xl">...</button>
+                        <h1 className="text-lg font-semibold text-gray-800">Select and explore stories</h1>
+                        <h1 className="text-xl font-bold">{genre}</h1>
+                        
         </header>
         {filteredStories.length === 0 && (
                         <div className="h-80 w-[1500px] flex flex-col items-center justify-center py-10 bg-gray-300 rounded-2xl mt-2">

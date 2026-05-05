@@ -6,23 +6,30 @@ import SearchIcon from '../src/assets/search-svgrepo-com.svg'
 
 import Lib_Navigation from '../library_components/Lib_Navigation'
 import Lib_Story_Buttons from '../library_components/Lib_Story_Buttons'
-import Lib_All_Stories from '../library_components/Lib_All_Stories'
-
-// Featured/Highlight Section of story
-// Search bar
-// List cards of stories by categories
+import Lib_Stories_Card from '../library_components/Lib_Stories_Card'
+import Lib_View_Story from '../library_components/Lib_View_Story'
+import { useNavigate } from 'react-router-dom'
 
 const Library_Page = () => {
     const user = useAuthStore((state) => state.user);
     const logout = useAuthStore((state) => state.logout);
 
-    const [stories, setStories] = useState([]);
+    const navigate = useNavigate();
+
+    const [stories, setStories] = useState([]); // Fetched Stories
 
     const [selectedGenre, setSelectedGenre] = useState("Overview");
 
     const showStories = (genre) => {
     setSelectedGenre(genre);
     };
+
+    const [showViewStory, setShowViewStory] = useState(false);
+    const [selectedStory, setSelectedStory] = useState(null);
+    const handleViewStory = (storyId) => {
+          setSelectedStory(storyId)
+          navigate(`/library/view-story/${storyId}`)
+    }
 
 
     useEffect(() => {
@@ -57,10 +64,11 @@ const Library_Page = () => {
                  <Lib_Story_Buttons showStories={showStories}/>
  
 
-                <Lib_All_Stories stories={stories} genre={selectedGenre}/>
+                <Lib_Stories_Card stories={stories} 
+                                  genre={selectedGenre} 
+                                  handleViewStory={handleViewStory}
+                />
                 
-
-                 
 
             </div>
 

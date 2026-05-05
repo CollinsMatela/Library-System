@@ -7,6 +7,7 @@ import Admin_Upload_Page from '../pages/Admin_Upload_Page'
 import Unauthorized_Page from "../pages/Unauthorized_Page";
 import Change_Password_Page from "../pages/Change_Password_Page"
 import Not_Found_Page from "../pages/Not_Found_Page";
+import Lib_View_Story from "../library_components/Lib_View_Story";
 
 
 const ProtectedRoute = ({ allowedRoles }) => {
@@ -40,6 +41,7 @@ function App() {
         
          <Route element={<ProtectedRoute allowedRoles={["Student", "Teacher"]}/>}>
                 <Route path="/library" element={<Library_Page/>}/>
+                <Route path="/library/view-story/:id" element={<Lib_View_Story/>}/>
                 <Route path="/change-password" element={<Change_Password_Page/>}/>
          </Route>
 

@@ -1,5 +1,5 @@
 
-const Lib_All_Stories = ({stories, genre}) => {
+const Lib_Stories_Card = ({stories, genre, handleViewStory}) => {
 
     const filteredStories = genre === "All" ? stories : stories.filter((story) => story.genre === genre.toLowerCase());
 
@@ -25,8 +25,9 @@ const Lib_All_Stories = ({stories, genre}) => {
         <div className="w-[1500px] grid grid-cols-4 mt-4 gap-6">
         {filteredStories.map((story) => (
                         <div
-                            key={story._id}
+                            key={story.id}
                             className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                            onClick={() => handleViewStory(story.id)}
                         >
                             {/* Image */}
                             <div className="w-full h-48 overflow-hidden">
@@ -62,4 +63,4 @@ const Lib_All_Stories = ({stories, genre}) => {
         
     )
 }
-export default Lib_All_Stories;
+export default Lib_Stories_Card;

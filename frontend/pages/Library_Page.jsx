@@ -46,6 +46,20 @@ const Library_Page = () => {
             console.log(error)
           }
     }
+
+    const titles = stories.map(s => s.title);
+    const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+        // Story Title Rotation for placeholder
+        if (titles.length === 0) return;
+
+        const interval = setInterval(() => {
+        setIndex(prev => (prev + 1) % titles.length);
+        }, 3000);
+
+        return () => clearInterval(interval);
+    }, [titles.length]);
     
     return(
         <section className="min-h-screen w-full bg-gradient-to-br from-purple-600 via-pink-500 to-white p-4">
@@ -58,7 +72,7 @@ const Library_Page = () => {
 
                  <div className="h-20 w-5xl bg-gradient-to-br from-purple-600 to-pink-500 justify-center items-center flex border-2 border-pink-500 shadow-lg rounded-4xl outline-none p-2">
                         <div className="h-full w-20 border-r-1 border-white"><img src={SearchIcon} className='h-full w-full object-cover' /></div>
-                        <input type="text" className="h-full w-full outline-none px-4 text-white font-semibold" placeholder="Search stories and explore"/>
+                        <input type="text" className="h-full w-full outline-none px-4 text-white font-semibold" placeholder={`Search stories and explore... [e.g ${titles[index]}]`}/>
                  </div>
 
                  <Lib_Story_Buttons showStories={showStories}/>

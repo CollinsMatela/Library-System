@@ -23,6 +23,9 @@ const Lib_View_Story = () => {
             console.log(error)
           }
     }
+    const TakeQuiz = () => {
+          navigate(`/library/view-story/quiz/${id}`);
+    }
 
     return(
        <section className="w-full bg-white py-10 px-4 flex justify-center items-center flex flex-col">
@@ -71,7 +74,9 @@ const Lib_View_Story = () => {
             </p>
         </div>
         <div className="w-4xl justify-end items-center flex">
-                <button className="bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 cursor-pointer p-4">Take Quiz</button>
+                <button className="bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 cursor-pointer p-4"
+                        onClick={TakeQuiz}>
+                Start take the quiz</button>
             </div>
         </div>
 

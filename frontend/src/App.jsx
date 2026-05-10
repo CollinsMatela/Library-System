@@ -40,18 +40,18 @@ function App() {
         <Route path="/" element={<Home_Page/>}/>
         <Route path="/unauthorized" element={<Unauthorized_Page/>}/>
         
-         <Route element={<ProtectedRoute allowedRoles={["Student", "Teacher"]}/>}>
+         {/* <Route element={<ProtectedRoute allowedRoles={["Student", "Teacher"]}/>}> */}
                 <Route path="/library" element={<Library_Page/>}/>
                 <Route path="/library/view-story/:id" element={<Lib_View_Story/>}/>
                 <Route path="/library/view-story/quiz/:id" element={<Lib_Quiz/>}/>
                 <Route path="/change-password" element={<Change_Password_Page/>}/>
-         </Route>
+         {/* </Route> */}
 
-         <Route element={<ProtectedRoute allowedRoles={["Administrator"]} />}>
+         {/* <Route element={<ProtectedRoute allowedRoles={["Administrator"]} />}> */}
                 <Route path="/admin" element={<Admin_Page />} />
                 <Route path="/admin/upload" element={<Admin_Upload_Page />} />
                 <Route path="/change-password" element={<Change_Password_Page/>}/>
-        </Route>
+        {/* </Route> */}
 
         <Route path="*" element={<Not_Found_Page/>}/>
 

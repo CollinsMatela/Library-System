@@ -50,35 +50,70 @@ const Lib_Quiz = () => {
     }
 
     return(
-        <section className="bg-pink-600 min-h-screen w-full justify-center items-center flex flex-col py-10 gap-4">
+        <section className="bg-white min-h-screen w-full justify-start items-center flex flex-col gap-4">
 
             {showResult && (
                 <QuizResultModal score={score}/>
             )}
+
+            {/* Header */}
+            <div className="w-full h-20 bg-white border-b border-gray-200 justify-center items-center flex shadow-sm">
+            <div className="min-w-5xl h-20 flex items-center justify-between">
+                
+                {/* Left Side */}
+                <div className="flex flex-col">
+                <h1 className="text-2xl font-bold text-gray-800">
+                    Short Quiz Activity
+                </h1>
+                <p className="text-sm text-gray-500">
+                    Answer the questions below
+                </p>
+                </div>
+
+                {/* Score Badge */}
+                <div className="flex items-center gap-3">
+                <div className="h-full px-4 rounded-2xl bg-green-600 shadow-md">
+                    <span className="text-sm font-medium text-white">
+                    Score
+                    </span>
+                    <h1 className="text-xl font-bold text-white">
+                    {score} / {selectedStory?.questionnaire?.length}
+                    </h1>
+                </div>
+                </div>
+
+            </div>
+            </div>
             
             {isQuizActive &&
             (
             <div className="space-y-4 bg-white p-4 rounded-2xl">
-            {/* Header */}
-            <div className="bg-white h-20 min-w-5xl border-b-1 border-gray-300 justify-between items-center flex px-4">
-                <h1 className="text-bold text-xl text-gray-500">Short Quiz Activity</h1>
-                <h1>{score} / {selectedStory?.questionnaire?.length}</h1>
+           {/* Question Card */}
+            <div className="w-full max-w-5xl mx-auto">
+            <div className="bg-white rounded-3xl border border-gray-200 shadow-xl px-6 py-10 md:px-10 md:py-14 text-center">
+                
+                {/* Question Number */}
+                <div className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-blue-100 text-blue-600 font-bold text-sm tracking-wide mb-6">
+                Question {currentNumber + 1}
+                </div>
+
+                {/* Question Text */}
+                <h1 className="text-2xl md:text-4xl font-bold text-gray-800 leading-snug md:leading-tight max-w-4xl mx-auto">
+                {selectedStory?.questionnaire?.[currentNumber]?.question}
+                </h1>
+
             </div>
-            {/* Questions */}
-            <div className="bg-white min-w-5xl justify-center items-center flex flex-col px-4 py-10 gap-4">
-                <h1 className="font-bold text-gray-500">Question {currentNumber}</h1>
-                <h1 className="text-4xl font-semibold text-gray-900">{selectedStory?.questionnaire?.[currentNumber]?.question}</h1>
             </div>
 
             {/* Answer Key */}
-            <div className="bg-white min-w-5xl rounded-2xl border-4 border-gray-300 justify-center items-start flex flex-col gap-2 p-4">
+            <div className="bg-white min-w-5xl rounded-2xl justify-center items-start flex flex-col gap-2">
                 {
                 currentQuestion?.choices.map((choice, index) => (
                     <button 
                     key={index}
                     value={choice}
                     onClick={() => handleSubmit(choice)}
-                    className="p-4 w-full border-b-5 border-gray-300 cursor-pointer font-bold text-gray-500 hover:bg-blue-100 hover:border-none hover:text-blue-500 hover:scale-105 transition-all duration-500 ease-in-out">
+                    className="p-4 w-full border-1 border-gray-300 rounded-xl cursor-pointer font-bold text-gray-500 hover:bg-blue-100 hover:border-blue-500 hover:text-blue-500 hover:-translate-y-2 transition-all duration-500 ease-in-out active:scale-[0.98]">
                     {choice}
                     </button>
                 ))

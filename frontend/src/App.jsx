@@ -9,6 +9,7 @@ import Change_Password_Page from "../pages/Change_Password_Page"
 import Not_Found_Page from "../pages/Not_Found_Page";
 import Lib_View_Story from "../library_components/Lib_View_Story";
 import Lib_Quiz from "../library_components/Lib_Quiz";
+import LoadingScreen from '../loadings/loading'
 
 
 const ProtectedRoute = ({ allowedRoles }) => {
@@ -52,7 +53,7 @@ function App() {
                 <Route path="/admin/upload" element={<Admin_Upload_Page />} />
                 <Route path="/change-password" element={<Change_Password_Page/>}/>
         {/* </Route> */}
-
+         <Route path="/loading" element={<LoadingScreen/>}/>
         <Route path="*" element={<Not_Found_Page/>}/>
 
       </Routes>

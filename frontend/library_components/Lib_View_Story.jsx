@@ -70,7 +70,7 @@ const Lib_View_Story = () => {
 
             {/* Story Text */}
             <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-                {selectedStory.textStory}
+                {selectedStory.fullStory}
             </p>
         </div>
         <div className="w-4xl justify-end items-center flex">

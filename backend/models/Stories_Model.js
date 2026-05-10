@@ -8,7 +8,8 @@ const StoriesSchema = new mongoose.Schema(
     description: { type: String, required: true },
     genre: { type: String, required: true },
     gradeCategory: { type: String, required: true },
-    textStory: { type: String, required: true },
+    fullStory: { type: String, required: true },
+    summaryStory: { type: String, required: true },
     image: { type: String, required: true },
 
     questionnaire: [

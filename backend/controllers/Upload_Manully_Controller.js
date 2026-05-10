@@ -1,33 +1,89 @@
-import Stories_Model from "../models/Stories_Model.js"
+import Stories_Model from "../models/Stories_Model.js";
 import { nanoid } from "nanoid";
-const Upload_Manually_Controller = async (req, res) =>{
-      const {title, author, description, genre, gradeCategory, textStory} = req.body;
-      
+import { createRequire } from "module";
+import cloudinary from "../config/cloudinary.js";
 
-      try {
-        // 👇 Cloudinary gives you this
-        const imageUrl = req.file?.path; 
-        const questionnaire = JSON.parse(req.body.questionnaire);
-        
-        const story = await Stories_Model.create({
-                      id: `STORY${nanoid(10)}`,
-                      title: title,
-                      author: author,
-                      description: description,
-                      genre: genre,
-                      gradeCategory: gradeCategory,
-                      textStory: textStory,
-                      image: imageUrl,
-                      questionnaire: questionnaire.map((q) => ({
-                                                            question: q.question,
-                                                            choices: q.choices,
-                                                            answer: q.answer
-                                                            }))
-        })
-        res.status(200).json({message: "Successfully added new story", isSuccess: true})
-      } catch (error) {
-        console.log(error)
-        res.status(500).json({message: "Internal Error Server"})
-      }
-}
-export default Upload_Manually_Controller
+const require = createRequire(import.meta.url);
+const pdf = require("pdf-parse");
+
+const Upload_Manually_Controller = async (req, res) => {
+
+  try {
+
+    const { title, author, description, genre, gradeCategory } = req.body;
+
+    // console.log("BODY:", req.body);
+    // console.log("FILES:", req.files);
+
+    // IMAGE
+    const imageFile = req.files?.image?.[0];
+
+    const uploadedImage = await cloudinary.uploader.upload(
+      `data:${imageFile.mimetype};base64,${imageFile.buffer.toString("base64")}`
+    );
+
+    const imageUrl = uploadedImage.secure_url;
+
+    // PDF
+    const pdfFile = req.files?.pdfFile?.[0];
+
+    if (!pdfFile) {
+      return res.status(400).json({
+        message: "PDF file is required",
+      });
+    }
+
+    // QUESTIONNAIRE
+    let questionnaire = [];
+
+    try {
+      questionnaire = JSON.parse(req.body.questionnaire || "[]");
+    } catch (err) {
+      questionnaire = [];
+    }
+
+    // PDF TEXT EXTRACTION
+    const pdfData = await pdf(pdfFile.buffer);
+    const extractedFullStory = pdfData.text;
+
+    // SAVE STORY
+    const story = await Stories_Model.create({
+      id: `STORY${nanoid(10)}`,
+      title,
+      author,
+      description,
+      genre,
+      gradeCategory,
+      fullStory: extractedFullStory,
+      summaryStory: "n/a",
+
+      // temporary
+      image: imageUrl,
+
+      questionnaire: questionnaire.map((q) => ({
+        question: q.question,
+        choices: q.choices,
+        answer: q.answer,
+      })),
+    });
+
+    return res.status(200).json({
+      message: "Successfully added new story",
+      isSuccess: true,
+      story,
+    });
+
+  } catch (error) {
+
+    console.log("UPLOAD ERROR:", error);
+
+    return res.status(500).json({
+      message: "Internal Server Error",
+      error: error.message,
+    });
+
+  }
+
+};
+
+export default Upload_Manually_Controller;

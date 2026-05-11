@@ -1,28 +1,51 @@
+import { useEffect, useState } from "react";
+import Lib_Overview from "./Lib_Overview";
 
 const Lib_Stories_Card = ({stories, genre, handleViewStory}) => {
 
-    const filteredStories = genre === "All" ? stories : stories.filter((story) => story.genre === genre.toLowerCase());
+    const [showOverview, setShowOverview] = useState(false);
+    const [showOtherGenre, setShowOtherGenre] = useState(false);
+
+    useEffect(() => {
+        if(genre === "Overview"){
+            setShowOverview(true);
+        } else {
+            setShowOverview(false);
+        }
+    },[genre])
+
+    const filteredStories = genre === "Overview" ? stories : stories.filter((story) => story.genre === genre.toLowerCase());
+    const newStories = [...stories].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 4); 
 
     return(
         <>
-        <header className='h-20 w-[1500px] border-b-1 border-pink-500 justify-between items-center flex py-4'>
-                        <h1 className="text-lg font-semibold text-gray-800">Select and explore stories</h1>
-                        <h1 className="text-xl font-bold">{genre}</h1>
-                        
+        {showOverview && (<Lib_Overview newStories={newStories}
+                                        stories={stories}
+                                        handleViewStory={handleViewStory}
+        />)}
+
+        <header className="w-full flex items-center justify-between px-6 py-5 border-b border-gray-200 bg-white/80 backdrop-blur-sm top-0 z-10">
+  
+                <div className="flex items-center gap-3">
+                    
+                    <div className="h-11 w-11 rounded-2xl bg-gradient-to-br from-emerald-400 to-green-600 flex items-center justify-center shadow-md">
+                    <span className="text-white text-xl">📚</span>
+                    </div>
+
+                    <div>
+                    <h1 className="text-2xl font-bold text-gray-800 tracking-tight">
+                        Explore {genre}
+                    </h1>
+
+                    <p className="text-sm text-gray-500">
+                        Discover the latest adventures and trending reads
+                    </p>
+                    </div>
+
+                </div>
         </header>
-        {filteredStories.length === 0 && (
-                        <div className="h-80 w-[1500px] flex flex-col items-center justify-center py-10 bg-gray-300 rounded-2xl mt-2">
-                            <p className="text-2xl mb-2">📚</p>
-                            <h2 className="text-lg font-semibold text-gray-700">
-                            No stories yet on {genre}
-                            </h2>
-                            <p className="text-sm text-gray-500">
-                            Check back later!
-                            </p>
-                        </div>
-        )}
-    
-        <div className="w-[1500px] grid grid-cols-4 mt-4 gap-6">
+        <div className={`${filteredStories.length === 0 ? "grid-cols-1" : "grid-cols-4"} w-full grid grid-cols-4 mt-4 gap-6 px-6`}>
+        
         {filteredStories.map((story) => (
                         <div
                             key={story.id}

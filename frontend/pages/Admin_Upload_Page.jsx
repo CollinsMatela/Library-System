@@ -7,6 +7,7 @@ const Admin_Upload_Page = () => {
     const navigate = useNavigate();
 
     const fileInputRef = useRef();
+    const pdfInputRef = useRef();
 
     const [showConfirmation, setShowConfirmation] = useState(false);
 
@@ -17,14 +18,16 @@ const Admin_Upload_Page = () => {
     const [description, setDescription] = useState("");
     const [genre, setGenre] = useState("");
     const [gradeCategory, setGradeCategory] = useState("");
-    const [textStory, setTextStory] = useState("")
+    const [pdfFile, setPdfFile] = useState(null)
+
 
     const [isTitle, setIsTitle] = useState(false);
     const [isAuthor, setIsAuthor] = useState(false);
     const [isDescription, setIsDescription] = useState(false);
     const [isGenre, setIsGenre] = useState(false);
     const [isGradeCategory, setIsGradeCategory] = useState(false);
-    const [isTextStory, setIsTextStory] = useState(false)
+    const [isPdfFile, setIsPdfFile] = useState(false)
+
 
     const [question, setQuestion] = useState("");
     const [choiceA, setChoiceA] = useState("");
@@ -42,7 +45,6 @@ const Admin_Upload_Page = () => {
 
     const [quizList, setQuizList] = useState([]);
 
-    
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(null);
 
@@ -57,21 +59,38 @@ const Admin_Upload_Page = () => {
     const handleImagePreview = async (e) => {
          const selected = e.target.files[0];
          setFile(selected);
-         setPreview(URL.createObjectURL(selected)); // 👈 local preview
+         setPreview(URL.createObjectURL(selected)); 
     }
     const openFileExplorer = () => {
         setPreview(null)
         setFile(null)
           fileInputRef.current.click();
     }
+    // For PDF Extraction Proccessing
+    const openFileExplorerPDF = () =>{
+          pdfInputRef.current.click();
+    }
+    const selectPdfFile = (e) => {
+          const selected = e.target.files[0];
+          if (!selected) return;
+
+          if (selected.type !== "application/pdf") {
+            alert("Please select a PDF file only");
+            return;
+          }
+          setPdfFile(selected);
+    }
 
     const handleConfirmation = () => {
         if (title === "") { setIsTitle(true); alert('Please fill the all fields'); return;}
         if (author === "") { setIsAuthor(true); alert('Please fill the all fields'); return;}
         if (description === "") { setIsDescription(true); alert('Please fill the all fields'); return;}
-        if (textStory === "") {setIsTextStory(true); alert('Please fill the all fields'); return;}
         if (genre === "") { setIsGenre(true); alert('Please fill the all fields'); return;}
         if (gradeCategory === "") { setIsGradeCategory(true); alert('Please fill the all fields'); return;}
+        if(!pdfFile){
+            alert("Insert pdf file of the story")
+            return;
+        }
         if(!file){
             alert("Insert image of the story")
             return;
@@ -116,23 +135,25 @@ const Admin_Upload_Page = () => {
         formData.append("description", description);
         formData.append("genre", genre);
         formData.append("gradeCategory", gradeCategory);
-        formData.append("textStory", textStory);
+        formData.append("pdfFile", pdfFile);
         formData.append("image", file);
         formData.append("questionnaire", JSON.stringify(quizList));
 
         try {
+            
+            console.log([...formData.entries()]);
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/upload-manually`, formData);
             if(res.data.isSuccess){
                setTitle("")
                setAuthor("")
                setDescription("")
-               setTextStory("")
                setGenre("")
                setGradeCategory("")
 
                setQuizList([])
                setPreview("")
                setFile(null)
+               setPdfFile(null)
 
                setQuestion("");
                 setChoiceA("");
@@ -198,15 +219,6 @@ const Admin_Upload_Page = () => {
                             }}
                         />
 
-                        <textarea 
-                            placeholder="Summary of the story"
-                            className={`${isTextStory ? "bg-red-200" : "bg-gray-200"} h-25 outline-none p-2 rounded-lg`}
-                            value={textStory}
-                            onChange={(e) => {setTextStory(e.target.value)
-                                              setIsTextStory(e.target.value === "");
-                            }}
-                        />
-
                         <select
                             value={genre}
                             onChange={(e) => {setGenre(e.target.value)
@@ -242,8 +254,20 @@ const Admin_Upload_Page = () => {
                             <option value="grade 4">Grade 4</option>
                         </select>
 
+                        <div className={`${pdfFile ? "hidden" : ""} bg-gray-200 p-2 text-gray-500 font-semibold rounded-xl cursor-pointer justify-center items-center flex`}
+                            onClick={openFileExplorerPDF}>+ Add Story
+                                <input 
+                                type="file"
+                                accept=".pdf,application/pdf"
+                                ref={pdfInputRef}
+                                className="hidden"
+                                onChange={selectPdfFile}
+                                />
+                            </div>
+
                         <div className="bg-pink-500 w-fit outline-none p-2 rounded-lg cursor-pointer text-white font-semibold px-2" onClick={openFileExplorer}> Upload Image
-                            <input type="file" 
+                            <input 
+                                type="file" 
                                 ref={fileInputRef} 
                                 className="hidden" 
                                 onChange={handleImagePreview} 
@@ -302,17 +326,20 @@ const Admin_Upload_Page = () => {
                                 <p className="text-xs text-gray-400 mt-2">
                                 By {author || "Author Name"}
                                 </p>
-
-                                <div className="w-full">
-                                <p className="text-gray-600 text-sm leading-relaxed break-words">
-                                {textStory || "Summary of the story will appear here."}
-                                </p> 
-                                </div>
                                 
 
                             </div>
+                            <div className={`${pdfFile ? "bg-green-200 border-green-300 text-green-500" : "bg-white border-gray-300 text-gray-500"} border-1 p-2 font-semibold rounded-xl justify-center items-center flex gap-2`}>
+                                {pdfFile ? "Inserted PDF story" : "No inserted story pdf"}
+                                <button className={`${pdfFile ? "" : "hidden"} text-green-500 font-semibold bg-green-300 rounded-full h-5 w-5 justify-center items-center flex cursor-pointer border-1 border-green-500 hover:text-red-500 hover:bg-red-200 hover:border-red-500 transition-all duration-500 ease-in-out`}
+                                onClick={() => setPdfFile(null)}
+                                >
+                                x
+                                </button>
+                            </div>
+                            
                         </div>
-
+ 
                     
                 </div>
 

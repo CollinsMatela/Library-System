@@ -87,67 +87,122 @@ const Admin_Page = () =>{
           navigate("/");
     }  
 
-    return(
-        <section className="bg-gradient-to-tr from-gray-200 via-white to-gray-100 w-full justify-start items-start flex">
+    return (
+  <section className="min-h-screen w-full bg-gradient-to-br from-pink-50 via-blue-50 to-yellow-50">
+    
+    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-pink-100 shadow-sm px-8 md:px-16 py-4 flex justify-between items-center">
+      <div>
+        <h1 className="text-2xl font-bold text-pink-500">
+          Little Me Admin
+        </h1>
+        <p className="text-sm text-gray-400">
+          Learning Center Dashboard
+        </p>
+      </div>
 
-          <div className="h-screen w-full overflow-auto">
-                <nav className="fixed top-0 bg-white h-15 w-full justify-between items-center flex border-b-1 gap-2 border-gray-300 px-30">
-                        <h1 className="text-xl font-semibold text-blue-500">Admin Overview</h1>
-                        <button className="bg-gray-100 px-4 py-1 rounded-full shadow-lg text-sm font-semibold text-gray-400 cursor-pointer" onClick={handleLogout}>Logout</button>
-                </nav>
-                <Admin_Dashboard AllStudents={studentList} 
-                                 AllEmployees={employeeList}
-                                />
+      <button
+        onClick={handleLogout}
+        className="bg-pink-500 hover:bg-pink-400 text-white px-6 py-2 rounded-full shadow-md transition duration-300"
+      >
+        Logout
+      </button>
+    </nav>
 
-                <Admin_UserManagement   AllStudents={studentList} 
-                                        AllEmployees={employeeList}
-                                        reFetchEmployee={fetchEmployees}
-                                        reFetchStudent={fetchStudents}
-                                        openStudentModal={() => setShowRegisterStudentModal(true)}
-                                        openEmployeeModal={() => setShowRegisterEmployeeModal(true)}
-                                        handleEditStudent={handleEditStudent}
-                                        handleEditEmployee={handleEditEmployee}
-                                        />
+    <div className="px-6 md:px-16 py-10 space-y-10">
 
-                {showRegisterEmployeeModal && (
-                        <RegisterEmployeeModal
-                            reFetchEmployee={fetchEmployees}
-                            closeEmployeeModal={() => setShowRegisterEmployeeModal(false)}
-                            openAccountConfirmation={PopUpStudentInfo}
-                        />
-                )}
-                {showRegisterStudentModal && (
-                        <RegisterStudentModal
-                            reFetchStudent={fetchStudents}
-                            closeStudentModal={() => setShowRegisterStudentModal(false)}
-                            openAccountConfirmation={PopUpStudentInfo}
-                        />
-                )}
-                {showEditStudentModal && (
-                        <Edit_Student_Modal
-                            selectedStudent={selectedStudentToEdit}
-                            triggerRefreshStudentTable={triggerRefreshStudentTable}
-                            closeEditStudentModal={() => setShowEditStudentModal(false)}
-                        />
-                )}
-                {showEditEmployeeModal && (
-                        <Edit_Employee_Modal
-                            selectedEmployee={selectedEmployeeToEdit}
-                            triggerRefreshEmployeeTable={triggerRefreshEmployeeTable}
-                            closeEditEmployeeModal={() => setShowEditEmployeeModal(false)}
-                        />
-                )}
-                {showAccountConfirmation && (
-                    <Account_Conformation 
-                            newAccountDetails={newAccountDetails}
-                            closeAccountConfirmation={() => setShowAccountConfirmation(false)}
-                    />
-                )}
-                
-          </div>
+      <div className="bg-white rounded-3xl shadow-md p-8 border border-pink-100">
+        <h2 className="text-4xl font-bold text-gray-700">
+          Hello {user?.username || "Admin"} 👋
+        </h2>
+        <p className="text-gray-400 mt-2 text-lg">
+          Welcome back! Here's today's overview of Little Me Learning Center.
+        </p>
+      </div>
 
-          
-        </section>
-    )
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-gradient-to-r from-pink-400 to-pink-500 text-white rounded-3xl p-6 shadow-lg">
+          <p className="text-lg">Total Students</p>
+          <h1 className="text-5xl font-bold mt-3">
+            {studentList.length}
+          </h1>
+        </div>
+
+        <div className="bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-3xl p-6 shadow-lg">
+          <p className="text-lg">Total Employees</p>
+          <h1 className="text-5xl font-bold mt-3">
+            {employeeList.length}
+          </h1>
+        </div>
+
+        <div className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white rounded-3xl p-6 shadow-lg">
+          <p className="text-lg">Learning Materials</p>
+          <h1 className="text-5xl font-bold mt-3">
+            0
+          </h1>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-3xl shadow-md border border-gray-100 p-6">
+        <Admin_Dashboard
+          AllStudents={studentList}
+          AllEmployees={employeeList}
+        />
+      </div>
+
+      <div className="bg-white rounded-3xl shadow-md border border-gray-100 p-6">
+        <Admin_UserManagement
+          AllStudents={studentList}
+          AllEmployees={employeeList}
+          reFetchEmployee={fetchEmployees}
+          reFetchStudent={fetchStudents}
+          openStudentModal={() => setShowRegisterStudentModal(true)}
+          openEmployeeModal={() => setShowRegisterEmployeeModal(true)}
+          handleEditStudent={handleEditStudent}
+          handleEditEmployee={handleEditEmployee}
+        />
+      </div>
+    </div>
+
+    {showRegisterEmployeeModal && (
+      <RegisterEmployeeModal
+        reFetchEmployee={fetchEmployees}
+        closeEmployeeModal={() => setShowRegisterEmployeeModal(false)}
+        openAccountConfirmation={PopUpStudentInfo}
+      />
+    )}
+
+    {showRegisterStudentModal && (
+      <RegisterStudentModal
+        reFetchStudent={fetchStudents}
+        closeStudentModal={() => setShowRegisterStudentModal(false)}
+        openAccountConfirmation={PopUpStudentInfo}
+      />
+    )}
+
+    {showEditStudentModal && (
+      <Edit_Student_Modal
+        selectedStudent={selectedStudentToEdit}
+        triggerRefreshStudentTable={triggerRefreshStudentTable}
+        closeEditStudentModal={() => setShowEditStudentModal(false)}
+      />
+    )}
+
+    {showEditEmployeeModal && (
+      <Edit_Employee_Modal
+        selectedEmployee={selectedEmployeeToEdit}
+        triggerRefreshEmployeeTable={triggerRefreshEmployeeTable}
+        closeEditEmployeeModal={() => setShowEditEmployeeModal(false)}
+      />
+    )}
+
+    {showAccountConfirmation && (
+      <Account_Conformation
+        newAccountDetails={newAccountDetails}
+        closeAccountConfirmation={() => setShowAccountConfirmation(false)}
+      />
+    )}
+  </section>
+  
+);
 }
 export default Admin_Page

@@ -13,9 +13,9 @@ import EducattionalIcon from '../src/assets/nerd-face-svgrepo-com.svg'
 const Lib_Story_Buttons = ({showStories}) => {
     return(
         <div className="my-10 gap-4 flex">
-                             <div className="h-25 w-20" onClick={() => showStories("All")}>
+                             <div className="h-25 w-20" onClick={() => showStories("Overview")}>
                                 <button className="shadow-lg h-20 w-20 rounded-full bg-blue-500 cursor-pointer transition-all duration-300 ease-in-out hover:scale-125"><img src={AllIcon} /></button>
-                                <h1 className="w-full text-center font-semibold text-sm text-gray-800">All</h1>
+                                <h1 className="w-full text-center font-semibold text-sm text-gray-800">Overview</h1>
                              </div>
         
                              <div className="h-25 w-20" onClick={() => showStories("Adventure")}>

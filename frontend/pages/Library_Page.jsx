@@ -50,16 +50,16 @@ const Library_Page = () => {
     const titles = stories.map(s => s.title);
     const [index, setIndex] = useState(0);
 
-    useEffect(() => {
-        // Story Title Rotation for placeholder
-        if (titles.length === 0) return;
+    // useEffect(() => {
+    //     // Story Title Rotation for placeholder
+    //     if (titles.length === 0) return;
 
-        const interval = setInterval(() => {
-        setIndex(prev => (prev + 1) % titles.length);
-        }, 3000);
+    //     const interval = setInterval(() => {
+    //     setIndex(prev => (prev + 1) % titles.length);
+    //     }, 3000);
 
-        return () => clearInterval(interval);
-    }, [titles.length]);
+    //     return () => clearInterval(interval);
+    // }, [titles.length]);
     
     return(
         <section className="min-h-screen w-full bg-gradient-to-br from-purple-600 via-pink-500 to-white p-4">

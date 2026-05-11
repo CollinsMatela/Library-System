@@ -17,9 +17,6 @@ const Login_Controller = async (req, res) => {
       username: username,
     });
 
-    console.log("STUDENT:", student);
-    console.log("EMPLOYEE:", employee);
-
     // 2. If no user found at all
     if (!student && !employee) {
       return res.status(404).json({ message: "User not found" });

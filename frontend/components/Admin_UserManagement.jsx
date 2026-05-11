@@ -120,7 +120,7 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, reFetchEmployee, reFet
                                         <button className="bg-blue-600 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-blue-700" onClick={() => handleEditStudent(student)}>
                                             Edt
                                         </button>
-                                        <button className="bg-blue-600 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-blue-700" onClick={() => deleteStudent(student.student.id)}>
+                                        <button className="bg-blue-600 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-blue-700" onClick={() => deleteStudent(student.id)}>
                                             Del
                                         </button>
                                         

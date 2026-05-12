@@ -2,6 +2,7 @@ import {useNavigate} from "react-router-dom";
 import axios from 'axios'
 import useAuthStore from "../store/useAuthStore";
 import { useState } from "react";
+import LoadingScreen from '../loadings/loading'
 
 const LoginModal = ({ onClose }) => {
 
@@ -20,6 +21,10 @@ const LoginModal = ({ onClose }) => {
   const [isPassword, setIsPassword] = useState(false);
   const [isErrorContainer, setIsErrorContainer] = useState(false);
   const [Message, setIsMessage ] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  
 
   const loginAccount = async () => {
 
@@ -67,7 +72,7 @@ const LoginModal = ({ onClose }) => {
 
   return (
     <section className="fixed inset-0 flex justify-center items-center z-50">
-
+      {loading && (<LoadingScreen/>)}
       <div
         className="absolute inset-0 bg-white/50 z-0"
         onClick={onClose}

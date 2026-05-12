@@ -8,11 +8,13 @@ import Lib_Navigation from '../library_components/Lib_Navigation'
 import Lib_Story_Buttons from '../library_components/Lib_Story_Buttons'
 import Lib_Stories_Card from '../library_components/Lib_Stories_Card'
 import Lib_View_Story from '../library_components/Lib_View_Story'
+import LoadingScreen from '../loadings/loading'
 import { useNavigate } from 'react-router-dom'
 
 const Library_Page = () => {
     const user = useAuthStore((state) => state.user);
     const logout = useAuthStore((state) => state.logout);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -39,14 +41,18 @@ const Library_Page = () => {
     },[])
 
     const fetchStories = async () =>{
+          setLoading(true);
           try {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-stories`);
                 setStories(res.data.stories);
                 console.log(res.data.message);
-            
           } catch (error) {
             console.log(error)
-          }
+          } finally {
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
+    }
     }
     
 
@@ -67,16 +73,16 @@ const Library_Page = () => {
     return(
         <section className="min-h-screen w-full bg-gradient-to-br from-blue-200 via-yellow-200 to-green-300 p-4">
             <div className="bg-white min-h-screen w-full just-center items-center flex flex-col rounded-2xl pb-4">
-
+                {loading && (<LoadingScreen/>)}
                 <Lib_Navigation/>
                  
                  
-                 <h1 className="text-5xl text-gray-500 font-bold my-10">What story will you explore today? {user.firstname}.</h1>
+                 <h1 className="text-5xl text-gray-500 font-bold my-10">What story will you explore today? {user?.firstname || "Dev"}.</h1>
 
-                 <div className="h-20 max-w-5xl w-full bg-blue-500 justify-center items-center flex border-2 border-gray-500 rounded-4xl outline-none p-2">
+                 <div className="h-20 max-w-5xl w-full bg-blue-100 justify-center items-center flex border-2 border-gray-500 rounded-4xl outline-none p-2">
                         <div className="h-full w-20 border-r-1 border-white"><img src={SearchIcon} className='h-full w-full object-cover' /></div>
                         <input type="text" 
-                               className="h-full w-full outline-none px-4 text-white font-semibold inner-shadow-lg" 
+                               className="h-full w-full outline-none px-4 text-lg text-blue-500 font-bold inner-shadow-lg" 
                                placeholder={`Search stories and explore... [e.g ${titles[index]}]`}
                                value={search}
                                onChange={(e) => setSearch(e.target.value)}

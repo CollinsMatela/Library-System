@@ -11,7 +11,9 @@ const Lib_Navigation = () => {
     const handleLogout = () => {
           logout();
           navigate('/');
-
+    }
+    const handleProfile = () => {
+          navigate('/library/profile');
     }
     
     return(
@@ -21,7 +23,7 @@ const Lib_Navigation = () => {
                                 <h1 className="text-medium text-gray-800 font-semibold">{`Welcome! ${user?.firstname || "Dev"} ${user?.lastname || "Dev"}`}</h1>
                               </div>
                               <div className='gap-2 justify-center items-center flex'>
-                                <button className='h-10 w-10 bg-gray-300 rounded-full'></button>
+                                <button className='h-10 w-10 bg-gray-300 rounded-full' onClick={handleProfile}></button>
                                 <button className='h-10 w-10 bg-blue-500 rounded-xl items-center flex justify-center'><img src={RankingIcon} className='h-5 w-5 object-cover' /></button>
                                 <button className='h-10 w-10 bg-blue-500 rounded-xl'><img src={NotificationIcon} className='h-full w-full object-cover' /></button>
                 

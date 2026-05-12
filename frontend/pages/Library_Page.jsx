@@ -17,8 +17,10 @@ const Library_Page = () => {
     const navigate = useNavigate();
 
     const [stories, setStories] = useState([]); // Fetched Stories
-
     const [selectedGenre, setSelectedGenre] = useState("Overview");
+    
+    const [search, setSearch] = useState("");
+    const searchingResult = stories.filter((story) => story.title.toLowerCase().includes(search.toLowerCase()));
 
     const showStories = (genre) => {
     setSelectedGenre(genre);
@@ -46,6 +48,7 @@ const Library_Page = () => {
             console.log(error)
           }
     }
+    
 
     const titles = stories.map(s => s.title);
     const [index, setIndex] = useState(0);
@@ -62,17 +65,33 @@ const Library_Page = () => {
     // }, [titles.length]);
     
     return(
-        <section className="min-h-screen w-full bg-gradient-to-br from-purple-600 via-pink-500 to-white p-4">
+        <section className="min-h-screen w-full bg-gradient-to-br from-blue-200 via-yellow-200 to-green-300 p-4">
             <div className="bg-white min-h-screen w-full just-center items-center flex flex-col rounded-2xl pb-4">
 
                 <Lib_Navigation/>
                  
                  
-                 <h1 className="text-5xl text-pink-500 font-bold my-10">What story will you explore today? {user.firstname}.</h1>
+                 <h1 className="text-5xl text-gray-500 font-bold my-10">What story will you explore today? {user.firstname}.</h1>
 
-                 <div className="h-20 w-5xl bg-gradient-to-br from-purple-600 to-pink-500 justify-center items-center flex border-2 border-pink-500 shadow-lg rounded-4xl outline-none p-2">
+                 <div className="h-20 max-w-5xl w-full bg-blue-500 justify-center items-center flex border-2 border-gray-500 rounded-4xl outline-none p-2">
                         <div className="h-full w-20 border-r-1 border-white"><img src={SearchIcon} className='h-full w-full object-cover' /></div>
-                        <input type="text" className="h-full w-full outline-none px-4 text-white font-semibold" placeholder={`Search stories and explore... [e.g ${titles[index]}]`}/>
+                        <input type="text" 
+                               className="h-full w-full outline-none px-4 text-white font-semibold inner-shadow-lg" 
+                               placeholder={`Search stories and explore... [e.g ${titles[index]}]`}
+                               value={search}
+                               onChange={(e) => setSearch(e.target.value)}
+                        />
+                 </div>
+                 <div className={`${!search ? "hidden" : null} bg-white max-h-50 w-5xl border-b-1 border-gray-300 my-2 overflow-y-auto py-4`}>
+                      <h1 className='text-gray-800 font-bold mb-2'>Search Result</h1>
+                      {searchingResult.map((story, index) => (
+                        <div key={story.id} className='h-20 w-full bg-white rounded-4xl mb-2 justify-start items-center flex gap-4 px-5 cursor-pointer border-1 border-gray-200 hover:bg-blue-100 hover:border-blue-500 group'
+                             onClick={() => handleViewStory(story.id)}
+                        >
+                             <h1 className='bg-gray-100 h-12 w-12 justify-center items-center flex rounded-full group-hover:bg-blue-200 group-hover:text-blue-500'>{index + 1}.</h1>
+                             <h1 className='text-gray-800 font-bold'>{story.title.toUpperCase()}</h1>
+                        </div>
+                      ))}      
                  </div>
 
                  <Lib_Story_Buttons showStories={showStories}/>

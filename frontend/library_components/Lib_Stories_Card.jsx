@@ -24,11 +24,12 @@ const Lib_Stories_Card = ({stories, genre, handleViewStory}) => {
                                         handleViewStory={handleViewStory}
         />)}
 
-        <header className="w-full flex items-center justify-between px-6 py-5 border-b border-gray-200 bg-white/80 backdrop-blur-sm top-0 z-10">
+        <div className={`${showOverview ? "hidden" : null} w-full`}>
+              <header className="w-full flex items-center justify-between px-6 py-5 border-b border-gray-200 bg-white/80 backdrop-blur-sm top-0 z-10">
   
                 <div className="flex items-center gap-3">
                     
-                    <div className="h-11 w-11 rounded-2xl bg-gradient-to-br from-emerald-400 to-green-600 flex items-center justify-center shadow-md">
+                    <div className="h-11 w-11 rounded-2xl bg-blue-500 flex items-center justify-center shadow-md">
                     <span className="text-white text-xl">📚</span>
                     </div>
 
@@ -73,7 +74,7 @@ const Lib_Stories_Card = ({stories, genre, handleViewStory}) => {
 
                             {/* Optional: Add CTA */}
                             <div className="mt-2">
-                                <span className="text-xs text-purple-600 font-medium hover:underline">
+                                <span className="text-xs text-blue-600 font-medium hover:underline">
                                 Read Story →
                                 </span>
                             </div>
@@ -81,6 +82,8 @@ const Lib_Stories_Card = ({stories, genre, handleViewStory}) => {
                         </div>
         ))}
         </div>
+        </div>
+        
         
         </>
         

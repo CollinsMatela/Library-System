@@ -6,7 +6,7 @@ const Lib_Overview = ({newStories, stories, handleViewStory}) => {
   
                 <div className="flex items-center gap-3">
                     
-                    <div className="h-11 w-11 rounded-2xl bg-gradient-to-br from-emerald-400 to-green-600 flex items-center justify-center shadow-md">
+                    <div className="h-11 w-11 rounded-2xl bg-blue-500 flex items-center justify-center shadow-md">
                     <span className="text-white text-xl">📚</span>
                     </div>
 
@@ -48,7 +48,7 @@ const Lib_Overview = ({newStories, stories, handleViewStory}) => {
                             </p>
 
                             <div className="mt-auto pt-2">
-                            <span className="text-xs text-purple-600 font-medium hover:underline">
+                            <span className="text-xs text-blue-600 font-medium hover:underline">
                                 Read Story →
                             </span>
                             </div>
@@ -61,7 +61,7 @@ const Lib_Overview = ({newStories, stories, handleViewStory}) => {
   
                 <div className="flex items-center gap-3">
                     
-                    <div className="h-11 w-11 rounded-2xl bg-gradient-to-br from-emerald-400 to-green-600 flex items-center justify-center shadow-md">
+                    <div className="h-11 w-11 rounded-2xl bg-blue-500 flex items-center justify-center shadow-md">
                     <span className="text-white text-xl">📚</span>
                     </div>
 
@@ -102,7 +102,7 @@ const Lib_Overview = ({newStories, stories, handleViewStory}) => {
                             </p>
 
                             <div className="mt-auto pt-2">
-                            <span className="text-xs text-purple-600 font-medium hover:underline">
+                            <span className="text-xs text-blue-600 font-medium hover:underline">
                                 Read Story →
                             </span>
                             </div>

@@ -31,8 +31,8 @@ const Lib_View_Story = () => {
        <section className="w-full bg-white py-10 px-4 flex justify-center items-center flex flex-col">
 
         <nav className="bg-white h-20 w-4xl mb-6 border-b-1 border-gray-300 p-2 justify-between items-center flex">
-             <h1 className="text-2xl font-bold">View Story</h1>
-             <h1 className="text-base text-pink-500 font-bold cursor-pointer" onClick={() => navigate(-1)}>⟵ Back</h1>
+             <h1 className="text-2xl font-bold text-gray-800">View Story</h1>
+             <h1 className="text-base text-blue-500 font-bold cursor-pointer" onClick={() => navigate(-1)}>⟵ Back</h1>
         </nav>
 
         <div className="w-full max-w-4xl bg-white rounded-2xl overflow-hidden">
@@ -74,7 +74,7 @@ const Lib_View_Story = () => {
             </p>
         </div>
         <div className="w-4xl justify-end items-center flex">
-                <button className="bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 cursor-pointer p-4"
+                <button className="bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-600 cursor-pointer p-4"
                         onClick={TakeQuiz}>
                 Start take the quiz</button>
             </div>

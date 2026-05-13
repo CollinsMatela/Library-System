@@ -1,7 +1,6 @@
 import useAuthStore from '../store/useAuthStore'
 import NotificationIcon from '../src/assets/notification-svgrepo-com.svg'
 import RankingIcon from '../src/assets/crown-svgrepo-com.svg'
-import Logo from '../public/LMLC.png'
 import { useNavigate } from 'react-router-dom'
 
 const Lib_Navigation = () => {
@@ -16,6 +15,7 @@ const Lib_Navigation = () => {
     const handleProfile = () => {
       // HAHAHAHAH
       //ASDASDAS
+      // Check
           navigate('/library/profile');
     }
     
@@ -29,7 +29,6 @@ const Lib_Navigation = () => {
                                 
                                 <button className='h-10 w-10 border-2 border-white rounded-xl items-center flex justify-center'><img src={RankingIcon} className='h-5 w-5 object-cover' /></button>
                                 <button className='h-10 w-10 border-2 border-white rounded-xl'><img src={NotificationIcon} className='h-full w-full object-cover' /></button>
-                
                                 <button className="h-10 px-4 bg-transparent border-2 border-white text-white font-bold rounded-xl transition-all duration-300 ease-in-out hover:text-gray-500 hover:bg-white cursor-pointer" onClick={handleLogout}>Logout</button>
                               </div>
                               

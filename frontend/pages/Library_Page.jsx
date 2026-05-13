@@ -76,7 +76,7 @@ const Library_Page = () => {
                 {loading && (<LoadingScreen/>)}
                 <Lib_Navigation/>
                  
-                 <h1 className="text-medium text-gray-500 font-bold mb-4 mt-20 border-2 border-gray-500 py-1 px-4 rounded-full">Little Me Online Library</h1>
+                 <h1 className="text-medium text-gray-500 font-bold mb-4 mt-20 border-2 border-gray-500 py-1 px-4 rounded-full">Little Me Online Library Hello</h1>
                  <h1 className="text-5xl text-gray-500 font-bold mb-10">What story will you explore today? {user?.firstname || "Dev"}.</h1>
 
                  <div className="h-20 max-w-5xl w-full bg-gradient-to-br from-pink-100 via-blue-100 to-yellow-100 justify-center items-center flex border-2 border-gray-500 rounded-4xl outline-none p-2">

@@ -27,6 +27,7 @@ const StudentRegistrationSchema = new mongoose.Schema({
       password: {type: String, required:true},
 
       isChangePassword: { type: Boolean, default: false },
+      avatar: { type: String, default: "" },
       }, 
       {
       timestamps: true  

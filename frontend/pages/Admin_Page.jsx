@@ -143,13 +143,6 @@ const Admin_Page = () =>{
       </div>
 
       <div className="bg-white rounded-3xl shadow-md border border-gray-100 p-6">
-        <Admin_Dashboard
-          AllStudents={studentList}
-          AllEmployees={employeeList}
-        />
-      </div>
-
-      <div className="bg-white rounded-3xl shadow-md border border-gray-100 p-6">
         <Admin_UserManagement
           AllStudents={studentList}
           AllEmployees={employeeList}

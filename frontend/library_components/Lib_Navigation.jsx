@@ -13,9 +13,6 @@ const Lib_Navigation = () => {
           navigate('/');
     }
     const handleProfile = () => {
-      // HAHAHAHAH
-      //ASDASDAS
-      // Check
           navigate('/library/profile');
     }
     

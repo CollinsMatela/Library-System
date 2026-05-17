@@ -19,7 +19,16 @@ const Lib_Navigation = () => {
     return(
         <nav className=" bg-gradient-to-br from-pink-500 via-blue-500 to-yellow-500 rounded-t-2xl h-20 w-full justify-between items-center flex px-6">
                               <div className="rounded-xl justify-center items-center flex gap-2">
-                                <button className='h-12 w-12 border-2 border-white rounded-full cursor-pointer' onClick={handleProfile}></button>
+                                <div
+                                className="h-12 w-12 border-2 border-white rounded-full cursor-pointer overflow-hidden"
+                                onClick={handleProfile}
+                              >
+                                <img
+                                  src={user?.avatar || defaultProfile}
+                                  className="h-full w-full object-cover"
+                                  alt="profile"
+                                />
+                              </div>
                                 <h1 className="text-medium text-white font-bold text-lg">{`Little Me Online Library`}</h1>
                               </div>
                               <div className='gap-2 justify-center items-center flex'>

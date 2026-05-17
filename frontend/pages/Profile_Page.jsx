@@ -3,6 +3,7 @@ import useAuthStore from "../store/useAuthStore";
 import { useRef } from "react";
 import axios from "axios";
 import { useState } from "react";
+import defaultProfile from "../src/assets/DeaultProfile.jpg";
 
 const Profile_Page = () => {
     const user = useAuthStore((state) => state.user);
@@ -11,20 +12,39 @@ const Profile_Page = () => {
     const inputAvatarFile = useRef(null);
 
     const [avatarFile, setAvatarFile] = useState(null);
-    
-    const AvatarChange = async () => {
-          try {
-            const formDate = new FormData();
-            FormData.append("avatar", avatarFile);
+    const [preview, setPreview] = useState(null);
 
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/set-avatar`, formDate);
-          } catch (error) {
-            console.log(error)
-          }
-    }
+    const AvatarChange = async () => {
+    try {
+        const formData = new FormData();
+        formData.append("avatar", avatarFile);
+        formData.append("userId", user.id);
+        formData.append("role", user.role);
+
+        const res = await axios.post(
+            `${import.meta.env.VITE_API_URL}/set-avatar`,
+            formData
+        );
+
+        // update UI instantly (Zustand)
+        useAuthStore.getState().setUser(res.data.user);
+
+            } catch (error) {
+                console.log(error);
+            }
+        };
     const openFileExplorer = (e) => {
         const selected = e.target.files[0];
+        if (!selected) return;
+
         setAvatarFile(selected);
+
+        // preview image
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setPreview(reader.result);
+        };
+        reader.readAsDataURL(selected);
         
     }
 
@@ -44,7 +64,7 @@ const Profile_Page = () => {
                 <div className="w-5xl justify-between items-start flex border-b-1 border-gray-500 gap-4 py-6">
                     
                     <div className="h-full max-w-100 justify-start items-start flex gap-6">
-                        <img src={user?.avatar} className="h-20 w-30 object-cover rounded-2xl bg-gray-300"/>
+                        <img src={user?.avatar || defaultProfile} className="h-20 w-30 object-cover rounded-2xl bg-gray-300"/>
                         <div className="w-full justify-start items-start flex flex-col">
                             <h1 className="text-2xl text-gray-800 font-bold">{user?.role   } {user?.firstname} {user?.lastname}</h1>
                             <h1 className="text-base text-gray-500 font-bold">{user?.username} • {user?.gradeLevel} • {user?.branch}</h1>
@@ -55,6 +75,9 @@ const Profile_Page = () => {
                         <input ref={inputAvatarFile} type="file" className="hidden" onChange={openFileExplorer}/>
                         Change Avatar 
                     </div>
+                    <button className={`${preview ? "" : "hidden"} bg-blue-500 text-white hover:bg-blue-600 py-2 px-4 rounded-lg cursor-pointer transition-all duration-300`} onClick={AvatarChange}>
+                    Save Avatar
+                    </button>
                 </div>
 
                 <h1 className="text-lg text-gray-500 font-bold">Acquired Achievements</h1>

@@ -21,10 +21,12 @@ import Upload_Manually_Route from './routes/Upload_Manually_Route.js'
 import Change_Password_Route from './routes/Change_Password_Route.js'
 import Fetch_Stories_Route from './routes/Fetch_Stories_Route.js'
 import Fetch_One_Story_Route from './routes/Fetch_One_Story_Route.js'
+import Change_Avatar_Route from './routes/Change_Avatar_Route.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/", Student_Registration_Route);
@@ -40,6 +42,7 @@ app.use("/", Upload_Manually_Route);
 app.use("/", Change_Password_Route);
 app.use("/", Fetch_Stories_Route);
 app.use("/", Fetch_One_Story_Route);
+app.use("/", Change_Avatar_Route);
 
 const PORT = process.env.PORT || 5000;
 

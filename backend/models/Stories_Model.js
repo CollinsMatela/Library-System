@@ -14,6 +14,7 @@ const StoriesSchema = new mongoose.Schema(
 
     questionnaire: [
       {
+        questionId: { type: String, required: true },
         question: { type: String, required: true },
         choices: [{ type: String, required: true }],
         answer: { type: String, required: true }

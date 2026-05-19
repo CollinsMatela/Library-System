@@ -66,6 +66,7 @@ const Upload_Manually_Controller = async (req, res) => {
       summaryStory: "n/a",
       image: imageUrl,
       questionnaire: questionnaire.map((q) => ({
+        questionId: `Q${nanoid(8)}`,
         question: q.question,
         choices: q.choices,
         answer: q.answer,

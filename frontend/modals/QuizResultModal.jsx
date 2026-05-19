@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const QuizResultModal = ({ points }) => {
+const QuizResultModal = ({ score, exp }) => {
     const navigate = useNavigate();
     return (
         <section className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-50 px-4">
@@ -30,23 +30,23 @@ const QuizResultModal = ({ points }) => {
                     </h2>
 
                     <h1 className="text-white text-6xl font-extrabold mt-2">
-                        {points}
+                        {score} / 5
                     </h1>
                 </div>
 
                 {/* Performance Message */}
                 <div className="text-center">
-                    {points === 50 ? (
+                    {score >= 4 ? (
                         <p className="text-green-500 font-semibold text-lg">
-                            Perfect score! Amazing work 🎉
+                            Perfect score! Amazing work 🎉 +{exp} XP
                         </p>
-                    ) : points >= 30 ? (
+                    ) : score >= 3 ? (
                         <p className="text-blue-500 font-semibold text-lg">
-                            Great job! Keep improving 🚀
+                            Great job! Keep improving 🚀 + {exp} XP
                         </p>
                     ) : (
                         <p className="text-red-500 font-semibold text-lg">
-                            Nice try! Practice makes perfect 💪
+                            Nice try! Practice makes perfect 💪 +{exp} XP
                         </p>
                     )}
                 </div>

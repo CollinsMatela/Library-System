@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import QuizResultModal from "../modals/QuizResultModal";
+import useAuthStore from "../store/useAuthStore";
 
 const Lib_Quiz = () => {
     const { id } = useParams();
+    const user = useAuthStore((state) => state.user);
 
     const [selectedStory, setSelectedStory] = useState(null);
     const [currentNumber, setCurrentNumber] = useState(0);
-    const [points, setPoints] = useState(0);
+    const [score, setScore] = useState(0);
+    const [exp, setExp] = useState(0);
     const [showResult, setShowResult] = useState(false);
 
     const [selectedChoice, setSelectedChoice] = useState(null);
@@ -34,27 +37,45 @@ const Lib_Quiz = () => {
         }
     };
 
-    // reset per question
-    useEffect(() => {
-        setSelectedChoice(null);
-        setIsCorrect(null);
-        setWrongAnswers([]);
-    }, [currentNumber]);
-
     const handleNextQuestion = () => {
         const next = currentNumber + 1;
 
         if (next >= questions.length) {
             setShowResult(true);
+            submitQuizResult();
         } else {
             setCurrentNumber(next);
         }
     };
 
+    const submitQuizResult = async () => {
+          try {
+          const result = {
+            userId: user?.id,
+            storyId: selectedStory?.id,
+            score: score,
+            exp: exp,
+            correctAnswers: score,
+            totalQuestions: questions.length,
+            accuracy: (score / questions.length) * 100,
+            answeredQuestions: questions.map((q, i) => ({
+              questionId: q.questionId,
+              selectedChoice: selectedChoice,
+              isCorrect: isCorrect
+            })),
+          };
+          const res = await axios.post(`${import.meta.env.VITE_API_URL}/quiz-result`, result);
+          console.log("Quiz result submitted:", res.data.message);
+
+          } catch (error) {
+            console.log(error);
+          }
+    }
+
     return (
         <section className="bg-white min-h-screen w-full flex flex-col items-center gap-4">
 
-            {showResult && <QuizResultModal points={points} />}
+            {showResult && <QuizResultModal score={score} exp={exp} />}
 
             {/* HEADER */}
             <div className="w-full h-20 border-b border-gray-200 flex justify-center items-center shadow-sm">
@@ -71,14 +92,14 @@ const Lib_Quiz = () => {
 
                    <div
                     className={`px-4 py-2 rounded-2xl font-bold ${
-                        points >= 400
+                        score >= 4
                         ? "bg-green-600 text-white"
-                        : points >= 250
+                        : score >= 3
                         ? "bg-yellow-200 text-yellow-800"
                         : "bg-gray-100 text-gray-500"
                     }`}
                     >
-                        XP Points: {points}
+                        Score Points: {score}
                     </div>
 
                 </div>
@@ -112,22 +133,17 @@ const Lib_Quiz = () => {
 
                             return (
                                 <button
-                                    disabled={isWrong}
                                     key={index}
                                     onClick={() => {
-                                        const correct =
-                                            choice === currentQuestion.answer;
+                                        const correct = choice === currentQuestion.answer;
 
                                         setSelectedChoice(choice);
                                         setIsCorrect(correct);
 
-                                        if (!correct) {
-                                            setWrongAnswers((prev) => [...prev, choice,]);
-                                            setPoints((prev) => prev - 25);
-                                            return;
+                                        if (correct) {
+                                            setScore((prev) => prev + 1);
+                                            setExp((prev) => prev + 100);
                                         }
-
-                                        setPoints((prev) => prev + 100);
 
                                         setTimeout(() => {
                                             handleNextQuestion();

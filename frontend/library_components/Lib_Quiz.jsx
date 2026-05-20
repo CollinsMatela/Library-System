@@ -6,6 +6,7 @@ import useAuthStore from "../store/useAuthStore";
 
 const Lib_Quiz = () => {
     const { id } = useParams();
+    // get user
     const user = useAuthStore((state) => state.user);
 
     const [selectedStory, setSelectedStory] = useState(null);

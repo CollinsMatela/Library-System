@@ -31,6 +31,10 @@ const Lib_Navigation = () => {
                               </div>
                                 <h1 className="text-medium text-white font-bold text-lg">{`Little Me Online Library`}</h1>
                               </div>
+
+                              <div className='bg-white/50 px-2 py-1 rounded-2xl'>
+                                <h1 className="text-medium text-white font-bold text-lg">Your Level 0</h1>
+                              </div>
                               <div className='gap-2 justify-center items-center flex'>
                                 
                                 <button className='h-10 w-10 border-2 border-white rounded-xl items-center flex justify-center'><img src={RankingIcon} className='h-5 w-5 object-cover' /></button>

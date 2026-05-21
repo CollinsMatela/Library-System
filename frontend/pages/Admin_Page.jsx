@@ -19,6 +19,7 @@ const Admin_Page = () =>{
 
     const [studentList, setStudentList] = useState([])
     const [employeeList, setEmployeeList] = useState([])
+    const [storiesList, setStoriesList] = useState([]);
 
     const fetchStudents = async () => {
 
@@ -40,10 +41,20 @@ const Admin_Page = () =>{
             console.log(error)
         }
     }
+     const fetchStories = async () =>{
+          try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-stories`);
+                setStoriesList(res.data.stories);
+                console.log(res.data.message);
+          } catch (error) {
+            console.log(error)
+          }
+    }
 
     useEffect(() => {
         fetchStudents()
         fetchEmployees()
+        fetchStories()
     }, [])
 
     const [showRegisterEmployeeModal, setShowRegisterEmployeeModal] = useState(false);
@@ -135,9 +146,9 @@ const Admin_Page = () =>{
         </div>
 
         <div className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white rounded-3xl p-6 shadow-lg">
-          <p className="text-lg">Learning Materials</p>
+          <p className="text-lg">Learning Stories</p>
           <h1 className="text-5xl font-bold mt-3">
-            0
+            {storiesList.length}
           </h1>
         </div>
       </div>

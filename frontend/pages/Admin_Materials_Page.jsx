@@ -10,10 +10,11 @@ const Admin_Materials_Page = () => {
     const [search, setSearch] = useState("");
 
     useEffect(() => {
-       fetchStories();
+      //  fetchStories();
     }, [])
 
     const fetchStories = async () =>{
+      // haha
           try {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-stories`);
                 setStories(res.data.stories);

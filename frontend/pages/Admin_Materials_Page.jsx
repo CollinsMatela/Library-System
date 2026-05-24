@@ -9,8 +9,10 @@ const Admin_Materials_Page = () => {
     const [stories, setStories] = useState([]);
     const [search, setSearch] = useState("");
 
+    const filteredStories = stories.filter((story) => story.title.toLowerCase().includes(search.toLowerCase()));
+
     useEffect(() => {
-      //  fetchStories();
+       fetchStories();
     }, [])
 
     const fetchStories = async () =>{
@@ -46,13 +48,13 @@ const Admin_Materials_Page = () => {
               
 
               <div className="bg-white w-full grid grid-cols-1">
-                  {stories.length === 0 && (
+                  {filteredStories.length === 0 && (
                     <div className="bg-gray-100 h-20 w-full rounded-2xl justify-center items-center flex mt-4">
                       <h1>No stories uploaded</h1>
                     </div>
                   )}
-                  {stories.length > 0 && (
-                    stories.map((story) => (
+                  {filteredStories.length > 0 && (
+                    filteredStories.map((story) => (
                       <div key={story.id} className="bg-white h-30 w-full rounded-4xl justify-start items-center flex border border-gray-500 transistion-all duration-300 ease-in-out cursor-pointer hover:-translate-1 hover:bg-blue-100 hover:border-none mt-4 gap-4">
                       <div className="h-full w-100 rounded-l-2xl">
                         <img src={story?.image} className="object-cover h-full w-full rounded-l-4xl" />

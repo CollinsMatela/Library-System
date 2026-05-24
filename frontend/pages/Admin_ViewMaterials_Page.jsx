@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import Edit_Question_Modal from "../modals/Edit_Question_Modal";
 
 const Admin_ViewMaterials_Page = () => {
   const { storyId } = useParams();
@@ -11,6 +12,9 @@ const Admin_ViewMaterials_Page = () => {
   const [isStoryDetails, setIsStoryDetails] = useState(true);
   const [isStoryContext, setIsStoryContext] = useState(false);
   const [isQuestionnaire, setIsQuestionnaire] = useState(false);
+
+  const [showEditQuestionModal, setShowEditQuestionModal] = useState(false);
+  const [selectedQuestionToEdit, setSelectedQuestionToEdit] = useState(null);
 
   const handleStoryDetails = () => {
     setIsStoryDetails(true);
@@ -30,6 +34,12 @@ const Admin_ViewMaterials_Page = () => {
     setIsQuestionnaire(true);
   }
 
+  const handleEditQuestion = (question) => {
+    console.log(question);
+    setSelectedQuestionToEdit(question);
+    setShowEditQuestionModal(true);
+  }
+
   useEffect(() => {
       fetchSingleStory();
   }, [])
@@ -46,6 +56,7 @@ const Admin_ViewMaterials_Page = () => {
 
   return(
     <section className="bg-white min-h-screen w-full justify-start items-center flex flex-col pb-10">
+      {showEditQuestionModal && (<Edit_Question_Modal question={selectedQuestionToEdit} onClose={() => setShowEditQuestionModal(false)} />)}
     
     <header className="fixed top-0 z-50 h-20 w-full justify-start items-center flex px-10 bg-white shadow-md">
         <div>
@@ -59,9 +70,9 @@ const Admin_ViewMaterials_Page = () => {
     </header>
 
     <div className="mt-25 w-5xl border-b-2 border-gray-300 py-2 space-x-2 mb-4">
-        <button className={`${isStoryDetails ? 'bg-blue-500 text-white border-none' : 'bg-white'} h-full w-fit p-2 font-semibold text-gray-800 rounded-2xl border-1 border-gray-300 cursor-pointer`} onClick={handleStoryDetails}>Story Details</button>
-        <button className={`${isStoryContext ? 'bg-blue-500 text-white border-none' : 'bg-white'} h-full w-fit p-2 font-semibold text-gray-800 rounded-2xl border-1 border-gray-300 cursor-pointer`} onClick={handleStoryContext}>Story Context</button>
-        <button className={`${isQuestionnaire ? 'bg-blue-500 text-white border-none' : 'bg-white'} h-full w-fit p-2 font-semibold text-gray-800 rounded-2xl border-1 border-gray-300 cursor-pointer`} onClick={handleQuestionnaire}>Questionnaire</button>
+        <button className={`${isStoryDetails ? 'bg-gray-300 text-white border-none' : 'bg-white'} h-full w-fit p-2 font-semibold text-gray-800 rounded-2xl border-1 border-gray-300 cursor-pointer`} onClick={handleStoryDetails}>Story Details</button>
+        <button className={`${isStoryContext ? 'bg-gray-300 text-white border-none' : 'bg-white'} h-full w-fit p-2 font-semibold text-gray-800 rounded-2xl border-1 border-gray-300 cursor-pointer`} onClick={handleStoryContext}>Story Context</button>
+        <button className={`${isQuestionnaire ? 'bg-gray-300 text-white border-none' : 'bg-white'} h-full w-fit p-2 font-semibold text-gray-800 rounded-2xl border-1 border-gray-300 cursor-pointer`} onClick={handleQuestionnaire}>Questionnaire</button>
     </div>
     
     {isStoryDetails && (
@@ -139,6 +150,9 @@ const Admin_ViewMaterials_Page = () => {
                  </span>
                ))}</p>
                <p className="text-gray-600">Correct Answer: {q.answer}</p>
+               <button className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 cursor-pointer mt-4" onClick={() => handleEditQuestion(q)}>
+                 Edit This Question
+               </button>
              </div>
                 
             ))}

@@ -16,7 +16,6 @@ const Admin_Materials_Page = () => {
     }, [])
 
     const fetchStories = async () =>{
-      // haha
           try {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-stories`);
                 setStories(res.data.stories);
@@ -24,6 +23,11 @@ const Admin_Materials_Page = () => {
           } catch (error) {
             console.log(error)
           }
+    }
+
+    const handleViewStories = (storyId) => {
+          if(!storyId) return;
+          navigate(`/admin/materials/${storyId}`);
     }
 
       return(
@@ -55,18 +59,28 @@ const Admin_Materials_Page = () => {
                   )}
                   {filteredStories.length > 0 && (
                     filteredStories.map((story) => (
-                      <div key={story.id} className="bg-white h-30 w-full rounded-4xl justify-start items-center flex border border-gray-500 transistion-all duration-300 ease-in-out cursor-pointer hover:-translate-1 hover:bg-blue-100 hover:border-none mt-4 gap-4">
-                      <div className="h-full w-100 rounded-l-2xl">
-                        <img src={story?.image} className="object-cover h-full w-full rounded-l-4xl" />
-                      </div>
-                      <div className="h-full flex flex-col mt-4">
-                          <h1 className="text-gray-800 font-bold text-lg">{story?.title}</h1>
-                          <h1 className="text-gray-500 font-bold text-sm">{story?.author}</h1>
-                          <div className="flex gap-2">
-                            <h1 className="bg-blue-200 px-2 text-blue-500 font-semibold rounded-lg">{story?.genre}</h1>
-                            <h1 className="bg-blue-200 px-2 text-blue-500 font-semibold rounded-lg">{story?.gradeCategory}</h1>
+                      <div key={story.id} className="bg-white h-30 w-full rounded-4xl justify-between items-center flex border border-gray-500 transistion-all duration-300 ease-in-out cursor-pointer hover:-translate-1 hover:bg-blue-100 hover:border-none mt-4 gap-4"
+                      onClick={() => handleViewStories(story.id)}
+                      >
+                      
+                      <div className="h-full flex gap-2">
+                          <img src={story?.image} className="object-cover h-full w-100 rounded-l-2xl" />
+                          <div className="h-full flex flex-col p-2">
+                              <h1 className="text-gray-800 font-bold text-lg">{story?.title}</h1>
+                              <h1 className="text-gray-500 font-bold text-sm">{story?.author}</h1>
+                              <div className="flex gap-2">
+                                <h1 className="bg-blue-200 px-2 text-blue-500 font-semibold rounded-lg">{story?.genre}</h1>
+                                <h1 className="bg-blue-200 px-2 text-blue-500 font-semibold rounded-lg">{story?.gradeCategory}</h1>
+                              </div>
                           </div>
                       </div>
+
+                      <div className="h-full flex items-center justify-center mr-2 p-4">
+                          <h1 className="text-gray-500 font-bold cursor-pointer">Click to edit</h1>
+                      </div>
+                      
+
+
                     </div>
                     ))
                   )}

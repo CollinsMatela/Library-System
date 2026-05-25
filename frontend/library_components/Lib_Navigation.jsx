@@ -1,6 +1,7 @@
 import useAuthStore from '../store/useAuthStore'
 import NotificationIcon from '../src/assets/notification-svgrepo-com.svg'
 import RankingIcon from '../src/assets/crown-svgrepo-com.svg'
+import defaultProfile from '../src/assets/Student.jpg'
 import { useNavigate } from 'react-router-dom'
 
 const Lib_Navigation = () => {

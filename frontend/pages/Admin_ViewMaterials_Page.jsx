@@ -56,7 +56,7 @@ const Admin_ViewMaterials_Page = () => {
 
   return(
     <section className="bg-white min-h-screen w-full justify-start items-center flex flex-col pb-10">
-      {showEditQuestionModal && (<Edit_Question_Modal question={selectedQuestionToEdit} onClose={() => setShowEditQuestionModal(false)} />)}
+      {showEditQuestionModal && (<Edit_Question_Modal storyId={storyId} question={selectedQuestionToEdit} onClose={() => setShowEditQuestionModal(false)} />)}
     
     <header className="fixed top-0 z-50 h-20 w-full justify-start items-center flex px-10 bg-white shadow-md">
         <div>

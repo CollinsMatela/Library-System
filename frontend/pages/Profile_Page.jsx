@@ -3,7 +3,7 @@ import useAuthStore from "../store/useAuthStore";
 import { useRef } from "react";
 import axios from "axios";
 import { useState } from "react";
-import defaultProfile from "../src/assets/DeaultProfile.jpg";
+import defaultProfile from "../src/assets/DefaultProfile.jpg";
 
 const Profile_Page = () => {
     const user = useAuthStore((state) => state.user);

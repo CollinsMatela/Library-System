@@ -1,16 +1,16 @@
 import { useState } from "react";
 import axios from "axios";
 import Confirmation_Popup from "../popup/Confirmation_Popup";
-const Edit_Question_Modal = ({ question, onClose }) => {
+const Edit_Question_Modal = ({ storyId, question, onClose }) => {
 
     const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
-    const [newQuestion, setNewQuestion] = useState("");
-    const [newChoice1, setNewChoice1] = useState("");
-    const [newChoice2, setNewChoice2] = useState("");
-    const [newChoice3, setNewChoice3] = useState("");
-    const [newChoice4, setNewChoice4] = useState("");
-    const [newCorrectAnswer, setNewCorrectAnswer] = useState("");
+    const [newQuestion, setNewQuestion] = useState(question?.question || "");
+    const [newChoice1, setNewChoice1] = useState(question?.choices[0] || "");
+    const [newChoice2, setNewChoice2] = useState(question?.choices[1] || "");
+    const [newChoice3, setNewChoice3] = useState(question?.choices[2] || "");
+    const [newChoice4, setNewChoice4] = useState(question?.choices[3] || "");
+    const [newCorrectAnswer, setNewCorrectAnswer] = useState(question?.answer || "");
 
     const [isNewQuestion, setIsNewQuestion] = useState(false);
     const [isNewChoice1, setIsNewChoice1] = useState(false);
@@ -19,10 +19,38 @@ const Edit_Question_Modal = ({ question, onClose }) => {
     const [isNewChoice4, setIsNewChoice4] = useState(false);
     const [isNewCorrectAnswer, setIsNewCorrectAnswer] = useState(false);
 
+    const updateQuestion = async () => {
+      
+        if(!newQuestion) return setIsNewQuestion(true);
+        if(!newChoice1) return setIsNewChoice1(true);
+        if(!newChoice2) return setIsNewChoice2(true);
+        if(!newChoice3) return setIsNewChoice3(true);
+        if(!newChoice4) return setIsNewChoice4(true);
+        if(!newCorrectAnswer) return setIsNewCorrectAnswer(true);
+
+        const updatedQuestion = {
+          questionId: question.questionId,
+          question: newQuestion,
+          choices: [newChoice1, newChoice2, newChoice3, newChoice4],
+          answer: newCorrectAnswer
+        }
+
+        try{
+          console.log(question.questionId);
+          const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-question/${storyId}`, updatedQuestion);
+          console.log(res.data.message);
+          onClose();
+
+        } catch(error){
+          console.error("Error updating question:", error);
+        }
+        
+    }
+
   return (
     <section className="fixed inset-0 bg-black/50 flex items-center justify-center z-100 p-4">
 
-    {showConfirmationPopup && <Confirmation_Popup onConfirm={() => {}} onCancel={() => setShowConfirmationPopup(false)} />}
+    {showConfirmationPopup && <Confirmation_Popup onConfirm={() => {updateQuestion()}} onCancel={() => setShowConfirmationPopup(false)} />}
 
       <div
         className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden"

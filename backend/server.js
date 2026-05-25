@@ -23,6 +23,7 @@ import Fetch_Stories_Route from './routes/Fetch_Stories_Route.js'
 import Fetch_One_Story_Route from './routes/Fetch_One_Story_Route.js'
 import Change_Avatar_Route from './routes/Change_Avatar_Route.js';
 import Quiz_Result_Route from './routes/Quiz_Result_Route.js';
+import Update_Question_Route from './routes/Update_Question_Route.js';
 
 const app = express();
 app.use(cors());
@@ -45,6 +46,7 @@ app.use("/", Fetch_Stories_Route);
 app.use("/", Fetch_One_Story_Route);
 app.use("/", Change_Avatar_Route);
 app.use("/", Quiz_Result_Route);
+app.use("/", Update_Question_Route);
 
 const PORT = process.env.PORT || 5000;
 

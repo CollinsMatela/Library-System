@@ -1,12 +1,11 @@
 import Stories_Model from "../models/Stories_Model.js";
 
 const Update_Question_Controller = async (req, res) => {
-      const {questionId, newQuestion, newChoice1, newChoice2, newChoice3, newChoice4, newCorrectAnswer} = req.body;
+      const {questionId, question, choices, answer} = req.body;
       const {storyId} = req.params;
 
-      console.log(storyId);
-      console.log(questionId);
-
+      console.log("Update Question Controller:", storyId);
+      console.log("Update Question Controller:", questionId);
 
       if(!storyId) {
         return res.status(400).json({message: "Story ID is required."});
@@ -14,7 +13,7 @@ const Update_Question_Controller = async (req, res) => {
       if(!questionId) {
         return res.status(400).json({message: "Question ID is required."});
       }
-      if(!newQuestion || !newChoice1 || !newChoice2 || !newChoice3 || !newChoice4 || !newCorrectAnswer){
+      if(!question || !choices || !answer){
         return res.status(400).json({message: "All fields are required."});
       }
 
@@ -22,9 +21,9 @@ const Update_Question_Controller = async (req, res) => {
         const updateQuestion = await Stories_Model.findOneAndUpdate(
             {id: storyId, "questionnaire.questionId": questionId},
             {$set: {
-                "questionnaire.$.question": newQuestion,
-                "questionnaire.$.choices": [newChoice1, newChoice2, newChoice3, newChoice4],
-                "questionnaire.$.answer": newCorrectAnswer
+                "questionnaire.$.question": question,
+                "questionnaire.$.choices": choices,
+                "questionnaire.$.answer": answer
                 }
             },
             { new: true }

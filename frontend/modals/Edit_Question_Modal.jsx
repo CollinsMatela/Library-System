@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Confirmation_Popup from "../popup/Confirmation_Popup";
-const Edit_Question_Modal = ({ storyId, question, onClose }) => {
+const Edit_Question_Modal = ({ storyId, question, reFetch, onClose }) => {
+
+  useEffect(() => {
+      console.log(question?.questionId);
+  },[])
 
     const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
@@ -19,6 +23,16 @@ const Edit_Question_Modal = ({ storyId, question, onClose }) => {
     const [isNewChoice4, setIsNewChoice4] = useState(false);
     const [isNewCorrectAnswer, setIsNewCorrectAnswer] = useState(false);
 
+    const showConfirmation = () => {
+        if(!newQuestion) return setIsNewQuestion(true);
+        if(!newChoice1) return setIsNewChoice1(true);
+        if(!newChoice2) return setIsNewChoice2(true);
+        if(!newChoice3) return setIsNewChoice3(true);
+        if(!newChoice4) return setIsNewChoice4(true);
+        if(!newCorrectAnswer) return setIsNewCorrectAnswer(true);
+
+        setShowConfirmationPopup(true);
+    }
     const updateQuestion = async () => {
       
         if(!newQuestion) return setIsNewQuestion(true);
@@ -36,11 +50,10 @@ const Edit_Question_Modal = ({ storyId, question, onClose }) => {
         }
 
         try{
-          console.log(question.questionId);
           const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-question/${storyId}`, updatedQuestion);
           console.log(res.data.message);
+          reFetch();
           onClose();
-
         } catch(error){
           console.error("Error updating question:", error);
         }
@@ -52,9 +65,7 @@ const Edit_Question_Modal = ({ storyId, question, onClose }) => {
 
     {showConfirmationPopup && <Confirmation_Popup onConfirm={() => {updateQuestion()}} onCancel={() => setShowConfirmationPopup(false)} />}
 
-      <div
-        className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden"
-      >
+      <div className="bg-white max-h-full w-full max-w-2xl rounded-2xl shadow-2xl overflow-y-auto">
         
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
@@ -129,11 +140,16 @@ const Edit_Question_Modal = ({ storyId, question, onClose }) => {
                     defaultValue={question?.answer || ""}
                     onChange={(e) => setNewCorrectAnswer(e.target.value)}>
               <option value="">Select an option</option>
-              <option value="A">Choice A</option>
-              <option value="B">Choice B</option>
-              <option value="C">Choice C</option>
-              <option value="D">Choice D</option>
+              <option value={question?.choices?.[0] || ""}>{question?.choices?.[0]}</option>
+              <option value={question?.choices?.[1] || ""}>{question?.choices?.[1]}</option>
+              <option value={question?.choices?.[2] || ""}>{question?.choices?.[2]}</option>
+              <option value={question?.choices?.[3] || ""}>{question?.choices?.[3]}</option>
             </select>
+          </div>
+
+          <div className={`${isNewQuestion || isNewChoice1 || isNewChoice2 || isNewChoice3 || isNewChoice4 || isNewCorrectAnswer ? "block" : "hidden"} 
+          w-full p-3 mb-3 rounded-lg bg-red-100 border border-red-400 text-red-700 text-sm`}>
+            Fill all the empty fields before saving changes.
           </div>
 
         </div>
@@ -147,7 +163,7 @@ const Edit_Question_Modal = ({ storyId, question, onClose }) => {
             Close
           </button>
 
-          <button className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium transition" onClick={() => setShowConfirmationPopup(true)}>
+          <button className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium transition" onClick={showConfirmation}>
             Save Changes
           </button>
         </div>

@@ -101,11 +101,11 @@ const Admin_Page = () =>{
     return (
   <section className="min-h-screen w-full bg-gradient-to-br from-pink-50 via-blue-50 to-yellow-50 pl-80">
     
-    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-pink-100 shadow-sm px-8 md:px-16 py-4 flex justify-between items-center">
+    <nav className="sticky top-0 z-0 bg-white/90 backdrop-blur-md border-b border-pink-100 shadow-sm px-8 md:px-16 py-4 flex justify-end items-center">
 
       <button
         onClick={handleLogout}
-        className="bg-pink-500 hover:bg-pink-400 text-white px-6 py-2 rounded-full shadow-md transition duration-300"
+        className="bg-gray-300 hover:bg-pink-400 text-white px-6 py-2 rounded-full transition duration-300"
       >
         Logout
       </button>
@@ -121,12 +121,12 @@ const Admin_Page = () =>{
         Admin Menu
       </div>
 
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin/upload')}>
         <div className="h-10 w-10 rounded-full bg-gray-200"></div>
         <button className="text-gray-500 font-semibold">Upload Story</button>
       </div>
 
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin/materials')}>
         <div className="h-10 w-10 rounded-full bg-gray-200"></div>
         <button className="text-gray-500 font-semibold">View Stories</button>
       </div>
@@ -181,7 +181,7 @@ const Admin_Page = () =>{
         </div>
       </div>
 
-      <div className="bg-white rounded-3xl shadow-md border border-gray-100 p-6">
+      <div className="bg-white rounded-3xl shadow-md border border-gray-100">
         <Admin_UserManagement
           AllStudents={studentList}
           AllEmployees={employeeList}

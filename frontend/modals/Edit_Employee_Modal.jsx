@@ -5,18 +5,18 @@ const Edit_Employee_Modal = ({selectedEmployee, triggerRefreshEmployeeTable, clo
 
        const currentYear = new Date().getFullYear();
 
-       const [lastname, setLastname] = useState(selectedEmployee.personal_information.lastname);
-       const [firstname, setFirstname] = useState(selectedEmployee.personal_information.firstname);
-       const [middlename, setMiddlename] = useState(selectedEmployee.personal_information.middlename);
-       const [year, setYear] = useState(selectedEmployee.personal_information.year);
-       const [month, setMonth] = useState(selectedEmployee.personal_information.month);
-       const [day, setDay] = useState(selectedEmployee.personal_information.day);
-       const [email, setEmail] = useState(selectedEmployee.personal_information.email);
-       const [gender, setGender] = useState(selectedEmployee.personal_information.gender);
-       const [contact, setContact] = useState(selectedEmployee.personal_information.contact);
-       const [role, setRole] = useState(selectedEmployee.employee_information.role);
-       const [gradeLevel, setGradeLevel] = useState(selectedEmployee.employee_information.gradeLevel);
-       const [branch, setBranch] = useState(selectedEmployee.employee_information.branch);
+       const [lastname, setLastname] = useState(selectedEmployee.lastname);
+       const [firstname, setFirstname] = useState(selectedEmployee.firstname);
+       const [middlename, setMiddlename] = useState(selectedEmployee.middlename);
+       const [year, setYear] = useState(selectedEmployee.year);
+       const [month, setMonth] = useState(selectedEmployee.month);
+       const [day, setDay] = useState(selectedEmployee.day);
+       const [email, setEmail] = useState(selectedEmployee.email);
+       const [gender, setGender] = useState(selectedEmployee.gender);
+       const [contact, setContact] = useState(selectedEmployee.contact);
+       const [role, setRole] = useState(selectedEmployee.role);
+       const [gradeLevel, setGradeLevel] = useState(selectedEmployee.gradeLevel);
+       const [branch, setBranch] = useState(selectedEmployee.branch);
 
         const [isLastname, setIsLastname] = useState(false);
         const [isFirstname, setIsFirstname] = useState(false);
@@ -85,7 +85,7 @@ const Edit_Employee_Modal = ({selectedEmployee, triggerRefreshEmployeeTable, clo
         };
 
         const updateEmployeeAccount = async () => {
-            const employeeId = selectedEmployee.employee_information.id;
+            const employeeId = selectedEmployee.id;
 
                const itHasError = ErrorChecker();
                if(itHasError) return;
@@ -125,7 +125,7 @@ const Edit_Employee_Modal = ({selectedEmployee, triggerRefreshEmployeeTable, clo
 
                <div className="relative bg-white w-[1000px] p-4 rounded-xl">
                 <div className="w-full justify-center items-center flex border-b-1 border-gray-100 pb-4"> 
-                    <h1 className="text-md font-bold text-gray-500">{selectedEmployee.personal_information.firstname} {selectedEmployee.personal_information.lastname}'s Details</h1>
+                    <h1 className="text-md font-bold text-gray-500">{selectedEmployee.firstname} {selectedEmployee.lastname}'s Details</h1>
                 </div>
                 <div className="w-full justify-center items-start flex gap-2">
                     <div className="w-full mt-4 space-y-2">

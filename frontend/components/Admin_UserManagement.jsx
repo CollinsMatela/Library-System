@@ -23,12 +23,12 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, reFetchEmployee, reFet
     }
 
     return(
-        <section className="w-full py-5 px-30">
+        <section className="w-full">
             
                 <div className="w-full space-y-5">
 
                    {/* Student Container */}
-                  <div className="bg-white shadow-lg rounded-xl pb-2">
+                  <div className="bg-white rounded-xl pb-2">
 
                     <div className="h-20 w-full justify-between items-center flex rounded-t-xl px-4">
                         <h1 className="text-lg font-semibold text-gray-700 rounded-full">Students Account</h1>
@@ -134,7 +134,7 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, reFetchEmployee, reFet
                    
 
                    {/* Teacher Container */}
-                   <div className="bg-white shadow-lg rounded-xl pb-2">
+                   <div className="bg-white rounded-xl pb-2">
                       <div className="bg-white h-20 w-full justify-between items-center flex rounded-t-xl px-4">
                         <h1 className="text-lg font-semibold text-gray-800 rounded-full">Employees Account</h1>
                         <div className="h-full space-x-2 justtify-center items-center flex">

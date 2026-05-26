@@ -99,17 +99,9 @@ const Admin_Page = () =>{
     }  
 
     return (
-  <section className="min-h-screen w-full bg-gradient-to-br from-pink-50 via-blue-50 to-yellow-50">
+  <section className="min-h-screen w-full bg-gradient-to-br from-pink-50 via-blue-50 to-yellow-50 pl-80">
     
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-pink-100 shadow-sm px-8 md:px-16 py-4 flex justify-between items-center">
-      <div>
-        <h1 className="text-2xl font-bold text-pink-500">
-          Little Me Admin
-        </h1>
-        <p className="text-sm text-gray-400">
-          Learning Center Dashboard
-        </p>
-      </div>
 
       <button
         onClick={handleLogout}
@@ -118,6 +110,42 @@ const Admin_Page = () =>{
         Logout
       </button>
     </nav>
+
+    <aside className="fixed left-0 top-0 h-full w-80 bg-white/90 backdrop-blur-md border-r border-pink-100 shadow-sm p-4">
+       <div>
+        <h1 className="text-2xl font-bold text-pink-500">Little Me Admin</h1>
+        <p className="text-sm text-gray-400">Learning Center Dashboard</p>
+      </div>
+
+      <div className="bg-blue-100 text-blue-500 font-bold py-2 px-4 rounded-lg mt-6">
+        Admin Menu
+      </div>
+
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">
+        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+        <button className="text-gray-500 font-semibold">Upload Story</button>
+      </div>
+
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">
+        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+        <button className="text-gray-500 font-semibold">View Stories</button>
+      </div>
+
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">
+        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+        <button className="text-gray-500 font-semibold">Students Account</button>
+      </div>
+
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">
+        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+        <button className="text-gray-500 font-semibold">Teacher | Admin Account</button>
+      </div>
+
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">
+        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+        <button className="text-gray-500 font-semibold">Activity Log</button>
+      </div>
+    </aside>
 
     <div className="px-6 md:px-16 py-10 space-y-10">
 

@@ -10,6 +10,7 @@ import { useState, useEffect} from "react"
 import axios from "axios"
 import useAuthStore from "../store/useAuthStore"
 import { useNavigate } from "react-router-dom"
+import Admin_SideBar from "../components/Admin_Sidebar"
 
 const Admin_Page = () =>{
     const user = useAuthStore((state) => state.user);
@@ -92,68 +93,16 @@ const Admin_Page = () =>{
         setRefreshEmployeeTable(prev => !prev);
     }
 
-    const handleLogout = () =>{
-          logout();
-          localStorage.removeItem("token");
-          navigate("/");
-    }  
-
     return (
-  <section className="min-h-screen w-full bg-gradient-to-br from-pink-50 via-blue-50 to-yellow-50 pl-80">
+  <section className="min-h-screen w-full bg-white pl-80">
     
-    <nav className="sticky top-0 z-0 bg-white/90 backdrop-blur-md border-b border-pink-100 shadow-sm px-8 md:px-16 py-4 flex justify-end items-center">
+    <Admin_SideBar/>
 
-      <button
-        onClick={handleLogout}
-        className="bg-gray-300 hover:bg-pink-400 text-white px-6 py-2 rounded-full transition duration-300"
-      >
-        Logout
-      </button>
-    </nav>
+    <div className="px-6 md:px-16 py-10 space-y-10 bg-violet-200">
 
-    <aside className="fixed left-0 top-0 h-full w-80 bg-white/90 backdrop-blur-md border-r border-pink-100 shadow-sm p-4">
-       <div>
-        <h1 className="text-2xl font-bold text-pink-500">Little Me Admin</h1>
-        <p className="text-sm text-gray-400">Learning Center Dashboard</p>
-      </div>
-
-      <div className="bg-blue-100 text-blue-500 font-bold py-2 px-4 rounded-lg mt-6">
-        Admin Menu
-      </div>
-
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin/upload')}>
-        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
-        <button className="text-gray-500 font-semibold">Upload Story</button>
-      </div>
-
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin/materials')}>
-        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
-        <button className="text-gray-500 font-semibold">View Stories</button>
-      </div>
-
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">
-        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
-        <button className="text-gray-500 font-semibold">Students Account</button>
-      </div>
-
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">
-        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
-        <button className="text-gray-500 font-semibold">Teacher | Admin Account</button>
-      </div>
-
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">
-        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
-        <button className="text-gray-500 font-semibold">Activity Log</button>
-      </div>
-    </aside>
-
-    <div className="px-6 md:px-16 py-10 space-y-10">
-
-      <div className="bg-white rounded-3xl shadow-md p-8 border border-pink-100">
-        <h2 className="text-4xl font-bold text-gray-700">
-          Hello {user?.username || "Admin"} 👋
-        </h2>
-        <p className="text-gray-400 mt-2 text-lg">
+      <div>
+        <h2 className="text-3xl font-bold text-gray-800">Hello {user?.username || "Admin"} 👋</h2>
+        <p className="text-gray-400 text-md">
           Welcome back! Here's today's overview of Little Me Learning Center.
         </p>
       </div>

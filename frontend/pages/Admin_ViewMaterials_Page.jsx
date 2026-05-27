@@ -78,7 +78,6 @@ const Admin_ViewMaterials_Page = () => {
     {isStoryDetails && (
   <div className="w-full max-w-5xl bg-white overflow-hidden">
     
-    {/* Image Banner */}
     <div className="w-full h-[300px] bg-gray-100">
       <img
         src={story?.image}
@@ -87,10 +86,8 @@ const Admin_ViewMaterials_Page = () => {
       />
     </div>
 
-    {/* Content */}
     <div className="p-8 space-y-6">
       
-      {/* Title + Author */}
       <div>
         <h1 className="text-4xl font-bold text-gray-800">
           {story?.title}
@@ -101,7 +98,6 @@ const Admin_ViewMaterials_Page = () => {
         </p>
       </div>
 
-      {/* Tags */}
       <div className="flex flex-wrap gap-3">
         <span className="px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-medium">
           {story?.genre}
@@ -112,7 +108,6 @@ const Admin_ViewMaterials_Page = () => {
         </span>
       </div>
 
-      {/* Description */}
       <div>
         <h2 className="text-2xl font-semibold text-gray-800 mb-2">
           Description
@@ -135,7 +130,7 @@ const Admin_ViewMaterials_Page = () => {
 )}
     {isStoryContext && (
         <div className="p-10 w-5xl">
-            <h2 className="text-2xl font-bold text-gray-800">{story?.fullStory}</h2>
+            <h2 className="text-2xl font-bold text-gray-800 whitespace-pre-line">{story?.fullStory}</h2>
             <p className="text-gray-600">{story?.context}</p>
         </div>
     )}

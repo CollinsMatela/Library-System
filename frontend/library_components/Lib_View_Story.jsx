@@ -69,7 +69,7 @@ const Lib_View_Story = () => {
             <div className="border-t my-4"></div>
 
             {/* Story Text */}
-            <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+            <p className="text-2xl font-bold text-gray-800 leading-relaxed whitespace-pre-line">
                 {selectedStory.fullStory}
             </p>
         </div>

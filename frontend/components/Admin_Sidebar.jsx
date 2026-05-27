@@ -1,18 +1,65 @@
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "../store/useAuthStore"
 
 const Admin_SideBar = () => {
-    return(
-        <div className="bg-gray-50 fixed left-0 h-screen w-20 justify-start items-start flex flex-col pt-10 px-5 border-r-1 border-emerald-500 hover:w-80">
-            <div className=" h-12 w-12 bg-emerald-500 rounded-xl justify-center items-center flex">
-                <h1 className="text-sm font-semibold text-white">LMLC</h1>
-            </div>
-            <div className="space-y-2 mt-10 w-full">
-                <button className="h-12 w-full rounded-xl cursor-pointer text-sm font-bold text-emerald-600 hover:bg-emerald-700 hover:text-white">Overview</button>
-                <button className="h-12 w-full rounded-xl cursor-pointer text-sm font-bold text-emerald-600 hover:bg-emerald-700 hover:text-white">Materials</button>
-                <button className="h-12 w-full rounded-xl cursor-pointer text-sm font-bold text-emerald-600 hover:bg-emerald-700 hover:text-white">Users</button>
+    const navigate = useNavigate();
+    const logout = useAuthStore((state) => state.logout);
 
-            </div>
-           
-        </div>
+    const handleLogout = () =>{
+          logout();
+          localStorage.removeItem("token");
+          navigate("/");
+    }  
+    return(
+        <aside className="fixed left-0 top-0 h-full w-80 bg-gray-50 rounded-r-4xl p-4">
+       <div>
+        <h1 className="text-2xl font-bold text-pink-500">Little Me Admin</h1>
+        <p className="text-sm text-gray-400">Learning Center Dashboard</p>
+      </div>
+
+      <div className="bg-blue-100 text-blue-500 font-bold py-2 px-4 rounded-lg mt-6">
+        Admin Menu
+      </div>
+
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin')}>
+        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+        <button className="text-gray-500 font-semibold">Overview</button>
+      </div>
+
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin/upload')}>
+        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+        <button className="text-gray-500 font-semibold">Upload Story</button>
+      </div>
+
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin/materials')}>
+        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+        <button className="text-gray-500 font-semibold">View Stories</button>
+      </div>
+
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin/students')}>
+        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+        <button className="text-gray-500 font-semibold">Students Account</button>
+      </div>
+
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">
+        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+        <button className="text-gray-500 font-semibold">Teacher | Admin Account</button>
+      </div>
+
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">
+        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+        <button className="text-gray-500 font-semibold">Activity Log</button>
+      </div>
+
+      <div className="bg-gray-100 text-gray-500 font-bold py-2 px-4 rounded-lg mt-6">
+        Other Menu
+      </div>
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={handleLogout}>
+        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+        <button className="text-gray-500 font-semibold">Logout</button>
+      </div>
+
+    </aside>
     )
 }
 export default Admin_SideBar

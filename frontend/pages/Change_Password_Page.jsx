@@ -38,7 +38,7 @@ const Change_Password_Page = () => {
                 if(user.role?.toLowerCase() === "student" || user.role?.toLowerCase() === "teacher"){
                     navigate("/library")
                 } else if (user.role?.toLowerCase() === "administrator"){
-                    navigate("/admin-page")
+                    navigate("/admin")
                 } else {
                     console.log(res.data.message)
                 }

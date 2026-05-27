@@ -114,7 +114,7 @@ const Admin_UserManagement = ({AllStudents, AllEmployees, reFetchEmployee, reFet
                                         <p className="text-sm text-gray-500">{updatedCreatedAt}</p>
                                     </div>
                                     <div className="w-[10%] break-words gap-2 flex">
-                                        <button className="bg-blue-600 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-blue-700">
+                                        <button className="bg-blue-600 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-blue-700" onClick={() => alert('Soon')}>
                                             Vw
                                         </button>
                                         <button className="bg-blue-600 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-blue-700" onClick={() => handleEditStudent(student)}>

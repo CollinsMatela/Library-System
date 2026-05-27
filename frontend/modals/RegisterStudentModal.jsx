@@ -1,7 +1,10 @@
 import {useEffect, useState } from "react";
 import axios from "axios";
+import Confirmation_Popup from "../popup/Confirmation_Popup"
 
 const RegisterStudentModal = ({ reFetchStudent, closeStudentModal, openAccountConfirmation}) => {
+    const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
 
@@ -92,10 +95,14 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal, openAccountCo
         return hasError;
     }
 
-    const handleStudentRegistration = async () => {
-        const itHasError = ErrorChecker();
+    const handleConfirmation = () => {
+          const itHasError = ErrorChecker();
+          if(itHasError) return;
 
-        if(itHasError) return;
+          setShowConfirmationPopup(true);
+    }
+
+    const handleStudentRegistration = async () => {
 
         const studentInformation = {
              lastname: lastname,
@@ -130,8 +137,9 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal, openAccountCo
     }
 
     return(
-        <section className="fixed inset-0 justify-center items-center flex">
-               <div className="absolute inset-0 bg-black/80" onClick={closeStudentModal}></div>
+    <>
+        {showConfirmationPopup && (<Confirmation_Popup onConfirm={handleStudentRegistration} onClose={() => setShowConfirmationPopup(false)} />)}
+        <section className="fixed z-50 inset-0 justify-center items-center flex bg-black/50">
                
                <div className="relative bg-white w-[1000px] rounded-xl justify-start items-start flex flex-col p-4 gap-4">
                     <div className="w-full border-b-1 border-gray-100 justify-center items-center flex pb-4">
@@ -368,10 +376,12 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal, openAccountCo
                     </div>
                     
                     <div className="w-full justify-end items-center flex gap-2">
-                        <button className="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 cursor-pointer font-bold text-sm" onClick={handleStudentRegistration}>Register</button>
+                        <button className="bg-gray-300 text-white py-2 px-4 rounded-full hover:bg-gray-400 cursor-pointer font-bold text-sm" onClick={closeStudentModal}>Cancel</button>
+                        <button className="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 cursor-pointer font-bold text-sm" onClick={handleConfirmation}>Register</button>
                     </div>
                </div>
         </section>
+        </>
     )
 }
 export default RegisterStudentModal

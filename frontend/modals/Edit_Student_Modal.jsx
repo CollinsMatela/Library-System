@@ -84,7 +84,7 @@ const Edit_Student_Modal = ({selectedStudent, triggerRefreshStudentTable, closeE
               }
         }
     return(
-        <section className="fixed inset-0 justify-center items-center flex">
+        <section className="fixed z-50 inset-0 justify-center items-center flex">
            <div className="fixed inset-0 bg-black/80" onClick={closeEditStudentModal}></div>
 
 

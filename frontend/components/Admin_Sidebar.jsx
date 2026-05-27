@@ -11,7 +11,7 @@ const Admin_SideBar = () => {
           navigate("/");
     }  
     return(
-        <aside className="fixed left-0 top-0 h-full w-80 bg-gray-50 rounded-r-4xl p-4">
+        <aside className="fixed left-0 top-0 z-0 h-full w-80 bg-gray-50 rounded-r-4xl p-4">
        <div>
         <h1 className="text-2xl font-bold text-pink-500">Little Me Admin</h1>
         <p className="text-sm text-gray-400">Learning Center Dashboard</p>

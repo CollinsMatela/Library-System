@@ -1,7 +1,7 @@
 
 const Confirmation_Popup = ({onConfirm, onCancel}) => {
     return(
-       <section className="fixed flex items-center justify-center h-screen">
+       <section className="fixed z-100 flex items-center justify-center h-screen">
             
                 <div className="fixed inset-0 flex items-center justify-center bg-black/80 bg-opacity-50 z-50">
                     

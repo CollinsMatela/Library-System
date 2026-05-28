@@ -1,22 +1,25 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
+import Confirmation_Popup from "../popup/Confirmation_Popup";
 
-const Edit_Employee_Modal = ({selectedEmployee, triggerRefreshEmployeeTable, closeEditEmployeeModal}) => {
+const Edit_Employee_Modal = ({employee, reFetch, onClose}) => {
+
+       const [showConfirmation, setShowConfirmation] = useState(false);
 
        const currentYear = new Date().getFullYear();
 
-       const [lastname, setLastname] = useState(selectedEmployee.lastname);
-       const [firstname, setFirstname] = useState(selectedEmployee.firstname);
-       const [middlename, setMiddlename] = useState(selectedEmployee.middlename);
-       const [year, setYear] = useState(selectedEmployee.year);
-       const [month, setMonth] = useState(selectedEmployee.month);
-       const [day, setDay] = useState(selectedEmployee.day);
-       const [email, setEmail] = useState(selectedEmployee.email);
-       const [gender, setGender] = useState(selectedEmployee.gender);
-       const [contact, setContact] = useState(selectedEmployee.contact);
-       const [role, setRole] = useState(selectedEmployee.role);
-       const [gradeLevel, setGradeLevel] = useState(selectedEmployee.gradeLevel);
-       const [branch, setBranch] = useState(selectedEmployee.branch);
+       const [lastname, setLastname] = useState(employee.lastname);
+       const [firstname, setFirstname] = useState(employee.firstname);
+       const [middlename, setMiddlename] = useState(employee.middlename);
+       const [year, setYear] = useState(employee.year);
+       const [month, setMonth] = useState(employee.month);
+       const [day, setDay] = useState(employee.day);
+       const [email, setEmail] = useState(employee.email);
+       const [gender, setGender] = useState(employee.gender);
+       const [contact, setContact] = useState(employee.contact);
+       const [role, setRole] = useState(employee.role);
+       const [gradeLevel, setGradeLevel] = useState(employee.gradeLevel);
+       const [branch, setBranch] = useState(employee.branch);
 
         const [isLastname, setIsLastname] = useState(false);
         const [isFirstname, setIsFirstname] = useState(false);
@@ -84,11 +87,14 @@ const Edit_Employee_Modal = ({selectedEmployee, triggerRefreshEmployeeTable, clo
             return hasError;
         };
 
-        const updateEmployeeAccount = async () => {
-            const employeeId = selectedEmployee.id;
+        const Confirmation = () => {
+              const itHasError = ErrorChecker();
+              if(itHasError) return;
+              setShowConfirmation(true);
+        }
 
-               const itHasError = ErrorChecker();
-               if(itHasError) return;
+        const updateEmployeeAccount = async () => {
+            const employeeId = employee.id;
 
                const updatedEmployeeDetails = {
                      lastname: lastname,
@@ -109,8 +115,8 @@ const Edit_Employee_Modal = ({selectedEmployee, triggerRefreshEmployeeTable, clo
                  const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-employee-account/${employeeId}`, updatedEmployeeDetails);
                  if(res.data.isSuccess){
                     console.log(res.data.message)
-                    triggerRefreshEmployeeTable();
-                    closeEditEmployeeModal();
+                    reFetch();
+                    onClose();
                  }
                  
 
@@ -120,12 +126,14 @@ const Edit_Employee_Modal = ({selectedEmployee, triggerRefreshEmployeeTable, clo
         }
 
     return(
-        <section className="fixed inset-0 justify-center items-center flex">
-               <div className="absolute bg-black/80 inset-0" onClick={() => closeEditEmployeeModal()}></div>
+        <>
+        {showConfirmation && (<Confirmation_Popup onConfirm={updateEmployeeAccount} onCancel={() => setShowConfirmation(false)}/>)}
+        <section className="fixed z-50 inset-0 justify-center items-center flex">
+               <div className="absolute bg-black/80 inset-0"></div>
 
                <div className="relative bg-white w-[1000px] p-4 rounded-xl">
                 <div className="w-full justify-center items-center flex border-b-1 border-gray-100 pb-4"> 
-                    <h1 className="text-md font-bold text-gray-500">{selectedEmployee.firstname} {selectedEmployee.lastname}'s Details</h1>
+                    <h1 className="text-md font-bold text-gray-500">{employee.firstname} {employee.lastname}'s Details</h1>
                 </div>
                 <div className="w-full justify-center items-start flex gap-2">
                     <div className="w-full mt-4 space-y-2">
@@ -296,12 +304,13 @@ const Edit_Employee_Modal = ({selectedEmployee, triggerRefreshEmployeeTable, clo
 
                 <div className="w-full justify-end items-center flex">
                         <button className="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 cursor-pointer font-bold text-sm"
-                        onClick={updateEmployeeAccount}
+                        onClick={Confirmation}
                         >Edit Employee</button>
                 </div>
                 
                </div>
         </section>
+        </>
     )
 }
 export default Edit_Employee_Modal;

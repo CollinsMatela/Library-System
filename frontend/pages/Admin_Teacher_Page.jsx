@@ -4,10 +4,15 @@ import { useState, useEffect } from "react"
 import Edit_Student_Modal from "../modals/Edit_Student_Modal"
 import RegisterEmployeeModal from "../modals/RegisterEmployeeModal"
 import Confirmation_Popup from "../popup/Confirmation_Popup"
+import EditEmployeeModal from "../modals/Edit_Employee_Modal"
+import Edit_Employee_Modal from "../modals/Edit_Employee_Modal"
+
 const Admin_Teacher_Page = () => {
 
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [showRegistrationModal, setShowRegistrationModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
     const [teacherList, setTeacherList] = useState([]);
     const fetchEmployees = async () => {
@@ -24,8 +29,28 @@ const Admin_Teacher_Page = () => {
       fetchEmployees();
     },[])
 
+    const displayConfirmation = (employee) => {
+          setSelectedEmployee(employee)
+          setShowConfirmation(true);
+    }
+
+    const deleteEmployee = async () => {
+        console.log(selectedEmployee.id);
+        try {
+            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-employee/${selectedEmployee.id}`);
+            console.log(res.data.message);
+            fetchEmployees();
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const displayRegistration = () => {
           setShowRegistrationModal(true);
+    }
+    const displayEdit = (employee) => {
+          setSelectedEmployee(employee)
+          setShowEditModal(true)
     }
 
     const [search, setSearch] = useState("");
@@ -39,7 +64,10 @@ const Admin_Teacher_Page = () => {
     })
     return(
         <>
+        {showConfirmation && (<Confirmation_Popup onConfirm={() => {deleteEmployee(); setShowConfirmation(false)}} 
+                                                  onCancel={() => setShowConfirmation(false)}/>)}
         {showRegistrationModal && (<RegisterEmployeeModal reFetch={fetchEmployees} onClose={() => setShowRegistrationModal(false)}/>)}
+        {showEditModal && (<Edit_Employee_Modal employee={selectedEmployee} reFetch={fetchEmployees} onClose={() => setShowEditModal(false)}/>)}
         <section className="min-h-screen w-full bg-white pl-80 py-10 space-y-10">
                 
                 <Admin_Sidebar/>
@@ -152,10 +180,10 @@ const Admin_Teacher_Page = () => {
                                     </div>
                                     <div className="w-[10%] break-words flex gap-2">
                                             <button className="h-10 w-10 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => alert('Soon')}>Vw</button>
-                                            <button className="h-10 w-10 bg-amber-500 text-white rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => alert('Soon')}>Edit</button>
-                                            <button className="h-10 w-10 bg-red-500 text-white rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => alert('Soon')}>Del</button>
-                                            
-                                        </div>
+                                            <button className="h-10 w-10 bg-amber-500 text-white rounded-lg cursor-pointer hover:bg-amber-600" onClick={() => displayEdit(employee)}>Edit</button>
+                                            <button className="h-10 w-10 bg-red-500 text-white rounded-lg cursor-pointer hover:bg-red-600" onClick={() => displayConfirmation(employee)}>Del</button>
+                                
+                                    </div>
                                         
                                 </div>
                             )

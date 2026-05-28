@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Account_Conformation from "../popup/Account_Conformation";
+import Confirmation_Popup from "../popup/Confirmation_Popup";
 
 
-const RegisterEmployeeModal = ({openAccountConfirmation, reFetchEmployee, closeEmployeeModal }) => { 
+const RegisterEmployeeModal = ({reFetch, onClose}) => {
+
+      const [newEmployee, setNewEmployee] = useState(null);
+      const [showConfirmation, setShowConfirmation] = useState(false);
+      const [showAccountConfirmation, setShowAccountConfirmation] = useState(false);
 
        const [lastname, setLastname] = useState("");
        const [firstname, setFirstname] = useState("");
@@ -85,16 +91,25 @@ const RegisterEmployeeModal = ({openAccountConfirmation, reFetchEmployee, closeE
             return hasError;
         };
 
-       const handleSubmit = async () => {
-               const itHasError = ErrorChecker();
+       const handleConfirmation = () => {
+             const itHasError = ErrorChecker();
 
-               // If the user role in Administrator it does not need to fill out the grade level and branch
-               if(role === "Teacher") {
+            // If the user role in Administrator it does not need to fill out the grade level and branch
+            if(role === "Teacher") {
                 if (!gradeLevel) { return setIsGradeLevel(true); }
                 if (!branch) { return setIsBranch(true); }
-               }
+            }
 
-               if(itHasError) return;
+            if(itHasError) return;
+
+            setShowConfirmation(true);
+       }
+       const handleAccountConfirmation = (newAccountDetails) => {
+             setNewEmployee(newAccountDetails);
+             setShowAccountConfirmation(true);
+       }
+
+       const handleSubmit = async () => {
 
                try {
                 
@@ -116,9 +131,9 @@ const RegisterEmployeeModal = ({openAccountConfirmation, reFetchEmployee, closeE
                     const res = await axios.post(`${import.meta.env.VITE_API_URL}/register-employee`, employeeInformation)
                     if(res.data.isSuccess){
                         alert(res.data.message);
-                        closeEmployeeModal();
-                        reFetchEmployee();
-                        openAccountConfirmation(res.data.account);
+                        handleAccountConfirmation(res.data.account);
+                        reFetch();
+                       
                     }
                     
                } catch (error) {
@@ -128,8 +143,11 @@ const RegisterEmployeeModal = ({openAccountConfirmation, reFetchEmployee, closeE
 
 
     return(
-        <section className="fixed inset-0 justify-center items-center flex">
-               <div className="absolute bg-black/80 inset-0" onClick={() => closeEmployeeModal()}></div>
+        <>
+        {showAccountConfirmation && (<Account_Conformation newAccountDetails={newEmployee} closeAccountConfirmation={() => {setShowAccountConfirmation(false); onClose()}}/>)}
+        {showConfirmation && (<Confirmation_Popup onConfirm={handleSubmit} onCancel={() => setShowConfirmation(false)}/>)}
+        <section className="fixed z-50 inset-0 justify-center items-center flex">
+               <div className="absolute bg-black/80 inset-0" onClick={() => onClose()}></div>
 
                <div className="relative bg-white w-[1000px] p-4 rounded-xl">
                 <div className="w-full justify-center items-center flex border-b-1 border-gray-100 pb-4"> 
@@ -324,12 +342,13 @@ const RegisterEmployeeModal = ({openAccountConfirmation, reFetchEmployee, closeE
 
                 <div className="w-full justify-end items-center flex">
                         <button className="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 cursor-pointer font-bold text-sm"
-                        onClick={handleSubmit}
+                        onClick={handleConfirmation}
                         >Register</button>
                 </div>
                 
                </div>
         </section>
+        </>
     )
 }
 export default RegisterEmployeeModal;

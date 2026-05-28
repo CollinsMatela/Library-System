@@ -98,7 +98,7 @@ const Admin_Page = () =>{
     
     <Admin_SideBar/>
 
-    <div className="px-6 md:px-16 py-10 space-y-10 bg-violet-200">
+    <div className="px-6 md:px-16 py-10 space-y-10">
 
       <div>
         <h2 className="text-3xl font-bold text-gray-800">Hello {user?.username || "Admin"} 👋</h2>

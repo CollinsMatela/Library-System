@@ -41,9 +41,9 @@ const Admin_SideBar = () => {
         <button className="text-gray-500 font-semibold">Students Account</button>
       </div>
 
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin/teachers')}>
         <div className="h-10 w-10 rounded-full bg-gray-200"></div>
-        <button className="text-gray-500 font-semibold">Teacher | Admin Account</button>
+        <button className="text-gray-500 font-semibold">Teacher Account</button>
       </div>
 
       <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">

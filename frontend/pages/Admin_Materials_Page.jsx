@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import SearchIcon from '../src/assets/search-svgrepo-com.svg'
+import Admin_Sidebar from '../components/Admin_Sidebar'
 
 const Admin_Materials_Page = () => {
     const navigate = useNavigate();
@@ -31,24 +32,35 @@ const Admin_Materials_Page = () => {
     }
 
       return(
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col p-20">
+        <>
+        <Admin_Sidebar/>
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col py-10 pl-90 pr-10">
               
-              <header className="w-full justify-between items-start flex">
+              <header className="w-full justify-between items-start flex flex-col mb-10">
 
                 <div>
-                    <h1 className="text-xl font-semibold text-gray-800">Materials</h1>
-                    <h1 className="text-sm font-semibold text-gray-500">View all uploaded materials available <span className="underline text-blue-500 cursor-pointer" onClick={() => navigate(-1)}> return</span></h1>
+                    <h1 className="text-3xl font-bold text-gray-800">Materials Management</h1>
+                    <h1 className="text-gray-400 text-md">View all uploaded materials available</h1>
                 </div>
-                    <div className="h-20 w-200 bg-gradient-to-br from-pink-100 via-blue-100 to-yellow-100 justify-center items-center flex border-2 border-gray-500 rounded-4xl outline-none p-2">
-                                      <input type="text" 
-                                             className="h-full w-full outline-none px-4 text-lg text-blue-500 font-bold inner-shadow-lg" 
-                                             placeholder={`Search stories and explore...`}
-                                             value={search}
-                                             onChange={(e) => setSearch(e.target.value)}
-                                      />
-                                      <div className="h-full w-20"><img src={SearchIcon} className='h-full w-full object-cover bg-gradient-to-br from-pink-500 via-blue-500 to-yellow-500 rounded-l-md rounded-r-3xl' /></div>
-                </div>
-              </header> 
+                
+              </header>
+
+              <div className="h-20 w-full justify-between items-center flex rounded-t-xl">
+                        <div>
+                          <h1 className="text-lg font-bold text-gray-500 rounded-full">Uploaded Stories Table</h1>
+                          <p className="text-gray-400 text-sm">Manage stories material.</p>
+                        </div>
+                        
+
+                        <div className="space-x-2 justify-center ittems-center flex">
+                            <input type="search" 
+                                   placeholder="Search by name, grade, or branch" 
+                                   className="bg-white border-1 border-gray-300 h-10 w-80 rounded-xl px-4 outline-none"
+                                   value={search}
+                                   onChange={(e) => setSearch(e.target.value)}
+                            />
+                        </div>
+              </div> 
               
 
               <div className="bg-white w-full grid grid-cols-1">
@@ -59,7 +71,7 @@ const Admin_Materials_Page = () => {
                   )}
                   {filteredStories.length > 0 && (
                     filteredStories.map((story) => (
-                      <div key={story.id} className="bg-white h-30 w-full rounded-4xl justify-between items-center flex border border-gray-500 transistion-all duration-300 ease-in-out cursor-pointer hover:-translate-1 hover:bg-blue-100 hover:border-none mt-4 gap-4"
+                      <div key={story.id} className="bg-white h-30 w-full rounded-2xl justify-between items-center flex border border-gray-300 transistion-all duration-300 ease-in-out cursor-pointer hover:-translate-1 hover:bg-blue-100 hover:border-none mb-2 gap-4"
                       onClick={() => handleViewStories(story.id)}
                       >
                       
@@ -76,7 +88,7 @@ const Admin_Materials_Page = () => {
                       </div>
 
                       <div className="h-full flex items-center justify-center mr-2 p-4">
-                          <h1 className="text-gray-500 font-bold cursor-pointer">Click to edit</h1>
+                          <h1 className="text-gray-300 font-bold cursor-pointer">⟶</h1>
                       </div>
                       
 
@@ -86,6 +98,7 @@ const Admin_Materials_Page = () => {
                   )}
               </div>
         </section>
+        </>
       )
 }
 export default Admin_Materials_Page;

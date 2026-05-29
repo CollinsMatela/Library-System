@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import Confirmation_Popup from "../popup/Confirmation_Popup";
+import Admin_Sidebar from "../components/Admin_Sidebar"
 
 const Admin_Upload_Page = () => {
     const navigate = useNavigate();
@@ -171,8 +172,8 @@ const Admin_Upload_Page = () => {
     }
 
     return (
-        <section className="bg-gray-50 min-h-screen w-full flex flex-col items-center px-50 py-10 gap-6">
-
+        <section className="bg-white min-h-screen w-full flex flex-col items-center pl-90 pr-10 py-10 gap-6">
+            <Admin_Sidebar/>
             {showConfirmation && 
             (<Confirmation_Popup 
                 onConfirm={uploadStory}
@@ -180,31 +181,34 @@ const Admin_Upload_Page = () => {
             />)}
             
             {/* Header */}
-            <div className="w-full max-w-5xl justify-between items-end flex">
+            <div className="w-full justify-between items-start flex">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-800">Upload Story</h1>
-                    <p className="text-gray-500">Create and publish a new story</p>
+                    <h1 className="text-3xl font-bold text-gray-800">Upload Story Management</h1>
+                    <p className="text-gray-400 text-md">Create and publish a new story</p>
                 </div>
                 <div className={`rounded-xl justify-end items-center flex gap-2`}>
-                <button className="h-10 px-4 text-gray-500 font-semibold bg-white shadow-lg hover:bg-gray-200 rounded-full cursor-pointer" onClick={() => navigate('/admin')}>⟵</button>
-                <button className="h-10 px-4 text-white font-semibold bg-pink-500 shadow-lg hover:bg-pink-600 rounded-full cursor-pointer" onClick={handleConfirmation}>+ Upload Story</button>
+                <button className="h-10 px-4 text-gray-800 font-semibold bg-white border border-gray-800 hover:bg-gray-800 hover:text-white rounded-full cursor-pointer" onClick={handleConfirmation}>+ Upload Story</button>
                 </div>
                 
             </div>
 
                 {/* MANUALLY UPLOAD STORY CONTAINER */}
-                <div className={`w-full max-w-5xl flex bg-white rounded-xl p-4 `}>
+                <div className={`bg-black w-full flex bg-white rounded-xl gap-10 mt-10`}>
                     
                     {/* Story Details */}
-                    <div className="bg-white w-1/2 p-6 flex flex-col gap-4">
-                        <h2 className="text-xl font-semibold">Story Details</h2>
+                    <div className="bg-white w-1/2 flex flex-col gap-4">
+                        <div>
+                            <h2 className="text-lg font-bold text-gray-500 rounded-full">Story Information</h2>
+                            <p className="text-gray-400 text-sm">Fill-up the required information in the story.</p>
+                        </div>
+                        
 
-                        <input type="text" placeholder="Title" className={`${isTitle ? "bg-red-200" : "bg-gray-200"} outline-none p-2 rounded-lg`} 
+                        <input type="text" placeholder="Title" className={`${isTitle ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`} 
                         value={title} 
                         onChange={(e) => {setTitle(e.target.value); 
                                           setIsTitle(e.target.value === "");
                         }}/>
-                        <input type="text" placeholder="Author" className={`${isAuthor ? "bg-red-200" : "bg-gray-200"} outline-none p-2 rounded-lg`} 
+                        <input type="text" placeholder="Author" className={`${isAuthor ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`} 
                         value={author} 
                         onChange={(e) => {setAuthor(e.target.value);
                                           setIsAuthor(e.target.value === "");
@@ -212,7 +216,7 @@ const Admin_Upload_Page = () => {
 
                         <textarea 
                             placeholder="Description"
-                            className={`${isDescription ? "bg-red-200" : "bg-gray-200"} h-10 outline-none p-2 rounded-lg`}
+                            className={`${isDescription ? "border-red-500" : "border-gray-300"} h-12 border h-10 outline-none p-2 rounded-lg`}
                             value={description}
                             onChange={(e) => {setDescription(e.target.value)
                                               setIsDescription(e.target.value === "");
@@ -224,7 +228,7 @@ const Admin_Upload_Page = () => {
                             onChange={(e) => {setGenre(e.target.value)
                                               setIsGenre(e.target.value === "")
                             }}
-                            className={`${isGenre ? "bg-red-200" : "bg-gray-200"} outline-none text-gray-500 p-2 rounded-lg`}
+                            className={`${isGenre ? "border-red-500" : "border-gray-300"} h-12 border outline-none text-gray-500 p-2 rounded-lg`}
                         >
                             <option value="">Select Genre</option>
                             <option value="horror">Horror</option>
@@ -244,7 +248,7 @@ const Admin_Upload_Page = () => {
                             onChange={(e) => {setGradeCategory(e.target.value)
                                               setIsGradeCategory(e.target.value === "");
                             }}
-                            className={`${isGradeCategory ? "bg-red-200" : "bg-gray-200"} outline-none text-gray-500 p-2 rounded-lg`}
+                            className={`${isGradeCategory ? "border-red-300" : "border-gray-300"} h-12 border bg-white outline-none text-gray-500 p-2 rounded-lg`}
                         >
                             <option value="">Select Grade Category</option>
                             <option value="kindergarten">Kindergarten</option>
@@ -265,7 +269,7 @@ const Admin_Upload_Page = () => {
                                 />
                             </div>
 
-                        <div className="bg-pink-500 w-fit outline-none p-2 rounded-lg cursor-pointer text-white font-semibold px-2" onClick={openFileExplorer}> Upload Image
+                        <div className="bg-gray-200 w-full outline-none p-2 rounded-lg justify-center items-center flex cursor-pointer text-gray-500 font-semibold px-2" onClick={openFileExplorer}> + Upload Image
                             <input 
                                 type="file" 
                                 ref={fileInputRef} 
@@ -277,10 +281,10 @@ const Admin_Upload_Page = () => {
 
                     </div>
 
-                    <div className="bg-white w-1/2 p-6 flex flex-col gap-5 rounded-xl shadow-lg">
+                    <div className="bg-white w-1/2 p-6 flex flex-col gap-4 rounded-xl border border-gray-300">
   
                             {/* Header */}
-                            <div className="w-full flex gap-2">
+                            <div className="w-full flex flex-col">
                                 <h2 className="text-xl font-semibold text-gray-800">Preview</h2>
                             </div>
                             
@@ -343,12 +347,15 @@ const Admin_Upload_Page = () => {
                     
                 </div>
 
-        <div className={`w-full max-w-5xl flex p-4 bg-white rounded-xl`}>
+        <div className={`w-full flex flex-col bg-white rounded-xl gap-6`}>
                 {/* Quiz Creation */}
-                    <div className={`bg-white w-full p-6 flex flex-col gap-4`}>
+                    <div className={`bg-white w-full flex flex-col gap-4`}>
                         <div className="w-ful justify-between items-center flex">
-                            <h2 className="text-xl font-semibold">Quiz Creation <span className="text-sm text-gray-300">{`| ${quizList.length} out of 5`}</span></h2>
-                            <button className={`${quizList.length === 5 ? 'hidden' : null} shadow-lg font-semibold text-sm bg-pink-500 px-2 text-white py-1 rounded-lg cursor-pointer hover:bg-blue-600`} onClick={addQuestion}>
+                            <div>
+                                <h2 className="text-lg font-bold text-gray-500 rounded-full">Question Creation</h2>
+                                <p className="text-gray-400 text-sm">Fill-up the required information for question.</p>
+                            </div>
+                            <button className={`${quizList.length === 5 ? 'hidden' : null} h-10 px-4 text-gray-800 font-semibold bg-white border border-gray-800 hover:bg-gray-800 hover:text-white rounded-full cursor-pointer`} onClick={addQuestion}>
                             + Question
                             </button>
                         </div>
@@ -357,7 +364,7 @@ const Admin_Upload_Page = () => {
                         <input 
                             type="text" 
                             placeholder="Question"
-                            className={`${isQuestion ? "bg-red-200" : "bg-gray-200"} p-2 rounded-lg outline-none`}
+                            className={`${isQuestion ? "border-red-500" : "border-gray-300"} h-12 border bg-white p-2 rounded-lg outline-none`}
                             value={question}
                             onChange={(e) => {
                                              setQuestion(e.target.value);
@@ -365,29 +372,29 @@ const Admin_Upload_Page = () => {
                             }}
                         />
 
-                        <input type="text" placeholder="Choice A" className={`${isChoiceA ? "bg-red-200" : "bg-gray-200"} p-2 rounded-lg outline-none`}
+                        <input type="text" placeholder="Choice A" className={`${isChoiceA ? "border-red-500" : "border-gray-300"} h-12 border bg-white p-2 rounded-lg outline-none`}
                         value={choiceA} onChange={(e) => {
                                                          setChoiceA(e.target.value)
                                                          setIsChoiceA(e.target.value === "");
                         }} />
-                        <input type="text" placeholder="Choice B" className={`${isChoiceB ? "bg-red-200" : "bg-gray-200"} p-2 rounded-lg outline-none`} 
+                        <input type="text" placeholder="Choice B" className={`${isChoiceB ? "border-red-500" : "border-gray-300"} h-12 border bg-white p-2 rounded-lg outline-none`} 
                         value={choiceB} onChange={(e) => {
                                                          setChoiceB(e.target.value)
                                                          setIsChoiceB(e.target.value === "");
                         }}/>
-                        <input type="text" placeholder="Choice C" className={`${isChoiceC ? "bg-red-200" : "bg-gray-200"} p-2 rounded-lg outline-none`} 
+                        <input type="text" placeholder="Choice C" className={`${isChoiceC ? "border-red-500" : "border-gray-300"} h-12 border bg-white p-2 rounded-lg outline-none`} 
                         value={choiceC} onChange={(e) => {
                                                          setChoiceC(e.target.value)
                                                          setIsChoiceC(e.target.value === "");
                         }}/>
-                        <input type="text" placeholder="Choice D" className={`${isChoiceD ? "bg-red-200" : "bg-gray-200"} p-2 rounded-lg outline-none`} 
+                        <input type="text" placeholder="Choice D" className={`${isChoiceD ? "border-red-500" : "border-gray-300"} h-12 border bg-white p-2 rounded-lg outline-none`} 
                         value={choiceD} onChange={(e) => {
                                                          setChoiceD(e.target.value)
                                                          setIsChoiceD(e.target.value === "");
                         }}/>
 
                         <select
-                                className={`${isAnswer ? "bg-red-200" : "bg-gray-200"} p-2 rounded-lg outline-none`}
+                                className={`${isAnswer ? "border-red-500" : "border-gray-300"} h-12 border bg-white p-2 rounded-lg outline-none`}
                                 value={answer}
                                 onChange={(e) => {
                                     setAnswer(e.target.value);
@@ -403,8 +410,11 @@ const Admin_Upload_Page = () => {
 
                     </div>
 
-                    <div className="bg-white w-full max-w-5xl flex flex-col border-l-2 border-gray-300 gap-4 py-6 pl-4 overflow-y-auto">
-                         <h2 className="text-xl font-semibold">Questionnaires</h2>
+                    <div className="bg-white w-full flex flex-col gap-4 overflow-y-auto">
+                         <div>
+                                <h2 className="text-lg font-bold text-gray-500 rounded-full">Questions Display</h2>
+                                <p className="text-gray-400 text-sm">Review the uploaded questions.</p>
+                            </div>
                          {quizList.length <= 0 && (
                             <div className="bg-gray-100 text-gray-400 text-sm text-center py-4 rounded-xl">
                                 No questions added yet

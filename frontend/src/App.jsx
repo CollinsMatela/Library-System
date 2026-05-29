@@ -14,7 +14,7 @@ import Profile_Page from "../pages/Profile_Page";
 import Admin_Materials_Page from "../pages/Admin_Materials_Page";
 import Admin_ViewMaterials_Page from "../pages/Admin_ViewMaterials_Page";
 import Admin_Student_Page from "../pages/Admin_Student_Page";
-import Admin_Teacher_Page from "../pages/Admin_Teacher_Page";
+import Admin_Employee_Page from "../pages/Admin_Employee_Page";
 
 
 const ProtectedRoute = ({ allowedRoles }) => {
@@ -60,7 +60,7 @@ function App() {
                 <Route path="/admin/materials" element={<Admin_Materials_Page />} />
                 <Route path="/admin/materials/:storyId" element={<Admin_ViewMaterials_Page />} />
                 <Route path="/admin/students" element={<Admin_Student_Page />} />
-                <Route path="/admin/teachers" element={<Admin_Teacher_Page />} />
+                <Route path="/admin/employee" element={<Admin_Employee_Page />} />
                 <Route path="/change-password" element={<Change_Password_Page/>}/>
         {/* </Route> */}
          <Route path="/loading" element={<LoadingScreen/>}/>

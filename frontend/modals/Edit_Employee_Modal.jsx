@@ -302,10 +302,15 @@ const Edit_Employee_Modal = ({employee, reFetch, onClose}) => {
                 </div>
                 </div>
 
-                <div className="w-full justify-end items-center flex">
+                <div className="w-full justify-end items-center flex gap-2">
+                    <button className="bg-gray-300 text-white py-2 px-4 rounded-full hover:bg-gray-400 cursor-pointer font-bold text-sm"
+                        onClick={onClose}
+                        >Close
+                        </button>
                         <button className="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 cursor-pointer font-bold text-sm"
                         onClick={Confirmation}
-                        >Edit Employee</button>
+                        >Edit Employee
+                        </button>
                 </div>
                 
                </div>

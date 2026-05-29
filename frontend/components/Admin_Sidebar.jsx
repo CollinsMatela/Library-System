@@ -11,7 +11,7 @@ const Admin_SideBar = () => {
           navigate("/");
     }  
     return(
-        <aside className="fixed left-0 top-0 z-0 h-full w-80 bg-gray-50 rounded-r-4xl p-4">
+        <aside className="fixed left-0 top-0 z-0 h-full w-80 bg-gray-50 p-4">
        <div>
         <h1 className="text-2xl font-bold text-pink-500">Little Me Admin</h1>
         <p className="text-sm text-gray-400">Learning Center Dashboard</p>
@@ -41,9 +41,9 @@ const Admin_SideBar = () => {
         <button className="text-gray-500 font-semibold">Students Account</button>
       </div>
 
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin/teachers')}>
+      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin/employee')}>
         <div className="h-10 w-10 rounded-full bg-gray-200"></div>
-        <button className="text-gray-500 font-semibold">Teacher Account</button>
+        <button className="text-gray-500 font-semibold">Employee Account</button>
       </div>
 
       <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Edit_Student_Modal from "../modals/Edit_Student_Modal"
 import RegisterStudentModal from "../modals/RegisterStudentModal"
 import Confirmation_Popup from "../popup/Confirmation_Popup"
+import View_Student_Modal from "../modals/View_Student_Modal"
 
 
 const Admin_Student_Page = () => {
@@ -21,6 +22,7 @@ const Admin_Student_Page = () => {
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showStudentRegistration, setShowStudentRegistration] = useState(false);
+    const [showViewStudent, setShowViewStudent] = useState(false);
     const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
     const handleEditStudent = (student) => {
@@ -31,6 +33,11 @@ const Admin_Student_Page = () => {
     const handleRegistration = () => {
         setShowStudentRegistration(true);
     };
+
+    const handleViewStudent = (student) => {
+         setSelectedStudent(student);
+         setShowViewStudent(true);
+    }
 
     useEffect(() => {
        fetchStudents();
@@ -65,6 +72,7 @@ const Admin_Student_Page = () => {
         <>
         {showConfirmationPopup && (<Confirmation_Popup onConfirm={() => deleteStudent(selectedStudent?.id)} onCancel={() => setShowConfirmationPopup(false)} />)}
         {showEditModal && (<Edit_Student_Modal selectedStudent={selectedStudent} closeEditStudentModal={() => setShowEditModal(false)} onRefresh={fetchStudents}/>)}
+        {showViewStudent && (<View_Student_Modal student={selectedStudent} onClose={() => setShowViewStudent(false)}/>)}
         {showStudentRegistration && (<RegisterStudentModal closeStudentModal={() => setShowStudentRegistration(false)} reFetchStudent={fetchStudents} />)}
        <section className="min-h-screen w-full bg-white pl-80 py-10 space-y-10">
         
@@ -159,7 +167,7 @@ const Admin_Student_Page = () => {
                                     </div>
                                     
                                     <div className="w-[10%] break-words gap-2 flex">
-                                        <button className="bg-blue-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => alert('Soon')}>Vw</button>
+                                        <button className="bg-blue-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => handleViewStudent(student)}>Vw</button>
                                         <button className="bg-amber-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-amber-600" onClick={() => handleEditStudent(student)}>Edt</button>
                                         <button className="bg-red-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteConfirmation(student)}>Del</button>
                                         

@@ -1,9 +1,34 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore"
+import LittleMeLogo from "../public/LMLC.png"
+import { useState } from "react";
 
 const Admin_SideBar = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const logout = useAuthStore((state) => state.logout);
+
+    const isOverview = location.pathname === "/admin";
+    const isUploadStory = location.pathname === "/admin/upload";
+    const isViewStory = location.pathname === "/admin/materials";
+    const isStudentAccount = location.pathname === "/admin/students";
+    const isEmployeeAccount = location.pathname === "/admin/employee";
+
+    const handleOverview = () => {
+          navigate('/admin');
+    }
+    const handleUploadStory = () => {
+          navigate('/admin/upload');
+    }
+    const handleViewStory = () => {
+          navigate('/admin/materials');
+    }
+    const handleStudent = () => {
+          navigate('/admin/students');
+    }
+    const handleEmployee = () => {
+          navigate('/admin/employee');
+    }
 
     const handleLogout = () =>{
           logout();
@@ -11,52 +36,53 @@ const Admin_SideBar = () => {
           navigate("/");
     }  
     return(
-        <aside className="fixed left-0 top-0 z-0 h-full w-80 bg-gray-50 px-4 py-10">
-       <div>
-        <h1 className="text-2xl font-bold text-pink-500">Little Me Admin</h1>
-        <p className="text-sm text-gray-400">Learning Center Dashboard</p>
+        <aside className="fixed left-0 top-0 z-0 h-full w-80 bg-white border-r-1 border-gray-300 px-4 py-10">
+       <div className="justify-start items-center flex gap-2">
+          <div className="bg-white rounded-2xl h-12 w-12 flex justify-center items-center">
+              <img src={LittleMeLogo} alt="Little Me Logo" className="h-8 w-8 object-cover"/>
+          </div>
+          
+          <div>
+            <h1 className="text-xl font-bold text-pink-500">Little Me Admin</h1>
+            <p className="text-xs text-gray-400">Learning Center Dashboard</p>
+          </div>
       </div>
 
-      <div className="bg-blue-100 text-blue-500 font-bold py-2 px-4 rounded-lg mt-6">
+      <div className="text-gray-500 text-sm py-2 px-4 rounded-lg mt-6">
         Admin Menu
       </div>
 
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin')}>
+      <div className={`${isOverview ? "bg-pink-500 text-white" : "hover:bg-gray-100 text-gray-800"} justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleOverview}>
         <div className="h-10 w-10 rounded-full bg-gray-200"></div>
-        <button className="text-gray-500 font-semibold">Overview</button>
+        Overview
       </div>
 
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin/upload')}>
+      <div className={`${isUploadStory ? "bg-pink-500 text-white" : "hover:bg-gray-100 text-gray-800"} justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleUploadStory}>
         <div className="h-10 w-10 rounded-full bg-gray-200"></div>
-        <button className="text-gray-500 font-semibold">Upload Story</button>
+        Upload Story
       </div>
 
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin/materials')}>
+      <div className={`${isViewStory ? "bg-pink-500 text-white" : "hover:bg-gray-100 text-gray-800"} justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleViewStory}>
         <div className="h-10 w-10 rounded-full bg-gray-200"></div>
-        <button className="text-gray-500 font-semibold">View Stories</button>
+        View Stories
       </div>
 
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin/students')}>
+      <div className={`${isStudentAccount ? "bg-pink-500 text-white" : "hover:bg-gray-100 text-gray-800"} justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleStudent}>
         <div className="h-10 w-10 rounded-full bg-gray-200"></div>
-        <button className="text-gray-500 font-semibold">Students Account</button>
+        Students Account
       </div>
 
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={() => navigate('/admin/employee')}>
+      <div className={`${isEmployeeAccount ? "bg-pink-500 text-white" : "hover:bg-gray-100 text-gray-800"} justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleEmployee}>
         <div className="h-10 w-10 rounded-full bg-gray-200"></div>
-        <button className="text-gray-500 font-semibold">Employee Account</button>
+        Employee Account
       </div>
 
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2">
-        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
-        <button className="text-gray-500 font-semibold">Activity Log</button>
-      </div>
-
-      <div className="bg-gray-100 text-gray-500 font-bold py-2 px-4 rounded-lg mt-6">
+      <div className="text-gray-500 text-sm py-2 px-4 rounded-lg mt-6">
         Other Menu
       </div>
-      <div className="flex gap-2 cursor-pointer py-2 hover:bg-gray-100 hover:border-none rounded-xl mt-2 p-2" onClick={handleLogout}>
+      <div className="justify-start items-center flex font-semibold text-gray-800 flex  gap-2 cursor-pointer py-2 hover:bg-red-100 hover:text-red-500 hover:border-none rounded-xl mt-2 p-2" onClick={handleLogout}>
         <div className="h-10 w-10 rounded-full bg-gray-200"></div>
-        <button className="text-gray-500 font-semibold">Logout</button>
+        Logout
       </div>
 
     </aside>

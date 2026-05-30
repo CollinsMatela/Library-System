@@ -69,11 +69,15 @@ const Admin_Student_Page = () => {
        <section className="min-h-screen w-full bg-white pl-80 py-10 space-y-10">
         
         <Admin_Sidebar/>
-        <div className="mx-10">
-            <h2 className="text-3xl font-bold text-gray-800">Student Management</h2>
-            <p className="text-gray-400 text-md">
-           Manage student accounts, monitor learning progress, and keep track of student information and activities.
-            </p>
+        <div className="mx-10 justify-between items-start flex">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-800">Student Management</h2>
+               <p className="text-gray-400 text-md">Manage student accounts, monitor learning progress, and keep track of student information and activities.</p>
+            </div>
+            
+            <div>
+                <button className="bg-white border-1 border-gray-800 h-10 rounded-2xl text-gray-800 cursor-pointer text-sm font-semibold px-4 hover:bg-pink-500 hover:text-white" onClick={handleRegistration}>+ New Student</button>   
+            </div>
        </div>
 
         {/* Student Container */}
@@ -93,44 +97,36 @@ const Admin_Student_Page = () => {
                                    value={search}
                                    onChange={(e) => setSearch(e.target.value)}
                             />
-                            <button className="border-1 border-blue-500 h-10 rounded-full text-blue-500 cursor-pointer text-sm font-semibold px-4 hover:bg-blue-500 hover:text-white" onClick={handleRegistration}>+ New Student</button>    
+                             
                         </div>
                     </div>   
-                    
-                    <div className="h-100 w-full rounded-b-xl pb-10">
-                        {/* Columns */}
-                        <div className="bg-gray-300 h-12 w-full rounded-xl justify-center items-center flex px-4">
-                            <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-white">No.</h1>
+                      {/* Columns */}
+                        <div className="bg-gray-900 h-12 w-full rounded-xl justify-between items-center flex px-4">
+
+                            <div className="w-100 justify-start items-center flex gap-4">
+                                <h1 className="text-sm font-semibold text-white mr-14">No.</h1>
+                                <h1 className="text-sm font-semibold text-white">Fullname</h1>
                             </div>
-                            <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-white">Lastname</h1>
+                            
+                            
+                            <div className="w-100 justify-start items-center flex">
+                                        <div className="w-1/3">
+                                          <h1 className="text-sm font-semibold text-white">Grade</h1>
+                                        </div>
+                                        <div className="w-1/3">
+                                          <h1 className="text-sm font-semibold text-white">Branch</h1>
+                                        </div>
+                                        <div className="w-1/3">
+                                          <h1 className="text-sm font-semibold text-white">Role</h1>
+                                        </div>                                   
                             </div>
-                            <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-white">Firstname</h1>
-                            </div>
-                            <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-white">Date of birth</h1>
-                            </div>
-                            <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-white">Parent email</h1>
-                            </div>
-                            <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-white">Parent contact</h1>
-                            </div>
-                            <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-white">Grade level</h1>
-                            </div>
-                            <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-white">Branch</h1>
-                            </div>
-                            <div className="flex-1">
-                                <h1 className="text-sm font-semibold text-white">Created At</h1>
-                            </div>
-                            <div className="flex-1 bg">
+                            
+                            <div className="w-[10%]">
                                 <h1 className="text-sm font-semibold text-white">Actions</h1>
                             </div>
                         </div>
+                    <div className="h-100 w-full rounded-b-xl pb-10 overflow-y-scroll">
+                        
                         {/* Rows */}
                         {filteredStudent.length < 1 && (
                             <div className="bg-gray-100 h-15 w-full rounded-xl justify-center items-center flex px-4 py-2 mt-2">
@@ -143,44 +139,29 @@ const Admin_Student_Page = () => {
                                 const updatedCreatedAt = new Date(student.createdAt).toISOString().split("T")[0];;
                                 
                                 return (
-                                <div key={student.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-100 justify-center items-center flex px-4 py-2 mt-2 hover:bg-blue-100 cursor-pointer">
-                                    <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{index + 1}</p>
+                                <div key={student.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-100 justify-between items-center flex px-4 py-2 mt-2 hover:border-blue-500 hover:bg-blue-100 cursor-pointer">
+                                    <div className="w-100 justify-start items-center flex gap-4">
+                                        <p className="text-gray-500">{index + 1}</p>
+                                        <img src="" className="bg-gray-100 h-12 w-12 rounded-full" />
+                                        <p className="text-gray-500">{student.lastname}, {student.firstname}, {student.middlename}</p>
                                     </div>
-                                    <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.lastname}</p>
+                                    
+                                    <div className="w-100 justify-start items-center flex">
+                                        <div className="w-1/3">
+                                          <p className="text-gray-500">{student.gradeLevel}</p>
+                                        </div>
+                                        <div className="w-1/3">
+                                          <p className="text-gray-500">{student.branch}</p>
+                                        </div>
+                                        <div className="w-1/3">
+                                          <p className="text-gray-500">{student.role}</p>
+                                        </div>                                   
                                     </div>
-                                    <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.firstname}</p>
-                                    </div>
-                                    <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{`${student.month}/${student.day}/${student.year}`}</p>
-                                    </div>
-                                    <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.parentEmail}</p>
-                                    </div>
-                                    <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.parentContact}</p>
-                                    </div>
-                                    <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.gradeLevel}</p>
-                                    </div>
-                                    <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{student.branch}</p>
-                                    </div>
-                                    <div className="w-[10%] break-words">
-                                        <p className="text-sm text-gray-500">{updatedCreatedAt}</p>
-                                    </div>
+                                    
                                     <div className="w-[10%] break-words gap-2 flex">
-                                        <button className="bg-blue-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => alert('Soon')}>
-                                            Vw
-                                        </button>
-                                        <button className="bg-amber-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-amber-600" onClick={() => handleEditStudent(student)}>
-                                            Edt
-                                        </button>
-                                        <button className="bg-red-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteConfirmation(student)}>
-                                            Del
-                                        </button>
+                                        <button className="bg-blue-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => alert('Soon')}>Vw</button>
+                                        <button className="bg-amber-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-amber-600" onClick={() => handleEditStudent(student)}>Edt</button>
+                                        <button className="bg-red-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteConfirmation(student)}>Del</button>
                                         
                                     </div>
                                 </div>

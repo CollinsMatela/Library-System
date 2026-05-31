@@ -81,8 +81,8 @@ const Admin_Materials_Page = () => {
                               <h1 className="text-gray-800 font-bold text-lg">{story?.title}</h1>
                               <h1 className="text-gray-500 font-bold text-sm">{story?.author}</h1>
                               <div className="flex gap-2">
-                                <h1 className="bg-blue-200 px-2 text-blue-500 font-semibold rounded-lg">{story?.genre}</h1>
-                                <h1 className="bg-blue-200 px-2 text-blue-500 font-semibold rounded-lg">{story?.gradeCategory}</h1>
+                                <h1 className="bg-pink-200 px-2 text-pink-500 font-semibold rounded-lg">{story?.genre}</h1>
+                                <h1 className="bg-pink-200 px-2 text-pink-500 font-semibold rounded-lg">{story?.gradeCategory}</h1>
                               </div>
                           </div>
                       </div>

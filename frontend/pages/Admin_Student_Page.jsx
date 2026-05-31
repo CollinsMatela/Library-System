@@ -84,7 +84,7 @@ const Admin_Student_Page = () => {
             </div>
             
             <div>
-                <button className="bg-white border-1 border-gray-800 h-10 rounded-2xl text-gray-800 cursor-pointer text-sm font-semibold px-4 hover:bg-pink-500 hover:text-white" onClick={handleRegistration}>+ New Student</button>   
+                <button className="bg-white border-1 border-pink-500 h-10 rounded-2xl text-pink-500 cursor-pointer text-sm font-semibold px-4 hover:bg-pink-500 hover:text-white" onClick={handleRegistration}>+ New Student</button>   
             </div>
        </div>
 

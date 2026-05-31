@@ -58,21 +58,20 @@ const Admin_ViewMaterials_Page = () => {
     <section className="bg-white min-h-screen w-full justify-start items-center flex flex-col pb-10">
       {showEditQuestionModal && (<Edit_Question_Modal storyId={storyId} question={selectedQuestionToEdit} reFetch={() => fetchSingleStory()} onClose={() => setShowEditQuestionModal(false)} />)}
     
-    <header className="fixed top-0 z-50 h-20 w-full justify-start items-center flex px-10 bg-white shadow-md">
-        <div>
-        <h1 className="text-2xl font-bold text-pink-500 cursor-pointer" onClick={() => navigate("/admin")}>
-          Little Me Admin
-        </h1>
-        <p className="text-sm text-gray-400">
-          Learning Center Dashboard
-        </p>
+    <nav className="h-20 w-full justify-center items-center flex px-20 bg-white mt-10">
+      <div className="h-full w-5xl justify-between items-center flex">
+          <div>
+              <h2 className="text-3xl font-bold text-gray-800">View Story</h2>
+               <p className="text-gray-400 text-md">Explore engaging stories designed to inspire imagination, learning, and creativity.</p>
+            </div>
+          <h1 className="text-sm underline font-bold text-pink-500 cursor-pointer" onClick={() => navigate(-1)}>Back</h1>
       </div>
-    </header>
+    </nav>
 
-    <div className="mt-25 w-5xl border-b-2 border-gray-300 py-2 space-x-2 mb-4">
-        <button className={`${isStoryDetails ? 'bg-gray-300 text-white border-none' : 'bg-white'} h-full w-fit p-2 font-semibold text-gray-800 rounded-2xl border-1 border-gray-300 cursor-pointer`} onClick={handleStoryDetails}>Story Details</button>
-        <button className={`${isStoryContext ? 'bg-gray-300 text-white border-none' : 'bg-white'} h-full w-fit p-2 font-semibold text-gray-800 rounded-2xl border-1 border-gray-300 cursor-pointer`} onClick={handleStoryContext}>Story Context</button>
-        <button className={`${isQuestionnaire ? 'bg-gray-300 text-white border-none' : 'bg-white'} h-full w-fit p-2 font-semibold text-gray-800 rounded-2xl border-1 border-gray-300 cursor-pointer`} onClick={handleQuestionnaire}>Questionnaire</button>
+    <div className="mt-10 w-5xl border-b-2 border-gray-300 py-2 space-x-2 mb-4">
+        <button className={`${isStoryDetails ? 'bg-pink-500 text-white border-none' : 'bg-white'} h-full w-fit p-2 font-semibold text-gray-800 rounded-2xl border-1 border-gray-300 cursor-pointer`} onClick={handleStoryDetails}>Story Details</button>
+        <button className={`${isStoryContext ? 'bg-pink-500 text-white border-none' : 'bg-white'} h-full w-fit p-2 font-semibold text-gray-800 rounded-2xl border-1 border-gray-300 cursor-pointer`} onClick={handleStoryContext}>Story Context</button>
+        <button className={`${isQuestionnaire ? 'bg-pink-500 text-white border-none' : 'bg-white'} h-full w-fit p-2 font-semibold text-gray-800 rounded-2xl border-1 border-gray-300 cursor-pointer`} onClick={handleQuestionnaire}>Questionnaire</button>
     </div>
     
     {isStoryDetails && (
@@ -86,7 +85,7 @@ const Admin_ViewMaterials_Page = () => {
       />
     </div>
 
-    <div className="p-8 space-y-6">
+    <div className="py-8 space-y-6">
       
       <div>
         <h1 className="text-4xl font-bold text-gray-800">
@@ -99,11 +98,11 @@ const Admin_ViewMaterials_Page = () => {
       </div>
 
       <div className="flex flex-wrap gap-3">
-        <span className="px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+        <span className="px-4 py-2 bg-pink-100 text-pink-700 rounded-full text-sm font-medium">
           {story?.genre}
         </span>
 
-        <span className="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+        <span className="px-4 py-2 bg-pink-100 text-pink-700 rounded-full text-sm font-medium">
           {story?.gradeCategory}
         </span>
       </div>
@@ -129,7 +128,7 @@ const Admin_ViewMaterials_Page = () => {
   </div>
 )}
     {isStoryContext && (
-        <div className="p-10 w-5xl">
+        <div className="w-5xl">
             <h2 className="text-2xl font-bold text-gray-800 whitespace-pre-line">{story?.fullStory}</h2>
             <p className="text-gray-600">{story?.context}</p>
         </div>
@@ -145,7 +144,7 @@ const Admin_ViewMaterials_Page = () => {
                  </span>
                ))}</p>
                <p className="text-gray-600">Correct Answer: {q.answer}</p>
-               <button className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 cursor-pointer mt-4" onClick={() => handleEditQuestion(q)}>
+               <button className="bg-pink-500 text-white py-2 px-4 rounded-lg hover:bg-pink-600 cursor-pointer mt-4" onClick={() => handleEditQuestion(q)}>
                  Edit This Question
                </button>
              </div>

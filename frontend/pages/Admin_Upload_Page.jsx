@@ -187,7 +187,7 @@ const Admin_Upload_Page = () => {
                     <p className="text-gray-400 text-md">Create and publish a new story</p>
                 </div>
                 <div className={`rounded-xl justify-end items-center flex gap-2`}>
-                <button className="h-10 px-4 text-gray-800 font-semibold bg-white border border-gray-800 hover:bg-gray-800 hover:text-white rounded-full cursor-pointer" onClick={handleConfirmation}>+ Upload Story</button>
+                <button className="h-10 px-4 text-pink-500 font-semibold bg-white border border-pink-500 hover:bg-pink-500 hover:text-white rounded-full cursor-pointer" onClick={handleConfirmation}>+ Upload Story</button>
                 </div>
                 
             </div>
@@ -316,11 +316,11 @@ const Admin_Upload_Page = () => {
                                 {/* Tags */}
                                 <div className="flex flex-wrap gap-2 mt-2">
                                 
-                                <span className="px-3 py-1 text-sm bg-blue-100 text-blue-600 rounded-full">
+                                <span className="px-3 py-1 text-sm bg-pink-100 text-pink-500 rounded-full">
                                     {genre || "Genre"}
                                 </span>
 
-                                <span className="px-3 py-1 text-sm bg-green-100 text-green-600 rounded-full">
+                                <span className="px-3 py-1 text-sm bg-pink-100 text-pink-500 rounded-full">
                                     {gradeCategory || "Grade"}
                                 </span>
 
@@ -355,7 +355,7 @@ const Admin_Upload_Page = () => {
                                 <h2 className="text-lg font-bold text-gray-500 rounded-full">Question Creation</h2>
                                 <p className="text-gray-400 text-sm">Fill-up the required information for question.</p>
                             </div>
-                            <button className={`${quizList.length === 5 ? 'hidden' : null} h-10 px-4 text-gray-800 font-semibold bg-white border border-gray-800 hover:bg-gray-800 hover:text-white rounded-full cursor-pointer`} onClick={addQuestion}>
+                            <button className={`${quizList.length === 5 ? 'hidden' : null} h-10 px-4 text-pink-500 font-semibold bg-white border border-pink-500 hover:bg-pink-500 hover:text-white rounded-full cursor-pointer`} onClick={addQuestion}>
                             + Question
                             </button>
                         </div>

@@ -90,7 +90,7 @@ const Admin_Employee_Page = () => {
                       <p className="text-gray-400 text-md">Manage employee accounts and oversee staff informations.</p>
                     </div>
                     <div>
-                       <button className="bg-white border-1 border-gray-800 h-10 rounded-2xl text-gray-800 cursor-pointer text-sm font-semibold px-4 hover:bg-gray-800 hover:text-white" onClick={displayRegistration}>+ Register Employee</button>
+                       <button className="bg-white border-1 border-pink-500 h-10 rounded-2xl text-pink-500 cursor-pointer text-sm font-semibold px-4 hover:bg-pink-500 hover:text-white" onClick={displayRegistration}>+ Register Employee</button>
                     </div>
                     
                </div>

@@ -163,7 +163,7 @@ const Edit_Question_Modal = ({ storyId, question, reFetch, onClose }) => {
             Close
           </button>
 
-          <button className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium transition" onClick={showConfirmation}>
+          <button className="px-5 py-2 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-medium transition" onClick={showConfirmation}>
             Save Changes
           </button>
         </div>

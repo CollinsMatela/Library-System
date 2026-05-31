@@ -29,45 +29,63 @@ const Home_Page = () => {
     <>
     {showLogin && (<LoginModal onClose={() => setShowLogin(false)}/>)}
       <Navigation />
-      <section className="relative min-h-screen w-full flex items-center justify-center text-center overflow-hidden">
 
-        {/* Background Image */}
-        <img
-          src={BooksImage}
-          alt="Books background"
-          className="absolute inset-0 w-full h-full object-cover scale-105"
-        />
+      {/* Content */}
+<section className="relative z-10 min-h-screen max-w-7xl mx-auto w-full justify-center items-center flex px-6 md:px-12">
+  <div className="grid md:grid-cols-2 gap-12 items-center">
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+    {/* Left Side */}
+    <div className="text-left">
+      <div className="inline-block bg-pink-100 rounded-full px-6 py-2 text-sm font-semibold text-pink-600">
+        Welcome to Little Me Library
+      </div>
 
-        {/* Content */}
-        <div className="relative z-10 flex flex-col items-center px-6">
+      <h1 className="mt-6 text-5xl sm:text-6xl lg:text-8xl font-extrabold text-gray-800 leading-none">
+        Discover
+        <br />
+        <span className="text-pink-500">Stories</span>
+        <br />
+        That Inspire
+      </h1>
 
-          {/* Badge */}
-          <div className="bg-white/80 border border-pink-400 rounded-full px-6 py-2 text-sm font-semibold text-pink-500 shadow-sm">
-             Welcome to Little Me Library 
-          </div>
+      <p className="mt-6 text-lg text-gray-600 max-w-lg">
+        Read, learn, imagine, and grow through a world of interactive
+        stories designed to spark creativity and curiosity in every child.
+      </p>
 
-          {/* Title */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-pink-500 leading-tight mt-6">
-            LITTLE ME LIBRARY
-          </h1>
+      <button
+        className="mt-8 bg-pink-500 hover:bg-pink-600 text-white text-lg font-bold px-8 py-4 rounded-full shadow-lg hover:scale-105 transition"
+        onClick={() => setShowLogin(true)}
+      >
+        Start Exploring
+      </button>
+    </div>
 
-          {/* Description */}
-          <p className="text-sm sm:text-lg text-gray-700 font-medium max-w-2xl mt-4 leading-relaxed">
-            A magical learning space where children explore colorful stories,
-            build imagination, and enjoy interactive reading adventures every day.
-          </p>
+    {/* Right Side */}
+    <div className="text-left">
+      <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+        Where Learning Meets Adventure
+      </h2>
 
-          {/* Button */}
-          <button className="mt-8 bg-pink-500 hover:bg-pink-600 text-white text-base sm:text-lg font-bold px-8 py-4 rounded-full shadow-lg hover:scale-105 transition"
-          onClick={() => setShowLogin(true)}>
-            Start Exploring 
-          </button>
+      <p className="text-gray-700 text-lg leading-relaxed">
+        Little Me Library is an interactive digital reading platform created
+        to help children develop strong literacy skills while enjoying fun
+        and engaging stories. Our collection includes educational,
+        imaginative, and age-appropriate content that encourages curiosity,
+        creativity, and a love for learning.
+      </p>
 
-        </div>
-      </section>
+      <p className="text-gray-700 text-lg leading-relaxed mt-5">
+        Through colorful storybooks, interactive activities, and exciting
+        reading adventures, children can improve comprehension, expand
+        vocabulary, strengthen critical thinking, and build confidence in
+        their reading journey. Whether at home or in the classroom, every
+        story becomes a new opportunity to discover, learn, and grow.
+      </p>
+    </div>
+
+  </div>
+</section>
 
       <section className="min-h-screen w-full py-20 bg-white px-6 md:px-16">
   <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">

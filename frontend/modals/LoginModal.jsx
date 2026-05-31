@@ -72,16 +72,16 @@ const LoginModal = ({ onClose }) => {
   }
 
   return (
-    <section className="fixed inset-0 flex justify-center items-center z-50">
+    <section className="fixed inset-0 flex justify-center items-center z-100">
       {loading && (<LoadingScreen/>)}
       <div
-        className="absolute inset-0 bg-white/50 z-0"
+        className="absolute inset-0 bg-black/50 z-0"
         onClick={onClose}
       ></div>
 
       <div className="relative z-10 bg-white w-[400px] justify-center items-center flex flex-col rounded-xl p-6">
-        <h1 className="text-xl font-semibold">Join the Learning Adventure!</h1>
-        <h1 className="mb-6 text-xs text-gray-500 mb-6">Sign up now and discover fun stories, games, and activities.</h1>
+        <h1 className="text-xl font-semibold">Little Me Login</h1>
+        <h1 className="mb-6 text-xs text-gray-500 mb-6">Sign up now and discover fun and engaging stories.</h1>
 
         <div className={`${isErrorContainer ? "" : "hidden"} bg-red-100 w-full h-12 p-2 justify-center items-center flex rounded-xl mb-4`}>
             <p className="text-red-500 text-xs">
@@ -91,7 +91,7 @@ const LoginModal = ({ onClose }) => {
 
         <div className={`w-full justify-center items-start flex flex-col mb-2`}>
           <h1 className="text-xs text-gray-500">Username</h1>
-          <input type="text" placeholder="Your Username" className={`${isUsername ? "bg-red-100" : "bg-gray-100"} h-12 w-full rounded-xl p-2 outline-none`}
+          <input type="text" placeholder="Your Username" className={`${isUsername ? "border-red-500" : "border-gray-300"} border h-12 w-full rounded-xl p-2 outline-none`}
           value={username} onChange={(e) => {setUsername(e.target.value)
                                              if(username){setIsUsername(false)}
           }}/>
@@ -99,7 +99,7 @@ const LoginModal = ({ onClose }) => {
 
         <div className="w-full justify-center items-start flex flex-col">
           <h1 className="text-xs text-gray-500">Password</h1>
-          <input type="password" placeholder="Your Password" className={`${isPassword ? "bg-red-100" : "bg-gray-100"} h-12 w-full rounded-xl p-2 outline-none`}
+          <input type="password" placeholder="Your Password" className={`${isPassword ? "border-red-500" : "border-gray-300"} border h-12 w-full rounded-xl p-2 outline-none`}
           value={password} onChange={(e) => {setPassword(e.target.value)
                                              if(password){setIsPassword(false)}
           }}/>

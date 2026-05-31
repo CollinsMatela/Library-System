@@ -6,7 +6,7 @@ const Lib_Overview = ({newStories, stories, handleViewStory}) => {
   
                 <div className="flex items-center gap-3">
                     
-                    <div className="h-11 w-11 rounded-2xl bg-blue-500 flex items-center justify-center shadow-md">
+                    <div className="h-11 w-11 rounded-2xl bg-pink-500 flex items-center justify-center shadow-md">
                     <span className="text-white text-xl">📚</span>
                     </div>
 
@@ -26,33 +26,35 @@ const Lib_Overview = ({newStories, stories, handleViewStory}) => {
                     <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch p-6">
                     {newStories.map((story) => (
                         <div
-                        key={story.id}
-                        className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full flex flex-col"
-                        onClick={() => handleViewStory(story.id)}
+                            key={story.id}
+                            className="relative bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                            onClick={() => handleViewStory(story.id)}
                         >
-                        <div className="w-full h-48 overflow-hidden">
+                            {/* Image */}
+                            <div className="w-full h-100 overflow-hidden">
                             <img
-                            src={story.image}
-                            alt={story.title}
-                            className="w-full h-full object-cover hover:scale-110 transition duration-300"
+                                src={story.image}
+                                alt={story.title}
+                                className="w-full h-full object-cover hover:scale-110 transition duration-300"
                             />
-                        </div>
+                            </div>
 
-                        <div className="p-4 flex flex-col flex-1 gap-2">
-                            <h3 className="font-semibold text-base text-gray-800 line-clamp-2">
-                            {story.title}
+                            {/* Content */}
+                            <div className="absolute inset-0 bg-black/50 p-4 justify-end items-start flex flex-col gap-2">
+                            <h3 className="font-semibold text-base text-white line-clamp-2">
+                                {story.title.toUpperCase()}
                             </h3>
-
-                            <p className="text-sm text-gray-500 line-clamp-2">
-                            {story.description}
+                            <p className="text-xs text-white line-clamp-2">
+                                {story.author.toLowerCase()}
                             </p>
 
-                            <div className="mt-auto pt-2">
-                            <span className="text-xs text-blue-600 font-medium hover:underline">
+                            {/* Optional: Add CTA */}
+                            <div className="mt-2">
+                                <span className="text-xs text-white font-medium hover:underline">
                                 Read Story →
-                            </span>
+                                </span>
                             </div>
-                        </div>
+                            </div>
                         </div>
                     ))}
                     </div>
@@ -61,7 +63,7 @@ const Lib_Overview = ({newStories, stories, handleViewStory}) => {
   
                 <div className="flex items-center gap-3">
                     
-                    <div className="h-11 w-11 rounded-2xl bg-blue-500 flex items-center justify-center shadow-md">
+                    <div className="h-11 w-11 rounded-2xl bg-pink-500 flex items-center justify-center shadow-md">
                     <span className="text-white text-xl">📚</span>
                     </div>
 
@@ -80,33 +82,35 @@ const Lib_Overview = ({newStories, stories, handleViewStory}) => {
            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch p-6">
                     {stories.map((story) => (
                         <div
-                        key={story.id}
-                        className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full flex flex-col"
-                        onClick={() => handleViewStory(story.id)}
+                            key={story.id}
+                            className="relative bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                            onClick={() => handleViewStory(story.id)}
                         >
-                        <div className="w-full h-48 overflow-hidden">
+                            {/* Image */}
+                            <div className="w-full h-100 overflow-hidden">
                             <img
-                            src={story.image}
-                            alt={story.title}
-                            className="w-full h-full object-cover hover:scale-110 transition duration-300"
+                                src={story.image}
+                                alt={story.title}
+                                className="w-full h-full object-cover hover:scale-110 transition duration-300"
                             />
-                        </div>
+                            </div>
 
-                        <div className="p-4 flex flex-col flex-1 gap-2">
-                            <h3 className="font-semibold text-base text-gray-800 line-clamp-2">
-                            {story.title}
+                            {/* Content */}
+                            <div className="absolute inset-0 bg-black/50 p-4 justify-end items-start flex flex-col gap-2">
+                            <h3 className="font-semibold text-base text-white line-clamp-2">
+                                {story.title.toUpperCase()}
                             </h3>
-
-                            <p className="text-sm text-gray-500 line-clamp-2">
-                            {story.description}
+                            <p className="text-xs text-white line-clamp-2">
+                                {story.author.toLowerCase()}
                             </p>
 
-                            <div className="mt-auto pt-2">
-                            <span className="text-xs text-blue-600 font-medium hover:underline">
+                            {/* Optional: Add CTA */}
+                            <div className="mt-2">
+                                <span className="text-xs text-white font-medium hover:underline">
                                 Read Story →
-                            </span>
+                                </span>
                             </div>
-                        </div>
+                            </div>
                         </div>
                     ))}
                     </div>

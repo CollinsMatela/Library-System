@@ -71,19 +71,19 @@ const Library_Page = () => {
     // }, [titles.length]);
     
     return(
-        <section className="min-h-screen w-full bg-gradient-to-br from-pink-50 via-blue-50 to-yellow-50 p-4">
+        <section className="min-h-screen w-full bg-white p-4">
             <div className="bg-white min-h-screen shadow-2xl w-full just-center items-center flex flex-col rounded-2xl pb-4">
                 {loading && (<LoadingScreen/>)}
                 <Lib_Navigation/>
                  
-                 <h1 className="text-medium text-gray-500 font-bold mb-4 mt-20 border-2 border-gray-500 py-1 px-4 rounded-full">Little Me Online Library </h1>
-                 <h1 className="text-5xl text-gray-500 font-bold mb-10">What story will you explore today? {user?.firstname || "Dev"}.</h1>
+                 <h1 className="bg-pink-100 text-medium text-pink-500 font-bold mb-4 mt-20 border-1 border-pink-500 py-1 px-4 rounded-full">Little Me Library Portal</h1>
+                 <h1 className="text-5xl text-gray-800 font-bold mb-10">What story will you explore today? <span className='text-purple-500'>{user?.firstname || "Dev"}.</span></h1>
 
-                 <div className="h-20 max-w-5xl w-full bg-gradient-to-br from-pink-100 via-blue-100 to-yellow-100 justify-center items-center flex border-2 border-gray-500 rounded-4xl outline-none p-2">
-                        <div className="h-full w-20 border-r-1 border-white"><img src={SearchIcon} className='h-full w-full object-cover bg-gradient-to-br from-pink-500 via-blue-500 to-yellow-500 rounded-l-3xl rounded-r-md' /></div>
+                 <div className="h-20 max-w-5xl w-full bg-gradient-to-br from-pink-100 via-pink-200 to-purple-200 justify-center items-center flex shadow-sm rounded-4xl outline-none p-2">
+                        <div className="h-full w-20"><img src={SearchIcon} className='h-full w-full object-cover bg-gradient-to-br from-pink-300 via-pink-500 to-purple-500 rounded-l-3xl rounded-r-md' /></div>
                         <input type="text" 
-                               className="h-full w-full outline-none px-4 text-lg text-blue-500 font-bold inner-shadow-lg" 
-                               placeholder={`Search stories and explore... [e.g ${titles[index]}]`}
+                               className="h-full w-full outline-none px-4 text-lg text-pink-500 font-bold inner-shadow-lg" 
+                               placeholder={`Search stories and explore...`}
                                value={search}
                                onChange={(e) => setSearch(e.target.value)}
                         />

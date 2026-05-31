@@ -1,155 +1,327 @@
 import Navigation from "../components/HomePageNavigation";
 import Footer from "../components/Footer";
+import BooksImage from "../src/assets/books.jpg"
+import LibraryImage from "../src/assets/library.png"
+import axios from 'axios';
+import { useEffect, useState } from "react";
+import LoginModal from '../modals/LoginModal'
 
-const books = [
-  {
-    title: "The Very Hungry Caterpillar",
-    emoji: "🐛",
-    color: "bg-green-300",
-  },
-  {
-    title: "Little Red Riding Hood",
-    emoji: "🐺",
-    color: "bg-red-300",
-  },
-  {
-    title: "The Snowy Day",
-    emoji: "❄️",
-    color: "bg-blue-200",
-  },
-  {
-    title: "The Cat in the Hat",
-    emoji: "🐱",
-    color: "bg-yellow-200",
-  },
-];
+
 
 const Home_Page = () => {
+  const [showLogin, setShowLogin] = useState(false);
+  const [stories, setStories] = useState([]);
+
+  useEffect(() => {
+      fetchStories();
+  }, [])
+
+  const fetchStories = async () => {
+            try {
+              const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-stories`);
+                  setStories(res.data.stories);
+                  console.log(res.data.message);
+            } catch (error) {
+              console.log(error)
+      }
+    }
   return (
     <>
+    {showLogin && (<LoginModal onClose={() => setShowLogin(false)}/>)}
+      <Navigation />
+      <section className="relative min-h-screen w-full flex items-center justify-center text-center overflow-hidden">
 
-      <section className="min-h-screen w-full bg-pink-500 flex flex-col items-center justify-center px-6 md:px-10 text-center relative overflow-hidden">
-        <Navigation />
+        {/* Background Image */}
+        <img
+          src={BooksImage}
+          alt="Books background"
+          className="absolute inset-0 w-full h-full object-cover scale-105"
+        />
 
-        <div className="absolute top-32 left-8 md:left-30 text-5xl md:text-7xl animate-bounce">
-          🌟
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col items-center px-6">
+
+          {/* Badge */}
+          <div className="bg-white/80 border border-pink-400 rounded-full px-6 py-2 text-sm font-semibold text-pink-500 shadow-sm">
+             Welcome to Little Me Library 
+          </div>
+
+          {/* Title */}
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-pink-500 leading-tight mt-6">
+            LITTLE ME LIBRARY
+          </h1>
+
+          {/* Description */}
+          <p className="text-sm sm:text-lg text-gray-700 font-medium max-w-2xl mt-4 leading-relaxed">
+            A magical learning space where children explore colorful stories,
+            build imagination, and enjoy interactive reading adventures every day.
+          </p>
+
+          {/* Button */}
+          <button className="mt-8 bg-pink-500 hover:bg-pink-600 text-white text-base sm:text-lg font-bold px-8 py-4 rounded-full shadow-lg hover:scale-105 transition"
+          onClick={() => setShowLogin(true)}>
+            Start Exploring 
+          </button>
+
         </div>
-        <div className="absolute top-32 right-8 md:right-30 text-5xl md:text-7xl animate-bounce">
-          📚
-        </div>
-        <div className="absolute bottom-20 left-8 md:left-20 text-5xl md:text-7xl animate-bounce">
-          🧸
-        </div>
-        <div className="absolute bottom-24 right-8 md:right-10 text-5xl md:text-7xl animate-bounce">
-          🎨
-        </div>
-
-        <div className="bg-white rounded-full px-6 py-2 text-sm font-semibold text-pink-500 mt-10">
-          ✨ Welcome to Little Me Learning Center ✨
-        </div>
-
-        <h1 className="text-4xl sm:text-6xl md:text-8xl font-extrabold text-white leading-tight mt-6">
-          ONLINE LIBRARY
-        </h1>
-
-        <p className="text-sm sm:text-lg text-white font-semibold max-w-2xl mt-4">
-          A magical place where little learners can discover stories,
-          play fun games, and let their imagination grow every day.
-        </p>
-
-        <button className="mt-8 bg-yellow-400 hover:bg-yellow-300 text-pink-700 text-base sm:text-lg font-bold px-8 py-4 rounded-full shadow-lg hover:scale-105 transition duration-300">
-          Start Exploring 🚀
-        </button>
       </section>
 
-      <section className="w-full py-20 bg-yellow-100 px-6 md:px-16">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <h2 className="text-4xl font-extrabold text-pink-600 mb-4">
-              About Our Library 📖
-            </h2>
-            <p className="text-gray-700 text-lg leading-relaxed">
-              Our online library helps kindergarten students enjoy fun
-              and educational books anytime, anywhere. Kids can read,
-              listen, and learn through colorful stories made just for them.
+      <section className="min-h-screen w-full py-20 bg-white px-6 md:px-16">
+  <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    
+    {/* Content */}
+    <div>
+          <span className="bg-pink-100 text-pink-600 px-4 py-2 rounded-full text-sm font-semibold">
+            About Little Me Library
+          </span>
+
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mt-6 mb-6 leading-tight">
+            Inspiring Young Minds Through
+            <span className="text-pink-500"> Stories & Learning</span>
+          </h2>
+
+          <p className="text-gray-600 text-lg leading-relaxed mb-4">
+            Little Me Library is a child-friendly digital learning platform
+            designed to help little me students discover the joy of reading.
+            Through engaging stories and quizzes, children can explore new ideas while developing
+            essential literacy skills.
+          </p>
+
+          <p className="text-gray-600 text-lg leading-relaxed">
+            Our goal is to create a safe and enjoyable environment where young
+            learners can read, imagine, and grow. Whether at home or in the
+            classroom, every story is an opportunity to learn something new.
+          </p>
+
+          <div className="flex gap-8 mt-8">
+            <div>
+              <h3 className="text-3xl font-bold text-pink-500">100+</h3>
+              <p className="text-gray-500">Learning Stories</p>
+            </div>
+
+            <div>
+              <h3 className="text-3xl font-bold text-pink-500">24/7</h3>
+              <p className="text-gray-500">Accessible Learning</p>
+            </div>
+
+            <div>
+              <h3 className="text-3xl font-bold text-pink-500">Fun</h3>
+              <p className="text-gray-500">Interactive Reading</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Image */}
+        <div className="bg-white rounded-3xl p-6 shadow-2xl hover:scale-105 transition duration-300">
+          <img
+            src={LibraryImage}
+            alt="Library"
+            className="w-full h-full object-cover rounded-2xl"
+          />
+        </div>
+
+      </div>
+    </section>
+
+
+<section className="min-h-screen w-full py-24 bg-white px-6 md:px-16">
+
+  <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
+
+    {/* LEFT SIDE - TEXT */}
+    <div>
+
+      <span className="bg-pink-100 text-pink-600 px-4 py-2 rounded-full text-sm font-semibold">
+         Discover Little Me Stories
+      </span>
+
+      <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mt-6 leading-tight">
+        Stories That Spark <span className="text-pink-500">Imagination & Learning</span>
+      </h2>
+
+      <p className="text-gray-600 mt-6 text-lg leading-relaxed">
+        Every story in Little Me Library is carefully designed to help children
+        build reading confidence, develop creativity, and enjoy learning in a fun way.
+      </p>
+
+      <p className="text-gray-500 mt-4 leading-relaxed">
+        From magical adventures to simple life lessons, our featured stories
+        guide young learners through a journey of discovery, curiosity, and joy.
+      </p>
+
+      {/* Highlights */}
+      <div className="mt-8 space-y-3">
+
+        <div className="flex items-center gap-2 text-gray-700">
+          <span className="text-pink-500">📖</span> Easy-to-read stories for kids
+        </div>
+
+        <div className="flex items-center gap-2 text-gray-700">
+          <span className="text-pink-500">🌟</span> Builds imagination & creativity
+        </div>
+
+        <div className="flex items-center gap-2 text-gray-700">
+          <span className="text-pink-500">🎓</span> Supports early learning skills
+        </div>
+
+      </div>
+
+    </div>
+
+    {/* RIGHT SIDE - STORIES */}
+    <div className="space-y-5">
+
+      {stories.slice(0, 3).map((story, index) => (
+        <div
+          key={index}
+          className="flex items-center gap-4 bg-white hover:bg-pink-50 transition p-5 rounded-2xl cursor-pointer shadow-md hover:shadow-lg hover:-translate-y-1 duration-300"
+        >
+
+          {/* Image */}
+          <img
+            src={story.image}
+            alt={story.title}
+            className="w-16 h-16 rounded-xl object-cover"
+          />
+
+          {/* Text */}
+          <div className="flex-1">
+            <h3 className="font-bold text-gray-800 line-clamp-1">
+              {story.title}
+            </h3>
+            <p className="text-sm text-gray-500 line-clamp-1">
+              {story.description}
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl p-10 shadow-xl text-8xl text-center">
-            🏫
-          </div>
+          {/* Arrow */}
+          <span className="text-pink-500 font-bold text-xl">→</span>
+
         </div>
-      </section>
+      ))}
 
-      <section className="w-full py-15 bg-blue-300 px-6 md:px-35">
-  <h2 className="text-4xl font-extrabold text-center text-blue-700 mb-12">
-    Popular Stories ⭐
-  </h2>
+    </div>
 
-  <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
-    {books.map((book, index) => (
-      <div
-        key={index}
-        className={`min-w-[260px] ${book.color} rounded-3xl p-8 shadow-lg hover:scale-105 transition duration-300`}
-      >
-        <div className="text-7xl text-center mb-4">{book.emoji}</div>
-        <h3 className="text-xl font-bold text-center text-gray-800">
-          {book.title}
-        </h3>
-      </div>
-    ))}
   </div>
 </section>
 
-<section className="w-full py-20 bg-orange-200 px-6 md:px-16">
-  <h2 className="text-4xl font-extrabold text-center text-pink-600 mb-8">
-    Why Kids Love Our Library 💖
-  </h2>
+<section className="min-h-screen w-full py-24 bg-white px-6 md:px-16">
 
-  <div className="grid md:grid-cols-3 gap-8">
-    <div className="bg-white rounded-3xl p-6 shadow-md text-center">
-      <div className="text-5xl mb-4">📚</div>
-      <h3 className="font-bold text-lg">Fun Books</h3>
-      <p className="text-gray-600 mt-2">
-        Read colorful stories made for young learners.
-      </p>
-    </div>
+  <div className="max-w-6xl mx-auto text-center">
 
-    <div className="bg-white rounded-3xl p-6 shadow-md text-center">
-      <div className="text-5xl mb-4">🎮</div>
-      <h3 className="font-bold text-lg">Interactive Learning</h3>
-      <p className="text-gray-600 mt-2">
-        Learn through games and playful activities.
-      </p>
-    </div>
+    {/* Badge */}
+    <span className="bg-pink-100 text-pink-600 px-4 py-2 rounded-full text-sm font-semibold">
+      🌟 Student Learning Benefits
+    </span>
 
-    <div className="bg-white rounded-3xl p-6 shadow-md text-center">
-      <div className="text-5xl mb-4">🌈</div>
-      <h3 className="font-bold text-lg">Safe for Kids</h3>
-      <p className="text-gray-600 mt-2">
-        A friendly and secure learning environment.
-      </p>
-    </div>
+    {/* Title */}
+    <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mt-6 leading-tight">
+      How Students Benefit from <span className="text-pink-500">Little Me Library</span>
+    </h2>
+
+    <p className="text-gray-600 mt-6 max-w-3xl mx-auto text-lg leading-relaxed">
+      Our platform is designed to support early learners by making reading,
+      learning, and exploration more engaging, interactive, and fun.
+    </p>
+
   </div>
+
+  {/* Cards */}
+  <div className="max-w-6xl mx-auto mt-16 grid md:grid-cols-3 gap-8">
+
+    {/* Card 1 */}
+    <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition duration-300 text-center">
+    
+      <h3 className="font-bold text-xl text-gray-800">Improves Reading Skills</h3>
+      <p className="text-gray-600 mt-3 leading-relaxed">
+        Students develop vocabulary, comprehension, and reading confidence through engaging stories.
+      </p>
+    </div>
+
+    {/* Card 2 */}
+    <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition duration-300 text-center">
+     
+      <h3 className="font-bold text-xl text-gray-800">Boosts Creativity & Imagination</h3>
+      <p className="text-gray-600 mt-3 leading-relaxed">
+        Stories and visuals help children think creatively and explore new ideas.
+      </p>
+    </div>
+
+    {/* Card 3 */}
+    <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition duration-300 text-center">
+   
+      <h3 className="font-bold text-xl text-gray-800">Learning Through Play</h3>
+      <p className="text-gray-600 mt-3 leading-relaxed">
+        Interactive stories and activities make learning enjoyable and easier to understand.
+      </p>
+    </div>
+
+    {/* Card 4 */}
+    <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition duration-300 text-center">
+   
+      <h3 className="font-bold text-xl text-gray-800">Safe Learning Environment</h3>
+      <p className="text-gray-600 mt-3 leading-relaxed">
+        A child-friendly platform with safe content designed for young learners.
+      </p>
+    </div>
+
+    {/* Card 5 */}
+    <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition duration-300 text-center">
+
+      <h3 className="font-bold text-xl text-gray-800">Learn Anytime, Anywhere</h3>
+      <p className="text-gray-600 mt-3 leading-relaxed">
+        Accessible on any device so students can learn at home or in school.
+      </p>
+    </div>
+
+    {/* Card 6 */}
+    <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition duration-300 text-center">
+      <h3 className="font-bold text-xl text-gray-800">Encourages Achievement</h3>
+      <p className="text-gray-600 mt-3 leading-relaxed">
+        Builds confidence through progress, stories completed, and learning milestones.
+      </p>
+    </div>
+
+  </div>
+
 </section>
 
 
-      <section className="w-full py-20 bg-purple-200 text-center px-6">
-        <h2 className="text-4xl font-extrabold text-purple-700 mb-4">
-          Ready to Read? 📚
-        </h2>
-        <p className="text-lg text-gray-700 mb-8">
-          Join our fun learning journey and explore magical stories today!
-        </p>
+  <section className="w-full py-24 bg-pink-500 text-center px-6">
 
-        <button className="bg-pink-500 hover:bg-pink-400 text-white font-bold px-8 py-4 rounded-full shadow-lg transition">
-          Browse Library
-        </button>
-      </section>
+  <div className="max-w-3xl mx-auto">
+
+    {/* Heading */}
+    <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
+      Ready to Start Your Reading Adventure? 
+    </h2>
+
+    {/* Description */}
+    <p className="text-base sm:text-lg text-white mb-10 leading-relaxed">
+      Step into a world full of magical stories, fun learning activities,
+      and exciting adventures made just for young minds.
+    </p>
+
+    {/* Buttons */}
+    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+
+      <button className="bg-purple-500 hover:bg-pink-600 text-white font-bold px-8 py-4 rounded-full shadow-lg hover:scale-105 transition duration-300"
+      onClick={() => setShowLogin(true)}>
+        Browse Library
+      </button>
+
+    </div>
+
+  </div>
+</section>
 
       <Footer />
     </>
   );
 };
+
 
 export default Home_Page;

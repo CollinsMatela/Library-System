@@ -3,7 +3,7 @@ import useAuthStore from "../store/useAuthStore";
 import { useRef } from "react";
 import axios from "axios";
 import { useState } from "react";
-import defaultProfile from "../src/assets/DefaultProfile.jpg";
+import defaultProfile from '../src/assets/Student.jpg';
 
 const Profile_Page = () => {
     const user = useAuthStore((state) => state.user);
@@ -49,10 +49,10 @@ const Profile_Page = () => {
     }
 
     return(
-        <section className="bg-gradient-to-br from-pink-50 via-blue-50 to-yellow-50 min-h-screen w-full justify-center items-start flex p-4">
+        <section className="bg-white min-h-screen w-full justify-center items-start flex p-4">
             <div className="bg-white min-h-screen shadow-2xl w-full justify-start items-center flex flex-col rounded-2xl pb-4">
 
-                <nav className="bg-gradient-to-br from-pink-500 via-blue-500 to-yellow-500 rounded-t-2xl h-20 w-full justify-between items-center flex px-6">
+                <nav className="bg-gradient-to-br from-pink-300 via-pink-500 to-purple-500 rounded-t-2xl h-20 w-full justify-between items-center flex px-6">
                     <h1 className="text-lg text-white font-bold">Your Profile</h1>
                     <h1 className="text-base text-white font-bold cursor-pointer" onClick={() => navigate(-1)}>⟵ Back</h1>
                 </nav>

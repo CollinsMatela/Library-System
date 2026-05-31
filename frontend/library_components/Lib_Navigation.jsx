@@ -18,7 +18,7 @@ const Lib_Navigation = () => {
     }
     
     return(
-        <nav className=" bg-gradient-to-br from-pink-500 via-blue-500 to-yellow-500 rounded-t-2xl h-20 w-full justify-between items-center flex px-6">
+        <nav className=" bg-gradient-to-br from-pink-300 via-pink-500 to-purple-500 rounded-t-2xl h-20 w-full justify-between items-center flex px-6">
                               <div className="rounded-xl justify-center items-center flex gap-2">
                                 <div
                                 className="h-12 w-12 border-2 border-white rounded-full cursor-pointer overflow-hidden"

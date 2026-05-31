@@ -29,7 +29,7 @@ const Lib_Stories_Card = ({stories, genre, handleViewStory}) => {
   
                 <div className="flex items-center gap-3">
                     
-                    <div className="h-11 w-11 rounded-2xl bg-blue-500 flex items-center justify-center shadow-md">
+                    <div className="h-11 w-11 rounded-2xl bg-pink-500 flex items-center justify-center shadow-md">
                     <span className="text-white text-xl">📚</span>
                     </div>
 
@@ -50,11 +50,11 @@ const Lib_Stories_Card = ({stories, genre, handleViewStory}) => {
         {filteredStories.map((story) => (
                         <div
                             key={story.id}
-                            className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                            className="relative bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
                             onClick={() => handleViewStory(story.id)}
                         >
                             {/* Image */}
-                            <div className="w-full h-48 overflow-hidden">
+                            <div className="w-full h-100 overflow-hidden">
                             <img
                                 src={story.image}
                                 alt={story.title}
@@ -63,18 +63,17 @@ const Lib_Stories_Card = ({stories, genre, handleViewStory}) => {
                             </div>
 
                             {/* Content */}
-                            <div className="p-4 flex flex-col gap-2">
-                            <h3 className="font-semibold text-base text-gray-800 line-clamp-2">
-                                {story.title}
+                            <div className="absolute inset-0 bg-black/50 p-4 justify-end items-start flex flex-col gap-2">
+                            <h3 className="font-semibold text-base text-white line-clamp-2">
+                                {story.title.toUpperCase()}
                             </h3>
-
-                            <p className="text-sm text-gray-500 line-clamp-2">
-                                {story.description}
+                            <p className="text-xs text-white line-clamp-2">
+                                {story.author.toLowerCase()}
                             </p>
 
                             {/* Optional: Add CTA */}
                             <div className="mt-2">
-                                <span className="text-xs text-blue-600 font-medium hover:underline">
+                                <span className="text-xs text-white font-medium hover:underline">
                                 Read Story →
                                 </span>
                             </div>

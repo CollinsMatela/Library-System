@@ -68,7 +68,7 @@ const Admin_Page = () =>{
 
 
       <div>
-        <p className="w-fit bg-pink-100 border border-pink-500 text-pink-500 text-xs font-bold rounded-full px-2 py-1 mb-2">Administrator Portal</p>
+        <p className="w-fit bg-pink-100 text-pink-500 text-xs font-bold rounded-full px-2 py-1 mb-2">Administrator Portal</p>
         <h2 className="text-3xl font-bold text-gray-800">Hello {user?.username || "Admin"} 👋</h2>
         <p className="text-gray-400 text-sm">Welcome back! Here's today's overview of Little Me Learning Center.</p>
       </div>
@@ -112,7 +112,7 @@ const Admin_Page = () =>{
         <div className="bg-white p-6 ">
           <h1 className="text-lg font-bold text-gray-500 border-b border-gray-300 pb-4 mb-4">Recent Students</h1>
           {studentList.slice(0, 3).map((student) => (
-             <div key={student.id} className="bg-gray-100 h-20 w-full border border-gray-300 rounded-xl p-4 mb-2">
+             <div key={student.id} className="bg-white h-20 w-full border border-gray-300 rounded-xl p-4 mb-2">
               <div className="flex gap-2">
                   <img src="" alt="" className="bg-gray-300 h-12 w-12 rounded-full"/>
                   <div>
@@ -128,7 +128,7 @@ const Admin_Page = () =>{
       <div className="bg-white p-6">
           <h1 className="text-lg font-bold text-gray-500 border-b border-gray-300 pb-4 mb-4">Recent Employee</h1>
           {employeeList.slice(0, 3).map((employee) => (
-             <div key={employee.id} className="bg-gray-100 h-20 w-full border border-gray-300 rounded-xl p-4 mb-2">
+             <div key={employee.id} className="bg-white h-20 w-full border border-gray-300 rounded-xl p-4 mb-2">
               <div className="flex gap-2">
                   <img src="" alt="" className="bg-gray-300 h-12 w-12 rounded-full"/>
                   <div>

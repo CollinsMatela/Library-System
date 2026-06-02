@@ -8,6 +8,7 @@ import Lib_Navigation from '../library_components/Lib_Navigation'
 import Lib_Story_Buttons from '../library_components/Lib_Story_Buttons'
 import Lib_Stories_Card from '../library_components/Lib_Stories_Card'
 import Lib_View_Story from '../library_components/Lib_View_Story'
+import defaultProfile from '../src/assets/Student.jpg'
 import LoadingScreen from '../loadings/loading'
 import { useNavigate } from 'react-router-dom'
 
@@ -54,6 +55,10 @@ const Library_Page = () => {
         }, 3000);
     }
     }
+
+    const handleProfile = () => {
+          navigate('/library/profile');
+    }
     
 
     const titles = stories.map(s => s.title);
@@ -75,9 +80,20 @@ const Library_Page = () => {
             <div className="bg-white min-h-screen shadow-2xl w-full just-center items-center flex flex-col rounded-2xl pb-4">
                 {loading && (<LoadingScreen/>)}
                 <Lib_Navigation/>
-                 
-                 <h1 className="bg-pink-100 text-medium text-pink-500 font-bold mb-4 mt-20 border-1 border-pink-500 py-1 px-4 rounded-full">Little Me Library Portal</h1>
-                 <h1 className="text-5xl text-gray-800 font-bold mb-10">What story will you explore today? <span className='text-purple-500'>{user?.firstname || "Dev"}.</span></h1>
+                
+                
+                <div className="max-5xl w-full justify-center items-start flex gap-2 mb-5 mt-20">
+                <div className="w-full max-w-5xl flex flex-col justify-center items-start mb-10">
+                    <h1 className="text-2xl text-gray-800 font-bold text-center">
+                        Welcome back, {" "}
+                        <span className="text-pink-500">{user?.firstname || "Dev"}!</span>
+                    </h1>
+                    <h1 className="text-6xl text-gray-800 font-bold text-center">What story will you explore today?</h1>
+                </div>
+                
+
+                </div>
+                
 
                  <div className="h-20 max-w-5xl w-full bg-gradient-to-br from-pink-100 via-pink-200 to-purple-200 justify-center items-center flex shadow-sm rounded-4xl outline-none p-2">
                         <div className="h-full w-20"><img src={SearchIcon} className='h-full w-full object-cover bg-gradient-to-br from-pink-300 via-pink-500 to-purple-500 rounded-l-3xl rounded-r-md' /></div>

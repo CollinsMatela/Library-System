@@ -5,9 +5,9 @@ const LoadingScreen = () => {
 
             {/* Spinner */}
             <div className="relative">
-                <div className="h-20 w-20 rounded-full border-4 border-blue-200"></div>
+                <div className="h-20 w-20 rounded-full border-4 border-pink-200"></div>
 
-                <div className="absolute inset-0 h-20 w-20 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"></div>
+                <div className="absolute inset-0 h-20 w-20 rounded-full border-4 border-pink-500 border-t-transparent animate-spin"></div>
             </div>
 
             {/* Loading Text */}
@@ -19,9 +19,9 @@ const LoadingScreen = () => {
 
             {/* Animated Dots */}
             <div className="flex gap-2 mt-2">
-                <span className="h-3 w-3 rounded-full bg-blue-500 animate-bounce"></span>
-                <span className="h-3 w-3 rounded-full bg-green-500 animate-bounce delay-150"></span>
-                <span className="h-3 w-3 rounded-full bg-yellow-500 animate-bounce delay-300"></span>
+                <span className="h-3 w-3 rounded-full bg-pink-500 animate-bounce"></span>
+                <span className="h-3 w-3 rounded-full bg-pink-300 animate-bounce delay-150"></span>
+                <span className="h-3 w-3 rounded-full bg-pink-100 animate-bounce delay-300"></span>
             </div>
 
         </section>

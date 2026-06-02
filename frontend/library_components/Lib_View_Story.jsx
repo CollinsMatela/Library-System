@@ -1,11 +1,25 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Lib_Navigation from "./Lib_Navigation";
 import axios from "axios";
 
 const Lib_View_Story = () => {
 
     const {id} = useParams();
     const [selectedStory, setSelectedStory] = useState("")
+
+    const [isFullStory, setIsFullStory] = useState(true);
+    const [isSummary, setIsSummary] = useState(false);
+
+    const handleFullStory = () => {
+         setIsFullStory(true);
+         setIsSummary(false);
+    }
+
+    const handleSummary = () => {
+         setIsFullStory(false);
+         setIsSummary(true);
+    }
 
     const navigate = useNavigate();
 
@@ -28,57 +42,76 @@ const Lib_View_Story = () => {
     }
 
     return(
-       <section className="w-full bg-white py-10 px-4 flex justify-center items-center flex flex-col">
+    <section className="min-h-screen w-full bg-white flex flex-col items-center p-4">
 
-        <nav className="bg-white h-20 w-4xl mb-6 border-b-1 border-gray-300 p-2 justify-between items-center flex">
-             <h1 className="text-2xl font-bold text-gray-800">View Story</h1>
-             <h1 className="text-base text-blue-500 font-bold cursor-pointer" onClick={() => navigate(-1)}>⟵ Back</h1>
-        </nav>
+    <Lib_Navigation />
 
-        <div className="w-full max-w-4xl bg-white rounded-2xl overflow-hidden">
-            {/* Image */}
-            <div className="w-full h-[300px] overflow-hidden">
-            <img 
-                src={selectedStory.image} 
+    <div className="w-full max-w-6xl bg-white rounded-3xl overflow-hidden shadow-lg mt-6 mb-10">
+
+        {/* Cover Image */}
+        <div className="relative h-[450px] w-full">
+            <img
+                src={selectedStory.image}
                 alt={selectedStory.title}
                 className="w-full h-full object-cover"
             />
-            </div>
 
-            {/* Content */}
-            <div className="p-6 md:p-10 flex flex-col gap-4">
-            
-            {/* Title */}
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
-                {selectedStory.title}
-            </h1>
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-black/50 flex items-end">
+                <div className="w-full p-8 md:p-12 flex justify-between items-end flex-wrap gap-4">
 
-            {/* Author + Genre */}
-            <div className="text-sm text-gray-500 flex gap-3 flex-wrap">
-                <span>By {selectedStory.author}</span>
-                <span>• {selectedStory.genre}</span>
-                <span>• {selectedStory.gradeCategory}</span>
+                    {/* Story Info */}
+                    <div className="space-y-4">
+                        <h1 className="text-4xl font-bold text-white mb-3">
+                            {selectedStory.title}
+                        </h1>
+
+                        <div className="flex flex-wrap gap-3 text-white/90 text-sm">
+                            <span>By {selectedStory.author}</span>
+                            <span>• {selectedStory.genre}</span>
+                            <span>• {selectedStory.gradeCategory}</span>
+                        </div>
+
+                        {/* Quiz Button */}
+                    <div className="space-x-2">
+                        <button onClick={handleFullStory} className="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-xl transition-all cursor-pointer shadow-lg">
+                        Full Story
+                        </button>
+                        <button onClick={handleSummary} className="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-xl transition-all cursor-pointer shadow-lg">
+                        Summary Story
+                        </button>
+                        <button onClick={TakeQuiz} className="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-full transition-all cursor-pointer shadow-lg">
+                        Quiz
+                        </button>
+                    </div>
+                    
+                    </div>
+
+                </div>
             </div>
+        </div>
+
+        {/* Story Content */}
+        <div className="max-w-4xl mx-auto p-8 md:p-12">
 
             {/* Description */}
-            <p className="text-gray-600 italic">
+            <p className="text-lg italic text-gray-500 mb-8 border-l-4 border-pink-500 pl-4">
                 {selectedStory.description}
             </p>
 
-            {/* Divider */}
-            <div className="border-t my-4"></div>
+            <div className="border-t border-gray-200 mb-8"></div>
 
-            {/* Story Text */}
-            <p className="text-2xl font-bold text-gray-800 leading-relaxed whitespace-pre-line">
-                {selectedStory.fullStory}
-            </p>
-        </div>
-        <div className="w-4xl justify-end items-center flex">
-                <button className="bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-600 cursor-pointer p-4"
-                        onClick={TakeQuiz}>
-                Start take the quiz</button>
+            {/* Story */}
+            <div className="prose prose-lg max-w-none">
+                <p className="text-gray-700 leading-loose whitespace-pre-line text-lg">
+                    {isFullStory ? selectedStory.fullStory : null}
+                    {isSummary ? selectedStory.summaryStory : null}
+                </p>
             </div>
+
         </div>
+
+    </div>
 
 </section>
     )

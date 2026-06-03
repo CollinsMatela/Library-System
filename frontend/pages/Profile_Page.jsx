@@ -2,17 +2,53 @@ import { useNavigate } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore";
 import { useRef } from "react";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import defaultProfile from '../src/assets/Student.jpg';
+import Analytics_Card from "../components/Analytics_Card";
 
 const Profile_Page = () => {
     const user = useAuthStore((state) => state.user);
     const navigate = useNavigate();
 
-    const inputAvatarFile = useRef(null);
+    const [stories, setStories] = useState([])
+    const [quizResult, setQuizResult] = useState([]);
 
+    const inputAvatarFile = useRef(null);
     const [avatarFile, setAvatarFile] = useState(null);
     const [preview, setPreview] = useState(null);
+
+    const totalTakenQuiz = quizResult.filter(quiz => quiz.userId === user.id).length;
+    const totalScore = quizResult.filter(quiz => quiz.userId === user.id).reduce((sum, quiz) => sum + quiz.score, 0);
+    const totalQuestion = quizResult.filter(quiz => quiz.userId === user.id).reduce((sum, quiz) => sum + quiz.totalQuestions, 0);
+    const totalScorePercentage = (totalScore / totalQuestion) * 100 || 0;
+    const totalMissedPercentage = 100 - totalScorePercentage || 0;
+
+    useEffect(() => {
+        fetchStories();
+        fetchQuizResults();
+    }, [])
+
+    const fetchStories = async () =>{
+              try {
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-stories`);
+                    setStories(res.data.stories);
+                    console.log(res.data.message);
+              } catch (error) {
+                console.log(error)
+              }
+        }
+    
+    const fetchQuizResults = async () => {
+        try{
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-quiz-results`);
+        setQuizResult(res.data.results);
+        console.log(res.data.message);
+        console.log(res.data.total);
+        } catch (error) {
+        console.log(error);
+        }
+          
+    }
 
     const AvatarChange = async () => {
     try {
@@ -48,6 +84,8 @@ const Profile_Page = () => {
         
     }
 
+    const library_progress = (totalTakenQuiz / stories.length) * 100;
+
     return(
         <section className="bg-white min-h-screen w-full justify-center items-start flex p-4">
             <div className="bg-white min-h-screen shadow-2xl w-full justify-start items-center flex flex-col rounded-2xl pb-4">
@@ -80,26 +118,33 @@ const Profile_Page = () => {
                     </button>
                 </div>
 
-                <h1 className="text-lg text-gray-500 font-bold">Acquired Achievements</h1>
-                <div className="w-5xl justify-between items-start flex rounded-2xl border-1 border-gray-500 gap-4 p-6">
-                    <div className="bg-gray-200 rounded-xl w-full justify-center items-center flex gap-4">
-                        <h1 className="my-6">No Achievements Yet</h1>
+                <h1 className="text-lg text-gray-500 font-bold">Learning Progress Analytics</h1>
+                <div className="w-5xl justify-between items-start flex rounded-2xl gap-4">
+                    
+                    <div className="w-full justify-start items-start flex flex-col gap-6">
+
+                        {/*Progress Bar */}
+                        <div className="w-full justify-start items-start flex flex-col gap-2">
+                            <h1 className="text-lg text-gray-500 font-bold">Library Progress / {`${library_progress}% Completed`}</h1>
+                            <div className="w-full bg-gray-200 rounded-full h-2.5">
+                                <div className="bg-black h-2.5 rounded-full" style={{ width: `${library_progress}%` }}></div>
+                            </div> 
+                        </div>
+                        
+                        <div className="w-full justify-start items-start flex gap-4">
+                            <Analytics_Card title={"Total Taken Quiz"} value={`${totalTakenQuiz} / ${stories.length}`}/>
+                            <Analytics_Card title={"Total Score %"} value={`${totalScorePercentage}%`}/>
+                            <Analytics_Card title={"Total Missed %"} value={`${totalMissedPercentage}%`}/>
+                        </div>
+                        
+
+                        
+                        
+                        
                     </div>
+
                 </div>
 
-                <h1 className="text-lg text-gray-500 font-bold">Score Results</h1>
-                <div className="w-5xl justify-between items-start flex rounded-2xl border-1 border-gray-500 gap-4 p-6">
-                    <div className="bg-gray-200 rounded-xl w-full justify-center items-center flex gap-4">
-                        <h1 className="my-6">No Score Results Yet</h1>
-                    </div>
-                </div>
-
-                <h1 className="text-lg text-gray-500 font-bold">Performance Analytics</h1>
-                <div className="w-5xl justify-between items-start flex rounded-2xl border-1 border-gray-500 gap-4 p-6">
-                    <div className="bg-gray-200 rounded-xl w-full justify-center items-center flex gap-4">
-                        <h1 className="my-6">No Score Results Yet</h1>
-                    </div>
-                </div>
 
             
                 

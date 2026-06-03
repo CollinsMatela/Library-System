@@ -2,14 +2,20 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Lib_Navigation from "./Lib_Navigation";
 import axios from "axios";
+import useAuthStore from "../store/useAuthStore";
 
 const Lib_View_Story = () => {
+
+    const user = useAuthStore((state) => state.user); 
 
     const {id} = useParams();
     const [selectedStory, setSelectedStory] = useState("")
 
     const [isFullStory, setIsFullStory] = useState(true);
     const [isSummary, setIsSummary] = useState(false);
+
+    const [quizResult, setQuizResult] = useState([]);
+    const isQuizTaken = quizResult.find(quiz => quiz.storyId === id && quiz.userId === user.id);
 
     const handleFullStory = () => {
          setIsFullStory(true);
@@ -25,7 +31,21 @@ const Lib_View_Story = () => {
 
     useEffect(() => {
         fetchStories();
+        fetchQuizResults();
+        
     },[id])
+
+    const fetchQuizResults = async () => {
+          try{
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-quiz-results`);
+            setQuizResult(res.data.results);
+            console.log(res.data.message);
+            console.log(res.data.total);
+          } catch (error) {
+            console.log(error);
+          }
+          
+    }
 
     const fetchStories = async () =>{
           try {
@@ -80,8 +100,8 @@ const Lib_View_Story = () => {
                         <button onClick={handleSummary} className="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-xl transition-all cursor-pointer shadow-lg">
                         Summary Story
                         </button>
-                        <button onClick={TakeQuiz} className="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-full transition-all cursor-pointer shadow-lg">
-                        Quiz
+                        <button onClick={isQuizTaken ? null : TakeQuiz} className={`${isQuizTaken ? 'opacity-50 bg-green-500' : 'cursor-pointer bg-pink-500 hover:bg-pink-600'} text-white font-semibold px-6 py-3 rounded-full transition-all shadow-lg`}>
+                        {isQuizTaken ? '✓ Quiz Taken' : 'Take Quiz'}
                         </button>
                     </div>
                     

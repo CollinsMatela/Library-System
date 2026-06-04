@@ -1,7 +1,7 @@
 
-const Analytics_Card = ({ title, value, icon }) => {
+const Analytics_Card = ({ title, value, subTitle }) => {
     return(
-        <div className="relative h-52 w-52 bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl p-6 flex flex-col items-center justify-center shadow-md hover:shadow-lg transition-all">
+    <div className="relative h-full w-full bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl p-6 flex flex-col items-center justify-center shadow-md hover:shadow-lg transition-all">
     
     {/* Title */}
     <h1 className="absolute top-4 text-sm font-semibold text-gray-500 tracking-wide">
@@ -15,7 +15,7 @@ const Analytics_Card = ({ title, value, icon }) => {
 
     {/* Optional subtitle */}
     <p className="text-xs text-gray-400 mt-2">
-        completed
+        {subTitle}
     </p>
 
 </div>

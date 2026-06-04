@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import defaultProfile from '../src/assets/Student.jpg';
 import Analytics_Card from "../components/Analytics_Card";
+import Lib_Navigation from "../library_components/Lib_Navigation";
 
 const Profile_Page = () => {
     const user = useAuthStore((state) => state.user);
@@ -90,11 +91,7 @@ const Profile_Page = () => {
         <section className="bg-white min-h-screen w-full justify-center items-start flex p-4">
             <div className="bg-white min-h-screen shadow-2xl w-full justify-start items-center flex flex-col rounded-2xl pb-4">
 
-                <nav className="bg-gradient-to-br from-pink-300 via-pink-500 to-purple-500 rounded-t-2xl h-20 w-full justify-between items-center flex px-6">
-                    <h1 className="text-lg text-white font-bold">Your Profile</h1>
-                    <h1 className="text-base text-white font-bold cursor-pointer" onClick={() => navigate(-1)}>⟵ Back</h1>
-                </nav>
-                
+                <Lib_Navigation />
                
 
         <div className="w-5xl justify-start items-start flex flex-col gap-6 my-10">

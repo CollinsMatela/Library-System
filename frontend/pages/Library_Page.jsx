@@ -76,7 +76,7 @@ const Library_Page = () => {
     // }, [titles.length]);
     
     return(
-        <section className="min-h-screen w-full bg-white p-4">
+        <section className="min-h-screen w-full bg-gray-100 p-4">
             <div className="bg-white min-h-screen shadow-2xl w-full just-center items-center flex flex-col rounded-2xl pb-4">
                 {loading && (<LoadingScreen/>)}
                 <Lib_Navigation/>
@@ -86,7 +86,7 @@ const Library_Page = () => {
                 <div className="w-full max-w-5xl flex flex-col justify-center items-start mb-10">
                     <h1 className="text-2xl text-gray-800 font-bold text-center">
                         Welcome back, {" "}
-                        <span className="text-pink-500">{user?.firstname || "Dev"}!</span>
+                        <span className="text-pink-500 underline">{user?.firstname || "Dev"}!</span>
                     </h1>
                     <h1 className="text-6xl text-gray-800 font-bold text-center">What story will you explore today?</h1>
                 </div>
@@ -95,10 +95,10 @@ const Library_Page = () => {
                 </div>
                 
 
-                 <div className="h-20 max-w-5xl w-full bg-gradient-to-br from-pink-100 via-pink-200 to-purple-200 justify-center items-center flex shadow-sm rounded-4xl outline-none p-2">
-                        <div className="h-full w-20"><img src={SearchIcon} className='h-full w-full object-cover bg-gradient-to-br from-pink-300 via-pink-500 to-purple-500 rounded-l-3xl rounded-r-md' /></div>
+                 <div className="h-20 max-w-5xl w-full bg-pink-500 border-2 border-b-4 justify-center items-center flex shadow-sm rounded-4xl outline-none p-2">
+                        <div className="h-full w-20"><img src={SearchIcon} className='h-full w-full object-cover bg-black rounded-l-3xl rounded-r-md' /></div>
                         <input type="text" 
-                               className="h-full w-full outline-none px-4 text-lg text-pink-500 font-bold inner-shadow-lg" 
+                               className="h-full w-full outline-none px-4 text-lg text-white font-bold inner-shadow-lg" 
                                placeholder={`Search stories and explore...`}
                                value={search}
                                onChange={(e) => setSearch(e.target.value)}

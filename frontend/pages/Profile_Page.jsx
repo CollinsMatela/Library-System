@@ -101,7 +101,7 @@ const Profile_Page = () => {
             <Lib_Navigation />
         <div className="bg-white min-h-screen shadow-2xl w-full justify-start items-start flex flex-col rounded-2xl px-10">
         {/* Profile Container */}
-        <div className="w-full justify-between items-start flex border-b-1 border-gray-300 gap-4 py-6">
+        <div className="w-full justify-between items-start flex border-b-1 border-gray-300 gap-4 py-6 mt-10">
                     
                     <div className="h-full max-w-100 justify-start items-start flex gap-6">
                         <img src={user?.avatar || defaultProfile} className="h-50 w-50 object-cover rounded-full bg-gray-300"/>
@@ -146,20 +146,20 @@ const Profile_Page = () => {
                                 <Analytics_Card title={"Failed Quizzes"} value={`${totalFailedQuizzes}`} subTitle={"No. of quizzes failed"}/>
                             </div>
 
-                            
-                            <div className="w-full h-full bg-gray h-20 justify-start items-start flex">
-                               <LineChart scores={arrScore} category={arrQuizzesTaken}/>    
-                            </div>
-
                             {/* Performance Tab */}
                             <div className="h-100 w-full justify-start items-start flex flex-col gap-4">
                                 <h1 className="text-xl text-gray-800 font-bold">Student Performance Tab</h1>
                                 {quizResult.filter(quiz => quiz.userId === user.id).map((quiz, index) => (
-                                    <div key={quiz.storyId} className={`${quiz.score >= 4 ? "border-green-500 bg-green-100" : "border-gray-300 bg-white"} border-2 w-full justify-between items-center flex rounded-xl p-4 border-2`}>
-                                        <h1 className={`text-lg ${quiz.score >= 4 ? "text-green-500" : "text-gray-500"} font-bold`}>{`Quiz ${index + 1} - ${quiz.storyId || "No Title"}`}</h1>
+                                    <div key={quiz.storyId} className={`${quiz.score >= 4 ? "border-green-500 bg-green-100" : "border-gray-200 bg-gray-200"} border-2 w-full justify-between items-center flex shadow-md rounded-xl p-4 border-2`}>
+                                        <h1 className={`text-lg ${quiz.score >= 4 ? "text-green-500" : "text-gray-500"} font-bold`}>{`${quiz.title || "No Title"}`}</h1>
                                         <p className="text-sm text-gray-400">{`Score: ${quiz.score} / ${quiz.totalQuestions} (${((quiz.score / quiz.totalQuestions) * 100).toFixed(2)}%)`}</p>        
                                     </div>
                                 ))}
+                            </div>
+
+                            <div className="w-full h-full bg-gray h-20 justify-start items-start flex flex-col">
+                                <h1 className="text-xl text-gray-800 font-bold">Scores Progression Graph</h1>
+                               <LineChart scores={arrScore} category={arrQuizzesTaken}/>    
                             </div>
                         
                     </div>

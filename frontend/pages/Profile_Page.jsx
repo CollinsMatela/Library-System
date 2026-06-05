@@ -20,18 +20,32 @@ const Profile_Page = () => {
     const [avatarFile, setAvatarFile] = useState(null);
     const [preview, setPreview] = useState(null);
 
-    const totalTakenQuiz = quizResult.filter(quiz => quiz.userId === user.id).length;
-    const totalScore = quizResult.filter(quiz => quiz.userId === user.id).reduce((sum, quiz) => sum + quiz.score, 0);
-    const totalQuestion = quizResult.filter(quiz => quiz.userId === user.id).reduce((sum, quiz) => sum + quiz.totalQuestions, 0);
+    const [search, setSearch] = useState("");
+    const filteredQuizResults = quizResult.filter(quiz => {
+           const title = quiz.title || "";
+           return title.toLowerCase().includes(search.toLowerCase());
+    })
+
+    const totalTakenQuiz = quizResult.filter(quiz => quiz.userId === user.id).length || 0;
+    const totalScore = quizResult.filter(quiz => quiz.userId === user.id).reduce((sum, quiz) => sum + quiz.score, 0) || 0;
+    const totalQuestion = quizResult.filter(quiz => quiz.userId === user.id).reduce((sum, quiz) => sum + quiz.totalQuestions, 0) || 0;
     const totalScorePercentage = (totalScore / totalQuestion) * 100 || 0;
     const totalMissedPercentage = quizResult.filter(quiz => quiz.userId === user.id && quiz.score < 3).length / totalTakenQuiz * 100 || 0;
     const totalAverageScore = totalScore / totalTakenQuiz || 0;
-    const totalPassedQuizzes = quizResult.filter(quiz => quiz.userId === user.id && quiz.score >= 3).length;
-    const totalFailedQuizzes = quizResult.filter(quiz => quiz.userId === user.id && quiz.score < 3).length;
+    const totalPassedQuizzes = quizResult.filter(quiz => quiz.userId === user.id && quiz.score >= 3).length || 0;
+    const totalFailedQuizzes = quizResult.filter(quiz => quiz.userId === user.id && quiz.score < 3).length || 0;
 
     // For Line Chart
-    const arrScore  = quizResult.filter(quiz => quiz.userId === user.id).map(quiz => quiz.score);
-    const arrQuizzesTaken = quizResult.filter(quiz => quiz.userId === user.id).map(quiz => quiz.storyId);
+    const getAllScore  = quizResult.filter(quiz => quiz.userId === user.id).map(quiz => quiz.score);
+    const getAllTakenQuiz = quizResult.filter(quiz => quiz.userId === user.id).map(quiz => quiz.storyId);
+
+    const quizCategories = () => {
+          let quizzes = [];
+          for(let i = 0; i < getAllTakenQuiz.length; i++){
+            quizzes.push(`Quiz ${i + 1}`);
+          }
+          return quizzes;
+    }
 
     useEffect(() => {
         fetchStories();
@@ -147,19 +161,37 @@ const Profile_Page = () => {
                             </div>
 
                             {/* Performance Tab */}
-                            <div className="h-100 w-full justify-start items-start flex flex-col gap-4">
+                            <div className="h-15 w-full justify-between items-center flex p-2">
                                 <h1 className="text-xl text-gray-800 font-bold">Student Performance Tab</h1>
-                                {quizResult.filter(quiz => quiz.userId === user.id).map((quiz, index) => (
-                                    <div key={quiz.storyId} className={`${quiz.score >= 4 ? "border-green-500 bg-green-100" : "border-gray-200 bg-gray-200"} border-2 w-full justify-between items-center flex shadow-md rounded-xl p-4 border-2`}>
-                                        <h1 className={`text-lg ${quiz.score >= 4 ? "text-green-500" : "text-gray-500"} font-bold`}>{`${quiz.title || "No Title"}`}</h1>
-                                        <p className="text-sm text-gray-400">{`Score: ${quiz.score} / ${quiz.totalQuestions} (${((quiz.score / quiz.totalQuestions) * 100).toFixed(2)}%)`}</p>        
+                                <input type="text" 
+                                       className="h-full w-100 border border-gray-300 rounded-xl p-2 outline-none" 
+                                       placeholder="Search quiz title..."
+                                       value={search}
+                                       onChange={(e) => setSearch(e.target.value)} />
+                            </div>
+                            
+                            <div className="h-80 w-full justify-start items-start flex flex-col gap-4 overflow-y-scroll">
+                                {filteredQuizResults.length  === 0 && (
+                                    <div className="w-full h-full justify-center items-center flex">
+                                        <h1 className="text-lg text-gray-500 font-bold">No quiz results found.</h1>
+                                    </div>
+                                )}
+                                
+                                {filteredQuizResults.filter(quiz => quiz.userId === user.id).map((quiz, index) => (
+                                    <div key={quiz.storyId} className={`${quiz.score >= 4 ? "bg-green-500" : "bg-gray-200"} w-full justify-between items-center flex shadow-md rounded-xl p-4`}>
+                                        <div>
+                                           <h1 className={`text-lg ${quiz.score >= 4 ? "text-white" : "text-gray-500"} font-bold`}>{`${quiz.title.toUpperCase() || "No Title"}`}</h1>
+                                           <p className={`${quiz.score >= 4 ? "text-white" : "text-gray-400"} text-sm`}>{`Score: ${quiz.score} / ${quiz.totalQuestions} (${((quiz.score / quiz.totalQuestions) * 100).toFixed(2)}%)`}</p>
+                                        </div>
+                                        <p className={`${quiz.score >= 4 ? "text-white" : "text-gray-400"} text-sm`}>{quiz.completedAt.split("T")[0]}</p>
+                                            
                                     </div>
                                 ))}
                             </div>
 
                             <div className="w-full h-full bg-gray h-20 justify-start items-start flex flex-col">
                                 <h1 className="text-xl text-gray-800 font-bold">Scores Progression Graph</h1>
-                               <LineChart scores={arrScore} category={arrQuizzesTaken}/>    
+                               <LineChart scores={getAllScore} category={quizCategories()}/>    
                             </div>
                         
                     </div>
@@ -175,8 +207,8 @@ const Profile_Page = () => {
                               sub2={"Total % of Missed Answers"}
                     />
                     <PieChart title={"Overall Completed Quiz"}
-                              value1={totalTakenQuiz}
-                              value2={stories.length}
+                              value1={(totalTakenQuiz / stories.length) * 100}
+                              value2={((stories.length - totalTakenQuiz) / stories.length) * 100}
                               sub1={"Completed"}
                               sub2={"Remaining"}
                     />

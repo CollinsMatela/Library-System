@@ -50,15 +50,14 @@ const Lib_Quiz = () => {
     };
 
     const submitQuizResult = async () => {
+        console.log(selectedStory?.title);
           try {
           const result = {
             userId: user?.id,
             storyId: selectedStory?.id,
+            title: selectedStory?.title,
             score: score,
-            exp: exp,
-            correctAnswers: score,
             totalQuestions: questions.length,
-            accuracy: (score / questions.length) * 100,
             answeredQuestions: questions.map((q, i) => ({
               questionId: q.questionId,
               selectedChoice: selectedChoice,

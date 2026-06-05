@@ -1,18 +1,16 @@
 import QuizResult_Model from "../models/QuizResult_Model.js";
 
 const Quiz_Result_Controller = async (req, res) => {
-      const { userId, storyId, score, exp, correctAnswers, totalQuestions, accuracy, answeredQuestions } = req.body;
+      const { userId, storyId, title, score, totalQuestions, answeredQuestions } = req.body;
 
       try {
 
         const quizResult = await QuizResult_Model.create({
             userId,
             storyId,
+            title,
             score,
-            exp,
-            correctAnswers,
             totalQuestions,
-            accuracy,
             answeredQuestions
         });
         

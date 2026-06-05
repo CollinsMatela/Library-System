@@ -1,6 +1,6 @@
 import Chart from "react-apexcharts";
 
-const LineChart = ({ scores, categories }) => {
+const LineChart = ({ scores, category }) => {
   const chartData = {
     options: {
       chart: {
@@ -8,7 +8,7 @@ const LineChart = ({ scores, categories }) => {
       },
       colors: ["#ec4899"],
       xaxis: {
-        categories: categories,
+        categories: category,
       },
     },
     series: [

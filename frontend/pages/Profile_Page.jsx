@@ -60,7 +60,7 @@ const Profile_Page = () => {
               } catch (error) {
                 console.log(error)
               }
-        }
+    }
     
     const fetchQuizResults = async () => {
         try{
@@ -88,6 +88,9 @@ const Profile_Page = () => {
 
         // update UI instantly (Zustand)
         useAuthStore.getState().setUser(res.data.user);
+        setPreview(null);
+        setAvatarFile(null);
+        
 
             } catch (error) {
                 console.log(error);
@@ -117,21 +120,35 @@ const Profile_Page = () => {
         {/* Profile Container */}
         <div className="w-full justify-between items-start flex border-b-1 border-gray-300 gap-4 py-6 mt-10">
                     
-                    <div className="h-full max-w-100 justify-start items-start flex gap-6">
-                        <img src={user?.avatar || defaultProfile} className="h-50 w-50 object-cover rounded-full bg-gray-300"/>
-                        <div className="w-full justify-start items-start flex flex-col">
-                            <h1 className="text-2xl text-gray-800 font-bold">{user?.role   } {user?.firstname} {user?.lastname}</h1>
-                            <h1 className="text-base text-gray-500 font-bold">{user?.username} • {user?.gradeLevel} • {user?.branch}</h1>
-                        </div>
-                    </div>
+                    <div className="w-full flex items-start gap-6 py-4">
 
-                    <div className="h-full justify-center items-center flex gap-2 bg-white border-2 border-gray-300 text-gray-500 hover:bg-blue-500 hover:border-none transition-all duration-300 hover:text-white py-2 px-4 rounded-lg cursor-pointer" onClick={() => inputAvatarFile.current.click()}>
-                        <input ref={inputAvatarFile} type="file" className="hidden" onChange={openFileExplorer}/>
-                        Change Avatar 
-                    </div>
-                    <button className={`${preview ? "" : "hidden"} bg-blue-500 text-white hover:bg-blue-600 py-2 px-4 rounded-lg cursor-pointer transition-all duration-300`} onClick={AvatarChange}>
-                    Save Avatar
-                    </button>
+        <div className="w-32 h-32 p-1 rounded-full bg-pink-500 flex-shrink-0">
+            <img
+                src={user?.avatar || defaultProfile}
+                alt="Profile"
+                className="w-full h-full rounded-full border-4 border-white object-cover"
+            />
+        </div>
+
+        <div className="flex flex-col gap-2">
+            <h1 className="text-2xl text-gray-800 font-bold">
+                {user?.role} {user?.firstname} {user?.lastname}
+            </h1>
+            <h1 className="text-sm text-gray-500 font-bold">
+                {user?.username} • {user?.gradeLevel} • {user?.branch}
+            </h1>
+
+            <div className={`${preview ? "hidden" : null} h-full w-full justify-center items-center flex gap-2 bg-gray-100 border-2 border-gray-300 text-gray-500 hover:bg-gray-300 hover:border-none transition-all duration-300 hover:text-white py-2 px-4 rounded-lg cursor-pointer`} onClick={() => inputAvatarFile.current.click()}>
+                <input ref={inputAvatarFile} type="file" className="hidden" onChange={openFileExplorer}/>
+                Change Avatar 
+            </div>
+            <button className={`${preview ? "" : "hidden"} bg-black text-white py-2 px-4 rounded-lg cursor-pointer transition-all duration-300`} onClick={AvatarChange}>
+            Save Avatar
+            </button>
+        </div>
+        </div>
+
+            
         </div>
 
         <div className="w-full justify-between items-start flex gap-4 py-6">

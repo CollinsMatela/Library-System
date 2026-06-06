@@ -66,14 +66,14 @@ const Lib_View_Story = () => {
 
     <Lib_Navigation />
 
-    <div className="w-full max-w-6xl bg-white rounded-3xl overflow-hidden shadow-lg mt-6 mb-10">
+    <div className="w-full bg-black rounded-3xl overflow-hidden shadow-lg mt-6 mb-10">
 
         {/* Cover Image */}
         <div className="relative h-[450px] w-full">
             <img
                 src={selectedStory.image}
                 alt={selectedStory.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover rounded-t-3xl"
             />
 
             {/* Overlay */}
@@ -123,10 +123,19 @@ const Lib_View_Story = () => {
 
             {/* Story */}
             <div className="prose prose-lg max-w-none">
-                <p className="text-gray-700 leading-loose whitespace-pre-line text-lg">
+                <p className="text-white leading-loose whitespace-pre-line text-4xl">
                     {isFullStory ? selectedStory.fullStory : null}
                     {isSummary ? selectedStory.summaryStory : null}
                 </p>
+            </div>
+
+            <div className="w-full flex justify-end">
+                <button
+                    className="flex items-center gap-2 px-6 py-3 bg-green-500 text-white font-medium rounded-full hover:bg-green-600 transition-all duration-200 cursor-pointer"
+                >
+                    <span>✓</span>
+                    <span>Mark as Read</span>
+                </button>
             </div>
 
         </div>

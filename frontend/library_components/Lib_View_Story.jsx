@@ -11,6 +11,8 @@ const Lib_View_Story = () => {
     const {id} = useParams();
     const [selectedStory, setSelectedStory] = useState("")
 
+    const [markedAsRead, setMarkAsRead] = useState(false);
+
     const [isFullStory, setIsFullStory] = useState(true);
     const [isSummary, setIsSummary] = useState(false);
 
@@ -32,6 +34,7 @@ const Lib_View_Story = () => {
     useEffect(() => {
         fetchStories();
         fetchQuizResults();
+        fetchMarkAsRead();
         
     },[id])
 
@@ -59,6 +62,31 @@ const Lib_View_Story = () => {
     }
     const TakeQuiz = () => {
           navigate(`/library/view-story/quiz/${id}`);
+    }
+
+    const fetchMarkAsRead = async () => {
+          
+          try{
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/fetch-mark-as-read?userId=${user?.id}&storyId=${id}`);
+            console.log(res.data.message);
+            setMarkAsRead(res.data.isRead);
+          } catch (error) {
+            console.log(error);
+            alert(error.response?.data?.message);
+          }
+    }
+
+    const MarkAsRead = async () => {
+          try{
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/mark-as-read`, {
+                  userId: user.id,
+                  storyId: id
+            })
+            fetchMarkAsRead();
+            console.log(res.data.message);
+          } catch (error) {
+            console.log(error);
+          }
     }
 
     return(
@@ -130,11 +158,12 @@ const Lib_View_Story = () => {
             </div>
 
             <div className="w-full flex justify-end">
-                <button
-                    className="flex items-center gap-2 px-6 py-3 bg-green-500 text-white font-medium rounded-full hover:bg-green-600 transition-all duration-200 cursor-pointer"
+                <button className={`${markedAsRead ? "bg-transparent text-green-500" : "bg-green-500 text-white hover:bg-green-600 cursor-pointer"} flex items-center gap-2 px-6 py-3 font-medium rounded-full transition-all duration-200`}
+                         onClick={MarkAsRead}
+                         disabled={markedAsRead}
                 >
-                    <span>✓</span>
-                    <span>Mark as Read</span>
+                    <span></span>
+                    <span>✓ {markedAsRead ? "Already taken" : "Mark as Read"}</span>
                 </button>
             </div>
 

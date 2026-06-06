@@ -25,6 +25,9 @@ import Change_Avatar_Route from './routes/Change_Avatar_Route.js';
 import Quiz_Result_Route from './routes/Quiz_Result_Route.js';
 import Update_Question_Route from './routes/Update_Question_Route.js';
 import Fetch_QuizResults_Route from './routes/Fetch_QuizResults_Route.js';
+import MarkAsRead_Route from './routes/MarkAsRead_Route.js';
+import Fetch_MarkAsRead_Route from './routes/Fetch_MarkAsRead_Route.js';
+import Fetch_All_Marked_Route from './routes/Fetch_All_Marked_Route.js'
 
 const app = express();
 app.use(cors());
@@ -49,6 +52,9 @@ app.use("/", Change_Avatar_Route);
 app.use("/", Quiz_Result_Route);
 app.use("/", Update_Question_Route);
 app.use("/", Fetch_QuizResults_Route);
+app.use("/", MarkAsRead_Route);
+app.use("/", Fetch_MarkAsRead_Route);
+app.use("/", Fetch_All_Marked_Route);
 
 const PORT = process.env.PORT || 5000;
 

@@ -15,6 +15,7 @@ const Profile_Page = () => {
 
     const [stories, setStories] = useState([])
     const [quizResult, setQuizResult] = useState([]);
+    const [allMarkAsRead, setAllMarkAsRead] = useState([]);
 
     const inputAvatarFile = useRef(null);
     const [avatarFile, setAvatarFile] = useState(null);
@@ -25,7 +26,7 @@ const Profile_Page = () => {
            const title = quiz.title || "";
            return title.toLowerCase().includes(search.toLowerCase());
     })
-
+    const totalStoryTaken = allMarkAsRead.filter(story => story.userId === user.id).length || 0;
     const totalTakenQuiz = quizResult.filter(quiz => quiz.userId === user.id).length || 0;
     const totalScore = quizResult.filter(quiz => quiz.userId === user.id).reduce((sum, quiz) => sum + quiz.score, 0) || 0;
     const totalQuestion = quizResult.filter(quiz => quiz.userId === user.id).reduce((sum, quiz) => sum + quiz.totalQuestions, 0) || 0;
@@ -50,6 +51,7 @@ const Profile_Page = () => {
     useEffect(() => {
         fetchStories();
         fetchQuizResults();
+        fetchAllMarkedStories();
     }, [])
 
     const fetchStories = async () =>{
@@ -60,6 +62,19 @@ const Profile_Page = () => {
               } catch (error) {
                 console.log(error)
               }
+    }
+
+    const fetchAllMarkedStories = async () => {
+          
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/fetch-all-marked-stories`);
+            console.log(res.data.message);
+            setAllMarkAsRead(res.data.MarkAsReads);
+
+        } catch (error) {
+            console.log(error);
+            alert(error?.response?.data.message);
+        }
     }
     
     const fetchQuizResults = async () => {
@@ -118,7 +133,7 @@ const Profile_Page = () => {
             <Lib_Navigation />
         <div className="bg-white min-h-screen shadow-2xl w-full justify-start items-start flex flex-col rounded-2xl px-10">
         {/* Profile Container */}
-        <div className="w-full justify-between items-start flex border-b-1 border-gray-300 gap-4 py-6 mt-10">
+        <div className="w-full justify-between items-start flex border-b-1 border-gray-300 gap-4 py-6">
                     
                     <div className="w-full flex items-start gap-6 py-4">
 
@@ -168,7 +183,7 @@ const Profile_Page = () => {
                             </div>
                             {/* Analytics Cards */}
                             <div className="h-100 w-full grid grid-cols-4 justify-between items-center gap-4">
-                                <Analytics_Card title={"Completed Stories"} value={`0 / ${stories.length}`} subTitle={"Stories completed"}/>
+                                <Analytics_Card title={"Completed Stories"} value={`${totalStoryTaken} / ${stories.length}`} subTitle={"Stories completed"}/>
                                 <Analytics_Card title={"Total Taken Quiz"} value={`${totalTakenQuiz} / ${stories.length}`} subTitle={"Quizzes taken"}/>
                                 <Analytics_Card title={"Total Score %"} value={`${totalScorePercentage}%`} subTitle={"Overall performance"}/>
                                 <Analytics_Card title={"Average Quiz Score"} value={`${totalAverageScore}`} subTitle={"Average score"}/>

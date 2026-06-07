@@ -73,19 +73,19 @@ const Lib_Quiz = () => {
     }
 
     return (
-        <section className="bg-white min-h-screen w-full flex flex-col items-center gap-4">
+        <section className="bg-black min-h-screen w-full justify-center flex flex-col items-center">
 
             {showResult && <QuizResultModal score={score} exp={exp} />}
 
             {/* HEADER */}
-            <div className="w-full h-20 border-b border-gray-200 flex justify-center items-center shadow-sm">
+            <div className="w-5xl flex justify-center items-center">
                 <div className="min-w-5xl flex items-center justify-between w-full px-4">
 
                     <div>
-                        <h1 className="text-2xl font-bold text-gray-800">
+                        <h1 className="text-2xl font-bold text-white">
                             Short Quiz Activity
                         </h1>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-white">
                             Answer the questions below
                         </p>
                     </div>
@@ -107,17 +107,17 @@ const Lib_Quiz = () => {
 
             {/* QUIZ */}
             {isQuizActive && (
-                <div className="space-y-4 bg-white p-4 rounded-2xl w-full flex flex-col items-center">
+                <div className="space-y-4 bg-black p-4 w-full flex flex-col items-center">
 
                     {/* QUESTION */}
                     <div className="w-full max-w-5xl">
-                        <div className="bg-white rounded-3xl border shadow-xl px-6 py-10 text-center">
+                        <div className="bg-pink-500 rounded-3xl shadow-xl px-6 py-10 text-center">
 
-                            <div className="inline-block px-4 py-2 rounded-full bg-blue-100 text-blue-600 font-bold text-sm mb-6">
+                            <div className="inline-block px-4 py-2 rounded-full bg-pink-100 text-pink-500 font-bold text-sm mb-6">
                                 Question {currentNumber + 1}
                             </div>
 
-                            <h1 className="text-2xl font-bold text-gray-800">
+                            <h1 className="text-2xl font-bold text-white">
                                 {currentQuestion?.question}
                             </h1>
 
@@ -157,7 +157,7 @@ const Lib_Quiz = () => {
                                                     : "bg-red-100 border-red-500 text-red-600"
                                                 : isWrong
                                                 ? "bg-red-50 border-red-300 text-red-500 "
-                                                : "border-gray-300 text-gray-500 hover:bg-blue-100"
+                                                : "border-white text-gray-500 hover:bg-white/50 hover:text-white cursor-pointer"
                                         }
                                     `}
                                 >

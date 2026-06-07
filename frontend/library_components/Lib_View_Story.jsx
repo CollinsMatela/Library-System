@@ -90,18 +90,18 @@ const Lib_View_Story = () => {
     }
 
     return(
-    <section className="min-h-screen w-full bg-white flex flex-col items-center p-4">
+    <section className="min-h-screen w-full bg-black/80 flex flex-col items-center p-4">
 
     <Lib_Navigation />
 
-    <div className="w-full bg-black rounded-3xl overflow-hidden shadow-lg mt-6 mb-10">
+    <div className="w-full bg-black rounded-b-2xl overflow-hidden">
 
         {/* Cover Image */}
         <div className="relative h-[450px] w-full">
             <img
                 src={selectedStory.image}
                 alt={selectedStory.title}
-                className="w-full h-full object-cover rounded-t-3xl"
+                className="w-full h-full object-cover rounded-b-2xl"
             />
 
             {/* Overlay */}
@@ -127,6 +127,9 @@ const Lib_View_Story = () => {
                         </button>
                         <button onClick={handleSummary} className="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-xl transition-all cursor-pointer shadow-lg">
                         Summary Story
+                        </button>
+                        <button onClick={() => alert('Coming Soon!')} className="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-xl transition-all cursor-pointer shadow-lg">
+                        AI Video
                         </button>
                         <button onClick={isQuizTaken ? null : TakeQuiz} className={`${isQuizTaken ? 'opacity-50 bg-green-500' : 'cursor-pointer bg-pink-500 hover:bg-pink-600'} text-white font-semibold px-6 py-3 rounded-full transition-all shadow-lg`}>
                         {isQuizTaken ? '✓ Quiz Taken' : 'Take Quiz'}

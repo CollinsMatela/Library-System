@@ -24,7 +24,7 @@ const QuizResultModal = ({ score, exp }) => {
                 </div>
 
                 {/* Score Card */}
-                <div className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl p-6 text-center shadow-lg">
+                <div className="w-full bg-gradient-to-r from-pink-300 to-pink-500 rounded-2xl p-6 text-center shadow-lg">
                     <h2 className="text-white text-lg font-medium">
                         Your Score
                     </h2>
@@ -38,26 +38,23 @@ const QuizResultModal = ({ score, exp }) => {
                 <div className="text-center">
                     {score >= 4 ? (
                         <p className="text-green-500 font-semibold text-lg">
-                            Perfect score! Amazing work 🎉 +{exp} XP
+                            Perfect score! Amazing work 
                         </p>
                     ) : score >= 3 ? (
                         <p className="text-blue-500 font-semibold text-lg">
-                            Great job! Keep improving 🚀 + {exp} XP
+                            Great job! Keep improving  
                         </p>
                     ) : (
                         <p className="text-red-500 font-semibold text-lg">
-                            Nice try! Practice makes perfect 💪 +{exp} XP
+                            Nice try! Practice makes perfect 
                         </p>
                     )}
                 </div>
 
                 {/* Buttons */}
                 <div className="flex gap-4 w-full mt-4">
-                    <button className="flex-1 py-3 rounded-2xl bg-gray-200 hover:bg-gray-300 transition font-semibold text-gray-700 cursor-pointer">
-                        Retry Quiz
-                    </button>
 
-                    <button className="flex-1 py-3 rounded-2xl bg-blue-500 hover:bg-blue-600 transition font-semibold text-white cursor-pointer" onClick={() => navigate('/library')}>
+                    <button className="flex-1 py-3 rounded-2xl bg-black hover:-translate-y-1 transition font-semibold text-white cursor-pointer" onClick={() => navigate('/library')}>
                         Back to Library
                     </button>
                 </div>

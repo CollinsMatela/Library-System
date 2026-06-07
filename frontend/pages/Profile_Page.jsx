@@ -126,12 +126,12 @@ const Profile_Page = () => {
         
     }
 
-    const library_progress = (totalTakenQuiz / stories.length) * 100;
+    const library_progress = (totalStoryTaken / stories.length) * 100;
 
     return(
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col p-4">
+        <section className="bg-black/80 min-h-screen w-full justify-start items-start flex flex-col p-4">
             <Lib_Navigation />
-        <div className="bg-white min-h-screen shadow-2xl w-full justify-start items-start flex flex-col rounded-2xl px-10">
+        <div className="bg-white min-h-screen shadow-2xl w-full justify-start items-start flex flex-col rounded-b-2xl px-10">
         {/* Profile Container */}
         <div className="w-full justify-between items-start flex border-b-1 border-gray-300 gap-4 py-6">
                     

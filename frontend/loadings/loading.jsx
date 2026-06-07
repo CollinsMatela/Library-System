@@ -1,9 +1,10 @@
 
 const LoadingScreen = () => {
     return (
-        <section className="fixed inset-0 z-[9999] bg-white flex flex-col justify-center items-center gap-6">
-
-            {/* Spinner */}
+        <section className="fixed inset-0 z-[9999] bg-black flex flex-col justify-center items-center pt-6 px-6">
+            
+            <div className="bg-white h-screen w-full justify-center items-center flex rounded-t-2xl gap-6">
+                 {/* Spinner */}
             <div className="relative">
                 <div className="h-20 w-20 rounded-full border-4 border-pink-200"></div>
 
@@ -22,6 +23,7 @@ const LoadingScreen = () => {
                 <span className="h-3 w-3 rounded-full bg-pink-500 animate-bounce"></span>
                 <span className="h-3 w-3 rounded-full bg-pink-300 animate-bounce delay-150"></span>
                 <span className="h-3 w-3 rounded-full bg-pink-100 animate-bounce delay-300"></span>
+            </div>
             </div>
 
         </section>

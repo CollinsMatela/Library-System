@@ -1,5 +1,48 @@
-
+import { LibraryBig } from "lucide-react";
+import { useEffect, useState } from "react";
+import useAuthStore from "../store/useAuthStore";
+import axios from 'axios'
+import { BookCheck, NotepadText } from "lucide-react";
 const Lib_Overview = ({newStories, stories, handleViewStory}) => {
+
+    const user = useAuthStore((state) => state.user);
+
+    const [allMarkAsRead, setAllMarkAsRead] = useState([]);
+    const [quizTaken, setQuizTaken] = useState([]);
+
+    const UserMarkAsRead = allMarkAsRead.filter((marked) => marked.userId === user.id);
+    const UserQuizTaken = quizTaken.filter((quiz) => quiz.userId === user.id);
+    
+    useEffect(() => {
+     fetchAllMarkedStories();
+     fetchQuizResults();
+    },[])
+
+    const fetchAllMarkedStories = async () => {
+          
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/fetch-all-marked-stories`);
+            console.log(res.data.message);
+            setAllMarkAsRead(res.data.MarkAsReads);
+
+        } catch (error) {
+            console.log(error);
+            alert(error?.response?.data.message);
+        }
+    }
+    const fetchQuizResults = async () => {
+        try{
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-quiz-results`);
+        setQuizTaken(res.data.results);
+        console.log(res.data.message);
+        console.log(res.data.total);
+        } catch (error) {
+        console.log(error);
+        }
+          
+    }
+
+    
       return(
        <div className="w-full">
             <header className="w-full flex items-center justify-between px-6 py-5 border-b border-gray-200 bg-white/80 backdrop-blur-sm top-0 z-10">
@@ -7,7 +50,7 @@ const Lib_Overview = ({newStories, stories, handleViewStory}) => {
                 <div className="flex items-center gap-3">
                     
                     <div className="h-11 w-11 rounded-2xl bg-pink-500 flex items-center justify-center shadow-md">
-                    <span className="text-white text-xl">📚</span>
+                    <span className="text-white text-xl"><LibraryBig/></span>
                     </div>
 
                     <div>
@@ -41,7 +84,20 @@ const Lib_Overview = ({newStories, stories, handleViewStory}) => {
 
                             {/* Content */}
                             <div className="absolute inset-0 bg-black/50 p-4 justify-end items-start flex flex-col gap-2">
-                            <h3 className="font-semibold text-base text-white line-clamp-2">
+                            {/*Tags*/}
+                             <div className="mt-2 gap-2 flex justify-center items-center flex">
+                                
+                                <h1 className={`p-2 ${UserMarkAsRead.find((read) => read.storyId === story.id) ? "bg-white" : null} rounded-2xl`}>
+                                    {UserMarkAsRead.find((read) => read.storyId === story.id) ? <BookCheck className="text-green-500"/> : <BookCheck className="text-white"/>}
+                                </h1>
+                                <h1 className={`p-2 ${UserQuizTaken.find((quiz) => quiz.storyId === story.id) ? "bg-white" : null} rounded-2xl`}>
+                                    {UserQuizTaken.find((quiz) => quiz.storyId === story.id) ? <NotepadText className="text-green-500"/> : <NotepadText className="text-white"/>}
+                                </h1>
+                                
+                            </div>
+
+                            <div>
+                                <h3 className="font-semibold text-base text-white line-clamp-2">
                                 {story.title.toUpperCase()}
                             </h3>
                             <p className="text-xs text-white line-clamp-2">
@@ -55,6 +111,10 @@ const Lib_Overview = ({newStories, stories, handleViewStory}) => {
                                 </span>
                             </div>
                             </div>
+                            
+
+                           
+                            </div>
                         </div>
                     ))}
                     </div>
@@ -64,7 +124,7 @@ const Lib_Overview = ({newStories, stories, handleViewStory}) => {
                 <div className="flex items-center gap-3">
                     
                     <div className="h-11 w-11 rounded-2xl bg-pink-500 flex items-center justify-center shadow-md">
-                    <span className="text-white text-xl">📚</span>
+                    <span className="text-white text-xl"><LibraryBig/></span>
                     </div>
 
                     <div>
@@ -97,7 +157,21 @@ const Lib_Overview = ({newStories, stories, handleViewStory}) => {
 
                             {/* Content */}
                             <div className="absolute inset-0 bg-black/50 p-4 justify-end items-start flex flex-col gap-2">
-                            <h3 className="font-semibold text-base text-white line-clamp-2">
+
+                            {/*Tags*/}
+                             <div className="mt-2 gap-2 flex justify-center items-center flex">
+                                
+                                <h1 className={`p-2 ${UserMarkAsRead.find((read) => read.storyId === story.id) ? "bg-white" : null} rounded-2xl`}>
+                                    {UserMarkAsRead.find((read) => read.storyId === story.id) ? <BookCheck className="text-green-500"/> : <BookCheck className="text-white"/>}
+                                </h1>
+                                <h1 className={`p-2 ${UserQuizTaken.find((quiz) => quiz.storyId === story.id) ? "bg-white" : null} rounded-2xl`}>
+                                    {UserQuizTaken.find((quiz) => quiz.storyId === story.id) ? <NotepadText className="text-green-500"/> : <NotepadText className="text-white"/>}
+                                </h1>
+                                
+                            </div>
+
+                            <div>
+                               <h3 className="font-semibold text-base text-white line-clamp-2">
                                 {story.title.toUpperCase()}
                             </h3>
                             <p className="text-xs text-white line-clamp-2">
@@ -109,7 +183,9 @@ const Lib_Overview = ({newStories, stories, handleViewStory}) => {
                                 <span className="text-xs text-white font-medium hover:underline">
                                 Read Story →
                                 </span>
+                            </div> 
                             </div>
+                            
                             </div>
                         </div>
                     ))}

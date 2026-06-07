@@ -11,6 +11,7 @@ import axios from "axios"
 import useAuthStore from "../store/useAuthStore"
 import { useNavigate } from "react-router-dom"
 import Admin_SideBar from "../components/Admin_Sidebar"
+import {Users, Contact, LibraryBig} from 'lucide-react'
 
 const Admin_Page = () =>{
     const user = useAuthStore((state) => state.user);
@@ -75,7 +76,7 @@ const Admin_Page = () =>{
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-gradient-to-r from-pink-400 to-pink-500 text-white rounded-3xl p-6">
-          <p className="text-lg">Total Students</p>
+          <p className="text-lg flex gap-4">Total Students<Users/></p>
           <h1 className="text-5xl font-bold mt-3">
             {studentList.length}
           </h1>
@@ -85,7 +86,7 @@ const Admin_Page = () =>{
         </div>
 
         <div className="bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-3xl p-6">
-          <p className="text-lg">Total Employees</p>
+          <p className="text-lg flex gap-4">Total Employees<Contact/></p>
           <h1 className="text-5xl font-bold mt-3">
             {employeeList.length}
           </h1>
@@ -95,7 +96,7 @@ const Admin_Page = () =>{
         </div>
 
         <div className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white rounded-3xl p-6">
-          <p className="text-lg">Learning Stories</p>
+          <p className="text-lg flex gap-4">Learning Stories<LibraryBig/></p>
           <h1 className="text-5xl font-bold mt-3">
             {storiesList.length}
           </h1>

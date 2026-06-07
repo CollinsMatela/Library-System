@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore"
 import LittleMeLogo from "../public/LMLC.png"
 import { useState } from "react";
+import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut } from 'lucide-react'
 
 const Admin_SideBar = () => {
     const navigate = useNavigate();
@@ -52,36 +53,37 @@ const Admin_SideBar = () => {
         Admin Menu
       </div>
 
-      <div className={`${isOverview ? "bg-pink-500 text-white" : "hover:bg-gray-100 text-gray-800"} justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleOverview}>
-        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+      <div className={`${isOverview ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleOverview}>
+        <AppWindow className={`${isOverview ? 'text-white' : 'text-gray-300'}`} size={24}/>
         Overview
+        
       </div>
 
-      <div className={`${isUploadStory ? "bg-pink-500 text-white" : "hover:bg-gray-100 text-gray-800"} justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleUploadStory}>
-        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+      <div className={`${isUploadStory ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleUploadStory}>
+        <FileUp className={`${isUploadStory ? 'text-white' : 'text-gray-300'}`} size={24}/>
         Upload Story
       </div>
 
-      <div className={`${isViewStory ? "bg-pink-500 text-white" : "hover:bg-gray-100 text-gray-800"} justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleViewStory}>
-        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+      <div className={`${isViewStory ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleViewStory}>
+        <LibraryBig className={`${isViewStory ? 'text-white' : 'text-gray-300'}`} size={24}/>
         View Stories
       </div>
 
-      <div className={`${isStudentAccount ? "bg-pink-500 text-white" : "hover:bg-gray-100 text-gray-800"} justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleStudent}>
-        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+      <div className={`${isStudentAccount ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleStudent}>
+        <Users className={`${isStudentAccount ? 'text-white' : 'text-gray-300'}`} size={24}/>
         Students Account
       </div>
 
-      <div className={`${isEmployeeAccount ? "bg-pink-500 text-white" : "hover:bg-gray-100 text-gray-800"} justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleEmployee}>
-        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
-        Employee Account
+      <div className={`${isEmployeeAccount ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleEmployee}>
+        <Contact className={`${isEmployeeAccount ? 'text-white' : 'text-gray-300'}`} size={24}/>
+        Teacher Account
       </div>
 
       <div className="text-gray-500 text-sm py-2 px-4 rounded-lg mt-6">
         Other Menu
       </div>
-      <div className="justify-start items-center flex font-semibold text-gray-800 flex  gap-2 cursor-pointer py-2 hover:bg-red-100 hover:text-red-500 hover:border-none rounded-xl mt-2 p-2" onClick={handleLogout}>
-        <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+      <div className="h-15 justify-start items-center flex font-semibold text-red-500 flex  gap-2 cursor-pointer py-2 hover:bg-red-100 hover:border-none rounded-xl mt-2 p-2" onClick={handleLogout}>
+        <LogOut className={`text-red-500`} size={24}/>
         Logout
       </div>
 

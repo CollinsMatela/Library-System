@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import SearchIcon from '../src/assets/search-svgrepo-com.svg'
 import Admin_Sidebar from '../components/Admin_Sidebar'
+import { MoveRight, Search } from "lucide-react";
 
 const Admin_Materials_Page = () => {
     const navigate = useNavigate();
@@ -53,7 +54,9 @@ const Admin_Materials_Page = () => {
                         
 
                         <div className="space-x-2 justify-center ittems-center flex">
+                          
                             <input type="search" 
+                            
                                    placeholder="Search by name, grade, or branch" 
                                    className="bg-white border-1 border-gray-300 h-10 w-80 rounded-xl px-4 outline-none"
                                    value={search}
@@ -71,7 +74,7 @@ const Admin_Materials_Page = () => {
                   )}
                   {filteredStories.length > 0 && (
                     filteredStories.map((story) => (
-                      <div key={story.id} className="bg-white h-30 w-full rounded-2xl justify-between items-center flex border border-gray-300 transistion-all duration-300 ease-in-out cursor-pointer hover:-translate-1 hover:bg-blue-100 hover:border-none mb-2 gap-4"
+                      <div key={story.id} className="bg-white h-30 w-full rounded-2xl justify-between items-center flex border border-gray-300 transistion-all duration-300 ease-in-out cursor-pointer hover:-translate-1 hover:bg-blue-100 hover:border-2 hover:border-blue-500  mb-2 gap-4"
                       onClick={() => handleViewStories(story.id)}
                       >
                       
@@ -88,7 +91,7 @@ const Admin_Materials_Page = () => {
                       </div>
 
                       <div className="h-full flex items-center justify-center mr-2 p-4">
-                          <h1 className="text-gray-300 font-bold cursor-pointer">⟶</h1>
+                          <h1 className="text-gray-300 font-bold cursor-pointer"><MoveRight/></h1>
                       </div>
                       
 

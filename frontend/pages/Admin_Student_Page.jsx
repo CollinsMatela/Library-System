@@ -5,6 +5,7 @@ import Edit_Student_Modal from "../modals/Edit_Student_Modal"
 import RegisterStudentModal from "../modals/RegisterStudentModal"
 import Confirmation_Popup from "../popup/Confirmation_Popup"
 import View_Student_Modal from "../modals/View_Student_Modal"
+import { View, UserPen, Trash } from "lucide-react"
 
 
 const Admin_Student_Page = () => {
@@ -167,9 +168,9 @@ const Admin_Student_Page = () => {
                                     </div>
                                     
                                     <div className="w-[10%] break-words gap-2 flex">
-                                        <button className="bg-blue-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => handleViewStudent(student)}>Vw</button>
-                                        <button className="bg-amber-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-amber-600" onClick={() => handleEditStudent(student)}>Edt</button>
-                                        <button className="bg-red-500 text-white h-10 w-10 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteConfirmation(student)}>Del</button>
+                                        <button className="bg-blue-500 text-white justify-center items-center flex h-10 w-10 rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => handleViewStudent(student)}><View/></button>
+                                        <button className="bg-amber-500 text-white justify-center items-center flex h-10 w-10 rounded-lg cursor-pointer hover:bg-amber-600" onClick={() => handleEditStudent(student)}><UserPen/></button>
+                                        <button className="bg-red-500 text-white justify-center items-center flex h-10 w-10 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteConfirmation(student)}><Trash/></button>
                                         
                                     </div>
                                 </div>

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Lib_Navigation from "./Lib_Navigation";
 import axios from "axios";
 import useAuthStore from "../store/useAuthStore";
+import { BookOpenText, Sparkles, CheckCheck } from "lucide-react";
 
 const Lib_View_Story = () => {
 
@@ -121,18 +122,19 @@ const Lib_View_Story = () => {
                         </div>
 
                         {/* Quiz Button */}
-                    <div className="space-x-2">
-                        <button onClick={handleFullStory} className="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-xl transition-all cursor-pointer shadow-lg">
-                        Full Story
+                    <div className="space-x-2 flex">
+                        <button onClick={handleFullStory} className="bg-pink-500 justify-center items-center flex gap-2 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-xl transition-all cursor-pointer shadow-lg">
+                        <BookOpenText/> Full Story
                         </button>
-                        <button onClick={handleSummary} className="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-xl transition-all cursor-pointer shadow-lg">
-                        Summary Story
+                        <button onClick={handleSummary} className="bg-pink-500 justify-center items-center flex gap-2 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-xl transition-all cursor-pointer shadow-lg">
+                        <BookOpenText/> Summary Story
                         </button>
-                        <button onClick={() => alert('Coming Soon!')} className="bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-xl transition-all cursor-pointer shadow-lg">
-                        AI Video
+                        <button onClick={() => alert('Coming Soon!')} className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 justify-center items-center flex gap-2 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-xl transition-all cursor-pointer shadow-lg">
+                        <Sparkles/> AI Video
                         </button>
-                        <button onClick={isQuizTaken ? null : TakeQuiz} className={`${isQuizTaken ? 'opacity-50 bg-green-500' : 'cursor-pointer bg-pink-500 hover:bg-pink-600'} text-white font-semibold px-6 py-3 rounded-full transition-all shadow-lg`}>
-                        {isQuizTaken ? '✓ Quiz Taken' : 'Take Quiz'}
+                        <button onClick={isQuizTaken ? null : TakeQuiz} className={`${isQuizTaken ? 'opacity-50 bg-green-500' : 'cursor-pointer bg-pink-500 hover:bg-pink-600'} justify-center items-center flex gap-2 text-white font-semibold px-6 py-3 rounded-full transition-all shadow-lg`}>
+                        {isQuizTaken ?  <CheckCheck/> : null}
+                         {isQuizTaken ? `Quiz Taken` : 'Take Quiz'}
                         </button>
                     </div>
                     
@@ -166,7 +168,8 @@ const Lib_View_Story = () => {
                          disabled={markedAsRead}
                 >
                     <span></span>
-                    <span>✓ {markedAsRead ? "Already taken" : "Mark as Read"}</span>
+                    {markedAsRead ? <CheckCheck/> : null}
+                    <span>{markedAsRead ? "Already taken" : "Mark as Read"}</span>
                 </button>
             </div>
 

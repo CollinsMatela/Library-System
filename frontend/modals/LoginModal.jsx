@@ -44,7 +44,7 @@ const LoginModal = ({ onClose }) => {
             
             const user = res.data.user;
             const token = res.data.token;
-            const role = res.data.role;
+            const role = res.data.role.toLowerCase();
             
             setAuth(user, token, role);
             
@@ -55,7 +55,7 @@ const LoginModal = ({ onClose }) => {
               if(role.toLowerCase() === "student"){
               navigate(`/library`);
               } 
-              else if (role.toLowerCase() === "administrator"){
+              else if (role.toLowerCase() === "admin"){
                 navigate(`/admin`);
               }
 

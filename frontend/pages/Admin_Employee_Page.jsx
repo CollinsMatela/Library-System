@@ -7,6 +7,7 @@ import Confirmation_Popup from "../popup/Confirmation_Popup"
 import EditEmployeeModal from "../modals/Edit_Employee_Modal"
 import Edit_Employee_Modal from "../modals/Edit_Employee_Modal"
 import View_Employee_Modal from "../modals/View_Employee_Modal"
+import { View, UserPen, Trash } from "lucide-react"
 
 const Admin_Employee_Page = () => {
 
@@ -60,9 +61,9 @@ const Admin_Employee_Page = () => {
     }
 
     const [searchStudent, setSearchStudent] = useState("");
-    const [searchAdministrator, setSearchAdministrator] = useState("");
+
     const filterTeacher = employeeList.filter((teacher) => teacher.role.toLowerCase() === "teacher");
-    const filterAdministrator = employeeList.filter((administrator) => administrator.role.toLowerCase() === "administrator");
+  
     
     const filteredTeachers = filterTeacher.filter((teacher) => {
           const fullName = `${teacher.lastname} ${teacher.firstname}`;
@@ -70,10 +71,7 @@ const Admin_Employee_Page = () => {
           const branch = teacher.branch;
           return fullName.toLowerCase().includes(searchStudent) || gradeLevel.toLowerCase().includes(searchStudent) || branch.toLowerCase().includes(searchStudent);
     })
-    const filteredAdministrator = filterAdministrator.filter((administrator) => {
-          const fullName = `${administrator.lastname} ${administrator.firstname}`;
-          return fullName.toLowerCase().includes(searchAdministrator);
-    })
+    
     return(
         <>
         {showConfirmation && (<Confirmation_Popup onConfirm={() => {deleteEmployee(); setShowConfirmation(false)}} 
@@ -86,7 +84,7 @@ const Admin_Employee_Page = () => {
                 <Admin_Sidebar/>
                 <div className="mx-10 justify-between items-start flex">
                     <div>
-                      <h2 className="text-3xl font-bold text-gray-800">Employee Management</h2>
+                      <h2 className="text-3xl font-bold text-gray-800">Teacher Management</h2>
                       <p className="text-gray-400 text-md">Manage employee accounts and oversee staff informations.</p>
                     </div>
                     <div>
@@ -173,9 +171,9 @@ const Admin_Employee_Page = () => {
                                     </div>
                                     
                                     <div className="w-[10%] break-words flex gap-2">
-                                            <button className="h-10 w-10 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => displayView(employee)}>Vw</button>
-                                            <button className="h-10 w-10 bg-amber-500 text-white rounded-lg cursor-pointer hover:bg-amber-600" onClick={() => displayEdit(employee)}>Edit</button>
-                                            <button className="h-10 w-10 bg-red-500 text-white rounded-lg cursor-pointer hover:bg-red-600" onClick={() => displayConfirmation(employee)}>Del</button>
+                                            <button className="h-10 w-10 justify-center items-center flex bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => displayView(employee)}><View/></button>
+                                            <button className="h-10 w-10 justify-center items-center flex bg-amber-500 text-white rounded-lg cursor-pointer hover:bg-amber-600" onClick={() => displayEdit(employee)}><UserPen/></button>
+                                            <button className="h-10 w-10 justify-center items-center flex bg-red-500 text-white rounded-lg cursor-pointer hover:bg-red-600" onClick={() => displayConfirmation(employee)}><Trash/></button>
                                 
                                     </div>
                                         
@@ -186,84 +184,7 @@ const Admin_Employee_Page = () => {
                    </div>
                    </div>
 
-                {/* Administrator Container */}
                 
-                <div className="bg-white rounded-xl pb-2">
-                <div className="bg-white h-20 w-full justify-between items-center flex rounded-t-xl px-10">
-                    <div>
-                        <h1 className="text-lg font-bold text-gray-500 rounded-full">Administrator Table</h1>
-                        <p className="text-gray-400 text-sm">Manage administrator account's information.</p>
-                    </div>
-
-                    <div className="h-full space-x-2 justtify-center items-center flex">
-                        <input type="search" 
-                        placeholder="Search administrator by name." 
-                        className="bg-white border-1 border-gray-300 h-10 w-80 rounded-xl px-4 outline-none"
-                        value={searchAdministrator}
-                        onChange={(e) => setSearchAdministrator(e.target.value)}
-                        />
-                    </div>
-                </div>
-                      
-                <div className="w-full rounded-b-xl px-10">
-                {/* Columns */}
-                <div className="bg-gray-900 h-12 w-full rounded-xl justify-between items-center flex px-4">
-
-                    <div className="w-100 justify-start items-center flex gap-4">
-                        <h1 className="text-sm font-semibold text-white mr-14">No.</h1>
-                        <h1 className="text-sm font-semibold text-white">Fullname</h1>
-                    </div>
-                    
-                    
-                    <div className="w-100 justify-start items-center flex">
-                                <div className="w-1/3">
-                                    <h1 className="text-sm font-semibold text-white">Role</h1>
-                                </div>                                   
-                    </div>
-                    
-                    <div className="w-[10%]">
-                        <h1 className="text-sm font-semibold text-white">Actions</h1>
-                    </div>
-                </div>
-
-                <div className="bg-white max-h-100  rounded-xl overflow-y-scroll">
-                            
-    
-                        {/* Rows */}
-                        {filteredAdministrator.length < 1 && (
-                            <div className="bg-gray-100 h-15 w-full justify-center items-center flex rounded-b-xl px-4 mt-2">
-                                <p className="text-gray-500">No teachers found.</p>
-                            </div>
-                        )}
-                        {filteredAdministrator.map((employee, index) => {
-
-                            return(
-                                <div key={employee.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-300 justify-between items-center flex px-4 py-2 mt-2 hover:bg-blue-100 hover:border-blue-300 cursor-pointer">
-                                    <div className="w-100 justify-start items-center flex gap-4">
-                                        <p className="text-gray-500">{index + 1}</p>
-                                        <img src="" className="bg-gray-100 h-12 w-12 rounded-full" />
-                                        <p className="text-gray-500">{employee.lastname}, {employee.firstname}, {employee.middlename}</p>
-                                    </div>
-
-                                    <div className="w-100 justify-start items-center flex">
-                                        <div className="w-1/3">
-                                          <p className="text-gray-500">{employee.role}</p>
-                                        </div>                                   
-                                    </div>
-                                    
-                                    <div className="w-[10%] break-words flex gap-2">
-                                            <button className="h-10 w-10 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => displayView(employee)}>Vw</button>
-                                            <button className="h-10 w-10 bg-amber-500 text-white rounded-lg cursor-pointer hover:bg-amber-600" onClick={() => displayEdit(employee)}>Edit</button>
-                                            <button className="h-10 w-10 bg-red-500 text-white rounded-lg cursor-pointer hover:bg-red-600" onClick={() => displayConfirmation(employee)}>Del</button>
-                                
-                                    </div>
-                                        
-                                </div>
-                            )
-                        })}
-                        </div>
-                   </div>
-                   </div>
                </section>
         </>
     )

@@ -20,7 +20,7 @@ const RegisterEmployeeModal = ({reFetch, onClose}) => {
        const [email, setEmail] = useState("");
        const [gender, setGender] = useState("");
        const [contact, setContact] = useState("");
-       const [role, setRole] = useState("");
+       const [role, setRole] = useState("Teacher");
        const [gradeLevel, setGradeLevel] = useState("");
        const [branch, setBranch] = useState("");
 
@@ -70,8 +70,8 @@ const RegisterEmployeeModal = ({reFetch, onClose}) => {
             if (!day) { setIsDay(true); hasError = true; }
             if (!gender) { setIsGender(true); hasError = true; }
             if (!role) { setIsRole(true); hasError = true; }
-            // if (!gradeLevel) { setIsGradeLevel(true); hasError = true; }
-            // if (!branch) { setIsBranch(true); hasError = true; }
+            if (!gradeLevel) { setIsGradeLevel(true); hasError = true; }
+            if (!branch) { setIsBranch(true); hasError = true; }
 
             // Regex patterns
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -93,12 +93,6 @@ const RegisterEmployeeModal = ({reFetch, onClose}) => {
 
        const handleConfirmation = () => {
              const itHasError = ErrorChecker();
-
-            // If the user role in Administrator it does not need to fill out the grade level and branch
-            if(role === "Teacher") {
-                if (!gradeLevel) { return setIsGradeLevel(true); }
-                if (!branch) { return setIsBranch(true); }
-            }
 
             if(itHasError) return;
 
@@ -125,8 +119,8 @@ const RegisterEmployeeModal = ({reFetch, onClose}) => {
                         email: email,
                         contact: contact,
                         role: role,
-                        gradeLevel: gradeLevel || "N/A",
-                        branch: branch || "N/A",
+                        gradeLevel: gradeLevel,
+                        branch: branch,
                     }
                     const res = await axios.post(`${import.meta.env.VITE_API_URL}/register-employee`, employeeInformation)
                     if(res.data.isSuccess){
@@ -147,11 +141,11 @@ const RegisterEmployeeModal = ({reFetch, onClose}) => {
         {showAccountConfirmation && (<Account_Conformation newAccountDetails={newEmployee} closeAccountConfirmation={() => {setShowAccountConfirmation(false); onClose()}}/>)}
         {showConfirmation && (<Confirmation_Popup onConfirm={handleSubmit} onCancel={() => setShowConfirmation(false)}/>)}
         <section className="fixed z-50 inset-0 justify-center items-center flex">
-               <div className="absolute bg-black/80 inset-0" onClick={() => onClose()}></div>
+               <div className="absolute bg-black/80 inset-0"></div>
 
                <div className="relative bg-white w-[1000px] p-4 rounded-xl">
                 <div className="w-full justify-center items-center flex border-b-1 border-gray-100 pb-4"> 
-                    <h1 className="text-md font-bold text-gray-500">Register Employee Account</h1>
+                    <h1 className="text-md font-bold text-gray-500">Register Teacher Account</h1>
                 </div>
                 <div className="w-full justify-center items-start flex gap-2">
                     <div className="w-full mt-4 space-y-2">
@@ -268,26 +262,14 @@ const RegisterEmployeeModal = ({reFetch, onClose}) => {
                             onChange={(e) => {setContact(e.target.value);
                                              if(e.target.value !== "") setIsContact(false);
                             }}/>
-                     </div>        
+                     </div>
+                     
+                           
                 </div>
 
                 <div className="w-full mt-4 space-y-2">
-                     <h1 className="text-sm font-bold text-gray-500">Employee Information</h1>
-                     <div className="w-full">
-                            <h1 className="text-xs text-gray-500">Role <span className="text-red-500">*</span></h1>
-                            <select name="" id="" className={`${isRole ? 'border-red-500' : 'border-gray-300'} border-1 h-12 w-full outline-none rounded-xl px-4 text-gray-500`}
-                            value={role}
-                            onChange={(e) => {setRole(e.target.value);
-                                             if(e.target.value !== "") setIsRole(false);
-                            }}>
-                                <option value="">Select Role</option>
-                                <option value="Administrator">Administrator</option>
-                                <option value="Teacher">Teacher</option>
-                            </select>
-                     </div>
-
-                     {role === "Teacher" ? (
-                            <>
+                     <h1 className="text-sm font-bold text-gray-500">School Information</h1>
+                     
                             <div className="w-full">
                             <h1 className="text-xs text-gray-500">Grade Level <span className="text-red-500">*</span></h1>
                             <select name="" id="" className={`${isGradeLevel ? 'border-red-500' : 'border-gray-300'} border-1 h-12 w-full outline-none rounded-xl px-4 text-gray-500`}
@@ -318,8 +300,7 @@ const RegisterEmployeeModal = ({reFetch, onClose}) => {
                                    <option value="Las Piñas Cavite">Las Piñas Cavite</option>
                                    </select>
                             </div>
-                            </>  
-                     ) : null}  
+                            
                      
                      
                           
@@ -340,10 +321,17 @@ const RegisterEmployeeModal = ({reFetch, onClose}) => {
                             ) : null}
                     </div>
 
-                <div className="w-full justify-end items-center flex">
+                <div className="w-full justify-end items-center flex gap-2">
+                        <button className="bg-gray-300 text-white py-2 px-4 rounded-full hover:bg-gray-400 cursor-pointer font-bold text-sm"
+                        onClick={() => onClose()}
+                        >Close
+                        </button>
+
                         <button className="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 cursor-pointer font-bold text-sm"
                         onClick={handleConfirmation}
-                        >Register</button>
+                        >Register
+                        </button>
+                        
                 </div>
                 
                </div>

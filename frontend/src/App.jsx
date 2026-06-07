@@ -46,15 +46,15 @@ function App() {
         <Route path="/" element={<Home_Page/>}/>
         <Route path="/unauthorized" element={<Unauthorized_Page/>}/>
         
-         {/* <Route element={<ProtectedRoute allowedRoles={["Student", "Teacher"]}/>}> */}
+         <Route element={<ProtectedRoute allowedRoles={["student", "teacher"]}/>}>
                 <Route path="/library" element={<Library_Page/>}/>
                 <Route path="/library/profile" element={<Profile_Page/>}/>
                 <Route path="/library/view-story/:id" element={<Lib_View_Story/>}/>
                 <Route path="/library/view-story/quiz/:id" element={<Lib_Quiz/>}/>
                 <Route path="/change-password" element={<Change_Password_Page/>}/>
-         {/* </Route> */}
+         </Route>
 
-         {/* <Route element={<ProtectedRoute allowedRoles={["Administrator"]} />}> */}
+         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
                 <Route path="/admin" element={<Admin_Page />} />
                 <Route path="/admin/upload" element={<Admin_Upload_Page />} />
                 <Route path="/admin/materials" element={<Admin_Materials_Page />} />
@@ -62,7 +62,7 @@ function App() {
                 <Route path="/admin/students" element={<Admin_Student_Page />} />
                 <Route path="/admin/employee" element={<Admin_Employee_Page />} />
                 <Route path="/change-password" element={<Change_Password_Page/>}/>
-        {/* </Route> */}
+        </Route>
          <Route path="/loading" element={<LoadingScreen/>}/>
         <Route path="*" element={<Not_Found_Page/>}/>
 

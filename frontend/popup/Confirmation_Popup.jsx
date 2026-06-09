@@ -1,5 +1,6 @@
 
-const Confirmation_Popup = ({onConfirm, onCancel}) => {
+const Confirmation_Popup = ({errorMessage, onConfirm, onCancel}) => {
+    
     return(
        <section className="fixed z-100 flex items-center justify-center h-screen">
             
@@ -10,8 +11,8 @@ const Confirmation_Popup = ({onConfirm, onCancel}) => {
                             ⚠️ Warning
                         </h2>
 
+                        <p className={`${errorMessage ? "" : "hidden"} bg-red-100 rounded-xl text-red-500 mb-2 p-2`}>{errorMessage}</p>
                         <p className="text-gray-600 mb-6">Are you sure you want to proceed with this action?</p>
-
 
                         <div className="flex justify-end gap-3">
                             <button onClick={onCancel} className="px-4 py-2 bg-gray-200 text-gray-500 rounded-lg mt-4 cursor-pointer">

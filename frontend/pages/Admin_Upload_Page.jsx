@@ -7,6 +7,8 @@ import Admin_Sidebar from "../components/Admin_Sidebar"
 const Admin_Upload_Page = () => {
     const navigate = useNavigate();
 
+    const [errorMessage, setErrorMessage] = useState("");
+
     const fileInputRef = useRef();
     const pdfInputRef = useRef();
 
@@ -162,12 +164,13 @@ const Admin_Upload_Page = () => {
                 setChoiceC("");
                 setChoiceD("");
                 setAnswer("");
+
+                setShowConfirmation(false);
             }
         } catch (error) {
             console.log(error)
+            setErrorMessage(error?.response?.data?.message);
         }
-
-         setShowConfirmation(false);
         
     }
 
@@ -175,9 +178,10 @@ const Admin_Upload_Page = () => {
         <section className="bg-white min-h-screen w-full flex flex-col items-center pl-90 pr-10 py-10 gap-6">
             <Admin_Sidebar/>
             {showConfirmation && 
-            (<Confirmation_Popup 
+            (<Confirmation_Popup
+                errorMessage={errorMessage}
                 onConfirm={uploadStory}
-                onCancel={() => setShowConfirmation(false)}
+                onCancel={() => {setShowConfirmation(false); setErrorMessage("")}}
             />)}
             
             {/* Header */}

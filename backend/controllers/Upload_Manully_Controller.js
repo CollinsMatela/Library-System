@@ -1,4 +1,4 @@
-import Stories_Model from "../models/Stories_Model.js";
+ import Stories_Model from "../models/Stories_Model.js";
 import cloudinary from "../config/cloudinary.js";
 import { nanoid } from "nanoid";
 import { createRequire } from "module";
@@ -11,6 +11,12 @@ const Upload_Manually_Controller = async (req, res) => {
   try {
     const { title, author, description, genre, gradeCategory } = req.body;
     console.log("-------FILES:", req.files);
+
+    const isTitle = await Stories_Model.findOne({title: title});
+
+    if(isTitle){
+      return res.status(409).json({message: "The story title is already existing"});
+    }
     
     // IMAGE
     const imageFile = req.files?.image?.[0];

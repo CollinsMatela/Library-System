@@ -151,7 +151,12 @@ const Admin_Student_Page = () => {
                                 <div key={student.id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-100 justify-between items-center flex px-4 py-2 mt-2 hover:border-blue-500 hover:bg-blue-100 cursor-pointer">
                                     <div className="w-100 justify-start items-center flex gap-4">
                                         <p className="text-gray-500">{index + 1}</p>
-                                        <img src="" className="bg-gray-100 h-12 w-12 rounded-full" />
+                                        {student.avatar ? 
+                                        <img src={student.avatar} className="bg-gray-100 h-12 w-12 rounded-full" />
+                                        :
+                                        <div className="bg-pink-500 h-12 w-12 rounded-full text-white font-bold justify-center items-center flex">{student.firstname.charAt(0).toUpperCase()}</div>
+                                        }
+                                        
                                         <p className="text-gray-500">{student.lastname}, {student.firstname}, {student.middlename}</p>
                                     </div>
                                     

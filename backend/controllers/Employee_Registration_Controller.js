@@ -11,6 +11,19 @@ const Employee_Registration_Controller = async (req, res) => {
     const hashedPassword = await bcrypt.hash(defaultPassword, 10);
 
       try {
+        const isFullname = await Employee_Registration_Model.findOne({lastname: lastname, firstname: firstname});
+        const isEmail = await Employee_Registration_Model.findOne({email: email});
+        const isContact = await Employee_Registration_Model.findOne({contact: contact});
+
+        if(isFullname){
+          return res.status(409).json({message: "The user is already existing."})
+        }
+        if(isEmail){
+          return res.status(409).json({message: "The user email address is already existing."})
+        }
+        if(isContact){
+          return res.status(409).json({message: "The user contact number is already existing."})
+        }
 
         const newEmployee = await Employee_Registration_Model.create({
             id: crypto.randomUUID(),

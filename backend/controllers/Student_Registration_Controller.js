@@ -10,6 +10,10 @@ const Student_Registration_Controller = async (req, res) => {
     const hashedPassword = await bcrypt.hash(defaultPassword, 10);
 
     try {
+        const isFullname = await Student_Registration_Model.findOne({lastname: lastname, firstname: firstname});
+        if(isFullname) {
+            return res.status(409).json({message: "The user is already existing."});
+        }
 
         const newStudent = await Student_Registration_Model.create({
             id: crypto.randomUUID(),

@@ -10,6 +10,8 @@ const RegisterEmployeeModal = ({reFetch, onClose}) => {
       const [showConfirmation, setShowConfirmation] = useState(false);
       const [showAccountConfirmation, setShowAccountConfirmation] = useState(false);
 
+      const [errorMessage, setErrorMessage] = useState("");
+
        const [lastname, setLastname] = useState("");
        const [firstname, setFirstname] = useState("");
        const [middlename, setMiddlename] = useState("");
@@ -132,6 +134,7 @@ const RegisterEmployeeModal = ({reFetch, onClose}) => {
                     
                } catch (error) {
                      console.log(error);
+                     setErrorMessage(error?.response?.data?.message);
                }
        }
 
@@ -139,7 +142,7 @@ const RegisterEmployeeModal = ({reFetch, onClose}) => {
     return(
         <>
         {showAccountConfirmation && (<Account_Conformation newAccountDetails={newEmployee} closeAccountConfirmation={() => {setShowAccountConfirmation(false); onClose()}}/>)}
-        {showConfirmation && (<Confirmation_Popup onConfirm={handleSubmit} onCancel={() => setShowConfirmation(false)}/>)}
+        {showConfirmation && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={handleSubmit} onCancel={() => {setShowConfirmation(false); setErrorMessage("");}}/>)}
         <section className="fixed z-50 inset-0 justify-center items-center flex">
                <div className="absolute bg-black/80 inset-0"></div>
 

@@ -41,6 +41,8 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal, openAccountCo
     const [isGradeLevel, setIsGradeLevel] = useState(false);
     const [isBranch, setIsBranch] = useState(false);
 
+    const [errorMessage, setErrorMessage] = useState("");
+
     const calculateAge = (year, month, day) => {
         const today = new Date();
         const birthDate = new Date(year, month - 1, day);
@@ -133,15 +135,16 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal, openAccountCo
             
         } catch (error) {
             console.log("Error registering student account:", error);
+            setErrorMessage(error?.response?.data?.message);
         }
     }
 
     return(
     <>
-        {showConfirmationPopup && (<Confirmation_Popup onConfirm={handleStudentRegistration} onClose={() => setShowConfirmationPopup(false)} />)}
+        {showConfirmationPopup && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={handleStudentRegistration} onCancel={() => {setShowConfirmationPopup(false); setErrorMessage("");}} />)}
         <section className="fixed z-50 inset-0 justify-center items-center flex bg-black/50">
                
-               <div className="relative bg-white w-[1000px] rounded-xl justify-start items-start flex flex-col p-4 gap-4">
+               <div className="relative bg-white w-[1200px] rounded-xl justify-start items-start flex flex-col p-4 gap-4">
                     <div className="w-full border-b-1 border-gray-100 justify-center items-center flex pb-4">
                         <h1 className="text-md font-bold text-gray-500">Register Student Account</h1>
                     </div>
@@ -329,13 +332,12 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal, openAccountCo
                         </div>
 
                     </div>
-                    </div>
-                    
-                    <div className="w-full justify-start items-start flex flex-col gap-2">
+
+                    <div className="h-full w-full justify-center items-start flex flex-col gap-2">
                         <h1 className="text-sm font-bold text-gray-500">School Information</h1>
-                        <div className="w-full space-y-2">
+                        <div className="w-full">
                             <h1 className="text-xs text-gray-500">Grade Level <span className="text-red-500">*</span></h1>
-                             <select className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500 ${isGradeLevel ? 'border-red-500' : ''}`} 
+                             <select className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500 mb-2 ${isGradeLevel ? 'border-red-500' : ''}`} 
                                      value={gradeLevel} onChange={(e) => {setGradeLevel(e.target.value);
                                                                           if(e.target.value !== "") setIsGradeLevel(false);
                                      }}>
@@ -360,6 +362,9 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal, openAccountCo
                         </select>
                         </div>
                     </div>
+                    </div>
+                    
+                    
 
                     <div className={`${isLastname || isFirstname || isMiddlename || isYear || isMonth || isDay || isGender || isParentLastname || isParentFirstname || isParentMiddlename || isParentEmail || isParentContact || isParentRelationship || isGradeLevel || isBranch ? "" : "hidden"} h-full w-full bg-red-100 p-2 rounded-xl justify-center items-start flex flex-col`}>
                             {isLastname || isFirstname || isMiddlename || isYear || isMonth || isDay || isGender || isParentLastname || isParentFirstname || isParentMiddlename || isParentEmail || isParentContact || isParentRelationship || isGradeLevel || isBranch ? (
@@ -374,6 +379,7 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal, openAccountCo
                                 <p className="text-red-500 text-xs">• The contact number must starts with (09) and contain (11) digits.</p>
                             ) : null}
                     </div>
+                    
                     
                     <div className="w-full justify-end items-center flex gap-2">
                         <button className="bg-gray-300 text-white py-2 px-4 rounded-full hover:bg-gray-400 cursor-pointer font-bold text-sm" onClick={closeStudentModal}>Cancel</button>

@@ -273,7 +273,8 @@ const Admin_Upload_Page = () => {
                                 />
                             </div>
 
-                        <div className="bg-gray-200 w-full outline-none p-2 rounded-lg justify-center items-center flex cursor-pointer text-gray-500 font-semibold px-2" onClick={openFileExplorer}> + Upload Image
+                        <div className={`${file ? "hidden" : ""} bg-gray-200 p-2 text-gray-500 font-semibold rounded-xl cursor-pointer justify-center items-center flex`} onClick={openFileExplorer}> 
+                        + Upload Image
                             <input 
                                 type="file" 
                                 ref={fileInputRef} 
@@ -294,7 +295,10 @@ const Admin_Upload_Page = () => {
                             
 
                             {/* Image */}
-                            <div className="w-full h-52 bg-gray-200 rounded-xl overflow-hidden">
+                            <div className={`relative w-full h-52 bg-gray-200 rounded-xl overflow-hidden`} onClick={() => {setFile(null); setPreview(null)}}>
+                                <div className={`${preview ? null : "hidden"} absolute inset-0 bg-black/30 hover:bg-red-500/10 cursor-pointer justify-start items-end flex p-2`}>
+                                <h1 className={`text-xs font-bold text-white`}>Click to remove the image</h1>
+                                </div>
                                 {preview && (
                                     <img
                                     src={preview}
@@ -320,12 +324,12 @@ const Admin_Upload_Page = () => {
                                 {/* Tags */}
                                 <div className="flex flex-wrap gap-2 mt-2">
                                 
-                                <span className="px-3 py-1 text-sm bg-pink-100 text-pink-500 rounded-full">
-                                    {genre || "Genre"}
+                                <span className="px-3 py-1 text-sm bg-black/30 text-black rounded-full">
+                                    {genre || "—"}
                                 </span>
 
-                                <span className="px-3 py-1 text-sm bg-pink-100 text-pink-500 rounded-full">
-                                    {gradeCategory || "Grade"}
+                                <span className="px-3 py-1 text-sm bg-black/30 text-black rounded-full">
+                                    {gradeCategory || "—"}
                                 </span>
 
                                 </div>
@@ -351,7 +355,7 @@ const Admin_Upload_Page = () => {
                     
                 </div>
 
-        <div className={`w-full flex flex-col bg-white rounded-xl gap-6`}>
+        <div className={`${quizList.length === 5 ? 'hidden' : null} w-full flex flex-col bg-white rounded-xl gap-6`}>
                 {/* Quiz Creation */}
                     <div className={`bg-white w-full flex flex-col gap-4`}>
                         <div className="w-ful justify-between items-center flex">
@@ -414,7 +418,38 @@ const Admin_Upload_Page = () => {
 
                     </div>
 
-                    <div className="bg-white w-full flex flex-col gap-4 overflow-y-auto">
+                    {/* <div className="bg-white w-full flex flex-col gap-4 overflow-y-auto">
+                         <div>
+                                <h2 className="text-lg font-bold text-gray-500 rounded-full">Questions Display</h2>
+                                <p className="text-gray-400 text-sm">Review the uploaded questions.</p>
+                            </div>
+                         {quizList.length <= 0 && (
+                            <div className="bg-gray-100 text-gray-400 text-sm text-center py-4 rounded-xl">
+                                No questions added yet
+                            </div>
+                         )}
+                         {quizList.length > 0 && (
+                            quizList.map((questionnaire, index) => (
+                                <div key={index} className="bg-white border-2 border-gray-300 py-4 rounded-xl p-2 space-y-2">
+                                   <p className="font-semibold">{`Q${index + 1}. ${questionnaire.question}`}</p>
+                                   <ul className="h-8 w-full flex gap-2">
+                                        <li className="px-2 py-1 text-sm bg-blue-100 text-blue-600 rounded-full">{questionnaire.choices[0]}</li>
+                                        <li className="px-2 py-1 text-sm bg-blue-100 text-blue-600 rounded-full">{questionnaire.choices[1]}</li>
+                                        <li className="px-2 py-1 text-sm bg-blue-100 text-blue-600 rounded-full">{questionnaire.choices[2]}</li>
+                                        <li className="px-2 py-1 text-sm bg-blue-100 text-blue-600 rounded-full">{questionnaire.choices[3]}</li>
+                                   </ul>
+                                   <div className="h-8 w-full border-t-2 border-gray-300 py-2">
+                                        <p className="px-2 py-1 text-sm bg-green-100 text-green-600 rounded-full inline-flex">Answer key: {questionnaire.answer}</p>
+                                   </div>
+                                </div>
+                            ))
+                            
+                         )}
+                    </div> */}
+                    
+            </div>
+
+            <div className="bg-white w-full flex flex-col gap-4 overflow-y-auto">
                          <div>
                                 <h2 className="text-lg font-bold text-gray-500 rounded-full">Questions Display</h2>
                                 <p className="text-gray-400 text-sm">Review the uploaded questions.</p>
@@ -442,8 +477,6 @@ const Admin_Upload_Page = () => {
                             
                          )}
                     </div>
-                    
-            </div>
         </section>
     )
 }

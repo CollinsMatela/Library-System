@@ -82,7 +82,7 @@ const Library_Page = () => {
                 <Lib_Navigation/>
                 
                 
-                <div className="max-5xl w-full justify-center items-start flex gap-2 mb-5 mt-20">
+                <div className="max-5xl w-full justify-center items-start flex gap-2 mt-20">
                 <div className="w-full max-w-5xl flex flex-col justify-center items-start mb-10">
                     <h1 className="text-2xl text-gray-800 font-bold text-center">
                         Welcome back, {" "}
@@ -95,10 +95,10 @@ const Library_Page = () => {
                 </div>
                 
 
-                 <div className="h-20 max-w-5xl w-full bg-pink-500 border-2 border-b-4 justify-center items-center flex shadow-sm rounded-4xl outline-none p-2">
+                 <div className="h-20 max-w-5xl w-full bg-white border-2 border-b-4 justify-center items-center flex shadow-sm rounded-4xl outline-none p-2">
                         <div className="h-full w-20"><img src={SearchIcon} className='h-full w-full object-cover bg-black rounded-l-3xl rounded-r-md' /></div>
                         <input type="text" 
-                               className="h-full w-full outline-none px-4 text-lg text-white font-bold inner-shadow-lg" 
+                               className="h-full w-full outline-none px-4 text-lg text-black font-bold inner-shadow-lg" 
                                placeholder={`Search stories and explore...`}
                                value={search}
                                onChange={(e) => setSearch(e.target.value)}

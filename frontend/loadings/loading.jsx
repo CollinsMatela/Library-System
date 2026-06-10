@@ -1,7 +1,7 @@
 
 const LoadingScreen = () => {
     return (
-        <section className="fixed inset-0 z-[9999] bg-black flex flex-col justify-center items-center pt-6 px-6">
+        <section className="fixed inset-0 z-[9999] bg-black/80 flex flex-col justify-center items-center pt-4 px-4">
             
             <div className="bg-white h-screen w-full justify-center items-center flex rounded-t-2xl gap-6">
                  {/* Spinner */}

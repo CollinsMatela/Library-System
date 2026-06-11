@@ -137,7 +137,6 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal}) => {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/register-student`, studentInformation);
             if(res.data.isSuccess){
                handleAccountInformation(res.data.account);
-            //    closeStudentModal();
                reFetchStudent();
                
             }

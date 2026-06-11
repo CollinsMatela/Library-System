@@ -17,9 +17,16 @@ const Change_Password_Page = () => {
     const [isNewPassword, setIsNewPassword] = useState(false);
     const [isConfirmPassword, setIsConfirmPassword] = useState(false);
 
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{12,}$/;
+
     const handleConfirmation = () => {
           if(newPassword === ""){setIsNewPassword(true); setIsPasswordError(true); return}
-          if(newPassword.length < 12){setIsNewPassword(true); setIsPasswordError(true); return}
+          if(!passwordRegex.test(newPassword)){
+            setIsNewPassword(true);
+            setIsConfirmPassword(true);
+            setIsPasswordError(true);
+            return
+          }
 
           if(confirmPassword === ""){setIsConfirmPassword(true); return}
           if(confirmPassword !== newPassword){setIsConfirmPassword(true); return}
@@ -67,7 +74,7 @@ const Change_Password_Page = () => {
             <h1 className="text-sm text-gray-800 font-semibold mb-2">Name: </h1>
             <input type="password" 
                    placeholder="Enter new password"
-                   className={`${isNewPassword ? "bg-red-200" : null} w-full bg-gray-200 h-12 rounded-md outline-none px-4 mb-4`}
+                   className={`${isNewPassword ? "border-red-500" : "border-gray-300"} w-full bg-white border h-12 rounded-md outline-none px-4 mb-4`}
                    value={newPassword}
                    onChange={(e) => {setNewPassword(e.target.value)
                                      if(newPassword){setIsNewPassword(false)}
@@ -75,22 +82,29 @@ const Change_Password_Page = () => {
             />
             <input type="password" 
                    placeholder="Enter confirm password"
-                   className={`${isConfirmPassword ? "bg-red-200" : null} w-full bg-gray-200 h-12 rounded-md outline-none px-4 mb-4`}
+                   className={`${isConfirmPassword ? "border-red-500" : "border-gray-300"} w-full bg-white border h-12 rounded-md outline-none px-4 mb-4`}
                    value={confirmPassword}
                    onChange={(e) => {setConfirmPassword(e.target.value)
                                      if(confirmPassword){setIsConfirmPassword(false)}
                    }}
             />
             {/* Error Message Container */}
-            <div className={`${isPasswordError ? "" : "hidden"} bg-gray-200 w-full p-2 rounded-xl space-y-2 mb-4`}>
-                <p className="text-sm text-gray-800 font-semibold">❗ Password Requirements</p>
-                <ul className="text-xs text-gray-800 list-disc pl-5">
-                <li>Minimum of 12 characters (modern security standard)</li>
-                <li>All types of characters are allowed (e.g. a–z, 0–9 or @#*...)</li>
-                <li>Passwords must match</li>
+            <div className={`${isPasswordError ? "" : "hidden"} bg-gray-200 w-full p-3 rounded-xl space-y-2 mb-4`}>
+                <p className="text-sm text-gray-800 font-semibold">
+                    ❗ Password Requirements
+                </p>
+
+                <ul className="text-xs text-gray-700 list-disc pl-5 space-y-1">
+                    <li>Minimum of 12 characters</li>
+                    <li>At least one uppercase letter (A–Z)</li>
+                    <li>At least one lowercase letter (a–z)</li>
+                    <li>At least one number (0–9)</li>
+                    <li>At least one special character (@#$%!&*)</li>
+                    <li>Password and confirm password must match</li>
                 </ul>
             </div>
-            <button className="bg-blue-600 text-white font-semibold h-12 w-full rounded-md cursor-pointer hover:bg-blue-700" onClick={handleConfirmation}>Save</button>
+
+            <button className="bg-black text-white font-semibold h-12 w-full rounded-md cursor-pointer hover:-translate-y-1" onClick={handleConfirmation}>Save</button>
         </div>
              
        </section>

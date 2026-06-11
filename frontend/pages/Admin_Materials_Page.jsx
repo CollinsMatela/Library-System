@@ -57,7 +57,7 @@ const Admin_Materials_Page = () => {
                           
                             <input type="search" 
                             
-                                   placeholder="Search by name, grade, or branch" 
+                                   placeholder="Search by title..." 
                                    className="bg-white border-1 border-gray-300 h-10 w-80 rounded-xl px-4 outline-none"
                                    value={search}
                                    onChange={(e) => setSearch(e.target.value)}
@@ -84,8 +84,8 @@ const Admin_Materials_Page = () => {
                               <h1 className="text-gray-800 font-bold text-lg">{story?.title}</h1>
                               <h1 className="text-gray-500 font-bold text-sm">{story?.author}</h1>
                               <div className="flex gap-2">
-                                <h1 className="bg-pink-200 px-2 text-pink-500 font-semibold rounded-lg">{story?.genre}</h1>
-                                <h1 className="bg-pink-200 px-2 text-pink-500 font-semibold rounded-lg">{story?.gradeCategory}</h1>
+                                <h1 className="bg-gray-200 px-2 text-gray-500 font-semibold rounded-lg">{story?.genre}</h1>
+                                <h1 className="bg-gray-200 px-2 text-gray-500 font-semibold rounded-lg">{story?.gradeCategory}</h1>
                               </div>
                           </div>
                       </div>

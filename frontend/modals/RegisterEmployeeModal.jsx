@@ -126,7 +126,6 @@ const RegisterEmployeeModal = ({reFetch, onClose}) => {
                     }
                     const res = await axios.post(`${import.meta.env.VITE_API_URL}/register-employee`, employeeInformation)
                     if(res.data.isSuccess){
-                        alert(res.data.message);
                         handleAccountConfirmation(res.data.account);
                         reFetch();
                        

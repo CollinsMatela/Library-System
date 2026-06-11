@@ -1,9 +1,13 @@
 import {useEffect, useState } from "react";
 import axios from "axios";
 import Confirmation_Popup from "../popup/Confirmation_Popup"
+import Account_Popup from "../popup/Account_Conformation"
 
-const RegisterStudentModal = ({ reFetchStudent, closeStudentModal, openAccountConfirmation}) => {
+const RegisterStudentModal = ({ reFetchStudent, closeStudentModal}) => {
     const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+    const [showAccountPopup, setShowAccountPopup] = useState(false);
+
+    const [newStudent, setNewStudent] = useState(null);
 
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
@@ -104,6 +108,11 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal, openAccountCo
           setShowConfirmationPopup(true);
     }
 
+    const handleAccountInformation = (newAccountDetails) => {
+          setNewStudent(newAccountDetails);
+          setShowAccountPopup(true);
+    }
+
     const handleStudentRegistration = async () => {
 
         const studentInformation = {
@@ -127,10 +136,10 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal, openAccountCo
         try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/register-student`, studentInformation);
             if(res.data.isSuccess){
-               alert(res.data.message);
-               closeStudentModal();
+               handleAccountInformation(res.data.account);
+            //    closeStudentModal();
                reFetchStudent();
-               openAccountConfirmation(res.data.account);
+               
             }
             
         } catch (error) {
@@ -142,11 +151,12 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal, openAccountCo
     return(
     <>
         {showConfirmationPopup && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={handleStudentRegistration} onCancel={() => {setShowConfirmationPopup(false); setErrorMessage("");}} />)}
+        {showAccountPopup && (<Account_Popup newAccountDetails={newStudent} closeAccountConfirmation={() => {setShowAccountPopup(false); closeStudentModal()}}/>)}
         <section className="fixed z-50 inset-0 justify-center items-center flex bg-black/50">
                
                <div className="relative bg-white w-[1200px] rounded-xl justify-start items-start flex flex-col p-4 gap-4">
                     <div className="w-full border-b-1 border-gray-100 justify-center items-center flex pb-4">
-                        <h1 className="text-md font-bold text-gray-500">Register Student Account</h1>
+                        <h1 className="text-md font-bold text-gray-500" onClick={() => setShowAccountPopup(true)}>Register Student Account</h1>
                     </div>
                     <div className="w-full justify-start items-start flex gap-4">
                         <div className="w-full justify-center items-start flex flex-col gap-2">

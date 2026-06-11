@@ -12,7 +12,6 @@ const Lib_Quiz = () => {
     const [selectedStory, setSelectedStory] = useState(null);
     const [currentNumber, setCurrentNumber] = useState(0);
     const [score, setScore] = useState(0);
-    const [exp, setExp] = useState(0);
     const [showResult, setShowResult] = useState(false);
 
     const [selectedChoice, setSelectedChoice] = useState(null);
@@ -75,7 +74,7 @@ const Lib_Quiz = () => {
     return (
         <section className="bg-black min-h-screen w-full justify-center flex flex-col items-center">
 
-            {showResult && <QuizResultModal score={score} exp={exp} />}
+            {showResult && <QuizResultModal score={score} />}
 
             {/* HEADER */}
             <div className="w-5xl flex justify-center items-center">
@@ -142,7 +141,6 @@ const Lib_Quiz = () => {
 
                                         if (correct) {
                                             setScore((prev) => prev + 1);
-                                            setExp((prev) => prev + 100);
                                         }
 
                                         setTimeout(() => {

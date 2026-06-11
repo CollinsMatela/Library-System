@@ -30,9 +30,9 @@ const Profile_Page = () => {
     const totalTakenQuiz = quizResult.filter(quiz => quiz.userId === user.id).length || 0;
     const totalScore = quizResult.filter(quiz => quiz.userId === user.id).reduce((sum, quiz) => sum + quiz.score, 0) || 0;
     const totalQuestion = quizResult.filter(quiz => quiz.userId === user.id).reduce((sum, quiz) => sum + quiz.totalQuestions, 0) || 0;
-    const totalScorePercentage = (totalScore / totalQuestion) * 100 || 0;
-    const totalMissedPercentage = quizResult.filter(quiz => quiz.userId === user.id && quiz.score < 3).length / totalTakenQuiz * 100 || 0;
-    const totalAverageScore = totalScore / totalTakenQuiz || 0;
+    const totalScorePercentage = ((totalScore / totalQuestion) * 100).toFixed(2) || 0;
+    const totalMissedPercentage = (quizResult.filter(quiz => quiz.userId === user.id && quiz.score < 3).length / totalTakenQuiz * 100).toFixed(2) || 0;
+    const totalAverageScore = (totalScore / totalTakenQuiz).toFixed(2) || 0;
     const totalPassedQuizzes = quizResult.filter(quiz => quiz.userId === user.id && quiz.score >= 3).length || 0;
     const totalFailedQuizzes = quizResult.filter(quiz => quiz.userId === user.id && quiz.score < 3).length || 0;
 

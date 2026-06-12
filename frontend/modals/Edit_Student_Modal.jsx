@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
+import Confirmation_Popup from "../popup/Confirmation_Popup"
 
 const Edit_Student_Modal = ({selectedStudent, triggerRefreshStudentTable, closeEditStudentModal}) => {
+
+        const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
         const [lastname, setLastname] = useState(selectedStudent.lastname)
         const [firstname, setFirstname] = useState(selectedStudent.firstname)
@@ -55,6 +58,10 @@ const Edit_Student_Modal = ({selectedStudent, triggerRefreshStudentTable, closeE
             parentLastname, parentFirstname, parentMiddlename, parentEmail, parentContact, parentRelationship, 
             gradeLevel, branch])
 
+        const handleConfirmation = () => {
+              setShowConfirmationPopup(true);
+        }
+
         const updateStudentAccount = async () => {
             const updatedStudentDetails = {
                 lastname: lastname,
@@ -75,15 +82,17 @@ const Edit_Student_Modal = ({selectedStudent, triggerRefreshStudentTable, closeE
             }
 
               try {
-                const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-student-account/${selectedStudent.student.id}`, updatedStudentDetails);
+                const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-student-account/${selectedStudent.id}`, updatedStudentDetails);
                 console.log(res.data.message);
-                triggerRefreshStudentTable();
+                
                 closeEditStudentModal();
               } catch (error) {
                 console.log(error);
               }
         }
     return(
+        <>
+        {showConfirmationPopup && (<Confirmation_Popup onConfirm={updateStudentAccount} onCancel={() => {setShowConfirmationPopup(false); closeEditStudentModal()}}/>)}
         <section className="fixed z-50 inset-0 justify-center items-center flex">
            <div className="fixed inset-0 bg-black/80" onClick={closeEditStudentModal}></div>
 
@@ -227,11 +236,12 @@ const Edit_Student_Modal = ({selectedStudent, triggerRefreshStudentTable, closeE
                </div>
                
                 <div className="w-full justify-end items-center flex gap-2">
-                        <button className="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 cursor-pointer font-bold text-sm" onClick={updateStudentAccount}>Edit Student</button>
+                        <button className="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 cursor-pointer font-bold text-sm" onClick={handleConfirmation}>Edit Student</button>
                 </div>
 
             </div>
         </section>
+        </>
     )
 }
 export default Edit_Student_Modal;

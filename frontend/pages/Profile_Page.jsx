@@ -128,7 +128,7 @@ const Profile_Page = () => {
         
     }
 
-    const library_progress = (totalStoryTaken / stories.length) * 100;
+    const library_progress = ((totalStoryTaken / stories.length) * 100).toFixed(2);
 
     return(
         <section className="bg-black/80 min-h-screen w-full justify-start items-start flex flex-col p-4">

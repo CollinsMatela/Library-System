@@ -72,7 +72,7 @@ const Admin_Student_Page = () => {
     return(
         <>
         {showConfirmationPopup && (<Confirmation_Popup onConfirm={() => deleteStudent(selectedStudent?.id)} onCancel={() => setShowConfirmationPopup(false)} />)}
-        {showEditModal && (<Edit_Student_Modal selectedStudent={selectedStudent} closeEditStudentModal={() => setShowEditModal(false)} onRefresh={fetchStudents}/>)}
+        {showEditModal && (<Edit_Student_Modal selectedStudent={selectedStudent} reFetch={fetchStudents()} closeEditStudentModal={() => setShowEditModal(false)} onRefresh={fetchStudents}/>)}
         {showViewStudent && (<View_Student_Modal student={selectedStudent} onClose={() => setShowViewStudent(false)}/>)}
         {showStudentRegistration && (<RegisterStudentModal closeStudentModal={() => setShowStudentRegistration(false)} reFetchStudent={fetchStudents} />)}
        <section className="min-h-screen w-full bg-white pl-80 py-10 space-y-10">

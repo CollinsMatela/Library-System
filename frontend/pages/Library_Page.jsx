@@ -85,7 +85,7 @@ const Library_Page = () => {
                 <div className="max-5xl w-full justify-center items-start flex gap-2 mt-20">
                 <div className="w-full max-w-5xl flex flex-col justify-center items-start mb-10">
                     <h1 className="text-2xl text-gray-800 font-bold text-center">
-                        Welcome back, {" "}
+                        Are you ready? {" "}
                         <span className="text-pink-500 underline">{user?.firstname || "Dev"}!</span>
                     </h1>
                     <h1 className="text-6xl text-gray-800 font-bold text-center">What story will you explore today?</h1>

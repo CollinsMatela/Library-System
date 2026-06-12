@@ -296,7 +296,7 @@ const Admin_Upload_Page = () => {
 
                             {/* Image */}
                             <div className={`relative w-full h-52 bg-gray-200 rounded-xl overflow-hidden`} onClick={() => {setFile(null); setPreview(null)}}>
-                                <div className={`${preview ? null : "hidden"} absolute inset-0 bg-black/30 hover:bg-red-500/10 cursor-pointer justify-start items-end flex p-2`}>
+                                <div className={`${preview ? null : "hidden"} absolute inset-0 bg-black/30 hover:bg-red-500/50 cursor-pointer justify-start items-end flex p-2`}>
                                 <h1 className={`text-xs font-bold text-white`}>Click to remove the image</h1>
                                 </div>
                                 {preview && (
@@ -324,11 +324,11 @@ const Admin_Upload_Page = () => {
                                 {/* Tags */}
                                 <div className="flex flex-wrap gap-2 mt-2">
                                 
-                                <span className="px-3 py-1 text-sm bg-black/30 text-black rounded-full">
+                                <span className="px-3 py-1 text-sm bg-gray-100 text-gray-500 rounded-full">
                                     {genre || "—"}
                                 </span>
 
-                                <span className="px-3 py-1 text-sm bg-black/30 text-black rounded-full">
+                                <span className="px-3 py-1 text-sm bg-gray-100 text-gray-500 rounded-full">
                                     {gradeCategory || "—"}
                                 </span>
 

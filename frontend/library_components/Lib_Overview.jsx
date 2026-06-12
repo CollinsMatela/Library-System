@@ -16,6 +16,7 @@ const Lib_Overview = ({newStories, stories, handleViewStory}) => {
     useEffect(() => {
      fetchAllMarkedStories();
      fetchQuizResults();
+     
     },[])
 
     const fetchAllMarkedStories = async () => {

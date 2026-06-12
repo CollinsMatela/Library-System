@@ -6,9 +6,11 @@ import useAuthStore from "../store/useAuthStore";
 
 const Lib_Quiz = () => {
     const { id } = useParams();
-    // get user
+
+    // USER
     const user = useAuthStore((state) => state.user);
 
+    // STATES
     const [selectedStory, setSelectedStory] = useState(null);
     const [currentNumber, setCurrentNumber] = useState(0);
     const [score, setScore] = useState(0);
@@ -16,12 +18,16 @@ const Lib_Quiz = () => {
 
     const [selectedChoice, setSelectedChoice] = useState(null);
     const [isCorrect, setIsCorrect] = useState(null);
-    const [wrongAnswers, setWrongAnswers] = useState([]);
 
+    // STORE ALL ANSWERS
+    const [answers, setAnswers] = useState([]);
+
+    // DATA
     const questions = selectedStory?.questionnaire;
     const currentQuestion = questions?.[currentNumber];
     const isQuizActive = questions && currentNumber < questions.length;
 
+    // FETCH STORY
     useEffect(() => {
         fetchStories();
     }, [id]);
@@ -31,49 +37,59 @@ const Lib_Quiz = () => {
             const res = await axios.get(
                 `${import.meta.env.VITE_API_URL}/get-story/${id}`
             );
+
             setSelectedStory(res.data.story);
         } catch (error) {
             console.log(error);
         }
     };
 
-    const handleNextQuestion = () => {
+    // NEXT QUESTION
+    const handleNextQuestion = (finalScore) => {
         const next = currentNumber + 1;
+
+        // RESET CHOICE UI
+        setSelectedChoice(null);
+        setIsCorrect(null);
 
         if (next >= questions.length) {
             setShowResult(true);
-            submitQuizResult();
+            submitQuizResult(finalScore);
         } else {
             setCurrentNumber(next);
         }
     };
 
-    const submitQuizResult = async () => {
-        console.log(selectedStory?.title);
-          try {
-          const result = {
-            userId: user?.id,
-            storyId: selectedStory?.id,
-            title: selectedStory?.title,
-            score: score,
-            totalQuestions: questions.length,
-            answeredQuestions: questions.map((q, i) => ({
-              questionId: q.questionId,
-              selectedChoice: selectedChoice,
-              isCorrect: isCorrect
-            })),
-          };
-          const res = await axios.post(`${import.meta.env.VITE_API_URL}/quiz-result`, result);
-          console.log("Quiz result submitted:", res.data.message);
+    // SUBMIT QUIZ RESULT
+    const submitQuizResult = async (finalScore) => {
+        try {
+            const result = {
+                userId: user?.id,
+                storyId: selectedStory?.id,
+                title: selectedStory?.title,
+                score: finalScore,
+                totalQuestions: questions.length,
+                answeredQuestions: answers,
+            };
 
-          } catch (error) {
+            console.log(result);
+
+            const res = await axios.post(
+                `${import.meta.env.VITE_API_URL}/quiz-result`,
+                result
+            );
+
+            console.log("Quiz result submitted:", res.data.message);
+
+        } catch (error) {
             console.log(error);
-          }
-    }
+        }
+    };
 
     return (
         <section className="bg-black min-h-screen w-full justify-center flex flex-col items-center">
 
+            {/* RESULT MODAL */}
             {showResult && <QuizResultModal score={score} />}
 
             {/* HEADER */}
@@ -84,19 +100,20 @@ const Lib_Quiz = () => {
                         <h1 className="text-2xl font-bold text-white">
                             Short Quiz Activity
                         </h1>
+
                         <p className="text-sm text-white">
                             Answer the questions below
                         </p>
                     </div>
 
-                   <div
-                    className={`px-4 py-2 rounded-2xl font-bold ${
-                        score >= 4
-                        ? "bg-green-600 text-white"
-                        : score >= 3
-                        ? "bg-yellow-200 text-yellow-800"
-                        : "bg-gray-100 text-gray-500"
-                    }`}
+                    <div
+                        className={`px-4 py-2 rounded-2xl font-bold ${
+                            score >= 4
+                                ? "bg-green-600 text-white"
+                                : score >= 3
+                                ? "bg-yellow-200 text-yellow-800"
+                                : "bg-gray-100 text-gray-500"
+                        }`}
                     >
                         Score Points: {score}
                     </div>
@@ -110,6 +127,7 @@ const Lib_Quiz = () => {
 
                     {/* QUESTION */}
                     <div className="w-full max-w-5xl">
+
                         <div className="bg-pink-500 rounded-3xl shadow-xl px-6 py-10 text-center">
 
                             <div className="inline-block px-4 py-2 rounded-full bg-pink-100 text-pink-500 font-bold text-sm mb-6">
@@ -121,6 +139,7 @@ const Lib_Quiz = () => {
                             </h1>
 
                         </div>
+
                     </div>
 
                     {/* ANSWERS */}
@@ -128,23 +147,45 @@ const Lib_Quiz = () => {
 
                         {currentQuestion?.choices.map((choice, index) => {
 
-                            const isWrong = wrongAnswers.includes(choice);
-
                             return (
                                 <button
                                     key={index}
                                     onClick={() => {
-                                        const correct = choice === currentQuestion.answer;
 
+                                        // CHECK IF CORRECT
+                                        const correct =
+                                            choice === currentQuestion.answer;
+
+                                        // SAVE CHOICE UI
                                         setSelectedChoice(choice);
                                         setIsCorrect(correct);
 
+                                        // COMPUTE UPDATED SCORE
+                                        const updatedScore = correct
+                                            ? score + 1
+                                            : score;
+
+                                        // UPDATE SCORE STATE
                                         if (correct) {
-                                            setScore((prev) => prev + 1);
+                                            setScore(updatedScore);
                                         }
 
+                                        // STORE ANSWER
+                                        const answerData = {
+                                            questionId:
+                                                currentQuestion.questionId,
+                                            selectedChoice: choice,
+                                            isCorrect: correct,
+                                        };
+
+                                        setAnswers((prev) => [
+                                            ...prev,
+                                            answerData,
+                                        ]);
+
+                                        // NEXT QUESTION
                                         setTimeout(() => {
-                                            handleNextQuestion();
+                                            handleNextQuestion(updatedScore);
                                         }, 400);
                                     }}
                                     className={`p-4 w-full border rounded-xl font-bold transition-all duration-300
@@ -153,8 +194,6 @@ const Lib_Quiz = () => {
                                                 ? isCorrect
                                                     ? "bg-green-100 border-green-500 text-green-600"
                                                     : "bg-red-100 border-red-500 text-red-600"
-                                                : isWrong
-                                                ? "bg-red-50 border-red-300 text-red-500 "
                                                 : "border-white text-gray-500 hover:bg-white/50 hover:text-white cursor-pointer"
                                         }
                                     `}
@@ -165,6 +204,7 @@ const Lib_Quiz = () => {
                         })}
 
                     </div>
+
                 </div>
             )}
         </section>

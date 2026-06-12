@@ -112,10 +112,14 @@ const Admin_Page = () =>{
       <div className="grid grid-cols-1 h-full w-1/2">
         <div className="bg-white p-6 ">
           <h1 className="text-lg font-bold text-gray-500 border-b border-gray-300 pb-4 mb-4">Recent Students</h1>
-          {studentList.slice(0, 3).map((student) => (
+          {studentList.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3).map((student) => (
              <div key={student.id} className="bg-white h-20 w-full border border-gray-300 rounded-xl p-4 mb-2">
               <div className="flex gap-2">
-                  <img src="" alt="" className="bg-gray-300 h-12 w-12 rounded-full"/>
+                  {student.avatar ? 
+                  <img src={student.avatar} className="bg-gray-100 h-12 w-12 rounded-full" />
+                  :
+                  <div className="bg-pink-500 h-12 w-12 rounded-full text-white font-bold justify-center items-center flex">{student.firstname.charAt(0).toUpperCase()}</div>
+                  }
                   <div>
                     <h1 className="text-gray-500 font-bold">{student.role} {student.firstname} {student.lastname}</h1>
                     <h1 className="text-sm text-gray-500 font-semibold">{student.gradeLevel}</h1>
@@ -128,10 +132,14 @@ const Admin_Page = () =>{
 
       <div className="bg-white p-6">
           <h1 className="text-lg font-bold text-gray-500 border-b border-gray-300 pb-4 mb-4">Recent Employee</h1>
-          {employeeList.slice(0, 3).map((employee) => (
+          {employeeList.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3).map((employee) => (
              <div key={employee.id} className="bg-white h-20 w-full border border-gray-300 rounded-xl p-4 mb-2">
               <div className="flex gap-2">
-                  <img src="" alt="" className="bg-gray-300 h-12 w-12 rounded-full"/>
+                  {employee.avatar ? 
+                  <img src={employee.avatar} className="bg-gray-100 h-12 w-12 rounded-full" />
+                  :
+                  <div className="bg-pink-500 h-12 w-12 rounded-full text-white font-bold justify-center items-center flex">{employee.firstname.charAt(0).toUpperCase()}</div>
+                  }
                   <div>
                     <h1 className="text-gray-500 font-bold">{employee.role} {employee.firstname} {employee.lastname}</h1>
                     <h1 className="text-sm text-gray-500 font-semibold">{employee.gradeLevel}</h1>
@@ -145,7 +153,7 @@ const Admin_Page = () =>{
 
       <div className="bg-white h-full w-1/2 p-6">
           <h1 className="text-lg font-bold text-gray-500 border-b border-gray-300 pb-4 mb-4">Newest Uploaded Story</h1>
-          {storiesList.slice(0, 3).map((story) => (
+          {storiesList.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3).map((story) => (
             <div
               key={story.id}
               className="relative w-full h-40 rounded-xl overflow-hidden border border-gray-200 group mb-1"

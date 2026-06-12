@@ -31,7 +31,9 @@ const Profile_Page = () => {
     const totalScore = quizResult.filter(quiz => quiz.userId === user.id).reduce((sum, quiz) => sum + quiz.score, 0) || 0;
     const totalQuestion = quizResult.filter(quiz => quiz.userId === user.id).reduce((sum, quiz) => sum + quiz.totalQuestions, 0) || 0;
     const totalScorePercentage = ((totalScore / totalQuestion) * 100).toFixed(2) || 0;
-    const totalMissedPercentage = (quizResult.filter(quiz => quiz.userId === user.id && quiz.score < 3).length / totalTakenQuiz * 100).toFixed(2) || 0;
+
+    const totalWrong = totalQuestion - totalScore;
+    const totalMissedPercentage = ((totalWrong / totalQuestion * 100)).toFixed(2) || 0;
     const totalAverageScore = (totalScore / totalTakenQuiz).toFixed(2) || 0;
     const totalPassedQuizzes = quizResult.filter(quiz => quiz.userId === user.id && quiz.score >= 3).length || 0;
     const totalFailedQuizzes = quizResult.filter(quiz => quiz.userId === user.id && quiz.score < 3).length || 0;
@@ -185,8 +187,8 @@ const Profile_Page = () => {
                             <div className="h-100 w-full grid grid-cols-4 justify-between items-center gap-4">
                                 <Analytics_Card title={"Completed Stories"} value={`${totalStoryTaken} / ${stories.length}`} subTitle={"Stories completed"}/>
                                 <Analytics_Card title={"Total Taken Quiz"} value={`${totalTakenQuiz} / ${stories.length}`} subTitle={"Quizzes taken"}/>
-                                <Analytics_Card title={"Total Score %"} value={`${totalScorePercentage}%`} subTitle={"Overall performance"}/>
                                 <Analytics_Card title={"Average Quiz Score"} value={`${totalAverageScore}`} subTitle={"Average score"}/>
+                                <Analytics_Card title={"Total Score %"} value={`${totalScorePercentage}%`} subTitle={"Overall performance"}/>
                                 <Analytics_Card title={"Total Missed %"} value={`${totalMissedPercentage}%`} subTitle={"% of missed questions"}/>
                                 <Analytics_Card title={"Passed Quizzes"} value={`${totalPassedQuizzes}`} subTitle={"No. of quizzes passed"}/>
                                 <Analytics_Card title={"Failed Quizzes"} value={`${totalFailedQuizzes}`} subTitle={"No. of quizzes failed"}/>

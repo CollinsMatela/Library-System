@@ -1,4 +1,4 @@
-import Stories_Model from "../models/Stories_Model.js";
+import Books_Model from "../models/Books_Model.js";
 
 const Fetch_One_Story_Controller = async (req, res) => {
       const {id} = req.params;
@@ -7,7 +7,7 @@ const Fetch_One_Story_Controller = async (req, res) => {
         if(!id){
             return res.status(400).json({message: "The story ID is null"});
         }
-        const story = await Stories_Model.findOne({id: id});
+        const story = await Books_Model.findOne({id: id});
         if (!story) {
             return res.status(404).json({ message: "Story not found" });
         }

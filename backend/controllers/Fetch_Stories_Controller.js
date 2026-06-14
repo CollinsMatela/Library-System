@@ -1,9 +1,9 @@
-import StoriesModel from '../models/Stories_Model.js'
+import Books_Model from '../models/Books_Model.js'
 
 const Fetch_Stories_Controller = async (req, res) => {
 
     try {
-        const stories = await StoriesModel.find();
+        const stories = await Books_Model.find();
         res.status(201).json({message: "Successfully fetched stories", isSucess: true, stories: stories})
     } catch (error) {
         console.log(error)

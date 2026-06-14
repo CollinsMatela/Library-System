@@ -1,96 +1,87 @@
- import Stories_Model from "../models/Stories_Model.js";
+ import Books_Model from "../models/Books_Model.js";
 import cloudinary from "../config/cloudinary.js";
 import { nanoid } from "nanoid";
 import { createRequire } from "module";
+import { randomUUID } from "crypto";
 import fs from "fs";
 
-const require = createRequire(import.meta.url);
-const pdf = require("pdf-parse");
 
 const Upload_Manually_Controller = async (req, res) => {
+  const {title, author, description, genre, type, language, publication, gradeCategory, pages}= req.body
+
   try {
-    const { title, author, description, genre, gradeCategory } = req.body;
-    console.log("-------FILES:", req.files);
 
-    const isTitle = await Stories_Model.findOne({title: title});
+    const parsedPages = JSON.parse(pages);
 
-    if(isTitle){
-      return res.status(409).json({message: "The story title is already existing"});
-    }
-    
-    // IMAGE
-    const imageFile = req.files?.image?.[0];
+    const coverFile = req.files.cover?.[0];
+    const pageFiles = req.files.pageImages || [];
 
-    if (!imageFile) {
-      return res.status(400).json({ message: "Image required" });
-    }
+    let coverImage = "";
 
-    const uploadedImage = await cloudinary.uploader.upload(
-      `data:${imageFile.mimetype};base64,${imageFile.buffer.toString("base64")}`
-    );
+    if (coverFile) {
+      const coverUpload = await cloudinary.uploader.upload(
+        coverFile.path,
+        {
+          folder: "books/covers"
+        }
+      );
 
-    const imageUrl = uploadedImage.secure_url;
+      coverImage = coverUpload.secure_url;
 
-
-    // PDF
-    const pdfFile = req.files?.pdfFile?.[0];
-
-    if (!pdfFile) {
-      return res.status(400).json({ message: "PDF required" });
+      fs.unlinkSync(coverFile.path);
     }
 
-    // SAFE BUFFER HANDLING (IMPORTANT)
-    const pdfBuffer = pdfFile.buffer
-      ? pdfFile.buffer
-      : fs.readFileSync(pdfFile.path);
+    const uploadedPageImages = [];
 
-    const pdfData = await pdf(pdfBuffer);
-    const extractedFullStory = pdfData.text;
+    for (const file of pageFiles) {
 
-    // =========================
-    // QUESTIONNAIRE
-    // =========================
-    let questionnaire = [];
+      const result = await cloudinary.uploader.upload(
+        file.path,
+        {
+          folder: "books/pages"
+        }
+      );
 
-    try {
-      questionnaire = JSON.parse(req.body.questionnaire || "[]");
-    } catch {
-      questionnaire = [];
+      uploadedPageImages.push(result.secure_url);
+
+      // remove temp file
+      fs.unlinkSync(file.path);
     }
 
-    // =========================
-    // SAVE TO DB
-    // =========================
-    const story = await Stories_Model.create({
-      id: `STORY${nanoid(10)}`,
+    const updatedPages = parsedPages.map((page, index) => ({
+      pageText: page.pageText,
+      pageImage: uploadedPageImages[index] || ""
+    }));
+
+    const book = await Books_Model.create({
+      id: randomUUID(),
       title,
       author,
       description,
       genre,
+      type: type,
+      language,
+      summary: "—",
+      publication,
       gradeCategory,
-      fullStory: extractedFullStory,
-      summaryStory: "n/a",
-      image: imageUrl,
-      questionnaire: questionnaire.map((q) => ({
-        questionId: `Q${nanoid(8)}`,
-        question: q.question,
-        choices: q.choices,
-        answer: q.answer,
-      })),
+      cover: coverImage,
+      pages: updatedPages
     });
 
-    return res.status(200).json({
-      message: "Successfully added new story",
-      isSuccess: true,
-      story,
+
+    res.status(201).json({
+      success: true,
+      message: "Book uploaded successfully",
+      book
     });
 
+    
   } catch (error) {
-    console.log("UPLOAD ERROR:", error);
+    console.log(error);
 
-    return res.status(500).json({
-      message: "Internal Server Error",
-      error: error.message,
+    res.status(500).json({
+      success: false,
+      message: error.message
     });
   }
 };

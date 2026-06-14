@@ -32,7 +32,7 @@ const Admin_Upload_Page = () => {
                     <option value="story-book">Story Book</option>
                 </select>
 
-                {selectedTypeOfBooks === 'story-book' && (<UploadStoryBook/>)}
+                {selectedTypeOfBooks === 'story-book' && (<UploadStoryBook type={selectedTypeOfBooks}/>)}
             </div>
 
                

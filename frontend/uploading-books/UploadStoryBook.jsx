@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom";
+import Confirmation_Popup from "../popup/Confirmation_Popup";
 import axios from 'axios'
 
-const UploadStoryBook = () => {
+const UploadStoryBook = ({type}) => {
 
         const navigate = useNavigate();
 
@@ -57,10 +58,10 @@ const UploadStoryBook = () => {
         }, [pageImagePreview]);
 
         const handleNextPage = () =>{
-             if(pageText === '') {
-                alert('Please input book text'); 
-                return;
-            }
+            //  if(pageText === '') {
+            //     alert('Please input book text'); 
+            //     return;
+            // }
               setPageList((prev) => [ 
                 ...prev,
                  {
@@ -137,25 +138,36 @@ const UploadStoryBook = () => {
         formData.append("author", author);
         formData.append("description", description);
         formData.append("genre", genre);
+        formData.append("language", language);
+        formData.append("publication", publication);
+        formData.append("type", type);
         formData.append("gradeCategory", gradeCategory);
-        formData.append("pdfFile", pdfFile);
-        formData.append("image", file);
+        formData.append("cover", file); // book cover
+        formData.append("pages", JSON.stringify(pageList));
+        pageImage.forEach((image) => {
+              formData.append("pageImages", image);
+        })
 
         try {
             
             console.log([...formData.entries()]);
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/upload-manually`, formData);
-            if(res.data.isSuccess){
+            if(res.data.success){
                setTitle("")
                setAuthor("")
                setDescription("")
                setGenre("")
+               setLanguage("")
+               setPublication(null)
                setGradeCategory("")
 
 
                setPreview("")
                setFile(null)
-               setPdfFile(null)
+               setPageImage([])
+               setPageImagePreview([])
+               setPageText("")
+               setPageList([])
 
                 setShowConfirmation(false);
             }
@@ -167,6 +179,7 @@ const UploadStoryBook = () => {
     }
       return(
         <>
+        {showConfirmation && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={uploadStory} onCancel={() => setShowConfirmation(false)}/>)}
         <section className="min-h-screen w-full">
 
                 {/*Header*/}

@@ -1,4 +1,4 @@
-import Stories_Model from "../models/Stories_Model.js";
+import Books_Model from "../models/Books_Model.js";
 
 const Update_Question_Controller = async (req, res) => {
       const {questionId, question, choices, answer} = req.body;
@@ -18,7 +18,7 @@ const Update_Question_Controller = async (req, res) => {
       }
 
       try {
-        const updateQuestion = await Stories_Model.findOneAndUpdate(
+        const updateQuestion = await Books_Model.findOneAndUpdate(
             {id: storyId, "questionnaire.questionId": questionId},
             {$set: {
                 "questionnaire.$.question": question,

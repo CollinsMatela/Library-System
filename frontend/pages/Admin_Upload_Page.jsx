@@ -24,16 +24,7 @@ const Admin_Upload_Page = () => {
                 
             </div>
 
-            <div className="w-full">
-                <h2 className="text-lg font-bold text-gray-500 rounded-full">Select Type of Books</h2>
-                <p className="text-gray-400 text-sm">Choose Kind of Books you wanted to upload</p>
-                <select className="bg-gray-100 p-2 rounded-xl text-gray-500 mt-4" value={selectedTypeOfBooks} onChange={(e) => setSelectedTypeOfBooks(e.target.value)}>
-                    <option value="">Type of Books</option>
-                    <option value="story-book">Story Book</option>
-                </select>
-
-                {selectedTypeOfBooks === 'story-book' && (<UploadStoryBook type={selectedTypeOfBooks}/>)}
-            </div>
+            <UploadStoryBook/>
 
                
 

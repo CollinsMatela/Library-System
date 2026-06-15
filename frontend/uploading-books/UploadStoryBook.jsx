@@ -607,7 +607,7 @@ const UploadStoryBook = () => {
                             </div>
                             
                             
-                            <div className="bg-black/80 hover:bg-black/20 absolute inset-0 justify-between items-start flex flex-col p-10 rounded-xl">
+                            <div className={`${preview? "bg-black/50" : "bg-black"} absolute inset-0 justify-between items-start flex flex-col p-10 rounded-xl`}>
                                 <div className="w-full justify-between items-center flex">
                                     <span className="px-3 py-1 text-sm font-bold bg-gray-100/20 text-white rounded-full">
                                         Book Preview
@@ -680,42 +680,38 @@ const UploadStoryBook = () => {
                         <p className="text-gray-400 text-sm">Fill-up the required information in the story.</p>
                     </div>
 
-                    <div className="w-full justify-between items-center flex gap-2 mt-4">
-                         <h1 className="text-lg font-bold text-gray-500 rounded-full">Page No. {pageList.length + 1}</h1>
+                    <div className="w-full justify-end items-center flex gap-2 mt-4">
 
                          <div className="flex gap-2">
-                            <button className="bg-gray-200 text-gray-500 p-2 rounded-xl cursor-pointer hover:bg-gray-300"
-                            onClick={handleNextPage}>Save & Next Page
-                            </button>
+                            <button className={`${pageImagePreview.length > 2 ? 'hidden' : null} text-gray-500 p-2 rounded-xl cursor-pointer hover:bg-gray-100`} onClick={() => pageImageInputRef.current.click()}>
+                            Add Image
+                        </button>
+                        <input 
+                                type="file" 
+                                ref={pageImageInputRef} 
+                                className="hidden" 
+                                onChange={handlePageImagePreview} 
+                        />
+                        <button className="bg-gray-200 text-gray-500 p-2 rounded-xl cursor-pointer hover:bg-gray-300"
+                            onClick={handleNextPage}>Save & Next Page {`(${pageList.length + 1})`}
+                        </button>
                          </div>
+                         
                         
                     </div>
 
-                    <div className="w-full min-h-screen justify-between items-start flex gap-10">
+                    <div className="w-full justify-between items-start flex gap-10">
                         {/* Page Text*/}
                         <textarea 
                         name="page-text" id="page-text"
                         placeholder="Input the text of the page..."
                         value={pageText}
                         onChange={(e) => setPageText(e.target.value)}
-                        className="p-4 h-200 w-full outline-none border-1 border-gray-300 rounded-xl mt-4">
+                        className="p-4 h-100 w-full outline-none bg-gray-100 rounded-xl mt-4">
                         </textarea>
                     </div>
                     {/* Page Image Preview */}
                         <div className="w-full mt-4">
-                          <div className="w-full justify-between items-center flex mb-4">
-                            <h1 className="text-md font-bold text-gray-500 rounded-full">Select Page Image</h1>
-                            <button className={`${pageImagePreview.length > 2 ? 'hidden' : null} bg-gray-200 text-gray-500 p-2 rounded-xl cursor-pointer hover:bg-gray-300`} onClick={() => pageImageInputRef.current.click()}>
-                                Add Image
-                            </button>
-                            <input 
-                                    type="file" 
-                                    ref={pageImageInputRef} 
-                                    className="hidden" 
-                                    onChange={handlePageImagePreview} 
-                            />
-                          </div>
-                            
                         
                         {pageImagePreview.length > 0 && (
                             <div className="grid grid-cols-2 gap-4">

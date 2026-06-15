@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const BookSchema = new mongoose.Schema(
   {
-    id: { type: String, required: true },
     title: { type: String, required: true },
     author: { type: String, required: true },
     description: { type: String, required: true },
@@ -10,6 +9,8 @@ const BookSchema = new mongoose.Schema(
     gradeCategory: { type: String, required: true },
     language: {type: String, required: true},
     publication: {type: String, required: true},
+    publisher: {type: String, required: true},
+    isbn: {type: String, required: true},
     type: {type: String, required: true},
     pages: [{
              pageText: {type: String, required: true},
@@ -17,6 +18,7 @@ const BookSchema = new mongoose.Schema(
     }],
     summary: { type: String, required: true },
     cover: { type: String, required: true },
+    availability: { type: Boolean, required: true },
   },
   {
     timestamps: true

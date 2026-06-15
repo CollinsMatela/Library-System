@@ -5,7 +5,6 @@ const BookSchema = new mongoose.Schema(
     title: { type: String, required: true },
     author: { type: String, required: true },
     description: { type: String, required: true },
-    genre: { type: String, required: true },
     gradeCategory: { type: String, required: true },
     language: {type: String, required: true},
     publication: {type: String, required: true},
@@ -13,10 +12,9 @@ const BookSchema = new mongoose.Schema(
     isbn: {type: String, required: true},
     type: {type: String, required: true},
     pages: [{
-             pageText: {type: String, required: true},
-             pageImage: {type: String}
+             pageText: {type: String},
+             pageImage: [String]
     }],
-    summary: { type: String, required: true },
     cover: { type: String, required: true },
     availability: { type: Boolean, required: true },
   },

@@ -25,7 +25,7 @@ const UploadStoryBook = () => {
         const [publication, setPublication] = useState("");
         const [publisher, setPublisher] = useState("");
         const [isbn, setIsbn] = useState("");
-        const [availability, setAvailability] = useState(false);
+        const [availability, setAvailability] = useState(true);
 
         const [isTitle, setIsTitle] = useState(false);
         const [isAuthor, setIsAuthor] = useState(false);
@@ -40,15 +40,13 @@ const UploadStoryBook = () => {
         const [genre, setGenre] = useState("");
         const [isGenre, setIsGenre] = useState(false);
 
-        const [ageReccomendation, setAgeReccomendation] = useState("");
-        const [isAgeReccomendation, isSetAgeReccomendation] = useState(false);
 
         // Educational Book States
         const [subject, setSubject] = useState("");
         const [isSubject, setIsSubject] = useState(false);
 
         const [educationalEdition, setEducationalEdition] = useState("");
-        const [isEducationalEdition, setIsEducationalEdition] = useState("");
+        const [isEducationalEdition, setIsEducationalEdition] = useState(false);
 
         // Reference Book States
         const [referenceType, setReferenceType] = useState("");
@@ -60,8 +58,8 @@ const UploadStoryBook = () => {
         const [referenceEdition, setReferenceEdition] = useState("");
         const [isReferenceEdition, setIsReferenceEdition] = useState(false);
 
-        const [volume, setVolume] = useState("");
-        const [isVolume, setIsVolume] = useState(false);
+        const [referenceVolume, setReferenceVolume] = useState("");
+        const [isReferenceVolume, setIsReferenceVolume] = useState(false);
         
         // Childrens Book States
         const [readingLevel, setReadingLevel] = useState("");
@@ -85,6 +83,68 @@ const UploadStoryBook = () => {
         const [pageImage, setPageImage] = useState([]);
         const [pageImagePreview, setPageImagePreview] = useState([]);
 
+        const resetForm = () => {
+        setErrorMessage("");
+        setShowConfirmation(false);
+
+        setSelectedTypeOfBooks("");
+
+        setTitle("");
+        setAuthor("");
+        setDescription("");
+        setGradeCategory("");
+        setLanguage("");
+        setPublication("");
+        setPublisher("");
+        setIsbn("");
+        setAvailability(true);
+
+        setGenre("");
+        setSubject("");
+        setEducationalEdition("");
+
+        setReferenceType("");
+        setSubjectArea("");
+        setReferenceEdition("");
+        setReferenceVolume("");
+
+        setReadingLevel("");
+        setIllustrator("");
+        setMoralTheme("");
+        setStoryType("");
+
+        setFile(null);
+        setPreview(null);
+
+        setPageList([]);
+        setPageText("");
+        setPageImage([]);
+        setPageImagePreview([]);
+
+        setIsTitle(false);
+        setIsAuthor(false);
+        setIsDescription(false);
+        setIsGradeCategory(false);
+        setIsLanguage(false);
+        setIsPublication(false);
+        setIsIsbn(false);
+        setIsPublisher(false);
+
+        setIsGenre(false);
+        setIsSubject(false);
+        setIsEducationalEdition(false);
+
+        setIsReferenceType(false);
+        setIsSubjectArea(false);
+        setIsReferenceEdition(false);
+        setIsReferenceVolume(false);
+
+        setIsReadingLevel(false);
+        setIsIllustrator(false);
+        setIsMoralTheme(false);
+        setIsStoryType(false);
+        };
+
         useEffect(() => {
         return () => {
             if (preview) {
@@ -102,21 +162,21 @@ const UploadStoryBook = () => {
         }, [pageImagePreview]);
 
         const handleNextPage = () =>{
-            //  if(pageText === '') {
-            //     alert('Please input book text'); 
-            //     return;
-            // }
+           if (!pageText && pageImage.length === 0) {
+            alert("Please enter text or upload at least one image.");
+            return;
+            }
               setPageList((prev) => [ 
                 ...prev,
                  {
-                    pageText: pageText,
-                    pageImage: pageImage, 
+                    pageText,
+                    pageImage: [...pageImage], 
                  }
               ])
 
-              setPageText('')
-              setPageImage([]);
-              setPageImagePreview([]);
+                setPageText("");
+                setPageImage([]);
+                setPageImagePreview([]);
         }
 
         const handlePageImagePreview = async (e) =>{
@@ -140,23 +200,55 @@ const UploadStoryBook = () => {
     }
 
     const handleConfirmation = () => {
+        // Basic Information
         if (title === "") { setIsTitle(true); alert('Please fill the all fields'); return;}
         if (author === "") { setIsAuthor(true); alert('Please fill the all fields'); return;}
         if (description === "") { setIsDescription(true); alert('Please fill the all fields'); return;}
-        if (genre === "") { setIsGenre(true); alert('Please fill the all fields'); return;}
-        if (gradeCategory === "") { setIsGradeCategory(true); alert('Please fill the all fields'); return;}
         if (language === "") { setIsLanguage(true); alert('Please fill the all fields'); return;}
+        if (publisher === "") { setIsPublisher(true); alert('Please fill the all fields'); return;}
         if (publication === "") { setIsPublication(true); alert('Please fill the all fields'); return;}
+        if (isbn === "") { setIsIsbn(true); alert('Please fill the all fields'); return;}
+
+        // Type of Books
+        if(selectedTypeOfBooks === ""){alert('Please Select type of book'); return;}
+
+        // Per Category
+        if(selectedTypeOfBooks === "storybook"){
+            if (genre === "") { setIsGenre(true); alert('Please enter genre.'); return;}
+        }
+
+        if(selectedTypeOfBooks === "childrensbook"){
+            if (readingLevel === "") { setIsReadingLevel(true); alert('Please enter reading level.'); return;}
+            if (illustrator === "") {setIsIllustrator(true); alert('Please enter illusatrator.'); return;}
+            if (moralTheme === "") { setIsMoralTheme(true); alert('Please enter moral/theme.'); return;}
+            if (storyType === "") {setIsStoryType(true); alert('Please enter story type.'); return;}
+        }
+
+        if(selectedTypeOfBooks === "referencebook"){
+            if (referenceType === "") { setIsReferenceType(true); alert('Please enter reference type.'); return;}
+            if (subjectArea === "") {setIsSubjectArea(true); alert('Please enter subject are.'); return;}
+            if (referenceEdition === "") { setIsReferenceEdition(true); alert('Please enter reference edition.'); return;}
+            if (referenceVolume === "") {setIsReferenceVolume(true); alert('Please enter reference volume.'); return;}
+        }
+
+        if(selectedTypeOfBooks === "educationalbook"){
+            if (subject === "") { setIsSubject(true); alert('Please enter reference type.'); return;}
+            if (educationalEdition === "") {setIsEducationalEdition(true); alert('Please enter subject are.'); return;}
+        }
+        
+        if (gradeCategory === "") { setIsGradeCategory(true); alert('Please fill the all fields'); return;}
+
+
+        
         if(!file){
             alert("Insert image of the story")
             return;
         }
+        
         if(pageList.length === 0){
             alert("Book pages are required")
             return;
         }
-
-        console.log(pageList);
 
         setShowConfirmation(true);
     }
@@ -167,39 +259,50 @@ const UploadStoryBook = () => {
         formData.append("title", title);
         formData.append("author", author);
         formData.append("description", description);
-        formData.append("genre", genre);
+        formData.append("gradeCategory", gradeCategory);
         formData.append("language", language);
         formData.append("publication", publication);
+        formData.append("publisher", publisher);
+        formData.append("isbn", isbn);
+
         formData.append("type", selectedTypeOfBooks);
-        formData.append("gradeCategory", gradeCategory);
+
+        formData.append("genre", genre);
+
+        formData.append("subject", subject);
+        formData.append("educationalEdition", educationalEdition);
+
+        formData.append("referenceType", referenceType);
+        formData.append("subjectArea", subjectArea);
+        formData.append("referenceEdition", referenceEdition);
+        formData.append("referenceVolume", referenceVolume);
+
+        formData.append("readingLevel", readingLevel);
+        formData.append("illustrator", illustrator);
+        formData.append("moralTheme", moralTheme);
+        formData.append("storyType", storyType);
+
+        formData.append("availability", availability);
+
         formData.append("cover", file); // book cover
-        formData.append("pages", JSON.stringify(pageList));
-        pageImage.forEach((image) => {
-              formData.append("pageImages", image);
-        })
+        formData.append("pages", JSON.stringify(
+        pageList.map(p => ({
+            pageText: p.pageText
+        }))
+        ));
+
+        pageList.forEach((page, pageIndex) => {
+        page.pageImage.forEach((image) => {
+            formData.append(`pageImages_${pageIndex}`, image);
+        });
+        });
 
         try {
             
             console.log([...formData.entries()]);
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/upload-manually`, formData);
             if(res.data.success){
-               setTitle("")
-               setAuthor("")
-               setDescription("")
-               setGenre("")
-               setLanguage("")
-               setPublication(null)
-               setGradeCategory("")
-
-
-               setPreview("")
-               setFile(null)
-               setPageImage([])
-               setPageImagePreview([])
-               setPageText("")
-               setPageList([])
-
-                setShowConfirmation(false);
+               resetForm()
             }
         } catch (error) {
             console.log(error)
@@ -209,7 +312,7 @@ const UploadStoryBook = () => {
     }
       return(
         <>
-        {showConfirmation && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={uploadStory} onCancel={() => setShowConfirmation(false)}/>)}
+        {showConfirmation && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={uploadStory} onCancel={() => {setShowConfirmation(false); setErrorMessage("")}}/>)}
         <section className="min-h-screen w-full">
 
                 {/* MANUALLY UPLOAD STORY CONTAINER */}
@@ -258,7 +361,7 @@ const UploadStoryBook = () => {
 
                         <input type="text" placeholder="publisher" className={`${isPublisher ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
                         placeholder={"Publisher"}
-                        value={author} 
+                        value={publisher} 
                         onChange={(e) => {setPublisher(e.target.value);
                                           setIsPublisher(e.target.value === "");
                         }}/>
@@ -298,9 +401,7 @@ const UploadStoryBook = () => {
 
                         <select
                             value={genre}
-                            onChange={(e) => {setGenre(e.target.value)
-                                              setIsGenre(e.target.value === "")
-                            }}
+                            onChange={(e) => {setGenre(e.target.value)}}
                             className={`${isGenre ? "border-red-500" : "border-gray-300"} h-12 border outline-none text-gray-500 p-2 rounded-lg`}
                         >
                             <option value="">Select Genre</option>
@@ -329,17 +430,13 @@ const UploadStoryBook = () => {
 
                         <input type="text" placeholder="isbn" className={`${isSubject ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
                          placeholder={"Subject"}
-                        value={isbn} 
-                        onChange={(e) => {setSubject(e.target.value);
-                                          setIsSubject(e.target.value === "");
-                        }}/>
+                        value={subject} 
+                        onChange={(e) => {setSubject(e.target.value)}}/>
 
                         <input type="text" placeholder="isbn" className={`${isEducationalEdition ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
                          placeholder={"Book Edition"}
-                        value={isbn} 
-                        onChange={(e) => {setEducationalEdition(e.target.value);
-                                          setIsEducationalEdition(e.target.value === "");
-                        }}/>
+                        value={educationalEdition} 
+                        onChange={(e) => {setEducationalEdition(e.target.value)}}/>
 
                         
 
@@ -366,9 +463,7 @@ const UploadStoryBook = () => {
                         className={`${isReferenceType ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
                         value={referenceType}
                         onChange={(e) => {
-                        setReferenceType(e.target.value);
-                        setIsReferenceType(e.target.value === "");
-                        }}
+                        setReferenceType(e.target.value)}}
                     />
 
                     {/* Subject Area */}
@@ -378,9 +473,7 @@ const UploadStoryBook = () => {
                         className={`${isSubjectArea ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
                         value={subjectArea}
                         onChange={(e) => {
-                        setSubjectArea(e.target.value);
-                        setIsSubjectArea(e.target.value === "");
-                        }}
+                        setSubjectArea(e.target.value)}}
                     />
 
                     {/* Edition */}
@@ -390,26 +483,22 @@ const UploadStoryBook = () => {
                         className={`${isReferenceEdition ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
                         value={referenceEdition}
                         onChange={(e) => {
-                        setReferenceEdition(e.target.value);
-                        setIsReferenceEdition(e.target.value === "");
-                        }}
+                        setReferenceEdition(e.target.value)}}
                     />
 
                     {/* Volume */}
                     <input
                         type="text"
                         placeholder="Volume"
-                        className={`${isVolume ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
-                        value={volume}
+                        className={`${isReferenceVolume ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
+                        value={referenceVolume}
                         onChange={(e) => {
-                        setVolume(e.target.value);
-                        setIsVolume(e.target.value === "");
-                        }}
+                        setReferenceVolume(e.target.value)}}
                     />
 
                     </div>
 
-                    {/* Story details container */}
+                    {/* Children books details container */}
                     <div className={`${selectedTypeOfBooks === "childrensbook" ? "" : "hidden"} w-full flex flex-col gap-4`}>
 
                     <div>
@@ -426,9 +515,7 @@ const UploadStoryBook = () => {
                         className={`${isReadingLevel ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
                         value={readingLevel}
                         onChange={(e) => {
-                        setReadingLevel(e.target.value);
-                        setIsReadingLevel(e.target.value === "");
-                        }}
+                        setReadingLevel(e.target.value)}}
                     >
                         <option value="">Select Reading Level</option>
                         <option value="beginner">Beginner</option>
@@ -443,9 +530,7 @@ const UploadStoryBook = () => {
                         className={`${isIllustrator ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
                         value={illustrator}
                         onChange={(e) => {
-                        setIllustrator(e.target.value);
-                        setIsIllustrator(e.target.value === "");
-                        }}
+                        setIllustrator(e.target.value)}}
                     />
 
                     {/* Moral / Theme */}
@@ -455,9 +540,7 @@ const UploadStoryBook = () => {
                         className={`${isMoralTheme ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
                         value={moralTheme}
                         onChange={(e) => {
-                        setMoralTheme(e.target.value);
-                        setIsMoralTheme(e.target.value === "");
-                        }}
+                        setMoralTheme(e.target.value)}}
                     />
 
                     {/* Story Type */}
@@ -465,9 +548,7 @@ const UploadStoryBook = () => {
                         className={`${isStoryType ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
                         value={storyType}
                         onChange={(e) => {
-                        setStoryType(e.target.value);
-                        setIsStoryType(e.target.value === "");
-                        }}
+                        setStoryType(e.target.value)}}
                     >
                         <option value="">Select Story Type</option>
                         <option value="fairytale">Fairy Tale</option>

@@ -4,9 +4,6 @@ import Upload_Manually_Controller from "../controllers/Upload_Manully_Controller
 
 const router = express.Router();
 
-router.post("/upload-manually", upload.fields([
-  { name: "cover", maxCount: 1 },
-  { name: "pageImages", maxCount: 10 }
-]), Upload_Manually_Controller);
+router.post("/upload-manually", upload.any(), Upload_Manually_Controller);
 
 export default router;

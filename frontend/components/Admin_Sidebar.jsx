@@ -74,11 +74,6 @@ const Admin_SideBar = () => {
         Students Account
       </div>
 
-      <div className={`${isEmployeeAccount ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleEmployee}>
-        <Contact className={`${isEmployeeAccount ? 'text-white' : 'text-gray-300'}`} size={24}/>
-        Teacher Account
-      </div>
-
       <div className="text-gray-500 text-sm py-2 px-4 rounded-lg mt-6">
         Other Menu
       </div>

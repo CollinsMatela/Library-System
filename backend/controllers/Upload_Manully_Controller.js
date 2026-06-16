@@ -79,43 +79,105 @@ const Upload_Manually_Controller = async (req, res) => {
       pageImage: pageImagesMap[index] || []
     }));
 
-    const book = await Books_Model.create({
-      title,
-      author,
-      description,
-      type: type,
-      language,
-      publication,
-      publisher,
-      isbn,
-      gradeCategory,
-      cover: coverImage,
-      pages: updatedPages,
-      availability
-    });
+    // const book = await Books_Model.create({
+    //   title,
+    //   author,
+    //   description,
+    //   type: type,
+    //   language,
+    //   publication,
+    //   publisher,
+    //   isbn,
+    //   gradeCategory,
+    //   cover: coverImage,
+    //   pages: updatedPages,
+    //   availability
+    // });
 
-    if(type === 'storybook'){
-      const storybook = await StoryBookDetails_Model.create({
-        bookId: book._id,
-        genre
-      }) 
+    if(type === 'storybook'){ 
+      await StoryBookDetails_Model.create({
+          title,
+          author,
+          description,
+          type: type,
+          language,
+          publication,
+          publisher,
+          isbn,
+          gradeCategory,
+          cover: coverImage,
+          pages: updatedPages,
+          availability,
+          genre
+      })
+
+      res.status(201).json({success: true, message: "Childrens book uploaded successfully"});
     }
     if(type === 'childrensbook'){
-      const childrensbook = await ChildrensBookDetails_Model.create({bookId: book._id, readingLevel, illustrator, moralTheme, storyType}) 
+      await ChildrensBookDetails_Model.create({
+        title,
+          author,
+          description,
+          type: type,
+          language,
+          publication,
+          publisher,
+          isbn,
+          gradeCategory,
+          cover: coverImage,
+          pages: updatedPages,
+          availability,
+          readingLevel, 
+          illustrator, 
+          moralTheme, 
+          storyType
+        }) 
+
+        res.status(201).json({success: true, message: "Childrens book uploaded successfully"});
     }
     if(type === 'educationalbook'){
-      const educationalbook = await EducationalBookDetails_Model.create({bookId: book._id, subject, educationalEdition}) 
+       await EducationalBookDetails_Model.create({
+          title,
+          author,
+          description,
+          type: type,
+          language,
+          publication,
+          publisher,
+          isbn,
+          gradeCategory,
+          cover: coverImage,
+          pages: updatedPages,
+          availability,
+          subject,
+          educationalEdition
+        }) 
+        res.status(201).json({success: true, message: "Educational book uploaded successfully"});
     }
     if(type === 'referencebook'){
-      const referencebook = await ReferenceBookDetails_Model.create({bookId: book._id, referenceType, subjectArea, referenceEdition, referenceVolume}) 
+      const referencebook = await ReferenceBookDetails_Model.create({
+          title,
+          author,
+          description,
+          type: type,
+          language,
+          publication,
+          publisher,
+          isbn,
+          gradeCategory,
+          cover: coverImage,
+          pages: updatedPages,
+          availability,
+          referenceType, 
+          subjectArea, 
+          referenceEdition, 
+          referenceVolume
+        }) 
+        res.status(201).json({success: true, message: "Reference book uploaded successfully"});
     }
 
 
-    res.status(201).json({
-      success: true,
-      message: "Book uploaded successfully",
-      book
-    });
+    
 
     
   } catch (error) {

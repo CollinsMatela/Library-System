@@ -1,10 +1,8 @@
 import Admin_Dashboard from "../components/Admin_Dashboard"
 import Admin_Stories from "../components/Admin_Stories"
 import Admin_UserManagement from "../components/Admin_UserManagement"
-import RegisterEmployeeModal from "../modals/RegisterEmployeeModal"
 import RegisterStudentModal from "../modals/RegisterStudentModal"
 import Edit_Student_Modal from "../modals/Edit_Student_Modal"
-import Edit_Employee_Modal from "../modals/Edit_Employee_Modal"
 import Account_Conformation from "../popup/Account_Conformation"
 import { useState, useEffect} from "react"
 import axios from "axios"
@@ -20,7 +18,6 @@ const Admin_Page = () =>{
     const navigate = useNavigate();
 
     const [studentList, setStudentList] = useState([])
-    const [employeeList, setEmployeeList] = useState([])
     const [storiesList, setStoriesList] = useState([]);
 
     const fetchStudents = async () => {
@@ -29,16 +26,6 @@ const Admin_Page = () =>{
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-students`)
             console.log(res.data.message);
             setStudentList(res.data.students);
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    const fetchEmployees = async () => {
-        try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-employees`);
-            console.log(res.data.message);
-            setEmployeeList(res.data.employees);
-
         } catch (error) {
             console.log(error)
         }
@@ -55,7 +42,6 @@ const Admin_Page = () =>{
 
     useEffect(() => {
         fetchStudents()
-        fetchEmployees()
         fetchStories()
     }, [])
 
@@ -85,15 +71,6 @@ const Admin_Page = () =>{
           </p>
         </div>
 
-        <div className="bg-gradient-to-r from-blue-400 to-blue-500 text-white rounded-3xl p-6">
-          <p className="text-lg flex gap-4">Total Employees<Contact/></p>
-          <h1 className="text-5xl font-bold mt-3">
-            {employeeList.length}
-          </h1>
-          <p className="text-xs text-white mt-2 border-t-1 border-white pt-4">
-              Active staff and teachers
-          </p>
-        </div>
 
         <div className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white rounded-3xl p-6">
           <p className="text-lg flex gap-4">Learning Stories<LibraryBig/></p>
@@ -130,25 +107,6 @@ const Admin_Page = () =>{
           ))}
       </div>
 
-      <div className="bg-white p-6">
-          <h1 className="text-lg font-bold text-gray-500 border-b border-gray-300 pb-4 mb-4">Recent Employee</h1>
-          {employeeList.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3).map((employee) => (
-             <div key={employee.id} className="bg-white h-20 w-full border border-gray-300 rounded-xl p-4 mb-2">
-              <div className="flex gap-2">
-                  {employee.avatar ? 
-                  <img src={employee.avatar} className="bg-gray-100 h-12 w-12 rounded-full" />
-                  :
-                  <div className="bg-pink-500 h-12 w-12 rounded-full text-white font-bold justify-center items-center flex">{employee.firstname.charAt(0).toUpperCase()}</div>
-                  }
-                  <div>
-                    <h1 className="text-gray-500 font-bold">{employee.role} {employee.firstname} {employee.lastname}</h1>
-                    <h1 className="text-sm text-gray-500 font-semibold">{employee.gradeLevel}</h1>
-                  </div>
-              </div>
-                  
-             </div>
-          ))}
-      </div>
       </div>
 
       <div className="bg-white h-full w-1/2 p-6">

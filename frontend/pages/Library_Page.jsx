@@ -6,7 +6,7 @@ import SearchIcon from '../src/assets/search-svgrepo-com.svg'
 
 import Lib_Navigation from '../library_components/Lib_Navigation'
 import Lib_Story_Buttons from '../library_components/Lib_Story_Buttons'
-import Lib_Stories_Card from '../library_components/Lib_Stories_Card'
+import Lib_Shelf from '../library_components/Lib_Shelf'
 import Lib_View_Story from '../library_components/Lib_View_Story'
 import defaultProfile from '../src/assets/Student.jpg'
 import LoadingScreen from '../loadings/loading'
@@ -16,14 +16,19 @@ const Library_Page = () => {
     const user = useAuthStore((state) => state.user);
     const logout = useAuthStore((state) => state.logout);
     const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const navigate = useNavigate();
 
-    const [stories, setStories] = useState([]); // Fetched Stories
+    const [storyBook, setStoryBook] = useState([]);
+    const [referenceBook, setReferenceBook] = useState([]);
+    const [educationalBook, setEducationalBook] = useState([]);
+    const [childrensBook, setChildrensBook] = useState([]);
+
     const [selectedGenre, setSelectedGenre] = useState("Overview");
     
     const [search, setSearch] = useState("");
-    const searchingResult = stories.filter((story) => story.title.toLowerCase().includes(search.toLowerCase()));
+    const searchingResult = storyBook.filter((books) => books.title.toLowerCase().includes(search.toLowerCase()));
 
     const showStories = (genre) => {
     setSelectedGenre(genre);
@@ -36,44 +41,83 @@ const Library_Page = () => {
           navigate(`/library/view-story/${storyId}`)
     }
 
-
     useEffect(() => {
-        fetchStories();
-    },[])
-
-    const fetchStories = async () =>{
-          setLoading(true);
-          try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-stories`);
-                setStories(res.data.stories);
-                console.log(res.data.message);
-          } catch (error) {
-            console.log(error)
-          } finally {
-        setTimeout(() => {
-            setLoading(false);
-        }, 3000);
-    }
-    }
-
-    const handleProfile = () => {
-          navigate('/library/profile');
-    }
+           fetchStoryBooks();
+           fetchReferenceBooks();
+           fetchEducationalBooks();
+           fetchChildrensBooks();
+        },[])
     
+    const fetchStoryBooks = async () => {
+            try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-storybooks`);
+            setStoryBook(res.data.books);
+            console.log(res.data.message);
 
-    const titles = stories.map(s => s.title);
-    const [index, setIndex] = useState(0);
+            } catch (error) {
+            console.log(error);
+            setErrorMessage(error?.response?.data?.message);
+            }
+    }
+    const fetchReferenceBooks = async () => {
+            try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-referencebooks`);
+            setReferenceBook(res.data.referenceBooks);
+            console.log("No. of Reference books: ",res.data.referenceBooks.length);
+            console.log(res.data.message);
+
+            } catch (error) {
+            console.log(error);
+            setErrorMessage(error?.response?.data?.message);
+            }
+    }
+    const fetchEducationalBooks = async () => {
+            try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-educationalbooks`);
+            setEducationalBook(res.data.educationalBooks);
+            console.log(res.data.message);
+
+            } catch (error) {
+            console.log(error);
+            setErrorMessage(error?.response?.data?.message);
+            }
+    }
+    const fetchChildrensBooks = async () => {
+            try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-childrensbooks`);
+            setChildrensBook(res.data.childrensBooks);
+            console.log(res.data.message);
+
+            } catch (error) {
+            console.log(error);
+            setErrorMessage(error?.response?.data?.message);
+            }
+    }
+
 
     // useEffect(() => {
-    //     // Story Title Rotation for placeholder
-    //     if (titles.length === 0) return;
+    //     fetchStories();
+    // },[])
 
-    //     const interval = setInterval(() => {
-    //     setIndex(prev => (prev + 1) % titles.length);
+    // const fetchStories = async () =>{
+    //       setLoading(true);
+    //       try {
+    //         const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-books`);
+    //             setBooks(res.data.books);
+    //             console.log(res.data.message);
+    //       } catch (error) {
+    //         console.log(error)
+    //       } finally {
+    //     setTimeout(() => {
+    //         setLoading(false);
     //     }, 3000);
+    // }
+    // }
 
-    //     return () => clearInterval(interval);
-    // }, [titles.length]);
+    // const handleProfile = () => {
+    //       navigate('/library/profile');
+    // }
+
     
     return(
         <section className="min-h-screen w-full bg-black/80 p-4">
@@ -86,7 +130,7 @@ const Library_Page = () => {
                 <div className="w-full max-w-5xl flex flex-col justify-center items-start mb-10">
                     <h1 className="text-2xl text-gray-800 font-bold text-center">
                         Are you ready? {" "}
-                        <span className="text-pink-500 underline">{user?.firstname || "Dev"}!</span>
+                        <span className="text-pink-500 underline">{user?.gradeLevel || "Dev"}!</span>
                     </h1>
                     <h1 className="text-6xl text-gray-800 font-bold text-center">What story will you explore today?</h1>
                 </div>
@@ -107,7 +151,7 @@ const Library_Page = () => {
                  <div className={`${!search ? "hidden" : null} bg-white max-h-50 w-5xl border-b-1 border-gray-300 my-2 overflow-y-auto py-4`}>
                       <h1 className='text-gray-800 font-bold mb-2'>Search Result</h1>
                       {searchingResult.map((story, index) => (
-                        <div key={story.id} className='h-20 w-full bg-white rounded-4xl mb-2 justify-start items-center flex gap-4 px-5 cursor-pointer border-1 border-gray-200 hover:bg-blue-100 hover:border-blue-500 group'
+                        <div key={story._id} className='h-20 w-full bg-white rounded-4xl mb-2 justify-start items-center flex gap-4 px-5 cursor-pointer border-1 border-gray-200 hover:bg-blue-100 hover:border-blue-500 group'
                              onClick={() => handleViewStory(story.id)}
                         >
                              <h1 className='bg-gray-100 h-12 w-12 justify-center items-center flex rounded-full group-hover:bg-blue-200 group-hover:text-blue-500'>{index + 1}.</h1>
@@ -118,11 +162,14 @@ const Library_Page = () => {
 
                  <Lib_Story_Buttons showStories={showStories}/>
  
-
-                <Lib_Stories_Card stories={stories} 
-                                  genre={selectedGenre} 
-                                  handleViewStory={handleViewStory}
-                />
+                <div className='w-full'>
+                    <Lib_Shelf storyBook={storyBook}
+                               referenceBook={referenceBook}
+                               educationalBook={educationalBook}
+                               childrensBook={childrensBook}
+                               />
+                </div>
+                
                 
 
             </div>

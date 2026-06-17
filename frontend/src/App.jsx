@@ -7,7 +7,7 @@ import Admin_Upload_Page from '../pages/Admin_Upload_Page'
 import Unauthorized_Page from "../pages/Unauthorized_Page";
 import Change_Password_Page from "../pages/Change_Password_Page"
 import Not_Found_Page from "../pages/Not_Found_Page";
-import Lib_View_Story from "../library_components/Lib_View_Story";
+import Lib_ViewBook from "../library_components/Lib_ViewBook";
 import Lib_Quiz from "../library_components/Lib_Quiz";
 import LoadingScreen from '../loadings/loading'
 import Profile_Page from "../pages/Profile_Page";
@@ -48,7 +48,7 @@ function App() {
          <Route element={<ProtectedRoute allowedRoles={["student"]}/>}>
                 <Route path="/library" element={<Library_Page/>}/>
                 <Route path="/library/profile" element={<Profile_Page/>}/>
-                <Route path="/library/view-story/:id" element={<Lib_View_Story/>}/>
+                <Route path="/library/view-book/:id" element={<Lib_ViewBook/>}/>
                 <Route path="/library/view-story/quiz/:id" element={<Lib_Quiz/>}/>
                 <Route path="/change-password" element={<Change_Password_Page/>}/>
          </Route>

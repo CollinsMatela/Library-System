@@ -25,6 +25,8 @@ import Fetch_ReferenceBooks_Route from './routes/Fetch_ReferenceBooks_Route.js'
 import Fetch_EducationalBooks_Route from './routes/Fetch_EducationalBooks_Route.js'
 import Fetch_ChildrensBooks_Route from './routes/Fetch_ChildrensBooks_Route.js'
 
+import Fetch_BookById_Route from './routes/Fetch_BookById_Route.js'
+
 
 import Fetch_One_Story_Route from './routes/Fetch_One_Story_Route.js'
 import Change_Avatar_Route from './routes/Change_Avatar_Route.js';
@@ -57,6 +59,8 @@ app.use("/", Fetch_StoryBooks_Route);
 app.use("/", Fetch_ReferenceBooks_Route);
 app.use("/", Fetch_EducationalBooks_Route);
 app.use("/", Fetch_ChildrensBooks_Route);
+
+app.use("/", Fetch_BookById_Route);
 
 app.use("/", Fetch_One_Story_Route);
 app.use("/", Change_Avatar_Route);

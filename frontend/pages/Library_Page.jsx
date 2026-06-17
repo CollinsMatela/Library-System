@@ -3,11 +3,15 @@ import useAuthStore from '../store/useAuthStore'
 import { useEffect, useState } from 'react'
 
 import SearchIcon from '../src/assets/search-svgrepo-com.svg'
-
+import Lib_KindergartenBooks from '../library_components/Lib_KindergartenBooks'
+import Lib_FirstGradeBooks from '../library_components/Lib_FirstGradeBooks'
+import Lib_SecondGradeBooks from '../library_components/Lib_SecondGradeBooks'
+import Lib_ThirdGradeBooks from '../library_components/Lib_ThirdGradeBooks'
+import Lib_FourthGradeBooks from '../library_components/Lib_FourthGradeBooks'
 import Lib_Navigation from '../library_components/Lib_Navigation'
 import Lib_Story_Buttons from '../library_components/Lib_Story_Buttons'
 import Lib_Shelf from '../library_components/Lib_Shelf'
-import Lib_View_Story from '../library_components/Lib_View_Story'
+import Lib_View_Story from '../library_components/Lib_ViewBook'
 import defaultProfile from '../src/assets/Student.jpg'
 import LoadingScreen from '../loadings/loading'
 import { useNavigate } from 'react-router-dom'
@@ -163,11 +167,44 @@ const Library_Page = () => {
                  <Lib_Story_Buttons showStories={showStories}/>
  
                 <div className='w-full'>
-                    <Lib_Shelf storyBook={storyBook}
-                               referenceBook={referenceBook}
-                               educationalBook={educationalBook}
-                               childrensBook={childrensBook}
-                               />
+                    {user.gradeLevel.toLowerCase() === 'kindergarten' && (
+                        <Lib_KindergartenBooks 
+                        storyBook={storyBook}
+                        childrensBook={childrensBook}
+                        />
+                    )}
+                    {user.gradeLevel.toLowerCase() === 'grade 1' && (
+                        <Lib_FirstGradeBooks
+                        storyBook={storyBook}
+                        referenceBook={referenceBook}
+                        educationalBook={educationalBook}
+                        childrensBook={childrensBook}
+                        />
+                    )}
+                    {user.gradeLevel.toLowerCase() === 'grade 2' && (
+                        <Lib_SecondGradeBooks
+                        storyBook={storyBook}
+                        referenceBook={referenceBook}
+                        educationalBook={educationalBook}
+                        childrensBook={childrensBook}
+                        />
+                    )}
+                    {user.gradeLevel.toLowerCase() === 'grade 3' && (
+                        <Lib_ThirdGradeBooks 
+                        storyBook={storyBook}
+                        referenceBook={referenceBook}
+                        educationalBook={educationalBook}
+                        childrensBook={childrensBook}
+                        />
+                    )}
+                    {user.gradeLevel.toLowerCase() === 'grade 4' && (
+                        <Lib_FourthGradeBooks 
+                        storyBook={storyBook}
+                        referenceBook={referenceBook}
+                        educationalBook={educationalBook}
+                        childrensBook={childrensBook}
+                        />
+                    )}
                 </div>
                 
                 

@@ -56,7 +56,7 @@ const Lib_KindergartenBooks = ({storyBook, childrensBook}) => {
                               readingLevel={book?.readingLevel}
                               moralTheme={book?.moralTheme}
                               storyType={book?.storyType}
-                              onClick={() => alert(book?._id)}
+                              navigate={() => navigate(`/library/view-book/${book?._id}`)}
                 />
                 
             ))}

@@ -3,8 +3,11 @@ import useAuthStore from "../store/useAuthStore";
 import Lib_BookCard from "./Lib_BookCard";
 import { LibraryBig, BookCheck, NotepadText } from "lucide-react";
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 const Lib_FourthGradeBooks = ({storyBook, referenceBook, educationalBook, childrensBook}) => {
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log("Received Story:", storyBook.length);
@@ -33,6 +36,7 @@ const Lib_FourthGradeBooks = ({storyBook, referenceBook, educationalBook, childr
                               author={book?.author}
                               genre={book?.genre}
                               language={book?.language}
+                              navigate={() => navigate(`/library/view-book/${book?._id}`)}
                 />
                 
             ))}
@@ -51,6 +55,7 @@ const Lib_FourthGradeBooks = ({storyBook, referenceBook, educationalBook, childr
                               author={book?.author}
                               subject={book?.subject}
                               language={book?.language}
+                              navigate={() => navigate(`/library/view-book/${book?._id}`)}
                 />
                 
             ))}
@@ -70,6 +75,7 @@ const Lib_FourthGradeBooks = ({storyBook, referenceBook, educationalBook, childr
                               language={book?.language}
                               referenceType={book?.referenceType}
                               subjectArea={book?.subjectArea}
+                              navigate={() => navigate(`/library/view-book/${book?._id}`)}
                 />
                 
             ))}
@@ -91,6 +97,7 @@ const Lib_FourthGradeBooks = ({storyBook, referenceBook, educationalBook, childr
                               readingLevel={book?.readingLevel}
                               moralTheme={book?.moralTheme}
                               storyType={book?.storyType}
+                              navigate={() => navigate(`/library/view-book/${book?._id}`)}
                 />
                 
             ))}

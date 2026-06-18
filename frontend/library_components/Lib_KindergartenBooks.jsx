@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 const Lib_KindergartenBooks = ({storyBook, childrensBook}) => {
 
     const navigate = useNavigate();
+    
 
     useEffect(() => {
         console.log("Received Story:", storyBook.length);

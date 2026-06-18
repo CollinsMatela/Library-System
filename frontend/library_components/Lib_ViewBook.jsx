@@ -4,12 +4,14 @@ import Lib_Navigation from "./Lib_Navigation";
 import axios from "axios";
 import useAuthStore from "../store/useAuthStore";
 import { BookOpenText, Play, CheckCheck } from "lucide-react";
+import Lib_BookLayout from "./Lib_BookLayout";
 
 const Lib_ViewBook = () => {
 
     const { id } = useParams();
     const user = useAuthStore((state) => state.user); 
     const navigate = useNavigate();
+    const [showReadModal, setShowReadModal] = useState(false);
 
     const [errorMessage, setErrorMessage] = useState("");
     const [bookDetails, setBookDetails] = useState(null);
@@ -32,6 +34,8 @@ const Lib_ViewBook = () => {
     
 
     return(
+    <>
+    {showReadModal && (<Lib_BookLayout book={bookDetails} onClose={() => setShowReadModal(false)}/>)}
     <section className="min-h-screen w-full bg-black/80 p-4 flex flex-col">
   
     <Lib_Navigation />
@@ -60,7 +64,8 @@ const Lib_ViewBook = () => {
 
                 <div className="w-full flex justify-end items-center gap-3">
 
-                    <button className="flex gap-2 px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-xl shadow-sm hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+                    <button className="flex gap-2 px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-xl shadow-sm hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+                    onClick={() => setShowReadModal(true)}>
                         <BookOpenText/> Read Book
                     </button>
 
@@ -308,6 +313,7 @@ const Lib_ViewBook = () => {
     </div>
 
     </section>
+    </>
     )
 }
 export default Lib_ViewBook;

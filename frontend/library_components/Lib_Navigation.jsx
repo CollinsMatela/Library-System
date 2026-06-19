@@ -4,7 +4,7 @@ import RankingIcon from '../src/assets/crown-svgrepo-com.svg'
 import defaultProfile from '../src/assets/Student.jpg'
 import LittleMeLogo from '../public/LMLC.png'
 import { useNavigate } from 'react-router-dom'
-import { LogOut } from 'lucide-react'
+import { LogOut, Blocks, BookSearch } from 'lucide-react'
 
 const Lib_Navigation = () => {
     const navigate = useNavigate();
@@ -29,9 +29,10 @@ const Lib_Navigation = () => {
                               </div>
 
                               <div className='gap-2 justify-center items-center flex'>
-                                <img src={user?.avatar || defaultProfile} className="h-10 w-10 object-cover hover:border-4 hover:border-pink-500 rounded-full cursor-pointer transition-all duration-300 ease-in-out" onClick={handleProfile}/>
-                                <button className='h-10 w-10 bg-pink-500 rounded-xl'><img src={NotificationIcon} className='h-full w-full object-cover' /></button>
-                                <button className="h-10 px-4 justify-center items-center flex bg-pink-500 text-white font-bold rounded-xl transition-all duration-300 ease-in-out hover:text-white hover:-translate-y-1 cursor-pointer gap-2" onClick={handleLogout}><LogOut size={20}/> Logout</button>
+                                 <button className="h-10 px-4 justify-center items-center flex text-gray-500 font-bold transition-all duration-300 ease-in-out cursor-pointer gap-2 border-r-1 border-gray-300 hover:underline" onClick={() => navigate('/library')}><Blocks size={20}/> Book Browse</button>
+                                 <button className="h-10 px-4 justify-center items-center flex text-gray-500 font-bold transition-all duration-300 ease-in-out cursor-pointer gap-2 border-r-1 border-gray-300 hover:underline" onClick={() => navigate('/library/catalog')}><BookSearch size={20}/> Catalog</button>
+                                {/* <img src={user?.avatar || defaultProfile} className="h-10 w-10 object-cover hover:border-4 hover:border-pink-500 rounded-full cursor-pointer transition-all duration-300 ease-in-out" onClick={handleProfile}/> */}
+                                <button className="h-10 px-4 justify-center items-center flex text-gray-500 font-bold transition-all duration-300 ease-in-out cursor-pointer gap-2 hover:bg-red-100 hover:text-red-500 hover:underline rounded-xl" onClick={handleLogout}><LogOut size={20}/> Logout</button>
                               </div>
                               
         </nav>

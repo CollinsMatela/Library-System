@@ -57,8 +57,8 @@ const Lib_ViewBook = () => {
         {/* Book Details Container */}
         <div className="min-h-screen w-full p-4 justify-start items-start flex flex-col gap-5">
             <div className="w-full justify-between items-start flex">
-                <div>
-                    <h1 className="text-gray-800 text-6xl font-bold">{bookDetails?.title || "Book name"}</h1>
+                <div className="w-full flex flex-col gap-2">
+                    <h1 className="text-gray-800 text-6xl font-bold italic font-family: ui-sans-serif, system-ui, sans-serif">{bookDetails?.title || "Book name"}</h1>
                     <h1 className="text-sm text-gray-500">Authored by: {bookDetails?.author || "—"}</h1>
                 </div>
 

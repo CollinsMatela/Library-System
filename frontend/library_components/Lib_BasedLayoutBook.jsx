@@ -16,24 +16,27 @@ const Lib_BasedLayoutBook = ({book, pageIndex, nextPage, prevPage, onClose}) => 
             <div className="p-10 text-lg justify-center items-start flex flex-col bg-gray-50">
               
               <header className="w-full justify-end items-center flex mb-10 gap-2">
-                   <button className="bg-gray-200 rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => alert('TTS not yet integrated.')}><Images className="text-gray-500"/></button>
                    <button className="bg-gray-200 rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => alert('TTS not yet integrated.')}><AudioLines className="text-gray-500"/></button>
                    <button className="bg-gray-200 rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={onClose}><X className="text-gray-500"/></button>
               </header>
-
-              {/**Images Container */}
-              <div className={`bg-gray-100 w-full mb-10 grid grid-cols-3 p-4`}>
-                {/* Image */}
-                {page?.[pageIndex]?.pageImage.map((image, index) => {
-                    <img
-                        src={image}
-                        className="w-full h-100 h-100 object-cover"
-                    />
-                })}
-                
-              </div>
               
               <h1 className="text-md text-gray-800 leading-loose whitespace-pre-line">{page.pageText}</h1>
+
+              {/** Images Container - Only renders if pageImage array exists and has items */}
+              {page.pageImage && page.pageImage.length > 0 && (
+                <div className="border-t-1 border-gray-500  w-full my-10 grid grid-cols-1 p-4 gap-2">
+                <h1 className="text-md text-gray-800 leading-loose whitespace-pre-line">Images</h1>
+                  
+                  {page.pageImage.map((image, imgIndex) => (
+                    <img
+                      key={imgIndex}
+                      src={image}
+                      alt={`Page ${index + 1} graphic ${imgIndex + 1}`}
+                      className="w-full  object-cover rounded" 
+                    />
+                  ))}
+                </div>
+              )}
 
               <footer className="w-full justify-center items-center flex mt-10">
                 <h1 className="text-xs text-gray-500">Page {index + 1}</h1>

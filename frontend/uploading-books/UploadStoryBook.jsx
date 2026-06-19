@@ -385,6 +385,7 @@ const UploadStoryBook = () => {
                             <p className="text-gray-400 text-sm">Choose Kind of Books you wanted to upload</p>
                             <select className="bg-gray-100 p-2 rounded-xl text-gray-500 mt-4" value={selectedTypeOfBooks} onChange={(e) => setSelectedTypeOfBooks(e.target.value)}>
                                 <option value="">Type of Books</option>
+                                <option value="workbook">Work Book</option>
                                 <option value="childrensbook">Children's Book</option>
                                 <option value="storybook">Story Book</option>
                                 <option value="referencebook">Reference Book</option>

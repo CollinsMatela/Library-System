@@ -18,6 +18,8 @@ const StoryBookSchema = new mongoose.Schema(
     cover: { type: String, required: true },
     availability: { type: Boolean, required: true },
     genre: { type: String, required: true },
+    storySeries: { type: String, required: true },
+    storyVolume: { type: String, required: true },
   },
   {
     timestamps: true

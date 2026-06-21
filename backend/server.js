@@ -36,6 +36,7 @@ import Fetch_QuizResults_Route from './routes/Fetch_QuizResults_Route.js';
 import MarkAsRead_Route from './routes/MarkAsRead_Route.js';
 import Fetch_MarkAsRead_Route from './routes/Fetch_MarkAsRead_Route.js';
 import Fetch_All_Marked_Route from './routes/Fetch_All_Marked_Route.js'
+import Fetch_Workbooks_Route from './routes/Fetch_Workbooks_Route.js'
 
 const app = express();
 app.use(cors());
@@ -59,6 +60,7 @@ app.use("/", Fetch_StoryBooks_Route);
 app.use("/", Fetch_ReferenceBooks_Route);
 app.use("/", Fetch_EducationalBooks_Route);
 app.use("/", Fetch_ChildrensBooks_Route);
+app.use("/", Fetch_Workbooks_Route);
 
 app.use("/", Fetch_BookById_Route);
 

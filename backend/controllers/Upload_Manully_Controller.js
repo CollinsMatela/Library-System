@@ -3,6 +3,7 @@ import StoryBookDetails_Model from "../models/StoryBookDetails_Model.js";
 import EducationalBookDetails_Model from "../models/EducationalDetails_Model.js"
 import ChildrensBookDetails_Model from "../models/ChildrensBookDetails_Model.js";
 import ReferenceBookDetails_Model from "../models/ReferenceBookDetails_Model.js";
+import WorkBookDetails_Model from "../models/WorkBookDetails_Model.js";
 
 import cloudinary from "../config/cloudinary.js";
 import fs from "fs";
@@ -111,10 +112,34 @@ const Upload_Manually_Controller = async (req, res) => {
           cover: coverImage,
           pages: updatedPages,
           availability,
-          genre
+          genre,
+          storySeries,
+          storyVolume
       })
 
       res.status(201).json({success: true, message: "Childrens book uploaded successfully"});
+    }
+    if(type === 'workbook'){ 
+      await WorkBookDetails_Model.create({
+          title,
+          author,
+          description,
+          type: type,
+          language,
+          publication,
+          publisher,
+          isbn,
+          gradeCategory,
+          cover: coverImage,
+          pages: updatedPages,
+          availability,
+          workbookTopic,
+          workbookSubject,
+          workbookType,
+          workbookEdition
+      })
+
+      res.status(201).json({success: true, message: "Workbook book uploaded successfully"});
     }
     if(type === 'childrensbook'){
       await ChildrensBookDetails_Model.create({

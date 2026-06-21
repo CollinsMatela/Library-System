@@ -24,6 +24,7 @@ const Library_Page = () => {
 
     const navigate = useNavigate();
 
+    const [workBook, setWorkBook] = useState([]);
     const [storyBook, setStoryBook] = useState([]);
     const [referenceBook, setReferenceBook] = useState([]);
     const [educationalBook, setEducationalBook] = useState([]);
@@ -50,12 +51,24 @@ const Library_Page = () => {
            fetchReferenceBooks();
            fetchEducationalBooks();
            fetchChildrensBooks();
+           fetchWorkBooks();
         },[])
     
     const fetchStoryBooks = async () => {
             try {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-storybooks`);
             setStoryBook(res.data.books);
+            console.log(res.data.message);
+
+            } catch (error) {
+            console.log(error);
+            setErrorMessage(error?.response?.data?.message);
+            }
+    }
+    const fetchWorkBooks = async () => {
+            try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-workbooks`);
+            setWorkBook(res.data.books);
             console.log(res.data.message);
 
             } catch (error) {
@@ -145,6 +158,7 @@ const Library_Page = () => {
                         <Lib_KindergartenBooks 
                         storyBook={storyBook}
                         childrensBook={childrensBook}
+                        workBook={workBook}
                         />
                     )}
                     {user.gradeLevel.toLowerCase() === 'grade 1' && (

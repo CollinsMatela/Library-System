@@ -440,7 +440,7 @@ const UploadStoryBook = () => {
                             <p className="text-gray-400 text-sm">Fill-up the required information in the work book.</p>
                         </div>
 
-                        <input type="text" placeholder="isbn" className={`${isWorkbookTopic ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
+                        <input type="text" className={`${isWorkbookTopic ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
                          placeholder={"Topic"}
                         value={workbookTopic} 
                         onChange={(e) => {setWorkbookTopic(e.target.value)}}/>

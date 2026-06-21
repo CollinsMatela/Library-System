@@ -36,10 +36,32 @@ const UploadStoryBook = () => {
         const [isIsbn, setIsIsbn] = useState(false);
         const [isPublisher, setIsPublisher] = useState(false);
 
+        // Work Book States
+        const [workbookTopic, setWorkbookTopic] = useState("");
+        const [isWorkbookTopic, setIsWorkbookTopic] = useState(false);
+
+        const [workbookSubject, setWorkbookSubject] = useState("")
+        const [isWorkbookSubject, setIsWorkbookSubject] = useState(false);
+
+        const [workbookType, setWorkbookType] = useState("");
+        const [isWorkbookType, setIsWorkbookType] = useState(false);
+
+        const [workbookEdition, setWorkbookEdition] = useState("")
+        const [isWorkbookEdition, setIsWorkbookEdition] = useState(false);
+
+
         // Story Book States
         const [genre, setGenre] = useState("");
         const [isGenre, setIsGenre] = useState(false);
 
+        const [storySeries, setStorySeries] = useState("");
+        const [isStorySeries, setIsStorySeries] = useState(false);
+
+        const [storyVolume, setStoryVolume] = useState("");
+        const [isStoryVolume, setIsStoryVolume] = useState(false);
+
+        const [series, setSeries] = useState("");
+        const [isSeries, setIsSeries] = useState(false);
 
         // Educational Book States
         const [subject, setSubject] = useState("");
@@ -215,6 +237,15 @@ const UploadStoryBook = () => {
         // Per Category
         if(selectedTypeOfBooks === "storybook"){
             if (genre === "") { setIsGenre(true); alert('Please enter genre.'); return;}
+            if (storySeries === "") { setStorySeries(true); alert('Please enter series.'); return;}
+            if (storyVolume === "") { setStoryVolume(true); alert('Please enter volume.'); return;}
+        }
+
+        if(selectedTypeOfBooks === "workbook"){
+            if (workbookTopic === "") { setIsWorkbookTopic(true); alert('Please enter topic.'); return;}
+            if (workbookSubject === "") { setIsWorkbookTopic(true); alert('Please enter subject.'); return;}
+            if (workbookType === "") { setWorkbookType(true); alert('Please enter type.'); return;}
+            if (workbookEdition === "") { setWorkbookEdition(true); alert('Please enter edition.'); return;}
         }
 
         if(selectedTypeOfBooks === "childrensbook"){
@@ -268,6 +299,14 @@ const UploadStoryBook = () => {
         formData.append("type", selectedTypeOfBooks);
 
         formData.append("genre", genre);
+        formData.append("storySeries", storySeries);
+        formData.append("storyVolume", storyVolume);
+
+        formData.append("workbookTopic", workbookTopic);
+        formData.append("workbookSubject", workbookSubject);
+        formData.append("workbookType", workbookType);
+        formData.append("workbookEdition", workbookEdition);
+
 
         formData.append("subject", subject);
         formData.append("educationalEdition", educationalEdition);
@@ -392,6 +431,73 @@ const UploadStoryBook = () => {
                                 <option value="educationalbook">Educational Book</option>
                             </select>
                         </div>
+
+
+                        {/*Work book details container*/}
+                    <div className={`${selectedTypeOfBooks === 'workbook' ? null : "hidden"} w-full flex flex-col gap-4`}>
+                             <div>
+                            <h2 className="text-lg font-bold text-gray-500 rounded-full">Work Book Information</h2>
+                            <p className="text-gray-400 text-sm">Fill-up the required information in the work book.</p>
+                        </div>
+
+                        <input type="text" placeholder="isbn" className={`${isWorkbookTopic ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
+                         placeholder={"Topic"}
+                        value={workbookTopic} 
+                        onChange={(e) => {setWorkbookTopic(e.target.value)}}/>
+
+                        <select
+                            value={workbookSubject}
+                            onChange={(e) => setWorkbookSubject(e.target.value)}
+                            className={`${isSubject ? "border-red-500" : "border-gray-300"} h-12 border outline-none text-gray-500 p-2 rounded-lg`}
+                        >
+                            <option value="">Select Subject</option>
+                            <option value="language">Language</option>
+                            <option value="reading">Reading</option>
+                            <option value="writing">Writing</option>
+                            <option value="phonics">Phonics</option>
+                            <option value="mathematics">Mathematics</option>
+                            <option value="science">Science</option>
+                            <option value="social-studies">Social Studies</option>
+                            <option value="values-education">Values Education</option>
+                            <option value="health">Health</option>
+                            <option value="physical-education">Physical Education</option>
+                            <option value="music">Music</option>
+                            <option value="arts">Arts</option>
+                        </select>
+
+                        <select
+                            value={workbookType}
+                            onChange={(e) => setWorkbookType(e.target.value)}
+                            className={`${isSubject ? "border-red-500" : "border-gray-300"} h-12 border outline-none text-gray-500 p-2 rounded-lg`}
+                        >
+                            <option value="">Select Workbook Type</option>
+                            <option value="activity">Activity Workbook</option>
+                            <option value="alphabet">Alphabet Workbook</option>
+                            <option value="phonics">Phonics Workbook</option>
+                            <option value="reading">Reading Workbook</option>
+                            <option value="writing">Writing Workbook</option>
+                            <option value="tracing">Tracing Workbook</option>
+                            <option value="mathematics">Mathematics Workbook</option>
+                            <option value="science">Science Workbook</option>
+                            <option value="social-studies">Social Studies Workbook</option>
+                            <option value="coloring">Coloring Workbook</option>
+                            <option value="drawing">Drawing Workbook</option>
+                            <option value="puzzle">Puzzle Workbook</option>
+                            <option value="practice">Practice Workbook</option>
+                            <option value="assessment">Assessment Workbook</option>
+                            <option value="handwriting">Handwriting Workbook</option>
+                        </select>
+
+                        <input type="text" placeholder="Work Book Edition" className={`${isWorkbookEdition ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
+                         placeholder={"Work Book Edition"}
+                        value={workbookEdition} 
+                        onChange={(e) => {setWorkbookEdition(e.target.value)}}/>
+
+                        
+
+                        
+                        
+                    </div>
                          
                          {/*Story book details container*/}
                          <div className={`${selectedTypeOfBooks === 'storybook' ? null : "hidden"} w-full flex flex-col gap-4`}>
@@ -418,12 +524,22 @@ const UploadStoryBook = () => {
                             <option value="educational">Educational</option>
                         </select>
 
+                        <input type="text" placeholder="Series Name" className={`${isStorySeries ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
+                         placeholder={"Series"}
+                        value={storySeries} 
+                        onChange={(e) => {setStorySeries(e.target.value)}}/>
+
+                        <input type="text" placeholder="Story Volume" className={`${isStoryVolume ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
+                         placeholder={"Story Volume"}
+                        value={storyVolume} 
+                        onChange={(e) => {setStoryVolume(e.target.value)}}/>
+
                         
                         
                     </div>
 
                     {/*Educational book details container*/}
-                         <div className={`${selectedTypeOfBooks === 'educationalbook' ? null : "hidden"} w-full flex flex-col gap-4`}>
+                    <div className={`${selectedTypeOfBooks === 'educationalbook' ? null : "hidden"} w-full flex flex-col gap-4`}>
                              <div>
                             <h2 className="text-lg font-bold text-gray-500 rounded-full">Educational Book Information</h2>
                             <p className="text-gray-400 text-sm">Fill-up the required information in the educational book.</p>

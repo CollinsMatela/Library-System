@@ -13,7 +13,10 @@ const Upload_Manually_Controller = async (req, res) => {
       title, author, description, gradeCategory, language, publication, publisher, isbn, availability, type, pages,
 
       // Story Book
-      genre,
+      genre, storySeries, storyVolume,
+
+      // Work Book
+      workbookTopic, workbookSubject, workbookType, workbookEdition,
 
       // Educational Book
       subject, educationalEdition,

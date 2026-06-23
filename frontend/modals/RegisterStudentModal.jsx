@@ -19,7 +19,10 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal}) => {
     const [month, setMonth] = useState("")
     const [day, setDay] = useState("")
     const [age, setAge] = useState("")
-    const [gender, setGender] = useState("")
+    const [sex, setSex] = useState("")
+    const [placeOfBirth, setPlaceOfBirth] = useState("");
+    const [motherTongue, setMotherTongue] = useState("");
+    const [disability, setDisability] = useState("");
     const [parentLastname, setParentLastname] = useState("")
     const [parentFirstname, setParentFirstname] = useState("")
     const [parentMiddlename, setParentMiddlename] = useState("")
@@ -35,7 +38,10 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal}) => {
     const [isYear, setIsYear] = useState(false);
     const [isMonth, setIsMonth] = useState(false);
     const [isDay, setIsDay] = useState(false);
-    const [isGender, setIsGender] = useState(false);
+    const [isSex, setIsSex] = useState(false);
+    const [isPlaceOfBirth, setIsPlaceOfBirth] = useState(false);
+    const [isMotherTongue, setIsMotherTongue] = useState(false);
+    const [isDisability, setIsDisability] = useState(false);
     const [isParentLastname, setIsParentLastname] = useState(false);
     const [isParentFirstname, setIsParentFirstname] = useState(false);
     const [isParentMiddlename, setIsParentMiddlename] = useState(false);
@@ -151,15 +157,17 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal}) => {
     <>
         {showConfirmationPopup && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={handleStudentRegistration} onCancel={() => {setShowConfirmationPopup(false); setErrorMessage("");}} />)}
         {showAccountPopup && (<Account_Popup newAccountDetails={newStudent} closeAccountConfirmation={() => {setShowAccountPopup(false); closeStudentModal()}}/>)}
-        <section className="fixed z-50 inset-0 justify-center items-center flex bg-black/50">
+        <section className="fixed z-50 inset-0 justify-center items-center flex bg-black/50 p-10">
                
-               <div className="relative bg-white w-[1200px] rounded-xl justify-start items-start flex flex-col p-4 gap-4">
+               <div className="relative bg-white w-full rounded-xl justify-start items-start flex flex-col p-4 gap-4">
                     <div className="w-full border-b-1 border-gray-100 justify-center items-center flex pb-4">
-                        <h1 className="text-md font-bold text-gray-500" onClick={() => setShowAccountPopup(true)}>Register Student Account</h1>
+                        Reggister Learner Account
                     </div>
-                    <div className="w-full justify-start items-start flex gap-4">
-                        <div className="w-full justify-center items-start flex flex-col gap-2">
+                    
+                    <div className="h-100 w-full justify-start items-start grid grid-cols-1 gap-4 overflow-y-scroll">
+                        {/* Learner Information */}
                         <h1 className="text-sm font-bold text-gray-500">Student Information</h1>
+                        <div className="w-full justify-center items-start grid grid-cols-4 gap-2">
                         <div className="w-full">
                             <h1 className="text-xs text-gray-500">Last Name <span className="text-red-500">*</span></h1>
                             <input type="text" 
@@ -193,83 +201,173 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal}) => {
                                    } 
                                    />
                         </div>
-                        
-                        <div className="w-full justify-center items-center flex gap-2">
 
-                            <div className="w-full justify-center items-start flex flex-col">
-                                <h1 className="text-xs text-gray-500">Date of birth <span className="text-red-500">*</span></h1>
-                                <div className="justify-center items-center flex gap-2">
-                                    <select name="Year" 
-                                            className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-2 text-gray-500 ${isYear ? 'border-red-500' : ''}`} 
-                                            value={year} 
-                                            onChange={(e) => {setYear(e.target.value)
-                                                             if(e.target.value !== "") setIsYear(false);
-                                            }}>
-                                        <option value="">Year</option>
-                                        {Array.from({ length: currentYear - 1999 }, (currentValue, index) => {
-                                            const year = currentYear - index;
-                                            return <option key={year} value={year}>{year}</option>;
-                                        })}
-                                    </select>
-                                    <select name="Month" 
-                                            className={`border-1 border-gray-300 h-12 w-35 outline-none rounded-xl px-2 text-gray-500 ${isMonth ? 'border-red-500' : ''}`} 
-                                            value={month} 
-                                            onChange={(e) => {setMonth(e.target.value)
-                                                             if(e.target.value !== "") setIsMonth(false);
-                                            }}>
-                                        <option value="">Month</option>
-                                        <option value="1">January</option>
-                                        <option value="2">February</option>
-                                        <option value="3">March</option>
-                                        <option value="4">April</option>
-                                        <option value="5">May</option>
-                                        <option value="6">June</option>
-                                        <option value="7">July</option>
-                                        <option value="8">August</option>
-                                        <option value="9">September</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">December</option>
-                                    </select>
-                                    <select name="Day" 
-                                            className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-2 text-gray-500 ${isDay ? 'border-red-500' : ''}`} 
-                                            value={day} 
-                                            onChange={(e) => {setDay(e.target.value)
-                                                             if(e.target.value !== "") setIsDay(false);
-                                            }}>
-                                                <option value="">Day</option>
-                                        {Array.from({ length: 31 }, (currentValue, index) => {
-                                            const day = index + 1;
-                                            return <option key={day} value={day}>{day}</option>;
-                                        })}
-                                    </select>
-                                </div>
-                            </div>    
-                            
-                            <div>
-                                <h1 className="text-xs text-gray-500">Age<span className="text-red-500">*</span></h1>
-                                <input type="text" placeholder="Age" className="bg-gray-100 h-12 w-20 outline-none rounded-xl px-4 text-gray-500 cursor-not-allowed" disabled value={age}/>
-                            </div>
-                            
+                        <div className="w-full">
+                            <h1 className="text-xs text-gray-500">Extension Name e.g. Jr., lll (if applicable)</h1>
+                            <input type="text" 
+                                   placeholder="Extension Name " 
+                                   className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 ${isMiddlename ? 'border-red-500' : ''}`} 
+                                   value={middlename} 
+                                   onChange={(e) => {setMiddlename(e.target.value);
+                                                    if(e.target.value !== "") setIsMiddlename(false);}
+                                   } 
+                                   />
                         </div>
+                        
+                        <div className="flex flex-col w-full">
+
+                        {/* Date of Birth */}
+                        <h1 className="text-xs text-gray-500">Date of Birth <span className="text-red-500">*</span></h1>
+                        <div className="w-full grid grid-cols-3 gap-2">
+
+                            
+                                <select
+                                    className={`border border-gray-300 h-12 flex-1 rounded-xl px-2 text-gray-500 outline-none ${
+                                        isYear ? "border-red-500" : ""
+                                    }`}
+                                    value={year}
+                                    onChange={(e) => {
+                                        setYear(e.target.value);
+                                        if (e.target.value) setIsYear(false);
+                                    }}
+                                >
+                                    <option value="">Year</option>
+                                    {Array.from({ length: currentYear - 1999 }, (_, index) => {
+                                        const year = currentYear - index;
+                                        return (
+                                            <option key={year} value={year}>
+                                                {year}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+
+                                <select
+                                    className={`border border-gray-300 h-12 flex-1 rounded-xl px-2 text-gray-500 outline-none ${
+                                        isMonth ? "border-red-500" : ""
+                                    }`}
+                                    value={month}
+                                    onChange={(e) => {
+                                        setMonth(e.target.value);
+                                        if (e.target.value) setIsMonth(false);
+                                    }}
+                                >
+                                    <option value="">Month</option>
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3">March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="6">June</option>
+                                    <option value="7">July</option>
+                                    <option value="8">August</option>
+                                    <option value="9">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+
+                                <select
+                                    className={`border border-gray-300 h-12 flex-1 rounded-xl px-2 text-gray-500 outline-none ${
+                                        isDay ? "border-red-500" : ""
+                                    }`}
+                                    value={day}
+                                    onChange={(e) => {
+                                        setDay(e.target.value);
+                                        if (e.target.value) setIsDay(false);
+                                    }}
+                                >
+                                    <option value="">Day</option>
+                                    {Array.from({ length: 31 }, (_, index) => (
+                                        <option key={index + 1} value={index + 1}>
+                                            {index + 1}
+                                        </option>
+                                    ))}
+                                </select>
+                            
+
+                            {/* Age */}
+                        <div className="w-full">
+                            <input
+                                type="text"
+                                placeholder="Age"
+                                value={age}
+                                disabled
+                                className="bg-gray-100 h-12 w-full rounded-xl px-4 text-gray-500 cursor-not-allowed"
+                            />
+                        </div>
+                        </div>
+
+                        
+
+                    </div>
                         
                         
                         <div className="w-full">
-                            <h1 className="text-xs text-gray-500">Gender <span className="text-red-500">*</span></h1>
-                            <select className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500 ${isGender ? 'border-red-500' : ''}`} 
-                                    value={gender} 
-                                    onChange={(e) => {setGender(e.target.value)
-                                                     if(e.target.value !== "") setIsGender(false);
+                            <h1 className="text-xs text-gray-500">Sex <span className="text-red-500">*</span></h1>
+                            <select className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500 ${isSex ? 'border-red-500' : ''}`} 
+                                    value={sex} 
+                                    onChange={(e) => {setSex(e.target.value)
+                                                     if(e.target.value !== "") setIsSex(false);
                                                     }}>
-                            <option value="">Select Gender</option>
+                            <option value="">Select Sex</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
+                            </select>
+                        </div>
+
+                        <div className="w-full">
+                            <h1 className="text-xs text-gray-500">Place of birth</h1>
+                            <input type="text" 
+                                   placeholder="Place of birth" 
+                                   className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 ${isPlaceOfBirth ? 'border-red-500' : ''}`} 
+                                   value={placeOfBirth} 
+                                   onChange={(e) => {setPlaceOfBirth(e.target.value);
+                                                    if(e.target.value !== "") setIsPlaceOfBirth(false);}
+                                   } 
+                                   />
+                        </div>
+
+                        <div className="w-full">
+                            <h1 className="text-xs text-gray-500">Mother Tongue <span className="text-red-500">*</span></h1>
+                            <select className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500 ${isMotherTongue ? 'border-red-500' : ''}`} 
+                                    value={motherTongue} 
+                                    onChange={(e) => {setMotherTongue(e.target.value)
+                                                     if(e.target.value !== "") setIsMotherTongue(false);
+                                                    }}>
+                            <option value="">Select Mother Tongue</option>
+                            <option value="filipino">Filipino (Tagalog)</option>
+                            <option value="english">English</option>
+                            </select>
+                        </div>
+
+                        <div className="w-full">
+                            <h1 className="text-xs text-gray-500">Disability <span className="text-red-500">*</span></h1>
+                            <select className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500 ${isDisability ? 'border-red-500' : ''}`} 
+                                    value={disability} 
+                                    onChange={(e) => {setDisability(e.target.value)
+                                                     if(e.target.value !== "") setIsDisability(false);
+                                                    }}>
+                            <option value="">Is the student have disability?</option>
+                            <option value="">None</option>
+                            <option value="visual-impairment-blind">Visual Impairment / a. Blind</option>
+                            <option value="visual-impairment-low-vision">Visual Impairment / b. Low Vision</option>
+                            <option value="hearing-impairment">Hearing Impairment</option>
+                            <option value="autism-spectrum-disorder">Autism Spectrum Disorder</option>
+                            <option value="speech-language-disorder">Speech/Language Disorder</option>
+                            <option value="learning-disability">Learning Disability</option>
+                            <option value="emotional-behavioral-disorder">Emotional-Behavioral Disorder</option>
+                            <option value="cerebal-palsy">Cerebal Palsy</option>
+                            <option value="intellectual-disability">Intellectual Disability</option>
+                            <option value="orthopedic-physical-handicap">Orthopedic/Physical Handicap</option>
+                            <option value="special-health-problem-chronic-disease-cancer">Special Health Problem/Chronic Disease / a. Cancer</option>
+                            
                             </select>
                         </div>
                         
                     </div>
 
-         
+                    {/* Parent Information */}
                     <div className="h-full w-full justify-center items-start flex flex-col gap-2">
                         <h1 className="text-sm font-bold text-gray-500">Parent/Guardian Information</h1>
                         <div className="w-full">
@@ -375,8 +473,8 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal}) => {
                     
                     
 
-                    <div className={`${isLastname || isFirstname || isMiddlename || isYear || isMonth || isDay || isGender || isParentLastname || isParentFirstname || isParentMiddlename || isParentEmail || isParentContact || isParentRelationship || isGradeLevel || isBranch ? "" : "hidden"} h-full w-full bg-red-100 p-2 rounded-xl justify-center items-start flex flex-col`}>
-                            {isLastname || isFirstname || isMiddlename || isYear || isMonth || isDay || isGender || isParentLastname || isParentFirstname || isParentMiddlename || isParentEmail || isParentContact || isParentRelationship || isGradeLevel || isBranch ? (
+                    <div className={`${isLastname || isFirstname || isMiddlename || isYear || isMonth || isDay || isSex || isParentLastname || isParentFirstname || isParentMiddlename || isParentEmail || isParentContact || isParentRelationship || isGradeLevel || isBranch ? "" : "hidden"} h-full w-full bg-red-100 p-2 rounded-xl justify-center items-start flex flex-col`}>
+                            {isLastname || isFirstname || isMiddlename || isYear || isMonth || isDay || isSex || isParentLastname || isParentFirstname || isParentMiddlename || isParentEmail || isParentContact || isParentRelationship || isGradeLevel || isBranch ? (
                                 <p className="text-red-500 text-xs">• Please fill out all required fields and ensure the information is correct. </p>
                                 
                             ) : null}

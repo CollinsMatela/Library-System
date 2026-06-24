@@ -6,7 +6,7 @@ const StudentRegistrationSchema = new mongoose.Schema({
       lastname: {type: String, required:true},
       firstname: {type: String, required:true},
       middlename: {type: String, required:true},
-      extensionname: {type: String, required:true},
+      extensionname: {type: String, default: ""},
 
       year: {type: String, required:true},
       month: {type: String, required:true},
@@ -16,8 +16,7 @@ const StudentRegistrationSchema = new mongoose.Schema({
       sex: {type: String, required:true},
 
       placeOfBirth: {type: String, required:true},
-      motherTounge: {type: String, required:true},
-
+      motherTongue: {type: String, required:true},
       disability: {type: String, required:true},
 
       currentAddressHouseNo: {type: String, required:true},
@@ -28,23 +27,23 @@ const StudentRegistrationSchema = new mongoose.Schema({
       currentCountry: {type: String, required:true},
       currentZipCode: {type: String, required:true},
 
-      permanentAddressHouseNo: {type: String, required:true},
-      permanentStreetName: {type: String, required:true},
-      permanentBarangay: {type: String, required:true},
-      permanentMunicipality: {type: String, required:true},
-      permanentProvince: {type: String, required:true},
-      permanentCountry: {type: String, required:true},
-      permanentZipCode: {type: String, required:true},
+      permanentAddressHouseNo: {type: String, default: ""},
+      permanentStreetName: {type: String, default: ""},
+      permanentBarangay: {type: String, default: ""},
+      permanentMunicipality: {type: String, default: ""},
+      permanentProvince: {type: String, default: ""},
+      permanentCountry: {type: String, default: ""},
+      permanentZipCode: {type: String, default: ""},
 
-      fatherLastname: {type: String, required:true},
-      fatherFirstname: {type: String, required:true},
-      fatherMiddlename: {type: String, required:true},
-      fatherContact: {type: String, required:true},
+      fatherLastname: {type: String, default: ""},
+      fatherFirstname: {type: String, default: ""},
+      fatherMiddlename: {type: String, default: ""},
+      fatherContact: {type: String, default: ""},
       
-      motherLastname: {type: String, required:true},
-      motherFirstname: {type: String, required:true},
-      motherMiddlename: {type: String, required:true},
-      motherContact: {type: String, required:true},
+      motherLastname: {type: String, default: ""},
+      motherFirstname: {type: String, default: ""},
+      motherMiddlename: {type: String, default: ""},
+      motherContact: {type: String, default: ""},
 
       legalLastname: {type: String, required:true},
       legalFirstname: {type: String, required:true},

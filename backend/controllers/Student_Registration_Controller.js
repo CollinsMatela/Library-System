@@ -3,13 +3,69 @@ import bcrypt from "bcrypt";
 import { nanoid } from 'nanoid'
 
 const Student_Registration_Controller = async (req, res) => {
-    const { lastname, firstname, middlename, year, month, day, age, gender, parentLastname, parentFirstname, parentMiddlename, parentEmail, parentContact, parentRelationship, gradeLevel, branch } = req.body;
+    const {
+    // Student Information
+    lastname,
+    firstname,
+    middlename,
+    extensionname,
+
+    year,
+    month,
+    day,
+    age,
+    sex,
+    placeOfBirth,
+    motherTongue,
+    disability,
+
+    // Current Address
+    currentAddressHouseNo,
+    currentStreetName,
+    currentBarangay,
+    currentMunicipality,
+    currentProvince,
+    currentCountry,
+    currentZipCode,
+
+    // Permanent Address
+    permanentAddressHouseNo,
+    permanentStreetName,
+    permanentBarangay,
+    permanentMunicipality,
+    permanentProvince,
+    permanentCountry,
+    permanentZipCode,
+
+    // Father Information
+    fatherLastname,
+    fatherFirstname,
+    fatherMiddlename,
+    fatherContact,
+
+    // Mother Information
+    motherLastname,
+    motherFirstname,
+    motherMiddlename,
+    motherContact,
+
+    // Legal Guardian Information
+    legalLastname,
+    legalFirstname,
+    legalMiddlename,
+    legalContact,
+
+    // Enrollment Information
+    gradeLevel,
+    branch
+} = req.body;
 
     const username = `${lastname}.${Math.floor(Math.random() * 1000) + 1000}@lmlc.edu`;
     const defaultPassword = nanoid(10);
     const hashedPassword = await bcrypt.hash(defaultPassword, 10);
 
     try {
+        console.log("Backend ", motherTongue)
         const isFullname = await Student_Registration_Model.findOne({lastname: lastname, firstname: firstname});
         if(isFullname) {
             return res.status(409).json({message: "The user is already existing."});
@@ -17,26 +73,67 @@ const Student_Registration_Controller = async (req, res) => {
 
         const newStudent = await Student_Registration_Model.create({
             id: crypto.randomUUID(),
-            lastname: lastname,
-            firstname: firstname,
-            middlename: middlename,
-            year: year,
-            month: month,
-            day: day,
-            age: age,
-            gender: gender,
-            parentLastname: parentLastname,
-            parentFirstname: parentFirstname,
-            parentMiddlename: parentMiddlename,
-            parentEmail: parentEmail,
-            parentContact: parentContact,
-            parentRelationship: parentRelationship,
+
+            // Student Information
+            lastname,
+            firstname,
+            middlename,
+            extensionname,
+
+            year,
+            month,
+            day,
+            age,
+            sex,
+            placeOfBirth,
+            motherTongue,
+            disability,
+
+            // Current Address
+            currentAddressHouseNo,
+            currentStreetName,
+            currentBarangay,
+            currentMunicipality,
+            currentProvince,
+            currentCountry,
+            currentZipCode,
+
+            // Permanent Address
+            permanentAddressHouseNo,
+            permanentStreetName,
+            permanentBarangay,
+            permanentMunicipality,
+            permanentProvince,
+            permanentCountry,
+            permanentZipCode,
+
+            // Father Information
+            fatherLastname,
+            fatherFirstname,
+            fatherMiddlename,
+            fatherContact,
+
+            // Mother Information
+            motherLastname,
+            motherFirstname,
+            motherMiddlename,
+            motherContact,
+
+            // Legal Guardian Information
+            legalLastname,
+            legalFirstname,
+            legalMiddlename,
+            legalContact,
+
             role: "Student",
-            gradeLevel: gradeLevel,
-            branch: branch,
+
+            // Enrollment Information
+            gradeLevel,
+            branch,
+
+            // Account Information
             username: username,
             password: hashedPassword
-
         });
 
         const AccountData = {

@@ -405,12 +405,20 @@ const UploadStoryBook = () => {
                                           setIsPublisher(e.target.value === "");
                         }}/>
 
-                        <input type="date" name="publication-date" id="publication-date"
+                       <input
+                            type="number"
+                            name="publication-year"
+                            id="publication-year"
+                            min="1900"
+                            max={new Date().getFullYear()}
+                            placeholder="YYYY"
+                            value={publication}
                             className={`${isPublication ? "border-red-300" : "border-gray-300"} h-12 border bg-white outline-none text-gray-500 p-2 rounded-lg`}
-                            onChange={(e) => {setPublication(e.target.value)
-                                              setIsPublication(e.target.value === "")
+                            onChange={(e) => {
+                                setPublication(e.target.value);
+                                setIsPublication(e.target.value === "");
                             }}
-                         />
+                        />
 
                          <input type="text" placeholder="isbn" className={`${isIsbn ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
                          placeholder={"ISBN (International Standard Book Number)"}

@@ -2,7 +2,6 @@ import Admin_Sidebar from "../components/Admin_Sidebar"
 import axios from "axios"
 import { useState, useEffect } from "react"
 import Edit_Student_Modal from "../modals/Edit_Student_Modal"
-import RegisterStudentModal from "../modals/RegisterStudentModal"
 import Confirmation_Popup from "../popup/Confirmation_Popup"
 import View_Student_Modal from "../modals/View_Student_Modal"
 import { View, UserPen, Trash } from "lucide-react"
@@ -22,7 +21,6 @@ const Admin_Student_Page = () => {
 
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [showEditModal, setShowEditModal] = useState(false);
-    const [showStudentRegistration, setShowStudentRegistration] = useState(false);
     const [showViewStudent, setShowViewStudent] = useState(false);
     const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
@@ -74,7 +72,6 @@ const Admin_Student_Page = () => {
         {showConfirmationPopup && (<Confirmation_Popup onConfirm={() => deleteStudent(selectedStudent?.id)} onCancel={() => setShowConfirmationPopup(false)} />)}
         {showEditModal && (<Edit_Student_Modal selectedStudent={selectedStudent} reFetch={fetchStudents()} closeEditStudentModal={() => setShowEditModal(false)} onRefresh={fetchStudents}/>)}
         {showViewStudent && (<View_Student_Modal student={selectedStudent} onClose={() => setShowViewStudent(false)}/>)}
-        {showStudentRegistration && (<RegisterStudentModal closeStudentModal={() => setShowStudentRegistration(false)} reFetchStudent={fetchStudents} />)}
        <section className="min-h-screen w-full bg-white pl-80 py-10 space-y-10">
         
         <Admin_Sidebar/>
@@ -83,10 +80,7 @@ const Admin_Student_Page = () => {
               <h2 className="text-3xl font-bold text-gray-800">Student Management</h2>
                <p className="text-gray-400 text-md">Manage student accounts, monitor learning progress, and keep track of student information and activities.</p>
             </div>
-            
-            <div>
-                <button className="bg-white border-1 border-pink-500 h-10 rounded-2xl text-pink-500 cursor-pointer text-sm font-semibold px-4 hover:bg-pink-500 hover:text-white" onClick={handleRegistration}>+ New Student</button>   
-            </div>
+
        </div>
 
         {/* Student Container */}

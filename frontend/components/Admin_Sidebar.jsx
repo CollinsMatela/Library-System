@@ -13,7 +13,7 @@ const Admin_SideBar = () => {
     const isUploadStory = location.pathname === "/admin/upload";
     const isViewStory = location.pathname === "/admin/materials";
     const isStudentAccount = location.pathname === "/admin/students";
-    const isEmployeeAccount = location.pathname === "/admin/employee";
+    const isStudentRegistration = location.pathname === "/admin/student-registration";
 
     const handleOverview = () => {
           navigate('/admin');
@@ -27,8 +27,8 @@ const Admin_SideBar = () => {
     const handleStudent = () => {
           navigate('/admin/students');
     }
-    const handleEmployee = () => {
-          navigate('/admin/employee');
+    const handleStudentRegistration = () => {
+          navigate('/admin/student-registration');
     }
 
     const handleLogout = () =>{
@@ -67,6 +67,11 @@ const Admin_SideBar = () => {
       <div className={`${isViewStory ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleViewStory}>
         <LibraryBig className={`${isViewStory ? 'text-white' : 'text-gray-300'}`} size={24}/>
         View Stories
+      </div>
+
+      <div className={`${isStudentRegistration ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleStudentRegistration}>
+        <Users className={`${isStudentRegistration ? 'text-white' : 'text-gray-300'}`} size={24}/>
+        Students Registration
       </div>
 
       <div className={`${isStudentAccount ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleStudent}>

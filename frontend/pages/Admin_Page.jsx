@@ -1,7 +1,6 @@
 import Admin_Dashboard from "../components/Admin_Dashboard"
 import Admin_Stories from "../components/Admin_Stories"
 import Admin_UserManagement from "../components/Admin_UserManagement"
-import RegisterStudentModal from "../modals/RegisterStudentModal"
 import Edit_Student_Modal from "../modals/Edit_Student_Modal"
 import Account_Conformation from "../popup/Account_Conformation"
 import { useState, useEffect} from "react"

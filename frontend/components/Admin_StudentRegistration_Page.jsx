@@ -2,8 +2,9 @@ import {useEffect, useState } from "react";
 import axios from "axios";
 import Confirmation_Popup from "../popup/Confirmation_Popup"
 import Account_Popup from "../popup/Account_Conformation"
+import Admin_SideBar from "./Admin_Sidebar";
 
-const RegisterStudentModal = ({ reFetchStudent, closeStudentModal}) => {
+const Admin_StudentRegistration_Page = ({ reFetchStudent, closeStudentModal}) => {
     const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
     const [showAccountPopup, setShowAccountPopup] = useState(false);
 
@@ -303,16 +304,20 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal}) => {
 
     return(
     <>
+        <Admin_SideBar/>
         {showConfirmationPopup && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={handleStudentRegistration} onCancel={() => {setShowConfirmationPopup(false); setErrorMessage("");}} />)}
         {showAccountPopup && (<Account_Popup newAccountDetails={newStudent} closeAccountConfirmation={() => {setShowAccountPopup(false); closeStudentModal()}}/>)}
-        <section className="fixed z-50 inset-0 justify-center items-center flex bg-black/50 p-10">
+        <section className="w-full justify-center items-center flex flex-col pl-80 py-10 space-y-10">
                
-               <div className="relative bg-white w-full rounded-xl justify-start items-start flex flex-col p-4 gap-4">
-                    <div className="w-full border-b-1 border-gray-100 justify-center items-center flex pb-4">
-                        Register Learner Account
+               <div className="bg-white w-full rounded-xl justify-start items-start flex flex-col gap-4 ">
+                    <div className="mx-10 justify-between items-start flex">
+                            <div>
+                            <h2 className="text-3xl font-bold text-gray-800">Student Registration</h2>
+                            <p className="text-gray-400 text-md">Register students allowing them to access the school digital library system</p>
+                            </div>
                     </div>
                     
-                    <div className="h-150 w-full justify-start items-start grid grid-cols-1 gap-4 overflow-y-scroll">
+                    <div className="h-150 w-full justify-start items-start grid grid-cols-1 gap-4 p-10">
                         {/* Learner Information */}
                         <h1 className="text-sm font-bold text-gray-500">Student Information</h1>
                         <div className="w-full justify-center items-start grid grid-cols-4 gap-2">
@@ -948,9 +953,6 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal}) => {
                         </div>
                         
                     </div>
-                    </div>
-                    
-                    
 
                     <div className={`${hasError ? "" : "hidden"} h-full w-full bg-red-100 p-2 rounded-xl flex flex-col items-start justify-center`}>
                         <p className="text-red-500 text-xs">
@@ -963,15 +965,17 @@ const RegisterStudentModal = ({ reFetchStudent, closeStudentModal}) => {
                             </p>
                         )}
                     </div>
-                    
-                    
-                    <div className="w-full justify-end items-center flex gap-2">
-                        <button className="bg-gray-300 text-white py-2 px-4 rounded-full hover:bg-gray-400 cursor-pointer font-bold text-sm" onClick={closeStudentModal}>Cancel</button>
-                        <button className="bg-blue-600 text-white py-2 px-4 rounded-full hover:bg-blue-700 cursor-pointer font-bold text-sm" onClick={handleConfirmation}>Register</button>
+
+                    {/* Buttons */}
+                    <div className="w-full h-20 justify-end items-center flex py-4">
+                        <button className="bg-black text-white h-full w-fit px-6 rounded-xl cursor-pointer font-bold text-sm hover:-translate-y-1" onClick={handleConfirmation}>+ Register</button>
                     </div>
+                    </div>
+                    
                </div>
+               
         </section>
         </>
     )
 }
-export default RegisterStudentModal
+export default Admin_StudentRegistration_Page

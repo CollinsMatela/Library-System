@@ -25,7 +25,6 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent, closeStudentModal}) =>
     const [sex, setSex] = useState("")
     const [placeOfBirth, setPlaceOfBirth] = useState("");
     const [motherTongue, setMotherTongue] = useState("");
-    const [disability, setDisability] = useState("");
 
     // Current Address
     const [currentAddressHouseNo, setCurrentAddressHouseNo] = useState('');
@@ -76,7 +75,6 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent, closeStudentModal}) =>
 
     const [isPlaceOfBirth, setIsPlaceOfBirth] = useState(false);
     const [isMotherTongue, setIsMotherTongue] = useState(false);
-    const [isDisability, setIsDisability] = useState(false);
 
     // Current Address Validation
     const [isCurrentAddressHouseNo, setIsCurrentAddressHouseNo] = useState(false);
@@ -148,7 +146,6 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent, closeStudentModal}) =>
 
     if(!placeOfBirth) { setIsPlaceOfBirth(true); hasError = true; }
     if(!motherTongue) { setIsMotherTongue(true); hasError = true; }
-    if(!disability) { setIsDisability(true); hasError = true; }
 
     // Current Address
     if (!currentAddressHouseNo) { setIsCurrentAddressHouseNo(true); hasError = true; }
@@ -240,7 +237,6 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent, closeStudentModal}) =>
             sex,
             placeOfBirth,
             motherTongue,
-            disability,
 
             // Current Address
             currentAddressHouseNo,
@@ -300,7 +296,7 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent, closeStudentModal}) =>
         }
     };
     // For ErrorMessage
-    const hasError = isLastname || isFirstname || isMiddlename || isYear || isMonth || isDay || isSex || isPlaceOfBirth || isMotherTongue || isDisability || isFatherLastname || isFatherFirstname || isFatherMiddlename || isFatherContact || isMotherLastname || isMotherFirstname || isMotherMiddlename || isMotherContact || isLegalLastname || isLegalFirstname || isLegalMiddlename || isLegalContact || isGradeLevel || isBranch;
+    const hasError = isLastname || isFirstname || isMiddlename || isYear || isMonth || isDay || isSex || isPlaceOfBirth || isMotherTongue || isFatherLastname || isFatherFirstname || isFatherMiddlename || isFatherContact || isMotherLastname || isMotherFirstname || isMotherMiddlename || isMotherContact || isLegalLastname || isLegalFirstname || isLegalMiddlename || isLegalContact || isGradeLevel || isBranch;
 
     return(
     <>
@@ -493,29 +489,7 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent, closeStudentModal}) =>
                             </select>
                         </div>
 
-                        <div className="w-full">
-                            <h1 className="text-xs text-gray-500">Disability <span className="text-red-500">*</span></h1>
-                            <select className={`border-1 border-gray-300 h-12 w-full outline-none rounded-xl px-4 text-gray-500 ${isDisability ? 'border-red-500' : ''}`} 
-                                    value={disability} 
-                                    onChange={(e) => {setDisability(e.target.value)
-                                                     if(e.target.value !== "") setIsDisability(false);
-                                                    }}>
-                            <option value="">Is the student have disability?</option>
-                            <option value="">None</option>
-                            <option value="visual-impairment-blind">Visual Impairment / a. Blind</option>
-                            <option value="visual-impairment-low-vision">Visual Impairment / b. Low Vision</option>
-                            <option value="hearing-impairment">Hearing Impairment</option>
-                            <option value="autism-spectrum-disorder">Autism Spectrum Disorder</option>
-                            <option value="speech-language-disorder">Speech/Language Disorder</option>
-                            <option value="learning-disability">Learning Disability</option>
-                            <option value="emotional-behavioral-disorder">Emotional-Behavioral Disorder</option>
-                            <option value="cerebal-palsy">Cerebal Palsy</option>
-                            <option value="intellectual-disability">Intellectual Disability</option>
-                            <option value="orthopedic-physical-handicap">Orthopedic/Physical Handicap</option>
-                            <option value="special-health-problem-chronic-disease-cancer">Special Health Problem/Chronic Disease / a. Cancer</option>
-                            
-                            </select>
-                        </div>
+                        
                         
                     </div>
 

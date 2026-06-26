@@ -2,8 +2,11 @@ import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom";
 import Confirmation_Popup from "../popup/Confirmation_Popup";
 import axios from 'axios'
+import Admin_SideBar from "../components/Admin_Sidebar";
+import FictionBookInformation from "./UploadPage_Components/FictionBookInformation"
+import TypeOfBooks from "./UploadPage_Components/TypeOfBooks";
 
-const UploadStoryBook = () => {
+const Admin_UploadBook_Page = () => {
 
         const navigate = useNavigate();
 
@@ -15,6 +18,7 @@ const UploadStoryBook = () => {
         const [showConfirmation, setShowConfirmation] = useState(false);
 
         const [selectedTypeOfBooks, setSelectedTypeOfBooks] = useState("");
+        const [selectedCategoryOfBook, setSelectedCategoryOfBook] = useState("");
 
         // Book Information 
         const [title, setTitle] = useState("");
@@ -36,32 +40,17 @@ const UploadStoryBook = () => {
         const [isIsbn, setIsIsbn] = useState(false);
         const [isPublisher, setIsPublisher] = useState(false);
 
-        // Work Book States
-        const [workbookTopic, setWorkbookTopic] = useState("");
-        const [isWorkbookTopic, setIsWorkbookTopic] = useState(false);
 
-        const [workbookSubject, setWorkbookSubject] = useState("")
-        const [isWorkbookSubject, setIsWorkbookSubject] = useState(false);
+        // Fictions Addiotionals Information
+        const [fictionSeries, setFictionSeries] = useState("");
+        const [isFictionSeries, setIsFictionSeries] = useState(false);
 
-        const [workbookType, setWorkbookType] = useState("");
-        const [isWorkbookType, setIsWorkbookType] = useState(false);
+        const [fictionVolume, setFictionVolume] = useState("");
+        const [isFictionVolume, setIsFictionVolume] = useState(false);
 
-        const [workbookEdition, setWorkbookEdition] = useState("")
-        const [isWorkbookEdition, setIsWorkbookEdition] = useState(false);
-
-
-        // Story Book States
-        const [genre, setGenre] = useState("");
-        const [isGenre, setIsGenre] = useState(false);
-
-        const [storySeries, setStorySeries] = useState("");
-        const [isStorySeries, setIsStorySeries] = useState(false);
-
-        const [storyVolume, setStoryVolume] = useState("");
-        const [isStoryVolume, setIsStoryVolume] = useState(false);
-
-        const [series, setSeries] = useState("");
-        const [isSeries, setIsSeries] = useState(false);
+        const [fictionEdition, setFictionEdition] = useState("");
+        const [isFictionEdition, setIsFictionEdition] = useState(false);
+        
 
         // Educational Book States
         const [subject, setSubject] = useState("");
@@ -241,13 +230,6 @@ const UploadStoryBook = () => {
             if (storyVolume === "") { setStoryVolume(true); alert('Please enter volume.'); return;}
         }
 
-        if(selectedTypeOfBooks === "workbook"){
-            if (workbookTopic === "") { setIsWorkbookTopic(true); alert('Please enter topic.'); return;}
-            if (workbookSubject === "") { setIsWorkbookTopic(true); alert('Please enter subject.'); return;}
-            if (workbookType === "") { setWorkbookType(true); alert('Please enter type.'); return;}
-            if (workbookEdition === "") { setWorkbookEdition(true); alert('Please enter edition.'); return;}
-        }
-
         if(selectedTypeOfBooks === "childrensbook"){
             if (readingLevel === "") { setIsReadingLevel(true); alert('Please enter reading level.'); return;}
             if (illustrator === "") {setIsIllustrator(true); alert('Please enter illusatrator.'); return;}
@@ -287,26 +269,20 @@ const UploadStoryBook = () => {
     const uploadStory = async () => {
         
         const formData = new FormData();
+        formData.append("type", selectedTypeOfBooks);
+        formData.append("category", selectedCategoryOfBook);
+
         formData.append("title", title);
         formData.append("author", author);
         formData.append("description", description);
-        formData.append("gradeCategory", gradeCategory);
         formData.append("language", language);
         formData.append("publication", publication);
         formData.append("publisher", publisher);
         formData.append("isbn", isbn);
 
-        formData.append("type", selectedTypeOfBooks);
-
-        formData.append("genre", genre);
-        formData.append("storySeries", storySeries);
-        formData.append("storyVolume", storyVolume);
-
-        formData.append("workbookTopic", workbookTopic);
-        formData.append("workbookSubject", workbookSubject);
-        formData.append("workbookType", workbookType);
-        formData.append("workbookEdition", workbookEdition);
-
+        formData.append("fictionSeries", fictionSeries);
+        formData.append("fictionEdition", fictionEdition);
+        formData.append("fictionVolume", fictionVolume);
 
         formData.append("subject", subject);
         formData.append("educationalEdition", educationalEdition);
@@ -351,200 +327,106 @@ const UploadStoryBook = () => {
     }
       return(
         <>
+        <Admin_SideBar/>
         {showConfirmation && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={uploadStory} onCancel={() => {setShowConfirmation(false); setErrorMessage("")}}/>)}
-        <section className="min-h-screen w-full">
+        <section className="min-h-screen w-full pl-90 pr-10 py-10">
+
+            <header className="w-full justify-between items-start flex flex-col mb-10">
+
+                <div>
+                    <h1 className="text-3xl font-bold text-gray-800">Upload Book Management</h1>
+                    <h1 className="text-gray-400 text-md">Add a new book to the library by providing its details and uploading the required files. </h1>
+                </div>
+                
+              </header>
 
                 {/* MANUALLY UPLOAD STORY CONTAINER */}
                 <div className={`bg-black w-full flex bg-white rounded-xl gap-10 mt-10`}>
                     
                         {/* Story Details */}
-                        <div className="bg-white w-1/2 flex flex-col gap-4">
-                        <div>
-                            <h2 className="text-lg font-bold text-gray-500 rounded-full">Book Information</h2>
-                            <p className="text-gray-400 text-sm">Fill-up the required information in the story.</p>
-                        </div>
+                        <div className="bg-white w-full flex flex-col gap-4">
+
+                       <TypeOfBooks
+                       selectedTypeOfBooks={selectedTypeOfBooks}
+                       setSelectedTypeOfBooks={setSelectedTypeOfBooks}
+                       selectedCategoryOfBook={selectedCategoryOfBook}
+                       setSelectedCategoryOfBook={setSelectedCategoryOfBook}
+                       />
                         
+                        {selectedTypeOfBooks.toLowerCase() === 'fiction' && (
+                        <FictionBookInformation
+                            title={title}
+                            setTitle={setTitle}
 
-                        <input type="text" placeholder="Title" className={`${isTitle ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`} 
-                        value={title} 
-                        onChange={(e) => {setTitle(e.target.value); 
-                                          setIsTitle(e.target.value === "");
-                        }}/>
-                        <input type="text" placeholder="Author" className={`${isAuthor ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`} 
-                        value={author} 
-                        onChange={(e) => {setAuthor(e.target.value);
-                                          setIsAuthor(e.target.value === "");
-                        }}/>
+                            author={author}
+                            setAuthor={setAuthor}
 
-                        <textarea 
-                            placeholder="Description"
-                            className={`${isDescription ? "border-red-500" : "border-gray-300"} h-12 border h-10 outline-none p-2 rounded-lg`}
-                            value={description}
-                            onChange={(e) => {setDescription(e.target.value)
-                                              setIsDescription(e.target.value === "");
-                            }}
-                        />
+                            description={description}
+                            setDescription={setDescription}
 
-                        <select
-                            className={`${isLanguage ? "border-red-300" : "border-gray-300"} h-12 border bg-white outline-none text-gray-500 p-2 rounded-lg`}
-                            value={language}
-                            onChange={(e) => {setLanguage(e.target.value)
-                                              setIsLanguage(e.target.value === "")
-                            }}
-                        >
-                            <option value="">Select Language</option>
-                            <option value="english">English</option>
-                            <option value="filipino">Filipino</option>
+                            gradeCategory={gradeCategory}
+                            setGradeCategory={setGradeCategory}
+
+                            language={language}
+                            setLanguage={setLanguage}
+
+                            publication={publication}
+                            setPublication={setPublication}
+
+                            publisher={publisher}
+                            setPublisher={setPublisher}
+
+                            isbn={isbn}
+                            setIsbn={setIsbn}
+
+                            availability={availability}
+                            setAvailability={setAvailability}
                             
-                        </select>
+                            // Optionals 
+                            fictionSeries={fictionSeries}
+                            setFictionSeries={setFictionSeries}
 
-                        <input type="text" placeholder="publisher" className={`${isPublisher ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
-                        placeholder={"Publisher"}
-                        value={publisher} 
-                        onChange={(e) => {setPublisher(e.target.value);
-                                          setIsPublisher(e.target.value === "");
-                        }}/>
+                            fictionEdition={fictionEdition}
+                            setFictionEdition={setFictionEdition}
 
-                       <input
-                            type="number"
-                            name="publication-year"
-                            id="publication-year"
-                            min="1900"
-                            max={new Date().getFullYear()}
-                            placeholder="YYYY"
-                            value={publication}
-                            className={`${isPublication ? "border-red-300" : "border-gray-300"} h-12 border bg-white outline-none text-gray-500 p-2 rounded-lg`}
-                            onChange={(e) => {
-                                setPublication(e.target.value);
-                                setIsPublication(e.target.value === "");
-                            }}
+                            fictionVolume={fictionVolume}
+                            setFictionVolume={setFictionVolume}
+
+                            isFictionSeries={isFictionSeries}
+                            setIsFictionSeries={setIsFictionSeries}
+
+                            isFictionEdition={isFictionEdition}
+                            setIsFictionEdition={setIsFictionEdition}
+
+                            isFictionVolume={isFictionVolume}
+                            setIsFictionVolume={setIsFictionVolume}
+
+                            isTitle={isTitle}
+                            setIsTitle={setIsTitle}
+
+                            isAuthor={isAuthor}
+                            setIsAuthor={setIsAuthor}
+
+                            isDescription={isDescription}
+                            setIsDescription={setIsDescription}
+
+                            isGradeCategory={isGradeCategory}
+                            setIsGradeCategory={setIsGradeCategory}
+
+                            isLanguage={isLanguage}
+                            setIsLanguage={setIsLanguage}
+
+                            isPublication={isPublication}
+                            setIsPublication={setIsPublication}
+
+                            isPublisher={isPublisher}
+                            setIsPublisher={setIsPublisher}
+
+                            isIsbn={isIsbn}
+                            setIsIsbn={setIsbn}
                         />
+                        )}
 
-                         <input type="text" placeholder="isbn" className={`${isIsbn ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
-                         placeholder={"ISBN (International Standard Book Number)"}
-                        value={isbn} 
-                        onChange={(e) => {setIsbn(e.target.value);
-                                          setIsIsbn(e.target.value === "");
-                        }}/>
-                        
-                        <div className="w-full">
-                            <h2 className="text-lg font-bold text-gray-500 rounded-full">Select Type of Books</h2>
-                            <p className="text-gray-400 text-sm">Choose Kind of Books you wanted to upload</p>
-                            <select className="bg-gray-100 p-2 rounded-xl text-gray-500 mt-4" value={selectedTypeOfBooks} onChange={(e) => setSelectedTypeOfBooks(e.target.value)}>
-                                <option value="">Type of Books</option>
-                                <option value="workbook">Work Book</option>
-                                <option value="childrensbook">Children's Book</option>
-                                <option value="storybook">Story Book</option>
-                                <option value="referencebook">Reference Book</option>
-                                <option value="educationalbook">Educational Book</option>
-                            </select>
-                        </div>
-
-
-                        {/*Work book details container*/}
-                    <div className={`${selectedTypeOfBooks === 'workbook' ? null : "hidden"} w-full flex flex-col gap-4`}>
-                             <div>
-                            <h2 className="text-lg font-bold text-gray-500 rounded-full">Work Book Information</h2>
-                            <p className="text-gray-400 text-sm">Fill-up the required information in the work book.</p>
-                        </div>
-
-                        <input type="text" className={`${isWorkbookTopic ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
-                         placeholder={"Topic"}
-                        value={workbookTopic} 
-                        onChange={(e) => {setWorkbookTopic(e.target.value)}}/>
-
-                        <select
-                            value={workbookSubject}
-                            onChange={(e) => setWorkbookSubject(e.target.value)}
-                            className={`${isSubject ? "border-red-500" : "border-gray-300"} h-12 border outline-none text-gray-500 p-2 rounded-lg`}
-                        >
-                            <option value="">Select Subject</option>
-                            <option value="language">Language</option>
-                            <option value="reading">Reading</option>
-                            <option value="writing">Writing</option>
-                            <option value="phonics">Phonics</option>
-                            <option value="mathematics">Mathematics</option>
-                            <option value="science">Science</option>
-                            <option value="social-studies">Social Studies</option>
-                            <option value="values-education">Values Education</option>
-                            <option value="health">Health</option>
-                            <option value="physical-education">Physical Education</option>
-                            <option value="music">Music</option>
-                            <option value="arts">Arts</option>
-                        </select>
-
-                        <select
-                            value={workbookType}
-                            onChange={(e) => setWorkbookType(e.target.value)}
-                            className={`${isSubject ? "border-red-500" : "border-gray-300"} h-12 border outline-none text-gray-500 p-2 rounded-lg`}
-                        >
-                            <option value="">Select Workbook Type</option>
-                            <option value="activity">Activity Workbook</option>
-                            <option value="alphabet">Alphabet Workbook</option>
-                            <option value="phonics">Phonics Workbook</option>
-                            <option value="reading">Reading Workbook</option>
-                            <option value="writing">Writing Workbook</option>
-                            <option value="tracing">Tracing Workbook</option>
-                            <option value="mathematics">Mathematics Workbook</option>
-                            <option value="science">Science Workbook</option>
-                            <option value="social-studies">Social Studies Workbook</option>
-                            <option value="coloring">Coloring Workbook</option>
-                            <option value="drawing">Drawing Workbook</option>
-                            <option value="puzzle">Puzzle Workbook</option>
-                            <option value="practice">Practice Workbook</option>
-                            <option value="assessment">Assessment Workbook</option>
-                            <option value="handwriting">Handwriting Workbook</option>
-                        </select>
-
-                        <input type="text" placeholder="Work Book Edition" className={`${isWorkbookEdition ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
-                         placeholder={"Work Book Edition"}
-                        value={workbookEdition} 
-                        onChange={(e) => {setWorkbookEdition(e.target.value)}}/>
-
-                        
-
-                        
-                        
-                    </div>
-                         
-                         {/*Story book details container*/}
-                         <div className={`${selectedTypeOfBooks === 'storybook' ? null : "hidden"} w-full flex flex-col gap-4`}>
-                             <div>
-                            <h2 className="text-lg font-bold text-gray-500 rounded-full">Story Book Information</h2>
-                            <p className="text-gray-400 text-sm">Fill-up the required information in the story.</p>
-                        </div>
-
-                        <select
-                            value={genre}
-                            onChange={(e) => {setGenre(e.target.value)}}
-                            className={`${isGenre ? "border-red-500" : "border-gray-300"} h-12 border outline-none text-gray-500 p-2 rounded-lg`}
-                        >
-                            <option value="">Select Genre</option>
-                            <option value="horror">Horror</option>
-                            <option value="romance">Romance</option>
-                            <option value="sci-fi">Sci-Fi</option>
-                            <option value="fantasy">Fantasy</option>
-                            <option value="adventure">Adventure</option>
-                            <option value="mystery">Mystery</option>
-                            <option value="comedy">Comedy</option>
-                            <option value="drama">Drama</option>
-                            <option value="fairy-tale">Fairy Tale</option>
-                            <option value="educational">Educational</option>
-                        </select>
-
-                        <input type="text" placeholder="Series Name" className={`${isStorySeries ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
-                         placeholder={"Series"}
-                        value={storySeries} 
-                        onChange={(e) => {setStorySeries(e.target.value)}}/>
-
-                        <input type="text" placeholder="Story Volume" className={`${isStoryVolume ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
-                         placeholder={"Story Volume"}
-                        value={storyVolume} 
-                        onChange={(e) => {setStoryVolume(e.target.value)}}/>
-
-                        
-                        
-                    </div>
 
                     {/*Educational book details container*/}
                     <div className={`${selectedTypeOfBooks === 'educationalbook' ? null : "hidden"} w-full flex flex-col gap-4`}>
@@ -685,29 +567,6 @@ const UploadStoryBook = () => {
 
                     </div>
 
-                    {/*Grade Level*/}
-                         <div className="w-full flex flex-col gap-4">
-                             <div>
-                            <h2 className="text-lg font-bold text-gray-500 rounded-full">Grade Level Information</h2>
-                            <p className="text-gray-400 text-sm">Fill-up the required grade level information.</p>
-                        </div>
-
-                        <select
-                            value={gradeCategory}
-                            onChange={(e) => {setGradeCategory(e.target.value)
-                                              setIsGradeCategory(e.target.value === "");
-                            }}
-                            className={`${isGradeCategory ? "border-red-300" : "border-gray-300"} h-12 border bg-white outline-none text-gray-500 p-2 rounded-lg`}
-                        >
-                            <option value="">Select Grade Category</option>
-                            <option value="kindergarten">Kindergarten</option>
-                            <option value="grade 1">Grade 1</option>
-                            <option value="grade 2">Grade 2</option>
-                            <option value="grade 3">Grade 3</option>
-                            <option value="grade 4">Grade 4</option>
-                        </select>
-                    </div>
-
                         
 
 
@@ -716,125 +575,48 @@ const UploadStoryBook = () => {
                     
                          
                     {/*Preview Card*/}
-                    <div className="relative bg-white h-150 w-1/2 flex flex-col shadow-6xl">
-                            
-
-                            {/* Image */}
-                            <div className={`w-full h-full bg-gray-200 rounded-xl overflow-hidden`}>
-
-                                {preview && (
-                                    <img
-                                    src={preview}
-                                    alt="preview"
-                                    className="w-full h-full"
-                                    />
-                                )}
-                            </div>
-                            
-                            
-                            <div className={`${preview? "bg-black/50" : "bg-black"} absolute inset-0 justify-between items-start flex flex-col p-10 rounded-xl`}>
-                                <div className="w-full justify-between items-center flex">
-                                    <span className="px-3 py-1 text-sm font-bold bg-gray-100/20 text-white rounded-full">
-                                        Book Preview
-                                    </span>
-                                    <button className={`${preview ? null : "hidden"} px-3 py-1 text-sm font-bold bg-gray-100/20 text-white rounded-full cursor-pointer hover:bg-red-500/50`} onClick={() => {setFile(null); setPreview(null)}}>x</button>
-                                </div>
-                                 {/* Content */}
-                                <div className="flex flex-col gap-3 w-full">
-                                    
-                                    {/* Title */}
-                                    <h1 className="text-2xl font-bold text-white">
-                                    {title || "Book Title"}
-                                    </h1>
-
-                                    {/* Description */}
-                                    <p className="text-white text-sm leading-relaxed">
-                                    {description || "Short description of the story will appear here."}
-                                    </p>
-
-                                    {/* Tags */}
-                                    <div className="flex flex-wrap gap-2 mt-2">
-                                    
-                                    <span className="px-3 py-1 text-sm bg-gray-100 text-gray-500 rounded-full">
-                                        {genre || "—"}
-                                    </span>
-
-                                    <span className="px-3 py-1 text-sm bg-gray-100 text-gray-500 rounded-full">
-                                        {gradeCategory || "—"}
-                                    </span>
-
-                                    <span className="px-3 py-1 text-sm bg-gray-100 text-gray-500 rounded-full">
-                                        {language || "—"}
-                                    </span>
-
-                                    </div>
-
-                                    <div className="w-full justify-between items-center flex">
-                                        <p className="text-xs text-white mt-2">
-                                        By {author || "Author Name"}
-                                        </p>
-                                        <p className="text-xs text-white mt-2">
-                                        By {publication || "Publication Date"}
-                                        </p>
-                                    </div>
-                                    
-                                    <button className="h-10 text-white font-semibold bg-pink-500 border border-pink-500 hover:bg-pink-600 rounded-xl cursor-pointer" onClick={handleConfirmation}>+ Upload Story</button>
-                                    <div className={`${file ? "hidden" : ""} bg-gray-200 p-2 text-gray-500 font-semibold rounded-xl cursor-pointer justify-center items-center flex`} onClick={openFileExplorer}> 
-                                    + Cover Image
-                                        <input 
-                                            type="file" 
-                                            ref={fileInputRef} 
-                                            className="hidden" 
-                                            onChange={handleImagePreview} 
-                                        />
-                                    </div>
-
-                                </div>
-                            </div>
-                            
-                            
-                    </div>
+                    
  
                     
                 </div>
                 
                 {/*Book Pages and Image insertion*/}
-                <div className="w-full mt-5">
+                <div className="w-full mt-5 flex flex-col gap-4">
                      <div>
                         <h2 className="text-lg font-bold text-gray-500 rounded-full">Book Pages</h2>
                         <p className="text-gray-400 text-sm">Fill-up the required information in the story.</p>
                     </div>
 
-                    <div className="w-full justify-end items-center flex gap-2 mt-4">
+                    
 
-                         <div className="flex gap-2">
-                            <button className={`${pageImagePreview.length > 2 ? 'hidden' : null} text-gray-500 p-2 rounded-xl cursor-pointer hover:bg-gray-100`} onClick={() => pageImageInputRef.current.click()}>
-                            Add Image
-                        </button>
-                        <input 
-                                type="file" 
-                                ref={pageImageInputRef} 
-                                className="hidden" 
-                                onChange={handlePageImagePreview} 
-                        />
-                        <button className="bg-gray-200 text-gray-500 p-2 rounded-xl cursor-pointer hover:bg-gray-300"
-                            onClick={handleNextPage}>Save & Next Page {`(${pageList.length + 1})`}
-                        </button>
-                         </div>
-                         
-                        
-                    </div>
-
-                    <div className="w-full justify-between items-start flex gap-10">
+                    <div className="w-full bg-gray-200 justify-between items-start flex flex-col gap-2 rounded-xl p-4">
                         {/* Page Text*/}
                         <textarea 
                         name="page-text" id="page-text"
                         placeholder="Input the text of the page..."
                         value={pageText}
                         onChange={(e) => setPageText(e.target.value)}
-                        className="p-4 h-100 w-full outline-none bg-gray-100 rounded-xl mt-4">
+                        className="h-100 w-full outline-none">
                         </textarea>
+
+                        <div className="w-full justify-end items-center flex gap-2">                        
+                            <button className={`${pageImagePreview.length > 2 ? 'hidden' : null} text-gray-500 p-2 rounded-xl cursor-pointer hover:-translate-y-1`} onClick={() => pageImageInputRef.current.click()}>
+                                Add Image
+                            </button>
+                            <input 
+                                    type="file" 
+                                    ref={pageImageInputRef} 
+                                    className="hidden" 
+                                    onChange={handlePageImagePreview} 
+                            />
+                            <button className="bg-black text-white font-bold px-4 py-2 rounded-xl cursor-pointer hover:-translate-y-1"
+                                onClick={handleNextPage}>Save & Next Page {`(${pageList.length + 1})`}
+                            </button>
+                        </div>
                     </div>
+
+                    
+
                     {/* Page Image Preview */}
                         <div className="w-full mt-4">
                         
@@ -881,4 +663,4 @@ const UploadStoryBook = () => {
         </>
       )
 }
-export default UploadStoryBook;
+export default Admin_UploadBook_Page;

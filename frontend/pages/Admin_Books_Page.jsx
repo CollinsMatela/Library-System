@@ -5,7 +5,7 @@ import SearchIcon from '../src/assets/search-svgrepo-com.svg'
 import Admin_Sidebar from '../components/Admin_Sidebar'
 import { MoveRight, Search } from "lucide-react";
 
-const Admin_Materials_Page = () => {
+const Admin_Books_Page = () => {
     const navigate = useNavigate();
     
     const [stories, setStories] = useState([]);
@@ -40,16 +40,16 @@ const Admin_Materials_Page = () => {
               <header className="w-full justify-between items-start flex flex-col mb-10">
 
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-800">Materials Management</h1>
-                    <h1 className="text-gray-400 text-md">View all uploaded materials available</h1>
+                    <h1 className="text-3xl font-bold text-gray-800">Library Books Management</h1>
+                    <h1 className="text-gray-400 text-md">View all uploaded books available</h1>
                 </div>
                 
               </header>
 
               <div className="h-20 w-full justify-between items-center flex rounded-t-xl">
                         <div>
-                          <h1 className="text-lg font-bold text-gray-500 rounded-full">Uploaded Stories Table</h1>
-                          <p className="text-gray-400 text-sm">Manage stories material.</p>
+                          <h1 className="text-lg font-bold text-gray-500 rounded-full">Uploaded Books Table</h1>
+                          <p className="text-gray-400 text-sm">Manage books material.</p>
                         </div>
                         
 
@@ -104,4 +104,4 @@ const Admin_Materials_Page = () => {
         </>
       )
 }
-export default Admin_Materials_Page;
+export default Admin_Books_Page;

@@ -17,7 +17,6 @@ const Student_Registration_Controller = async (req, res) => {
     sex,
     placeOfBirth,
     motherTongue,
-    disability,
 
     // Current Address
     currentAddressHouseNo,
@@ -87,7 +86,6 @@ const Student_Registration_Controller = async (req, res) => {
             sex,
             placeOfBirth,
             motherTongue,
-            disability,
 
             // Current Address
             currentAddressHouseNo,

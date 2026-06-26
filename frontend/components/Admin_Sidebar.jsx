@@ -10,8 +10,8 @@ const Admin_SideBar = () => {
     const logout = useAuthStore((state) => state.logout);
 
     const isOverview = location.pathname === "/admin";
-    const isUploadStory = location.pathname === "/admin/upload";
-    const isViewStory = location.pathname === "/admin/materials";
+    const isUploadStory = location.pathname === "/admin/upload-book";
+    const isViewStory = location.pathname === "/admin/books";
     const isStudentAccount = location.pathname === "/admin/students";
     const isStudentRegistration = location.pathname === "/admin/student-registration";
 
@@ -19,10 +19,10 @@ const Admin_SideBar = () => {
           navigate('/admin');
     }
     const handleUploadStory = () => {
-          navigate('/admin/upload');
+          navigate('/admin/upload-book');
     }
     const handleViewStory = () => {
-          navigate('/admin/materials');
+          navigate('/admin/books');
     }
     const handleStudent = () => {
           navigate('/admin/students');
@@ -39,13 +39,13 @@ const Admin_SideBar = () => {
     return(
         <aside className="fixed left-0 top-0 z-0 h-full w-80 bg-white border-r-1 border-gray-300 px-4 py-10">
        <div className="justify-start items-center flex gap-2">
-          <div className="bg-white rounded-2xl h-12 w-12 flex justify-center items-center">
-              <img src={LittleMeLogo} alt="Little Me Logo" className="h-8 w-8 object-cover"/>
+          <div className="bg-black rounded-2xl h-12 w-12 flex justify-center items-center">
+              {/* <img src={""} alt="Little Me Logo" className="h-8 w-8 object-cover"/> */}
           </div>
           
           <div>
-            <h1 className="text-xl font-bold text-pink-500">Little Me Admin</h1>
-            <p className="text-xs text-gray-400">Learning Center Dashboard</p>
+            <h1 className="text-xl font-bold text-black">Digital Library Platform</h1>
+            <p className="text-xs text-gray-400">School Library Dashboard</p>
           </div>
       </div>
 
@@ -61,12 +61,12 @@ const Admin_SideBar = () => {
 
       <div className={`${isUploadStory ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleUploadStory}>
         <FileUp className={`${isUploadStory ? 'text-white' : 'text-gray-300'}`} size={24}/>
-        Upload Story
+        Upload Books
       </div>
 
       <div className={`${isViewStory ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleViewStory}>
         <LibraryBig className={`${isViewStory ? 'text-white' : 'text-gray-300'}`} size={24}/>
-        View Stories
+        Books List
       </div>
 
       <div className={`${isStudentRegistration ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleStudentRegistration}>

@@ -17,7 +17,6 @@ const StudentRegistrationSchema = new mongoose.Schema({
 
       placeOfBirth: {type: String, required:true},
       motherTongue: {type: String, required:true},
-      disability: {type: String, required:true},
 
       currentAddressHouseNo: {type: String, required:true},
       currentStreetName: {type: String, required:true},

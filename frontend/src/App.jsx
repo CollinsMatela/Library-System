@@ -3,7 +3,7 @@ import useAuthStore from "../store/useAuthStore";
 import Home_Page from '../pages/Home_Page'
 import Admin_Page from '../pages/Admin_Page'
 import Library_Page from '../pages/Library_Page'
-import Admin_Upload_Page from '../pages/Admin_Upload_Page'
+import Admin_UploadBook_Page from '../pages/Admin_UploadBook_Page'
 import Unauthorized_Page from "../pages/Unauthorized_Page";
 import Change_Password_Page from "../pages/Change_Password_Page"
 import Not_Found_Page from "../pages/Not_Found_Page";
@@ -11,7 +11,7 @@ import Lib_ViewBook from "../library_components/Lib_ViewBook";
 import Lib_Quiz from "../library_components/Lib_Quiz";
 import LoadingScreen from '../loadings/loading'
 import Profile_Page from "../pages/Profile_Page";
-import Admin_Materials_Page from "../pages/Admin_Materials_Page";
+import Admin_Books_Page from "../pages/Admin_Books_Page";
 import Admin_ViewMaterials_Page from "../pages/Admin_ViewMaterials_Page";
 import Admin_Student_Page from "../pages/Admin_Student_Page";
 import Lib_Catalog from "../library_components/Lib_Catalog";
@@ -57,8 +57,8 @@ function App() {
 
          <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
                 <Route path="/admin" element={<Admin_Page />} />
-                <Route path="/admin/upload" element={<Admin_Upload_Page />} />
-                <Route path="/admin/materials" element={<Admin_Materials_Page />} />
+                <Route path="/admin/upload-book" element={<Admin_UploadBook_Page />} />
+                <Route path="/admin/books" element={<Admin_Books_Page />} />
                 <Route path="/admin/materials/:storyId" element={<Admin_ViewMaterials_Page />} />
                 <Route path="/admin/students" element={<Admin_Student_Page />} />
                 <Route path="/admin/student-registration" element={<Admin_StudentRegistration_Page />} />

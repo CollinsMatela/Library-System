@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const ReferenceBookSchema = new mongoose.Schema(
+const NonFictionSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     author: { type: String, required: true },
@@ -27,5 +27,5 @@ const ReferenceBookSchema = new mongoose.Schema(
   }
 );
 
-const ReferenceBookDetails_Model = mongoose.model("ReferenceBookDetails", ReferenceBookSchema);
-export default ReferenceBookDetails_Model;
+const NonFiction_Model = mongoose.model("Non-Fiction Model", NonFictionSchema);
+export default NonFiction_Model;

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const StoryBookSchema = new mongoose.Schema(
+const FictionSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     author: { type: String, required: true },
@@ -26,5 +26,5 @@ const StoryBookSchema = new mongoose.Schema(
   }
 );
 
-const StoryBookDetails_Model = mongoose.model("StoryBookDetails", StoryBookSchema);
-export default StoryBookDetails_Model;
+const Fiction_Model = mongoose.model("Fiction Model", FictionSchema);
+export default Fiction_Model;

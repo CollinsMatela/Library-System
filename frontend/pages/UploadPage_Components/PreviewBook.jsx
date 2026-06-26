@@ -1,5 +1,5 @@
 
-const PreviewBook = () => {
+const PreviewBook = ({preview, title, description, language, author, publication, file, fileInputRef, openFileExplorer, handleImagePreview, handleConfirmation}) => {
     return(
         <div className="relative bg-white h-150 w-1/2 flex flex-col shadow-6xl">
                             
@@ -34,19 +34,11 @@ const PreviewBook = () => {
 
                                     {/* Description */}
                                     <p className="text-white text-sm leading-relaxed">
-                                    {description || "Short description of the story will appear here."}
+                                    {description || "Short description of the book will appear here."}
                                     </p>
 
                                     {/* Tags */}
                                     <div className="flex flex-wrap gap-2 mt-2">
-                                    
-                                    <span className="px-3 py-1 text-sm bg-gray-100 text-gray-500 rounded-full">
-                                        {genre || "—"}
-                                    </span>
-
-                                    <span className="px-3 py-1 text-sm bg-gray-100 text-gray-500 rounded-full">
-                                        {gradeCategory || "—"}
-                                    </span>
 
                                     <span className="px-3 py-1 text-sm bg-gray-100 text-gray-500 rounded-full">
                                         {language || "—"}

@@ -1,9 +1,5 @@
-import Books_Model from "../models/Books_Model.js";
-import StoryBookDetails_Model from "../models/StoryBookDetails_Model.js";
-import EducationalBookDetails_Model from "../models/EducationalDetails_Model.js"
-import ChildrensBookDetails_Model from "../models/ChildrensBookDetails_Model.js";
-import ReferenceBookDetails_Model from "../models/ReferenceBookDetails_Model.js";
-import WorkBookDetails_Model from "../models/WorkBookDetails_Model.js";
+import Fiction_Model from "../models/Fiction_Model.js";
+import NonFiction_Model from "../models/NonFiction_Model.js";
 
 import cloudinary from "../config/cloudinary.js";
 import fs from "fs";
@@ -11,23 +7,27 @@ import fs from "fs";
 
 const Upload_Manually_Controller = async (req, res) => {
   const {
-      title, author, description, gradeCategory, language, publication, publisher, isbn, availability, type, pages,
+    // General
+    type, category, title, author, description, language, publication, publisher, isbn, availability, edition, volume, pages,
 
-      // Story Book
-      genre, storySeries, storyVolume,
+    // Fiction
+    fictionSeries,
 
-      // Work Book
-      workbookTopic, workbookSubject, workbookType, workbookEdition,
+    // Non-Fiction
+    scientificField, mathBranch, technologyField, engineeringDiscipline, medicalField,
 
-      // Educational Book
-      subject, educationalEdition,
+    // Reference
+    referenceType, subjectArea, dictionaryType, geographicCoverage,
 
-      // Reference Book
-      referenceType, subjectArea, referenceEdition, referenceVolume,
+    // Textbook
+    subject, gradeLevel,
 
-      // Children's Book
-      readingLevel, illustrator, moralTheme, storyType
-  } = req.body;
+    // Research
+    researchField, institution, doi,
+
+    // Business & Economics
+    businessArea, economicsBranch,
+} = req.body;
 
   try {
 

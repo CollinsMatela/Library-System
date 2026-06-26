@@ -1,13 +1,12 @@
 
 const FictionBookInformation = ({
+    selectedCategoryOfBook,
     title,
     setTitle,
     author,
     setAuthor,
     description,
     setDescription,
-    gradeCategory,
-    setGradeCategory,
     language,
     setLanguage,
     publication,
@@ -20,16 +19,10 @@ const FictionBookInformation = ({
     setAvailability,
     fictionSeries,
     setFictionSeries,
-    fictionEdition,
-    setFictionEdition,
-    fictionVolume,
-    setFictionVolume,
-    isFictionSeries,
-    setIsFictionSeries,
-    isFictionEdition,
-    setIsFictionEdition,
-    isFictionVolume,
-    setIsFictionVolume,
+    edition,
+    setEdition,
+    volume,
+    setVolume,
     isTitle,
     setIsTitle,
     isAuthor,
@@ -108,20 +101,20 @@ const FictionBookInformation = ({
                                           setIsIsbn(e.target.value === "");
                         }}/>
 
-                        <input type="text" placeholder="Series Name" className={`${isFictionSeries ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
+                        <input type="text" placeholder="Series Name" className={`border-gray-300 h-12 border outline-none p-2 rounded-lg`}
                          placeholder={"Fiction Series"}
                         value={fictionSeries} 
                         onChange={(e) => {setFictionSeries(e.target.value)}}/>
                         
-                        <input type="text" placeholder="Story Volume" className={`${isFictionEdition ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
-                         placeholder={"Fiction Edition"}
-                        value={fictionEdition} 
-                        onChange={(e) => {setFictionEdition(e.target.value)}}/>
+                        <input type="text" placeholder="Story Volume" className={`"border-gray-300 h-12 border outline-none p-2 rounded-lg`}
+                         placeholder={"Book Edition (Optional)"}
+                        value={edition} 
+                        onChange={(e) => {setEdition(e.target.value)}}/>
                         
-                        <input type="text" placeholder="Fiction Volume" className={`${isFictionVolume ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
-                         placeholder={"Fiction Volume"}
-                        value={fictionVolume} 
-                        onChange={(e) => {setFictionVolume(e.target.value)}}/>
+                        <input type="text" placeholder="Fiction Volume" className={`"border-gray-300 h-12 border outline-none p-2 rounded-lg`}
+                         placeholder={"Book Volume (Optional)"}
+                        value={volume} 
+                        onChange={(e) => {setVolume(e.target.value)}}/>
 
                         </div>
 

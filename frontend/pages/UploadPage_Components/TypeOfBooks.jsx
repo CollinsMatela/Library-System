@@ -10,45 +10,64 @@ const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCateg
                 <option value="non-fiction">Non-Fiction</option>
             </select>
             {/* Fiction */}
-            <select className={`${selectedTypeOfBooks.toLowerCase() === 'fiction' ? "" : "hidden"} bg-gray-100 h-12 w-full rounded-md text-gray-500 mt-4`} value={selectedCategoryOfBook} onChange={(e) => setSelectedCategoryOfBook(e.target.value)}>
+            {/* Fiction */}
+            <select
+                className={`${selectedTypeOfBooks.toLowerCase() === 'fiction' ? "" : "hidden"} bg-gray-100 h-12 w-full rounded-md text-gray-500 mt-4`}
+                value={selectedCategoryOfBook}
+                onChange={(e) => setSelectedCategoryOfBook(e.target.value)}
+            >
                 <option value="">Type of {selectedTypeOfBooks}</option>
-                <option value="fiction">Fantasy</option>
-                <option value="non-fiction">Science Fiction</option>
-                <option value="non-fiction">Mystery</option>
-                <option value="workbook">Thriller</option>
-                <option value="childrensbook">Horror</option>
-                <option value="storybook">Romance</option>
-                <option value="referencebook">Historical Fiction</option>
-                <option value="educationalbook">Adventure</option>
-                <option value="educationalbook">Action</option>
-                <option value="educationalbook">Drama</option>
-                <option value="educationalbook">Humor</option>
-                <option value="educationalbook">Fairy Tales</option>
-                <option value="educationalbook">Myth</option>
-                <option value="educationalbook">Legends</option>
-                <option value="educationalbook">Fables</option>
-                <option value="educationalbook">Folk Tales</option>
-                <option value="educationalbook">Young Adult</option>
-                <option value="educationalbook">Children's Fiction</option>
-                <option value="educationalbook">Literary Fiction</option>
-                <option value="educationalbook">Contemporary Fiction</option>
-                <option value="educationalbook">Crime Fiction</option>
-                <option value="educationalbook">Graphic Novels</option>
-                <option value="educationalbook">Short Stories</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Science Fiction">Science Fiction</option>
+                <option value="Mystery">Mystery</option>
+                <option value="Thriller">Thriller</option>
+                <option value="Horror">Horror</option>
+                <option value="Romance">Romance</option>
+                <option value="Historical Fiction">Historical Fiction</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Action">Action</option>
+                <option value="Drama">Drama</option>
+                <option value="Humor">Humor</option>
+                <option value="Fairy Tale">Fairy Tale</option>
+                <option value="Myth">Myth</option>
+                <option value="Legend">Legend</option>
+                <option value="Fable">Fable</option>
+                <option value="Folk Tale">Folk Tale</option>
+                <option value="Young Adult">Young Adult</option>
+                <option value="Children's Fiction">Children's Fiction</option>
+                <option value="Literary Fiction">Literary Fiction</option>
+                <option value="Contemporary Fiction">Contemporary Fiction</option>
+                <option value="Crime Fiction">Crime Fiction</option>
+                <option value="Graphic Novel">Graphic Novel</option>
+                <option value="Short Stories">Short Stories</option>
             </select>
 
             {/* Non-Fiction */}
             <select className={`${selectedTypeOfBooks.toLowerCase() === 'non-fiction' ? "" : "hidden"} bg-gray-100 h-12 w-full rounded-md text-gray-500 mt-4`} value={selectedCategoryOfBook} onChange={(e) => setSelectedCategoryOfBook(e.target.value)}>
                 <option value="">Type of {selectedTypeOfBooks}</option>
-                <option value="fiction">Biography</option>
-                <option value="non-fiction">Autobiography</option>
-                <option value="non-fiction">Memoir</option>
-                <option value="workbook">History</option>
-                <option value="childrensbook">Science</option>
-                <option value="storybook">Reference</option>
-                <option value="referencebook">Essay</option>
-                <option value="educationalbook">Text Books</option>
-                <option value="educationalbook">Research</option>
+                <option value="Biography">Biography</option>
+                <option value="Autobiography">Autobiography</option>
+                <option value="Memoir">Memoir</option>
+                <option value="History">History</option>
+                <option value="Science">Science</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Technology">Technology</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Medicine">Medicine</option>
+                <option value="Reference">Reference</option>
+                <option value="Encyclopedia">Encyclopedia</option>
+                <option value="Dictionary">Dictionary</option>
+                <option value="Atlas">Atlas</option>
+                <option value="Essay">Essay</option>
+                <option value="Textbook">Textbook</option>
+                <option value="Workbook">Workbook</option>
+                <option value="Research">Research</option>
+                <option value="Self-Help">Self-Help</option>
+                <option value="Philosophy">Philosophy</option>
+                <option value="Politics">Politics</option>
+                <option value="Economics">Economics</option>
+                <option value="Business">Business</option>
+                <option value="Education">Education</option>
             </select>
         </div>
     )

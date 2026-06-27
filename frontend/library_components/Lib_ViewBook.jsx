@@ -17,10 +17,10 @@ const Lib_ViewBook = () => {
     const [bookDetails, setBookDetails] = useState(null);
 
     useEffect(() => {
-         fetchStoryById();
+         fetchBookById();
     },[])
 
-    const fetchStoryById = async () => {
+    const fetchBookById = async () => {
           try {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-book/${id}`);
             setBookDetails(res.data.book);

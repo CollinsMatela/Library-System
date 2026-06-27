@@ -240,14 +240,6 @@ const Admin_UploadBook_Page = () => {
             setIsDescription(false);
         }
 
-        if (gradeCategory.trim() === "") {
-            setIsGradeCategory(true);
-            alert("Please fill in all required fields.");
-            return;
-        } else {
-            setIsGradeCategory(false);
-        }
-
         if (language.trim() === "") {
             setIsLanguage(true);
             alert("Please fill in all required fields.");
@@ -521,7 +513,7 @@ const Admin_UploadBook_Page = () => {
                             setIsPublisher={setIsPublisher}
 
                             isIsbn={isIsbn}
-                            setIsIsbn={setIsbn}
+                            setIsIsbn={setIsIsbn}
 
                             // Non-Fiction Additional Information
                             scientificField={scientificField}
@@ -572,11 +564,11 @@ const Admin_UploadBook_Page = () => {
                             economicsBranch={economicsBranch}
                             setEconomicsBranch={setEconomicsBranch}
 
-                            nonFictionEdition={nonFictionEdition}
-                            setNonFictionEdition={setNonFictionEdition}
+                            edition={edition}
+                            setEdition={setEdition}
 
-                            nonFictionVolume={nonFictionVolume}
-                            setNonFictionVolume={setNonFictionVolume}
+                            volume={volume}
+                            setVolume={setVolume}
                         />
                     )}
 

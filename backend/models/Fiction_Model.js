@@ -2,10 +2,11 @@ import mongoose from "mongoose";
 
 const FictionSchema = new mongoose.Schema(
   {
+    type: { type: String, required: true },
+    category: { type: String, required: true },
     title: { type: String, required: true },
     author: { type: String, required: true },
     description: { type: String, required: true },
-    gradeCategory: { type: String, required: true },
     language: {type: String, required: true},
     publication: {type: String, required: true},
     publisher: {type: String, required: true},
@@ -17,9 +18,10 @@ const FictionSchema = new mongoose.Schema(
     }],
     cover: { type: String, required: true },
     availability: { type: Boolean, required: true },
-    genre: { type: String, required: true },
-    storySeries: { type: String, required: true },
-    storyVolume: { type: String, required: true },
+
+    fictionSeries: { type: String, default: "—" },
+    edition: { type: String, default: "—" },
+    volume: { type: String, default: "—" },
   },
   {
     timestamps: true

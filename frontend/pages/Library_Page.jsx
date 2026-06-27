@@ -12,6 +12,7 @@ import Lib_Navigation from '../library_components/Lib_Navigation'
 import Lib_Story_Buttons from '../library_components/Lib_Story_Buttons'
 import Lib_Shelf from '../library_components/Lib_Shelf'
 import Lib_View_Story from '../library_components/Lib_ViewBook'
+import Lib_BookCard from '../library_components/Lib_BookCard'
 import defaultProfile from '../src/assets/Student.jpg'
 import LoadingScreen from '../loadings/loading'
 import { useNavigate } from 'react-router-dom'
@@ -24,16 +25,7 @@ const Library_Page = () => {
 
     const navigate = useNavigate();
 
-    const [workBook, setWorkBook] = useState([]);
-    const [storyBook, setStoryBook] = useState([]);
-    const [referenceBook, setReferenceBook] = useState([]);
-    const [educationalBook, setEducationalBook] = useState([]);
-    const [childrensBook, setChildrensBook] = useState([]);
-
-    const [selectedGenre, setSelectedGenre] = useState("Overview");
-    
-    const [search, setSearch] = useState("");
-    const searchingResult = storyBook.filter((books) => books.title.toLowerCase().includes(search.toLowerCase()));
+    const [books, setBooks] = useState([]);
 
     const showStories = (genre) => {
     setSelectedGenre(genre);
@@ -41,101 +33,29 @@ const Library_Page = () => {
 
     const [showViewStory, setShowViewStory] = useState(false);
     const [selectedStory, setSelectedStory] = useState(null);
-    const handleViewStory = (storyId) => {
-          setSelectedStory(storyId)
-          navigate(`/library/view-story/${storyId}`)
+
+    const handleViewBook = (id) => {
+          setSelectedStory(id)
+          navigate(`/library/view-book/${id}`)
     }
 
     useEffect(() => {
-           fetchStoryBooks();
-           fetchReferenceBooks();
-           fetchEducationalBooks();
-           fetchChildrensBooks();
-           fetchWorkBooks();
+           fetchBooks();
         },[])
     
-    const fetchStoryBooks = async () => {
+    const fetchBooks = async () => {
             try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-storybooks`);
-            setStoryBook(res.data.books);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-books`);
+            setBooks(res.data.books);
             console.log(res.data.message);
-
+            console.log(res.data.books.length)
             } catch (error) {
             console.log(error);
             setErrorMessage(error?.response?.data?.message);
             }
     }
-    const fetchWorkBooks = async () => {
-            try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-workbooks`);
-            setWorkBook(res.data.books);
-            console.log(res.data.message);
-
-            } catch (error) {
-            console.log(error);
-            setErrorMessage(error?.response?.data?.message);
-            }
-    }
-    const fetchReferenceBooks = async () => {
-            try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-referencebooks`);
-            setReferenceBook(res.data.referenceBooks);
-            console.log("No. of Reference books: ",res.data.referenceBooks.length);
-            console.log(res.data.message);
-
-            } catch (error) {
-            console.log(error);
-            setErrorMessage(error?.response?.data?.message);
-            }
-    }
-    const fetchEducationalBooks = async () => {
-            try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-educationalbooks`);
-            setEducationalBook(res.data.educationalBooks);
-            console.log(res.data.message);
-
-            } catch (error) {
-            console.log(error);
-            setErrorMessage(error?.response?.data?.message);
-            }
-    }
-    const fetchChildrensBooks = async () => {
-            try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-childrensbooks`);
-            setChildrensBook(res.data.childrensBooks);
-            console.log(res.data.message);
-
-            } catch (error) {
-            console.log(error);
-            setErrorMessage(error?.response?.data?.message);
-            }
-    }
-
-
-    // useEffect(() => {
-    //     fetchStories();
-    // },[])
-
-    // const fetchStories = async () =>{
-    //       setLoading(true);
-    //       try {
-    //         const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-books`);
-    //             setBooks(res.data.books);
-    //             console.log(res.data.message);
-    //       } catch (error) {
-    //         console.log(error)
-    //       } finally {
-    //     setTimeout(() => {
-    //         setLoading(false);
-    //     }, 3000);
-    // }
-    // }
-
-    // const handleProfile = () => {
-    //       navigate('/library/profile');
-    // }
-
     
+
     return(
         <section className="min-h-screen w-full bg-black/80 p-4">
             <div className="bg-white min-h-screen shadow-2xl w-full just-center items-center flex flex-col rounded-2xl pb-4">
@@ -143,56 +63,16 @@ const Library_Page = () => {
                 <Lib_Navigation/>
                 
                 
-                <div className="max-5xl w-full justify-center items-start flex gap-2 mt-20">
-                <div className="w-full max-w-5xl flex flex-col justify-center items-start mb-10">
-                    <h1 className="text-2xl text-gray-800 font-bold text-center">
-                        Are you ready? {" "}
-                        <span className="text-pink-500 underline">{user?.gradeLevel || "Dev"}!</span>
-                    </h1>
-                    <h1 className="text-6xl text-gray-800 font-bold text-center">Welcome to Little Me Digital Library Platform?</h1>
-                </div>
-                </div>
-                
-                <div className='w-full'>
-                    {user.gradeLevel.toLowerCase() === 'kindergarten' && (
-                        <Lib_KindergartenBooks 
-                        storyBook={storyBook}
-                        childrensBook={childrensBook}
-                        workBook={workBook}
+                <div className='w-full min-h-screen grid grid-cols-4 p-10 gap-4'>
+                    {books.map((book) => (
+                        <Lib_BookCard 
+                        key={book._id}
+                        title={book.title}
+                        author={book.author}
+                        cover={book.cover}
+                        handleViewBook={() => handleViewBook(book._id)}
                         />
-                    )}
-                    {user.gradeLevel.toLowerCase() === 'grade 1' && (
-                        <Lib_FirstGradeBooks
-                        storyBook={storyBook}
-                        referenceBook={referenceBook}
-                        educationalBook={educationalBook}
-                        childrensBook={childrensBook}
-                        />
-                    )}
-                    {user.gradeLevel.toLowerCase() === 'grade 2' && (
-                        <Lib_SecondGradeBooks
-                        storyBook={storyBook}
-                        referenceBook={referenceBook}
-                        educationalBook={educationalBook}
-                        childrensBook={childrensBook}
-                        />
-                    )}
-                    {user.gradeLevel.toLowerCase() === 'grade 3' && (
-                        <Lib_ThirdGradeBooks 
-                        storyBook={storyBook}
-                        referenceBook={referenceBook}
-                        educationalBook={educationalBook}
-                        childrensBook={childrensBook}
-                        />
-                    )}
-                    {user.gradeLevel.toLowerCase() === 'grade 4' && (
-                        <Lib_FourthGradeBooks 
-                        storyBook={storyBook}
-                        referenceBook={referenceBook}
-                        educationalBook={educationalBook}
-                        childrensBook={childrensBook}
-                        />
-                    )}
+                    ))}
                 </div>
                 
                 

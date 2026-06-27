@@ -20,7 +20,7 @@ import Login_Route from './routes/Login_Route.js';
 import Upload_Manually_Route from './routes/Upload_Manually_Route.js'
 import Change_Password_Route from './routes/Change_Password_Route.js'
 
-import Fetch_StoryBooks_Route from './routes/Fetch_StoryBooks_Route.js'
+import Fetch_Books_Route from './routes/Fetch_Books_Route.js'
 import Fetch_ReferenceBooks_Route from './routes/Fetch_ReferenceBooks_Route.js'
 import Fetch_EducationalBooks_Route from './routes/Fetch_EducationalBooks_Route.js'
 import Fetch_ChildrensBooks_Route from './routes/Fetch_ChildrensBooks_Route.js'
@@ -56,12 +56,7 @@ app.use("/", Login_Route);
 app.use("/", Upload_Manually_Route);
 app.use("/", Change_Password_Route);
 
-app.use("/", Fetch_StoryBooks_Route);
-app.use("/", Fetch_ReferenceBooks_Route);
-app.use("/", Fetch_EducationalBooks_Route);
-app.use("/", Fetch_ChildrensBooks_Route);
-app.use("/", Fetch_Workbooks_Route);
-
+app.use("/", Fetch_Books_Route);
 app.use("/", Fetch_BookById_Route);
 
 app.use("/", Fetch_One_Story_Route);

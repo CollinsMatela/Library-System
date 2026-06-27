@@ -83,23 +83,12 @@ const Upload_Manually_Controller = async (req, res) => {
       pageImage: pageImagesMap[index] || []
     }));
 
-    // const book = await Books_Model.create({
-    //   title,
-    //   author,
-    //   description,
-    //   type: type,
-    //   language,
-    //   publication,
-    //   publisher,
-    //   isbn,
-    //   gradeCategory,
-    //   cover: coverImage,
-    //   pages: updatedPages,
-    //   availability
-    // });
 
-    if(type === 'storybook'){ 
-      await StoryBookDetails_Model.create({
+    if(type.toLowerCase() === 'fiction'){ 
+      await Fiction_Model.create({
+          type,
+          category,
+
           title,
           author,
           description,
@@ -108,63 +97,24 @@ const Upload_Manually_Controller = async (req, res) => {
           publication,
           publisher,
           isbn,
-          gradeCategory,
+
           cover: coverImage,
           pages: updatedPages,
           availability,
-          genre,
-          storySeries,
-          storyVolume
+          
+          fictionSeries,
+          edition,
+          volume
       })
 
-      res.status(201).json({success: true, message: "Childrens book uploaded successfully"});
+      res.status(201).json({success: true, message: "Book uploaded successfully"});
     }
-    if(type === 'workbook'){ 
-      await WorkBookDetails_Model.create({
-          title,
-          author,
-          description,
-          type: type,
-          language,
-          publication,
-          publisher,
-          isbn,
-          gradeCategory,
-          cover: coverImage,
-          pages: updatedPages,
-          availability,
-          workbookTopic,
-          workbookSubject,
-          workbookType,
-          workbookEdition
-      })
 
-      res.status(201).json({success: true, message: "Workbook book uploaded successfully"});
-    }
-    if(type === 'childrensbook'){
-      await ChildrensBookDetails_Model.create({
-        title,
-          author,
-          description,
-          type: type,
-          language,
-          publication,
-          publisher,
-          isbn,
-          gradeCategory,
-          cover: coverImage,
-          pages: updatedPages,
-          availability,
-          readingLevel, 
-          illustrator, 
-          moralTheme, 
-          storyType
-        }) 
+    if(type.toLowerCase() === 'non-fiction'){ 
+      await NonFiction_Model.create({
+          type,
+          category,
 
-        res.status(201).json({success: true, message: "Childrens book uploaded successfully"});
-    }
-    if(type === 'educationalbook'){
-       await EducationalBookDetails_Model.create({
           title,
           author,
           description,
@@ -173,41 +123,40 @@ const Upload_Manually_Controller = async (req, res) => {
           publication,
           publisher,
           isbn,
-          gradeCategory,
-          cover: coverImage,
-          pages: updatedPages,
-          availability,
-          subject,
-          educationalEdition
-        }) 
-        res.status(201).json({success: true, message: "Educational book uploaded successfully"});
-    }
-    if(type === 'referencebook'){
-      const referencebook = await ReferenceBookDetails_Model.create({
-          title,
-          author,
-          description,
-          type: type,
-          language,
-          publication,
-          publisher,
-          isbn,
-          gradeCategory,
-          cover: coverImage,
-          pages: updatedPages,
-          availability,
+
+          scientificField, 
+          mathBranch, 
+          technologyField, 
+          engineeringDiscipline, 
+          medicalField,
+
           referenceType, 
           subjectArea, 
-          referenceEdition, 
-          referenceVolume
-        }) 
-        res.status(201).json({success: true, message: "Reference book uploaded successfully"});
+          dictionaryType, 
+          geographicCoverage,
+
+          subject, 
+          gradeLevel,
+
+          researchField, 
+          institution, 
+          doi,
+
+          businessArea, 
+          economicsBranch,
+
+          cover: coverImage,
+          pages: updatedPages,
+          availability,
+          
+          fictionSeries,
+          edition,
+          volume
+      })
+
+      res.status(201).json({success: true, message: "Book uploaded successfully"});
     }
 
-
-    
-
-    
   } catch (error) {
     console.log(error);
 

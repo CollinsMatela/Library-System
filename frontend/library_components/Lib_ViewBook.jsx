@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Lib_Navigation from "./Lib_Navigation";
 import axios from "axios";
 import useAuthStore from "../store/useAuthStore";
-import { BookOpenText, Play, CheckCheck } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping } from "lucide-react";
 import Lib_BookLayout from "./Lib_BookLayout";
 
 const Lib_ViewBook = () => {
@@ -15,6 +15,42 @@ const Lib_ViewBook = () => {
 
     const [errorMessage, setErrorMessage] = useState("");
     const [bookDetails, setBookDetails] = useState(null);
+
+    const informations = [
+    // Basic Information
+    { label: "Language", value: bookDetails?.language },
+    { label: "Publisher", value: bookDetails?.publisher },
+    { label: "Publication Year", value: bookDetails?.publication },
+    { label: "ISBN", value: bookDetails?.isbn },
+    { label: "Edition", value: bookDetails?.edition },
+    { label: "Volume", value: bookDetails?.volume },
+
+    // Science & Technology
+    { label: "Scientific Field", value: bookDetails?.scientificField },
+    { label: "Mathematics Branch", value: bookDetails?.mathBranch },
+    { label: "Technology Field", value: bookDetails?.technologyField },
+    { label: "Engineering Discipline", value: bookDetails?.engineeringDiscipline },
+    { label: "Medical Field", value: bookDetails?.medicalField },
+
+    // Reference
+    { label: "Reference Type", value: bookDetails?.referenceType },
+    { label: "Subject Area", value: bookDetails?.subjectArea },
+    { label: "Dictionary Type", value: bookDetails?.dictionaryType },
+    { label: "Geographic Coverage", value: bookDetails?.geographicCoverage },
+
+    // Education
+    { label: "Subject", value: bookDetails?.subject },
+    { label: "Grade Level", value: bookDetails?.gradeLevel },
+
+    // Research
+    { label: "Research Field", value: bookDetails?.researchField },
+    { label: "Institution", value: bookDetails?.institution },
+    { label: "DOI", value: bookDetails?.doi },
+
+    // Business & Economics
+    { label: "Business Area", value: bookDetails?.businessArea },
+    { label: "Economics Branch", value: bookDetails?.economicsBranch },
+];
 
     useEffect(() => {
          fetchBookById();
@@ -36,274 +72,77 @@ const Lib_ViewBook = () => {
     return(
     <>
     {showReadModal && (<Lib_BookLayout book={bookDetails} onClose={() => setShowReadModal(false)}/>)}
-    <section className="min-h-screen w-full bg-black/80 p-4 flex flex-col">
+    <section className="min-h-screen w-full flex flex-col">
   
     <Lib_Navigation />
 
     <div className="flex-1 w-full bg-white rounded-b-2xl flex p-10 gap-4">
         {/* Book Cover Container */}
-        <div className="bg-white w-120 border-r-2 border-gray-300 flex flex-col p-4 gap-4">
+        <div className="bg-white w-120 flex flex-col p-4 gap-4">
             <img src={bookDetails?.cover} className="bg-gray-100 h-100 object-cover shadow-xl mb-5" />
             <h1 className="text-gray-800">Book Status: {" "}
                 <span className={`${bookDetails?.availability ? "text-green-500" : "text-red-500"}`}>
                   {bookDetails?.availability ? "Available" : "Not Available"}
                 </span>
             </h1>
-            <button className="bg-pink-600 h-15 w-full rounded-md cursor-pointer hover:bg-pink-700">
-                <h1 className="text-white font-bold">Borrow</h1>
+            <button className="justify-center items-center flex gap-2 bg-black py-2 w-full rounded-lg cursor-pointer text-white text-sm font-bold">
+                <HandHelping/>Borrow
             </button>
             <h1 className="text-xs text-gray-500">{id || "Book Id —"}</h1>
         </div>
         {/* Book Details Container */}
-        <div className="min-h-screen w-full p-4 justify-start items-start flex flex-col gap-5">
-            <div className="w-full justify-between items-start flex">
+        <div className=" w-full p-4 justify-start items-start flex flex-col gap-5">
+
+            <div className="w-full justify-between items-start flex flex-col border-gray-300 border-b-1">
                 <div className="w-full flex flex-col gap-2">
-                    <h1 className="text-gray-800 text-6xl font-bold italic font-family: ui-sans-serif, system-ui, sans-serif">{bookDetails?.title || "Book name"}</h1>
+                    <h1 className="text-gray-800 text-6xl font-bold font-family: ui-sans-serif, system-ui, sans-serif">{bookDetails?.title || "Book name"}</h1>
                     <h1 className="text-sm text-gray-500">Authored by: {bookDetails?.author || "—"}</h1>
                 </div>
 
-                <div className="w-full flex justify-end items-center gap-3">
+                <div className="w-full flex justify-between items-center gap-3 my-4">
 
-                    <button className="flex gap-2 px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-xl shadow-sm hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
-                    onClick={() => setShowReadModal(true)}>
-                        <BookOpenText/> Read Book
-                    </button>
+                    <div className="flex gap-2">
+                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full"><Book size={20}/>Type: {bookDetails?.type}</div>
+                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full"><Book size={20}/>{bookDetails?.category} Book</div>
+                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full"><BookOpenText size={20}/>{bookDetails?.pages.length} Pages</div>
+                    </div>
 
-                    <button className="flex gap-2 px-6 py-3 bg-white border border-pink-600 text-pink-600 hover:bg-pink-50 font-semibold rounded-xl shadow-sm hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
-                        <Play/> AI Video
-                    </button>
-
+                    <div className="flex gap-2">
+                        <button className="justify-center items-center flex gap-2 bg-black py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+                        onClick={() => setShowReadModal(true)}>
+                            <BookOpenText size={20}/> Read
+                        </button>
+                        <button className="justify-center items-center flex gap-2 bg-black py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer">
+                            <Play size={20}/> AI Video
+                        </button>
+                    </div>
                 </div>
 
             </div>
 
-           <div className="bg-gray-50 h-50 w-full p-4 rounded-xl">
-                 <h1 className="text-gray-500 text-md font-semibold">Description</h1>
-                 <h1 className="text-gray-500 text-sm font-semibold">{bookDetails?.description || "—"}</h1>
+           <div className="w-full p-4 rounded-xl">
+                 <h1 className="text-black text-sm font-semibold">{bookDetails?.description || "—"}</h1>
            </div>
            
 
-           <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
+           <div className="w-full flex flex-col gap-2">
 
-            <div className="p-4 bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition">
-                <p className="text-xs text-gray-500 uppercase tracking-wide">Publish Date</p>
-                <p className="mt-2 text-lg font-semibold text-gray-800">
-                {bookDetails?.publication || "—"}
-                </p>
-            </div>
-
-            <div className="p-4 bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition">
-                <p className="text-xs text-gray-500 uppercase tracking-wide">Publisher Name</p>
-                <p className="mt-2 text-lg font-semibold text-gray-800">
-                {bookDetails?.publisher || "—"}
-                </p>
-            </div>
-
-            <div className="p-4 bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition">
-                <p className="text-xs text-gray-500 uppercase tracking-wide">Language</p>
-                <p className="mt-2 text-lg font-semibold text-gray-800">
-                {bookDetails?.language || "—"}
-                </p>
-            </div>
+            {informations.filter(info =>
+                info.value !== null &&
+                info.value !== undefined &&
+                info.value !== "" &&
+                info.value !== "—"
+            ).map((info, index) => (
+                <div key={index}
+                className="w-full border-b-1 border-gray-300 justify-between items-center flex p-2">
+                <h1 className="text-sm font-bold text-gray-500">{info.label}</h1>
+                <h1 className="text-sm font-bold uppercase">{info.value}</h1>
+                </div>
+            ))}
 
             </div>
             
-            {/*More Details Container*/}
-            <div className="w-full bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
-
-                <h2 className="text-lg font-semibold text-gray-800">
-                    More Book Details
-                </h2>
-                <p className="text-sm text-gray-500 mb-6">
-                    Additional information about this book.
-                </p>
-
-                {bookDetails?.type?.toLowerCase() === "childrensbook" && (
-                    <div className="space-y-4">
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Type</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.type}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Grade Level</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.gradeCategory}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Reading Level</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.readingLevel}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Illustrator</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.illustrator}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Moral / Theme</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.moralTheme}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Story Type</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.storyType}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-500">ISBN</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.isbn || "—"}
-                        </span>
-                    </div>
-
-                    </div>
-                )}
-
-                {bookDetails?.type?.toLowerCase() === "storybook" && (
-                    <div className="space-y-4">
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Type</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.type}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Grade Level</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.gradeCategory}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Genre</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.genre}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-500">ISBN</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.isbn || "—"}
-                        </span>
-                    </div>
-
-                    </div>
-                )}
-
-                {bookDetails?.type?.toLowerCase() === "educationalbook" && (
-                    <div className="space-y-4">
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Type</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.type}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Grade Level</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.gradeCategory}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Subject</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.subject}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Edition</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.educationalEdition}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-500">ISBN</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.isbn || "—"}
-                        </span>
-                    </div>
-
-                    </div>
-                )}
-
-                {bookDetails?.type?.toLowerCase() === "referencebook" && (
-                    <div className="space-y-4">
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Type</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.type}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Grade Level</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.gradeCategory}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Reference Type</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.referenceType}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Subject Area</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.subjectArea}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Reference Edition</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.referenceEdition}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-3">
-                        <span className="text-sm text-gray-500">Reference Volume</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.referenceVolume}
-                        </span>
-                    </div>
-
-                    <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-500">ISBN</span>
-                        <span className="font-medium text-gray-800">
-                        {bookDetails.isbn || "—"}
-                        </span>
-                    </div>
-
-                    </div>
-                )}
-
-            </div>
+            
 
            
 

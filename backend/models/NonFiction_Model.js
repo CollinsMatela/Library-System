@@ -20,7 +20,6 @@ const NonFictionSchema = new mongoose.Schema(
     medicalField: {type: String, default: "—"},
 
     referenceType: {type: String, default: "—"},
-    subjectArea: {type: String, default: "—"},
     dictionaryType: {type: String, default: "—"},
     geographicCoverage: {type: String, default: "—"},
 

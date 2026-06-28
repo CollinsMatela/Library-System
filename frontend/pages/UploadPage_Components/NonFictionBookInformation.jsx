@@ -117,7 +117,7 @@ const NonFictionBookInformation = ({
                 value={scientificField}
                 onChange={(e) => setScientificField(e.target.value)}
             >
-                <option value="">Scientific Field (Optional)</option>
+                <option value="">Scientific Field</option>
                 <option value="Biology">Biology</option>
                 <option value="Chemistry">Chemistry</option>
                 <option value="Physics">Physics</option>

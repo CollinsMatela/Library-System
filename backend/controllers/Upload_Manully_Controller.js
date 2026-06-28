@@ -17,7 +17,7 @@ const Upload_Manually_Controller = async (req, res) => {
     scientificField, mathBranch, technologyField, engineeringDiscipline, medicalField,
 
     // Reference
-    referenceType, subjectArea, dictionaryType, geographicCoverage,
+    referenceType, dictionaryType, geographicCoverage,
 
     // Textbook
     subject, gradeLevel,
@@ -131,7 +131,6 @@ const Upload_Manually_Controller = async (req, res) => {
           medicalField,
 
           referenceType, 
-          subjectArea, 
           dictionaryType, 
           geographicCoverage,
 

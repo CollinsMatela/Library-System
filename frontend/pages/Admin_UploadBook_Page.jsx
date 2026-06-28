@@ -64,8 +64,6 @@ const Admin_UploadBook_Page = () => {
         const [medicalField, setMedicalField] = useState("");
         // reference
         const [referenceType, setReferenceType] = useState("");
-        // Encyclopedia
-        const [subjectArea, setSubjectArea] = useState(""); 
         // Dictionary
         const [dictionaryType, setDictionaryType] = useState("");
         // Atlas
@@ -126,7 +124,6 @@ const Admin_UploadBook_Page = () => {
             setEngineeringDiscipline("");
             setMedicalField("");
             setReferenceType("");
-            setSubjectArea("");
             setDictionaryType("");
             setGeographicCoverage("");
             setSubject("");
@@ -318,7 +315,6 @@ const Admin_UploadBook_Page = () => {
         formData.append("medicalField", medicalField);
 
         formData.append("referenceType", referenceType);
-        formData.append("subjectArea", subjectArea);
         formData.append("dictionaryType", dictionaryType);
         formData.append("geographicCoverage", geographicCoverage);
 
@@ -534,8 +530,6 @@ const Admin_UploadBook_Page = () => {
                             referenceType={referenceType}
                             setReferenceType={setReferenceType}
 
-                            subjectArea={subjectArea}
-                            setSubjectArea={setSubjectArea}
 
                             dictionaryType={dictionaryType}
                             setDictionaryType={setDictionaryType}

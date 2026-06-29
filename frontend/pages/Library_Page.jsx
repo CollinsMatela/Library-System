@@ -57,7 +57,7 @@ const Library_Page = () => {
     
 
     return(
-        <section className="min-h-screen w-full bg-black/80 p-4">
+        <section className="min-h-screen w-full">
             <div className="bg-white min-h-screen shadow-2xl w-full just-center items-center flex flex-col rounded-2xl pb-4">
                 {loading && (<LoadingScreen/>)}
                 <Lib_Navigation/>

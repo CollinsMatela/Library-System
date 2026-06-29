@@ -39,7 +39,7 @@ const Admin_SideBar = () => {
     return(
         <aside className="fixed left-0 top-0 z-0 h-full w-80 bg-white border-r-1 border-gray-300 px-4 py-10">
        <div className="justify-start items-center flex gap-2">
-          <div className="bg-black rounded-2xl h-12 w-12 flex justify-center items-center">
+          <div className="bg-gray-300 rounded-2xl h-12 w-12 flex justify-center items-center">
               {/* <img src={""} alt="Little Me Logo" className="h-8 w-8 object-cover"/> */}
           </div>
           

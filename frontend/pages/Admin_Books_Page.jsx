@@ -7,24 +7,27 @@ import { MoveRight, Search } from "lucide-react";
 
 const Admin_Books_Page = () => {
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState('');
     
-    const [stories, setStories] = useState([]);
+    const [books, setBooks] = useState([]);
     const [search, setSearch] = useState("");
 
-    const filteredStories = stories.filter((story) => story.title.toLowerCase().includes(search.toLowerCase()));
+    const filteredBooks = books.filter((story) => story.title.toLowerCase().includes(search.toLowerCase()));
 
     useEffect(() => {
-       fetchStories();
+       fetchBooks();
     }, [])
 
-    const fetchStories = async () =>{
-          try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-stories`);
-                setStories(res.data.stories);
-                console.log(res.data.message);
-          } catch (error) {
-            console.log(error)
-          }
+    const fetchBooks = async () => {
+            try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-books`);
+            setBooks(res.data.books);
+            console.log(res.data.message);
+            console.log(res.data.books.length)
+            } catch (error) {
+            console.log(error);
+            setErrorMessage(error?.response?.data?.message);
+            }
     }
 
     const handleViewStories = (storyId) => {
@@ -67,26 +70,23 @@ const Admin_Books_Page = () => {
               
 
               <div className="bg-white w-full grid grid-cols-1">
-                  {filteredStories.length === 0 && (
+                  {filteredBooks.length === 0 && (
                     <div className="bg-gray-100 h-20 w-full rounded-2xl justify-center items-center flex mt-4">
-                      <h1>No stories uploaded</h1>
+                      <h1>No books uploaded</h1>
                     </div>
                   )}
-                  {filteredStories.length > 0 && (
-                    filteredStories.map((story) => (
-                      <div key={story.id} className="bg-white h-30 w-full rounded-2xl justify-between items-center flex border border-gray-300 transistion-all duration-300 ease-in-out cursor-pointer hover:-translate-1 hover:bg-blue-100 hover:border-2 hover:border-blue-500  mb-2 gap-4"
-                      onClick={() => handleViewStories(story.id)}
+                  {filteredBooks.length > 0 && (
+                    filteredBooks.map((book) => (
+                      <div key={book._id} className="bg-white hover:bg-gray-100 h-30 w-full justify-between items-center flex transistion-all duration-300 ease-in-out cursor-pointer mb-2 gap-2"
+                      onClick={() => handleViewStories(book._id)}
                       >
                       
                       <div className="h-full flex gap-2">
-                          <img src={story?.image} className="object-cover h-full w-100 rounded-l-2xl" />
-                          <div className="h-full flex flex-col p-2">
-                              <h1 className="text-gray-800 font-bold text-lg">{story?.title}</h1>
-                              <h1 className="text-gray-500 font-bold text-sm">{story?.author}</h1>
-                              <div className="flex gap-2">
-                                <h1 className="bg-gray-200 px-2 text-gray-500 font-semibold rounded-lg">{story?.genre}</h1>
-                                <h1 className="bg-gray-200 px-2 text-gray-500 font-semibold rounded-lg">{story?.gradeCategory}</h1>
-                              </div>
+                          <img src={book?.cover} className="object-cover h-full w-25" />
+                          <div className="h-full flex flex-col">
+                              <h1 className="text-black text-lg">{book?.title}</h1>
+                              <h1 className="text-gray-500 text-xs">Author: {book?.author}</h1>
+                              <h1 className="text-gray-500 text-xs">Publish Year: {book?.publication}</h1>
                           </div>
                       </div>
 

@@ -22,7 +22,7 @@ const Lib_Navigation = () => {
     return(
         <nav className=" bg-white border-b border-gray-300 rounded-t-2xl h-20 w-full justify-between items-center flex px-6">
                               <div className='h-full rounded-2xl flex gap-2 justify-center items-center'>
-                                <div className=" bg-black h-10 w-10 rounded-xl justify-center items-center flex cursor-pointer" onClick={() => navigate('/library')}>
+                                <div className=" bg-gray-300 h-10 w-10 rounded-xl justify-center items-center flex cursor-pointer" onClick={() => navigate('/library')}>
                                   {/* <img src={LittleMeLogo} alt="Logo" className='h-8 w-8 object-cover rounded-xl'/> */}
                                 </div>
                                 <h1 className="text-medium text-black font-bold text-lg">Digital Library Platform</h1>

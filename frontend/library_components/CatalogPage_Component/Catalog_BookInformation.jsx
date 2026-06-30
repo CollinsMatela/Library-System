@@ -332,7 +332,7 @@ switch (category.toLowerCase()) {
             <select
                 value={field.value}
                 onChange={(e) => field.set(e.target.value)}
-                className="h-12 border border-gray-300 rounded-lg px-3 outline-none"
+                className='w-full px-4 py-2 bg-white bg-white border border-gray-300 rounded-xl outline-none'
             >
                 <option value="">
                     {field.placeholder}
@@ -350,7 +350,7 @@ switch (category.toLowerCase()) {
                 value={field.value}
                 placeholder={field.placeholder}
                 onChange={(e) => field.set(e.target.value)}
-                className="h-12 border border-gray-300 rounded-lg px-3 outline-none"
+                className='w-full px-4 py-2 bg-white bg-white border border-gray-300 rounded-xl outline-none'
             />
         )}
     </div>

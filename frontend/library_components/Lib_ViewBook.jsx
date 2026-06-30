@@ -72,13 +72,20 @@ const Lib_ViewBook = () => {
     return(
     <>
     {showReadModal && (<Lib_BookLayout book={bookDetails} onClose={() => setShowReadModal(false)}/>)}
-    <section className="min-h-screen w-full flex flex-col">
+    <section className="min-h-screen w-full justify-center items-center flex flex-col">
   
     <Lib_Navigation />
 
-    <div className="flex-1 w-full bg-white rounded-b-2xl flex p-10 gap-4">
+    <header className="w-5xl my-10">
+            <h1 className="text-3xl font-bold">Book Information</h1>
+            <p className="mt-2 text-gray-600">
+                Browse educational resources, fiction, and non-fiction books available in the library.
+            </p>
+    </header>
+
+    <div className="flex-1 w-5xl flex gap-4">
         {/* Book Cover Container */}
-        <div className="bg-white w-120 flex flex-col p-4 gap-4">
+        <div className="bg-white w-120 flex flex-col gap-4">
             <img src={bookDetails?.cover} className="bg-gray-100 h-100 object-cover shadow-xl mb-5" />
             <h1 className="text-gray-800">Book Status: {" "}
                 <span className={`${bookDetails?.availability ? "text-green-500" : "text-red-500"}`}>
@@ -102,8 +109,8 @@ const Lib_ViewBook = () => {
                 <div className="w-full flex justify-between items-center gap-3 my-4">
 
                     <div className="flex gap-2">
-                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full"><Book size={20}/>Type: {bookDetails?.type}</div>
-                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full"><Book size={20}/>{bookDetails?.category} Book</div>
+                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full uppercase"><Book size={20}/>{bookDetails?.type}</div>
+                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full"><Book size={20}/>{bookDetails?.category}</div>
                         <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full"><BookOpenText size={20}/>{bookDetails?.pages.length} Pages</div>
                     </div>
 
@@ -135,7 +142,7 @@ const Lib_ViewBook = () => {
             ).map((info, index) => (
                 <div key={index}
                 className="w-full border-b-1 border-gray-300 justify-between items-center flex p-2">
-                <h1 className="text-sm font-bold text-gray-500">{info.label}</h1>
+                <h1 className="text-xs font-bold text-gray-500">{info.label}</h1>
                 <h1 className="text-sm font-bold uppercase">{info.value}</h1>
                 </div>
             ))}

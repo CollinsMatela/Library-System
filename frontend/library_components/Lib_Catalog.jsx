@@ -105,7 +105,7 @@ const Lib_Catalog = () => {
     let filtered = [...books];
 
     // Search title or author
-    if(searchTerm.trim() !== ""){
+    if (searchTerm.trim() !== "") {
 
         const query = searchTerm.toLowerCase();
 
@@ -115,225 +115,176 @@ const Lib_Catalog = () => {
         );
     }
 
-        // Type
-        if(type !== ""){
-
-            filtered = filtered.filter(book =>
-                book.type === type
-            );
-
-        }
-
-        // Category
-        if(category !== ""){
-
-            filtered = filtered.filter(book =>
-                book.category === category
-            );
-
-        }
-
-        // Language
-        if(language !== ""){
-
-            filtered = filtered.filter(book =>
-                book.language.toLowerCase() === language.toLowerCase()
-            );
-
-        }
-
-        // Publication
-        if(publication !== ""){
-
-            filtered = filtered.filter(book =>
-                book.publication === publication
-            );
-
-        }
-
-        // Publisher
-        if(publisher !== ""){
-
-            filtered = filtered.filter(book =>
-                book.publisher === publisher
-            );
-
-        }
-
-        // ISBN
-        if(isbn !== ""){
-
-            filtered = filtered.filter(book =>
-                book.isbn.includes(isbn)
-            );
-
-        }
-
-        // Edition
-        if(edition !== ""){
-
-            filtered = filtered.filter(book =>
-                book.edition === edition
-            );
-
-        }
-
-        // Volume
-        if(volume !== ""){
-
-            filtered = filtered.filter(book =>
-                book.volume === volume
-            );
-
-        }
-
-        // Fiction Series
-        if(fictionSeries !== ""){
-
-            filtered = filtered.filter(book =>
-                book.fictionSeries === fictionSeries
-            );
-
-        }
-
-        // Scientific Field
-        if(scientificField !== ""){
-
-            filtered = filtered.filter(book =>
-                book.scientificField === scientificField
-            );
-
-        }
-
-        // Math Branch
-        if(mathBranch !== ""){
-
-            filtered = filtered.filter(book =>
-                book.mathBranch === mathBranch
-            );
-
-        }
-
-        // Technology Field
-        if(technologyField !== ""){
-
-            filtered = filtered.filter(book =>
-                book.technologyField === technologyField
-            );
-
-        }
-
-        // Engineering
-        if(engineeringDiscipline !== ""){
-
-            filtered = filtered.filter(book =>
-                book.engineeringDiscipline === engineeringDiscipline
-            );
-
-        }
-
-        // Medical
-        if(medicalField !== ""){
-
-            filtered = filtered.filter(book =>
-                book.medicalField === medicalField
-            );
-
-        }
-
-        // Reference
-        if(referenceType !== ""){
-
-            filtered = filtered.filter(book =>
-                book.referenceType === referenceType
-            );
-
-        }
-
-        // Dictionary
-        if(dictionaryType !== ""){
-
-            filtered = filtered.filter(book =>
-                book.dictionaryType === dictionaryType
-            );
-
-        }
-
-        // Geography
-        if(geographicCoverage !== ""){
-
-            filtered = filtered.filter(book =>
-                book.geographicCoverage === geographicCoverage
-            );
-
-        }
-
-        // Subject
-        if(subject !== ""){
-
-            filtered = filtered.filter(book =>
-                book.subject === subject
-            );
-
-        }
-
-        // Grade
-        if(gradeLevel !== ""){
-
-            filtered = filtered.filter(book =>
-                book.gradeLevel === gradeLevel
-            );
-
-        }
-
-        // Research
-        if(researchField !== ""){
-
-            filtered = filtered.filter(book =>
-                book.researchField === researchField
-            );
-
-        }
-
-        // Institution
-        if(institution !== ""){
-
-            filtered = filtered.filter(book =>
-                book.institution === institution
-            );
-
-        }
-
-        // DOI
-        if(doi !== ""){
-
-            filtered = filtered.filter(book =>
-                book.doi === doi
-            );
-
-        }
-
-        // Business
-        if(businessArea !== ""){
-
-            filtered = filtered.filter(book =>
-                book.businessArea === businessArea
-            );
-
-        }
-
-        // Economics
-        if(economicsBranch !== ""){
-
-            filtered = filtered.filter(book =>
-                book.economicsBranch === economicsBranch
-            );
-
-        }
-
-        setBookResults(filtered);
-
+    // Type
+    if (type !== "") {
+        filtered = filtered.filter(book =>
+            book.type?.toLowerCase() === type.toLowerCase()
+        );
     }
+
+    // Category
+    if (category !== "") {
+        filtered = filtered.filter(book =>
+            book.category?.toLowerCase() === category.toLowerCase()
+        );
+    }
+
+    // Language
+    if (language !== "") {
+        filtered = filtered.filter(book =>
+            book.language?.toLowerCase() === language.toLowerCase()
+        );
+    }
+
+    // Publication
+    if (publication !== "") {
+        filtered = filtered.filter(book =>
+            book.publication?.toLowerCase() === publication.toLowerCase()
+        );
+    }
+
+    // Publisher
+    if (publisher !== "") {
+        filtered = filtered.filter(book =>
+            book.publisher?.toLowerCase().includes(publisher.toLowerCase())
+        );
+    }
+
+    // ISBN
+    if (isbn !== "") {
+        filtered = filtered.filter(book =>
+            book.isbn?.toLowerCase().includes(isbn.toLowerCase())
+        );
+    }
+
+    // Edition
+    if (edition !== "") {
+        filtered = filtered.filter(book =>
+            book.edition?.toLowerCase().includes(edition.toLowerCase())
+        );
+    }
+
+    // Volume
+    if (volume !== "") {
+        filtered = filtered.filter(book =>
+            book.volume?.toLowerCase().includes(volume.toLowerCase())
+        );
+    }
+
+    // Fiction Series
+    if (fictionSeries !== "") {
+        filtered = filtered.filter(book =>
+            book.fictionSeries?.toLowerCase().includes(fictionSeries.toLowerCase())
+        );
+    }
+
+    // Scientific Field
+    if (scientificField !== "") {
+        filtered = filtered.filter(book =>
+            book.scientificField?.toLowerCase() === scientificField.toLowerCase()
+        );
+    }
+
+    // Math Branch
+    if (mathBranch !== "") {
+        filtered = filtered.filter(book =>
+            book.mathBranch?.toLowerCase() === mathBranch.toLowerCase()
+        );
+    }
+
+    // Technology Field
+    if (technologyField !== "") {
+        filtered = filtered.filter(book =>
+            book.technologyField?.toLowerCase() === technologyField.toLowerCase()
+        );
+    }
+
+    // Engineering
+    if (engineeringDiscipline !== "") {
+        filtered = filtered.filter(book =>
+            book.engineeringDiscipline?.toLowerCase() === engineeringDiscipline.toLowerCase()
+        );
+    }
+
+    // Medical
+    if (medicalField !== "") {
+        filtered = filtered.filter(book =>
+            book.medicalField?.toLowerCase() === medicalField.toLowerCase()
+        );
+    }
+
+    // Reference
+    if (referenceType !== "") {
+        filtered = filtered.filter(book =>
+            book.referenceType?.toLowerCase() === referenceType.toLowerCase()
+        );
+    }
+
+    // Dictionary
+    if (dictionaryType !== "") {
+        filtered = filtered.filter(book =>
+            book.dictionaryType?.toLowerCase() === dictionaryType.toLowerCase()
+        );
+    }
+
+    // Geography
+    if (geographicCoverage !== "") {
+        filtered = filtered.filter(book =>
+            book.geographicCoverage?.toLowerCase().includes(geographicCoverage.toLowerCase())
+        );
+    }
+
+    // Subject
+    if (subject !== "") {
+        filtered = filtered.filter(book =>
+            book.subject?.toLowerCase().includes(subject.toLowerCase())
+        );
+    }
+
+    // Grade
+    if (gradeLevel !== "") {
+        filtered = filtered.filter(book =>
+            book.gradeLevel?.toLowerCase() === gradeLevel.toLowerCase()
+        );
+    }
+
+    // Research
+    if (researchField !== "") {
+        filtered = filtered.filter(book =>
+            book.researchField?.toLowerCase().includes(researchField.toLowerCase())
+        );
+    }
+
+    // Institution
+    if (institution !== "") {
+        filtered = filtered.filter(book =>
+            book.institution?.toLowerCase().includes(institution.toLowerCase())
+        );
+    }
+
+    // DOI
+    if (doi !== "") {
+        filtered = filtered.filter(book =>
+            book.doi?.toLowerCase().includes(doi.toLowerCase())
+        );
+    }
+
+    // Business
+    if (businessArea !== "") {
+        filtered = filtered.filter(book =>
+            book.businessArea?.toLowerCase().includes(businessArea.toLowerCase())
+        );
+    }
+
+    // Economics
+    if (economicsBranch !== "") {
+        filtered = filtered.filter(book =>
+            book.economicsBranch?.toLowerCase() === economicsBranch.toLowerCase()
+        );
+    }
+
+    setBookResults(filtered);
+}
     const sortedBooks = [...bookResults].sort((a, b) => {
     switch (sortBy) {
         case "titleAsc":
@@ -385,33 +336,36 @@ const Lib_Catalog = () => {
     return (
         <section className="min-h-screen w-full">
 
-            <div className="bg-white min-h-screen shadow-2xl w-full flex flex-col items-center rounded-2xl pb-4">
+            <div className="bg-white w-full flex flex-col items-center rounded-2xl pb-4">
 
                 <Lib_Navigation />
 
                 <div className="w-full justify-center items-center flex flex-col mt-10 space-y-6 px-10 gap-2">
 
+                    <header className="w-5xl">
+                        <h1 className="text-3xl font-bold">Catalog</h1>
+                        <p className="text-gray-600 mt-2">
+                            Browse and search our collection of books by title, author, category, or other filters.
+                        </p>
+                    </header>
+
                     {/* FILTERS */}
-                    <div className="bg-white w-1/2 space-y-4 ">
+                    <div className="bg-white w-5xl space-y-4 ">
 
-                        <div className=''>
-                            <label className="block text-xs text-gray-600">
-                                Search Books
-                            </label>
+                        <div className='flex flex-col gap-2'>
+                            <label className="block text-xs text-gray-600">Search Books</label>
 
-                            <div className="mt-2 border border-gray-300 p-2 rounded-2xl justify-start items-center flex">
-                                <Search
-                                    size={32}
-                                    className=" text-gray-400"
-                                />
+                            <div className="border border-gray-300 p-2 rounded-2xl justify-start items-center flex py-4 px-4">
 
                                 <input
                                     type="search"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     placeholder="Search title or author..."
-                                    className="w-full pl-4 pr-4 py-3 rounded-lg outline-none"
+                                    className="w-full outline-none"
                                 />
+
+                                <Search size={32} className=" text-black"/>
                             </div>
                             
                         </div>
@@ -500,7 +454,7 @@ const Lib_Catalog = () => {
 
                
 
-                <div className="max-h-100 w-1/2 bg-white border-t-1 py-4 mb-10">
+                <div className="w-5xl bg-white border-t-1 mb-10 space-y-2 py-4">
                         <div className='justify-between items-center flex py-2'>
                            <h1 className="text-lg text-black"> Search Results ({bookResults.length})</h1>
 
@@ -522,10 +476,10 @@ const Lib_Catalog = () => {
                         
 
                         {bookResults.length > 0 ? (
-                            <div className={`space-y-2 grid ${resultGrid ? "grid-cols-3 gap-2" : "grid-cols-1"}`}>
+                            <div className={`space-y-2 grid ${resultGrid ? "grid-cols-4 gap-2" : "grid-cols-1"}`}>
                                 {bookResults.map((book, index) => (
                                     <div key={book._id} 
-                                    className={`bg-white hover:bg-gray-100 justify-between items-center flex transistion-all duration-300 ease-in-out cursor-pointer mb-2 gap-2`}
+                                    className={`bg-white ${resultGrid ? "hover:-translate-y-1" : "hover:bg-gray-100"} justify-between items-center flex transistion-all duration-300 ease-in-out cursor-pointer mb-2 gap-2`}
                                         onClick={() => handleViewBook(book._id)}
                                         >
                                         

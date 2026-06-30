@@ -4,7 +4,7 @@ const Catalog_TypeOfBooks = ({type, setType, category, setCategory}) => {
     <div className='w-full grid grid-cols-3 gap-2'>
             <div>
                 <p className="text-xs font-medium text-gray-500">Type</p>
-                <select className='w-full px-4 py-2 bg-gray-100 rounded-xl outline-none'
+                <select className='w-full px-4 py-2 bg-white border border-gray-300 rounded-xl outline-none'
                 value={type}
                 onChange={(e) => setType(e.target.value)}>
                     <option value="">Select Type</option>
@@ -15,7 +15,7 @@ const Catalog_TypeOfBooks = ({type, setType, category, setCategory}) => {
             <div className={`${type.toLowerCase() === 'fiction' ? "" : "hidden"}`}>
                 <p className="text-xs font-medium text-gray-500">Category</p>
                 <select
-                    className='w-full px-4 py-2 bg-gray-100 rounded-xl outline-none'
+                    className='w-full px-4 py-2 bg-white bg-white border border-gray-300 rounded-xl outline-none'
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                 >

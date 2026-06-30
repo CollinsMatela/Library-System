@@ -58,22 +58,32 @@ const Library_Page = () => {
 
     return(
         <section className="min-h-screen w-full">
-            <div className="bg-white min-h-screen shadow-2xl w-full just-center items-center flex flex-col rounded-2xl pb-4">
-                {loading && (<LoadingScreen/>)}
-                <Lib_Navigation/>
-                
-                
-                <div className='w-full min-h-screen grid grid-cols-4 p-10 gap-4'>
-                    {books.map((book) => (
-                        <Lib_BookCard 
-                        key={book._id}
-                        title={book.title}
-                        author={book.author}
-                        cover={book.cover}
-                        handleViewBook={() => handleViewBook(book._id)}
-                        />
-                    ))}
+            {loading && (<LoadingScreen/>)}
+            <Lib_Navigation/>
+
+            <div className="bg-white w-full justify-center items-center flex flex-col rounded-2xl px-10 bg-black">
+
+                <div className='w-5xl flex flex-col gap-10'>
+                    <header className="w-full mt-10">
+                            <h1 className="text-3xl font-bold">Browse Books</h1>
+                            <p className="mt-2 text-gray-600">
+                                Browse educational resources, fiction, and non-fiction books available in the library.
+                            </p>
+                    </header>
+                    
+                    <div className='w-full grid grid-cols-4 gap-4'>
+                        {books.map((book) => (
+                            <Lib_BookCard 
+                            key={book._id}
+                            title={book.title}
+                            author={book.author}
+                            cover={book.cover}
+                            handleViewBook={() => handleViewBook(book._id)}
+                            />
+                        ))}
+                    </div>
                 </div>
+                 
                 
                 
 

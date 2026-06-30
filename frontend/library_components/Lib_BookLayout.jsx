@@ -1,7 +1,14 @@
 import { useState } from "react"
-import {Book, ArrowLeft, ArrowRight, AudioLines, ImageOff, Images, X} from "lucide-react";
+import {Book, ArrowLeft, ArrowRight, AudioLines, ImageOff, Images, X, TextInitial} from "lucide-react";
 import Lib_StoryLayoutBook from "./Lib_StoryLayoutBook";
-import Lib_BasedLayoutBook from "./Lib_BasedLayoutBook"
+import Lib_BasedLayoutBook from "./Lib_BasedLayoutBook";
+import {
+  speak,
+  pauseSpeech,
+  resumeSpeech,
+  stopSpeech,
+} from '../utils/speech.js';
+
 const Lib_BookLayout = ({book, onClose}) => {
 
     const [pageIndex, setPageIndex] = useState(0);
@@ -37,9 +44,9 @@ const Lib_BookLayout = ({book, onClose}) => {
 
             <div className="relative h-full w-full justify-center bg-trnasparent items-start flex overflow-auto">
                 <div className="absolute right-10 top-10 flex gap-2">
-                    <button className={`${showText ? "bg-white" : "border border-white text-white"} rounded-lg px-4 py-2 cursor-pointer hover:-translate-y-1`} onClick={displayText}>TEXT</button>
+                    <button className={`${showText ? "bg-white" : "border border-white text-white"} rounded-lg px-4 py-2 cursor-pointer hover:-translate-y-1`} onClick={displayText}><TextInitial/> </button>
                     <button className={`${showImage ? "bg-white" : "border border-white text-white"} rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1`} onClick={displayImage}><Images/></button>
-                    <button className="px-4 py-2 text-black cursor-pointer" onClick={onClose}><X className="text-white hover:text-red-500"/></button>
+                    <button className="px-4 py-2 text-black cursor-pointer" onClick={() => {onClose(); stopSpeech();}}><X className="text-white hover:text-red-500"/></button>
                 </div>
 
                 {(book?.type === 'storybook' || book?.type === 'childrensbook') && 

@@ -1,5 +1,11 @@
-import {Book, ArrowLeft, ArrowRight, AudioLines, ImageOff, Images, X} from "lucide-react";
+import {Book, ArrowLeft, ArrowRight, AudioLines, ImageOff, Images, X, VolumeOff} from "lucide-react";
 import { useState } from "react";
+import {
+  speak,
+  pauseSpeech,
+  resumeSpeech,
+  stopSpeech,
+} from '../utils/speech.js';
 
 const Lib_BasedLayoutBook = ({book, showText, showImage, pageIndex, nextPage, prevPage, onClose}) => {
 
@@ -17,7 +23,8 @@ const Lib_BasedLayoutBook = ({book, showText, showImage, pageIndex, nextPage, pr
           {page.pageText && (
             <div className="p-10 text-lg justify-center items-start flex flex-col bg-gray-50">
               <header className="w-full justify-end items-center flex mb-10 gap-2">
-              <button className="bg-gray-200 rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => alert('TTS not yet integrated.')}><AudioLines className="text-gray-500"/></button>
+              <button className="bg-gray-200 rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => speak(page.pageText)}><AudioLines className="text-gray-500"/></button>
+              <button className="bg-gray-200 rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => stopSpeech()}><VolumeOff className="text-gray-500"/></button>
               </header>
               
               

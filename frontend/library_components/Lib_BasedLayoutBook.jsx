@@ -21,10 +21,10 @@ const Lib_BasedLayoutBook = ({book, showText, showImage, pageIndex, nextPage, pr
         <div key={page._id} className={`w-full bg-white flex flex-col`}>
           {/* Text */}
           {page.pageText && (
-            <div className="p-10 text-lg justify-center items-start flex flex-col bg-gray-50">
+            <div className="p-10 text-lg justify-center items-start flex flex-col bg-white">
               <header className="w-full justify-end items-center flex mb-10 gap-2">
-              <button className="bg-gray-200 rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => speak(page.pageText)}><AudioLines className="text-gray-500"/></button>
-              <button className="bg-gray-200 rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => stopSpeech()}><VolumeOff className="text-gray-500"/></button>
+              <button className="bg-white rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => speak(page.pageText)}><AudioLines/></button>
+              <button className="bg-white rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => stopSpeech()}><VolumeOff/></button>
               </header>
               
               

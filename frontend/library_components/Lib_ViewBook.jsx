@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Lib_Navigation from "./Lib_Navigation";
 import axios from "axios";
 import useAuthStore from "../store/useAuthStore";
-import { BookOpenText, Play, CheckCheck, Book, HandHelping } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft } from "lucide-react";
 import Lib_BookLayout from "./Lib_BookLayout";
 
 const Lib_ViewBook = () => {
@@ -76,14 +76,17 @@ const Lib_ViewBook = () => {
   
     <Lib_Navigation />
 
-    <header className="w-5xl my-10">
+    <header className="w-7xl justify-between items-start flex my-10">
+        <div>
             <h1 className="text-3xl font-bold">Book Information</h1>
-            <p className="mt-2 text-gray-600">
-                Browse educational resources, fiction, and non-fiction books available in the library.
-            </p>
+            <p className="mt-2 text-gray-600">Browse educational resources, fiction, and non-fiction books available in the library.</p>
+        </div>
+        <button className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full cursor-pointer" onClick={() => navigate(-1)}>
+            <ArrowLeft />
+        </button>
     </header>
 
-    <div className="flex-1 w-5xl flex gap-4">
+    <div className="flex-1 w-7xl flex gap-4">
         {/* Book Cover Container */}
         <div className="bg-white w-120 flex flex-col gap-4">
             <img src={bookDetails?.cover} className="bg-gray-100 h-100 object-cover shadow-xl mb-5" />
@@ -102,7 +105,7 @@ const Lib_ViewBook = () => {
 
             <div className="w-full justify-between items-start flex flex-col border-gray-300 border-b-1">
                 <div className="w-full flex flex-col gap-2">
-                    <h1 className="text-gray-800 text-6xl font-bold font-family: ui-sans-serif, system-ui, sans-serif">{bookDetails?.title || "Book name"}</h1>
+                    <h1 className="text-gray-800 text-4xl font-md">{bookDetails?.title || "Book name"}</h1>
                     <h1 className="text-sm text-gray-500">Authored by: {bookDetails?.author || "—"}</h1>
                 </div>
 
@@ -127,8 +130,8 @@ const Lib_ViewBook = () => {
 
             </div>
 
-           <div className="w-full p-4 rounded-xl">
-                 <h1 className="text-black text-sm font-semibold">{bookDetails?.description || "—"}</h1>
+           <div className="w-full py-4 rounded-xl">
+                 <h1 className="text-gray-500 text-sm font-md">{bookDetails?.description || "—"}</h1>
            </div>
            
 

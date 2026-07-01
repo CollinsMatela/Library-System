@@ -342,7 +342,7 @@ const Lib_Catalog = () => {
 
                 <div className="w-full justify-center items-center flex flex-col mt-10 space-y-6 px-10 gap-2">
 
-                    <header className="w-5xl">
+                    <header className="w-7xl">
                         <h1 className="text-3xl font-bold">Catalog</h1>
                         <p className="text-gray-600 mt-2">
                             Browse and search our collection of books by title, author, category, or other filters.
@@ -350,7 +350,7 @@ const Lib_Catalog = () => {
                     </header>
 
                     {/* FILTERS */}
-                    <div className="bg-white w-5xl space-y-4 ">
+                    <div className="bg-white w-7xl space-y-4 ">
 
                         <div className='flex flex-col gap-2'>
                             <label className="block text-xs text-gray-600">Search Books</label>
@@ -454,7 +454,7 @@ const Lib_Catalog = () => {
 
                
 
-                <div className="w-5xl bg-white border-t-1 mb-10 space-y-2 py-4">
+                <div className="w-7xl bg-white border-t-1 mb-10 space-y-2 py-4">
                         <div className='justify-between items-center flex py-2'>
                            <h1 className="text-lg text-black"> Search Results ({bookResults.length})</h1>
 

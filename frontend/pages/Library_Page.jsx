@@ -63,7 +63,7 @@ const Library_Page = () => {
 
             <div className="bg-white w-full justify-center items-center flex flex-col rounded-2xl px-10 bg-black">
 
-                <div className='w-5xl flex flex-col gap-10'>
+                <div className='w-7xl flex flex-col gap-10'>
                     <header className="w-full mt-10">
                             <h1 className="text-3xl font-bold">Browse Books</h1>
                             <p className="mt-2 text-gray-600">

@@ -30,9 +30,9 @@ const Admin_Books_Page = () => {
             }
     }
 
-    const handleViewStories = (storyId) => {
-          if(!storyId) return;
-          navigate(`/admin/materials/${storyId}`);
+    const handleViewStories = (id) => {
+          if(!id) return;
+          navigate(`/admin/book-information/${id}`);
     }
 
       return(

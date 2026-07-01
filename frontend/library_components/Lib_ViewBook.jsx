@@ -86,7 +86,7 @@ const Lib_ViewBook = () => {
         </button>
     </header>
 
-    <div className="flex-1 w-7xl flex gap-4">
+    <div className="w-7xl flex gap-4">
         {/* Book Cover Container */}
         <div className="bg-white w-120 flex flex-col gap-4">
             <img src={bookDetails?.cover} className="bg-gray-100 h-100 object-cover shadow-xl mb-5" />

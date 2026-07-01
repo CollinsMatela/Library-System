@@ -59,7 +59,7 @@ function App() {
                 <Route path="/admin" element={<Admin_Page />} />
                 <Route path="/admin/upload-book" element={<Admin_UploadBook_Page />} />
                 <Route path="/admin/books" element={<Admin_Books_Page />} />
-                <Route path="/admin/materials/:storyId" element={<Admin_ViewMaterials_Page />} />
+                <Route path="/admin/book-information/:id" element={<Admin_ViewMaterials_Page />} />
                 <Route path="/admin/students" element={<Admin_Student_Page />} />
                 <Route path="/admin/student-registration" element={<Admin_StudentRegistration_Page />} />
                 <Route path="/change-password" element={<Change_Password_Page/>}/>

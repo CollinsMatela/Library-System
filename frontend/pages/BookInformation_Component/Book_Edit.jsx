@@ -2,10 +2,15 @@ import { useState, useEffect } from "react";
 import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash } from "lucide-react";
 
 const Book_Edit = ({bookDetails}) => {
-
+console.log(bookDetails?.language)
 useEffect(() => {
     if (!bookDetails) return;
 
+    // Book Type
+    setType(bookDetails.type || "");
+    setCategory(bookDetails.category || "");
+
+    // Basic Book Information
     setTitle(bookDetails.title || "");
     setAuthor(bookDetails.author || "");
     setDescription(bookDetails.description || "");
@@ -13,11 +18,56 @@ useEffect(() => {
     setPublication(bookDetails.publication || "");
     setPublisher(bookDetails.publisher || "");
     setIsbn(bookDetails.isbn || "");
-    setType(bookDetails.type || "");
-    setCategory(bookDetails.category || "");
 
-    // ...and the rest of your fields
+    // Fiction
+    setFictionSeries(bookDetails.fictionSeries || "");
+
+    // Science, Technology, Engineering, Mathematics & Medicine
+    setScientificField(bookDetails.scientificField || "");
+    setMathBranch(bookDetails.mathBranch || "");
+    setTechnologyField(bookDetails.technologyField || "");
+    setEngineeringDiscipline(bookDetails.engineeringDiscipline || "");
+    setMedicalField(bookDetails.medicalField || "—");
+
+    // Reference Books
+    setReferenceType(bookDetails.referenceType || "");
+    setDictionaryType(bookDetails.dictionaryType || "");
+    setGeographicCoverage(bookDetails.geographicCoverage || "");
+
+    // Educational Books
+    setSubject(bookDetails.subject || "");
+    setGradeLevel(bookDetails.gradeLevel || "");
+
+    // Research & Academic
+    setResearchField(bookDetails.researchField || "");
+    setInstitution(bookDetails.institution || "");
+    setDoi(bookDetails.doi || "");
+
+    // Business & Economics
+    setBusinessArea(bookDetails.businessArea || "");
+    setEconomicsBranch(bookDetails.economicsBranch || "");
+
+    // Book Content
+    setPages(
+        bookDetails.pages || [
+            {
+                pageText: "",
+                pageImage: [],
+            },
+        ]
+    );
+
+    // Cover & Availability
+    setCover(bookDetails.cover || null);
+    setAvailability(bookDetails.availability ?? true);
+
+    // Additional Information
+    setEdition(bookDetails.edition || "—");
+    setVolume(bookDetails.volume || "—");
+
 }, [bookDetails]);
+
+const [selectedPageIndex, setSelectedPageIndex] = useState(null);
 
 // Book Type
 const [type, setType] = useState(bookDetails?.type || "");
@@ -349,14 +399,14 @@ switch (bookDetails?.category?.toLowerCase()) {
 
     return(
         <>
-        <div className="w-full border-t-1 border-gray-300 py-10 flex flex-col gap-10">
+        <div className="w-full border-t-1 border-gray-300 py-10 flex flex-col">
             <div className="w-full justify-between items-start flex">
                     <div>
                     <h2 className="text-3xl font-bold text-gray-800">Edit {bookDetails?.title || "Book"}</h2>
                     <p className="text-gray-400 text-md">Manage student accounts, monitor learning progress, and keep track of student information and activities.</p>
                     </div>
             </div>
-            <div className="w-full grid grid-cols-3 gap-4">
+            <div className="w-full grid grid-cols-3 gap-4 mt-10">
                     {fields.map((field) => (
                 <div key={field.label} className="flex flex-col gap-1">
                     <label className="text-xs text-gray-500">
@@ -392,18 +442,60 @@ switch (bookDetails?.category?.toLowerCase()) {
             ))}
                 </div>
 
-            <textarea className="w-full border border-gray-300 outline-none p-4 rounded-xl"
+            <div className="w-full mt-4 flex flex-col gap-1">
+            <label className="text-xs text-gray-500">Description</label>
+             <textarea className="w-full border border-gray-300 outline-none p-4 rounded-xl"
             placeholder="Enter book description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            ></textarea>
-
-                <div className="w-full justify-end items-center flex">
-                        <button className="justify-center items-center flex gap-2 bg-yellow-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer">
-                            <Pen size={20}/> Edit
+            ></textarea>   
+            </div>
+            
+            <div className="w-full mt-4 flex flex-col gap-1">
+                <label className="text-xs text-gray-500">Book Pages</label>
+                <select className='w-fit px-4 py-2 bg-white bg-white border border-gray-300 rounded-xl outline-none'
+                    onChange={(e) => setSelectedPageIndex(parseInt(e.target.value))}
+                >
+                    <option value="">Select Page No.</option>
+                    {pages.map((page, index) => (
+                        <option 
+                        key={index} 
+                        value={index}>
+                        Page {index + 1}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            
+            {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
+                <div className="w-full mt-4 flex flex-col gap-1">
+                    <label className="text-xs text-gray-500">Page Text</label>
+                    <textarea className="h-100 w-full border border-gray-300 outline-none p-4 rounded-xl leading-loose whitespace-pre-line"
+                        placeholder="Enter book page text"
+                        value={pages[selectedPageIndex]?.pageText || ""}
+                        onChange={(e) => {
+                            const newPages = [...pages];
+                            newPages[selectedPageIndex].pageText = e.target.value;
+                            setPages(newPages);
+                        }}
+                    ></textarea>
+                    <div className="w-full flex flex-col">
+                       <img src={pages[selectedPageIndex]?.pageImage || ""} alt="Page Image" className="mt-10"/>
+                       <button className="w-fit justify-center items-center flex gap-2 bg-gray-300 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer mt-4">
+                        <Pen size={20}/> Change Page Image
                         </button>
-                        
                     </div>
+                    
+                </div>
+            )}
+
+
+
+            <div className="w-full justify-end items-center flex mt-10">
+                    <button className="justify-center items-center flex gap-2 bg-yellow-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer">
+                        <Pen size={20}/> Edit
+                    </button>
+            </div>
         </div>
         </>
     )

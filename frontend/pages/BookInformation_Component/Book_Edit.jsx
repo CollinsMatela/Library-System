@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash } from "lucide-react";
 
 const Book_Edit = ({bookDetails}) => {
-console.log(bookDetails?.language)
+    
 useEffect(() => {
     if (!bookDetails) return;
 
@@ -67,7 +67,13 @@ useEffect(() => {
 
 }, [bookDetails]);
 
+const [errorMessage, setErrorMessage] = useState("");
+
 const [selectedPageIndex, setSelectedPageIndex] = useState(null);
+const [selectedNewImage, setSelectedNewImage] = useState(null);
+
+const [imageFile, setImageFile] = useState(null);
+const imageRef = useRef(null);
 
 // Book Type
 const [type, setType] = useState(bookDetails?.type || "");
@@ -87,29 +93,29 @@ const [isbn, setIsbn] = useState(bookDetails?.isbn || "");
 const [fictionSeries, setFictionSeries] = useState(bookDetails?.fictionSeries || "");
 
 // Science, Technology, Engineering, Mathematics & Medicine
-const [scientificField, setScientificField] = useState(bookDetails?.scientificField || "—");
-const [mathBranch, setMathBranch] = useState(bookDetails?.mathBranch || "—");
-const [technologyField, setTechnologyField] = useState(bookDetails?.technologyField || "—");
-const [engineeringDiscipline, setEngineeringDiscipline] = useState(bookDetails?.engineeringDiscipline || "—");
-const [medicalField, setMedicalField] = useState(bookDetails?.medicalField || "—");
+const [scientificField, setScientificField] = useState(bookDetails?.scientificField || "");
+const [mathBranch, setMathBranch] = useState(bookDetails?.mathBranch || "");
+const [technologyField, setTechnologyField] = useState(bookDetails?.technologyField || "");
+const [engineeringDiscipline, setEngineeringDiscipline] = useState(bookDetails?.engineeringDiscipline || "");
+const [medicalField, setMedicalField] = useState(bookDetails?.medicalField || "");
 
 // Reference Books
-const [referenceType, setReferenceType] = useState(bookDetails?.referenceType || "—");
-const [dictionaryType, setDictionaryType] = useState(bookDetails?.dictionaryType || "—");
-const [geographicCoverage, setGeographicCoverage] = useState(bookDetails?.geographicCoverage || "—");
+const [referenceType, setReferenceType] = useState(bookDetails?.referenceType || "");
+const [dictionaryType, setDictionaryType] = useState(bookDetails?.dictionaryType || "");
+const [geographicCoverage, setGeographicCoverage] = useState(bookDetails?.geographicCoverage || "");
 
 // Educational Books
-const [subject, setSubject] = useState(bookDetails?.subject || "—");
-const [gradeLevel, setGradeLevel] = useState(bookDetails?.gradeLevel || "—");
+const [subject, setSubject] = useState(bookDetails?.subject || "");
+const [gradeLevel, setGradeLevel] = useState(bookDetails?.gradeLevel || "");
 
 // Research & Academic
-const [researchField, setResearchField] = useState(bookDetails?.researchField || "—");
-const [institution, setInstitution] = useState(bookDetails?.institution || "—");
-const [doi, setDoi] = useState(bookDetails?.doi || "—");
+const [researchField, setResearchField] = useState(bookDetails?.researchField || "");
+const [institution, setInstitution] = useState(bookDetails?.institution || "");
+const [doi, setDoi] = useState(bookDetails?.doi || "");
 
 // Business & Economics
-const [businessArea, setBusinessArea] = useState(bookDetails?.businessArea || "—");
-const [economicsBranch, setEconomicsBranch] = useState(bookDetails?.economicsBranch || "—");
+const [businessArea, setBusinessArea] = useState(bookDetails?.businessArea || "");
+const [economicsBranch, setEconomicsBranch] = useState(bookDetails?.economicsBranch || "");
 
 // Book Content
 const [pages, setPages] = useState(
@@ -130,6 +136,34 @@ const [availability, setAvailability] = useState(
 // Additional Information
 const [edition, setEdition] = useState(bookDetails?.edition || "—");
 const [volume, setVolume] = useState(bookDetails?.volume || "—");
+
+    const handleImageChange = (e) => {
+          setImageFile(e.target.files[0]);
+          if(!imageFile) return;
+    }
+
+    const updatePage = async () => {
+          const currentPage = pages[selectedPageIndex];
+
+          setPages(prev => (
+            prev.map((page, index) => index === selectedPageIndex ? {...page, pageImage: imageFile} : page)
+          ))
+
+          const formData = new FormDate();
+          formData.append("pageId", currentPage._id);
+          formData.append("pageText", currentPage.pageText);
+          formData.append("pageImage", imageFile);
+
+          try {
+            const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-page`, formData);
+            console.log("Page updated successfully:", res.data.message);
+            setErrorMessage("");
+            fetchBookDetails();
+          } catch (error) {
+            console.error("Error updating page:", error);
+            setErrorMessage(error?.response?.data?.message || "An error occurred while updating the page.");
+          }
+    }
 
     const basicFields = [
     { label: "Title", value: title, set: setTitle, placeholder: "Enter title", type: "text" },
@@ -451,9 +485,10 @@ switch (bookDetails?.category?.toLowerCase()) {
             ></textarea>   
             </div>
             
-            <div className="w-full mt-4 flex flex-col gap-1">
-                <label className="text-xs text-gray-500">Book Pages</label>
-                <select className='w-fit px-4 py-2 bg-white bg-white border border-gray-300 rounded-xl outline-none'
+            <div className="grid grid-cols-3 w-full mt-4 gap-2">
+
+                <div className="flex flex-col gap-1">
+                <select className='w-full px-4 py-2 bg-white border border-gray-300 rounded-xl outline-none'
                     onChange={(e) => setSelectedPageIndex(parseInt(e.target.value))}
                 >
                     <option value="">Select Page No.</option>
@@ -464,7 +499,27 @@ switch (bookDetails?.category?.toLowerCase()) {
                         Page {index + 1}
                         </option>
                     ))}
-                </select>
+                </select>  
+                </div>
+                
+                {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
+                   <div className="flex flex-col gap-1">
+                    <button className='w-full flex gap-2 px-4 py-2 bg-gray-200 text-gray-500 cursor-pointer rounded-xl outline-none hover:bg-gray-300'
+                    onClick={() => imageRef.current.click()}
+                    >
+                    <input
+                        type="file"
+                        ref={imageRef}
+                        onChange={handleImageChange}
+                        className="hidden"
+                    />
+                    Change Page Image
+                    </button>
+                    </div>  
+                )}
+                
+                
+                
             </div>
             
             {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
@@ -481,21 +536,18 @@ switch (bookDetails?.category?.toLowerCase()) {
                     ></textarea>
                     <div className="w-full flex flex-col">
                        <img src={pages[selectedPageIndex]?.pageImage || ""} alt="Page Image" className="mt-10"/>
-                       <button className="w-fit justify-center items-center flex gap-2 bg-gray-300 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer mt-4">
-                        <Pen size={20}/> Change Page Image
-                        </button>
                     </div>
-                    
+
+                    <div className="w-full justify-end items-center flex mt-10">
+                    <button className="justify-center items-center flex gap-2 bg-yellow-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+                    onClick={updatePage}
+                    >
+                        <Pen size={20}/> Update Page No. {selectedPageIndex + 1}
+                    </button>
+                    </div>
                 </div>
             )}
 
-
-
-            <div className="w-full justify-end items-center flex mt-10">
-                    <button className="justify-center items-center flex gap-2 bg-yellow-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer">
-                        <Pen size={20}/> Edit
-                    </button>
-            </div>
         </div>
         </>
     )

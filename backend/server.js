@@ -38,6 +38,8 @@ import Fetch_MarkAsRead_Route from './routes/Fetch_MarkAsRead_Route.js';
 import Fetch_All_Marked_Route from './routes/Fetch_All_Marked_Route.js'
 import Fetch_Workbooks_Route from './routes/Fetch_Workbooks_Route.js'
 
+import EditBookPageRoute from './routes/EditBookPageRoute.js'
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -67,6 +69,8 @@ app.use("/", Fetch_QuizResults_Route);
 app.use("/", MarkAsRead_Route);
 app.use("/", Fetch_MarkAsRead_Route);
 app.use("/", Fetch_All_Marked_Route);
+
+app.use("/", EditBookPageRoute);
 
 const PORT = process.env.PORT || 5000;
 

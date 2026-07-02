@@ -66,7 +66,7 @@ const Admin_ViewMaterials_Page = () => {
   return(
     <>
     <AdminSidebar />
-    <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-90 pr-10 py-10 gap-10">
+    <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-90 pr-10 pt-10 gap-10">
     
     <div className="w-full justify-between items-start flex">
             <div>
@@ -142,7 +142,9 @@ const Admin_ViewMaterials_Page = () => {
         </div>
     </div>
 
-    <Book_Edit bookDetails={bookDetails} />
+    <Book_Edit bookDetails={bookDetails}
+               fetchBookById={fetchBookById}
+    />
 
     </section>
     </>

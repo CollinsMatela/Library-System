@@ -1,8 +1,83 @@
 import { useState, useEffect, useRef } from "react";
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Image } from "lucide-react";
+import axios from "axios";
+const Book_Edit = ({bookDetails, fetchBookById}) => {
 
-const Book_Edit = ({bookDetails}) => {
-    
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const [selectedPageIndex, setSelectedPageIndex] = useState(null);
+    const [selectedNewImage, setSelectedNewImage] = useState(null);
+
+    const [imageFile, setImageFile] = useState(null);
+    const imageRef = useRef(null);
+
+    // Book Type
+    const [type, setType] = useState(bookDetails?.type || "");
+    const [category, setCategory] = useState(bookDetails?.category || "");
+
+    // Basic Book Information
+    const [title, setTitle] = useState(bookDetails?.title || "");
+    const [author, setAuthor] = useState(bookDetails?.author || "");
+    const [description, setDescription] = useState(bookDetails?.description || "");
+    const [language, setLanguage] = useState(bookDetails?.language || "");
+    const [publication, setPublication] = useState(bookDetails?.publication || "");
+    const [publisher, setPublisher] = useState(bookDetails?.publisher || "");
+    const [isbn, setIsbn] = useState(bookDetails?.isbn || "");
+
+
+    //Fiction Series
+    const [fictionSeries, setFictionSeries] = useState(bookDetails?.fictionSeries || "");
+
+    // Science, Technology, Engineering, Mathematics & Medicine
+    const [scientificField, setScientificField] = useState(bookDetails?.scientificField || "");
+    const [mathBranch, setMathBranch] = useState(bookDetails?.mathBranch || "");
+    const [technologyField, setTechnologyField] = useState(bookDetails?.technologyField || "");
+    const [engineeringDiscipline, setEngineeringDiscipline] = useState(bookDetails?.engineeringDiscipline || "");
+    const [medicalField, setMedicalField] = useState(bookDetails?.medicalField || "");
+
+    // Reference Books
+    const [referenceType, setReferenceType] = useState(bookDetails?.referenceType || "");
+    const [dictionaryType, setDictionaryType] = useState(bookDetails?.dictionaryType || "");
+    const [geographicCoverage, setGeographicCoverage] = useState(bookDetails?.geographicCoverage || "");
+
+    // Educational Books
+    const [subject, setSubject] = useState(bookDetails?.subject || "");
+    const [gradeLevel, setGradeLevel] = useState(bookDetails?.gradeLevel || "");
+
+    // Research & Academic
+    const [researchField, setResearchField] = useState(bookDetails?.researchField || "");
+    const [institution, setInstitution] = useState(bookDetails?.institution || "");
+    const [doi, setDoi] = useState(bookDetails?.doi || "");
+
+    // Business & Economics
+    const [businessArea, setBusinessArea] = useState(bookDetails?.businessArea || "");
+    const [economicsBranch, setEconomicsBranch] = useState(bookDetails?.economicsBranch || "");
+
+    // Book Content
+    const [pages, setPages] = useState(
+        bookDetails?.pages || [
+            {
+                pageText: "",
+                pageImage: [],
+            },
+        ]
+    );
+
+    // Cover & Availability
+    const [cover, setCover] = useState(bookDetails?.cover || null);
+    const [availability, setAvailability] = useState(
+        bookDetails?.availability ?? true
+    );
+
+    // Additional Information
+    const [edition, setEdition] = useState(bookDetails?.edition || "");
+    const [volume, setVolume] = useState(bookDetails?.volume || "");
+
+
+useEffect(() => {
+   setImageFile(null);
+},[selectedPageIndex])
+
 useEffect(() => {
     if (!bookDetails) return;
 
@@ -62,84 +137,17 @@ useEffect(() => {
     setAvailability(bookDetails.availability ?? true);
 
     // Additional Information
-    setEdition(bookDetails.edition || "—");
-    setVolume(bookDetails.volume || "—");
+    setEdition(bookDetails.edition || "");
+    setVolume(bookDetails.volume || "");
 
 }, [bookDetails]);
 
-const [errorMessage, setErrorMessage] = useState("");
-
-const [selectedPageIndex, setSelectedPageIndex] = useState(null);
-const [selectedNewImage, setSelectedNewImage] = useState(null);
-
-const [imageFile, setImageFile] = useState(null);
-const imageRef = useRef(null);
-
-// Book Type
-const [type, setType] = useState(bookDetails?.type || "");
-const [category, setCategory] = useState(bookDetails?.category || "");
-
-// Basic Book Information
-const [title, setTitle] = useState(bookDetails?.title || "");
-const [author, setAuthor] = useState(bookDetails?.author || "");
-const [description, setDescription] = useState(bookDetails?.description || "");
-const [language, setLanguage] = useState(bookDetails?.language || "");
-const [publication, setPublication] = useState(bookDetails?.publication || "");
-const [publisher, setPublisher] = useState(bookDetails?.publisher || "");
-const [isbn, setIsbn] = useState(bookDetails?.isbn || "");
-
-
-//Fiction Series
-const [fictionSeries, setFictionSeries] = useState(bookDetails?.fictionSeries || "");
-
-// Science, Technology, Engineering, Mathematics & Medicine
-const [scientificField, setScientificField] = useState(bookDetails?.scientificField || "");
-const [mathBranch, setMathBranch] = useState(bookDetails?.mathBranch || "");
-const [technologyField, setTechnologyField] = useState(bookDetails?.technologyField || "");
-const [engineeringDiscipline, setEngineeringDiscipline] = useState(bookDetails?.engineeringDiscipline || "");
-const [medicalField, setMedicalField] = useState(bookDetails?.medicalField || "");
-
-// Reference Books
-const [referenceType, setReferenceType] = useState(bookDetails?.referenceType || "");
-const [dictionaryType, setDictionaryType] = useState(bookDetails?.dictionaryType || "");
-const [geographicCoverage, setGeographicCoverage] = useState(bookDetails?.geographicCoverage || "");
-
-// Educational Books
-const [subject, setSubject] = useState(bookDetails?.subject || "");
-const [gradeLevel, setGradeLevel] = useState(bookDetails?.gradeLevel || "");
-
-// Research & Academic
-const [researchField, setResearchField] = useState(bookDetails?.researchField || "");
-const [institution, setInstitution] = useState(bookDetails?.institution || "");
-const [doi, setDoi] = useState(bookDetails?.doi || "");
-
-// Business & Economics
-const [businessArea, setBusinessArea] = useState(bookDetails?.businessArea || "");
-const [economicsBranch, setEconomicsBranch] = useState(bookDetails?.economicsBranch || "");
-
-// Book Content
-const [pages, setPages] = useState(
-    bookDetails?.pages || [
-        {
-            pageText: "",
-            pageImage: [],
-        },
-    ]
-);
-
-// Cover & Availability
-const [cover, setCover] = useState(bookDetails?.cover || null);
-const [availability, setAvailability] = useState(
-    bookDetails?.availability ?? true
-);
-
-// Additional Information
-const [edition, setEdition] = useState(bookDetails?.edition || "—");
-const [volume, setVolume] = useState(bookDetails?.volume || "—");
-
     const handleImageChange = (e) => {
-          setImageFile(e.target.files[0]);
-          if(!imageFile) return;
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    setImageFile(file);
     }
 
     const updatePage = async () => {
@@ -149,16 +157,17 @@ const [volume, setVolume] = useState(bookDetails?.volume || "—");
             prev.map((page, index) => index === selectedPageIndex ? {...page, pageImage: imageFile} : page)
           ))
 
-          const formData = new FormDate();
-          formData.append("pageId", currentPage._id);
-          formData.append("pageText", currentPage.pageText);
-          formData.append("pageImage", imageFile);
-
+          const formData = new FormData();
+          formData.append("bookId", bookDetails._id);
+          formData.append("pageId", pages[selectedPageIndex]._id);
+          formData.append("pageText", pages[selectedPageIndex].pageText);
+          formData.append("pageImage", imageFile || currentPage.pageImage);
+          console.log("Frontend -", pages[selectedPageIndex].pageText);
           try {
             const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-page`, formData);
             console.log("Page updated successfully:", res.data.message);
             setErrorMessage("");
-            fetchBookDetails();
+            fetchBookById(bookDetails._id);
           } catch (error) {
             console.error("Error updating page:", error);
             setErrorMessage(error?.response?.data?.message || "An error occurred while updating the page.");
@@ -433,7 +442,7 @@ switch (bookDetails?.category?.toLowerCase()) {
 
     return(
         <>
-        <div className="w-full border-t-1 border-gray-300 py-10 flex flex-col">
+        <div className="w-full border-t-1 border-gray-300 pt-10 flex flex-col">
             <div className="w-full justify-between items-start flex">
                     <div>
                     <h2 className="text-3xl font-bold text-gray-800">Edit {bookDetails?.title || "Book"}</h2>
@@ -485,47 +494,52 @@ switch (bookDetails?.category?.toLowerCase()) {
             ></textarea>   
             </div>
             
-            <div className="grid grid-cols-3 w-full mt-4 gap-2">
+            <div className="flex flex-col w-full gap-2 border-t-1 border-gray-300 mt-10 py-10 gap-4">
 
-                <div className="flex flex-col gap-1">
-                <select className='w-full px-4 py-2 bg-white border border-gray-300 rounded-xl outline-none'
-                    onChange={(e) => setSelectedPageIndex(parseInt(e.target.value))}
-                >
-                    <option value="">Select Page No.</option>
-                    {pages.map((page, index) => (
-                        <option 
-                        key={index} 
-                        value={index}>
-                        Page {index + 1}
-                        </option>
-                    ))}
-                </select>  
+            <div className="w-full justify-between items-start flex">
+                <div>
+                <h2 className="text-3xl font-bold text-gray-800">Edit {bookDetails?.title || "Book"} Pages</h2>
+                <p className="text-gray-400 text-md">Manage student accounts, monitor learning progress, and keep track of student information and activities.</p>
                 </div>
+            </div>
+
+            <div className="flex gap-2">
+            <select className='w-fit px-4 py-2 bg-white border border-gray-300 rounded-xl outline-none'
+                onChange={(e) => setSelectedPageIndex(parseInt(e.target.value))}
+            >
+                <option value="">Select Page No.</option>
+                {pages.map((page, index) => (
+                    <option 
+                    key={index} 
+                    value={index}>
+                    Page {index + 1}
+                    </option>
+                ))}
+            </select>  
+
+            {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
+            <div className="flex flex-col gap-1">
+                <button className='w-fit justify-center items-center flex gap-2 px-4 py-2 bg-black text-white cursor-pointer rounded-xl outline-none hover:-translate-y-1'
+                onClick={() => imageRef.current.click()}
+                >
+                <input
+                    type="file"
+                    ref={imageRef}
+                    onChange={handleImageChange}
+                    className="hidden"
+                />
+                <Image size={20} />
+                Change Page Image
+                </button>
+                </div>  
+            )}
+
+            </div>
                 
                 {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
-                   <div className="flex flex-col gap-1">
-                    <button className='w-full flex gap-2 px-4 py-2 bg-gray-200 text-gray-500 cursor-pointer rounded-xl outline-none hover:bg-gray-300'
-                    onClick={() => imageRef.current.click()}
-                    >
-                    <input
-                        type="file"
-                        ref={imageRef}
-                        onChange={handleImageChange}
-                        className="hidden"
-                    />
-                    Change Page Image
-                    </button>
-                    </div>  
-                )}
-                
-                
-                
-            </div>
-            
-            {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
-                <div className="w-full mt-4 flex flex-col gap-1">
+                <div className="w-full flex flex-col gap-1">
                     <label className="text-xs text-gray-500">Page Text</label>
-                    <textarea className="h-100 w-full border border-gray-300 outline-none p-4 rounded-xl leading-loose whitespace-pre-line"
+                    <textarea className="h-100 w-full bg-gray-100 outline-none p-4 rounded-xl leading-loose whitespace-pre-line"
                         placeholder="Enter book page text"
                         value={pages[selectedPageIndex]?.pageText || ""}
                         onChange={(e) => {
@@ -535,18 +549,31 @@ switch (bookDetails?.category?.toLowerCase()) {
                         }}
                     ></textarea>
                     <div className="w-full flex flex-col">
-                       <img src={pages[selectedPageIndex]?.pageImage || ""} alt="Page Image" className="mt-10"/>
+                       <img src={
+                                imageFile
+                                    ? URL.createObjectURL(imageFile)
+                                    : pages[selectedPageIndex]?.pageImage
+                                } 
+                                alt="Page Image" 
+                                className="mt-4 object-cover shadow-xl mb-5"
+                        />
                     </div>
 
-                    <div className="w-full justify-end items-center flex mt-10">
-                    <button className="justify-center items-center flex gap-2 bg-yellow-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+                    <div className="w-full justify-end items-center flex">
+                    <button className="justify-center items-center flex gap-2 bg-green-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
                     onClick={updatePage}
                     >
-                        <Pen size={20}/> Update Page No. {selectedPageIndex + 1}
+                        <Pen size={20}/> Save Page No. {selectedPageIndex + 1}
                     </button>
                     </div>
                 </div>
             )}
+                
+                
+                
+            </div>
+            
+            
 
         </div>
         </>

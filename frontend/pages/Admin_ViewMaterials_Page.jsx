@@ -107,9 +107,6 @@ const Admin_ViewMaterials_Page = () => {
                     </div>
 
                     <div className="flex gap-2">
-                        <button className="justify-center items-center flex gap-2 bg-yellow-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer">
-                            <Pen size={20}/> Edit
-                        </button>
                         <button className="justify-center items-center flex gap-2 bg-red-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer">
                             <Trash size={20}/> Remove
                         </button>

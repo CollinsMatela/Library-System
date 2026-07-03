@@ -149,7 +149,46 @@ useEffect(() => {
 
     setImageFile(file);
     }
+    const updateBookInformation = async () => {
 
+        try {
+            const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-book/${bookDetails._id}`, {
+                title,
+                author,
+                description,
+                language,
+                publication,
+                publisher,
+                isbn,
+                type,
+                category,
+                edition,
+                volume,
+                fictionSeries,
+                scientificField,
+                mathBranch,
+                technologyField,
+                engineeringDiscipline,
+                medicalField,
+                referenceType,
+                dictionaryType,
+                geographicCoverage,
+                subject,
+                gradeLevel,
+                researchField,
+                institution,
+                doi,
+                businessArea,
+                economicsBranch,
+            });
+            console.log(res.data.message);
+            setErrorMessage("");
+            fetchBookById(bookDetails._id);
+        } catch (error) {
+            console.error("Error updating book information:", error);
+            setErrorMessage(error?.response?.data?.message || "An error occurred while updating the book information.");
+        }
+    }
     const updatePage = async () => {
           const currentPage = pages[selectedPageIndex];
 
@@ -486,12 +525,21 @@ switch (bookDetails?.category?.toLowerCase()) {
                 </div>
 
             <div className="w-full mt-4 flex flex-col gap-1">
-            <label className="text-xs text-gray-500">Description</label>
-             <textarea className="w-full border border-gray-300 outline-none p-4 rounded-xl"
-            placeholder="Enter book description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            ></textarea>   
+                <label className="text-xs text-gray-500">Description</label>
+                    <textarea className="w-full border border-gray-300 outline-none p-4 rounded-xl"
+                placeholder="Enter book description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                ></textarea>   
+            </div>
+
+            {/* // Save Button */}
+            <div className="w-full justify-end items-center flex mt-10">
+            <button className="justify-center items-center flex gap-2 bg-green-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+            onClick={updateBookInformation}
+            >
+                <Pen size={20}/> Save Information 
+            </button>
             </div>
             
             <div className="flex flex-col w-full gap-2 border-t-1 border-gray-300 mt-10 py-10 gap-4">

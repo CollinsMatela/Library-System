@@ -72,7 +72,7 @@ const Lib_ViewBook = () => {
     return(
     <>
     {showReadModal && (<Lib_BookLayout book={bookDetails} onClose={() => setShowReadModal(false)}/>)}
-    <section className="min-h-screen w-full justify-center items-center flex flex-col">
+    <section className="min-h-screen w-full justify-start items-center flex flex-col">
   
     <Lib_Navigation />
 

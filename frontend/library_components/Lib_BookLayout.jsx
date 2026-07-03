@@ -64,8 +64,7 @@ const Lib_BookLayout = ({book, onClose}) => {
                     <button className={`text-white rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1`} onClick={() => alert('AI READING ASSISTANT')}><Sparkle/></button>
                 </div>
 
-                {(book?.type === 'non-fiction') &&
-                (<Lib_BasedLayoutBook 
+                <Lib_BasedLayoutBook 
                 book={book}
                 showText={showText}
                 showImage={showImage}
@@ -73,7 +72,7 @@ const Lib_BookLayout = ({book, onClose}) => {
                 nextPage={nextPage}
                 prevPage={prevPage}
                 onClose={onClose}/>
-                )}
+                
             </div>
             
             

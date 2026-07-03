@@ -21,7 +21,7 @@ const Lib_Navigation = () => {
     }
     
     return(
-        <nav className=" bg-white border-b border-gray-300 rounded-t-2xl h-20 w-full justify-center items-center flex px-6">
+        <nav className=" bg-white border-b border-gray-300 h-20 w-full justify-center items-center flex px-6">
 
                        <div className='w-7xl justify-between items-center flex'>
                           <div className='h-full rounded-2xl flex gap-2 justify-center items-center'>

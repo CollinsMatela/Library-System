@@ -485,7 +485,7 @@ switch (bookDetails?.category?.toLowerCase()) {
             <div className="w-full justify-between items-start flex">
                     <div>
                     <h2 className="text-3xl font-bold text-gray-800">Edit {bookDetails?.title || "Book"}</h2>
-                    <p className="text-gray-400 text-md">Manage student accounts, monitor learning progress, and keep track of student information and activities.</p>
+                    <p className="text-gray-400 text-md">Manage to edit the book information.</p>
                     </div>
             </div>
             <div className="w-full grid grid-cols-3 gap-4 mt-10">
@@ -547,7 +547,7 @@ switch (bookDetails?.category?.toLowerCase()) {
             <div className="w-full justify-between items-start flex">
                 <div>
                 <h2 className="text-3xl font-bold text-gray-800">Edit {bookDetails?.title || "Book"} Pages</h2>
-                <p className="text-gray-400 text-md">Manage student accounts, monitor learning progress, and keep track of student information and activities.</p>
+                <p className="text-gray-400 text-md">Manage to edit the page text and change the page image.</p>
                 </div>
             </div>
 

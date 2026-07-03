@@ -40,6 +40,7 @@ import Fetch_Workbooks_Route from './routes/Fetch_Workbooks_Route.js'
 
 import EditBookPageRoute from './routes/EditBookPageRoute.js'
 import EditBookInformationRoute from './routes/EditBookInformationRoute.js'
+import DeleteBookRoute from './routes/DeleteBookRoute.js'
 
 const app = express();
 app.use(cors());
@@ -73,6 +74,7 @@ app.use("/", Fetch_All_Marked_Route);
 
 app.use("/", EditBookPageRoute);
 app.use("/", EditBookInformationRoute);
+app.use("/", DeleteBookRoute);
 
 const PORT = process.env.PORT || 5000;
 

@@ -61,7 +61,17 @@ const Admin_ViewMaterials_Page = () => {
             console.log(error);
             setErrorMessage(error?.response?.data?.message);
           }
-    } 
+    }
+    const deleteBook = async (bookId) => {
+        try {
+            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-book/${bookId}`);
+            console.log(res.data.message);
+            navigate(-1); // Navigate back to the previous page after deletion
+        } catch (error) {
+            console.log(error);
+            setErrorMessage(error?.response?.data?.message);
+        }
+    }
 
   return(
     <>
@@ -71,7 +81,7 @@ const Admin_ViewMaterials_Page = () => {
     <div className="w-full justify-between items-start flex">
             <div>
               <h2 className="text-3xl font-bold text-gray-800">Book Information</h2>
-               <p className="text-gray-400 text-md">Manage student accounts, monitor learning progress, and keep track of student information and activities.</p>
+               <p className="text-gray-400 text-md">Oversee the book information of {bookDetails?.title || "the selected book"}.</p>
             </div>
             <button className="bg-gray-200 py-2 px-4 rounded-xl hover:bg-gray-300 cursor-pointer" onClick={() => navigate(-1)}>
               <ArrowLeft />
@@ -107,7 +117,8 @@ const Admin_ViewMaterials_Page = () => {
                     </div>
 
                     <div className="flex gap-2">
-                        <button className="justify-center items-center flex gap-2 bg-red-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer">
+                        <button className="justify-center items-center flex gap-2 bg-red-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+                        onClick={() => deleteBook(bookDetails?._id)}>
                             <Trash size={20}/> Remove
                         </button>
                     </div>

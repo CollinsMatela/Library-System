@@ -1,9 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Image } from "lucide-react";
 import axios from "axios";
+import {toast} from "react-toastify";
+import Confirmation_Popup from "../../popup/Confirmation_Popup";
 const Book_Edit = ({bookDetails, fetchBookById}) => {
 
     const [errorMessage, setErrorMessage] = useState("");
+    const [isBookInformationUpdate, setIsBookInformationUpdate] = useState(false);
+    const [isBookPageUpdate, setIsBookPageUpdate] = useState(false);
 
     const [selectedPageIndex, setSelectedPageIndex] = useState(null);
     const [selectedNewImage, setSelectedNewImage] = useState(null);
@@ -183,10 +187,13 @@ useEffect(() => {
             });
             console.log(res.data.message);
             setErrorMessage("");
+            toast.success(res.data.message);
             fetchBookById(bookDetails._id);
+            setIsBookInformationUpdate(false);
         } catch (error) {
             console.error("Error updating book information:", error);
             setErrorMessage(error?.response?.data?.message || "An error occurred while updating the book information.");
+            toast.error(error?.response?.data?.message || "An error occurred while updating the book information.");
         }
     }
     const updatePage = async () => {
@@ -205,12 +212,22 @@ useEffect(() => {
           try {
             const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-page`, formData);
             console.log("Page updated successfully:", res.data.message);
+            toast.success(res.data.message);
             setErrorMessage("");
             fetchBookById(bookDetails._id);
+            setIsBookPageUpdate(false);
           } catch (error) {
             console.error("Error updating page:", error);
             setErrorMessage(error?.response?.data?.message || "An error occurred while updating the page.");
+            toast.error(error?.response?.data?.message || "An error occurred while updating the page.");
           }
+    }
+
+    const UpdateInformationConfirmation = () => {
+          setIsBookInformationUpdate(true)
+    }
+    const UpdatePageConformation = () => {
+          setIsBookPageUpdate(true)
     }
 
     const basicFields = [
@@ -481,6 +498,20 @@ switch (bookDetails?.category?.toLowerCase()) {
 
     return(
         <>
+        {isBookInformationUpdate && (<Confirmation_Popup
+        errorMessage={errorMessage}
+        message={'Are you sure to update the book information?'}
+        onConfirm={updateBookInformation}
+        onCancel={() => setIsBookInformationUpdate(false)}
+        />)}
+
+        {isBookPageUpdate && (<Confirmation_Popup
+        errorMessage={errorMessage}
+        message={'Are you sure to update the book page?'}
+        onConfirm={updatePage}
+        onCancel={() => setIsBookPageUpdate(false)}
+        />)}
+
         <div className="w-full border-t-1 border-gray-300 pt-10 flex flex-col">
             <div className="w-full justify-between items-start flex">
                     <div>
@@ -536,7 +567,7 @@ switch (bookDetails?.category?.toLowerCase()) {
             {/* // Save Button */}
             <div className="w-full justify-end items-center flex mt-10">
             <button className="justify-center items-center flex gap-2 bg-green-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
-            onClick={updateBookInformation}
+            onClick={UpdateInformationConfirmation}
             >
                 <Pen size={20}/> Save Information 
             </button>
@@ -609,7 +640,7 @@ switch (bookDetails?.category?.toLowerCase()) {
 
                     <div className="w-full justify-end items-center flex">
                     <button className="justify-center items-center flex gap-2 bg-green-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
-                    onClick={updatePage}
+                    onClick={UpdatePageConformation}
                     >
                         <Pen size={20}/> Save Page No. {selectedPageIndex + 1}
                     </button>

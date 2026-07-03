@@ -53,29 +53,29 @@ const Admin_SideBar = () => {
         Admin Menu
       </div>
 
-      <div className={`${isOverview ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleOverview}>
-        <AppWindow className={`${isOverview ? 'text-white' : 'text-gray-300'}`} size={24}/>
+      <div className={`${isOverview ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleOverview}>
+        <AppWindow className={`${isOverview ? 'text-white' : 'text-gray-500'}`} size={20}/>
         Overview
         
       </div>
 
-      <div className={`${isUploadStory ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleUploadStory}>
-        <FileUp className={`${isUploadStory ? 'text-white' : 'text-gray-300'}`} size={24}/>
+      <div className={`${isUploadStory ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleUploadStory}>
+        <FileUp className={`${isUploadStory ? 'text-white' : 'text-gray-500'}`} size={20}/>
         Upload Books
       </div>
 
-      <div className={`${isViewStory ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleViewStory}>
-        <LibraryBig className={`${isViewStory ? 'text-white' : 'text-gray-300'}`} size={24}/>
+      <div className={`${isViewStory ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleViewStory}>
+        <LibraryBig className={`${isViewStory ? 'text-white' : 'text-gray-500'}`} size={20}/>
         Books List
       </div>
 
-      <div className={`${isStudentRegistration ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleStudentRegistration}>
-        <Users className={`${isStudentRegistration ? 'text-white' : 'text-gray-300'}`} size={24}/>
+      <div className={`${isStudentRegistration ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleStudentRegistration}>
+        <Users className={`${isStudentRegistration ? 'text-white' : 'text-gray-500'}`} size={20}/>
         Students Registration
       </div>
 
-      <div className={`${isStudentAccount ? "bg-black text-white" : "hover:bg-gray-100 text-gray-800"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleStudent}>
-        <Users className={`${isStudentAccount ? 'text-white' : 'text-gray-300'}`} size={24}/>
+      <div className={`${isStudentAccount ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleStudent}>
+        <Users className={`${isStudentAccount ? 'text-white' : 'text-gray-500'}`} size={20}/>
         Students Account
       </div>
 
@@ -83,7 +83,7 @@ const Admin_SideBar = () => {
         Other Menu
       </div>
       <div className="h-15 justify-start items-center flex font-semibold text-red-500 flex  gap-2 cursor-pointer py-2 hover:bg-red-100 hover:border-none rounded-xl mt-2 p-2" onClick={handleLogout}>
-        <LogOut className={`text-red-500`} size={24}/>
+        <LogOut className={`text-red-500`} size={20}/>
         Logout
       </div>
 

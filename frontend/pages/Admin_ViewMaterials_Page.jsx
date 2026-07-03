@@ -5,12 +5,16 @@ import Edit_Question_Modal from "../modals/Edit_Question_Modal";
 import AdminSidebar from '../components/Admin_Sidebar';
 import Book_Edit from "./BookInformation_Component/Book_Edit";
 import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash } from "lucide-react";
-
+import { toast } from "react-toastify";
+import ConfirmationPopup from "../popup/Confirmation_Popup"
 const Admin_ViewMaterials_Page = () => {
   const { id } = useParams();
   const [bookDetails, setBookDetails] = useState(null);
 
   const navigate = useNavigate();
+
+  const [isConfirmation, setIsConfirmation] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const informations = [
     // Basic Information
@@ -57,25 +61,36 @@ const Admin_ViewMaterials_Page = () => {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-book/${id}`);
             setBookDetails(res.data.book);
             console.log(res.data.message);
+            toast.success(res.data.message);
           } catch (error) {
             console.log(error);
             setErrorMessage(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message);
           }
     }
     const deleteBook = async (bookId) => {
         try {
             const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-book/${bookId}`);
             console.log(res.data.message);
+            toast.success(res.data.message);
             navigate(-1); // Navigate back to the previous page after deletion
         } catch (error) {
             console.log(error);
             setErrorMessage(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message);
         }
     }
-
+    const handleDeleteConfirmation = () => {
+          setIsConfirmation(true);
+    }
   return(
     <>
     <AdminSidebar />
+    {isConfirmation && (<ConfirmationPopup 
+    errorMessage={errorMessage}
+    message={'Are you sure to delete this book?'}
+    onConfirm={() => deleteBook(bookDetails._id)} 
+    onCancel={() => setIsConfirmation(false)}/>)}
     <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-90 pr-10 pt-10 gap-10">
     
     <div className="w-full justify-between items-start flex">
@@ -118,7 +133,7 @@ const Admin_ViewMaterials_Page = () => {
 
                     <div className="flex gap-2">
                         <button className="justify-center items-center flex gap-2 bg-red-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
-                        onClick={() => deleteBook(bookDetails?._id)}>
+                        onClick={handleDeleteConfirmation}>
                             <Trash size={20}/> Remove
                         </button>
                     </div>

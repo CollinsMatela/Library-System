@@ -4,7 +4,9 @@ const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCateg
         <div className="w-full">
             <h2 className="text-lg font-bold text-gray-500 rounded-full">Select Type of Books</h2>
             <p className="text-gray-400 text-sm">Choose Kind of Books you wanted to upload</p>
-            <select className="bg-gray-100 h-12 w-full rounded-md text-gray-500 mt-4" value={selectedTypeOfBooks} onChange={(e) => setSelectedTypeOfBooks(e.target.value)}>
+
+            <div className="w-full flex gap-2">
+            <select className="bg-white border-1 border-gray-300 h-12 w-fit rounded-md text-gray-500 mt-4 px-2" value={selectedTypeOfBooks} onChange={(e) => setSelectedTypeOfBooks(e.target.value)}>
                 <option value="">Type of Books</option>
                 <option value="fiction">Fiction</option>
                 <option value="non-fiction">Non-Fiction</option>
@@ -12,11 +14,11 @@ const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCateg
             {/* Fiction */}
             {/* Fiction */}
             <select
-                className={`${selectedTypeOfBooks.toLowerCase() === 'fiction' ? "" : "hidden"} bg-gray-100 h-12 w-full rounded-md text-gray-500 mt-4`}
+                className={`${selectedTypeOfBooks.toLowerCase() === 'fiction' ? "" : "hidden"} bg-white border-1 border-gray-300 h-12 w-fit rounded-md text-gray-500 mt-4 px-2`}
                 value={selectedCategoryOfBook}
                 onChange={(e) => setSelectedCategoryOfBook(e.target.value)}
             >
-                <option value="">Type of {selectedTypeOfBooks}</option>
+                <option value="">Type of Fiction</option>
                 <option value="Fantasy">Fantasy</option>
                 <option value="Science Fiction">Science Fiction</option>
                 <option value="Mystery">Mystery</option>
@@ -43,8 +45,8 @@ const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCateg
             </select>
 
             {/* Non-Fiction */}
-            <select className={`${selectedTypeOfBooks.toLowerCase() === 'non-fiction' ? "" : "hidden"} bg-gray-100 h-12 w-full rounded-md text-gray-500 mt-4`} value={selectedCategoryOfBook} onChange={(e) => setSelectedCategoryOfBook(e.target.value)}>
-                <option value="">Type of {selectedTypeOfBooks}</option>
+            <select className={`${selectedTypeOfBooks.toLowerCase() === 'non-fiction' ? "" : "hidden"} bg-white border-1 border-gray-300 h-12 w-fit rounded-md text-gray-500 mt-4 px-2`} value={selectedCategoryOfBook} onChange={(e) => setSelectedCategoryOfBook(e.target.value)}>
+                <option value="">Type of Non-Fiction</option>
                 <option value="Biography">Biography</option>
                 <option value="Autobiography">Autobiography</option>
                 <option value="Memoir">Memoir</option>
@@ -69,6 +71,7 @@ const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCateg
                 <option value="Business">Business</option>
                 <option value="Education">Education</option>
             </select>
+            </div>
         </div>
     )
 }

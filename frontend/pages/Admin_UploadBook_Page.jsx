@@ -7,6 +7,8 @@ import FictionBookInformation from "./UploadPage_Components/FictionBookInformati
 import NonFictionBookInformation from "./UploadPage_Components/NonFictionBookInformation";
 import TypeOfBooks from "./UploadPage_Components/TypeOfBooks";
 import PreviewBook from "./UploadPage_Components/PreviewBook"
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, X, Plus, Image, Save } from "lucide-react";
+import { toast } from "react-toastify";
 
 const Admin_UploadBook_Page = () => {
 
@@ -356,11 +358,13 @@ const Admin_UploadBook_Page = () => {
             );
 
             if (res.data.success) {
+                toast.success(res.data.message);
                 resetForm();
             }
         } catch (error) {
             console.log(error);
             setErrorMessage(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message);
         }
     };
       return(
@@ -602,8 +606,8 @@ const Admin_UploadBook_Page = () => {
                         </textarea>
 
                         <div className="w-full justify-end items-center flex gap-2">                        
-                            <button className={`${pageImagePreview.length > 2 ? 'hidden' : null} text-gray-500 p-2 rounded-xl cursor-pointer hover:-translate-y-1`} onClick={() => pageImageInputRef.current.click()}>
-                                Add Image
+                            <button className={`${pageImagePreview.length > 2 ? 'hidden' : null} justify-center items-center flex gap-2 py-2 px-3 text-sm text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={() => pageImageInputRef.current.click()}>
+                                <Image/> Add Image
                             </button>
                             <input 
                                     type="file" 
@@ -611,8 +615,8 @@ const Admin_UploadBook_Page = () => {
                                     className="hidden" 
                                     onChange={handlePageImagePreview} 
                             />
-                            <button className="bg-black text-white font-bold px-4 py-2 rounded-xl cursor-pointer hover:-translate-y-1"
-                                onClick={handleNextPage}>Save & Next Page {`(${pageList.length + 1})`}
+                            <button className="justify-center items-center flex gap-2 py-2 px-3 text-sm bg-blue-600 text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+                                onClick={handleNextPage}><Save/> Save & Next Page {`(${pageList.length + 1})`}
                             </button>
                         </div>
                     </div>
@@ -659,6 +663,9 @@ const Admin_UploadBook_Page = () => {
                 </div>
                   
                   <PreviewBook
+                  type={selectedTypeOfBooks}
+                  category={selectedCategoryOfBook}
+                  pages={pageList}
                   preview={preview}
                   title={title}
                   description={description} 
@@ -670,6 +677,8 @@ const Admin_UploadBook_Page = () => {
                   openFileExplorer={openFileExplorer}
                   handleImagePreview={handleImagePreview}
                   handleConfirmation={handleConfirmation}
+                  setPreview={setPreview}
+                  setFile={setFile}
                   />
                 
 

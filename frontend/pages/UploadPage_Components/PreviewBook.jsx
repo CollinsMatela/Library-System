@@ -1,76 +1,82 @@
 
-const PreviewBook = ({preview, title, description, language, author, publication, file, fileInputRef, openFileExplorer, handleImagePreview, handleConfirmation}) => {
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, X, Plus, Image } from "lucide-react";
+const PreviewBook = ({preview, type, category, pages, title, description, language, author, publication, file, fileInputRef, openFileExplorer, handleImagePreview, handleConfirmation, setFile, setPreview}) => {
     return(
-        <div className="relative bg-white h-150 w-1/2 flex flex-col shadow-6xl">
-                            
+        <>
+        <div>
+        <h2 className="text-3xl font-bold text-gray-800">Preview Book</h2>
+        <p className="text-gray-400 text-md">Oversee the book information of {title || "the selected book"}.</p>
+        </div>
+        <div className="w-full flex gap-4 mt-10">
+        {/* Book Cover Container */}
+        <div className="bg-white w-120 flex flex-col gap-4">
+            <img src={preview} className="bg-gray-100 h-100 object-cover shadow-xl mb-5" />
+        </div>
+        {/* Book Details Container */}
+        <div className=" w-full p-4 justify-start items-start flex flex-col gap-5">
 
-                            {/* Image */}
-                            <div className={`w-full h-full bg-gray-200 rounded-xl overflow-hidden`}>
+            <div className="w-full justify-between items-start flex flex-col border-gray-300 border-b-1">
+                <div className="w-full flex flex-col gap-2">
+                    <h1 className="text-gray-800 text-4xl font-md">{title || "Book name"}</h1>
+                    <h1 className="text-sm text-gray-500">Authored by: {author || "—"}</h1>
+                </div>
 
-                                {preview && (
-                                    <img
-                                    src={preview}
-                                    alt="preview"
-                                    className="w-full h-full"
-                                    />
-                                )}
-                            </div>
-                            
-                            
-                            <div className={`${preview? "bg-black/50" : "bg-black"} absolute inset-0 justify-between items-start flex flex-col p-10 rounded-xl`}>
-                                <div className="w-full justify-between items-center flex">
-                                    <span className="px-3 py-1 text-sm font-bold bg-gray-100/20 text-white rounded-full">
-                                        Book Preview
-                                    </span>
-                                    <button className={`${preview ? null : "hidden"} px-3 py-1 text-sm font-bold bg-gray-100/20 text-white rounded-full cursor-pointer hover:bg-red-500/50`} onClick={() => {setFile(null); setPreview(null)}}>x</button>
-                                </div>
-                                 {/* Content */}
-                                <div className="flex flex-col gap-3 w-full">
-                                    
-                                    {/* Title */}
-                                    <h1 className="text-2xl font-bold text-white">
-                                    {title || "Book Title"}
-                                    </h1>
+                <div className="w-full flex justify-between items-center gap-3 my-4">
 
-                                    {/* Description */}
-                                    <p className="text-white text-sm leading-relaxed">
-                                    {description || "Short description of the book will appear here."}
-                                    </p>
-
-                                    {/* Tags */}
-                                    <div className="flex flex-wrap gap-2 mt-2">
-
-                                    <span className="px-3 py-1 text-sm bg-gray-100 text-gray-500 rounded-full">
-                                        {language || "—"}
-                                    </span>
-
-                                    </div>
-
-                                    <div className="w-full justify-between items-center flex">
-                                        <p className="text-xs text-white mt-2">
-                                        By {author || "Author Name"}
-                                        </p>
-                                        <p className="text-xs text-white mt-2">
-                                        By {publication || "Publication Date"}
-                                        </p>
-                                    </div>
-                                    
-                                    <button className="h-10 text-white font-semibold bg-pink-500 border border-pink-500 hover:bg-pink-600 rounded-xl cursor-pointer" onClick={handleConfirmation}>+ Upload Story</button>
-                                    <div className={`${file ? "hidden" : ""} bg-gray-200 p-2 text-gray-500 font-semibold rounded-xl cursor-pointer justify-center items-center flex`} onClick={openFileExplorer}> 
-                                    + Cover Image
-                                        <input 
-                                            type="file" 
-                                            ref={fileInputRef} 
-                                            className="hidden" 
-                                            onChange={handleImagePreview} 
-                                        />
-                                    </div>
-
-                                </div>
-                            </div>
-                            
-                            
+                    <div className="flex gap-2">
+                        <div className={`${!type ? "hidden" : ""} justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full uppercase`}><Book size={20}/>{type}</div>
+                        <div className={`${!category ? "hidden" : ""} justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full uppercase`}><Book size={20}/>{category}</div>
+                        <div className={`${pages.length > 0 ? "" : "hidden"} justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full uppercase`}><BookOpenText size={20}/>{pages.length} Pages</div>
                     </div>
+
+                    <div className="flex gap-2">
+                        
+                        <div className={`${file ? "hidden" : ""} justify-center items-center flex gap-2 py-2 px-3 text-sm text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={openFileExplorer}> 
+                        <Image/> Add Cover
+                            <input 
+                                type="file" 
+                                ref={fileInputRef} 
+                                className="hidden" 
+                                onChange={handleImagePreview} 
+                            />
+                        </div>
+                        <button className={`${preview ? null : "hidden"} justify-center items-center flex gap-2 bg-red-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={() => {setFile(null); setPreview(null)}}>
+                        <X/> Remove Cover
+                        </button>
+                        <button className="justify-center items-center flex gap-2 bg-blue-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer" onClick={handleConfirmation}><Plus/> Upload Story</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+           <div className="w-full py-4 rounded-xl">
+                 <h1 className="text-gray-500 text-sm font-md">{description || "—"}</h1>
+           </div>
+                                    
+           {/* <div className="w-full flex flex-col gap-2">
+
+            {informations.filter(info =>
+                info.value !== null &&
+                info.value !== undefined &&
+                info.value !== "" &&
+                info.value !== "—"
+            ).map((info, index) => (
+                <div key={index}
+                className="w-full border-b-1 border-gray-300 justify-between items-center flex p-2">
+                <h1 className="text-xs font-bold text-gray-500">{info.label}</h1>
+                <h1 className="text-sm font-bold uppercase">{info.value}</h1>
+                </div>
+            ))}
+
+            </div> */}
+        </div>
+    </div>
+    </>
+                                    
+
     )
 }
 export default PreviewBook
+
+ 

@@ -36,14 +36,14 @@ const Home_Page = () => {
 
     {/* Left Side */}
     <div className="text-left">
-      <div className="inline-block bg-pink-100 rounded-full px-6 py-2 text-sm font-semibold text-pink-600">
-        Welcome to Little Me Library
+      <div className="inline-block bg-blue-100 rounded-full px-6 py-2 text-sm font-semibold text-blue-600">
+        Welcome to Digital Library Platform
       </div>
 
       <h1 className="mt-6 text-5xl sm:text-6xl lg:text-8xl font-extrabold text-gray-800 leading-none">
         Discover
         <br />
-        <span className="text-pink-500">Stories</span>
+        <span className="text-gray-800">Stories</span>
         <br />
         That Inspire
       </h1>
@@ -54,7 +54,7 @@ const Home_Page = () => {
       </p>
 
       <button
-        className="mt-8 bg-pink-500 hover:bg-pink-600 text-white text-lg font-bold px-8 py-4 rounded-full shadow-lg hover:scale-105 transition"
+        className="mt-8 bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold px-8 py-4 rounded-full shadow-lg hover:scale-105 transition"
         onClick={() => setShowLogin(true)}
       >
         Start Exploring
@@ -92,13 +92,13 @@ const Home_Page = () => {
     
     {/* Content */}
     <div>
-          <span className="bg-pink-100 text-pink-600 px-4 py-2 rounded-full text-sm font-semibold">
-            About Little Me Library
+          <span className="bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold">
+            About Digital Library Platform
           </span>
 
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mt-6 mb-6 leading-tight">
             Inspiring Young Minds Through
-            <span className="text-pink-500"> Stories & Learning</span>
+            <span className="text-blue-600"> Stories & Learning</span>
           </h2>
 
           <p className="text-gray-600 text-lg leading-relaxed mb-4">
@@ -116,17 +116,17 @@ const Home_Page = () => {
 
           <div className="flex gap-8 mt-8">
             <div>
-              <h3 className="text-3xl font-bold text-pink-500">100+</h3>
+              <h3 className="text-3xl font-bold text-blue-600">100+</h3>
               <p className="text-gray-500">Learning Stories</p>
             </div>
 
             <div>
-              <h3 className="text-3xl font-bold text-pink-500">24/7</h3>
+              <h3 className="text-3xl font-bold text-blue-600">24/7</h3>
               <p className="text-gray-500">Accessible Learning</p>
             </div>
 
             <div>
-              <h3 className="text-3xl font-bold text-pink-500">Fun</h3>
+              <h3 className="text-3xl font-bold text-blue-600">Fun</h3>
               <p className="text-gray-500">Interactive Reading</p>
             </div>
           </div>
@@ -152,12 +152,12 @@ const Home_Page = () => {
     {/* LEFT SIDE - TEXT */}
     <div>
 
-      <span className="bg-pink-100 text-pink-600 px-4 py-2 rounded-full text-sm font-semibold">
-         Discover Little Me Stories
+      <span className="bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold">
+         Discover Different Books
       </span>
 
       <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mt-6 leading-tight">
-        Stories That Spark <span className="text-pink-500">Imagination & Learning</span>
+        Stories That Spark <span className="text-blue-600">Imagination & Learning</span>
       </h2>
 
       <p className="text-gray-600 mt-6 text-lg leading-relaxed">
@@ -231,13 +231,13 @@ const Home_Page = () => {
   <div className="max-w-6xl mx-auto text-center">
 
     {/* Badge */}
-    <span className="bg-pink-100 text-pink-600 px-4 py-2 rounded-full text-sm font-semibold">
-      🌟 Student Learning Benefits
+    <span className="bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold">
+      Student Learning Benefits
     </span>
 
     {/* Title */}
     <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mt-6 leading-tight">
-      How Students Benefit from <span className="text-pink-500">Little Me Library</span>
+      How Users Benefit from <span className="text-blue-600">Digital Library Platform</span>
     </h2>
 
     <p className="text-gray-600 mt-6 max-w-3xl mx-auto text-lg leading-relaxed">
@@ -308,7 +308,7 @@ const Home_Page = () => {
 </section>
 
 
-  <section className="w-full py-24 bg-pink-500 text-center px-6">
+  <section className="w-full py-24 bg-black text-center px-6">
 
   <div className="max-w-3xl mx-auto">
 
@@ -326,7 +326,7 @@ const Home_Page = () => {
     {/* Buttons */}
     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
 
-      <button className="bg-purple-500 hover:bg-pink-600 text-white font-bold px-8 py-4 rounded-full shadow-lg hover:scale-105 transition duration-300"
+      <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-full shadow-lg hover:scale-105 transition duration-300"
       onClick={() => setShowLogin(true)}>
         Browse Library
       </button>

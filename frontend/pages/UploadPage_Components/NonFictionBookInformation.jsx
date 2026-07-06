@@ -110,6 +110,79 @@ const NonFictionBookInformation = ({
     }, [])
 
     const renderCategoryFields = () => {
+    
+    if (selectedCategoryOfBook.toLowerCase() === "philosophy & psychology") {
+        return (
+            <select
+                className="h-12 border border-gray-300 bg-white outline-none p-2 rounded-lg text-gray-500"
+                value={scientificField}
+                onChange={(e) => setScientificField(e.target.value)}
+            >
+                <option value="">Select Philisophy & Psychology Field</option>
+                <option value="logic">Logic</option>
+                <option value="ethics">Ethics</option>
+                
+            </select>
+        );
+    }
+
+    if (selectedCategoryOfBook.toLowerCase() === "social sciences") {
+        return (
+            <select
+                className="h-12 border border-gray-300 bg-white outline-none p-2 rounded-lg text-gray-500"
+                value={scientificField}
+                onChange={(e) => setScientificField(e.target.value)}
+            >
+                <option value="">Select Social Science Field</option>
+                <option value="Political Science">Political Science</option>
+                <option value="Economics">Economics</option>
+                <option value="Law">Law</option>
+                <option value="Public Administration">Public Administration</option>
+                <option value="Education">Education</option>
+                <option value="Commerce">Commerce</option>
+                <option value="Customs">Customs</option>
+                <option value="Etiquette">Etiquette</option>
+                <option value="Folklore">Folklore</option>
+            </select>
+        );
+    }
+
+    if (selectedCategoryOfBook.toLowerCase() === "technology") {
+        return (
+            <select
+                value={technologyField}
+                onChange={(e) => setTechnologyField(e.target.value)}
+                className="h-12 border border-gray-300 outline-none p-2 rounded-lg"
+            >
+                <option value="">Select Technology Field</option>
+                <option value="medicine">Medicine</option>
+                <option value="engineering">Engineering</option>
+                <option value="agriculture">Agriculture</option>
+                <option value="home economics">Home Economics</option>
+                <option value="accounting">Accounting</option>
+            </select>
+        );
+    }
+
+    if (selectedCategoryOfBook.toLowerCase() === "the arts") {
+        return (
+            <select
+                value={technologyField}
+                onChange={(e) => setTechnologyField(e.target.value)}
+                className="h-12 border border-gray-300 outline-none p-2 rounded-lg"
+            >
+                <option value="">Select The Arts Field</option>
+                <option value="architecture">Architecture</option>
+                <option value="sculpture">Sculpture</option>
+                <option value="drawing">Drawing</option>
+                <option value="printing & paintings">Printing & Paintings</option>
+                <option value="photography">Photography</option>
+                <option value="music">Music</option>
+                <option value="recreational & Performming Arts">Recreational & Performing Arts</option>
+            </select>
+        );
+    }
+
     if (selectedCategoryOfBook.toLowerCase() === "science") {
         return (
             <select
@@ -161,33 +234,6 @@ const NonFictionBookInformation = ({
                 <option value="Mathematical Logic">Mathematical Logic</option>
                 <option value="Applied Mathematics">Applied Mathematics</option>
                 <option value="Pure Mathematics">Pure Mathematics</option>
-                <option value="Other">Other</option>
-            </select>
-        );
-    }
-
-    if (selectedCategoryOfBook.toLowerCase() === "technology") {
-        return (
-            <select
-                value={technologyField}
-                onChange={(e) => setTechnologyField(e.target.value)}
-                className="h-12 border border-gray-300 outline-none p-2 rounded-lg"
-            >
-                <option value="">Select Technology Field</option>
-                <option value="Information Technology">Information Technology</option>
-                <option value="Computer Science">Computer Science</option>
-                <option value="Software Development">Software Development</option>
-                <option value="Web Development">Web Development</option>
-                <option value="Mobile Development">Mobile Development</option>
-                <option value="Networking">Networking</option>
-                <option value="Cybersecurity">Cybersecurity</option>
-                <option value="Cloud Computing">Cloud Computing</option>
-                <option value="Database Management">Database Management</option>
-                <option value="Artificial Intelligence">Artificial Intelligence</option>
-                <option value="Machine Learning">Machine Learning</option>
-                <option value="Data Science">Data Science</option>
-                <option value="Internet of Things">Internet of Things</option>
-                <option value="Blockchain">Blockchain</option>
                 <option value="Other">Other</option>
             </select>
         );
@@ -409,6 +455,9 @@ if (selectedCategoryOfBook.toLowerCase() === "economics") {
 };
     return(
         <div className="w-full flex flex-col gap-4">
+
+                       {renderCategoryFields()}
+            
                         <div>
                             <h2 className="text-lg font-bold text-gray-500 rounded-full">Non-Fiction Book Information</h2>
                             <p className="text-gray-400 text-sm">Fill-up the required information in the book.</p>
@@ -478,10 +527,6 @@ if (selectedCategoryOfBook.toLowerCase() === "economics") {
                                               setIsDescription(e.target.value === "");
                             }}
                         />
-
-                        {
-                        renderCategoryFields()
-                        }
 
                         <div className="grid grid-cols-3 gap-2">
                         <input type="text" placeholder="isbn" className={`border-gray-300 h-12 border outline-none p-2 rounded-lg`}

@@ -1,12 +1,12 @@
 
 const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCategoryOfBook, setSelectedCategoryOfBook}) => {
     return(
-        <div className="w-full">
+        <div className="w-full grid">
             <h2 className="text-lg font-bold text-gray-500 rounded-full">Select Type of Books</h2>
             <p className="text-gray-400 text-sm">Choose Kind of Books you wanted to upload</p>
 
-            <div className="w-full flex gap-2">
-            <select className="bg-white border-1 border-gray-300 h-12 w-fit rounded-md text-gray-500 mt-4 px-2" value={selectedTypeOfBooks} onChange={(e) => setSelectedTypeOfBooks(e.target.value)}>
+            <div className="w-full grid grid-cols-3 gap-2">
+            <select className="bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2" value={selectedTypeOfBooks} onChange={(e) => setSelectedTypeOfBooks(e.target.value)}>
                 <option value="">Type of Books</option>
                 <option value="fiction">Fiction</option>
                 <option value="non-fiction">Non-Fiction</option>
@@ -14,7 +14,7 @@ const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCateg
             {/* Fiction */}
             {/* Fiction */}
             <select
-                className={`${selectedTypeOfBooks.toLowerCase() === 'fiction' ? "" : "hidden"} bg-white border-1 border-gray-300 h-12 w-fit rounded-md text-gray-500 mt-4 px-2`}
+                className={`${selectedTypeOfBooks.toLowerCase() === 'fiction' ? "" : "hidden"} bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2`}
                 value={selectedCategoryOfBook}
                 onChange={(e) => setSelectedCategoryOfBook(e.target.value)}
             >
@@ -45,15 +45,24 @@ const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCateg
             </select>
 
             {/* Non-Fiction */}
-            <select className={`${selectedTypeOfBooks.toLowerCase() === 'non-fiction' ? "" : "hidden"} bg-white border-1 border-gray-300 h-12 w-fit rounded-md text-gray-500 mt-4 px-2`} value={selectedCategoryOfBook} onChange={(e) => setSelectedCategoryOfBook(e.target.value)}>
+            <select className={`${selectedTypeOfBooks.toLowerCase() === 'non-fiction' ? "" : "hidden"} bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2`} value={selectedCategoryOfBook} onChange={(e) => setSelectedCategoryOfBook(e.target.value)}>
                 <option value="">Type of Non-Fiction</option>
+                <option value="Generalities">Generalities</option>
+                <option value="Philosophy & Psychology">Philosophy & Psychology</option>
+                <option value="Religion">Religion</option>
+                <option value="Social Sciences">Social Sciences</option>
+                <option value="Language">Language</option>
+                <option value="Natural Science & Mathematics">Natural Science & Mathematics</option>
+                <option value="Technology">Technology</option>
+                <option value="The Arts">The Arts</option>
+                <option value="Literature and Rhetoric">Literature and Rhetoric</option>
+                <option value="Geography and History">Geography and History</option>
                 <option value="Biography">Biography</option>
                 <option value="Autobiography">Autobiography</option>
                 <option value="Memoir">Memoir</option>
                 <option value="History">History</option>
                 <option value="Science">Science</option>
                 <option value="Mathematics">Mathematics</option>
-                <option value="Technology">Technology</option>
                 <option value="Engineering">Engineering</option>
                 <option value="Medicine">Medicine</option>
                 <option value="Reference">Reference</option>
@@ -65,7 +74,6 @@ const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCateg
                 <option value="Workbook">Workbook</option>
                 <option value="Research">Research</option>
                 <option value="Self-Help">Self-Help</option>
-                <option value="Philosophy">Philosophy</option>
                 <option value="Politics">Politics</option>
                 <option value="Economics">Economics</option>
                 <option value="Business">Business</option>

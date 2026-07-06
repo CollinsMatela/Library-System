@@ -13,25 +13,25 @@ const NonFictionSchema = new mongoose.Schema(
     publisher: {type: String, required: true},
     isbn: {type: String, required: true},
 
-    scientificField: {type: String, default: "—"},
-    mathBranch: {type: String, default: "—"},
-    technologyField: {type: String, default: "—"},
-    engineeringDiscipline: {type: String, default: "—"},
-    medicalField: {type: String, default: "—"},
+    scientificField: {type: String, default: ""},
+    mathBranch: {type: String, default: ""},
+    technologyField: {type: String, default: ""},
+    engineeringDiscipline: {type: String, default: ""},
+    medicalField: {type: String, default: ""},
 
-    referenceType: {type: String, default: "—"},
-    dictionaryType: {type: String, default: "—"},
-    geographicCoverage: {type: String, default: "—"},
+    referenceType: {type: String, default: ""},
+    dictionaryType: {type: String, default: ""},
+    geographicCoverage: {type: String, default: ""},
 
-    subject: {type: String, default: "—"}, 
-    gradeLevel: {type: String, default: "—"},
+    subject: {type: String, default: ""}, 
+    gradeLevel: {type: String, default: ""},
 
-    researchField: {type: String, default: "—"},
-    institution: {type: String, default: "—"},
-    doi: {type: String, default: "—"},
+    researchField: {type: String, default: ""},
+    institution: {type: String, default: ""},
+    doi: {type: String, default: ""},
 
-    businessArea: {type: String, default: "—"},
-    economicsBranch: {type: String, default: "—"},
+    businessArea: {type: String, default: ""},
+    economicsBranch: {type: String, default: ""},
 
     pages: [{
              pageText: {type: String},
@@ -40,8 +40,13 @@ const NonFictionSchema = new mongoose.Schema(
     cover: { type: String, required: true },
     availability: { type: Boolean, required: true },
 
-    edition: { type: String, default: "—" },
-    volume: { type: String, default: "—" },
+    edition: { type: String, default: "" },
+    volume: { type: String, default: "" },
+
+    ddc: { type: String, default: "" },
+    copies: { type: String, default: "" },
+    callNumber: { type: String, default: "" },
+    availableAt: { type: String, default: "" },
   },
   {
     timestamps: true

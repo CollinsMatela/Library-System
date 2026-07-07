@@ -208,7 +208,7 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
 
         const studentInformation = {
             // Student Information
-            lastname, firstname, middlename, extensionname, year, month, day, age,sex,
+            lastname, firstname, middlename, extensionname, year, month, day, age, sex,
             // Contact Information
             homeAddress, city, email, contact, institution,
             // Parent / Guardian

@@ -1,16 +1,16 @@
 import StudentModel from "../models/User_Registration_Model.js"
 
 const Edit_Student_Controller = async (req, res) => {
-    const { studentId } = req.params
+    const { id } = req.params
     const { lastname, firstname, middlename, year, month, day, gender, parentLastname, parentFirstname, parentMiddlename, parentEmail, parentContact, parentRelationship, gradeLevel, branch } = req.body;
-
+    console.log(id);
     try {
-        const findStudent = await StudentModel.findOne({id: studentId})
+        const findStudent = await StudentModel.findOne({_id: id})
         if(!findStudent) {
             return res.status(404).json({message: "Student not found"});
         }
 
-        const updatedStudent = await StudentModel.findOneAndUpdate({id: studentId}, 
+        const updatedStudent = await StudentModel.findOneAndUpdate({_id: id}, 
             {
                 lastname: lastname,
                 firstname: firstname,

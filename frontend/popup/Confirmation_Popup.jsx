@@ -11,9 +11,12 @@ const Confirmation_Popup = ({errorMessage, message, onConfirm, onCancel}) => {
                             <TriangleAlert/> Warning
                         </h2>
                         
-                        <div className="w-full justify-start items-center flex">
-                        <p className={`${errorMessage ? "" : "hidden"} bg-red-100 rounded-xl text-red-500 mb-2 p-2`}>{errorMessage}</p>
-                        <p className="text-gray-600 mb-6">{message || "Are you sure to proceed?"}</p>
+                        <div className="w-full justify-start items-start flex flex-col">
+                            {errorMessage ? (
+                                <p className="bg-red-100 text-red-600 rounded-xl p-2 mb-2 w-full">{errorMessage}</p>
+                            ) : (
+                                <p className="text-gray-600 mb-6">{message || "Are you sure you want to proceed?"}</p>
+                            )}
                         </div>
                         
 

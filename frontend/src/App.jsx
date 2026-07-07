@@ -49,7 +49,7 @@ function App() {
         <Route path="/" element={<Home_Page/>}/>
         <Route path="/unauthorized" element={<Unauthorized_Page/>}/>
         
-         <Route element={<ProtectedRoute allowedRoles={["student"]}/>}>
+         <Route element={<ProtectedRoute allowedRoles={["user"]}/>}>
                 <Route path="/library" element={<Library_Page/>}/>
                 <Route path="/library/catalog" element={<Lib_Catalog/>}/>
                 <Route path="/library/view-book/:id" element={<Lib_ViewBook/>}/>
@@ -62,8 +62,8 @@ function App() {
                 <Route path="/admin/upload-book" element={<Admin_UploadBook_Page />} />
                 <Route path="/admin/books" element={<Admin_Books_Page />} />
                 <Route path="/admin/book-information/:id" element={<Admin_ViewMaterials_Page />} />
-                <Route path="/admin/students" element={<Admin_Student_Page />} />
-                <Route path="/admin/student-registration" element={<Admin_StudentRegistration_Page />} />
+                <Route path="/admin/users" element={<Admin_Student_Page />} />
+                <Route path="/admin/user-registration" element={<Admin_StudentRegistration_Page />} />
                 <Route path="/change-password" element={<Change_Password_Page/>}/>
         </Route>
          <Route path="/loading" element={<LoadingScreen/>}/>

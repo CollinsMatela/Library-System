@@ -8,9 +8,9 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 
-import Student_Registration_Route from "./routes/Sudent_Registration_Route.js";
+import User_Registration_Route from "./routes/User_Registration_Route.js";
 import Employee_Registration_Route from "./routes/Employee_Registration_Route.js";
-import Fetch_Student_Route from "./routes/Fetch_Student_Route.js";
+import Fetch_Users_Route from "./routes/Fetch_Users_Route.js";
 import Fetch_Employee_Route from './routes/Fetch_Employee_Route.js';
 import Delete_Student_Route from './routes/Delete_Student_Route.js';
 import Delete_Employee_Route from './routes/Delete_Employee_Route.js';
@@ -48,9 +48,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use("/", Student_Registration_Route);
+app.use("/", User_Registration_Route);
 app.use("/", Employee_Registration_Route);
-app.use("/", Fetch_Student_Route);
+app.use("/", Fetch_Users_Route);
 app.use("/", Fetch_Employee_Route);
 app.use("/", Delete_Student_Route);
 app.use("/", Delete_Employee_Route);

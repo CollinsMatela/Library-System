@@ -9,14 +9,15 @@ import { View, UserPen, Trash } from "lucide-react"
 
 const Admin_Student_Page = () => {
 
-    const [AllStudents, setStudentList] = useState([]);
+    const [users, setUsers] = useState([]);
 
     const [search, setSearch] = useState('');
-    const filteredStudent = AllStudents.filter((student) => {
-        const fullName = `${student.firstname} ${student.lastname}`.toLowerCase();
-        const gradeLevel = student.gradeLevel.toLowerCase();
-        const branch = student.branch.toLowerCase();
-        return fullName.includes(search.toLowerCase()) || gradeLevel.includes(search.toLowerCase()) || branch.includes(search.toLowerCase());
+    
+    const filteredStudent = users.filter((user) => {
+        const fullName = `${user.firstname} ${user.lastname}`.toLowerCase();
+        const gradeLevel = user.gradeLevel.toLowerCase();
+        const branch = user.branch.toLowerCase();
+        return fullName.includes(search.toLowerCase());
     })
 
     const [selectedStudent, setSelectedStudent] = useState(null);
@@ -39,14 +40,14 @@ const Admin_Student_Page = () => {
     }
 
     useEffect(() => {
-       fetchStudents();
+       fetchUsers();
     },[])
-    const fetchStudents = async () => {
+    const fetchUsers = async () => {
 
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-students`)
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-users`)
             console.log(res.data.message);
-            setStudentList(res.data.students);
+            setUsers(res.data.users);
         } catch (error) {
             console.log(error)
         }
@@ -77,8 +78,8 @@ const Admin_Student_Page = () => {
         <Admin_Sidebar/>
         <div className="mx-10 justify-between items-start flex">
             <div>
-              <h2 className="text-3xl font-bold text-gray-800">Student Management</h2>
-               <p className="text-gray-400 text-md">Manage student accounts, monitor learning progress, and keep track of student information and activities.</p>
+              <h2 className="text-3xl font-bold text-gray-800">User Management</h2>
+               <p className="text-gray-400 text-md">Manage user accounts, monitor learning progress, and keep track of student information and activities.</p>
             </div>
 
        </div>
@@ -88,7 +89,7 @@ const Admin_Student_Page = () => {
 
                     <div className="h-20 w-full justify-between items-center flex rounded-t-xl">
                         <div>
-                          <h1 className="text-lg font-bold text-gray-500 rounded-full">Students Table</h1>
+                          <h1 className="text-lg font-bold text-gray-500 rounded-full">Users Table</h1>
                           <p className="text-gray-400 text-sm">Manage student accounts, progress, and information.</p>
                         </div>
                         

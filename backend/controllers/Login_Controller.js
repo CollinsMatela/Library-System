@@ -1,4 +1,4 @@
-import StudentModel from "../models/Student_Registration_Model.js";
+import StudentModel from "../models/User_Registration_Model.js";
 import EmployeeModel from "../models/Employee_Registration_Model.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";

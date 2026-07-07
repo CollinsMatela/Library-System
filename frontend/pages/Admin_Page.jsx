@@ -16,32 +16,22 @@ const Admin_Page = () =>{
 
     const navigate = useNavigate();
 
-    const [studentList, setStudentList] = useState([])
-    const [storiesList, setStoriesList] = useState([]);
+    const [users, setUsers] = useState([])
 
-    const fetchStudents = async () => {
+    const fetchUsers = async () => {
 
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-students`)
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-users`)
             console.log(res.data.message);
-            setStudentList(res.data.students);
+            setUsers(res.data.users);
         } catch (error) {
             console.log(error)
         }
     }
-     const fetchStories = async () =>{
-          try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-stories`);
-                setStoriesList(res.data.stories);
-                console.log(res.data.message);
-          } catch (error) {
-            console.log(error)
-          }
-    }
 
     useEffect(() => {
-        fetchStudents()
-        fetchStories()
+        fetchUsers()
+
     }, [])
 
 
@@ -63,7 +53,7 @@ const Admin_Page = () =>{
         <div className="bg-gradient-to-r from-pink-400 to-pink-500 text-white rounded-3xl p-6">
           <p className="text-lg flex gap-4">Total Students<Users/></p>
           <h1 className="text-5xl font-bold mt-3">
-            {studentList.length}
+            {users.length}
           </h1>
           <p className="text-xs text-white mt-2 border-t-1 border-white pt-4">
               Registered learners in the system
@@ -74,7 +64,7 @@ const Admin_Page = () =>{
         <div className="bg-gradient-to-r from-yellow-400 to-orange-400 text-white rounded-3xl p-6">
           <p className="text-lg flex gap-4">Learning Stories<LibraryBig/></p>
           <h1 className="text-5xl font-bold mt-3">
-            {storiesList.length}
+            {0}
           </h1>
           <p className="text-xs text-white mt-2 border-t-1 border-white pt-4">
               Educational content available
@@ -88,7 +78,7 @@ const Admin_Page = () =>{
       <div className="grid grid-cols-1 h-full w-1/2">
         <div className="bg-white p-6 ">
           <h1 className="text-lg font-bold text-gray-500 border-b border-gray-300 pb-4 mb-4">Recent Students</h1>
-          {studentList.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3).map((student) => (
+          {users.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3).map((student) => (
              <div key={student.id} className="bg-white h-20 w-full border border-gray-300 rounded-xl p-4 mb-2">
               <div className="flex gap-2">
                   {student.avatar ? 
@@ -108,36 +98,7 @@ const Admin_Page = () =>{
 
       </div>
 
-      <div className="bg-white h-full w-1/2 p-6">
-          <h1 className="text-lg font-bold text-gray-500 border-b border-gray-300 pb-4 mb-4">Newest Uploaded Story</h1>
-          {storiesList.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3).map((story) => (
-            <div
-              key={story.id}
-              className="relative w-full h-40 rounded-xl overflow-hidden border border-gray-200 group mb-1"
-            >
-              {/* Image */}
-              <img
-                src={story.image}
-                alt={story.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-              />
-
-              {/* Dark Overlay */}
-              <div className="absolute inset-0 bg-black/40" />
-
-              {/* Content */}
-              <div className="absolute inset-0 flex flex-col justify-end p-4 text-white">
-                <h1 className="text-lg font-bold leading-tight">
-                  {story.title} 
-                </h1>
-
-                <p className="text-sm text-gray-200">
-                  {story.author}
-                </p>
-              </div>
-            </div>
-          ))}
-      </div>
+      
       
       
     </div>

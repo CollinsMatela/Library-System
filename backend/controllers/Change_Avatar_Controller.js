@@ -1,5 +1,5 @@
 import cloudinary from "../config/cloudinary.js";
-import Student from "../models/Student_Registration_Model.js";
+import Student from "../models/User_Registration_Model.js";
 import Teacher from "../models/Employee_Registration_Model.js";
 
 const Change_Avatar_Controller = async (req, res) => {

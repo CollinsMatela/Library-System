@@ -12,8 +12,8 @@ const Admin_SideBar = () => {
     const isOverview = location.pathname === "/admin";
     const isUploadStory = location.pathname === "/admin/upload-book";
     const isViewStory = location.pathname === "/admin/books";
-    const isStudentAccount = location.pathname === "/admin/students";
-    const isStudentRegistration = location.pathname === "/admin/student-registration";
+    const isUsersAccount = location.pathname === "/admin/users";
+    const isUserRegistration = location.pathname === "/admin/user-registration";
 
     const handleOverview = () => {
           navigate('/admin');
@@ -24,11 +24,11 @@ const Admin_SideBar = () => {
     const handleViewStory = () => {
           navigate('/admin/books');
     }
-    const handleStudent = () => {
-          navigate('/admin/students');
+    const handleUsers = () => {
+          navigate('/admin/users');
     }
-    const handleStudentRegistration = () => {
-          navigate('/admin/student-registration');
+    const handleUserRegistration = () => {
+          navigate('/admin/user-registration');
     }
 
     const handleLogout = () =>{
@@ -69,14 +69,14 @@ const Admin_SideBar = () => {
         Books List
       </div>
 
-      <div className={`${isStudentRegistration ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleStudentRegistration}>
-        <Users className={`${isStudentRegistration ? 'text-white' : 'text-gray-500'}`} size={20}/>
-        Students Registration
+      <div className={`${isUserRegistration ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleUserRegistration}>
+        <Users className={`${isUserRegistration ? 'text-white' : 'text-gray-500'}`} size={20}/>
+        User Registration
       </div>
 
-      <div className={`${isStudentAccount ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleStudent}>
-        <Users className={`${isStudentAccount ? 'text-white' : 'text-gray-500'}`} size={20}/>
-        Students Account
+      <div className={`${isUsersAccount ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleUsers}>
+        <Users className={`${isUsersAccount ? 'text-white' : 'text-gray-500'}`} size={20}/>
+        Users Account
       </div>
 
       <div className="text-gray-500 text-sm py-2 px-4 rounded-lg mt-6">

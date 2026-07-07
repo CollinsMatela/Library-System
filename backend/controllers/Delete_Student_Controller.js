@@ -1,4 +1,4 @@
-import StudentModel from "../models/Student_Registration_Model.js";
+import StudentModel from "../models/User_Registration_Model.js";
 
 const Delete_Student_Controller = async (req, res) => {
     const { studentId } = req.params;

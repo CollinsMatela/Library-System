@@ -1,12 +1,13 @@
 
 import { useState } from "react";
+import { Check } from "lucide-react";
 
 const Account_Conformation = ({newAccountDetails, closeAccountConfirmation}) => {
 
     return (
         <section className="flex items-center justify-center h-screen">
             
-                <div className="fixed inset-0 z-150 flex items-center justify-center bg-black/80 bg-opacity-50 z-50" onClick={closeAccountConfirmation}>
+                <div className="fixed inset-0 z-150 flex items-center justify-center bg-black/80 bg-opacity-50 z-50">
                     
                     <div className="bg-white rounded-2xl p-6 w-[500px] shadow-xl">
                         <h2 className="text-xl text-gray-800 font-bold mb-3">
@@ -46,9 +47,9 @@ const Account_Conformation = ({newAccountDetails, closeAccountConfirmation}) => 
                                 onClick={() => {
                                     closeAccountConfirmation;
                                 }}
-                                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg mt-4 cursor-pointer"
+                                className="px-4 py-2 bg-black text-white rounded-lg mt-4 cursor-pointer justify-center items-center flex gap-2"
                             >
-                                Confirm
+                                <Check size={20}/> Confirm
                             </button>
                         </div>
                     </div>

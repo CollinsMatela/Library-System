@@ -3,6 +3,7 @@ import axios from 'axios'
 import useAuthStore from "../store/useAuthStore";
 import { useState } from "react";
 import LoadingScreen from '../loadings/loading'
+import {toast} from 'react-toastify'
 
 const LoginModal = ({ onClose }) => {
 
@@ -24,13 +25,22 @@ const LoginModal = ({ onClose }) => {
 
   const [loading, setLoading] = useState(false);
 
-  
+  const confirmation = () => {
+       if(username === "") {
+          toast.warning('Enter login username');
+          setIsUsername(true);
+          return
+       }
+       if(password === "") {
+          toast.warning('Enter login password');
+          setIsPassword(true);
+          return
+       }
+
+       loginAccount();
+  }
 
   const loginAccount = async () => {
-
-        if(username === ""){setIsUsername(true); return}
-        if(password === ""){setIsPassword(true); return}
-
         const account = {
           username: username,
           password: password
@@ -52,7 +62,7 @@ const LoginModal = ({ onClose }) => {
               navigate(`/change-password`);
             }
             else {
-              if(role.toLowerCase() === "student"){
+              if(role.toLowerCase() === "user"){
               navigate(`/library`);
               } 
               else if (role.toLowerCase() === "admin"){
@@ -61,12 +71,11 @@ const LoginModal = ({ onClose }) => {
 
             }
 
-            
+          toast.success(res.data.message);
           }
         } catch (error) {
-          setIsMessage(
-            error.response?.data?.message || "Login failed. Please try again."
-          );
+          setIsMessage(error.response?.data?.message || "Login failed. Please try again.");
+          toast.warning(error?.response?.data?.message);
           setIsErrorContainer(true);
         }
   }
@@ -80,8 +89,8 @@ const LoginModal = ({ onClose }) => {
       ></div>
 
       <div className="relative z-10 bg-white w-[400px] justify-center items-center flex flex-col rounded-xl p-6">
-        <h1 className="text-xl font-semibold">Little Me Login</h1>
-        <h1 className="mb-6 text-xs text-gray-500 mb-6">Sign up now and discover fun and engaging stories.</h1>
+        <h1 className="text-xl font-semibold">Login your Account</h1>
+        <h1 className="mb-6 text-xs text-gray-500 mb-6">Sign up now and discover engaging digital books.</h1>
 
         <div className={`${isErrorContainer ? "" : "hidden"} bg-red-100 w-full h-12 p-2 justify-center items-center flex rounded-xl mb-4`}>
             <p className="text-red-500 text-xs">
@@ -105,7 +114,7 @@ const LoginModal = ({ onClose }) => {
           }}/>
         </div>
 
-        <button className="bg-pink-500 h-12 w-full text-white font-semibold rounded-xl cursor-pointer outline-none hover:bg-pink-600 mt-6" onClick={loginAccount}>Sign Up</button>
+        <button className="bg-blue-600 h-12 w-full text-white font-semibold rounded-xl cursor-pointer outline-none hover:bg-blue-700 mt-6" onClick={() => confirmation()}>Sign Up</button>
 
       </div>
    </section>

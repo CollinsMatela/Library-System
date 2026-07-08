@@ -1,9 +1,13 @@
-import StudentModel from '../models/User_Registration_Model.js'
+import User_Registration_Model from '../models/User_Registration_Model.js'
 import EmployeeModel from '../models/Employee_Registration_Model.js'
 import bcrypt from 'bcrypt';
 
 const Change_Password_Controller = async (req, res) => {
     const {id, role, newPassword} = req.body;
+
+    console.log(id)
+    console.log(role)
+    console.log(newPassword)
 
     try {
         if (!id || !newPassword) {
@@ -12,10 +16,10 @@ const Change_Password_Controller = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-        if(role === "Student"){
-           const updateStudent = await StudentModel
+        if(role.toLowerCase() === "user"){
+           const updateStudent = await User_Registration_Model
            .findOneAndUpdate(
-            {id: id},
+            {_id: id},
             {password: hashedPassword, isChangePassword: true},
             {new: true}
             )
@@ -24,20 +28,7 @@ const Change_Password_Controller = async (req, res) => {
                 return res.status(404).json({ message: "Student not found", isSuccess: false });
             }
         
-        }
-        else if(role === "Administrator" || "Teacher"){
-           const updateEmployee = await EmployeeModel
-           .findOneAndUpdate(
-            {id: id},
-            {password: hashedPassword, isChangePassword: true},
-            {new: true}
-          
-            )
-            if(!updateEmployee){
-                return res.status(404).json({ message: "Student not found", isSuccess: false });
-            }
-        }
-        else{
+        } else {
             res.status(400).json({message: "Invalid Role", isSuccess: false});
         }
 

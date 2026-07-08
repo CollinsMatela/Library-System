@@ -55,11 +55,10 @@ const Admin_Student_Page = () => {
     const deleteConfirmation = (user) => {
           setSelectedUser(user);
           setShowConfirmationPopup(true);
-          fetchUsers();
     }
-    const deleteStudent = async (studentId) => {
+    const deleteStudent = async (userId) => {
           try {
-            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-student/${selectedUser._id}`);
+            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-student/${userId}`);
             console.log(res.data.message);
             toast.success(res.data.message);
             fetchUsers();
@@ -72,7 +71,7 @@ const Admin_Student_Page = () => {
 
     return(
         <>
-        {showConfirmationPopup && (<Confirmation_Popup onConfirm={() => deleteStudent(selectedStudent?.id)} onCancel={() => setShowConfirmationPopup(false)} />)}
+        {showConfirmationPopup && (<Confirmation_Popup onConfirm={() => deleteStudent(selectedUser?._id)} onCancel={() => setShowConfirmationPopup(false)} />)}
         {showEditModal && (<Edit_Student_Modal selectedUser={selectedUser} reFetch={() => fetchUsers()} closeEditStudentModal={() => setShowEditModal(false)}/>)}
         {showViewStudent && (<View_Student_Modal user={selectedUser} onClose={() => setShowViewStudent(false)}/>)}
        <section className="min-h-screen w-full bg-white pl-80 py-10 space-y-10">

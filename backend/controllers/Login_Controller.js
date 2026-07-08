@@ -1,10 +1,12 @@
-import StudentModel from "../models/User_Registration_Model.js";
-import EmployeeModel from "../models/Employee_Registration_Model.js";
+import User_Registration_Model from "../models/User_Registration_Model.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 const Login_Controller = async (req, res) => {
   const { username, password } = req.body;
+
+  console.log("Username: ", username)
+  console.log("Password: ", password);
 
   const admin = username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD
 
@@ -32,12 +34,15 @@ const Login_Controller = async (req, res) => {
                                   })
     }
 
-    const student = await StudentModel.findOne({username: username,});
-    const employee = await EmployeeModel.findOne({username: username,});
+    const student = await User_Registration_Model.findOne({username: username,});
 
     // 2. If no user found at all
-    if (!student && !employee) {
+    if (!student) {
       return res.status(404).json({ message: "User not found" });
+    }
+
+    if(student){
+      console.log("Student found")
     }
 
     // 3. Student login
@@ -47,17 +52,7 @@ const Login_Controller = async (req, res) => {
         return res.status(401).json({ message: "Login failed. Please try again." });
       }
       user = student;
-      role = "Student";
-    }
-
-    // 4. Employee login
-    else if (employee) {
-      const isMatch = await bcrypt.compare(password, employee.password);
-      if (!isMatch) {
-        return res.status(401).json({ message: "Login failed. Please try again." });
-      }
-      user = employee;
-      role = "Teacher";
+      role = "User";
     }
 
     // 5. Safety check (prevents crashes)

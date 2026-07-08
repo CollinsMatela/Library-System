@@ -3,6 +3,6 @@ import Delete_Student_Controller from "../controllers/Delete_Student_Controller.
 
 const router = express.Router();
 
-router.delete("/delete-student/:studentId", Delete_Student_Controller);
+router.delete("/delete-student/:id", Delete_Student_Controller);
 
 export default router;

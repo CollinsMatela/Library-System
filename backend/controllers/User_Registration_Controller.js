@@ -61,7 +61,8 @@ const User_Registration_Controller = async (req, res) => {
             year, month, day, age, sex,
 
             homeAddress, city, email, contact, institution, parentName, parentContact, parentRelationship,
-            
+
+            role: 'User',
             username: username,
             password: hashedPassword
         });

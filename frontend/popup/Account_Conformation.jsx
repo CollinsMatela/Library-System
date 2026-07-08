@@ -45,7 +45,7 @@ const Account_Conformation = ({newAccountDetails, closeAccountConfirmation}) => 
                         <div className="flex justify-end gap-3">
                             <button 
                                 onClick={() => {
-                                    closeAccountConfirmation;
+                                    closeAccountConfirmation();
                                 }}
                                 className="px-4 py-2 bg-black text-white rounded-lg mt-4 cursor-pointer justify-center items-center flex gap-2"
                             >

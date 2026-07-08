@@ -35,14 +35,14 @@ const Change_Password_Page = () => {
 
     const handleChangePassword = async () => {
           const passwordDetails = {
-                id: user.id,
+                id: user._id,
                 role: user.role,
                 newPassword: newPassword
           }
           try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/change-password`, passwordDetails);
             if(res.data.isSuccess){
-                if(user.role?.toLowerCase() === "student" || user.role?.toLowerCase() === "teacher"){
+                if(user.role?.toLowerCase() === "user"){
                     navigate("/library")
                 } else if (user.role?.toLowerCase() === "administrator"){
                     navigate("/admin")

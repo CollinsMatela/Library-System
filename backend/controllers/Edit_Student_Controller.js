@@ -2,8 +2,18 @@ import StudentModel from "../models/User_Registration_Model.js"
 
 const Edit_Student_Controller = async (req, res) => {
     const { id } = req.params
-    const { lastname, firstname, middlename, year, month, day, gender, parentLastname, parentFirstname, parentMiddlename, parentEmail, parentContact, parentRelationship, gradeLevel, branch } = req.body;
-    console.log(id);
+    const {     lastname,
+                firstname,
+                middlename,
+                year,
+                month,
+                day,
+                sex,
+                email,
+                contact,
+                parentName,
+                parentContact,
+                parentRelationship} = req.body;
     try {
         const findStudent = await StudentModel.findOne({_id: id})
         if(!findStudent) {
@@ -12,21 +22,18 @@ const Edit_Student_Controller = async (req, res) => {
 
         const updatedStudent = await StudentModel.findOneAndUpdate({_id: id}, 
             {
-                lastname: lastname,
-                firstname: firstname,
-                middlename: middlename,
-                year: year,
-                month: month,
-                day: day,
-                gender: gender,
-                parentLastname: parentLastname,
-                parentFirstname: parentFirstname,
-                parentMiddlename: parentMiddlename,
-                parentEmail: parentEmail,
-                parentContact: parentContact,
-                parentRelationship: parentRelationship,
-                gradeLevel: gradeLevel,
-                branch: branch
+                lastname,
+                firstname,
+                middlename,
+                year,
+                month,
+                day,
+                sex,
+                email,
+                contact,
+                parentName,
+                parentContact,
+                parentRelationship
              })
              res.status(200).json({message: "Student account updated successfully", updatedStudent: updatedStudent});
         

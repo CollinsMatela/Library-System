@@ -8,25 +8,12 @@ import fs from "fs";
 const Upload_Manually_Controller = async (req, res) => {
   const {
     // General
-    type, category, title, author, description, language, publication, publisher, isbn, availability, edition, volume, pages,
+    type, category, field, title, author, description, language, publication, publisher, isbn, availability, 
+    edition, volume, ddc, copies, callNumber, availableAt, pages, subject, gradeLevel,
 
     // Fiction
     fictionSeries,
 
-    // Non-Fiction
-    scientificField, mathBranch, technologyField, engineeringDiscipline, medicalField,
-
-    // Reference
-    referenceType, dictionaryType, geographicCoverage,
-
-    // Textbook
-    subject, gradeLevel,
-
-    // Research
-    researchField, institution, doi,
-
-    // Business & Economics
-    businessArea, economicsBranch,
 } = req.body;
 
   try {
@@ -114,6 +101,7 @@ const Upload_Manually_Controller = async (req, res) => {
       await NonFiction_Model.create({
           type,
           category,
+          field,
 
           title,
           author,
@@ -124,31 +112,18 @@ const Upload_Manually_Controller = async (req, res) => {
           publisher,
           isbn,
 
-          scientificField, 
-          mathBranch, 
-          technologyField, 
-          engineeringDiscipline, 
-          medicalField,
-
-          referenceType, 
-          dictionaryType, 
-          geographicCoverage,
+          ddc,
+          copies,
+          callNumber,
+          availableAt,
 
           subject, 
           gradeLevel,
-
-          researchField, 
-          institution, 
-          doi,
-
-          businessArea, 
-          economicsBranch,
 
           cover: coverImage,
           pages: updatedPages,
           availability,
           
-          fictionSeries,
           edition,
           volume
       })

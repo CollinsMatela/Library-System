@@ -34,57 +34,20 @@ const Admin_UploadBook_Page = () => {
         const [publisher, setPublisher] = useState("");
         const [isbn, setIsbn] = useState("");
         const [availability, setAvailability] = useState(true);
-
-        const [isTitle, setIsTitle] = useState(false);
-        const [isAuthor, setIsAuthor] = useState(false);
-        const [isDescription, setIsDescription] = useState(false);
-        const [isGradeCategory, setIsGradeCategory] = useState(false);
-        const [isLanguage, setIsLanguage] = useState(false);
-        const [isPublication, setIsPublication] = useState(false);
-        const [isIsbn, setIsIsbn] = useState(false);
-        const [isPublisher, setIsPublisher] = useState(false);
+        const [ddc, setDdc] = useState("");
+        const [copies, setCopies] = useState(0);
+        const [callNumber, setCallNumber] = useState("");
+        const [availableAt, setAvailableAt] = useState("")
 
 
         // Fictions Addiotionals Information
         const [fictionSeries, setFictionSeries] = useState("");
-
         
-        // Non-Fictions Additional Info
-
-        // Science
-        const [scientificField, setScientificField] = useState("");
-
-        // Math
-        const [mathBranch, setMathBranch] = useState("");
-
-        // Technology
-        const [technologyField, setTechnologyField] = useState("");
-
-        // Engineering
-        const [engineeringDiscipline, setEngineeringDiscipline] = useState("");
-        //medical
-        const [medicalField, setMedicalField] = useState("");
-        // reference
-        const [referenceType, setReferenceType] = useState("");
-        // Dictionary
-        const [dictionaryType, setDictionaryType] = useState("");
-        // Atlas
-        const [geographicCoverage, setGeographicCoverage] = useState("");
-
+        const [field, setField] = useState("")
         // text book
         const [subject, setSubject] = useState(""); 
         const [gradeLevel, setGradeLevel] = useState(""); 
 
-        // research
-        const [researchField, setResearchField] = useState(""); 
-        const [institution, setInstitution] = useState(""); 
-        const [doi, setDoi] = useState("");
-
-        //business
-        const [businessArea, setBusinessArea] = useState("");
-        //economic
-        const [economicsBranch, setEconomicsBranch] = useState("");
-  
         const [edition, setEdition] = useState("");
         const [volume, setVolume] = useState("");
         
@@ -104,6 +67,7 @@ const Admin_UploadBook_Page = () => {
             // Book Selection
             setSelectedTypeOfBooks("");
             setSelectedCategoryOfBook("");
+            setField("");
 
             // Basic Book Information
             setTitle("");
@@ -115,26 +79,17 @@ const Admin_UploadBook_Page = () => {
             setPublisher("");
             setIsbn("");
             setAvailability(true);
+            setDdc("");
+            setCopies(0);
+            setCallNumber("");
+            setAvailableAt("");
 
             // Fiction
             setFictionSeries("");
 
-            // Non-Fiction
-            setScientificField("");
-            setMathBranch("");
-            setTechnologyField("");
-            setEngineeringDiscipline("");
-            setMedicalField("");
-            setReferenceType("");
-            setDictionaryType("");
-            setGeographicCoverage("");
             setSubject("");
             setGradeLevel("");
-            setResearchField("");
-            setInstitution("");
-            setDoi("");
-            setBusinessArea("");
-            setEconomicsBranch("");
+
             setEdition("");
             setVolume("");
 
@@ -214,71 +169,37 @@ const Admin_UploadBook_Page = () => {
     }
 
     const handleConfirmation = () => {
-        // Basic Information
-        if (title.trim() === "") {
-            setIsTitle(true);
-            alert("Please fill in all required fields.");
-            return;
-        } else {
-            setIsTitle(false);
-        }
 
-        if (author.trim() === "") {
-            setIsAuthor(true);
-            alert("Please fill in all required fields.");
-            return;
-        } else {
-            setIsAuthor(false);
-        }
-
-        if (description.trim() === "") {
-            setIsDescription(true);
-            alert("Please fill in all required fields.");
-            return;
-        } else {
-            setIsDescription(false);
-        }
-
-        if (language.trim() === "") {
-            setIsLanguage(true);
-            alert("Please fill in all required fields.");
-            return;
-        } else {
-            setIsLanguage(false);
-        }
-
-        if (publisher.trim() === "") {
-            setIsPublisher(true);
-            alert("Please fill in all required fields.");
-            return;
-        } else {
-            setIsPublisher(false);
-        }
-
-        if (publication.trim() === "") {
-            setIsPublication(true);
-            alert("Please fill in all required fields.");
-            return;
-        } else {
-            setIsPublication(false);
-        }
-
-        if (isbn.trim() === "") {
-            setIsIsbn(true);
-            alert("Please fill in all required fields.");
-            return;
-        } else {
-            setIsIsbn(false);
-        }
-
-        if (!file) {
-            alert("Please upload a book cover image.");
+        if (!selectedTypeOfBooks) {
+            toast.warning('Please select type of book')
             return;
         }
 
-        if (pageList.length === 0) {
-            alert("Please add at least one book page.");
+        if (!selectedCategoryOfBook) {
+            toast.warning('Please select book category')
             return;
+        }
+        if(selectedTypeOfBooks.toLowerCase() === 'non-fiction'){
+            if(!field){
+                toast.warning(`Please select a field`)
+                 return;
+            }
+        }
+      
+        if (!title) {
+            toast.warning('Please enter book title')
+            return;
+        } 
+
+        if(selectedCategoryOfBook.toLowerCase() === 'textbook') {
+            if (!gradeLevel) {
+            toast.warning('Please select grade level')
+            return;
+            } 
+            if (!subject) {
+            toast.warning('Please select subject')
+            return;
+            } 
         }
 
         setShowConfirmation(true);
@@ -291,6 +212,7 @@ const Admin_UploadBook_Page = () => {
         // Book Type
         formData.append("type", selectedTypeOfBooks);
         formData.append("category", selectedCategoryOfBook);
+        formData.append("field", field);
 
         // Basic Book Information
         formData.append("title", title);
@@ -302,6 +224,11 @@ const Admin_UploadBook_Page = () => {
         formData.append("isbn", isbn);
         formData.append("availability", availability);
 
+        formData.append("ddc", ddc);
+        formData.append("copies", copies);
+        formData.append("callNumber", callNumber);
+        formData.append("availableAt", availableAt);
+
         // Shared Book Information
         formData.append("edition", edition);
         formData.append("volume", volume);
@@ -309,26 +236,8 @@ const Admin_UploadBook_Page = () => {
         // Fiction
         formData.append("fictionSeries", fictionSeries);
 
-        // Non-Fiction
-        formData.append("scientificField", scientificField);
-        formData.append("mathBranch", mathBranch);
-        formData.append("technologyField", technologyField);
-        formData.append("engineeringDiscipline", engineeringDiscipline);
-        formData.append("medicalField", medicalField);
-
-        formData.append("referenceType", referenceType);
-        formData.append("dictionaryType", dictionaryType);
-        formData.append("geographicCoverage", geographicCoverage);
-
         formData.append("subject", subject);
         formData.append("gradeLevel", gradeLevel);
-
-        formData.append("researchField", researchField);
-        formData.append("institution", institution);
-        formData.append("doi", doi);
-
-        formData.append("businessArea", businessArea);
-        formData.append("economicsBranch", economicsBranch);
 
         // Cover Image
         formData.append("cover", file);
@@ -393,6 +302,8 @@ const Admin_UploadBook_Page = () => {
                        setSelectedTypeOfBooks={setSelectedTypeOfBooks}
                        selectedCategoryOfBook={selectedCategoryOfBook}
                        setSelectedCategoryOfBook={setSelectedCategoryOfBook}
+                       field={field}
+                       setField={setField}
                        />
                         
                         {selectedTypeOfBooks.toLowerCase() === 'fiction' && selectedCategoryOfBook && (
@@ -436,29 +347,6 @@ const Admin_UploadBook_Page = () => {
                             volume={volume}
                             setVolume={setVolume}
 
-                            isTitle={isTitle}
-                            setIsTitle={setIsTitle}
-
-                            isAuthor={isAuthor}
-                            setIsAuthor={setIsAuthor}
-
-                            isDescription={isDescription}
-                            setIsDescription={setIsDescription}
-
-                            isGradeCategory={isGradeCategory}
-                            setIsGradeCategory={setIsGradeCategory}
-
-                            isLanguage={isLanguage}
-                            setIsLanguage={setIsLanguage}
-
-                            isPublication={isPublication}
-                            setIsPublication={setIsPublication}
-
-                            isPublisher={isPublisher}
-                            setIsPublisher={setIsPublisher}
-
-                            isIsbn={isIsbn}
-                            setIsIsbn={setIsIsbn}
                         />
                         )}
 
@@ -490,83 +378,18 @@ const Admin_UploadBook_Page = () => {
                             availability={availability}
                             setAvailability={setAvailability}
 
-                            // Validation
-                            isTitle={isTitle}
-                            setIsTitle={setIsTitle}
+                            ddc={ddc}
+                            setDdc={setDdc}
 
-                            isAuthor={isAuthor}
-                            setIsAuthor={setIsAuthor}
+                            copies={copies}
+                            setCopies={setCopies}
 
-                            isDescription={isDescription}
-                            setIsDescription={setIsDescription}
+                            callNumber={callNumber}
+                            setCallNumber={setCallNumber}
 
-                            isGradeCategory={isGradeCategory}
-                            setIsGradeCategory={setIsGradeCategory}
+                            availableAt={availableAt}
+                            setAvailableAt={setAvailableAt}
 
-                            isLanguage={isLanguage}
-                            setIsLanguage={setIsLanguage}
-
-                            isPublication={isPublication}
-                            setIsPublication={setIsPublication}
-
-                            isPublisher={isPublisher}
-                            setIsPublisher={setIsPublisher}
-
-                            isIsbn={isIsbn}
-                            setIsIsbn={setIsIsbn}
-
-                            // Non-Fiction Additional Information
-                            scientificField={scientificField}
-                            setScientificField={setScientificField}
-
-                            mathBranch={mathBranch}
-                            setMathBranch={setMathBranch}
-
-                            technologyField={technologyField}
-                            setTechnologyField={setTechnologyField}
-
-                            engineeringDiscipline={engineeringDiscipline}
-                            setEngineeringDiscipline={setEngineeringDiscipline}
-
-                            medicalField={medicalField}
-                            setMedicalField={setMedicalField}
-
-                            referenceType={referenceType}
-                            setReferenceType={setReferenceType}
-
-
-                            dictionaryType={dictionaryType}
-                            setDictionaryType={setDictionaryType}
-
-                            geographicCoverage={geographicCoverage}
-                            setGeographicCoverage={setGeographicCoverage}
-
-                            subject={subject}
-                            setSubject={setSubject}
-
-                            gradeLevel={gradeLevel}
-                            setGradeLevel={setGradeLevel}
-
-                            researchField={researchField}
-                            setResearchField={setResearchField}
-
-                            institution={institution}
-                            setInstitution={setInstitution}
-
-                            doi={doi}
-                            setDoi={setDoi}
-
-                            businessArea={businessArea}
-                            setBusinessArea={setBusinessArea}
-
-                            economicsBranch={economicsBranch}
-                            setEconomicsBranch={setEconomicsBranch}
-
-                            edition={edition}
-                            setEdition={setEdition}
-
-                            volume={volume}
-                            setVolume={setVolume}
                         />
                     )}
 

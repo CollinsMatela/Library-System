@@ -1,5 +1,114 @@
+import { useEffect } from "react";
 
-const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCategoryOfBook, setSelectedCategoryOfBook}) => {
+const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCategoryOfBook, setSelectedCategoryOfBook, field, setField}) => {
+
+    const renderCategoryFields = () => {
+    
+    if (selectedCategoryOfBook.toLowerCase() === "philosophy & psychology") {
+        return (
+            <select
+                className="bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2"
+                value={field}
+                onChange={(e) => setField(e.target.value)}
+            >
+                <option value="">Select Philisophy & Psychology Field</option>
+                <option value="logic">Logic</option>
+                <option value="ethics">Ethics</option>
+                
+            </select>
+        );
+    }
+
+    if (selectedCategoryOfBook.toLowerCase() === "social sciences") {
+        return (
+            <select
+                className="bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2"
+                value={field}
+                onChange={(e) => setField(e.target.value)}
+            >
+                <option value="">Select Social Science Field</option>
+                <option value="Political Science">Political Science</option>
+                <option value="Economics">Economics</option>
+                <option value="Law">Law</option>
+                <option value="Public Administration">Public Administration</option>
+                <option value="Education">Education</option>
+                <option value="Commerce">Commerce</option>
+                <option value="Customs">Customs</option>
+                <option value="Etiquette">Etiquette</option>
+                <option value="Folklore">Folklore</option>
+                <option value="Other">Other</option>
+            </select>
+        );
+    }
+
+    if (selectedCategoryOfBook.toLowerCase() === "technology") {
+        return (
+            <select
+                value={field}
+                onChange={(e) => setField(e.target.value)}
+                className="bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2"
+            >
+                <option value="">Select Technology Field</option>
+                <option value="medicine">Medicine</option>
+                <option value="engineering">Engineering</option>
+                <option value="agriculture">Agriculture</option>
+                <option value="home economics">Home Economics</option>
+                <option value="Other">Other</option>
+            </select>
+        );
+    }
+
+    if (selectedCategoryOfBook.toLowerCase() === "the arts") {
+        return (
+            <select
+                value={field}
+                onChange={(e) => setField(e.target.value)}
+                className="bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2"
+            >
+                <option value="">Select The Arts Field</option>
+                <option value="architecture">Architecture</option>
+                <option value="sculpture">Sculpture</option>
+                <option value="drawing">Drawing</option>
+                <option value="printing & paintings">Printing & Paintings</option>
+                <option value="photography">Photography</option>
+                <option value="music">Music</option>
+                <option value="recreational & Performming Arts">Recreational & Performing Arts</option>
+                <option value="Other">Other</option>
+            </select>
+        );
+    }
+if (selectedCategoryOfBook.toLowerCase() === "textbook") {
+    return (
+        <>
+            <input
+                type="text"
+                placeholder="Subject"
+                className="h-12 border border-gray-300 outline-none p-2 rounded-lg"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+            />
+
+            <select
+                className="bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2"
+                value={gradeLevel}
+                onChange={(e) => setGradeLevel(e.target.value)}
+            >
+                <option value="">Grade Level</option>
+                <option value="Elementary">Elementary</option>
+                <option value="Junior High School">Junior High School</option>
+                <option value="Senior High School">Senior High School</option>
+                <option value="College">College</option>
+                <option value="Graduate School">Graduate School</option>
+                <option value="Professional">Professional</option>
+            </select>
+        </>
+    );
+}
+
+
+    return null;
+};
+
     return(
         <div className="w-full grid">
             <h2 className="text-lg font-bold text-gray-500 rounded-full">Select Type of Books</h2>
@@ -11,7 +120,7 @@ const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCateg
                 <option value="fiction">Fiction</option>
                 <option value="non-fiction">Non-Fiction</option>
             </select>
-            {/* Fiction */}
+
             {/* Fiction */}
             <select
                 className={`${selectedTypeOfBooks.toLowerCase() === 'fiction' ? "" : "hidden"} bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2`}
@@ -79,8 +188,10 @@ const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCateg
                 <option value="Business">Business</option>
                 <option value="Education">Education</option>
             </select>
+            {selectedTypeOfBooks.toLowerCase() === 'non-fiction' && (renderCategoryFields())}
             </div>
         </div>
     )
 }
 export default TypeOfBooks
+

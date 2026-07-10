@@ -3,132 +3,170 @@ const FictionBookInformation = ({
     selectedCategoryOfBook,
     title,
     setTitle,
+
     author,
     setAuthor,
+
     description,
     setDescription,
+
+    gradeCategory,
+    setGradeCategory,
+
     language,
     setLanguage,
+
     publication,
     setPublication,
+
     publisher,
     setPublisher,
+
     isbn,
     setIsbn,
+
     availability,
     setAvailability,
-    fictionSeries,
-    setFictionSeries,
+
+    // Library Information
+    series,
+    setSeries,
+
+    copies,
+    setCopies,
+
+    callNumber,
+    setCallNumber,
+
+    availableAt,
+    setAvailableAt,
+
     edition,
     setEdition,
+
     volume,
     setVolume,
-    isTitle,
-    setIsTitle,
-    isAuthor,
-    setIsAuthor,
-    isDescription,
-    setIsDescription,
-    isGradeCategory,
-    setIsGradeCategory,
-    isLanguage,
-    setIsLanguage,
-    isPublication,
-    setIsPublication,
-    isPublisher,
-    setIsPublisher,
-    isIsbn,
-    setIsIsbn,
 }) => {
     return(
-        <div className="w-full flex flex-col gap-4">
-                        <div>
-                            <h2 className="text-lg font-bold text-gray-500 rounded-full">Fiction Book Information</h2>
-                            <p className="text-gray-400 text-sm">Fill-up the required information in the book.</p>
-                        </div>
+                <div className="w-full flex flex-col gap-4">
+            <div>
+                <h2 className="text-lg font-bold text-gray-500">
+                    Fiction Book Information
+                </h2>
+                <p className="text-sm text-gray-400">
+                    Fill up the required information for the book.
+                </p>
+            </div>
 
-                        <div className="grid grid-cols-4 gap-2">
-                            <input type="text" placeholder="Title" className={`${isTitle ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`} 
-                        value={title} 
-                        onChange={(e) => {setTitle(e.target.value); 
-                                          setIsTitle(e.target.value === "");
-                        }}/>
-                        <input type="text" placeholder="Author" className={`${isAuthor ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`} 
-                        value={author} 
-                        onChange={(e) => {setAuthor(e.target.value);
-                                          setIsAuthor(e.target.value === "");
-                        }}/>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
 
-                        <select
-                            className={`${isLanguage ? "border-red-300" : "border-gray-300"} h-12 border bg-white outline-none text-gray-500 p-2 rounded-lg`}
-                            value={language}
-                            onChange={(e) => {setLanguage(e.target.value)
-                                              setIsLanguage(e.target.value === "")
-                            }}
-                        >
-                            <option value="">Select Language</option>
-                            <option value="english">English</option>
-                            <option value="filipino">Filipino</option>
-                            
-                        </select>
+                <input
+                    type="text"
+                    placeholder="Title "
+                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
 
-                        <input type="text" placeholder="publisher" className={`${isPublisher ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
-                        placeholder={"Publisher"}
-                        value={publisher} 
-                        onChange={(e) => {setPublisher(e.target.value);
-                                          setIsPublisher(e.target.value === "");
-                        }}/>
+                <input
+                    type="text"
+                    placeholder="Author (Optional)"
+                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    value={author}
+                    onChange={(e) => setAuthor(e.target.value)}
+                />
 
-                       <input
-                            type="number"
-                            name="publication-year"
-                            id="publication-year"
-                            min="1900"
-                            max={new Date().getFullYear()}
-                            placeholder="Publication Year"
-                            value={publication}
-                            className={`${isPublication ? "border-red-300" : "border-gray-300"} h-12 border bg-white outline-none text-gray-500 p-2 rounded-lg`}
-                            onChange={(e) => {
-                                setPublication(e.target.value);
-                                setIsPublication(e.target.value === "");
-                            }}
-                        />
+                <select
+                    className="h-12 border border-gray-300 text-gray-500 rounded-lg p-2 bg-white outline-none"
+                    value={language}
+                    onChange={(e) => setLanguage(e.target.value)}
+                >
+                    <option value="">Select Language (Optional)</option>
+                    <option value="english">English</option>
+                    <option value="filipino">Filipino</option>
+                </select>
 
-                         <input type="text" placeholder="isbn" className={`${isIsbn ? "border-red-500" : "border-gray-300"} h-12 border outline-none p-2 rounded-lg`}
-                         placeholder={"ISBN"}
-                        value={isbn} 
-                        onChange={(e) => {setIsbn(e.target.value);
-                                          setIsIsbn(e.target.value === "");
-                        }}/>
+                <input
+                    type="text"
+                    placeholder="Publisher (Optional)"
+                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    value={publisher}
+                    onChange={(e) => setPublisher(e.target.value)}
+                />
 
-                        <input type="text" placeholder="Series Name" className={`border-gray-300 h-12 border outline-none p-2 rounded-lg`}
-                         placeholder={"Fiction Series"}
-                        value={fictionSeries} 
-                        onChange={(e) => {setFictionSeries(e.target.value)}}/>
-                        
-                        <input type="text" placeholder="Story Volume" className={`"border-gray-300 h-12 border outline-none p-2 rounded-lg`}
-                         placeholder={"Book Edition (Optional)"}
-                        value={edition} 
-                        onChange={(e) => {setEdition(e.target.value)}}/>
-                        
-                        <input type="text" placeholder="Fiction Volume" className={`"border-gray-300 h-12 border outline-none p-2 rounded-lg`}
-                         placeholder={"Book Volume (Optional)"}
-                        value={volume} 
-                        onChange={(e) => {setVolume(e.target.value)}}/>
+                <input
+                    type="number"
+                    min="1900"
+                    max={new Date().getFullYear()}
+                    placeholder="Publication Year (Optional)"
+                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    value={publication}
+                    onChange={(e) => setPublication(e.target.value)}
+                />
 
-                        </div>
+                <input
+                    type="text"
+                    placeholder="ISBN (Optional)"
+                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    value={isbn}
+                    onChange={(e) => setIsbn(e.target.value)}
+                />
 
-                        <textarea 
-                            placeholder="Description"
-                            className={`${isDescription ? "border-red-500" : "border-gray-300"} h-20 border h-10 outline-none p-2 rounded-lg`}
-                            value={description}
-                            onChange={(e) => {setDescription(e.target.value)
-                                              setIsDescription(e.target.value === "");
-                            }}
-                        />
-                        
+                <input
+                    type="text"
+                    placeholder="Series Name (Optional)"
+                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    value={series}
+                    onChange={(e) => setSeries(e.target.value)}
+                />
 
-                        
+                <input
+                    type="text"
+                    placeholder="Edition (Optional)"
+                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    value={edition}
+                    onChange={(e) => setEdition(e.target.value)}
+                />
+
+                <input
+                    type="text"
+                    placeholder="Volume (Optional)"
+                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    value={volume}
+                    onChange={(e) => setVolume(e.target.value)}
+                />
+
+                <input
+                    type="number"
+                    placeholder="Number of Copies (Optional)"
+                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    value={copies}
+                    onChange={(e) => setCopies(e.target.value)}
+                />
+
+                <input
+                    type="text"
+                    placeholder="Call Number (Optional)"
+                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    value={callNumber}
+                    onChange={(e) => setCallNumber(e.target.value)}
+                />
+
+                <input
+                    type="text"
+                    placeholder="Available At (Optional)"
+                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    value={availableAt}
+                    onChange={(e) => setAvailableAt(e.target.value)}
+                />
+            </div>
+
+            <textarea
+                placeholder="Description (Optional)"
+                className="h-28 border border-gray-300 rounded-lg p-2 outline-none resize-none"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+            />
         </div>
     )
 }

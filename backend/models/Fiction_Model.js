@@ -5,23 +5,26 @@ const FictionSchema = new mongoose.Schema(
     type: { type: String, required: true },
     category: { type: String, required: true },
     title: { type: String, required: true },
-    author: { type: String, required: true },
-    description: { type: String, required: true },
-    language: {type: String, required: true},
-    publication: {type: String, required: true},
-    publisher: {type: String, required: true},
-    isbn: {type: String, required: true},
-    type: {type: String, required: true},
+    author: { type: String, default: "" },
+    description: { type: String, default: "" },
+    language: {type: String, default: ""},
+    publication: {type: String, default: ""},
+    publisher: {type: String, default: ""},
+    isbn: {type: String, default: ""},
+    copies: { type: String, default: "" },
+    callNumber: { type: String, default: "" },
+    availableAt: { type: String, default: "" },
+
     pages: [{
              pageText: {type: String},
              pageImage: [String]
     }],
     cover: { type: String, required: true },
-    availability: { type: Boolean, required: true },
+    availability: { type: Boolean, default: true },
 
-    fictionSeries: { type: String, default: "—" },
-    edition: { type: String, default: "—" },
-    volume: { type: String, default: "—" },
+    series: { type: String, default: "" },
+    edition: { type: String, default: "" },
+    volume: { type: String, default: "" },
   },
   {
     timestamps: true

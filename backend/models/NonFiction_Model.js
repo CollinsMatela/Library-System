@@ -4,7 +4,7 @@ const NonFictionSchema = new mongoose.Schema(
   {
     type: { type: String, required: true },
     category: { type: String, required: true },
-    field: { type: String, required: true },
+    field: { type: String, default: ""},
 
     title: { type: String, required: true },
     author: { type: String, default: ""},

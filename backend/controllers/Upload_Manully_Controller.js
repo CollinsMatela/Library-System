@@ -9,10 +9,7 @@ const Upload_Manually_Controller = async (req, res) => {
   const {
     // General
     type, category, field, title, author, description, language, publication, publisher, isbn, availability, 
-    edition, volume, ddc, copies, callNumber, availableAt, pages, subject, gradeLevel,
-
-    // Fiction
-    fictionSeries,
+    edition, volume, ddc, copies, callNumber, availableAt, pages, subject, gradeLevel, series,
 
 } = req.body;
 
@@ -79,17 +76,19 @@ const Upload_Manually_Controller = async (req, res) => {
           title,
           author,
           description,
-          type: type,
           language,
           publication,
           publisher,
           isbn,
+          series,
+          copies,
+          callNumber,
+          availableAt,
 
           cover: coverImage,
           pages: updatedPages,
           availability,
           
-          fictionSeries,
           edition,
           volume
       })

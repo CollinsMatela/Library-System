@@ -28,7 +28,6 @@ const Admin_UploadBook_Page = () => {
         const [title, setTitle] = useState("");
         const [author, setAuthor] = useState("");
         const [description, setDescription] = useState("");
-        const [gradeCategory, setGradeCategory] = useState("");
         const [language, setLanguage] = useState("");
         const [publication, setPublication] = useState("");
         const [publisher, setPublisher] = useState("");
@@ -41,7 +40,7 @@ const Admin_UploadBook_Page = () => {
 
 
         // Fictions Addiotionals Information
-        const [fictionSeries, setFictionSeries] = useState("");
+        const [series, setSeries] = useState("");
         
         const [field, setField] = useState("")
         // text book
@@ -73,7 +72,6 @@ const Admin_UploadBook_Page = () => {
             setTitle("");
             setAuthor("");
             setDescription("");
-            setGradeCategory("");
             setLanguage("");
             setPublication("");
             setPublisher("");
@@ -85,7 +83,7 @@ const Admin_UploadBook_Page = () => {
             setAvailableAt("");
 
             // Fiction
-            setFictionSeries("");
+            setSeries("");
 
             setSubject("");
             setGradeLevel("");
@@ -97,21 +95,21 @@ const Admin_UploadBook_Page = () => {
             setFile(null);
             setPreview(null);
 
+            // Reset the actual file input
+            if (fileInputRef.current) {
+                fileInputRef.current.value = "";
+            }
+
             // Pages
             setPageList([]);
             setPageText("");
             setPageImage([]);
             setPageImagePreview([]);
 
-            // Validation
-            setIsTitle(false);
-            setIsAuthor(false);
-            setIsDescription(false);
-            setIsGradeCategory(false);
-            setIsLanguage(false);
-            setIsPublication(false);
-            setIsPublisher(false);
-            setIsIsbn(false);
+            // Reset page image input
+            if (pageImageInputRef.current) {
+                pageImageInputRef.current.value = "";
+            }
         };
 
         useEffect(() => {
@@ -132,7 +130,7 @@ const Admin_UploadBook_Page = () => {
 
         const handleNextPage = () =>{
            if (!pageText && pageImage.length === 0) {
-            alert("Please enter text or upload at least one image.");
+            toast.warning("Please enter text or upload at least one image.");
             return;
             }
               setPageList((prev) => [ 
@@ -150,6 +148,10 @@ const Admin_UploadBook_Page = () => {
 
         const handlePageImagePreview = async (e) =>{
               const files = Array.from(e.target.files);
+              if (pageImage.length >= 1) {
+                    toast.warning("Only 1 image is allowed per page.");
+                    return;
+                }
               setPageImage((prev) => [...prev, ...files]);
 
                const imagesPreview = files.map(file => URL.createObjectURL(file));
@@ -157,11 +159,21 @@ const Admin_UploadBook_Page = () => {
         }
         
 
-        const handleImagePreview = async (e) => {
-         const selected = e.target.files[0];
-         setFile(selected);
-         setPreview(URL.createObjectURL(selected)); 
-    }
+        const handleImagePreview = (e) => {
+            const selected = e.target.files[0];
+
+            if (!selected) return;
+
+            // Free the previous object URL
+            if (preview) {
+                URL.revokeObjectURL(preview);
+            }
+
+            const newPreview = URL.createObjectURL(selected);
+
+            setFile(selected);
+            setPreview(newPreview);
+        };
     const openFileExplorer = () => {
         setPreview(null)
         setFile(null)
@@ -179,10 +191,18 @@ const Admin_UploadBook_Page = () => {
             toast.warning('Please select book category')
             return;
         }
-        if(selectedTypeOfBooks.toLowerCase() === 'non-fiction'){
-            if(!field){
-                toast.warning(`Please select a field`)
-                 return;
+        if (
+            selectedTypeOfBooks.toLowerCase() === "non-fiction" &&
+            (
+                selectedCategoryOfBook.toLowerCase() === "philosophy & psychology" ||
+                selectedCategoryOfBook.toLowerCase() === "social sciences" ||
+                selectedCategoryOfBook.toLowerCase() === "technology" ||
+                selectedCategoryOfBook.toLowerCase() === "the arts"
+            )
+        ) {
+            if (!field) {
+                toast.warning("Please select a field.");
+                return;
             }
         }
       
@@ -234,7 +254,7 @@ const Admin_UploadBook_Page = () => {
         formData.append("volume", volume);
 
         // Fiction
-        formData.append("fictionSeries", fictionSeries);
+        formData.append("series", series);
 
         formData.append("subject", subject);
         formData.append("gradeLevel", gradeLevel);
@@ -319,9 +339,6 @@ const Admin_UploadBook_Page = () => {
                             description={description}
                             setDescription={setDescription}
 
-                            gradeCategory={gradeCategory}
-                            setGradeCategory={setGradeCategory}
-
                             language={language}
                             setLanguage={setLanguage}
 
@@ -336,10 +353,18 @@ const Admin_UploadBook_Page = () => {
 
                             availability={availability}
                             setAvailability={setAvailability}
-                            
-                            // Optionals 
-                            fictionSeries={fictionSeries}
-                            setFictionSeries={setFictionSeries}
+
+                            series={series}
+                            setSeries={setSeries}
+
+                            copies={copies}
+                            setCopies={setCopies}
+
+                            callNumber={callNumber}
+                            setCallNumber={setCallNumber}
+
+                            availableAt={availableAt}
+                            setAvailableAt={setAvailableAt}
 
                             edition={edition}
                             setEdition={setEdition}

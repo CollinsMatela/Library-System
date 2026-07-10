@@ -14,7 +14,7 @@ const HomePageNavigation = () => {
                     {/* <img src={LittleMeLogo} alt="logo" className="h-full w-full object-cover" /> */}
                 </div>
                 
-                <h1 className="text-lg font-bold text-black">Digital Library Platform</h1>
+                <h1 className="text-lg font-bold text-black">Naic Municipality Library</h1>
              </div>
              
              <div className="bg-blue-600 px-4 py-2 rounded-lg text-white text-sm font-md justify-center items-center flex cursor-pointer gap-2" onClick={() => setIsLogin(true)}>Sign in <MoveRight size={20}/></div>

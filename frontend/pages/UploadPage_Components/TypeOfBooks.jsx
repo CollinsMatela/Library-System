@@ -150,7 +150,7 @@ if (selectedCategoryOfBook.toLowerCase() === "textbook") {
                 <option value="Contemporary Fiction">Contemporary Fiction</option>
                 <option value="Crime Fiction">Crime Fiction</option>
                 <option value="Graphic Novel">Graphic Novel</option>
-                <option value="Short Stories">Short Stories</option>
+                <option value="Story Book">Story Book</option>
             </select>
 
             {/* Non-Fiction */}

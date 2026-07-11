@@ -25,32 +25,14 @@ const Lib_Catalog = () => {
     const [publication, setPublication] = useState("");
     const [publisher, setPublisher] = useState("");
     const [isbn, setIsbn] = useState("");
-
+    const [field, setField] = useState("");
+    const [ddc, setDdc] = useState("");
+    const [callNumber, setCallNumber] = useState("");
+    const [gradeLevel, setGradeLevel] = useState("");
+    const [subject, setSubject] = useState("");
     const [edition, setEdition] = useState("");
     const [volume, setVolume] = useState("");
-    const [fictionSeries, setFictionSeries] = useState("");
-
-    const [scientificField, setScientificField] = useState("");
-    const [mathBranch, setMathBranch] = useState("");
-    const [technologyField, setTechnologyField] = useState("");
-    const [engineeringDiscipline, setEngineeringDiscipline] = useState("");
-    const [medicalField, setMedicalField] = useState("");
-
-    const [referenceType, setReferenceType] = useState("");
-    const [dictionaryType, setDictionaryType] = useState("");
-    const [geographicCoverage, setGeographicCoverage] = useState("");
-
-    const [subject, setSubject] = useState("");
-    const [gradeLevel, setGradeLevel] = useState("");
-
-    const [researchField, setResearchField] = useState("");
-    const [institution, setInstitution] = useState("");
-    const [doi, setDoi] = useState("");
-
-    const [businessArea, setBusinessArea] = useState("");
-    const [economicsBranch, setEconomicsBranch] = useState("");
-
-    // Filter States
+    const [series, setSeries] = useState("");
     const [type, setType] = useState('');
     const [category, setCategory] = useState('');
 
@@ -67,6 +49,7 @@ const Lib_Catalog = () => {
 
     setType("");
     setCategory("");
+    setField("")
 
     setLanguage("");
     setPublication("");
@@ -75,27 +58,14 @@ const Lib_Catalog = () => {
 
     setEdition("");
     setVolume("");
-    setFictionSeries("");
+    
+    setSeries("")
+    setDdc("")
+    setCallNumber("")
 
-    setScientificField("");
-    setMathBranch("");
-    setTechnologyField("");
-    setEngineeringDiscipline("");
-    setMedicalField("");
-
-    setReferenceType("");
-    setDictionaryType("");
-    setGeographicCoverage("");
-
-    setSubject("");
     setGradeLevel("");
-
-    setResearchField("");
-    setInstitution("");
-    setDoi("");
-
-    setBusinessArea("");
-    setEconomicsBranch("");
+    setSubject("");
+    setSortBy("");
 
     setBookResults(books);
 
@@ -129,6 +99,12 @@ const Lib_Catalog = () => {
         );
     }
 
+    if (field !== "") {
+        filtered = filtered.filter(book =>
+            book.field?.toLowerCase() === field.toLowerCase()
+        );
+    }
+
     // Language
     if (language !== "") {
         filtered = filtered.filter(book =>
@@ -139,7 +115,7 @@ const Lib_Catalog = () => {
     // Publication
     if (publication !== "") {
         filtered = filtered.filter(book =>
-            book.publication?.toLowerCase() === publication.toLowerCase()
+            Number(book.publication) === Number(publication)
         );
     }
 
@@ -171,121 +147,38 @@ const Lib_Catalog = () => {
         );
     }
 
-    // Fiction Series
-    if (fictionSeries !== "") {
+    if (series !== "") {
         filtered = filtered.filter(book =>
-            book.fictionSeries?.toLowerCase().includes(fictionSeries.toLowerCase())
+            book.series?.toLowerCase().includes(series.toLowerCase())
+        );
+    }
+    if (ddc !== "") {
+        filtered = filtered.filter(book =>
+            book.ddc?.toLowerCase().includes(ddc.toLowerCase())
         );
     }
 
-    // Scientific Field
-    if (scientificField !== "") {
+    if (callNumber !== "") {
         filtered = filtered.filter(book =>
-            book.scientificField?.toLowerCase() === scientificField.toLowerCase()
+            book.callNumber?.toLowerCase().includes(callNumber.toLowerCase())
         );
     }
 
-    // Math Branch
-    if (mathBranch !== "") {
+    if (gradeLevel !== "") {
         filtered = filtered.filter(book =>
-            book.mathBranch?.toLowerCase() === mathBranch.toLowerCase()
+            book.gradeLevel?.toLowerCase().includes(gradeLevel.toLowerCase())
         );
     }
 
-    // Technology Field
-    if (technologyField !== "") {
-        filtered = filtered.filter(book =>
-            book.technologyField?.toLowerCase() === technologyField.toLowerCase()
-        );
-    }
-
-    // Engineering
-    if (engineeringDiscipline !== "") {
-        filtered = filtered.filter(book =>
-            book.engineeringDiscipline?.toLowerCase() === engineeringDiscipline.toLowerCase()
-        );
-    }
-
-    // Medical
-    if (medicalField !== "") {
-        filtered = filtered.filter(book =>
-            book.medicalField?.toLowerCase() === medicalField.toLowerCase()
-        );
-    }
-
-    // Reference
-    if (referenceType !== "") {
-        filtered = filtered.filter(book =>
-            book.referenceType?.toLowerCase() === referenceType.toLowerCase()
-        );
-    }
-
-    // Dictionary
-    if (dictionaryType !== "") {
-        filtered = filtered.filter(book =>
-            book.dictionaryType?.toLowerCase() === dictionaryType.toLowerCase()
-        );
-    }
-
-    // Geography
-    if (geographicCoverage !== "") {
-        filtered = filtered.filter(book =>
-            book.geographicCoverage?.toLowerCase().includes(geographicCoverage.toLowerCase())
-        );
-    }
-
-    // Subject
     if (subject !== "") {
         filtered = filtered.filter(book =>
             book.subject?.toLowerCase().includes(subject.toLowerCase())
         );
     }
 
-    // Grade
-    if (gradeLevel !== "") {
-        filtered = filtered.filter(book =>
-            book.gradeLevel?.toLowerCase() === gradeLevel.toLowerCase()
-        );
-    }
-
-    // Research
-    if (researchField !== "") {
-        filtered = filtered.filter(book =>
-            book.researchField?.toLowerCase().includes(researchField.toLowerCase())
-        );
-    }
-
-    // Institution
-    if (institution !== "") {
-        filtered = filtered.filter(book =>
-            book.institution?.toLowerCase().includes(institution.toLowerCase())
-        );
-    }
-
-    // DOI
-    if (doi !== "") {
-        filtered = filtered.filter(book =>
-            book.doi?.toLowerCase().includes(doi.toLowerCase())
-        );
-    }
-
-    // Business
-    if (businessArea !== "") {
-        filtered = filtered.filter(book =>
-            book.businessArea?.toLowerCase().includes(businessArea.toLowerCase())
-        );
-    }
-
-    // Economics
-    if (economicsBranch !== "") {
-        filtered = filtered.filter(book =>
-            book.economicsBranch?.toLowerCase() === economicsBranch.toLowerCase()
-        );
-    }
-
     setBookResults(filtered);
 }
-    const sortedBooks = [...bookResults].sort((a, b) => {
+    const displayedBooks = [...bookResults].sort((a, b) => {
     switch (sortBy) {
         case "titleAsc":
             return a.title.localeCompare(b.title);
@@ -310,13 +203,9 @@ const Lib_Catalog = () => {
     }
 });
 
-    useEffect(() => {
-           fetchBooks();
-        },[])
-
-        useEffect(() => {
-           setBookResults(sortedBooks)
-        },[sortBy])
+useEffect(() => {
+    fetchBooks();
+},[])
     
     const fetchBooks = async () => {
             try {
@@ -376,12 +265,15 @@ const Lib_Catalog = () => {
                         setType={setType}
                         category={category}
                         setCategory={setCategory}
+                        field={field}
+                        setField={setField}
+                        gradeLevel={gradeLevel}
+                        setGradeLevel={setGradeLevel}
+                        subject={subject}
+                        setSubject={setSubject}
                         />
 
-                        {type !== null && category !== null && (
                         <Catalog_BookInformation
-                            type={type}
-                            category={category}
 
                             language={language}
                             setLanguage={setLanguage}
@@ -391,53 +283,20 @@ const Lib_Catalog = () => {
                             setPublisher={setPublisher}
                             isbn={isbn}
                             setIsbn={setIsbn}
+                            ddc={ddc}
+                            setDdc={setDdc}
+
+                            callNumber={callNumber}
+                            setCallNumber={setCallNumber}
+                            series={series}
+                            setSeries={setSeries}
 
                             edition={edition}
                             setEdition={setEdition}
                             volume={volume}
                             setVolume={setVolume}
-                            fictionSeries={fictionSeries}
-                            setFictionSeries={setFictionSeries}
-
-                            scientificField={scientificField}
-                            setScientificField={setScientificField}
-                            mathBranch={mathBranch}
-                            setMathBranch={setMathBranch}
-                            technologyField={technologyField}
-                            setTechnologyField={setTechnologyField}
-                            engineeringDiscipline={engineeringDiscipline}
-                            setEngineeringDiscipline={setEngineeringDiscipline}
-                            medicalField={medicalField}
-                            setMedicalField={setMedicalField}
-
-                            referenceType={referenceType}
-                            setReferenceType={setReferenceType}
-                            dictionaryType={dictionaryType}
-                            setDictionaryType={setDictionaryType}
-                            geographicCoverage={geographicCoverage}
-                            setGeographicCoverage={setGeographicCoverage}
-
-                            subject={subject}
-                            setSubject={setSubject}
-                            gradeLevel={gradeLevel}
-                            setGradeLevel={setGradeLevel}
-
-                            researchField={researchField}
-                            setResearchField={setResearchField}
-                            institution={institution}
-                            setInstitution={setInstitution}
-                            doi={doi}
-                            setDoi={setDoi}
-
-                            businessArea={businessArea}
-                            setBusinessArea={setBusinessArea}
-                            economicsBranch={economicsBranch}
-                            setEconomicsBranch={setEconomicsBranch}
+                            
                         />
-                    )}
-
-                        
-
 
                         {/* BUTTONS */}
                         <div className="flex justify-end gap-2">
@@ -477,9 +336,9 @@ const Lib_Catalog = () => {
 
                         {bookResults.length > 0 ? (
                             <div className={`space-y-2 grid ${resultGrid ? "grid-cols-4 gap-2" : "grid-cols-1"}`}>
-                                {bookResults.map((book, index) => (
+                                {displayedBooks.map((book, index) => (
                                     <div key={book._id} 
-                                    className={`bg-white ${resultGrid ? "hover:-translate-y-1" : "hover:bg-gray-100"} justify-between items-center flex transistion-all duration-300 ease-in-out cursor-pointer mb-2 gap-2`}
+                                    className={`bg-white ${resultGrid ? "hover:-translate-y-1" : "hover:bg-gray-100"} justify-between items-center flex transition-all duration-300 ease-in-out cursor-pointer mb-2 gap-2`}
                                         onClick={() => handleViewBook(book._id)}
                                         >
                                         

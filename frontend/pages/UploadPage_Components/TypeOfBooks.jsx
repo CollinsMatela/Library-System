@@ -94,12 +94,13 @@ if (selectedCategoryOfBook.toLowerCase() === "textbook") {
                 onChange={(e) => setGradeLevel(e.target.value)}
             >
                 <option value="">Grade Level</option>
-                <option value="Elementary">Elementary</option>
-                <option value="Junior High School">Junior High School</option>
-                <option value="Senior High School">Senior High School</option>
-                <option value="College">College</option>
-                <option value="Graduate School">Graduate School</option>
-                <option value="Professional">Professional</option>
+                <option value="Grade 1">Grade 1</option>
+                <option value="Grade 2">Grade 2</option>
+                <option value="Grade 3">Grade 3</option>
+                <option value="Grade 4">Grade 4</option>
+                <option value="Grade 5">Grade 5</option>
+                <option value="Grade 6">Grade 6</option>
+                <option value="Secondary / Tertiary">Secondary / Tertiary</option>
             </select>
         </>
     );

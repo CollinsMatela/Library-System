@@ -17,39 +17,30 @@ const Lib_ViewBook = () => {
     const [bookDetails, setBookDetails] = useState(null);
 
     const informations = [
+    // Classification
+    { label: "Type", value: bookDetails?.type },
+    { label: "Category", value: bookDetails?.category },
+    { label: "Field", value: bookDetails?.field },
+
     // Basic Information
     { label: "Language", value: bookDetails?.language },
     { label: "Publisher", value: bookDetails?.publisher },
     { label: "Publication Year", value: bookDetails?.publication },
     { label: "ISBN", value: bookDetails?.isbn },
-    { label: "Edition", value: bookDetails?.edition },
-    { label: "Volume", value: bookDetails?.volume },
 
-    // Science & Technology
-    { label: "Scientific Field", value: bookDetails?.scientificField },
-    { label: "Mathematics Branch", value: bookDetails?.mathBranch },
-    { label: "Technology Field", value: bookDetails?.technologyField },
-    { label: "Engineering Discipline", value: bookDetails?.engineeringDiscipline },
-    { label: "Medical Field", value: bookDetails?.medicalField },
-
-    // Reference
-    { label: "Reference Type", value: bookDetails?.referenceType },
-    { label: "Subject Area", value: bookDetails?.subjectArea },
-    { label: "Dictionary Type", value: bookDetails?.dictionaryType },
-    { label: "Geographic Coverage", value: bookDetails?.geographicCoverage },
-
-    // Education
+    // Textbook Information
     { label: "Subject", value: bookDetails?.subject },
     { label: "Grade Level", value: bookDetails?.gradeLevel },
 
-    // Research
-    { label: "Research Field", value: bookDetails?.researchField },
-    { label: "Institution", value: bookDetails?.institution },
-    { label: "DOI", value: bookDetails?.doi },
+    // Bibliographic Information
+    { label: "Edition", value: bookDetails?.edition },
+    { label: "Volume", value: bookDetails?.volume },
+    { label: "DDC", value: bookDetails?.ddc },
+    { label: "Call Number", value: bookDetails?.callNumber },
 
-    // Business & Economics
-    { label: "Business Area", value: bookDetails?.businessArea },
-    { label: "Economics Branch", value: bookDetails?.economicsBranch },
+    // Library Information
+    { label: "Copies", value: bookDetails?.copies },
+    { label: "Available At", value: bookDetails?.availableAt },
 ];
 
     useEffect(() => {
@@ -112,13 +103,12 @@ const Lib_ViewBook = () => {
                 <div className="w-full flex justify-between items-center gap-3 my-4">
 
                     <div className="flex gap-2">
-                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full uppercase"><Book size={20}/>{bookDetails?.type}</div>
                         <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full"><Book size={20}/>{bookDetails?.category}</div>
                         <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full"><BookOpenText size={20}/>{bookDetails?.pages.length} Pages</div>
                     </div>
 
                     <div className="flex gap-2">
-                        <button className="justify-center items-center flex gap-2 bg-black py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+                        <button className="justify-center items-center flex gap-2 bg-blue-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
                         onClick={() => setShowReadModal(true)}>
                             <BookOpenText size={20}/> Read
                         </button>

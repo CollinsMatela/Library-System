@@ -2,7 +2,7 @@ import useAuthStore from '../store/useAuthStore'
 import NotificationIcon from '../src/assets/notification-svgrepo-com.svg'
 import RankingIcon from '../src/assets/crown-svgrepo-com.svg'
 import defaultProfile from '../src/assets/Student.jpg'
-import LittleMeLogo from '../public/LMLC.png'
+import NaicLibraryLogo from '../src/assets/NaicLibraryLogo.png'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { LogOut, Blocks, BookSearch } from 'lucide-react'
 
@@ -25,10 +25,10 @@ const Lib_Navigation = () => {
 
                        <div className='w-7xl justify-between items-center flex'>
                           <div className='h-full rounded-2xl flex gap-2 justify-center items-center'>
-                            <div className=" bg-gray-100 h-10 w-10 rounded-xl justify-center items-center flex cursor-pointer" onClick={() => navigate('/library')}>
-                              {/* <img src={LittleMeLogo} alt="Logo" className='h-8 w-8 object-cover rounded-xl'/> */}
+                            <div className=" bg-gray-100 h-10 w-10 rounded-full justify-center items-center flex cursor-pointer" onClick={() => navigate('/library')}>
+                              <img src={NaicLibraryLogo} alt="Logo" className='h-full w-full object-cover rounded-xl'/>
                             </div>
-                            <h1 className="text-medium text-black font-bold text-lg">Digital Library Platform</h1>
+                            <h1 className="text-medium text-black font-bold text-lg">Naic Municipal Library</h1>
                           </div>
 
                           <div className='gap-2 justify-center items-center flex'>

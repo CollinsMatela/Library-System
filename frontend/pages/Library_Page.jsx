@@ -16,6 +16,7 @@ import Lib_BookCard from '../library_components/Lib_BookCard'
 import defaultProfile from '../src/assets/Student.jpg'
 import LoadingScreen from '../loadings/loading'
 import { useNavigate } from 'react-router-dom'
+import BorrowModal from '../modals/BorrowModal'
 
 const Library_Page = () => {
     const user = useAuthStore((state) => state.user);
@@ -31,12 +32,18 @@ const Library_Page = () => {
     setSelectedGenre(genre);
     };
 
-    const [showViewStory, setShowViewStory] = useState(false);
-    const [selectedStory, setSelectedStory] = useState(null);
+    const [showBorrowModal, setShowBorrowModal] = useState(false);
+
+    const [selectedBook, setSelectedBook] = useState(null);
+    const filteredBook = books.find((book) => book._id === selectedBook);
 
     const handleViewBook = (id) => {
-          setSelectedStory(id)
+          setSelectedBook(id)
           navigate(`/library/view-book/${id}`)
+    }
+    const handleBorrowModal = (id) => {
+          setSelectedBook(id)
+          setShowBorrowModal(true);
     }
 
     useEffect(() => {
@@ -57,8 +64,11 @@ const Library_Page = () => {
     
 
     return(
+        <>
+        {loading && (<LoadingScreen/>)}
+        {showBorrowModal && (<BorrowModal book={filteredBook} onClose={() => setShowBorrowModal(false)}/>)}
         <section className="min-h-screen w-full">
-            {loading && (<LoadingScreen/>)}
+           
             <Lib_Navigation/>
 
             <div className="bg-white w-full justify-center items-center flex flex-col rounded-2xl px-10 bg-black">
@@ -79,6 +89,7 @@ const Library_Page = () => {
                             author={book.author}
                             cover={book.cover}
                             handleViewBook={() => handleViewBook(book._id)}
+                            showBorrowModal={() => handleBorrowModal(book._id)}
                             />
                         ))}
                     </div>
@@ -90,6 +101,7 @@ const Library_Page = () => {
             </div>
 
         </section>
+         </>
     )
 }
 export default Library_Page;

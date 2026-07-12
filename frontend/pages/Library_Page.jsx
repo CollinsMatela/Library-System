@@ -1,6 +1,7 @@
 import axios from 'axios'
 import useAuthStore from '../store/useAuthStore'
 import { useEffect, useState } from 'react'
+import { toast } from "react-toastify"
 
 import SearchIcon from '../src/assets/search-svgrepo-com.svg'
 import Lib_KindergartenBooks from '../library_components/Lib_KindergartenBooks'
@@ -59,14 +60,39 @@ const Library_Page = () => {
             } catch (error) {
             console.log(error);
             setErrorMessage(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message)
             }
+    }
+
+    const requestBorrow = async (bookId) => {
+
+        const requestData = {
+            userId: user._id,
+            name: `${user.firstname, user.lastname}`,
+            bookId: bookId,
+        }
+
+         try {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/request-borrow`, requestData);
+            toast.success(res.data.message);
+            fetchBooks();
+
+         } catch (error) {
+            console.log(error);
+            setErrorMessage(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message)
+         }
     }
     
 
     return(
         <>
         {loading && (<LoadingScreen/>)}
-        {showBorrowModal && (<BorrowModal book={filteredBook} onClose={() => setShowBorrowModal(false)}/>)}
+        {showBorrowModal && (<BorrowModal 
+        book={filteredBook} 
+        onClose={() => setShowBorrowModal(false)}
+        requestBorrow={requestBorrow}
+        />)}
         <section className="min-h-screen w-full">
            
             <Lib_Navigation/>
@@ -90,6 +116,7 @@ const Library_Page = () => {
                             cover={book.cover}
                             handleViewBook={() => handleViewBook(book._id)}
                             showBorrowModal={() => handleBorrowModal(book._id)}
+                            requestBorrow={requestBorrow}
                             />
                         ))}
                     </div>

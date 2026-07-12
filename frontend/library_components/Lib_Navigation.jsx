@@ -34,6 +34,7 @@ const Lib_Navigation = () => {
                           <div className='gap-2 justify-center items-center flex'>
                             <button className={`${location.pathname === '/library' ? "bg-black text-white" : "bg-white text-black"} h-10 px-4 justify-center items-center flex text-sm transition-all duration-300 ease-in-out cursor-pointer gap-2 rounded-xl`} onClick={() => navigate('/library')}><Blocks size={20}/> Book Browse</button>
                             <button className={`${location.pathname === '/library/catalog' ? "bg-black text-white" : "bg-white text-black"} h-10 px-4 justify-center items-center flex text-sm transition-all duration-300 ease-in-out cursor-pointer gap-2 rounded-xl`} onClick={() => navigate('/library/catalog')}><BookSearch size={20}/> Catalog</button>
+                            <button className={`${location.pathname === '/library/borrow-status' ? "bg-black text-white" : "bg-white text-black"} h-10 px-4 justify-center items-center flex text-sm transition-all duration-300 ease-in-out cursor-pointer gap-2 rounded-xl`} onClick={() => navigate('/library/borrow-status')}><BookSearch size={20}/> Borrow Status</button>
                             <button className="h-10 px-4 justify-center items-center flex text-gray-500 font-bold transition-all duration-300 ease-in-out cursor-pointer gap-2 hover:bg-red-100 hover:text-red-500 hover:underline rounded-xl" onClick={handleLogout}><LogOut size={20}/></button>
                           </div>
                        </div>

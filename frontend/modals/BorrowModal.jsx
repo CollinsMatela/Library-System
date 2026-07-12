@@ -1,7 +1,9 @@
 
 
+import { toast } from "react-toastify"
+const BorrowModal = ({book, onClose, requestBorrow}) => {
 
-const BorrowModal = ({book, onClose}) => {
+    
     return(
         <section className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
     <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden">
@@ -85,6 +87,7 @@ const BorrowModal = ({book, onClose}) => {
 
                     <button
                         className="px-6 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition cursor-pointer"
+                        onClick={() => requestBorrow(book._id)}
                     >
                         Send Request
                     </button>

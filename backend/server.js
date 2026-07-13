@@ -44,6 +44,7 @@ import DeleteBookRoute from './routes/DeleteBookRoute.js'
 
 import Borrow_Route from './routes/Borrow_Route.js'
 import Fetch_BorrowById_Route from './routes/Fetch_BorrowById_Route.js';
+import DeleteBorrow_Route from './routes/DeleteBorrow_Route.js'
 
 
 const app = express();
@@ -82,6 +83,7 @@ app.use("/", DeleteBookRoute);
 
 app.use("/", Borrow_Route);
 app.use("/", Fetch_BorrowById_Route);
+app.use("/", DeleteBorrow_Route);
 
 
 const PORT = process.env.PORT || 5000;

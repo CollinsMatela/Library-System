@@ -14,6 +14,7 @@ const Admin_SideBar = () => {
     const isViewStory = location.pathname === "/admin/books";
     const isUsersAccount = location.pathname === "/admin/users";
     const isUserRegistration = location.pathname === "/admin/user-registration";
+    const isBorrowBook = location.pathname === "/admin/borrow-book"
 
     const handleOverview = () => {
           navigate('/admin');
@@ -29,6 +30,9 @@ const Admin_SideBar = () => {
     }
     const handleUserRegistration = () => {
           navigate('/admin/user-registration');
+    }
+    const handleBorrowBook = () => {
+          navigate('/admin/borrow-book');
     }
 
     const handleLogout = () =>{
@@ -67,6 +71,11 @@ const Admin_SideBar = () => {
       <div className={`${isViewStory ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleViewStory}>
         <LibraryBig className={`${isViewStory ? 'text-white' : 'text-gray-500'}`} size={20}/>
         Books List
+      </div>
+
+      <div className={`${isBorrowBook ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleBorrowBook}>
+        <LibraryBig className={`${isBorrowBook ? 'text-white' : 'text-gray-500'}`} size={20}/>
+        Book Borrow
       </div>
 
       <div className={`${isUserRegistration ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleUserRegistration}>

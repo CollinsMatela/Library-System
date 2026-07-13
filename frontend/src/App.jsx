@@ -18,6 +18,7 @@ import Admin_Student_Page from "../pages/Admin_Student_Page";
 import Lib_Catalog from "../library_components/Lib_Catalog";
 import Admin_StudentRegistration_Page from "../components/Admin_StudentRegistration_Page";
 import Lib_Borrow from "../library_components/Lib_Borrow";
+import Admin_BorrowBook_Page from "../pages/Admin_BorrowBook_Page";
 
 
 const ProtectedRoute = ({ allowedRoles }) => {
@@ -64,6 +65,7 @@ function App() {
                 <Route path="/admin/upload-book" element={<Admin_UploadBook_Page />} />
                 <Route path="/admin/books" element={<Admin_Books_Page />} />
                 <Route path="/admin/book-information/:id" element={<Admin_ViewMaterials_Page />} />
+                <Route path="/admin/borrow-book" element={<Admin_BorrowBook_Page />} />
                 <Route path="/admin/users" element={<Admin_Student_Page />} />
                 <Route path="/admin/user-registration" element={<Admin_StudentRegistration_Page />} />
                 <Route path="/change-password" element={<Change_Password_Page/>}/>

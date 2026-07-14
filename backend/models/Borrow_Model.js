@@ -8,7 +8,7 @@ const BorrowSchema = new mongoose.Schema(
     title: {type: String},
     borrowDate: {type: String},
     returnDate: {type: String},
-    status: {type: String, enum: ['Pending', 'Approved', 'Rejected'], default: 'Pending'},
+    status: {type: String, enum: ['Pending', 'Approved', 'Borrowed', 'Returned', 'Rejected'], default: 'Pending'},
     quantity: {type: String, min: 1},
   },
   {

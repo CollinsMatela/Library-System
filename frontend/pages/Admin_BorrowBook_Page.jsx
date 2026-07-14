@@ -17,10 +17,10 @@ const Admin_BorrowBook_Page = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [borrowList, setBorrowList] = useState([]);
 
-    const Pendings = borrowList.filter((request) => request.status === 'Pending');
-    const Approved = borrowList.filter((request) => request.status === 'Approved');
-    const Borrowed = borrowList.filter((request) => request.status === 'Borrowed');
-    const Returned = borrowList.filter((request) => request.status === 'Returned');
+    const Pendings = borrowList.filter((request) => request.status === 'Pending').sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    const Approved = borrowList.filter((request) => request.status === 'Approved').sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    const Borrowed = borrowList.filter((request) => request.status === 'Borrowed').sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    const Returned = borrowList.filter((request) => request.status === 'Returned').sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     const [isPending, setIsPending] = useState(true);
     const [isApproved, setIsApproved] = useState(false);
@@ -36,26 +36,84 @@ const Admin_BorrowBook_Page = () => {
             setBorrowList(res.data.borrows);
             toast.success(res.data.message);
           } catch (error) {
-            toast.error(error?.response?.dat?.message);
+            toast.error(error?.response?.data?.message);
+            setErrorMessage(error?.response?.data?.message)
           }
     }
 
-    const updateStatus = async () => {
+    const updateBorrow = async (borrow) => {
+          if(!returnDate || !quantity) {
+            toast.warning('Please select date and quantity.')
+            return;
+          }
 
           const borrowData = {
-                borrowDate: new Date().getDate(),
-                returnDate: returnDate,
-                status: 'Approved',
-                quantity: quantity
+                id: borrow._id,
+                borrowDate: new Date().toISOString().split("T")[0],
+                returnDate: returnDate.split("T")[0],
+                status: 'Borrowed',
+                quantity: quantity,
+
+                bookId: borrow.bookId,
+                userId: borrow.userId
           }
 
           try {
             const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-borrow`, borrowData);
             toast.success(res.data.message);
+            fetchAllBorrow();
           } catch (error) {
-            toast.error(error?.response?.dat?.message);
+            toast.error(error?.response?.data?.message);
+            setErrorMessage(error?.response?.data?.message)
           }
     }
+
+    const approveBorrow = async (borrow) => {
+          const data = {
+                id: borrow._id,
+                status: 'Approved'
+          }
+          try {
+            const res = await axios.put(`${import.meta.env.VITE_API_URL}/approve-borrow`, data);
+            toast.success(res.data.message);
+            fetchAllBorrow();
+          } catch (error) {
+            toast.error(error?.response?.data?.message);
+            setErrorMessage(error?.response?.data?.message)
+          }
+    }
+
+    const ReturnBorrow = async (borrow) => {
+          const borrowData = {
+                id: borrow._id,
+                status: 'Returned',
+          }
+
+          try {
+            const res = await axios.put(`${import.meta.env.VITE_API_URL}/return-borrow`, borrowData);
+            toast.success(res.data.message);
+            fetchAllBorrow();
+          } catch (error) {
+            toast.error(error?.response?.data?.message);
+            setErrorMessage(error?.response?.data?.message)
+          }
+    }
+
+    // const DeleteBorrow = async (borrow) => {
+    //       const data = {
+    //             id: borrow._id,
+    //             borrowedDate: new Date().getDate().split('T')[0],
+    //             returnDate: returnDate.split('T')[0],
+    //             status: 'Borrowed'
+    //       }
+    //       try {
+    //         const res = await axios.put(`${import.meta.env.VITE_API_URL}/borrowed-borrow`, data);
+    //         toast.success(res.data.message);
+    //         fetchAllBorrow();
+    //       } catch (error) {
+    //         toast.error(error?.response?.dat?.message);
+    //       }
+    // }
 
     useEffect(() => {
         fetchAllBorrow();
@@ -153,9 +211,22 @@ const Admin_BorrowBook_Page = () => {
                 </div>
                 
                 {/**Tables */}
-                {isPending && (<PendingTable Pendings={Pendings}/>)}
-                {isApproved && (<ApprovedTable Approved={Approved}/>)}
-                {isBorrowed && (<BorrowedTable Borrowed={Borrowed}/>)}
+                {isPending && (
+                    <PendingTable Pendings={Pendings}
+                                  approveBorrow={approveBorrow}
+                    />)}
+                {isApproved && (
+                    <ApprovedTable Approved={Approved}
+                                   returnDate={returnDate}
+                                   setReturnDate={setReturnDate}
+                                   quantity={quantity}
+                                   setQuantity={setQuantity}
+                                   updateBorrow={updateBorrow}
+                    />)}
+                {isBorrowed && (
+                    <BorrowedTable Borrowed={Borrowed}
+                                   ReturnBorrow={ReturnBorrow}
+                    />)}
                 {isHistory && (<HistoryTable Returned={Returned}/>)}
                 
                         

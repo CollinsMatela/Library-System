@@ -81,7 +81,7 @@ const Upload_Manually_Controller = async (req, res) => {
           publisher,
           isbn,
           series,
-          copies,
+          copies: Number(copies),
           callNumber,
           availableAt,
 
@@ -112,7 +112,7 @@ const Upload_Manually_Controller = async (req, res) => {
           isbn,
 
           ddc,
-          copies,
+          copies: Number(copies),
           callNumber,
           availableAt,
 

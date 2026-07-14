@@ -11,7 +11,7 @@ const FictionSchema = new mongoose.Schema(
     publication: {type: String, default: ""},
     publisher: {type: String, default: ""},
     isbn: {type: String, default: ""},
-    copies: { type: String, default: "" },
+    copies: { type: Number, min:1, default: 1},
     callNumber: { type: String, default: "" },
     availableAt: { type: String, default: "" },
 

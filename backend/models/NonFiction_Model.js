@@ -28,7 +28,7 @@ const NonFictionSchema = new mongoose.Schema(
     volume: { type: String, default: "" },
 
     ddc: { type: String, default: "" },
-    copies: { type: Number, default: "" },
+    copies: { type: Number, min:1, default: 1},
     callNumber: { type: String, default: "" },
     availableAt: { type: String, default: "" },
   },

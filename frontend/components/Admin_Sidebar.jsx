@@ -2,7 +2,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore"
 import LittleMeLogo from "../public/LMLC.png"
 import { useState } from "react";
-import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut } from 'lucide-react'
+import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User } from 'lucide-react'
+import NaicLogo from '../src/assets/NaicLibraryLogo.png'
 
 const Admin_SideBar = () => {
     const navigate = useNavigate();
@@ -43,13 +44,13 @@ const Admin_SideBar = () => {
     return(
         <aside className="fixed left-0 top-0 z-0 h-full w-80 bg-white border-r-1 border-gray-300 px-4 py-10">
        <div className="justify-start items-center flex gap-2">
-          <div className="bg-gray-300 rounded-2xl h-12 w-12 flex justify-center items-center">
-              {/* <img src={""} alt="Little Me Logo" className="h-8 w-8 object-cover"/> */}
+          <div className="bg-white rounded-full h-12 w-12 flex justify-center items-center">
+              <img src={NaicLogo} alt="Little Me Logo" className="h-full w-full object-cover"/>
           </div>
           
           <div>
-            <h1 className="text-xl font-bold text-black">Digital Library Platform</h1>
-            <p className="text-xs text-gray-400">School Library Dashboard</p>
+            <h1 className="text-xl font-bold text-black">Naic Municipal Library</h1>
+            <p className="text-xs text-gray-400">Admin Dashboard</p>
           </div>
       </div>
 
@@ -74,12 +75,12 @@ const Admin_SideBar = () => {
       </div>
 
       <div className={`${isBorrowBook ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleBorrowBook}>
-        <LibraryBig className={`${isBorrowBook ? 'text-white' : 'text-gray-500'}`} size={20}/>
+        <HandHelping className={`${isBorrowBook ? 'text-white' : 'text-gray-500'}`} size={20}/>
         Book Borrow
       </div>
 
       <div className={`${isUserRegistration ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleUserRegistration}>
-        <Users className={`${isUserRegistration ? 'text-white' : 'text-gray-500'}`} size={20}/>
+        <User className={`${isUserRegistration ? 'text-white' : 'text-gray-500'}`} size={20}/>
         User Registration
       </div>
 

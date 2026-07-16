@@ -1,6 +1,6 @@
 import { Check, X } from "lucide-react";
 
-const ApprovedTable = ({Approved, returnDate, setReturnDate, quantity, setQuantity, updateBorrow}) => {
+const ApprovedTable = ({Approved, returnDate, setReturnDate, quantity, setQuantity, updateBorrow, deleteBorrow}) => {
     return(
         <div className="w-full flex flex-col gap-4 mt-6">
     {Approved.length > 0 ? (
@@ -55,6 +55,7 @@ const ApprovedTable = ({Approved, returnDate, setReturnDate, quantity, setQuanti
                     </button>
 
                     <button
+                        onClick={() => deleteBorrow(borrow)}
                         className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg"
                     >
                         <X size={20}/>

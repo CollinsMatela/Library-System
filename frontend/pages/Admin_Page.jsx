@@ -117,7 +117,16 @@ const Admin_Page = () =>{
 
       <div className="grid grid-cols-1 h-full w-1/2 gap-4">
         <div className="bg-white">
-          <h1 className="text-sm font-bold text-black border-b border-black pb-4 mb-4">Recent Registered User</h1>
+            <div className="flex items-center justify-between mb-5">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800">
+                Recent Registered User
+              </h2>
+              <p className="text-sm text-gray-500">
+                Most recently added user to the library
+              </p>
+            </div>
+          </div>
           {users.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3).map((user) => (
              <div key={user._id} className="bg-white h-20 w-full border border-gray-300 rounded-xl p-4 mb-2">
               <div className="flex gap-2">
@@ -137,16 +146,30 @@ const Admin_Page = () =>{
       </div>
 
       <div className="bg-white">
-          <h1 className="text-sm font-bold text-black border-b border-black pb-4 mb-4">Latest Borrow Request</h1>
+          <div className="flex items-center justify-between mb-5">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-800">
+              Recent Request
+            </h2>
+            <p className="text-sm text-gray-500">
+              Most recently user request of borrowing
+            </p>
+          </div>
+        </div>
           {Pending.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3).map((pen, index) => (
-             <div key={pen._id} className="bg-yellow-100 h-20 w-full border border-yellow-500 rounded-xl p-4 mb-2">
-              <div className="justify-between items-center flex gap-2">
+             <div key={pen._id} className="bg-white h-20 w-full border border-yellow-500 rounded-xl p-4 mb-2">
+              <div className="justify-start items-center flex gap-2">
+
+                  <div className="h-12 w-12 bg-yellow-500 rounded-xl justify-center items-center flex">
+                    <CircleAlert color="white"/>
+                  </div>
+
                   <div>
                     <h1 className="text-yellow-500 font-bold">{pen.name}</h1>
                     <h1 className="text-xs text-yellow-400 font-semibold">Requested Date: {pen.createdAt.split("T")[0]}</h1>
                   </div>
 
-                  <CircleAlert className="text-yellow-600"/>
+                  
               </div>
                   
              </div>
@@ -155,7 +178,7 @@ const Admin_Page = () =>{
 
       </div>
 
-      <div className="w-full lg:w-1/2 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+      <div className="w-full lg:w-1/2 bg-white">
         <div className="flex items-center justify-between mb-5">
           <div>
             <h2 className="text-2xl font-bold text-gray-800">

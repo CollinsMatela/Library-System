@@ -83,6 +83,17 @@ const Admin_BorrowBook_Page = () => {
           }
     }
 
+    const deleteBorrow = async (borrow) => {
+        try {
+            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-borrow/${borrow._id}`)
+            toast.success(res.data.message);
+            fetchAllBorrow();
+        } catch (error) {
+            toast.error(error?.response?.data?.message);
+            setErrorMessage(error?.response?.data?.message)
+        }
+    }
+
     const ReturnBorrow = async (borrow) => {
           const borrowData = {
                 id: borrow._id,
@@ -214,6 +225,7 @@ const Admin_BorrowBook_Page = () => {
                 {isPending && (
                     <PendingTable Pendings={Pendings}
                                   approveBorrow={approveBorrow}
+                                  deleteBorrow={deleteBorrow}
                     />)}
                 {isApproved && (
                     <ApprovedTable Approved={Approved}
@@ -222,6 +234,7 @@ const Admin_BorrowBook_Page = () => {
                                    quantity={quantity}
                                    setQuantity={setQuantity}
                                    updateBorrow={updateBorrow}
+                                   deleteBorrow={deleteBorrow}
                     />)}
                 {isBorrowed && (
                     <BorrowedTable Borrowed={Borrowed}

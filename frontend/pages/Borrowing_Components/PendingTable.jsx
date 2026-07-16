@@ -1,6 +1,6 @@
 import { Check, X } from "lucide-react";
 
-const PendingTable = ({Pendings, approveBorrow}) => {
+const PendingTable = ({Pendings, approveBorrow, deleteBorrow}) => {
     return(
         <div className="w-full flex flex-col gap-4 mt-6">
     {Pendings.length > 0 ? (
@@ -53,6 +53,7 @@ const PendingTable = ({Pendings, approveBorrow}) => {
                     </button>
 
                     <button
+                        onClick={() => deleteBorrow(borrow)}
                         className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg"
                     >
                         <X size={20}/>

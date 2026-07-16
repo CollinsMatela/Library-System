@@ -49,6 +49,7 @@ import Fetch_AllBorrow_Route from './routes/Fetch_AllBorrow_Route.js'
 import Update_Borrow_Route from './routes/Update_Borrow_Route.js';
 import ApproveBorrowRoute from './routes/ApproveBorrowRoute.js'
 import ReturnBorrowRoute from './routes/ReturnBorrowRoute.js'
+import DeleteBorrowRoute from './routes/DeleteBorrowRoute.js'
 
 
 const app = express();
@@ -92,6 +93,7 @@ app.use("/", Fetch_AllBorrow_Route);
 app.use("/", Update_Borrow_Route);
 app.use("/", ApproveBorrowRoute);
 app.use("/", ReturnBorrowRoute);
+app.use("/", DeleteBorrowRoute);
 
 const PORT = process.env.PORT || 5000;
 

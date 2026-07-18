@@ -2,7 +2,7 @@ import Lib_Navigation from "./Lib_Navigation"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import { X } from "lucide-react"
+import { X, Hourglass, CheckCheck, Check, CalendarClock } from "lucide-react"
 import useAuthStore from '../store/useAuthStore'
 import Confirmation from '../popup/Confirmation_Popup'
 
@@ -14,13 +14,14 @@ const Lib_Borrow = () => {
     const [selectedRequest, setSelectedRequest] = useState(null);
     const [request, setRequest] = useState([]);
 
+    const inOrderRequest = request.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
     const fetchBorrow = async () => {
           try {
             console.log(user._id)
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-borrow/${user._id}`);
             setRequest(res.data.request);
             console.log(res.data.message);
-            toast.success(res.data.message);
           } catch (error) {
             console.log(error)
             toast.error(error?.response?.data?.message);
@@ -70,8 +71,8 @@ const Lib_Borrow = () => {
                                     </p>
                             </header>
                         </div>
-                        <div className="w-7xl flex flex-col gap-4 bg-white mt-4">
-                            {request?.length === 0 ? (
+                        <div className="h-150 w-7xl flex flex-col gap-4 bg-white mt-4 overflow-y-auto">
+                            {inOrderRequest?.length === 0 ? (
                                 <div className="flex flex-col items-center justify-center py-16 rounded-xl bg-gray-100">
                                     <h2 className="text-xl font-semibold text-gray-700">
                                         No Borrow Requests
@@ -81,10 +82,10 @@ const Lib_Borrow = () => {
                                     </p>
                                 </div>
                             ) : (
-                                request.map((req) => (
+                                inOrderRequest.map((req) => (
                                     <div
                                         key={req._id}
-                                        className="flex items-center justify-between border border-gray-300 rounded-xl p-5 transition duration-200"
+                                        className="flex items-start justify-between border border-gray-300 rounded-xl p-5 transition duration-200"
                                     >
                                         <div>
                                             <h2 className="text-lg font-semibold text-gray-800">
@@ -95,28 +96,43 @@ const Lib_Borrow = () => {
                                                 Requested on{" "}
                                                 {new Date(req.createdAt).toLocaleDateString()}
                                             </p>
-                                        </div>
 
-                                        <div className="justify-center items-center flex gap-2">
                                             <span
-                                            className={`px-4 py-2 rounded-full text-sm font-semibold
+                                            className={`rounded-full text-sm font-semibold
                                                 ${
                                                     req.status === "Pending"
-                                                        ? "bg-yellow-100 text-yellow-700"
+                                                        ? " text-yellow-500"
                                                         : req.status === "Approved"
-                                                        ? "bg-blue-100 text-blue-700"
+                                                        ? " text-blue-500"
                                                         : req.status === "Borrowed"
-                                                        ? "bg-green-100 text-green-700"
+                                                        ? " text-orange-500"
                                                         : req.status === "Returned"
-                                                        ? "bg-gray-100 text-gray-700"
+                                                        ? " text-green-500"
                                                         : "bg-red-100 text-red-700"
                                                 }`}
                                         >
-                                            {req.status}
+                                            Status: {req.status}
                                         </span>
-                                        <button className="px-4 py-2 bg-red-600 rounded-full hover:bg-red-700 cursor-pointer"
+
+                                        </div>
+
+                                        <div className="h-20 w-fit justify-center items-center flex">
+                                            {req.status === 'Pending' && (<h1 className="text-xs text-gray-400 font-md justify-center items-center flex gap-2">Currently in review. Please keep waiting! <Hourglass size={15}/></h1>)}
+                                            {req.status === 'Approved' && (<h1 className="text-xs text-gray-400 font-md justify-center items-center flex gap-2">Your request has been approved. Please proceed to library and bring your VALID ID. <Check size={15}/></h1>)}
+                                            {req.status === 'Borrowed' && (<h1 className="text-xs text-gray-400 font-md justify-center items-center flex gap-2">{`Please return until ${req.returnDate}`} <CalendarClock size={15}/></h1>)}
+                                            {req.status === 'Returned' && (<h1 className="text-xs text-gray-400 font-md justify-center items-center flex gap-2">Successfully Returned. <CheckCheck size={15}/></h1>)}
+                                        </div>
+
+                                        <div className="justify-center items-center flex gap-2">
+                                            
+                                        {(req.status === 'Pending' || req.status === 'Approved') && 
+                                        (
+                                        <button className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-700 cursor-pointer"
                                         onClick={() => handleConfirmation(req)}
-                                        ><X size={20} color="white"/></button>
+                                        ><X size={20} color="white"/>
+                                        </button>
+                                        )}
+                                        
                                         </div>
                                         
                                     </div>

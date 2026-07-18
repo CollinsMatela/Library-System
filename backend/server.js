@@ -51,6 +51,8 @@ import ApproveBorrowRoute from './routes/ApproveBorrowRoute.js'
 import ReturnBorrowRoute from './routes/ReturnBorrowRoute.js'
 import DeleteBorrowRoute from './routes/DeleteBorrowRoute.js'
 
+import SummarizationRoute from './routes/SummarizationRoute.js'
+
 
 const app = express();
 app.use(cors());
@@ -94,6 +96,8 @@ app.use("/", Update_Borrow_Route);
 app.use("/", ApproveBorrowRoute);
 app.use("/", ReturnBorrowRoute);
 app.use("/", DeleteBorrowRoute);
+
+app.use("/", SummarizationRoute);
 
 const PORT = process.env.PORT || 5000;
 

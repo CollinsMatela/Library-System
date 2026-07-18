@@ -12,23 +12,32 @@ const Lib_StoryLayoutBook = ({book, showText, showImage, pageIndex, nextPage, pr
     const hasText = book?.pages[pageIndex]?.pageText;
 
     useEffect(() => {
-        if (pageIndex >= book.pages.length) return;
+    if (pageIndex >= book.pages.length) return;
 
-        const timer = setTimeout(() => {
-            const utterance = new SpeechSynthesisUtterance(hasText);
+    let utterance;
 
-            utterance.onend = () => {
-                nextPage();
-            };
+    if (pageIndex === 0) {
+        utterance = new SpeechSynthesisUtterance(
+            `Hello, little friends! Welcome to our story time. Today, we'll journey into the wonderful world of "${book.title}" by ${book.author}. 
+            Get comfortable, open your imagination, and let's discover this amazing story together. Here we go! ${hasText}`
+        );
+    } else {
+        utterance = new SpeechSynthesisUtterance(hasText);
+    }
 
-            speechSynthesis.speak(utterance);
-        }, 1500);
+    utterance.onend = () => {
+        nextPage();
+    };
 
-        return () => {
-            clearTimeout(timer);
-            speechSynthesis.cancel();
-        };
-    }, [pageIndex, hasText]);
+    const timer = setTimeout(() => {
+        speechSynthesis.speak(utterance);
+    }, 1500);
+
+    return () => {
+        clearTimeout(timer);
+        speechSynthesis.cancel();
+    };
+}, [pageIndex, hasText]);
 
     return(
        <div className="h-screen w-fit justify-center items-center flex flex-col gap-4">

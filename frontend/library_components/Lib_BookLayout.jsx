@@ -9,6 +9,7 @@ import {
   stopSpeech,
 } from '../utils/speech.js';
 import {toast} from 'react-toastify'
+import axios from 'axios'
 
 const Lib_BookLayout = ({book, onClose}) => {
 
@@ -40,6 +41,7 @@ const Lib_BookLayout = ({book, onClose}) => {
           setShowImage(true)
           setShowText(false)
     }
+
 
     return(
         <section className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">

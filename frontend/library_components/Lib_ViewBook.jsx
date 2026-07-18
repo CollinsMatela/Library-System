@@ -3,8 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import Lib_Navigation from "./Lib_Navigation";
 import axios from "axios";
 import useAuthStore from "../store/useAuthStore";
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Sparkles, Sparkle } from "lucide-react";
 import Lib_BookLayout from "./Lib_BookLayout";
+import { toast } from "react-toastify";
 
 const Lib_ViewBook = () => {
 
@@ -15,6 +16,8 @@ const Lib_ViewBook = () => {
 
     const [errorMessage, setErrorMessage] = useState("");
     const [bookDetails, setBookDetails] = useState(null);
+
+    const [generatedSummary, setgeneratedSummary] = useState('');
 
     const informations = [
     // Classification
@@ -57,6 +60,25 @@ const Lib_ViewBook = () => {
             setErrorMessage(error?.response?.data?.message);
           }
     } 
+
+    
+    const AISummarization = async () => {
+
+          const texts = bookDetails.pages.map((p) => p.pageText);
+
+          const bookData = {
+            title: bookDetails.title,
+            texts: texts
+          }
+          try {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/ai-summarization`, bookData)
+            setgeneratedSummary(res.data.summary);
+            toast.success(res.data.message);
+          } catch (error) {
+            console.log(error);
+            toast.error(error?.response?.data?.message);
+          }
+    }
 
     
 
@@ -108,12 +130,20 @@ const Lib_ViewBook = () => {
                     </div>
 
                     <div className="flex gap-2">
-                        <button className="justify-center items-center flex gap-2 bg-blue-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+
+                        <button className={`${generatedSummary ? "hidden" : ""} justify-center items-center flex gap-2 bg-white py-2 px-3 text-sm text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`}
+                        onClick={() => AISummarization()}>
+                            <Sparkle size={20}/> Summary
+                        </button>
+
+
+                        <button className="justify-center items-center flex gap-2 bg-white py-2 px-3 text-sm text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer">
+                            <Sparkle size={20}/> AI Video
+                        </button>
+
+                        <button className="justify-center items-center flex gap-2 bg-black py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
                         onClick={() => setShowReadModal(true)}>
                             <BookOpenText size={20}/> Read
-                        </button>
-                        <button className="justify-center items-center flex gap-2 bg-black py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer">
-                            <Play size={20}/> AI Video
                         </button>
                     </div>
                 </div>
@@ -123,6 +153,33 @@ const Lib_ViewBook = () => {
            <div className="w-full py-4 rounded-xl">
                  <h1 className="text-gray-500 text-sm font-md">{bookDetails?.description || "—"}</h1>
            </div>
+
+           {generatedSummary && (
+            <div className="mt-6 rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50 to-white p-6 shadow-sm">
+                <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-100">
+                    <Sparkles size={20} className="text-violet-600" />
+                </div>
+
+                <div>
+                    <h2 className="text-lg font-semibold text-gray-900">
+                    AI Generated Summary
+                    </h2>
+                    <p className="text-sm text-gray-500">
+                    Generated using AI to provide a concise overview of the story.
+                    </p>
+                </div>
+                </div>
+
+                <div className="mt-5 rounded-xl bg-white p-5 border border-gray-100">
+                <p className="leading-8 text-gray-700 whitespace-pre-line">
+                    {generatedSummary}
+                </p>
+                </div>
+            </div>
+            )}
+
+           
            
 
            <div className="w-full flex flex-col gap-2">

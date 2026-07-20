@@ -3,9 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import Lib_Navigation from "./Lib_Navigation";
 import axios from "axios";
 import useAuthStore from "../store/useAuthStore";
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Sparkles, Sparkle } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Sparkles, Sparkle, Hourglass } from "lucide-react";
 import Lib_BookLayout from "./Lib_BookLayout";
 import { toast } from "react-toastify";
+import BorrowModal from '../modals/BorrowModal'
 
 const Lib_ViewBook = () => {
 
@@ -18,6 +19,10 @@ const Lib_ViewBook = () => {
     const [bookDetails, setBookDetails] = useState(null);
 
     const [generatedSummary, setgeneratedSummary] = useState('');
+    const [showBorrowModal, setShowBorrowModal] = useState(false);
+
+    const [borrows, setBorrows] = useState([]);
+    const isRequestExisting = borrows.find((b) => b.bookId === id && b.userId === user._id && (b.status === 'Pending' || b.status === 'Approved'))
 
     const informations = [
     // Classification
@@ -44,10 +49,12 @@ const Lib_ViewBook = () => {
     // Library Information
     { label: "Copies", value: bookDetails?.copies },
     { label: "Available At", value: bookDetails?.availableAt },
+    { label: "ID", value: bookDetails?._id },
 ];
 
     useEffect(() => {
          fetchBookById();
+         fetchAllBorrow();
     },[])
 
     const fetchBookById = async () => {
@@ -60,6 +67,44 @@ const Lib_ViewBook = () => {
             setErrorMessage(error?.response?.data?.message);
           }
     } 
+
+    const handleBorrowModal = (id) => {
+          setSelectedBook(id)
+          setShowBorrowModal(true);
+    }
+
+    const requestBorrow = async (bookId) => {
+
+        const requestData = {
+            userId: user._id,
+            name: `${user.firstname, user.lastname}`,
+            bookId: bookId,
+        }
+
+         try {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/request-borrow`, requestData);
+            toast.success(res.data.message);
+            fetchBookById();
+            setShowBorrowModal(false);
+
+         } catch (error) {
+            console.log(error);
+            setErrorMessage(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message)
+         }
+    }
+
+    const fetchAllBorrow = async () => {
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/fetch-all-borrow`);
+            setBorrows(res.data.borrows);
+
+         } catch (error) {
+            console.log(error);
+            setErrorMessage(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message)
+         }
+    }
 
     
     const AISummarization = async () => {
@@ -85,7 +130,12 @@ const Lib_ViewBook = () => {
     return(
     <>
     {showReadModal && (<Lib_BookLayout book={bookDetails} onClose={() => setShowReadModal(false)}/>)}
-    <section className="min-h-screen w-full justify-start items-center flex flex-col">
+    {showBorrowModal && (<BorrowModal 
+    book={bookDetails} 
+    onClose={() => setShowBorrowModal(false)}
+    requestBorrow={requestBorrow}
+    />)}
+    <section className="min-h-screen w-full justify-start items-center flex flex-col pb-10">
   
     <Lib_Navigation />
 
@@ -103,22 +153,29 @@ const Lib_ViewBook = () => {
         {/* Book Cover Container */}
         <div className="bg-white w-120 flex flex-col gap-4">
             <img src={bookDetails?.cover} className="bg-gray-100 h-100 object-cover shadow-xl mb-5" />
-            <h1 className="text-gray-800">Book Status: {" "}
-                <span className={`${bookDetails?.availability ? "text-green-500" : "text-red-500"}`}>
-                  {bookDetails?.availability ? "Available" : "Not Available"}
-                </span>
-            </h1>
-            <button className="justify-center items-center flex gap-2 bg-black py-2 w-full rounded-lg cursor-pointer text-white text-sm font-bold">
-                <HandHelping/>Borrow
-            </button>
-            <h1 className="text-xs text-gray-500">{id || "Book Id —"}</h1>
+            <div className="justify-between items-center flex">
+                 <h1 className="text-gray-500 font-semibold text-sm">Book Status</h1>
+                 <h1 className={`${bookDetails?.copies > 0 ? "text-green-500" : "text-red-500"} font-bold`}>{bookDetails?.copies > 0 ? "Available" : "Not Available"}</h1>
+            </div>
+           
+            {!isRequestExisting && bookDetails?.copies > 0 && (
+               <button className="justify-center items-center flex gap-2 bg-black py-2 w-full rounded-lg cursor-pointer text-white text-sm font-bold" onClick={() => setShowBorrowModal(true)}>
+                <HandHelping size={20}/>Request Borrow
+               </button>
+            )}
+            {isRequestExisting && (
+                <div className="justify-center items-center flex gap-2 bg-yellow-100 border border-yellow-500 py-2 w-full rounded-lg text-yellow-500">
+                <span className="font-semibold text-sm">Request Status: {isRequestExisting.status}</span>
+                <Hourglass size={15}/>
+               </div>
+            )}
         </div>
         {/* Book Details Container */}
-        <div className=" w-full p-4 justify-start items-start flex flex-col gap-5">
+        <div className=" w-full p-4 justify-start items-start flex flex-col">
 
             <div className="w-full justify-between items-start flex flex-col border-gray-300 border-b-1">
                 <div className="w-full flex flex-col gap-2">
-                    <h1 className="text-gray-800 text-4xl font-md">{bookDetails?.title || "Book name"}</h1>
+                    <h1 className="text-black text-4xl font-bold italic">{bookDetails?.title || "Book name"}</h1>
                     <h1 className="text-sm text-gray-500">Authored by: {bookDetails?.author || "—"}</h1>
                 </div>
 
@@ -150,10 +207,6 @@ const Lib_ViewBook = () => {
 
             </div>
 
-           <div className="w-full py-4 rounded-xl">
-                 <h1 className="text-gray-500 text-sm font-md">{bookDetails?.description || "—"}</h1>
-           </div>
-
            {generatedSummary && (
             <div className="mt-6 rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50 to-white p-6 shadow-sm">
                 <div className="flex items-center gap-3">
@@ -179,10 +232,13 @@ const Lib_ViewBook = () => {
             </div>
             )}
 
-           
-           
+           <div className="w-full py-4 rounded-xl my-6">
+                 <h1 className="text-gray-500 text-sm font-md">{bookDetails?.description || "No Description"}</h1>
+           </div>
 
            <div className="w-full flex flex-col gap-2">
+
+           <h1 className="text-md font-semibold text-gray-800">Book Details —</h1>
 
             {informations.filter(info =>
                 info.value !== null &&
@@ -191,9 +247,9 @@ const Lib_ViewBook = () => {
                 info.value !== "—"
             ).map((info, index) => (
                 <div key={index}
-                className="w-full border-b-1 border-gray-300 justify-between items-center flex p-2">
+                className="w-full border-b-1 border-gray-300 justify-between items-center flex py-2">
                 <h1 className="text-xs font-bold text-gray-500">{info.label}</h1>
-                <h1 className="text-sm font-bold uppercase">{info.value}</h1>
+                <h1 className="text-sm">{info.value}</h1>
                 </div>
             ))}
 

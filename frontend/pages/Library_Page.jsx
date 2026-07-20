@@ -28,6 +28,7 @@ const Library_Page = () => {
     const navigate = useNavigate();
 
     const [books, setBooks] = useState([]);
+    const [borrows, setBorrows] = useState([]);
 
     const showStories = (genre) => {
     setSelectedGenre(genre);
@@ -49,6 +50,7 @@ const Library_Page = () => {
 
     useEffect(() => {
            fetchBooks();
+           fetchAllBorrow();
         },[])
     
     const fetchBooks = async () => {
@@ -62,6 +64,17 @@ const Library_Page = () => {
             setErrorMessage(error?.response?.data?.message);
             toast.error(error?.response?.data?.message)
             }
+    }
+    const fetchAllBorrow = async () => {
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/fetch-all-borrow`);
+            setBorrows(res.data.borrows);
+
+         } catch (error) {
+            console.log(error);
+            setErrorMessage(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message)
+         }
     }
 
     const requestBorrow = async (bookId) => {
@@ -111,9 +124,7 @@ const Library_Page = () => {
                         {books.map((book) => (
                             <Lib_BookCard 
                             key={book._id}
-                            title={book.title}
-                            author={book.author}
-                            cover={book.cover}
+                            book={book}
                             handleViewBook={() => handleViewBook(book._id)}
                             showBorrowModal={() => handleBorrowModal(book._id)}
                             requestBorrow={requestBorrow}

@@ -23,9 +23,18 @@ const Borrow_Controller = async (req, res) => {
             bookId: bookId
           })
 
-          if(isExistRequest){
-             res.status(400).json({message: 'Status: Pending'})
-             return;
+          const activeRequest = await Borrow_Model.findOne({
+            userId,
+            bookId,
+            status: {
+              $in: ["Pending", "Approved", "Borrowed"],
+            },
+          });
+
+          if (activeRequest) {
+            return res.status(400).json({
+              message: "Already in process.",
+            });
           }
 
           const borrow = await Borrow_Model.create({

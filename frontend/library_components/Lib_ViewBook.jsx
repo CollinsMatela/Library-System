@@ -152,7 +152,7 @@ const Lib_ViewBook = () => {
     <div className="w-7xl flex gap-4">
         {/* Book Cover Container */}
         <div className="bg-white w-120 flex flex-col gap-4">
-            <img src={bookDetails?.cover} className="bg-gray-100 h-100 object-cover shadow-xl mb-5" />
+            <img src={bookDetails?.cover} className="bg-gray-100 object-center shadow-xl mb-5" />
             <div className="justify-between items-center flex">
                  <h1 className="text-gray-500 font-semibold text-sm">Book Status</h1>
                  <h1 className={`${bookDetails?.copies > 0 ? "text-green-500" : "text-red-500"} font-bold`}>{bookDetails?.copies > 0 ? "Available" : "Not Available"}</h1>

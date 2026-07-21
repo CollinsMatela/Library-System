@@ -1,11 +1,11 @@
 import groq from "../config/groq.js";
 
 const SummarizationController = async (req, res) => {
-      const {title, texts} = req.body;
+      const {title, language, texts} = req.body;
       
-      if (!title || !texts) {
+      if (!title || !texts || !language) {
             return res.status(400).json({
-                message: "Title and story text are required."
+                message: "Title, Text and Language are required."
             });
         }
 
@@ -15,7 +15,7 @@ const SummarizationController = async (req, res) => {
         messages: [
         {
             role: "user",
-            content: `Summarize this story in 100 words using simple language for children:\n\n${title} ${texts}`,
+            content: `Summarize and give the moral of this story in 100 words using simple ${language || 'english'} language for children:\n\n${title} ${texts}`,
         },
         ]
         });

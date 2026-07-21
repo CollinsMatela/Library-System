@@ -34,9 +34,12 @@ const Admin_UploadBook_Page = () => {
         const [isbn, setIsbn] = useState("");
         const [availability, setAvailability] = useState(true);
         const [ddc, setDdc] = useState("");
-        const [copies, setCopies] = useState(0);
+        const [copies, setCopies] = useState(1);
         const [callNumber, setCallNumber] = useState("");
         const [availableAt, setAvailableAt] = useState("")
+        
+        const [illustrator, setIllustrator] = useState("");
+        const [moral, setMoral] = useState("");
 
 
         // Fictions Addiotionals Information
@@ -209,6 +212,16 @@ const Admin_UploadBook_Page = () => {
         if (!title) {
             toast.warning('Please enter book title')
             return;
+        }
+
+        if (!language) {
+            toast.warning('Please select language')
+            return;
+        }
+
+        if (!copies || copies < 1) {
+            toast.warning('Please enter no. of copies')
+            return;
         } 
 
         if(selectedCategoryOfBook.toLowerCase() === 'textbook') {
@@ -302,7 +315,7 @@ const Admin_UploadBook_Page = () => {
         {showConfirmation && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={uploadStory} onCancel={() => {setShowConfirmation(false); setErrorMessage("")}}/>)}
         <section className="min-h-screen w-full pl-90 pr-10 py-10">
 
-            <header className="w-full justify-between items-start flex flex-col mb-10">
+            <header className="w-full justify-between items-start flex flex-col pb-10 border-b border-gray-300">
 
                 <div>
                     <h1 className="text-3xl font-bold text-gray-800">Upload Book Management</h1>
@@ -315,7 +328,7 @@ const Admin_UploadBook_Page = () => {
                 <div className={`bg-black w-full flex bg-white rounded-xl gap-10 mt-10`}>
                     
                         {/* Story Details */}
-                        <div className="bg-white w-full flex flex-col gap-4">
+                        <div className="bg-white w-full flex flex-col gap-10">
 
                        <TypeOfBooks
                        selectedTypeOfBooks={selectedTypeOfBooks}
@@ -351,8 +364,11 @@ const Admin_UploadBook_Page = () => {
                             isbn={isbn}
                             setIsbn={setIsbn}
 
-                            availability={availability}
-                            setAvailability={setAvailability}
+                            illustrator={illustrator}
+                            setIllustrator={setIllustrator}
+
+                            moral={moral}
+                            setMoral={setMoral}
 
                             series={series}
                             setSeries={setSeries}
@@ -419,26 +435,11 @@ const Admin_UploadBook_Page = () => {
                     )}
 
 
-                    
-
-                        
-
-
-                         </div>
-
-                    
-                         
-                    {/*Preview Card*/}
-                    
- 
-                    
-                </div>
-                
-                {/*Book Pages and Image insertion*/}
-                <div className="w-full mt-5 flex flex-col gap-4">
+                    {/*Book Pages and Image insertion*/}
+                <div className="w-full flex flex-col gap-4 pb-10 border-b border-gray-300">
                      <div>
-                        <h2 className="text-lg font-bold text-gray-500 rounded-full">Book Pages</h2>
-                        <p className="text-gray-400 text-sm">Fill-up the required information in the story.</p>
+                    <h2 className="text-3xl font-bold text-gray-800">Book Page</h2>
+                    <p className="text-gray-400 text-md">Choose Kind of Books you wanted to upload</p>
                     </div>
 
                     
@@ -509,11 +510,28 @@ const Admin_UploadBook_Page = () => {
                         )}
                         </div>
                 </div>
+
+                        
+
+
+                         </div>
+
+                    
+                         
+                    {/*Preview Card*/}
+                    
+ 
+                    
+                </div>
+                
+                
                   
                   <PreviewBook
                   type={selectedTypeOfBooks}
                   category={selectedCategoryOfBook}
                   pages={pageList}
+                  moral={moral}
+                  setMoral={setMoral}
                   preview={preview}
                   title={title}
                   description={description} 

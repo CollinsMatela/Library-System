@@ -11,16 +11,30 @@ const Lib_StoryLayoutBook = ({book, showText, showImage, pageIndex, nextPage, pr
     const hasImage = book?.pages[pageIndex]?.pageImage;
     const hasText = book?.pages[pageIndex]?.pageText;
 
+    const introductions = [
+      {
+        language: "English",
+        text: `Hello, little friends! Welcome to our story time. Today, we'll journey into the wonderful world of "${book.title}" by ${book.author}. Get comfortable, open your imagination, and let's discover this amazing story together. Are you ready? Then let's begin our adventure! ${hasText}`
+      },
+      {
+        language: "Tagalog",
+        text: `Kamusta, mga munting kaibigan! Maligayang pagdating sa ating oras ng pagkukuwento. Ngayon, sabay nating tuklasin ang kahanga-hangang mundo ng "${book.title}" na isinulat ni ${book.author}. Umupo nang kumportable, buksan ang inyong imahinasyon, at simulan na natin ang ating masayang paglalakbay. Handa na ba kayo? Tara na! ${hasText}`
+      },
+    ];
+
     useEffect(() => {
     if (pageIndex >= book.pages.length) return;
 
     let utterance;
 
     if (pageIndex === 0) {
-        utterance = new SpeechSynthesisUtterance(
-            `Hello, little friends! Welcome to our story time. Today, we'll journey into the wonderful world of "${book.title}" by ${book.author}. 
-            Get comfortable, open your imagination, and let's discover this amazing story together. Here we go! ${hasText}`
-        );
+
+        if(book.language.toLowerCase() === 'filipino') {
+          utterance = new SpeechSynthesisUtterance(introductions[1].text);
+        } else {
+          utterance = new SpeechSynthesisUtterance(introductions[0].text);
+        }
+        
     } else {
         utterance = new SpeechSynthesisUtterance(hasText);
     }
@@ -31,7 +45,7 @@ const Lib_StoryLayoutBook = ({book, showText, showImage, pageIndex, nextPage, pr
 
     const timer = setTimeout(() => {
         speechSynthesis.speak(utterance);
-    }, 1500);
+    }, 3000);
 
     return () => {
         clearTimeout(timer);

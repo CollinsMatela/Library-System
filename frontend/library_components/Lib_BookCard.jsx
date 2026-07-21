@@ -5,11 +5,11 @@ const Lib_BookCard = ({ handleViewBook, book, showBorrowModal}) => {
     return(
          <div className="space-y-2 cursor-pointer hover:-translate-y-1" onClick={handleViewBook}>
 
-                   <div className="relative overflow-hidden rounded-lg">
+                   <div className="relative overflow-hidden ">
                     <img
                         src={book.cover}
                         alt={book.title}
-                        className="h-80 w-full object-cover"
+                        className="h-100 object-cover"
                     />
 
                     <span

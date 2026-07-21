@@ -25,8 +25,11 @@ const FictionBookInformation = ({
     isbn,
     setIsbn,
 
-    availability,
-    setAvailability,
+    illustrator,
+    setIllustrator,
+
+    moral,
+    setMoral,
 
     // Library Information
     series,
@@ -48,14 +51,10 @@ const FictionBookInformation = ({
     setVolume,
 }) => {
     return(
-                <div className="w-full flex flex-col gap-4">
+        <div className="w-full flex flex-col gap-4 pb-10 border-b border-gray-300">
             <div>
-                <h2 className="text-lg font-bold text-gray-500">
-                    Fiction Book Information
-                </h2>
-                <p className="text-sm text-gray-400">
-                    Fill up the required information for the book.
-                </p>
+            <h2 className="text-3xl font-bold text-gray-800">Fill Information</h2>
+            <p className="text-gray-400 text-md">Fill up the required information for the book.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
@@ -76,12 +75,20 @@ const FictionBookInformation = ({
                     onChange={(e) => setAuthor(e.target.value)}
                 />
 
+                <input
+                    type="text"
+                    placeholder="Illustrator (Optional)"
+                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    value={illustrator}
+                    onChange={(e) => setIllustrator(e.target.value)}
+                />
+
                 <select
                     className="h-12 border border-gray-300 text-gray-500 rounded-lg p-2 bg-white outline-none"
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}
                 >
-                    <option value="">Select Language (Optional)</option>
+                    <option value="">Select Language</option>
                     <option value="english">English</option>
                     <option value="filipino">Filipino</option>
                 </select>
@@ -138,7 +145,8 @@ const FictionBookInformation = ({
 
                 <input
                     type="number"
-                    placeholder="Number of Copies (Optional)"
+                    min={1}
+                    placeholder="Number of Copies"
                     className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
                     value={copies}
                     onChange={(e) => setCopies(e.target.value)}

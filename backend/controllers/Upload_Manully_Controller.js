@@ -8,7 +8,7 @@ import fs from "fs";
 const Upload_Manually_Controller = async (req, res) => {
   const {
     // General
-    type, category, field, title, author, description, language, publication, publisher, isbn, availability, 
+    type, category, field, title, author, description, language, publication, publisher, isbn, 
     edition, volume, ddc, copies, callNumber, availableAt, pages, subject, gradeLevel, series,
 
 } = req.body;
@@ -80,6 +80,8 @@ const Upload_Manually_Controller = async (req, res) => {
           publication,
           publisher,
           isbn,
+          illustrator,
+          moral,
           series,
           copies: Number(copies),
           callNumber,
@@ -87,7 +89,6 @@ const Upload_Manually_Controller = async (req, res) => {
 
           cover: coverImage,
           pages: updatedPages,
-          availability,
           
           edition,
           volume

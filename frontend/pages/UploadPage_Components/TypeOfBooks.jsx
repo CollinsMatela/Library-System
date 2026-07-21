@@ -111,9 +111,11 @@ if (selectedCategoryOfBook.toLowerCase() === "textbook") {
 };
 
     return(
-        <div className="w-full grid">
-            <h2 className="text-lg font-bold text-gray-500 rounded-full">Select Type of Books</h2>
-            <p className="text-gray-400 text-sm">Choose Kind of Books you wanted to upload</p>
+        <div className="w-full grid pb-10 border-b border-gray-300">
+            <div>
+            <h2 className="text-3xl font-bold text-gray-800">Select Type of Books</h2>
+            <p className="text-gray-400 text-md">Choose Kind of Books you wanted to upload</p>
+            </div>
 
             <div className="w-full grid grid-cols-3 gap-2">
             <select className="bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2" value={selectedTypeOfBooks} onChange={(e) => setSelectedTypeOfBooks(e.target.value)}>

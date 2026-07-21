@@ -30,15 +30,11 @@ const NonFictionBookInformation = ({
     setAvailableAt,
 }) => {
     return (
-        <div className="w-full flex flex-col gap-4">
+        <div className="w-full flex flex-col gap-4 pb-10 border-b border-gray-300">
 
             <div>
-                <h2 className="text-lg font-bold text-gray-500">
-                    Non-Fiction Book Information
-                </h2>
-                <p className="text-sm text-gray-400">
-                    Fill in the book information below.
-                </p>
+            <h2 className="text-3xl font-bold text-gray-800">Fill Information</h2>
+            <p className="text-gray-400 text-md">Fill up the required information for the book.</p>
             </div>
 
             {/* Basic Information */}
@@ -68,6 +64,7 @@ const NonFictionBookInformation = ({
                     <option value="">Select Language (Optional)</option>
                     <option value="english">English</option>
                     <option value="filipino">Filipino</option>
+                    <option value="english & filipino">English & Filipino</option>
                 </select>
 
                 <input
@@ -134,8 +131,8 @@ const NonFictionBookInformation = ({
 
                 <input
                     type="number"
-                    placeholder="Number of Copies (Optional)"
-                    min={0}
+                    placeholder="Number of Copies"
+                    min={1}
                     className="h-12 border border-gray-300 outline-none p-2 rounded-lg"
                     value={copies}
                     onChange={(e) => setCopies(e.target.value)}

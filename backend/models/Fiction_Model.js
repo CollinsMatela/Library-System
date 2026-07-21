@@ -15,12 +15,14 @@ const FictionSchema = new mongoose.Schema(
     callNumber: { type: String, default: "" },
     availableAt: { type: String, default: "" },
 
+    illustrator: { type: String, default: "" },
+    moral: { type: String, default: "" },
+
     pages: [{
              pageText: {type: String},
              pageImage: [String]
     }],
     cover: { type: String, required: true },
-    availability: { type: Boolean, default: true },
 
     series: { type: String, default: "" },
     edition: { type: String, default: "" },

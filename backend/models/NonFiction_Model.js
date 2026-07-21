@@ -22,7 +22,6 @@ const NonFictionSchema = new mongoose.Schema(
              pageImage: [String]
     }],
     cover: { type: String, required: true },
-    availability: { type: Boolean, defualt: true },
 
     edition: { type: String, default: "" },
     volume: { type: String, default: "" },

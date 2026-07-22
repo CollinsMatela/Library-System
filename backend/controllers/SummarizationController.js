@@ -3,11 +3,11 @@ import groq from "../config/groq.js";
 const SummarizationController = async (req, res) => {
       const {title, language, texts} = req.body;
       
-      if (!title || !texts || !language) {
+      if (!title || !language || !Array.isArray(texts)) {
             return res.status(400).json({
                 message: "Title, Text and Language are required."
             });
-        }
+      }
 
       try {
         const completion = await groq.chat.completions.create({

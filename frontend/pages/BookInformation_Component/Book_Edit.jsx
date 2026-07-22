@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Image } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Image, Sparkle, Sparkles, Repeat } from "lucide-react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
@@ -28,6 +28,8 @@ const Book_Edit = ({bookDetails, fetchBookById}) => {
     const [publisher, setPublisher] = useState(bookDetails?.publisher || "");
     const [isbn, setIsbn] = useState(bookDetails?.isbn || "");
 
+    const [illustrator, setIllustrator] = useState(bookDetails?.illustrator || "");
+    const [moral, setMoral] = useState(bookDetails?.moral || "");
 
     //Fiction Series
     const [fictionSeries, setFictionSeries] = useState(bookDetails?.fictionSeries || "");
@@ -97,9 +99,12 @@ useEffect(() => {
     setPublication(bookDetails.publication || "");
     setPublisher(bookDetails.publisher || "");
     setIsbn(bookDetails.isbn || "");
+    setPages(bookDetails.pages || []);
 
     // Fiction
     setFictionSeries(bookDetails.fictionSeries || "");
+    setIllustrator(bookDetails.illustrator || "");
+    setMoral(bookDetails.moral || "");
 
     // Science, Technology, Engineering, Mathematics & Medicine
     setScientificField(bookDetails.scientificField || "");
@@ -144,7 +149,27 @@ useEffect(() => {
     setEdition(bookDetails.edition || "");
     setVolume(bookDetails.volume || "");
 
-}, [bookDetails]);
+    }, [bookDetails]);
+
+    const AISummarization = async () => {
+
+          const texts = pages.map((p) => p.pageText);
+
+          const bookData = {
+            title: title,
+            language: language,
+            texts: texts
+          }
+          toast.success(`${texts}` || 'No Text Found')
+        //   try {
+        //     const res = await axios.post(`${import.meta.env.VITE_API_URL}/ai-summarization`, bookData)
+        //     setMoral(res.data.summary);
+        //     toast.success(res.data.message);
+        //   } catch (error) {
+        //     console.log(error);
+        //     toast.error(error?.response?.data?.message);
+        //   }
+    }
 
     const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -154,6 +179,9 @@ useEffect(() => {
     setImageFile(file);
     }
     const updateBookInformation = async () => {
+
+        console.log('Check: ', moral);
+        console.log('Check: ', illustrator);
 
         try {
             const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-book/${bookDetails._id}`, {
@@ -168,6 +196,8 @@ useEffect(() => {
                 category,
                 edition,
                 volume,
+                illustrator,
+                moral,
                 fictionSeries,
                 scientificField,
                 mathBranch,
@@ -242,7 +272,8 @@ useEffect(() => {
     ];
     // for Fiction
     const fictionFields = [
-        { label: "Fiction Series", value: fictionSeries, set: setFictionSeries, placeholder: "Enter fiction series", type: "text" },
+        { label: "Illustrator", value: illustrator, set: setIllustrator, placeholder: "Enter Illustrator", type: "text" },
+        { label: "Series", value: fictionSeries, set: setFictionSeries, placeholder: "Enter series", type: "text" },
     ];
     // for Non-Fiction
     const scienceFields = [
@@ -563,6 +594,38 @@ switch (bookDetails?.category?.toLowerCase()) {
                 onChange={(e) => setDescription(e.target.value)}
                 ></textarea>   
             </div>
+
+            {moral && (
+            <div className="mt-6 rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50 to-white p-6 shadow-sm">
+                <div className="flex justify-between items-center gap-3">
+                    <div className="justify-center items-center flex gap-2">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-100">
+                        <Sparkles size={20} className="text-violet-600" />
+                        </div>
+
+                        <div>
+                            <h2 className="text-lg font-semibold text-gray-900">
+                            AI Generated Summary
+                            </h2>
+                            <p className="text-sm text-gray-500">
+                            Generated using AI to provide a concise overview of the story.
+                            </p>
+                        </div>
+                    </div>
+                
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-600 cursor-pointer hover:-translate-y-1"
+                     onClick={AISummarization}>
+                    <Repeat size={20} className="text-white" />
+                </div>
+                </div>
+
+                <div className="mt-5 rounded-xl bg-white p-5 border border-gray-100">
+                <p className="leading-8 text-gray-700 whitespace-pre-line">
+                    {moral}
+                </p>
+                </div>
+            </div>
+            )}
 
             {/* // Save Button */}
             <div className="w-full justify-end items-center flex mt-10">

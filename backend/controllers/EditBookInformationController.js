@@ -3,7 +3,7 @@ import NonFiction_Model from '../models/NonFiction_Model.js';
 
 const EditBookInformationController = async (req, res) => {
     const {bookId} = req.params;
-    const {title, author, language, publisher, publication, isbn, description, edition, volume, fictionSeries, scientificField, mathBranch, technologyField, engineeringDiscipline, medicalField, referenceType, subjectArea, dictionaryType, geographicCoverage, subject, gradeLevel, researchField, institution, doi, businessArea, economicsBranch} = req.body;
+    const {title, author, language, publisher, publication, isbn, description, edition, volume, moral, illustrator, fictionSeries, scientificField, mathBranch, technologyField, engineeringDiscipline, medicalField, referenceType, subjectArea, dictionaryType, geographicCoverage, subject, gradeLevel, researchField, institution, doi, businessArea, economicsBranch} = req.body;
    
     console.log(description);
     console.log(edition);
@@ -26,6 +26,8 @@ const EditBookInformationController = async (req, res) => {
         isbn: isbn,
         description: description,
         edition: edition,
+        moral: moral,
+        illustrator: illustrator,
         volume: volume,
         fictionSeries: fictionSeries,
       }, {new: true});

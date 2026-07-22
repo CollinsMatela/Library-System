@@ -108,8 +108,8 @@ const Admin_ViewMaterials_Page = () => {
         <div className="bg-white w-120 flex flex-col gap-4">
             <img src={bookDetails?.cover} className="bg-gray-100 h-100 object-cover shadow-xl mb-5" />
             <h1 className="text-gray-800">Book Status: {" "}
-                <span className={`${bookDetails?.availability ? "text-green-500" : "text-red-500"}`}>
-                  {bookDetails?.availability ? "Available" : "Not Available"}
+                <span className={`${bookDetails?.copies > 0 ? "text-green-500" : "text-red-500"}`}>
+                  {bookDetails?.copies > 0 ? "Available" : "Not Available"}
                 </span>
             </h1>
             <h1 className="text-xs text-gray-500">{id || "Book Id —"}</h1>
@@ -126,7 +126,6 @@ const Admin_ViewMaterials_Page = () => {
                 <div className="w-full flex justify-between items-center gap-3 my-4">
 
                     <div className="flex gap-2">
-                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full uppercase"><Book size={20}/>{bookDetails?.type}</div>
                         <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full"><Book size={20}/>{bookDetails?.category}</div>
                         <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full"><BookOpenText size={20}/>{bookDetails?.pages.length} Pages</div>
                     </div>
@@ -142,7 +141,7 @@ const Admin_ViewMaterials_Page = () => {
             </div>
 
            <div className="w-full py-4 rounded-xl">
-                 <h1 className="text-gray-500 text-sm font-md">{bookDetails?.description || "—"}</h1>
+                 <h1 className="text-gray-500 text-xs font-md">{bookDetails?.description || "No Description"}</h1>
            </div>
            
 

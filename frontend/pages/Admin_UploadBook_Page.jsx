@@ -85,6 +85,9 @@ const Admin_UploadBook_Page = () => {
             setCallNumber("");
             setAvailableAt("");
 
+            setIllustrator("");
+            setMoral("");
+
             // Fiction
             setSeries("");
 
@@ -255,7 +258,8 @@ const Admin_UploadBook_Page = () => {
         formData.append("publication", publication);
         formData.append("publisher", publisher);
         formData.append("isbn", isbn);
-        formData.append("availability", availability);
+        formData.append("illustrator", illustrator);
+        formData.append("moral", moral);
 
         formData.append("ddc", ddc);
         formData.append("copies", copies);

@@ -18,6 +18,9 @@ const Admin_ViewMaterials_Page = () => {
 
   const informations = [
     // Basic Information
+    { label: "Type", value: bookDetails?.type },
+    { label: "Category", value: bookDetails?.category },
+    { label: "Illustrator", value: bookDetails?.illustrator },
     { label: "Language", value: bookDetails?.language },
     { label: "Publisher", value: bookDetails?.publisher },
     { label: "Publication Year", value: bookDetails?.publication },

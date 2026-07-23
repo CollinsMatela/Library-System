@@ -6,6 +6,7 @@ import {
   stopSpeech, 
 } from '../utils/speech.js';
 import { useEffect } from "react";
+import axios from "axios";
 const Lib_StoryLayoutBook = ({book, showText, showImage, pageIndex, nextPage, prevPage, onClose}) => {
 
     const hasImage = book?.pages[pageIndex]?.pageImage;
@@ -21,6 +22,7 @@ const Lib_StoryLayoutBook = ({book, showText, showImage, pageIndex, nextPage, pr
         text: `Kamusta, mga munting kaibigan! Maligayang pagdating sa ating oras ng pagkukuwento. Ngayon, sabay nating tuklasin ang kahanga-hangang mundo ng "${book.title}" na isinulat ni ${book.author}. Umupo nang kumportable, buksan ang inyong imahinasyon, at simulan na natin ang ating masayang paglalakbay. Handa na ba kayo? Tara na! ${hasText}`
       },
     ];
+
 
     useEffect(() => {
     if (pageIndex >= book.pages.length) return;
@@ -42,6 +44,13 @@ const Lib_StoryLayoutBook = ({book, showText, showImage, pageIndex, nextPage, pr
     utterance.onend = () => {
         nextPage();
     };
+
+
+    const voices = speechSynthesis.getVoices();
+
+    utterance.voice = voices.find(
+    voice => voice.name === "Google US English"
+);  
 
     const timer = setTimeout(() => {
         speechSynthesis.speak(utterance);

@@ -52,6 +52,8 @@ import ReturnBorrowRoute from './routes/ReturnBorrowRoute.js'
 import DeleteBorrowRoute from './routes/DeleteBorrowRoute.js'
 
 import SummarizationRoute from './routes/SummarizationRoute.js'
+import LogBookRoute from "./routes/LogBookRoute.js";
+import FetchLogBookRoute from "./routes/FetchLogBookRoute.js"
 
 
 const app = express();
@@ -98,6 +100,10 @@ app.use("/", ReturnBorrowRoute);
 app.use("/", DeleteBorrowRoute);
 
 app.use("/", SummarizationRoute);
+
+app.use("/", LogBookRoute);
+app.use("/", FetchLogBookRoute);
+
 
 const PORT = process.env.PORT || 5000;
 

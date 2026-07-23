@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-
-const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCategoryOfBook, setSelectedCategoryOfBook, field, setField}) => {
+import { toast } from "react-toastify";
+const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCategoryOfBook, setSelectedCategoryOfBook, field, setField,
+                      subject, setSubject, gradeLevel, setGradeLevel
+}) => {
 
     const renderCategoryFields = () => {
     

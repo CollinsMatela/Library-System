@@ -11,6 +11,7 @@ const Admin_SideBar = () => {
     const logout = useAuthStore((state) => state.logout);
 
     const isOverview = location.pathname === "/admin";
+    const isLogBook = location.pathname === "/admin/log-book";
     const isUploadStory = location.pathname === "/admin/upload-book";
     const isViewStory = location.pathname === "/admin/books";
     const isUsersAccount = location.pathname === "/admin/users";
@@ -19,6 +20,9 @@ const Admin_SideBar = () => {
 
     const handleOverview = () => {
           navigate('/admin');
+    }
+    const handleLogBook = () => {
+          navigate('/admin/log-book');
     }
     const handleUploadStory = () => {
           navigate('/admin/upload-book');
@@ -61,6 +65,12 @@ const Admin_SideBar = () => {
       <div className={`${isOverview ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleOverview}>
         <AppWindow className={`${isOverview ? 'text-white' : 'text-gray-500'}`} size={20}/>
         Overview
+        
+      </div>
+
+      <div className={`${isLogBook ? "bg-black text-white" : "hover:bg-gray-100 text-black"} h-15 justify-start items-center flex font-semibold gap-2 cursor-pointer py-2 hover:border-none rounded-xl mt-2 p-2`} onClick={handleLogBook}>
+        <AppWindow className={`${isLogBook ? 'text-white' : 'text-gray-500'}`} size={20}/>
+        Log Book
         
       </div>
 

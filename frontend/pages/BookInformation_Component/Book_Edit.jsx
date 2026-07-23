@@ -160,15 +160,15 @@ useEffect(() => {
             language: language,
             texts: texts
           }
-          toast.success(`${texts}` || 'No Text Found')
-        //   try {
-        //     const res = await axios.post(`${import.meta.env.VITE_API_URL}/ai-summarization`, bookData)
-        //     setMoral(res.data.summary);
-        //     toast.success(res.data.message);
-        //   } catch (error) {
-        //     console.log(error);
-        //     toast.error(error?.response?.data?.message);
-        //   }
+
+          try {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/ai-summarization`, bookData)
+            setMoral(res.data.summary);
+            toast.success(res.data.message);
+          } catch (error) {
+            console.log(error);
+            toast.error(error?.response?.data?.message);
+          }
     }
 
     const handleImageChange = (e) => {
@@ -608,7 +608,7 @@ switch (bookDetails?.category?.toLowerCase()) {
                             AI Generated Summary
                             </h2>
                             <p className="text-sm text-gray-500">
-                            Generated using AI to provide a concise overview of the story.
+                            Generated using AI to provide a moral and concise overview of the story.
                             </p>
                         </div>
                     </div>

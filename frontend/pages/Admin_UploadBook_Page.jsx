@@ -341,6 +341,10 @@ const Admin_UploadBook_Page = () => {
                        setSelectedCategoryOfBook={setSelectedCategoryOfBook}
                        field={field}
                        setField={setField}
+                       subject={subject}
+                       setSubject={setSubject}
+                       gradeLevel={gradeLevel}
+                       setGradeLevel={setGradeLevel}
                        />
                         
                         {selectedTypeOfBooks.toLowerCase() === 'fiction' && selectedCategoryOfBook && (

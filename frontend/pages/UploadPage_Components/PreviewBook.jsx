@@ -25,9 +25,15 @@ const PreviewBook = ({preview, type, category, pages, title, description, moral,
 
     return(
         <>
-        <div className="mt-10">
-        <h2 className="text-3xl font-bold text-gray-800">Preview Book</h2>
-        <p className="text-gray-400 text-md">Oversee the book information of {title || "the selected book"}.</p>
+        <div className="flex items-center justify-start gap-2">
+                <div className="bg-black p-2 text-white rounded-xl justify-center items-center flex">
+                   <Book size={20}/>
+                </div>
+                <div>
+                    <h1 className="text-md font-bold text-gray-800 rounded-full">Preview Book</h1>
+                    <p className="text-gray-400 text-xs">Preview the complete information of book.</p>
+                </div>
+                
         </div>
 
         
@@ -41,26 +47,26 @@ const PreviewBook = ({preview, type, category, pages, title, description, moral,
 
             <div className="w-full justify-between items-start flex flex-col border-gray-300 border-b-1">
                 <div className="w-full flex flex-col gap-2">
-                    <h1 className="text-gray-800 text-4xl font-md">{title || "Book name"}</h1>
-                    <h1 className="text-sm text-gray-500">Authored by: {author || "—"}</h1>
+                    <h1 className="text-gray-800 text-xl font-bold italic">{title || "Book name"}</h1>
+                    <h1 className="text-xs text-gray-500"> {author || "Author"}</h1>
                 </div>
 
                 <div className="w-full flex justify-between items-center gap-3 my-4">
 
                     <div className="flex gap-2">
-                        <div className={`${!category ? "hidden" : ""} justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full uppercase`}><Book size={20}/>{category}</div>
-                        <div className={`${pages.length > 0 ? "" : "hidden"} justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full uppercase`}><BookOpenText size={20}/>{pages.length} Pages</div>
+                        <div className={`${!category ? "hidden" : ""} justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-xs font-bold rounded-full uppercase`}><Book size={15}/>{category}</div>
+                        <div className={`${pages.length > 0 ? "" : "hidden"} justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-xs font-bold rounded-full uppercase`}><BookOpenText size={15}/>{pages.length} Pages</div>
                     </div>
 
                     <div className="flex gap-2">
 
-                        <button className={`${type === 'fiction' ? "" : "hidden"} justify-center items-center flex gap-2 bg-white py-2 px-3 text-sm text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`}
+                        <button className={`${type === 'fiction' ? "" : "hidden"} justify-center items-center flex gap-2 bg-white p-2 text-xs text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`}
                         onClick={() => AISummarization()}>
-                            <Sparkle size={20}/> Summary
+                            <Sparkle size={15}/> Summary
                         </button>
                         
-                        <div className={`${file ? "hidden" : ""} justify-center items-center flex gap-2 py-2 px-3 text-sm text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={openFileExplorer}> 
-                        <Image/> Add Cover
+                        <div className={`${file ? "hidden" : ""} justify-center items-center flex gap-2 p-2 text-xs text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={openFileExplorer}> 
+                        <Image size={15}/> Add Cover
                             <input 
                                 type="file" 
                                 ref={fileInputRef} 
@@ -68,10 +74,10 @@ const PreviewBook = ({preview, type, category, pages, title, description, moral,
                                 onChange={handleImagePreview} 
                             />
                         </div>
-                        <button className={`${preview ? null : "hidden"} justify-center items-center flex gap-2 bg-red-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={() => {setFile(null); setPreview(null)}}>
-                        <X/> Remove Cover
+                        <button className={`${preview ? null : "hidden"} justify-center items-center flex gap-2 bg-red-600 p-2 text-xs text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={() => {setFile(null); setPreview(null)}}>
+                        <X size={15}/> Remove Cover
                         </button>
-                        <button className="justify-center items-center flex gap-2 bg-blue-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer" onClick={handleConfirmation}><Plus/> Upload Story</button>
+                        <button className="justify-center items-center flex gap-2 bg-blue-600 p-2 text-xs text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer" onClick={handleConfirmation}><Plus size={15}/> Upload Story</button>
                     </div>
 
                 </div>
@@ -89,7 +95,7 @@ const PreviewBook = ({preview, type, category, pages, title, description, moral,
                     <h2 className="text-lg font-semibold text-gray-900">
                     AI Generated Moral Summary
                     </h2>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-xs text-gray-500">
                     Generated using AI to provide a concise overview of the story.
                     </p>
                 </div>

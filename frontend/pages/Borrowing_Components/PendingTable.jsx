@@ -2,7 +2,7 @@ import { Check, X } from "lucide-react";
 
 const PendingTable = ({Pendings, approveBorrow, deleteBorrow}) => {
     return(
-        <div className="w-full flex flex-col gap-4 mt-6">
+        <div className="w-full flex flex-col gap-4">
     {Pendings.length > 0 ? (
         Pendings.map((borrow) => (
             <div
@@ -29,10 +29,6 @@ const PendingTable = ({Pendings, approveBorrow, deleteBorrow}) => {
                         <span className="">{borrow.createdAt.split("T")[0]}</span>
                     </p>
 
-                    <p className="text-gray-600 text-xs flex gap-2"> Quantity:
-                        <span className="">{borrow.quantity}</span>
-                    </p>
-
                     <p className="text-gray-600 text-xs flex gap-2"> Status:
                         <span className={`
                           ${borrow.status === 'Pending' ? "text-yellow-600" : 
@@ -47,16 +43,16 @@ const PendingTable = ({Pendings, approveBorrow, deleteBorrow}) => {
                 <div className="justify-center items-center flex gap-2">
                     <button
                         onClick={() => approveBorrow(borrow)}
-                        className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg"
+                        className="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg cursor-pointer hover:-translate-y-1"
                     >
-                        <Check size={20}/>
+                        <Check size={15}/>
                     </button>
 
                     <button
                         onClick={() => deleteBorrow(borrow)}
-                        className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg"
+                        className="bg-red-600 hover:bg-red-700 text-white p-2 rounded-lg cursor-pointer hover:-translate-y-1"
                     >
-                        <X size={20}/>
+                        <X size={15}/>
                     </button>
                 </div>
             </div>

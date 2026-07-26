@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import SearchIcon from '../src/assets/search-svgrepo-com.svg'
 import Admin_Sidebar from '../components/Admin_Sidebar'
-import { MoveRight, Search } from "lucide-react";
+import { MoveRight, Search, LibraryBig } from "lucide-react";
 
 const Admin_Books_Page = () => {
     const navigate = useNavigate();
@@ -38,33 +38,39 @@ const Admin_Books_Page = () => {
       return(
         <>
         <Admin_Sidebar/>
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col py-10 pl-90 pr-10">
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col py-10 pl-80 pr-10">
               
               <header className="w-full justify-between items-start flex flex-col mb-10">
 
                 <div>
                     <h1 className="text-3xl font-bold text-gray-800">Library Books Management</h1>
-                    <h1 className="text-gray-400 text-md">View all uploaded books available</h1>
+                    <h1 className="text-gray-400 text-sm">View all uploaded books available</h1>
                 </div>
                 
               </header>
 
-              <div className="h-20 w-full justify-between items-center flex rounded-t-xl">
-                        <div>
-                          <h1 className="text-lg font-bold text-gray-500 rounded-full">Uploaded Books Table</h1>
-                          <p className="text-gray-400 text-sm">Manage books material.</p>
+              <div className="w-full justify-between items-start flex rounded-t-xl">
+                        <div className="flex items-center justify-start gap-2 w-full mb-4">
+                            <div className="bg-black p-2 text-white rounded-xl justify-center items-center flex">
+                                <LibraryBig size={20}/>
+                            </div>
+                            <div>
+                                <h1 className="text-md font-bold text-gray-800 rounded-full">Uploaded Books</h1>
+                                <p className="text-gray-400 text-xs">List of all uploaded Books.</p>
+                            </div>
                         </div>
                         
 
-                        <div className="space-x-2 justify-center ittems-center flex">
-                          
-                            <input type="search" 
+                        <div className="justify-between items-center flex border-1 border-gray-300 rounded-lg px-4">
                             
-                                   placeholder="Search by title..." 
-                                   className="bg-white border-1 border-gray-300 h-10 w-80 rounded-xl px-4 outline-none"
+                            <input type="search" 
+                                   placeholder="Search by name" 
+                                   className="bg-white py-2 outline-none text-xs"
                                    value={search}
                                    onChange={(e) => setSearch(e.target.value)}
                             />
+                            <Search size={15} className="text-gray-500"/>
+                             
                         </div>
               </div> 
               
@@ -82,16 +88,17 @@ const Admin_Books_Page = () => {
                       >
                       
                       <div className="h-full flex gap-2">
-                          <img src={book?.cover} className="object-cover h-full w-25" />
+                          <img src={book?.cover} className="object-cover w-25" />
                           <div className="h-full flex flex-col">
-                              <h1 className="text-black text-lg">{book?.title}</h1>
-                              <h1 className="text-gray-500 text-xs">Author: {book?.author}</h1>
-                              <h1 className="text-gray-500 text-xs">Publish Year: {book?.publication}</h1>
+                              <h1 className="text-black font-bold italic text-md">{book?.title}</h1>
+                              <h1 className="text-gray-500 text-xs">{book?.author}</h1>
+                              <h1 className="text-gray-500 text-xs">{book?.category}</h1>
+                              <h1 className={`${book?.copies> 0 ? "text-green-600" : "text-red-600"} text-xs`}>{book?.copies> 0 ? "Available" : "Not Available"}</h1>
                           </div>
                       </div>
 
                       <div className="h-full flex items-center justify-center mr-2 p-4">
-                          <h1 className="text-gray-300 font-bold cursor-pointer"><MoveRight/></h1>
+                          <h1 className="text-black"><MoveRight size={15}/></h1>
                       </div>
                       
 

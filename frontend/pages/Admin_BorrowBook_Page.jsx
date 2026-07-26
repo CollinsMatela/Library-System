@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import Admin_Sidebar from '../components/Admin_Sidebar'
-import { Check, X } from "lucide-react";
+import { Check, HandHelping, X } from "lucide-react";
 import { toast } from "react-toastify";
 import PendingTable from "./Borrowing_Components/PendingTable";
 import ApprovedTable from "./Borrowing_Components/ApprovedTable";
@@ -28,13 +28,12 @@ const Admin_BorrowBook_Page = () => {
     const [isHistory, setIsHistory] = useState(false);
 
     const [returnDate, setReturnDate] = useState('')
-    const [quantity, setQuantity] = useState(0);
+    const [quantity, setQuantity] = useState(1);
 
     const fetchAllBorrow = async () => {
           try {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/fetch-all-borrow`);
             setBorrowList(res.data.borrows);
-            toast.success(res.data.message);
           } catch (error) {
             toast.error(error?.response?.data?.message);
             setErrorMessage(error?.response?.data?.message)
@@ -158,29 +157,35 @@ const Admin_BorrowBook_Page = () => {
       return(
         <>
         <Admin_Sidebar/>
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col py-10 pl-90 pr-10">
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col py-10 pl-80 pr-10">
               
-              <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-gray-300 pb-10">
+              <header className="w-full justify-between items-start flex flex-col mb-10">
                 <div>
                     <h1 className="text-3xl font-bold text-gray-800">Borrowing Books Management</h1>
-                    <h1 className="text-gray-400 text-md">Manage borrow request from user</h1>
+                    <h1 className="text-gray-400 text-sm">Manage borrow request from user</h1>
                 </div>
                     
               </header>
 
-              <div className="h-20 w-full justify-between items-center flex flex-col rounded-t-xl">
+              <div className="h-20 w-full justify-between items-center flex flex-col">
 
                 <div className="w-full justify-between items-start flex">
-                    <div>
-                        <h1 className="text-3xl font-bold text-gray-800">Borrowing Table</h1>
-                        <h1 className="text-gray-400 text-md">Review, approve, and monitor book borrowing requests from library users.</h1>
+
+                    <div className="flex items-center justify-start gap-2 w-full mb-4">
+                        <div className="bg-black p-2 text-white rounded-xl justify-center items-center flex">
+                            <HandHelping size={20}/>
+                        </div>
+                        <div>
+                            <h1 className="text-md font-bold text-gray-800 rounded-full">Borrowing Information</h1>
+                            <p className="text-gray-400 text-xs">Manage user borrowing books.</p>
+                        </div>
                     </div>
 
                     <div className="flex gap-2">
                         <button
                             className={`${
                                 isPending ? "bg-black text-white" : "bg-gray-100 text-black"
-                            } flex items-center gap-2 px-4 py-2 rounded-xl text-sm hover:-translate-y-1 transition cursor-pointer`}
+                            } flex items-center gap-2 px-4 py-2 rounded-xl text-xs hover:-translate-y-1 transition cursor-pointer`}
                             onClick={handlePending}
                         >
                             Pending
@@ -190,7 +195,7 @@ const Admin_BorrowBook_Page = () => {
                         <button
                             className={`${
                                 isApproved ? "bg-black text-white" : "bg-gray-100 text-black"
-                            } flex items-center gap-2 px-4 py-2 rounded-xl text-sm hover:-translate-y-1 transition cursor-pointer`}
+                            } flex items-center gap-2 px-4 py-2 rounded-xl text-xs hover:-translate-y-1 transition cursor-pointer`}
                             onClick={handleApproved}
                         >
                             Approved
@@ -200,7 +205,7 @@ const Admin_BorrowBook_Page = () => {
                         <button
                             className={`${
                                 isBorrowed ? "bg-black text-white" : "bg-gray-100 text-black"
-                            } flex items-center gap-2 px-4 py-2 rounded-xl text-sm hover:-translate-y-1 transition cursor-pointer`}
+                            } flex items-center gap-2 px-4 py-2 rounded-xl text-xs hover:-translate-y-1 transition cursor-pointer`}
                             onClick={handleBorrowed}
                         >
                             Borrowed
@@ -210,7 +215,7 @@ const Admin_BorrowBook_Page = () => {
                         <button
                             className={`${
                                 isHistory ? "bg-black text-white" : "bg-gray-100 text-black"
-                            } flex items-center gap-2 px-4 py-2 rounded-xl text-sm hover:-translate-y-1 transition cursor-pointer`}
+                            } flex items-center gap-2 px-4 py-2 rounded-xl text-xs hover:-translate-y-1 transition cursor-pointer`}
                             onClick={handleHistory}
                         >
                             History

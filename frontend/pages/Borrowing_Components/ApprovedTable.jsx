@@ -2,7 +2,7 @@ import { Check, X } from "lucide-react";
 
 const ApprovedTable = ({Approved, returnDate, setReturnDate, quantity, setQuantity, updateBorrow, deleteBorrow}) => {
     return(
-        <div className="w-full flex flex-col gap-4 mt-6">
+        <div className="w-full flex flex-col gap-4">
     {Approved.length > 0 ? (
         Approved.map((borrow) => (
             <div
@@ -29,10 +29,6 @@ const ApprovedTable = ({Approved, returnDate, setReturnDate, quantity, setQuanti
                         <span className="">{borrow.createdAt.split("T")[0]}</span>
                     </p>
 
-                    <p className="text-gray-600 text-xs flex gap-2"> Quantity:
-                        <span className="">{borrow.quantity}</span>
-                    </p>
-
                     <p className="text-gray-600 text-xs flex gap-2"> Status:
                         <span className={`
                           ${borrow.status === 'Pending' ? "text-yellow-600" : 
@@ -45,20 +41,20 @@ const ApprovedTable = ({Approved, returnDate, setReturnDate, quantity, setQuanti
                 </div>
 
                 <div className="justify-center items-center flex gap-2">
-                    <input type="date" className="px-4 py-2 bg-gray-100 rounded-xl" value={returnDate} onChange={(e) => setReturnDate(e.target.value)}/>
-                    <input type="number" min={1} className="py-2 px-2 w-20 bg-gray-100 rounded-xl" placeholder="Qty" value={quantity} onChange={(e) => setQuantity(e.target.value)}/>
+                    <input type="date" className="p-2 bg-gray-100 rounded-lg text-xs" value={returnDate} onChange={(e) => setReturnDate(e.target.value)}/>
+                    <input type="number" min={1} className="p-2 w-20 bg-gray-100 rounded-lg text-xs" placeholder="Qty" value={quantity} onChange={(e) => setQuantity(e.target.value)}/>
                     <button
                         onClick={() => updateBorrow(borrow)}
-                        className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg"
+                        className="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg cursor-pointer hover:-translate-y-1"
                     >
-                        <Check size={20}/>
+                        <Check size={15}/>
                     </button>
 
                     <button
                         onClick={() => deleteBorrow(borrow)}
-                        className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg"
+                        className="bg-red-600 hover:bg-red-700 text-white p-2 rounded-lg cursor-pointer hover:-translate-y-1"
                     >
-                        <X size={20}/>
+                        <X size={15}/>
                     </button>
                 </div>
             </div>

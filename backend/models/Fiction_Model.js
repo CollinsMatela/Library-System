@@ -20,7 +20,8 @@ const FictionSchema = new mongoose.Schema(
 
     pages: [{
              pageText: {type: String},
-             pageImage: [String]
+             pageImage: [String],
+             pageAudio: [String],
     }],
     cover: { type: String, required: true },
 

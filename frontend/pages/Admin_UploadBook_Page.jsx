@@ -7,7 +7,7 @@ import FictionBookInformation from "./UploadPage_Components/FictionBookInformati
 import NonFictionBookInformation from "./UploadPage_Components/NonFictionBookInformation";
 import TypeOfBooks from "./UploadPage_Components/TypeOfBooks";
 import PreviewBook from "./UploadPage_Components/PreviewBook"
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, X, Plus, Image, Save } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, X, Plus, Image, Save, AudioLines } from "lucide-react";
 import { toast } from "react-toastify";
 
 const Admin_UploadBook_Page = () => {
@@ -18,6 +18,7 @@ const Admin_UploadBook_Page = () => {
 
         const fileInputRef = useRef();
         const pageImageInputRef = useRef();
+        const audioInputRef = useRef();
 
         const [showConfirmation, setShowConfirmation] = useState(false);
 
@@ -56,6 +57,7 @@ const Admin_UploadBook_Page = () => {
         // Preview Image
         const [file, setFile] = useState(null);
         const [preview, setPreview] = useState(null);
+        const [audio, setAudio] = useState(null);
 
         const [pageList, setPageList] = useState([]);
         const [pageText, setPageText] = useState("");
@@ -100,6 +102,7 @@ const Admin_UploadBook_Page = () => {
             // Cover Image
             setFile(null);
             setPreview(null);
+            setAudio(null)
 
             // Reset the actual file input
             if (fileInputRef.current) {
@@ -144,11 +147,13 @@ const Admin_UploadBook_Page = () => {
                  {
                     pageText,
                     pageImage: [...pageImage], 
+                    pageAudio
                  }
               ])
 
                 setPageText("");
                 setPageImage([]);
+                setAudio(null);
                 setPageImagePreview([]);
         }
 
@@ -162,6 +167,9 @@ const Admin_UploadBook_Page = () => {
 
                const imagesPreview = files.map(file => URL.createObjectURL(file));
               setPageImagePreview((prev) => [...prev, ...imagesPreview])
+        }
+        const handleAudio = async (e) => {
+              const audio = e.target.files;
         }
         
 
@@ -184,6 +192,10 @@ const Admin_UploadBook_Page = () => {
         setPreview(null)
         setFile(null)
         fileInputRef.current.click();
+    }
+    const AudioExplorer = () => {
+        setAudio(null);
+        audioInputRef.current.click();
     }
 
     const handleConfirmation = () => {
@@ -317,9 +329,9 @@ const Admin_UploadBook_Page = () => {
         <>
         <Admin_SideBar/>
         {showConfirmation && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={uploadStory} onCancel={() => {setShowConfirmation(false); setErrorMessage("")}}/>)}
-        <section className="min-h-screen w-full pl-90 pr-10 py-10">
+        <section className="min-h-screen w-full pl-80 pr-10 py-10">
 
-            <header className="w-full justify-between items-start flex flex-col pb-10 border-b border-gray-300">
+            <header className="w-full justify-between items-start flex flex-col pb-10">
 
                 <div>
                     <h1 className="text-3xl font-bold text-gray-800">Upload Book Management</h1>
@@ -329,7 +341,7 @@ const Admin_UploadBook_Page = () => {
               </header>
 
                 {/* MANUALLY UPLOAD STORY CONTAINER */}
-                <div className={`bg-black w-full flex bg-white rounded-xl gap-10 mt-10`}>
+                <div className={`bg-black w-full flex bg-white rounded-xl gap-10`}>
                     
                         {/* Story Details */}
                         <div className="bg-white w-full flex flex-col gap-10">
@@ -444,36 +456,52 @@ const Admin_UploadBook_Page = () => {
 
 
                     {/*Book Pages and Image insertion*/}
-                <div className="w-full flex flex-col gap-4 pb-10 border-b border-gray-300">
-                     <div>
-                    <h2 className="text-3xl font-bold text-gray-800">Book Page</h2>
-                    <p className="text-gray-400 text-md">Choose Kind of Books you wanted to upload</p>
+                <div className="w-full flex flex-col gap-4">
+                     <div className="flex items-center justify-start gap-2">
+                        <div className="bg-black h-10 w-10 text-white rounded-xl justify-center items-center flex">
+                        <h1 className="font-bold text-lg">3#</h1>
+                        </div>
+                        <div>
+                            <h1 className="text-md font-bold text-gray-800 rounded-full">Step Three</h1>
+                            <p className="text-gray-400 text-xs">Fill the applicable book page information.</p>
+                        </div>
+                        
                     </div>
 
                     
 
-                    <div className="w-full bg-gray-200 justify-between items-start flex flex-col gap-2 rounded-xl p-4">
+                    <div className="w-full bg-white border border-gray-300 justify-between items-start flex flex-col gap-2 rounded-xl p-4">
                         {/* Page Text*/}
                         <textarea 
                         name="page-text" id="page-text"
                         placeholder="Input the text of the page..."
                         value={pageText}
                         onChange={(e) => setPageText(e.target.value)}
-                        className="h-100 w-full outline-none">
+                        className="h-100 w-full outline-none text-xs">
                         </textarea>
 
-                        <div className="w-full justify-end items-center flex gap-2">                        
-                            <button className={`${pageImagePreview.length > 2 ? 'hidden' : null} justify-center items-center flex gap-2 py-2 px-3 text-sm text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={() => pageImageInputRef.current.click()}>
-                                <Image/> Add Image
+                        <div className="w-full justify-end items-center flex gap-2">
+                            <button className={`${pageImagePreview.length > 2 ? 'hidden' : null} justify-center items-center flex gap-2 p-2 text-xs text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={() => audioInputRef.current.click()}>
+                                <AudioLines size={15}/> Add Audio
+                            </button>                       
+                            <button className={`${pageImagePreview.length > 2 ? 'hidden' : null} justify-center items-center flex gap-2 p-2 text-xs text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={() => pageImageInputRef.current.click()}>
+                                <Image size={15}/> Add Image
                             </button>
+
                             <input 
                                     type="file" 
                                     ref={pageImageInputRef} 
                                     className="hidden" 
                                     onChange={handlePageImagePreview} 
                             />
-                            <button className="justify-center items-center flex gap-2 py-2 px-3 text-sm bg-blue-600 text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
-                                onClick={handleNextPage}><Save/> Save & Next Page {`(${pageList.length + 1})`}
+                            <input 
+                                    type="file" 
+                                    ref={audioInputRef} 
+                                    className="hidden" 
+                                    onChange={handlePageImagePreview} 
+                            />
+                            <button className="justify-center items-center flex gap-2 p-2 text-xs bg-blue-600 text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+                                onClick={handleNextPage}><Save size={15}/> Save {`(${pageList.length + 1})`}
                             </button>
                         </div>
                     </div>
@@ -484,12 +512,12 @@ const Admin_UploadBook_Page = () => {
                         <div className="w-full mt-4">
                         
                         {pageImagePreview.length > 0 && (
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className=" gap-4">
                             
                             {pageImagePreview.map((preview, index) => (
                                 <div
                                 key={index}
-                                className="relative h-60 bg-gray-300 rounded-xl overflow-hidden"
+                                className="relative bg-gray-300 rounded-xl overflow-hidden"
                                 >
                                 
                                 {/* Remove Overlay */}
@@ -509,7 +537,7 @@ const Admin_UploadBook_Page = () => {
                                 <img
                                     src={preview}
                                     alt={`page-preview-${index}`}
-                                    className="h-full w-full object-cover"
+                                    className="w-full object-cover"
                                 />
                                 </div>
                             ))}

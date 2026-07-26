@@ -2,7 +2,7 @@ import { Check, X } from "lucide-react";
 
 const HistoryTable = ({Returned}) => {
     return(
-        <div className="w-full flex flex-col gap-4 mt-6">
+        <div className="w-full flex flex-col gap-4">
     {Returned.length > 0 ? (
         Returned.map((borrow) => (
             <div

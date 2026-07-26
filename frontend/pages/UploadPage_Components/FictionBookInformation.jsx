@@ -51,18 +51,24 @@ const FictionBookInformation = ({
     setVolume,
 }) => {
     return(
-        <div className="w-full flex flex-col gap-4 pb-10 border-b border-gray-300">
-            <div>
-            <h2 className="text-3xl font-bold text-gray-800">Fill Information</h2>
-            <p className="text-gray-400 text-md">Fill up the required information for the book.</p>
+        <div className="w-full flex flex-col gap-2">
+            <div className="flex items-center justify-start gap-2">
+                <div className="bg-black h-9 w-9 text-white rounded-xl justify-center items-center flex">
+                   <h1 className="font-bold text-lg">2#</h1>
+                </div>
+                <div>
+                    <h1 className="text-md font-bold text-gray-800 rounded-full">Step Two</h1>
+                    <p className="text-gray-400 text-xs">Fill the applicable information.</p>
+                </div>
+                
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2">
 
                 <input
                     type="text"
                     placeholder="Title "
-                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
@@ -70,7 +76,7 @@ const FictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="Author (Optional)"
-                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
                 />
@@ -78,13 +84,13 @@ const FictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="Illustrator (Optional)"
-                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                     value={illustrator}
                     onChange={(e) => setIllustrator(e.target.value)}
                 />
 
                 <select
-                    className="h-12 border border-gray-300 text-gray-500 rounded-lg p-2 bg-white outline-none"
+                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}
                 >
@@ -96,7 +102,7 @@ const FictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="Publisher (Optional)"
-                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                     value={publisher}
                     onChange={(e) => setPublisher(e.target.value)}
                 />
@@ -106,7 +112,7 @@ const FictionBookInformation = ({
                     min="1900"
                     max={new Date().getFullYear()}
                     placeholder="Publication Year (Optional)"
-                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                     value={publication}
                     onChange={(e) => setPublication(e.target.value)}
                 />
@@ -114,7 +120,7 @@ const FictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="ISBN (Optional)"
-                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                     value={isbn}
                     onChange={(e) => setIsbn(e.target.value)}
                 />
@@ -122,7 +128,7 @@ const FictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="Series Name (Optional)"
-                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                     value={series}
                     onChange={(e) => setSeries(e.target.value)}
                 />
@@ -130,7 +136,7 @@ const FictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="Edition (Optional)"
-                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                   className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                     value={edition}
                     onChange={(e) => setEdition(e.target.value)}
                 />
@@ -138,7 +144,7 @@ const FictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="Volume (Optional)"
-                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                     value={volume}
                     onChange={(e) => setVolume(e.target.value)}
                 />
@@ -147,7 +153,7 @@ const FictionBookInformation = ({
                     type="number"
                     min={1}
                     placeholder="Number of Copies"
-                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                     value={copies}
                     onChange={(e) => setCopies(e.target.value)}
                 />
@@ -155,7 +161,7 @@ const FictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="Call Number (Optional)"
-                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                     value={callNumber}
                     onChange={(e) => setCallNumber(e.target.value)}
                 />
@@ -163,7 +169,7 @@ const FictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="Available At (Optional)"
-                    className="h-12 border border-gray-300 rounded-lg p-2 outline-none"
+                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                     value={availableAt}
                     onChange={(e) => setAvailableAt(e.target.value)}
                 />
@@ -171,7 +177,7 @@ const FictionBookInformation = ({
 
             <textarea
                 placeholder="Description (Optional)"
-                className="h-28 border border-gray-300 rounded-lg p-2 outline-none resize-none"
+                className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs resize-none mt-2"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
             />

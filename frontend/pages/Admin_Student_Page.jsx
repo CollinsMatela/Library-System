@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Edit_Student_Modal from "../modals/Edit_Student_Modal"
 import Confirmation_Popup from "../popup/Confirmation_Popup"
 import View_Student_Modal from "../modals/View_Student_Modal"
-import { View, UserPen, Trash } from "lucide-react"
+import { View, UserPen, Trash, Search, Users } from "lucide-react"
 import { toast } from "react-toastify"
 
 
@@ -47,7 +47,6 @@ const Admin_Student_Page = () => {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-users`)
             console.log(res.data.message);
             setUsers(res.data.users);
-            toast.success(res.data.message);
         } catch (error) {
             console.log(error)
         }
@@ -74,61 +73,59 @@ const Admin_Student_Page = () => {
         {showConfirmationPopup && (<Confirmation_Popup onConfirm={() => deleteStudent(selectedUser?._id)} onCancel={() => setShowConfirmationPopup(false)} />)}
         {showEditModal && (<Edit_Student_Modal selectedUser={selectedUser} reFetch={() => fetchUsers()} closeEditStudentModal={() => setShowEditModal(false)}/>)}
         {showViewStudent && (<View_Student_Modal user={selectedUser} onClose={() => setShowViewStudent(false)}/>)}
-       <section className="min-h-screen w-full bg-white pl-80 py-10 space-y-10">
+       <section className="min-h-screen w-full pl-80 pr-10 pt-10">
         
         <Admin_Sidebar/>
-        <div className="mx-10 justify-between items-start flex">
+        <div className="justify-between items-start flex mb-10">
             <div>
               <h2 className="text-3xl font-bold text-gray-800">User Management</h2>
-               <p className="text-gray-400 text-md">Manage user accounts, monitor learning progress, and keep track of student information and activities.</p>
+               <p className="text-gray-400 text-sm">Manage user accounts, monitor learning progress, and keep track of student information and activities.</p>
             </div>
 
        </div>
 
         {/* Student Container */}
-                  <div className="bg-white rounded-xl mx-10">
+                  <div className="bg-white rounded-xl">
 
-                    <div className="h-20 w-full justify-between items-center flex rounded-t-xl">
-                        <div>
-                          <h1 className="text-lg font-bold text-gray-500 rounded-full">Users Table</h1>
-                          <p className="text-gray-400 text-sm">Manage student accounts, progress, and information.</p>
+                    <div className="w-full justify-between items-center flex rounded-t-xl">
+
+                        <div className="flex items-center justify-start gap-2 mb-4">
+                            <div className="bg-black p-2 text-white rounded-xl justify-center items-center flex">
+                              <Users size={20}/>
+                            </div>
+                            <div>
+                                <h1 className="text-md font-bold text-gray-800 rounded-full">Users Table</h1>
+                                <p className="text-gray-400 text-xs">Manage student accounts, progress, and information.</p>
+                            </div>
+                          
                         </div>
                         
 
-                        <div className="space-x-2 justify-center ittems-center flex">
+                        <div className="justify-between items-center flex border-1 border-gray-300 rounded-lg px-4">
+                            
                             <input type="search" 
-                                   placeholder="Search by name, grade, or branch" 
-                                   className="bg-white border-1 border-gray-300 h-10 w-80 rounded-xl px-4 outline-none"
+                                   placeholder="Search by name" 
+                                   className="bg-white py-2 outline-none text-xs"
                                    value={search}
                                    onChange={(e) => setSearch(e.target.value)}
                             />
+                            <Search size={15} className="text-gray-500"/>
                              
                         </div>
                     </div>   
                       {/* Columns */}
-                        <div className="bg-gray-900 h-12 w-full rounded-xl justify-between items-center flex px-4">
-
-                            <div className="w-100 justify-start items-center flex gap-4">
-                                <h1 className="text-sm font-semibold text-white mr-14">No.</h1>
-                                <h1 className="text-sm font-semibold text-white">Fullname</h1>
-                            </div>
+                        <div className="bg-gray-900 w-full rounded-xl grid grid-cols-7 justify-between items-center flex px-4 py-3">
+        
+                                <h1 className="text-xs font-semibold text-white mr-14">No.</h1>
+                                <h1 className="text-xs font-semibold text-white">Lastname</h1>
+                                <h1 className="text-xs font-semibold text-white">Firstname</h1>
+                                <h1 className="text-xs font-semibold text-white">Middle</h1>
+                                <h1 className="text-xs font-semibold text-white">Email</h1>
+                                <h1 className="text-xs font-semibold text-white">Contact</h1>
+                                <h1 className="text-xs font-semibold text-white">Actions</h1>
                             
-                            
-                            <div className="w-100 justify-start items-center flex">
-                                        <div className="w-2/3">
-                                          <h1 className="text-sm font-semibold text-white">Email</h1>
-                                        </div>
-                                        <div className="w-1/3">
-                                          <h1 className="text-sm font-semibold text-white">Contact</h1>
-                                        </div>
-                                                                     
-                            </div>
-                            
-                            <div className="w-[10%]">
-                                <h1 className="text-sm font-semibold text-white">Actions</h1>
-                            </div>
                         </div>
-                    <div className="h-100 w-full rounded-b-xl pb-10 overflow-y-scroll">
+                    <div className="h-100 w-full rounded-b-xl pb-10">
                         
                         {/* Rows */}
                         {filteredUser.length < 1 && (
@@ -142,32 +139,19 @@ const Admin_Student_Page = () => {
                                 const updatedCreatedAt = new Date(user.createdAt).toISOString().split("T")[0];;
                                 
                                 return (
-                                <div key={user._id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-100 justify-between items-center flex px-4 py-2 mt-2 hover:border-blue-500 hover:bg-blue-100 cursor-pointer">
-                                    <div className="w-100 justify-start items-center flex gap-4">
-                                        <p className="text-gray-500">{index + 1}</p>
-                                        {user.avatar ? 
-                                        <img src={user.avatar} className="bg-gray-100 h-12 w-12 rounded-full" />
-                                        :
-                                        <div className="bg-blue-600 h-12 w-12 rounded-full text-white font-bold justify-center items-center flex">{user.firstname.charAt(0).toUpperCase()}</div>
-                                        }
-                                        
-                                        <p className="text-gray-500">{user.lastname}, {user.firstname}, {user.middlename}</p>
-                                    </div>
+                                <div key={user._id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-300 grid grid-cols-7 justify-start items-center px-4 py-2 mt-2 hover:border-blue-500 hover:bg-blue-100 cursor-pointer">
+                                    <h1 className="text-xs text-gray-500 justify-start items-center wrap-break-word">{index + 1}</h1>
+                                    <h1 className="text-xs text-gray-500 justify-start items-center wrap-break-word">{user.lastname}</h1>
+                                    <h1 className="text-xs text-gray-500 justify-start items-center wrap-break-word">{user.firstname}</h1>
+                                    <h1 className="text-xs text-gray-500 justify-start items-center wrap-break-word">{user.middlename}</h1>
+                                    <h1 className="text-xs text-gray-500 justify-start items-center wrap-break-word">{user.email}</h1>
+                                    <h1 className="text-xs text-gray-500 justify-start items-center wrap-break-word">{user.contact}</h1>
+
                                     
-                                    <div className="w-100 justify-start items-center flex">
-                                        <div className="w-2/3">
-                                          <p className="text-gray-500 wrap-break-word">{user.email}</p>
-                                        </div>
-                                        <div className="w-1/3">
-                                          <p className="text-gray-500 wrap-break-word">{user.contact}</p>
-                                        </div>
-                                                                         
-                                    </div>
-                                    
-                                    <div className="w-[10%] break-words gap-2 flex">
-                                        <button className="bg-blue-500 text-white justify-center items-center flex p-2 rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => handleViewStudent(user)}><View/></button>
-                                        <button className="bg-amber-500 text-white justify-center items-center flex p-2 rounded-lg cursor-pointer hover:bg-amber-600" onClick={() => handleEditStudent(user)}><UserPen/></button>
-                                        <button className="bg-red-500 text-white justify-center items-center flex p-2 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteConfirmation(user)}><Trash/></button>
+                                    <div className="break-words gap-2 flex">
+                                        <button className="bg-blue-500 text-white justify-center items-center flex p-2 rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => handleViewStudent(user)}><View size={15}/></button>
+                                        <button className="bg-amber-500 text-white justify-center items-center flex p-2 rounded-lg cursor-pointer hover:bg-amber-600" onClick={() => handleEditStudent(user)}><UserPen size={15}/></button>
+                                        <button className="bg-red-500 text-white justify-center items-center flex p-2 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteConfirmation(user)}><Trash size={15}/></button>
                                         
                                     </div>
                                 </div>

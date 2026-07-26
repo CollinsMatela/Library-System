@@ -1,5 +1,5 @@
 import Admin_SideBar from "../components/Admin_Sidebar"
-import { Plus, Check } from "lucide-react"
+import { Plus, Check, Users } from "lucide-react"
 import LogBookModal from "../modals/LogBookModal"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
@@ -52,7 +52,6 @@ const Admin_LogBook = () => {
           try {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-all-logbook`);
             console.log(res.data.message);
-            toast.success(res.data.message);
             setLogBookList(res.data.logBookList);
 
         } catch (error) {
@@ -107,32 +106,39 @@ const Admin_LogBook = () => {
         onConfirm={() => updateLeaveTime(selectedVisitor)} 
         onCancel={() => setShowConfirmation(false)}/>)}
 
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col py-10 pl-90 pr-10">
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col py-10 pl-80 pr-10">
             <Admin_SideBar/>
 
-            <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-gray-300 pb-10">
+            <header className="w-full justify-between items-start flex flex-col pb-10">
                 <div>
                     <h1 className="text-3xl font-bold text-gray-800">Log Book Management</h1>
-                    <h1 className="text-gray-400 text-md">Manage people entries to library</h1>
+                    <h1 className="text-gray-400 text-sm">Manage people entries to library</h1>
                 </div>
             </header>
 
             <div className="w-full justify-between items-start flex flex-col mb-10 pb-10">
-                <div className="w-full justify-between items-start flex mb-4">
-                    <div>
-                       <h1 className="text-3xl font-bold text-gray-800">Visitor List</h1>
-                       <h1 className="text-gray-400 text-md">Manage people entries to library</h1> 
-                    </div>
-                    <div>
-                       <button className="bg-black py-2 px-2 text-white text-xs rounded-xl cursor-pointer hover:-translate-y-1 justify-center items-center flex gap-2"
-                       onClick={() => setShowLogBook(true)}
-                       ><Plus size={15}/> Add Visitor
-                       </button> 
-                    </div>
-                    
+
+                <div className="flex items-start justify-between gap-2 w-full mb-4">
+                            
+                            <div className="justify-center items-center flex gap-2">
+                                <div className="bg-black p-2 text-white rounded-xl justify-center items-center flex">
+                                    <Users size={20}/>
+                                </div>
+                                <div>
+                                    <h1 className="text-md font-bold text-gray-800 rounded-full">Library Visitor</h1>
+                                    <p className="text-gray-400 text-xs">List of people entered library.</p>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <button className="bg-black py-2 px-2 text-white text-xs rounded-xl cursor-pointer hover:-translate-y-1 justify-center items-center flex gap-2"
+                                onClick={() => setShowLogBook(true)}
+                                ><Plus size={15}/> Add Visitor
+                                </button> 
+                            </div>
                 </div>
 
-                <div className="grid grid-cols-9 w-full bg-black p-4 rounded-xl mb-2">
+                <div className="grid grid-cols-9 w-full bg-black px-4 py-3 rounded-xl mb-2">
                             <h1 className="text-xs font-bold text-white">No.</h1>
                             <h1 className="text-xs font-bold text-white">Name</h1>
                             <h1 className="text-xs font-bold text-white">Address</h1>

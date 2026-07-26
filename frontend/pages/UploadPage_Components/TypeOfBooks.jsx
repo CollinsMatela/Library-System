@@ -1,3 +1,4 @@
+import { User } from "lucide-react";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCategoryOfBook, setSelectedCategoryOfBook, field, setField,
@@ -9,7 +10,7 @@ const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCateg
     if (selectedCategoryOfBook.toLowerCase() === "philosophy & psychology") {
         return (
             <select
-                className="bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2"
+                className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                 value={field}
                 onChange={(e) => setField(e.target.value)}
             >
@@ -24,7 +25,7 @@ const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCateg
     if (selectedCategoryOfBook.toLowerCase() === "social sciences") {
         return (
             <select
-                className="bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2"
+                className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                 value={field}
                 onChange={(e) => setField(e.target.value)}
             >
@@ -48,7 +49,7 @@ const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCateg
             <select
                 value={field}
                 onChange={(e) => setField(e.target.value)}
-                className="bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2"
+                className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
             >
                 <option value="">Select Technology Field</option>
                 <option value="medicine">Medicine</option>
@@ -65,7 +66,7 @@ const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCateg
             <select
                 value={field}
                 onChange={(e) => setField(e.target.value)}
-                className="bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2"
+                className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
             >
                 <option value="">Select The Arts Field</option>
                 <option value="architecture">Architecture</option>
@@ -85,13 +86,13 @@ if (selectedCategoryOfBook.toLowerCase() === "textbook") {
             <input
                 type="text"
                 placeholder="Subject"
-                className="h-12 border border-gray-300 outline-none p-2 rounded-lg"
+               className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
             />
 
             <select
-                className="bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2"
+                className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
                 value={gradeLevel}
                 onChange={(e) => setGradeLevel(e.target.value)}
             >
@@ -113,14 +114,20 @@ if (selectedCategoryOfBook.toLowerCase() === "textbook") {
 };
 
     return(
-        <div className="w-full grid pb-10 border-b border-gray-300">
-            <div>
-            <h2 className="text-3xl font-bold text-gray-800">Select Type of Books</h2>
-            <p className="text-gray-400 text-md">Choose Kind of Books you wanted to upload</p>
+        <div className="w-full grid">
+            <div className="flex items-center justify-start gap-2">
+                <div className="bg-black h-9 w-9 text-white rounded-xl justify-center items-center flex">
+                   <h1 className="font-bold text-md">1#</h1>
+                </div>
+                <div>
+                    <h1 className="text-md font-bold text-gray-800 rounded-full">Step One</h1>
+                    <p className="text-gray-400 text-xs">Select Type and Category of the book.</p>
+                </div>
+                
             </div>
 
-            <div className="w-full grid grid-cols-3 gap-2">
-            <select className="bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2" value={selectedTypeOfBooks} onChange={(e) => setSelectedTypeOfBooks(e.target.value)}>
+            <div className="w-full grid grid-cols-4 gap-2">
+            <select className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2" value={selectedTypeOfBooks} onChange={(e) => setSelectedTypeOfBooks(e.target.value)}>
                 <option value="">Type of Books</option>
                 <option value="fiction">Fiction</option>
                 <option value="non-fiction">Non-Fiction</option>
@@ -128,7 +135,7 @@ if (selectedCategoryOfBook.toLowerCase() === "textbook") {
 
             {/* Fiction */}
             <select
-                className={`${selectedTypeOfBooks.toLowerCase() === 'fiction' ? "" : "hidden"} bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2`}
+                className={`${selectedTypeOfBooks.toLowerCase() === 'fiction' ? "" : "hidden"} bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2`}
                 value={selectedCategoryOfBook}
                 onChange={(e) => setSelectedCategoryOfBook(e.target.value)}
             >
@@ -159,7 +166,7 @@ if (selectedCategoryOfBook.toLowerCase() === "textbook") {
             </select>
 
             {/* Non-Fiction */}
-            <select className={`${selectedTypeOfBooks.toLowerCase() === 'non-fiction' ? "" : "hidden"} bg-white border-1 border-gray-300 h-12 w-full rounded-md text-gray-500 mt-4 px-2`} value={selectedCategoryOfBook} onChange={(e) => setSelectedCategoryOfBook(e.target.value)}>
+            <select className={`${selectedTypeOfBooks.toLowerCase() === 'non-fiction' ? "" : "hidden"} bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2`} value={selectedCategoryOfBook} onChange={(e) => setSelectedCategoryOfBook(e.target.value)}>
                 <option value="">Type of Non-Fiction</option>
                 <option value="Generalities">Generalities</option>
                 <option value="Philosophy & Psychology">Philosophy & Psychology</option>

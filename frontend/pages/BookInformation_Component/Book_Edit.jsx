@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Image, Sparkle, Sparkles, Repeat } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Image, Sparkle, Sparkles, Repeat, PenBox, FilePlay } from "lucide-react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
@@ -15,6 +15,10 @@ const Book_Edit = ({bookDetails, fetchBookById}) => {
     const [imageFile, setImageFile] = useState(null);
     const imageRef = useRef(null);
 
+    const [audio, setAudio] = useState(null);
+    const [audioPreview, setAudioPreview] = useState('');
+    const audioRef = useRef(null);
+
     // Book Type
     const [type, setType] = useState(bookDetails?.type || "");
     const [category, setCategory] = useState(bookDetails?.category || "");
@@ -26,6 +30,7 @@ const Book_Edit = ({bookDetails, fetchBookById}) => {
     const [language, setLanguage] = useState(bookDetails?.language || "");
     const [publication, setPublication] = useState(bookDetails?.publication || "");
     const [publisher, setPublisher] = useState(bookDetails?.publisher || "");
+    const [copies, setCopies] = useState(bookDetails?.copies || "");
     const [isbn, setIsbn] = useState(bookDetails?.isbn || "");
 
     const [illustrator, setIllustrator] = useState(bookDetails?.illustrator || "");
@@ -64,7 +69,8 @@ const Book_Edit = ({bookDetails, fetchBookById}) => {
         bookDetails?.pages || [
             {
                 pageText: "",
-                pageImage: [],
+                pageImage: "",
+                pageAudio: ""
             },
         ]
     );
@@ -98,6 +104,7 @@ useEffect(() => {
     setLanguage(bookDetails.language || "");
     setPublication(bookDetails.publication || "");
     setPublisher(bookDetails.publisher || "");
+    setCopies(bookDetails.copies || 0);
     setIsbn(bookDetails.isbn || "");
     setPages(bookDetails.pages || []);
 
@@ -178,10 +185,26 @@ useEffect(() => {
 
     setImageFile(file);
     }
-    const updateBookInformation = async () => {
 
-        console.log('Check: ', moral);
-        console.log('Check: ', illustrator);
+    const handleAudioChange = (e) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    setPages(prev => {
+        const updated = [...prev];
+
+        updated[selectedPageIndex] = {
+        ...updated[selectedPageIndex],
+        pageAudio: file,
+        };
+
+        return updated;
+    });
+    setAudioPreview(URL.createObjectURL(file));
+    };
+
+    const updateBookInformation = async () => {
 
         try {
             const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-book/${bookDetails._id}`, {
@@ -191,6 +214,7 @@ useEffect(() => {
                 language,
                 publication,
                 publisher,
+                copies,
                 isbn,
                 type,
                 category,
@@ -266,6 +290,7 @@ useEffect(() => {
     { label: "Language", value: language, set: setLanguage, placeholder: "Select language", type: "select", options: ["English", "Filipino"] },
     { label: "Publication", value: publication, set: setPublication, placeholder: "Enter publication year", type: "number" },
     { label: "Publisher", value: publisher, set: setPublisher, placeholder: "Enter publisher", type: "text" },
+    { label: "Copies", value: copies, set: setCopies, placeholder: "Enter copies", type: "number" },
     { label: "ISBN", value: isbn, set: setIsbn, placeholder: "Enter ISBN", type: "text" },
     { label: "Edition", value: edition, set: setEdition, placeholder: "Enter edition", type: "text" },
     { label: "Volume", value: volume, set: setVolume, placeholder: "Enter volume", type: "text" },
@@ -544,12 +569,17 @@ switch (bookDetails?.category?.toLowerCase()) {
         />)}
 
         <div className="w-full border-t-1 border-gray-300 pt-10 flex flex-col">
-            <div className="w-full justify-between items-start flex">
-                    <div>
-                    <h2 className="text-3xl font-bold text-gray-800">Edit {bookDetails?.title || "Book"}</h2>
-                    <p className="text-gray-400 text-md">Manage to edit the book information.</p>
-                    </div>
-            </div>
+            
+            <div className="flex items-center justify-start gap-2">
+                          <div className="bg-black p-2 rounded-xl">
+                               <PenBox size={20} color="white"/>
+                          </div>
+                          <div>
+                                <h2 className="text-md font-bold text-gray-800">Edit Book</h2>
+                                <p className="text-xs text-gray-500">Manage the changing and updating book information.</p>
+                          </div>
+                      </div>
+            
             <div className="w-full grid grid-cols-3 gap-4 mt-10">
                     {fields.map((field) => (
                 <div key={field.label} className="flex flex-col gap-1">
@@ -561,7 +591,7 @@ switch (bookDetails?.category?.toLowerCase()) {
                         <select
                             value={field.value}
                             onChange={(e) => field.set(e.target.value)}
-                            className='w-full px-4 py-2 bg-white bg-white border border-gray-300 rounded-xl outline-none'
+                            className='w-full p-2 text-xs bg-white bg-white border border-gray-300 rounded-xl outline-none'
                         >
                             <option value="">
                                 {field.placeholder}
@@ -579,7 +609,7 @@ switch (bookDetails?.category?.toLowerCase()) {
                             value={field.value}
                             placeholder={field.placeholder}
                             onChange={(e) => field.set(e.target.value)}
-                            className='w-full px-4 py-2 bg-white bg-white border border-gray-300 rounded-xl outline-none'
+                            className='w-full p-2 text-xs bg-white border border-gray-300 rounded-xl outline-none'
                         />
                     )}
                 </div>
@@ -588,7 +618,7 @@ switch (bookDetails?.category?.toLowerCase()) {
 
             <div className="w-full mt-4 flex flex-col gap-1">
                 <label className="text-xs text-gray-500">Description</label>
-                    <textarea className="w-full border border-gray-300 outline-none p-4 rounded-xl"
+                    <textarea className="w-full border border-gray-300 outline-none p-2 text-xs rounded-xl"
                 placeholder="Enter book description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -600,14 +630,14 @@ switch (bookDetails?.category?.toLowerCase()) {
                 <div className="flex justify-between items-center gap-3">
                     <div className="justify-center items-center flex gap-2">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-100">
-                        <Sparkles size={20} className="text-violet-600" />
+                        <Sparkles size={15} className="text-violet-600" />
                         </div>
 
                         <div>
                             <h2 className="text-lg font-semibold text-gray-900">
                             AI Generated Summary
                             </h2>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-xs text-gray-500">
                             Generated using AI to provide a moral and concise overview of the story.
                             </p>
                         </div>
@@ -615,12 +645,12 @@ switch (bookDetails?.category?.toLowerCase()) {
                 
                 <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-600 cursor-pointer hover:-translate-y-1"
                      onClick={AISummarization}>
-                    <Repeat size={20} className="text-white" />
+                    <Repeat size={15} className="text-white" />
                 </div>
                 </div>
 
                 <div className="mt-5 rounded-xl bg-white p-5 border border-gray-100">
-                <p className="leading-8 text-gray-700 whitespace-pre-line">
+                <p className="leading-8 text-xs text-gray-700 whitespace-pre-line">
                     {moral}
                 </p>
                 </div>
@@ -629,14 +659,14 @@ switch (bookDetails?.category?.toLowerCase()) {
 
             {/* // Save Button */}
             <div className="w-full justify-end items-center flex mt-10">
-            <button className="justify-center items-center flex gap-2 bg-green-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+            <button className="justify-center items-center flex gap-2 bg-green-600 p-2 text-xs text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
             onClick={UpdateInformationConfirmation}
             >
-                <Pen size={20}/> Save Information 
+                <Pen size={15}/> Save Information 
             </button>
             </div>
             
-            <div className="flex flex-col w-full gap-2 border-t-1 border-gray-300 mt-10 py-10 gap-4">
+            <div className="flex flex-col w-full gap-2 border-t-1 border-gray-300 mt-10 py-10">
 
             <div className="w-full justify-between items-start flex">
                 <div>
@@ -646,7 +676,7 @@ switch (bookDetails?.category?.toLowerCase()) {
             </div>
 
             <div className="flex gap-2">
-            <select className='w-fit px-4 py-2 bg-white border border-gray-300 rounded-xl outline-none'
+            <select className='w-fit p-2 text-xs bg-white border border-gray-300 rounded-xl outline-none'
                 onChange={(e) => setSelectedPageIndex(parseInt(e.target.value))}
             >
                 <option value="">Select Page No.</option>
@@ -661,7 +691,7 @@ switch (bookDetails?.category?.toLowerCase()) {
 
             {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
             <div className="flex flex-col gap-1">
-                <button className='w-fit justify-center items-center flex gap-2 px-4 py-2 bg-black text-white cursor-pointer rounded-xl outline-none hover:-translate-y-1'
+                <button className='w-fit justify-center items-center flex gap-2 p-2 text-xs bg-black text-white cursor-pointer rounded-xl outline-none hover:-translate-y-1'
                 onClick={() => imageRef.current.click()}
                 >
                 <input
@@ -670,10 +700,28 @@ switch (bookDetails?.category?.toLowerCase()) {
                     onChange={handleImageChange}
                     className="hidden"
                 />
-                <Image size={20} />
+                <Image size={15} />
                 Change Page Image
                 </button>
-                </div>  
+            </div>  
+            )}
+
+            {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
+            <div className="flex flex-col gap-1">
+                <button className='w-fit justify-center items-center flex gap-2 p-2 text-xs bg-black text-white cursor-pointer rounded-xl outline-none hover:-translate-y-1'
+                onClick={() => audioRef.current.click()}
+                >
+                <input
+                    type="file"
+                    accept="audio/*"
+                    ref={audioRef}
+                    onChange={handleAudioChange}
+                    className="hidden"
+                />
+                <Image size={15} />
+                Change Page Audio
+                </button>
+            </div>  
             )}
 
             </div>
@@ -681,7 +729,7 @@ switch (bookDetails?.category?.toLowerCase()) {
                 {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
                 <div className="w-full flex flex-col gap-1">
                     <label className="text-xs text-gray-500">Page Text</label>
-                    <textarea className="h-100 w-full bg-gray-100 outline-none p-4 rounded-xl leading-loose whitespace-pre-line"
+                    <textarea className="h-100 w-full bg-white border border-gray-300 outline-none p-4 rounded-xl text-xs leading-loose whitespace-pre-line"
                         placeholder="Enter book page text"
                         value={pages[selectedPageIndex]?.pageText || ""}
                         onChange={(e) => {
@@ -690,6 +738,7 @@ switch (bookDetails?.category?.toLowerCase()) {
                             setPages(newPages);
                         }}
                     ></textarea>
+
                     <div className="w-full flex flex-col">
                        <img src={
                                 imageFile
@@ -701,11 +750,26 @@ switch (bookDetails?.category?.toLowerCase()) {
                         />
                     </div>
 
+                    {/**Audio Preview */}
+                        {pages[selectedPageIndex].pageAudio && (
+                            <div className="w-full justify-start items-center flex gap-2 p-2 bg-green-100 border border-green-600 rounded-xl mb-2">
+                                <div className="p-2 rounded-xl text-green-600 justify-center items-center flex"><FilePlay size={20}/></div>
+                                <div>
+                                    <h1 className="text-green-600 text-sm font-bold">Uploaded Audio {audio}</h1>
+                                    <h1 className="text-green-600 text-xs">
+                                        {audioPreview || pages[selectedPageIndex].pageAudio}
+                                    </h1>
+                                </div>
+                                
+                            </div>
+                            
+                        )}
+
                     <div className="w-full justify-end items-center flex">
-                    <button className="justify-center items-center flex gap-2 bg-green-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+                    <button className="justify-center items-center flex gap-2 bg-green-600 py-2 px-3 text-xs text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
                     onClick={UpdatePageConformation}
                     >
-                        <Pen size={20}/> Save Page No. {selectedPageIndex + 1}
+                        <Pen size={15}/> Save Page No. {selectedPageIndex + 1}
                     </button>
                     </div>
                 </div>

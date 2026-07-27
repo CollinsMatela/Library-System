@@ -24,6 +24,7 @@ const Admin_ViewMaterials_Page = () => {
     { label: "Language", value: bookDetails?.language },
     { label: "Publisher", value: bookDetails?.publisher },
     { label: "Publication Year", value: bookDetails?.publication },
+    { label: "Copies", value: bookDetails?.copies },
     { label: "ISBN", value: bookDetails?.isbn },
     { label: "Edition", value: bookDetails?.edition },
     { label: "Volume", value: bookDetails?.volume },
@@ -53,6 +54,9 @@ const Admin_ViewMaterials_Page = () => {
     // Business & Economics
     { label: "Business Area", value: bookDetails?.businessArea },
     { label: "Economics Branch", value: bookDetails?.economicsBranch },
+    { label: "Status", value: bookDetails?.copies > 0 ? "Available" : "Not Available" },
+    { label: "ID", value: bookDetails?._id },
+    
 ];
 
     useEffect(() => {
@@ -64,7 +68,6 @@ const Admin_ViewMaterials_Page = () => {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-book/${id}`);
             setBookDetails(res.data.book);
             console.log(res.data.message);
-            toast.success(res.data.message);
           } catch (error) {
             console.log(error);
             setErrorMessage(error?.response?.data?.message);
@@ -94,15 +97,15 @@ const Admin_ViewMaterials_Page = () => {
     message={'Are you sure to delete this book?'}
     onConfirm={() => deleteBook(bookDetails._id)} 
     onCancel={() => setIsConfirmation(false)}/>)}
-    <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-90 pr-10 pt-10 gap-10">
+    <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-80 pr-10 pt-10 gap-10">
     
     <div className="w-full justify-between items-start flex">
             <div>
               <h2 className="text-3xl font-bold text-gray-800">Book Information</h2>
-               <p className="text-gray-400 text-md">Oversee the book information of {bookDetails?.title || "the selected book"}.</p>
+               <p className="text-gray-400 text-xs">Oversee the book information of {bookDetails?.title || "the selected book"}.</p>
             </div>
             <button className="bg-gray-200 py-2 px-4 rounded-xl hover:bg-gray-300 cursor-pointer" onClick={() => navigate(-1)}>
-              <ArrowLeft />
+              <ArrowLeft size={15}/>
             </button>
     </div>
 
@@ -110,33 +113,29 @@ const Admin_ViewMaterials_Page = () => {
         {/* Book Cover Container */}
         <div className="bg-white w-120 flex flex-col gap-4">
             <img src={bookDetails?.cover} className="bg-gray-100 h-100 object-cover shadow-xl mb-5" />
-            <h1 className="text-gray-800">Book Status: {" "}
-                <span className={`${bookDetails?.copies > 0 ? "text-green-500" : "text-red-500"}`}>
-                  {bookDetails?.copies > 0 ? "Available" : "Not Available"}
-                </span>
-            </h1>
-            <h1 className="text-xs text-gray-500">{id || "Book Id —"}</h1>
+
         </div>
+        
         {/* Book Details Container */}
         <div className=" w-full p-4 justify-start items-start flex flex-col gap-5">
 
-            <div className="w-full justify-between items-start flex flex-col border-gray-300 border-b-1">
+            <div className="w-full justify-between items-start flex flex-col border-gray-300 border-b">
                 <div className="w-full flex flex-col gap-2">
-                    <h1 className="text-gray-800 text-4xl font-md">{bookDetails?.title || "Book name"}</h1>
-                    <h1 className="text-sm text-gray-500">Authored by: {bookDetails?.author || "—"}</h1>
+                    <h1 className="text-gray-800 text-xl font-bold italic">{bookDetails?.title || "Book name"}</h1>
+                    <h1 className="text-xs text-gray-500">By: {bookDetails?.author || "—"}</h1>
                 </div>
 
                 <div className="w-full flex justify-between items-center gap-3 my-4">
 
                     <div className="flex gap-2">
-                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full"><Book size={20}/>{bookDetails?.category}</div>
-                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full"><BookOpenText size={20}/>{bookDetails?.pages.length} Pages</div>
+                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-xs font-bold rounded-full"><Book size={15}/>{bookDetails?.category}</div>
+                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-xs font-bold rounded-full"><BookOpenText size={15}/>{bookDetails?.pages.length} Pages</div>
                     </div>
 
                     <div className="flex gap-2">
-                        <button className="justify-center items-center flex gap-2 bg-red-600 py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+                        <button className="justify-center items-center flex gap-2 bg-red-600 py-2 px-3 text-xs text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
                         onClick={handleDeleteConfirmation}>
-                            <Trash size={20}/> Remove
+                            <Trash size={15}/> Remove
                         </button>
                     </div>
                 </div>
@@ -157,9 +156,9 @@ const Admin_ViewMaterials_Page = () => {
                 info.value !== "—"
             ).map((info, index) => (
                 <div key={index}
-                className="w-full border-b-1 border-gray-300 justify-between items-center flex p-2">
-                <h1 className="text-xs font-bold text-gray-500">{info.label}</h1>
-                <h1 className="text-sm font-bold uppercase">{info.value}</h1>
+                className="w-full border-b border-gray-300 justify-between items-center flex p-2">
+                <h1 className="text-xs font-md text-gray-500">{info.label}</h1>
+                <h1 className="text-xs font-bold uppercase">{info.value}</h1>
                 </div>
             ))}
 

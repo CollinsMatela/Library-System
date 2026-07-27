@@ -20,20 +20,18 @@ const storage = multer.diskStorage({
 
 // File filter (optional but recommended)
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = /jpeg|jpg|png|webp|mp3|wav|ogg|m4a/;
+  const allowedExtensions = [".jpg", ".jpeg", ".png", ".webp", ".mp3", ".wav", ".ogg", ".m4a"];
+  const extension = path.extname(file.originalname).toLowerCase();
 
-  const ext = allowedTypes.test(
-    path.extname(file.originalname).toLowerCase()
-  );
-
-  const mime =
+  const isValidExtension = allowedExtensions.includes(extension);
+  const isValidMime =
     file.mimetype.startsWith("image/") ||
     file.mimetype.startsWith("audio/");
 
-  if (ext && mime) {
+  if (isValidExtension && isValidMime) {
     cb(null, true);
   } else {
-    cb(new Error("Only image and audio files are allowed"), false);
+    cb(new Error("Only image and audio files are allowed."));
   }
 };
 

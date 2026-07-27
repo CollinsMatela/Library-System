@@ -15,57 +15,68 @@ const Upload_Manually_Controller = async (req, res) => {
 
   try {
 
+    console.log(req.files.map(file => ({
+      fieldname: file.fieldname,
+      originalname: file.originalname,
+      mimetype: file.mimetype,
+    })));
+
     const parsedPages = JSON.parse(pages);
 
-    const coverFile = req.files.find(f => f.fieldname === "cover");
-    
-    // 🔥 FIX: collect ALL page images from upload.any()
-    const pageFiles = req.files.filter(f =>
-      f.fieldname.startsWith("pageImages_")
-    );
+    const coverFile = req.files.find(file => file.fieldname === "cover");
 
-    // upload cover
     let coverImage = "";
 
     if (coverFile) {
-      const coverUpload = await cloudinary.uploader.upload(
-        coverFile.path,
-        { folder: "books/covers" }
-      );
+      const result = await cloudinary.uploader.upload(coverFile.path, {
+        folder: "books/covers",
+      });
 
-      coverImage = coverUpload.secure_url;
+      coverImage = result.secure_url;
       fs.unlinkSync(coverFile.path);
     }
 
-    // 🔥 GROUP page images by page index
-    const pageImagesMap = {};
+    const updatedPages = [];
 
-    for (const file of pageFiles) {
+    for (let i = 0; i < parsedPages.length; i++) {
+      const page = parsedPages[i];
 
-      const match = file.fieldname.match(/pageImages_(\d+)/);
-
-      if (!match) continue;
-
-      const index = match[1];
-
-      const result = await cloudinary.uploader.upload(
-        file.path,
-        { folder: "books/pages" }
+      const imageFile = req.files.find(
+        file => file.fieldname === `pageImage_${i}`
       );
 
-      if (!pageImagesMap[index]) {
-        pageImagesMap[index] = [];
+      const audioFile = req.files.find(
+        file => file.fieldname === `pageAudio_${i}`
+      );
+
+      let imageUrl = "";
+      let audioUrl = "";
+
+      if (imageFile) {
+        const result = await cloudinary.uploader.upload(imageFile.path, {
+          folder: "books/pages/images",
+        });
+
+        imageUrl = result.secure_url;
+        fs.unlinkSync(imageFile.path);
       }
 
-      pageImagesMap[index].push(result.secure_url);
+      if (audioFile) {
+        const result = await cloudinary.uploader.upload(audioFile.path, {
+          resource_type: "video", // Cloudinary stores audio as "video"
+          folder: "books/pages/audio",
+        });
 
-      fs.unlinkSync(file.path);
+        audioUrl = result.secure_url;
+        fs.unlinkSync(audioFile.path);
+      }
+
+      updatedPages.push({
+        pageText: page.pageText,
+        pageImage: imageUrl,
+        pageAudio: audioUrl,
+      });
     }
-
-    const updatedPages = parsedPages.map((page, index) => ({
-      pageText: page.pageText,
-      pageImage: pageImagesMap[index] || []
-    }));
 
 
     if(type.toLowerCase() === 'fiction'){ 

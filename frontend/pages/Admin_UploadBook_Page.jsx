@@ -7,7 +7,7 @@ import FictionBookInformation from "./UploadPage_Components/FictionBookInformati
 import NonFictionBookInformation from "./UploadPage_Components/NonFictionBookInformation";
 import TypeOfBooks from "./UploadPage_Components/TypeOfBooks";
 import PreviewBook from "./UploadPage_Components/PreviewBook"
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, X, Plus, Image, Save, AudioLines } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, X, Plus, Image, Save, AudioLines, FilePlay } from "lucide-react";
 import { toast } from "react-toastify";
 
 const Admin_UploadBook_Page = () => {
@@ -58,11 +58,12 @@ const Admin_UploadBook_Page = () => {
         const [file, setFile] = useState(null);
         const [preview, setPreview] = useState(null);
         const [audio, setAudio] = useState(null);
+        const [audioPreview, setAudioPreview] = useState(null);
 
         const [pageList, setPageList] = useState([]);
         const [pageText, setPageText] = useState("");
-        const [pageImage, setPageImage] = useState([]);
-        const [pageImagePreview, setPageImagePreview] = useState([]);
+        const [pageImage, setPageImage] = useState(null);
+        const [pageImagePreview, setPageImagePreview] = useState("");
 
         const resetForm = () => {
             setErrorMessage("");
@@ -102,7 +103,6 @@ const Admin_UploadBook_Page = () => {
             // Cover Image
             setFile(null);
             setPreview(null);
-            setAudio(null)
 
             // Reset the actual file input
             if (fileInputRef.current) {
@@ -112,8 +112,10 @@ const Admin_UploadBook_Page = () => {
             // Pages
             setPageList([]);
             setPageText("");
-            setPageImage([]);
-            setPageImagePreview([]);
+            setPageImage(null);
+            setPageImagePreview("");
+            setAudio(null)
+            setAudioPreview(null);
 
             // Reset page image input
             if (pageImageInputRef.current) {
@@ -131,45 +133,85 @@ const Admin_UploadBook_Page = () => {
 
         useEffect(() => {
         return () => {
-            pageImagePreview.forEach((url) => {
-            URL.revokeObjectURL(url);
-            });
+            if (pageImagePreview) {
+            URL.revokeObjectURL(pageImagePreview);
+            }
         };
         }, [pageImagePreview]);
 
         const handleNextPage = () =>{
-           if (!pageText && pageImage.length === 0) {
-            toast.warning("Please enter text or upload at least one image.");
-            return;
+           if(!selectedTypeOfBooks && !selectedCategoryOfBook){
+            toast.warning('Please select type and category of book.');
+            return
+           }
+
+           if (
+            selectedTypeOfBooks.trim().toLowerCase() === "fiction" &&
+            selectedCategoryOfBook.trim().toLowerCase() === "story book"
+            ) {
+            if (!pageText || !pageImage || !audio) {
+                toast.warning(
+                "Story books require page text, at least one image, and page audio."
+                );
+                return;
+            }
+            } else {
+            if (!pageText && !pageImage) {
+                toast.warning("Please enter page text or upload at least one image.");
+                return;
+            }
             }
               setPageList((prev) => [ 
                 ...prev,
                  {
                     pageText,
-                    pageImage: [...pageImage], 
-                    pageAudio
+                    pageImage: pageImage, 
+                    pageAudio: audio
                  }
               ])
 
+              console.log(pageList);
+
                 setPageText("");
-                setPageImage([]);
+                setPageImage(null);
                 setAudio(null);
-                setPageImagePreview([]);
+                setAudioPreview(null);
+                setPageImagePreview("");
         }
 
-        const handlePageImagePreview = async (e) =>{
-              const files = Array.from(e.target.files);
-              if (pageImage.length >= 1) {
-                    toast.warning("Only 1 image is allowed per page.");
-                    return;
-                }
-              setPageImage((prev) => [...prev, ...files]);
+        const handlePageImagePreview = (e) => {
+            const file = e.target.files[0];
 
-               const imagesPreview = files.map(file => URL.createObjectURL(file));
-              setPageImagePreview((prev) => [...prev, ...imagesPreview])
-        }
-        const handleAudio = async (e) => {
-              const audio = e.target.files;
+            if (!file) {
+                toast.warning("Please select an image.");
+                return;
+            }
+
+            // Optional: only allow image files
+            if (!file.type.startsWith("image/")) {
+                toast.warning("Please select a valid image.");
+                return;
+            }
+
+            // Revoke the previous preview URL to prevent memory leaks
+            if (pageImagePreview) {
+                URL.revokeObjectURL(pageImagePreview);
+            }
+
+            setPageImage(file);
+            setPageImagePreview(URL.createObjectURL(file));
+        };
+
+        const handleAudioPreview = async (e) => {
+              const audio = e.target.files[0];
+
+              if(!audio){
+                toast.warning('Please an audio.');
+                return;
+              }
+
+              setAudio(audio);
+              setAudioPreview(URL.createObjectURL(audio));
         }
         
 
@@ -254,77 +296,85 @@ const Admin_UploadBook_Page = () => {
     };
 
     const uploadStory = async () => {
+    const formData = new FormData();
 
-        const formData = new FormData();
+    // Book Type
+    formData.append("type", selectedTypeOfBooks);
+    formData.append("category", selectedCategoryOfBook);
+    formData.append("field", field);
 
-        // Book Type
-        formData.append("type", selectedTypeOfBooks);
-        formData.append("category", selectedCategoryOfBook);
-        formData.append("field", field);
+    // Basic Book Information
+    formData.append("title", title);
+    formData.append("author", author);
+    formData.append("description", description);
+    formData.append("language", language);
+    formData.append("publication", publication);
+    formData.append("publisher", publisher);
+    formData.append("isbn", isbn);
+    formData.append("illustrator", illustrator);
+    formData.append("moral", moral);
 
-        // Basic Book Information
-        formData.append("title", title);
-        formData.append("author", author);
-        formData.append("description", description);
-        formData.append("language", language);
-        formData.append("publication", publication);
-        formData.append("publisher", publisher);
-        formData.append("isbn", isbn);
-        formData.append("illustrator", illustrator);
-        formData.append("moral", moral);
+    formData.append("ddc", ddc);
+    formData.append("copies", copies);
+    formData.append("callNumber", callNumber);
+    formData.append("availableAt", availableAt);
 
-        formData.append("ddc", ddc);
-        formData.append("copies", copies);
-        formData.append("callNumber", callNumber);
-        formData.append("availableAt", availableAt);
+    // Shared Book Information
+    formData.append("edition", edition);
+    formData.append("volume", volume);
 
-        // Shared Book Information
-        formData.append("edition", edition);
-        formData.append("volume", volume);
+    // Fiction
+    formData.append("series", series);
 
-        // Fiction
-        formData.append("series", series);
+    // Non-Fiction
+    formData.append("subject", subject);
+    formData.append("gradeLevel", gradeLevel);
 
-        formData.append("subject", subject);
-        formData.append("gradeLevel", gradeLevel);
-
-        // Cover Image
+    // Cover Image
+    if (file) {
         formData.append("cover", file);
+    }
 
-        // Book Pages
-        formData.append(
-            "pages",
-            JSON.stringify(
-                pageList.map((p) => ({
-                    pageText: p.pageText,
-                }))
-            )
+    // Page text
+    formData.append(
+        "pages",
+        JSON.stringify(
+            pageList.map((page) => ({
+                pageText: page.pageText,
+            }))
+        )
+    );
+
+    // Page images (single image per page)
+    pageList.forEach((page, pageIndex) => {
+        if (page.pageImage) {
+            formData.append(`pageImage_${pageIndex}`, page.pageImage);
+        }
+
+        // If each page also has one audio
+        if (page.pageAudio) {
+            formData.append(`pageAudio_${pageIndex}`, page.pageAudio);
+        }
+    });
+
+    try {
+        console.log([...formData.entries()]);
+
+        const res = await axios.post(
+            `${import.meta.env.VITE_API_URL}/upload-manually`,
+            formData
         );
 
-        pageList.forEach((page, pageIndex) => {
-            page.pageImage.forEach((image) => {
-                formData.append(`pageImages_${pageIndex}`, image);
-            });
-        });
-
-        try {
-            console.log([...formData.entries()]);
-
-            const res = await axios.post(
-                `${import.meta.env.VITE_API_URL}/upload-manually`,
-                formData
-            );
-
-            if (res.data.success) {
-                toast.success(res.data.message);
-                resetForm();
-            }
-        } catch (error) {
-            console.log(error);
-            setErrorMessage(error?.response?.data?.message);
-            toast.error(error?.response?.data?.message);
+        if (res.data.success) {
+            toast.success(res.data.message);
+            resetForm();
         }
-    };
+    } catch (error) {
+        console.log(error);
+        setErrorMessage(error?.response?.data?.message);
+        toast.error(error?.response?.data?.message);
+    }
+};
       return(
         <>
         <Admin_SideBar/>
@@ -341,7 +391,7 @@ const Admin_UploadBook_Page = () => {
               </header>
 
                 {/* MANUALLY UPLOAD STORY CONTAINER */}
-                <div className={`bg-black w-full flex bg-white rounded-xl gap-10`}>
+                <div className={`w-full flex bg-white rounded-xl gap-10`}>
                     
                         {/* Story Details */}
                         <div className="bg-white w-full flex flex-col gap-10">
@@ -481,10 +531,10 @@ const Admin_UploadBook_Page = () => {
                         </textarea>
 
                         <div className="w-full justify-end items-center flex gap-2">
-                            <button className={`${pageImagePreview.length > 2 ? 'hidden' : null} justify-center items-center flex gap-2 p-2 text-xs text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={() => audioInputRef.current.click()}>
+                            <button className={`${audioPreview ? 'hidden' : null} justify-center items-center flex gap-2 p-2 text-xs text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={() => audioInputRef.current.click()}>
                                 <AudioLines size={15}/> Add Audio
                             </button>                       
-                            <button className={`${pageImagePreview.length > 2 ? 'hidden' : null} justify-center items-center flex gap-2 p-2 text-xs text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={() => pageImageInputRef.current.click()}>
+                            <button className={`${pageImagePreview ? 'hidden' : null} justify-center items-center flex gap-2 p-2 text-xs text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={() => pageImageInputRef.current.click()}>
                                 <Image size={15}/> Add Image
                             </button>
 
@@ -498,12 +548,24 @@ const Admin_UploadBook_Page = () => {
                                     type="file" 
                                     ref={audioInputRef} 
                                     className="hidden" 
-                                    onChange={handlePageImagePreview} 
+                                    onChange={handleAudioPreview} 
                             />
                             <button className="justify-center items-center flex gap-2 p-2 text-xs bg-blue-600 text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
                                 onClick={handleNextPage}><Save size={15}/> Save {`(${pageList.length + 1})`}
                             </button>
                         </div>
+                        
+                        {/**Audio Preview */}
+                        {audioPreview && (
+                            <div className="w-full justify-start items-center flex gap-2 p-2 bg-green-100 border border-green-600 rounded-xl">
+                                <div className="p-2 rounded-xl text-green-600 justify-center items-center flex"><FilePlay size={20}/></div>
+                                <div>
+                                    <h1 className="text-green-600 text-sm font-bold">Uploaded Audio</h1>
+                                    <h1 className="text-green-600 text-xs">{audioPreview}</h1>
+                                </div>
+                                
+                            </div>
+                        )}
                     </div>
 
                     
@@ -511,38 +573,34 @@ const Admin_UploadBook_Page = () => {
                     {/* Page Image Preview */}
                         <div className="w-full mt-4">
                         
-                        {pageImagePreview.length > 0 && (
-                            <div className=" gap-4">
-                            
-                            {pageImagePreview.map((preview, index) => (
-                                <div
-                                key={index}
-                                className="relative bg-gray-300 rounded-xl overflow-hidden"
-                                >
-                                
-                                {/* Remove Overlay */}
-                                <div
-                                    onClick={() => {
-                                    setPageImage((prev) => prev.filter((_, i) => i !== index));
-                                    setPageImagePreview((prev) => prev.filter((_, i) => i !== index));
-                                    }}
-                                    className="absolute inset-0 bg-black/20 hover:bg-red-500/50 opacity-0 hover:opacity-100 transition cursor-pointer flex items-end p-2"
-                                >
-                                    <span className="text-white text-sm">
-                                    Remove Image
-                                    </span>
-                                </div>
+                        {pageImagePreview && (
+                        <div className="gap-4">
+                            <div className="relative bg-gray-300 rounded-xl overflow-hidden">
+                            {/* Remove Overlay */}
+                            <div
+                                onClick={() => {
+                                if (pageImagePreview) {
+                                    URL.revokeObjectURL(pageImagePreview);
+                                }
 
-                                {/* Preview Image */}
-                                <img
-                                    src={preview}
-                                    alt={`page-preview-${index}`}
-                                    className="w-full object-cover"
-                                />
-                                </div>
-                            ))}
-
+                                setPageImage(null);
+                                setPageImagePreview("");
+                                }}
+                                className="absolute inset-0 bg-black/20 hover:bg-red-500/50 opacity-0 hover:opacity-100 transition cursor-pointer flex items-end p-2"
+                            >
+                                <span className="text-white text-sm">
+                                Remove Image
+                                </span>
                             </div>
+
+                            {/* Preview Image */}
+                            <img
+                                src={pageImagePreview}
+                                alt="page-preview"
+                                className="w-full object-cover"
+                            />
+                            </div>
+                        </div>
                         )}
                         </div>
                 </div>
@@ -551,10 +609,6 @@ const Admin_UploadBook_Page = () => {
 
 
                          </div>
-
-                    
-                         
-                    {/*Preview Card*/}
                     
  
                     

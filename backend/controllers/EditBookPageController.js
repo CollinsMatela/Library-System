@@ -8,18 +8,28 @@ const EditBookPageController = async (req, res) => {
       const { bookId, pageId, pageText} = req.body;
 
       try {
-      const newPageImage = req.file;
-      
+
       let book = await Fiction_Model.findById(bookId) ||
                  await NonFiction_Model.findById(bookId);
       
       if (!book) { return res.status(404).json({message: "Book not found"});}
-
-      let result = null;
-
+      
+      // Retrieve object from multer
+      const newPageImage = req.files?.find((f) => f.fieldname === 'pageImage');
+      const newPageAudio = req.files?.find((f) => f.fieldname === 'pageAudio');
+      
+      // Instance
+      let imageResult  = null;
+      let audioResult = null;
+      
+      // Upload to Cloudinary
       if(newPageImage) { 
-        result = await cloudinary.uploader.upload(newPageImage.path, { folder: "books/pages" })
+        imageResult  = await cloudinary.uploader.upload(newPageImage.path, { folder: "books/pages/images" })
         fs.unlinkSync(newPageImage.path);
+      }
+      if(newPageAudio) {
+        audioResult = await cloudinary.uploader.upload(newPageAudio.path, {resource_type: "video", folder: "books/pages/audio"})
+        fs.unlinkSync(newPageAudio.path);
       }
 
       const currentPage = book.pages.id(pageId);
@@ -29,10 +39,14 @@ const EditBookPageController = async (req, res) => {
             message: "Page not found"
         });
       }
+
       const updatedPage = {
         pageText,
-        pageImage: result ? result.secure_url : currentPage.pageImage
+        pageImage: imageResult  ? imageResult.secure_url : currentPage.pageImage,
+        pageAudio: audioResult ? audioResult.secure_url : currentPage.pageAudio
       }
+
+
 
       if(book.type.toLowerCase() === 'fiction') {
         const result = await Fiction_Model.updateOne(
@@ -40,7 +54,8 @@ const EditBookPageController = async (req, res) => {
             {
                 $set: {
                     "pages.$.pageText": updatedPage.pageText,
-                    "pages.$.pageImage": updatedPage.pageImage
+                    "pages.$.pageImage": updatedPage.pageImage,
+                    "pages.$.pageAudio": updatedPage.pageAudio
                 }
             }
         );
@@ -54,7 +69,8 @@ const EditBookPageController = async (req, res) => {
             {
                 $set: {
                     "pages.$.pageText": updatedPage.pageText,
-                    "pages.$.pageImage": updatedPage.pageImage
+                    "pages.$.pageImage": updatedPage.pageImage,
+                    "pages.$.pageAudio": updatedPage.pageAudio
                 }
             }
         );

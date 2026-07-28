@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Image, Sparkle, Sparkles, Repeat, PenBox, FilePlay } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Image, Sparkle, Sparkles, Repeat, PenBox, FilePlay, FileText } from "lucide-react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
@@ -74,6 +74,12 @@ const Book_Edit = ({bookDetails, fetchBookById}) => {
             },
         ]
     );
+
+    useEffect(() => {
+    if (!bookDetails) return;
+
+    setPages(bookDetails.pages);
+}, [bookDetails]);
 
     // Cover & Availability
     const [cover, setCover] = useState(bookDetails?.cover || null);
@@ -183,7 +189,16 @@ useEffect(() => {
 
     if (!file) return;
 
-    setImageFile(file);
+    setPages(prev => {
+        const updated = [...prev];
+
+        updated[selectedPageIndex] = {
+        ...updated[selectedPageIndex],
+        pageImage: file,
+        };
+
+        return updated;
+    });
     }
 
     const handleAudioChange = (e) => {
@@ -251,18 +266,22 @@ useEffect(() => {
         }
     }
     const updatePage = async () => {
-          const currentPage = pages[selectedPageIndex];
+            const currentPage = pages[selectedPageIndex];
 
-          setPages(prev => (
-            prev.map((page, index) => index === selectedPageIndex ? {...page, pageImage: imageFile} : page)
-          ))
+            const formData = new FormData();
 
-          const formData = new FormData();
-          formData.append("bookId", bookDetails._id);
-          formData.append("pageId", pages[selectedPageIndex]._id);
-          formData.append("pageText", pages[selectedPageIndex].pageText);
-          formData.append("pageImage", imageFile || currentPage.pageImage);
-          console.log("Frontend -", pages[selectedPageIndex].pageText);
+            formData.append("bookId", bookDetails._id);
+            formData.append("pageId", currentPage._id);
+            formData.append("pageText", currentPage.pageText);
+
+            if (currentPage.pageImage instanceof File) {
+                formData.append("pageImage", currentPage.pageImage);
+            }
+
+            if (currentPage.pageAudio instanceof File) {
+                formData.append("pageAudio", currentPage.pageAudio);
+            }
+        
           try {
             const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-page`, formData);
             console.log("Page updated successfully:", res.data.message);
@@ -270,6 +289,7 @@ useEffect(() => {
             setErrorMessage("");
             fetchBookById(bookDetails._id);
             setIsBookPageUpdate(false);
+            
           } catch (error) {
             console.error("Error updating page:", error);
             setErrorMessage(error?.response?.data?.message || "An error occurred while updating the page.");
@@ -281,6 +301,7 @@ useEffect(() => {
           setIsBookInformationUpdate(true)
     }
     const UpdatePageConformation = () => {
+          setErrorMessage('');
           setIsBookPageUpdate(true)
     }
 
@@ -668,98 +689,211 @@ switch (bookDetails?.category?.toLowerCase()) {
             
             <div className="flex flex-col w-full gap-2 border-t-1 border-gray-300 mt-10 py-10">
 
-            <div className="w-full justify-between items-start flex">
-                <div>
-                <h2 className="text-3xl font-bold text-gray-800">Edit {bookDetails?.title || "Book"} Pages</h2>
-                <p className="text-gray-400 text-md">Manage to edit the page text and change the page image.</p>
+            <div className="flex justify-between items-start gap-3 mb-5">
+                <div className="justify-center items-center flex gap-2">
+                    <div className="bg-black p-2 rounded-xl">
+                        <FileText size={20} className="text-white" />
+                    </div>
+
+                    <div>
+                        <h2 className="text-md font-bold text-black">
+                            Edit Page 
+                        </h2>
+                        <p className="text-xs text-gray-500">
+                          Manage to edit and update the book page information.
+                        </p>
+                    </div>
                 </div>
-            </div>
+
+                    <select className='w-fit p-2 text-xs bg-white border border-gray-300 rounded-xl outline-none'
+                        onChange={(e) => setSelectedPageIndex(parseInt(e.target.value))}
+                    >
+                        <option value="">Select Page No.</option>
+                        {pages.map((page, index) => (
+                            <option 
+                            key={index} 
+                            value={index}>
+                            Page {index + 1}
+                            </option>
+                        ))}
+                    </select> 
+                </div>
 
             <div className="flex gap-2">
-            <select className='w-fit p-2 text-xs bg-white border border-gray-300 rounded-xl outline-none'
-                onChange={(e) => setSelectedPageIndex(parseInt(e.target.value))}
-            >
-                <option value="">Select Page No.</option>
-                {pages.map((page, index) => (
-                    <option 
-                    key={index} 
-                    value={index}>
-                    Page {index + 1}
-                    </option>
-                ))}
-            </select>  
-
-            {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
-            <div className="flex flex-col gap-1">
-                <button className='w-fit justify-center items-center flex gap-2 p-2 text-xs bg-black text-white cursor-pointer rounded-xl outline-none hover:-translate-y-1'
-                onClick={() => imageRef.current.click()}
-                >
-                <input
-                    type="file"
-                    ref={imageRef}
-                    onChange={handleImageChange}
-                    className="hidden"
-                />
-                <Image size={15} />
-                Change Page Image
-                </button>
-            </div>  
-            )}
-
-            {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
-            <div className="flex flex-col gap-1">
-                <button className='w-fit justify-center items-center flex gap-2 p-2 text-xs bg-black text-white cursor-pointer rounded-xl outline-none hover:-translate-y-1'
-                onClick={() => audioRef.current.click()}
-                >
-                <input
-                    type="file"
-                    accept="audio/*"
-                    ref={audioRef}
-                    onChange={handleAudioChange}
-                    className="hidden"
-                />
-                <Image size={15} />
-                Change Page Audio
-                </button>
-            </div>  
-            )}
+             
 
             </div>
                 
                 {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
-                <div className="w-full flex flex-col gap-1">
-                    <label className="text-xs text-gray-500">Page Text</label>
-                    <textarea className="h-100 w-full bg-white border border-gray-300 outline-none p-4 rounded-xl text-xs leading-loose whitespace-pre-line"
-                        placeholder="Enter book page text"
-                        value={pages[selectedPageIndex]?.pageText || ""}
-                        onChange={(e) => {
-                            const newPages = [...pages];
-                            newPages[selectedPageIndex].pageText = e.target.value;
-                            setPages(newPages);
-                        }}
-                    ></textarea>
+                <div className="w-full flex flex-col gap-4">
 
-                    <div className="w-full flex flex-col">
-                       <img src={
-                                imageFile
-                                    ? URL.createObjectURL(imageFile)
-                                    : pages[selectedPageIndex]?.pageImage
-                                } 
-                                alt="Page Image" 
-                                className="mt-4 object-cover shadow-xl mb-5"
-                        />
+                <div className="w-full bg-white border border-gray-300 rounded-xl p-4">
+
+                <div className="flex items-center gap-3 mb-5">
+                    <div className="bg-gray-200 p-2 rounded-xl">
+                        <FileText size={20} className="text-gray-700" />
+                    </div>
+
+                    <div>
+                        <h2 className="text-md font-bold text-gray-800">
+                            Page Text
+                        </h2>
+                        <p className="text-xs text-gray-500">
+                            Edit the narration or story content for this page.
+                        </p>
+                    </div>
+                </div>
+
+                <textarea
+                    className="w-full min-h-[400px] resize-none rounded-xl border border-gray-300 bg-gray-50 p-4 text-sm text-gray-700 leading-7 outline-none transition-all duration-200 focus:border-green-500 focus:ring-2 focus:ring-green-200"
+                    placeholder="Enter the page text..."
+                    value={pages[selectedPageIndex]?.pageText || ""}
+                    onChange={(e) => {
+                        const newPages = [...pages];
+                        newPages[selectedPageIndex].pageText = e.target.value;
+                        setPages(newPages);
+                    }}
+                />
+
+                <div className="flex justify-between items-center mt-3">
+                    <span className="text-xs text-gray-400">
+                        Write the content that will appear on this page.
+                    </span>
+
+                    <span className="text-xs font-medium text-gray-500">
+                        {pages[selectedPageIndex]?.pageText?.length || 0} characters
+                    </span>
+                </div>
+
+            </div>
+                    
+                    {/**Image Preview */}
+                    <div className="w-full bg-white border border-gray-300 rounded-xl p-4">
+
+                        <div className="flex justify-between items-start gap-3 mb-5">
+                            <div className="justify-center items-center flex gap-2">
+                                    <div className="bg-gray-200 p-2 rounded-xl">
+                                    <Image size={20} className="text-gray-700" />
+                                    </div>
+
+                                    <div>
+                                        <h2 className="text-md font-bold text-gray-800">
+                                            Page Image
+                                        </h2>
+                                        <p className="text-xs text-gray-500">
+                                            Update the image displayed on this page.
+                                        </p>
+                                    </div>
+                            </div>
+                            
+                            {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
+                            <div className="flex flex-col gap-1">
+                                <button className='w-fit justify-center items-center flex gap-2 p-2 text-xs bg-black text-white cursor-pointer rounded-xl outline-none hover:-translate-y-1'
+                                onClick={() => imageRef.current.click()}
+                                >
+                                <input
+                                    type="file"
+                                    ref={imageRef}
+                                    onChange={handleImageChange}
+                                    className="hidden"
+                                />
+                                <Image size={15} />
+                                Change Page Image
+                                </button>
+                            </div>  
+                            )}
+                        </div>
+
+                        {pages[selectedPageIndex]?.pageImage ? (
+                            <div className="w-full flex flex-col items-center">
+                                <img
+                                    src={
+                                        pages[selectedPageIndex].pageImage instanceof File
+                                                ? URL.createObjectURL(pages[selectedPageIndex].pageImage)
+                                                : pages[selectedPageIndex].pageImage
+                                    }
+                                    alt="Page Preview"
+                                    className="w-full max-h-80 object-contain rounded-lg border border-gray-200 bg-gray-50"
+                                />
+                            </div>
+                        ) : (
+                            <div className="w-full h-72 border-2 border-dashed border-gray-300 rounded-xl bg-gray-50 flex flex-col justify-center items-center">
+                                <Image size={20} className="text-gray-400 mb-3" />
+
+                                <h3 className="font-semibold text-gray-700 text-sm">
+                                    No Image Uploaded
+                                </h3>
+
+                                <p className="text-xs text-gray-500 text-center mt-1">
+                                    Upload an image to preview it here.
+                                </p>
+                            </div>
+                        )}
+
                     </div>
 
                     {/**Audio Preview */}
-                        {pages[selectedPageIndex].pageAudio && (
-                            <div className="w-full justify-start items-center flex gap-2 p-2 bg-green-100 border border-green-600 rounded-xl mb-2">
-                                <div className="p-2 rounded-xl text-green-600 justify-center items-center flex"><FilePlay size={20}/></div>
-                                <div>
-                                    <h1 className="text-green-600 text-sm font-bold">Uploaded Audio {audio}</h1>
-                                    <h1 className="text-green-600 text-xs">
-                                        {audioPreview || pages[selectedPageIndex].pageAudio}
-                                    </h1>
+                        {type.toLowerCase() === 'fiction' && category.toLowerCase() === 'story book' && (
+                            <div className="w-full justify-start items-start flex flex-col p-4 bg-white border border-gray-300 rounded-xl mb-2">
+                                <div className="flex justify-between items-start gap-2 mb-5 w-full">
+                                        
+                                        <div className="justify-center items-center flex gap-2">
+                                            <div className="bg-gray-200 p-2 rounded-xl">
+                                                <FilePlay size={20} className="text-gray-700"/>
+                                            </div>
+                                            <div>
+                                                    <h2 className="text-md font-bold text-gray-800">Narration Audio</h2>
+                                                    <p className="text-xs text-gray-500">Update the audio narration of this page.</p>
+                                            </div>
+                                        </div>
+                                        
+
+                                        {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
+                                        <div className="flex flex-col gap-1">
+                                            <button className='w-fit justify-center items-center flex gap-2 p-2 text-xs bg-black text-white cursor-pointer rounded-xl outline-none hover:-translate-y-1'
+                                            onClick={() => audioRef.current.click()}
+                                            >
+                                            <input
+                                                type="file"
+                                                accept="audio/*"
+                                                ref={audioRef}
+                                                onChange={handleAudioChange}
+                                                className="hidden"
+                                            />
+                                            <Image size={15} />
+                                            Change Page Audio
+                                            </button>
+                                        </div>  
+                                        )}
                                 </div>
+
+                                {pages[selectedPageIndex].pageAudio ? 
+                                    <audio
+                                        className="w-full"
+                                        controls
+                                        src={
+                                            pages[selectedPageIndex].pageAudio instanceof File
+                                                ? URL.createObjectURL(pages[selectedPageIndex].pageAudio)
+                                                : pages[selectedPageIndex].pageAudio
+                                        }
+                                    />
+                                    :
+                                    <div className="w-full rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 p-6 flex flex-col items-center justify-center text-center">
+                                        <div className="p-3 rounded-full bg-gray-200 mb-3">
+                                            <FilePlay size={20} className="text-gray-500" />
+                                        </div>
+
+                                        <h2 className="text-gray-700 text-sm font-semibold">
+                                            No Narration Audio
+                                        </h2>
+
+                                        <p className="text-xs text-gray-500 mt-1">
+                                            Upload an audio narration to preview it here.
+                                        </p>
+                                    </div>
+                                }
+                                    
+
                                 
                             </div>
                             

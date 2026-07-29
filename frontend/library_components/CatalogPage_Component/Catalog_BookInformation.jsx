@@ -98,7 +98,7 @@ const Catalog_BookInformation = ({
                         <select
                             value={field.value}
                             onChange={(e) => field.set(e.target.value)}
-                            className="w-full px-4 py-2 bg-white border border-gray-300 rounded-xl outline-none"
+                            className="w-full px-4 py-2 bg-white border border-gray-300 rounded-xl outline-none text-xs"
                         >
                             <option value="">
                                 {field.placeholder}
@@ -116,7 +116,7 @@ const Catalog_BookInformation = ({
                             value={field.value}
                             placeholder={field.placeholder}
                             onChange={(e) => field.set(e.target.value)}
-                            className="w-full px-4 py-2 bg-white border border-gray-300 rounded-xl outline-none"
+                            className="w-full px-4 py-2 bg-white border border-gray-300 rounded-xl outline-none text-xs"
                         />
                     )}
                 </div>

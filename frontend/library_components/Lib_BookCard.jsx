@@ -1,24 +1,24 @@
-import { HandHelping } from 'lucide-react'
+import { HandHelping, Info } from 'lucide-react'
 import { useState } from 'react'
 const Lib_BookCard = ({ handleViewBook, book, showBorrowModal}) => {
 
     return(
-         <div className="space-y-2 cursor-pointer hover:-translate-y-1" onClick={handleViewBook}>
+         <div className="justify-center items-center flex flex-col gap-2 border border-gray-300 shadow-sm rounded-xl cursor-pointer hover:-translate-y-1 bg-white p-4" onClick={handleViewBook}>
 
                    <div className="relative overflow-hidden ">
                     <img
                         src={book.cover}
                         alt={book.title}
-                        className="h-100 object-cover"
+                        className="object-cover rounded-md"
                     />
-
                     <span
-                        className={`absolute top-3 left-3 rounded-full px-3 py-1 text-xs font-semibold shadow-sm ${
+                        className={`absolute top-3 left-3 justify-center items-center flex gap-2 rounded-full text-xs font-semibold ${
                         book.copies > 0
-                            ? "bg-green-100 text-green-700"
-                            : "bg-red-100 text-red-700"
+                            ? " text-green-600"
+                            : " text-red-600"
                         }`}
                     >
+                        <Info size={15}/>
                         {book.copies > 0 ? "Available" : "Out of Stock"}
                     </span>
                     </div>
@@ -28,7 +28,7 @@ const Lib_BookCard = ({ handleViewBook, book, showBorrowModal}) => {
 
                     <div className="w-full justify-start items-center flex flex-col">
                         <h1 className="text-gray-800 font-bold text-sm truncate">{book.title.toUpperCase() || "—"}</h1>
-                        <p className="text-gray-500 text-xs">By: {book.author || "—"}</p>
+                        <p className="text-gray-500 text-xs">{book.author || "—"}</p>
                         
                     </div>
 

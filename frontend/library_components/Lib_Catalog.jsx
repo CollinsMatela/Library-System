@@ -225,21 +225,21 @@ useEffect(() => {
     return (
         <section className="min-h-screen w-full">
 
-            <div className="bg-white w-full flex flex-col items-center rounded-2xl pb-4">
+            <div className="bg-gray-50 w-full flex flex-col items-center rounded-2xl pb-4">
 
                 <Lib_Navigation />
 
                 <div className="w-full justify-center items-center flex flex-col mt-10 space-y-6 px-10 gap-2">
 
-                    <header className="w-7xl">
-                        <h1 className="text-3xl font-bold">Catalog</h1>
-                        <p className="text-gray-600 mt-2">
+                    <header className="w-5xl">
+                        <h1 className="text-xl font-bold">Search & Catalog</h1>
+                        <p className="text-gray-600 mt-2 text-xs">
                             Browse and search our collection of books by title, author, category, or other filters.
                         </p>
                     </header>
 
                     {/* FILTERS */}
-                    <div className="bg-white w-7xl space-y-4 ">
+                    <div className="bg-white rounded-xl border border-gray-300 w-5xl space-y-4 p-6">
 
                         <div className='flex flex-col gap-2'>
                             <label className="block text-xs text-gray-600">Search Books</label>
@@ -251,10 +251,10 @@ useEffect(() => {
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     placeholder="Search title or author..."
-                                    className="w-full outline-none"
+                                    className="w-full text-xs outline-none"
                                 />
 
-                                <Search size={32} className=" text-black"/>
+                                <Search size={15} className=" text-black"/>
                             </div>
                             
                         </div>
@@ -300,12 +300,12 @@ useEffect(() => {
 
                         {/* BUTTONS */}
                         <div className="flex justify-end gap-2">
-                            <button className="px-4 py-2 justfify-center items-center flex gap-2 rounded-xl cursor-pointer hover:-translate-y-1" onClick={clearFilters}>
-                                <BrushCleaning/> Clear
+                            <button className="p-2 justfify-center items-center flex gap-2 rounded-xl text-xs cursor-pointer hover:-translate-y-1" onClick={clearFilters}>
+                                <BrushCleaning size={15}/> Clear
                             </button>
 
-                            <button className="px-4 py-2 bg-black text-white justfify-center items-center flex gap-2 rounded-xl cursor-pointer hover:-translate-y-1" onClick={filterBooks}>
-                               <ListFilter/> Filter
+                            <button className="p-2 bg-black text-white justfify-center items-center text-xs flex gap-2 rounded-xl cursor-pointer hover:-translate-y-1" onClick={filterBooks}>
+                               <ListFilter size={15}/> Filter
                             </button>
                         </div>
 
@@ -313,14 +313,14 @@ useEffect(() => {
 
                
 
-                <div className="w-7xl bg-white border-t-1 mb-10 space-y-2 py-4">
+                <div className="w-5xl bg-white border border-gray-300 rounded-xl mb-2 space-y-2 p-6">
                         <div className='justify-between items-center flex py-2'>
-                           <h1 className="text-lg text-black"> Search Results ({bookResults.length})</h1>
+                           <h1 className="text-md font-bold text-black"> Search Results ({bookResults.length})</h1>
 
                             <div className='flex gap-2'>
-                            <button className={`${resultGrid ? "text-black" : "text-gray-300"} cursor-pointer`} onClick={() => setResultGrid((prev) => !prev)}><LayoutGrid/></button>
+                            <button className={`${resultGrid ? "text-black" : "text-gray-300"} cursor-pointer`} onClick={() => setResultGrid((prev) => !prev)}><LayoutGrid size={15}/></button>
                             <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}
-                                    className='w-fit px-4 py-2 bg-gray-100 rounded-xl outline-none'>
+                                    className='w-fit p-2 text-xs bg-gray-100 rounded-xl outline-none'>
                                     <option value="">Sort By</option>
                                     <option value="titleAsc">Title (A-Z)</option>
                                     <option value="titleDesc">Title (Z-A)</option>
@@ -345,9 +345,9 @@ useEffect(() => {
                                         <div className={`h-full flex ${resultGrid ? "flex-col" : ""} gap-2`}>
                                             <img src={book?.cover} className={`${resultGrid ? "h-full w-full" : "h-30 w-25"} object-cover rounded-md`} />
                                             <div className="h-full flex flex-col">
-                                                <h1 className="text-black text-lg">{book?.title}</h1>
-                                                <h1 className="text-gray-500 text-xs">{book?.author}</h1>
-                                                <h1 className="text-gray-500 text-xs">{book?.publication}</h1>
+                                                <h1 className="text-black text-md font-bold italic">{book?.title}</h1>
+                                                <h1 className="text-gray-500 text-xs">By: {book?.author}</h1>
+                                                <h1 className="text-gray-500 text-xs">Status: {book?.copies > 0 ? "Available" : "Not Available"}</h1>
                                             </div>
                                         </div>
                                     </div>

@@ -106,19 +106,18 @@ const Library_Page = () => {
         onClose={() => setShowBorrowModal(false)}
         requestBorrow={requestBorrow}
         />)}
-        <section className="min-h-screen w-full">
+        <section className="min-h-screen w-full justify-start items-center flex flex-col bg-gray-50">
            
             <Lib_Navigation/>
 
-            <div className="bg-white w-full justify-center items-center flex flex-col rounded-2xl px-10 bg-black">
+            <header className="w-5xl mt-10">
+                    <h1 className="text-xl font-bold">Browse Books</h1>
+                    <p className="mt-2 text-gray-600 text-xs">
+                        Browse educational resources, fiction, and non-fiction books available in the library.
+                    </p>
+            </header>
 
-                <div className='w-7xl flex flex-col gap-10'>
-                    <header className="w-full mt-10">
-                            <h1 className="text-3xl font-bold">Browse Books</h1>
-                            <p className="mt-2 text-gray-600">
-                                Browse educational resources, fiction, and non-fiction books available in the library.
-                            </p>
-                    </header>
+            <div className="w-5xl justify-center items-center flex flex-col mt-6 rounded-xl">                   
                     
                     <div className='w-full grid grid-cols-4 gap-4'>
                         {books.map((book) => (
@@ -131,7 +130,7 @@ const Library_Page = () => {
                             />
                         ))}
                     </div>
-                </div>
+
                  
                 
                 

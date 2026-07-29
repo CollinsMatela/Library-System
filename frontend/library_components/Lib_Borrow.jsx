@@ -59,19 +59,19 @@ const Lib_Borrow = () => {
         onConfirm={() => deleteBorrow(selectedRequest._id)}
         onCancel={() => setConfirmation(false)}
         />)}
-        <section className="min-h-screen w-full">
+        <section className="min-h-screen w-full bg-gray-50">
         <Lib_Navigation/>
                     <div className="w-full justify-center items-center flex flex-col rounded-2xl px-10">
         
-                        <div className='w-7xl flex flex-col gap-10 bg-white'>
+                        <div className='w-5xl flex flex-col'>
                             <header className="w-full mt-10">
-                                    <h1 className="text-3xl font-bold">Request Status</h1>
-                                    <p className="mt-2 text-gray-600">
+                                    <h1 className="text-xl font-bold">Request Status</h1>
+                                    <p className="mt-2 text-gray-600 text-xs">
                                         Browse educational resources, fiction, and non-fiction books available in the library.
                                     </p>
                             </header>
                         </div>
-                        <div className="h-150 w-7xl flex flex-col gap-4 bg-white mt-4 overflow-y-auto">
+                        <div className="h-100 w-5xl flex flex-col gap-2 mt-4 overflow-y-auto">
                             {inOrderRequest?.length === 0 ? (
                                 <div className="flex flex-col items-center justify-center py-16 rounded-xl bg-gray-100">
                                     <h2 className="text-xl font-semibold text-gray-700">
@@ -85,20 +85,20 @@ const Lib_Borrow = () => {
                                 inOrderRequest.map((req) => (
                                     <div
                                         key={req._id}
-                                        className="flex items-start justify-between border border-gray-300 rounded-xl p-5 transition duration-200"
+                                        className="flex items-start justify-between border bg-white border-gray-300 rounded-xl p-5 transition duration-200"
                                     >
                                         <div>
-                                            <h2 className="text-lg font-semibold text-gray-800">
-                                                {req.title}
+                                            <h2 className="text-sm font-semibold text-gray-800">
+                                                Borrowing: {req.title}
                                             </h2>
 
-                                            <p className="text-sm text-gray-500 mt-1">
+                                            <p className="text-xs text-gray-500 mt-1">
                                                 Requested on{" "}
                                                 {new Date(req.createdAt).toLocaleDateString()}
                                             </p>
 
                                             <span
-                                            className={`rounded-full text-sm font-semibold
+                                            className={`rounded-full text-xs font-semibold
                                                 ${
                                                     req.status === "Pending"
                                                         ? " text-yellow-500"
@@ -116,7 +116,7 @@ const Lib_Borrow = () => {
 
                                         </div>
 
-                                        <div className="h-20 w-fit justify-center items-center flex">
+                                        <div className="h-full w-fit justify-center items-center flex">
                                             {req.status === 'Pending' && (<h1 className="text-xs text-gray-400 font-md justify-center items-center flex gap-2">Currently in review. Please keep waiting! <Hourglass size={15}/></h1>)}
                                             {req.status === 'Approved' && (<h1 className="text-xs text-gray-400 font-md justify-center items-center flex gap-2">Your request has been approved. Please proceed to library and bring your VALID ID. <Check size={15}/></h1>)}
                                             {req.status === 'Borrowed' && (<h1 className="text-xs text-gray-400 font-md justify-center items-center flex gap-2">{`Please return until ${req.returnDate}`} <CalendarClock size={15}/></h1>)}
@@ -127,9 +127,9 @@ const Lib_Borrow = () => {
                                             
                                         {(req.status === 'Pending' || req.status === 'Approved') && 
                                         (
-                                        <button className="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-700 cursor-pointer"
+                                        <button className="p-2 bg-red-600 rounded-lg hover:bg-red-700 cursor-pointer"
                                         onClick={() => handleConfirmation(req)}
-                                        ><X size={20} color="white"/>
+                                        ><X size={15} color="white"/>
                                         </button>
                                         )}
                                         

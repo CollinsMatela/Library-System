@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Lib_Navigation from "./Lib_Navigation";
 import axios from "axios";
 import useAuthStore from "../store/useAuthStore";
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Sparkles, Sparkle, Hourglass } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Sparkles, Sparkle, Hourglass, BookOpen, Info } from "lucide-react";
 import Lib_BookLayout from "./Lib_BookLayout";
 import { toast } from "react-toastify";
 import BorrowModal from '../modals/BorrowModal'
@@ -139,33 +139,19 @@ const Lib_ViewBook = () => {
   
     <Lib_Navigation />
 
-    <header className="w-7xl justify-between items-start flex my-10">
-        <div>
-            <h1 className="text-3xl font-bold">Book Information</h1>
-            <p className="mt-2 text-gray-600">Browse educational resources, fiction, and non-fiction books available in the library.</p>
-        </div>
-        <button className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full cursor-pointer" onClick={() => navigate(-1)}>
-            <ArrowLeft />
-        </button>
-    </header>
-
-    <div className="w-7xl flex gap-4">
+    <div className="w-5xl flex gap-4 mt-10">
         {/* Book Cover Container */}
         <div className="bg-white w-120 flex flex-col gap-4">
             <img src={bookDetails?.cover} className="bg-gray-100 object-center shadow-xl mb-5" />
-            <div className="justify-between items-center flex">
-                 <h1 className="text-gray-500 font-semibold text-sm">Book Status</h1>
-                 <h1 className={`${bookDetails?.copies > 0 ? "text-green-500" : "text-red-500"} font-bold`}>{bookDetails?.copies > 0 ? "Available" : "Not Available"}</h1>
-            </div>
            
             {!isRequestExisting && bookDetails?.copies > 0 && (
-               <button className="justify-center items-center flex gap-2 bg-black py-2 w-full rounded-lg cursor-pointer text-white text-sm font-bold" onClick={() => setShowBorrowModal(true)}>
-                <HandHelping size={20}/>Request Borrow
+               <button className="justify-center items-center flex gap-2 bg-black py-2 w-full rounded-lg cursor-pointer text-white text-xs font-bold" onClick={() => setShowBorrowModal(true)}>
+                <HandHelping size={15}/>Request Borrow
                </button>
             )}
             {isRequestExisting && (
                 <div className="justify-center items-center flex gap-2 bg-yellow-100 border border-yellow-500 py-2 w-full rounded-lg text-yellow-500">
-                <span className="font-semibold text-sm">Request Status: {isRequestExisting.status}</span>
+                <span className="font-semibold text-xs">Request Status: {isRequestExisting.status}</span>
                 <Hourglass size={15}/>
                </div>
             )}
@@ -173,85 +159,130 @@ const Lib_ViewBook = () => {
         {/* Book Details Container */}
         <div className=" w-full p-4 justify-start items-start flex flex-col">
 
-            <div className="w-full justify-between items-start flex flex-col border-gray-300 border-b-1">
+            <div className="w-full justify-between items-start flex flex-col border-gray-300 border-b">
                 <div className="w-full flex flex-col gap-2">
                     <h1 className="text-black text-4xl font-bold italic">{bookDetails?.title || "Book name"}</h1>
-                    <h1 className="text-sm text-gray-500">Authored by: {bookDetails?.author || "—"}</h1>
+                    <h1 className="text-sm text-gray-500">By: {bookDetails?.author || "—"}</h1>
                 </div>
 
                 <div className="w-full flex justify-between items-center gap-3 my-4">
 
                     <div className="flex gap-2">
-                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full"><Book size={20}/>{bookDetails?.category}</div>
-                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-sm font-bold rounded-full"><BookOpenText size={20}/>{bookDetails?.pages.length} Pages</div>
+                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-xs font-bold rounded-full"><Book size={15}/>{bookDetails?.category}</div>
+                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-xs font-bold rounded-full"><BookOpenText size={15}/>{bookDetails?.pages.length} Pages</div>
+                        <div
+                        className={`justify-center items-center flex gap-2 py-2 px-3 text-xs font-bold rounded-full ${
+                            bookDetails?.copies > 0
+                            ? "bg-green-100 text-green-700"
+                            : "bg-red-100 text-red-700"
+                        }`}
+                        >
+                        <Info size={15} />
+                        {bookDetails?.copies > 0 ? "Available" : "Not Available"}
+                        </div>
                     </div>
 
                     <div className="flex gap-2">
 
-                        <button className={`${generatedSummary ? "hidden" : ""} justify-center items-center flex gap-2 bg-white py-2 px-3 text-sm text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`}
-                        onClick={() => AISummarization()}>
-                            <Sparkle size={20}/> Summary
-                        </button>
-
-
-                        <button className="justify-center items-center flex gap-2 bg-white py-2 px-3 text-sm text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer">
-                            <Sparkle size={20}/> AI Video
-                        </button>
-
-                        <button className="justify-center items-center flex gap-2 bg-black py-2 px-3 text-sm text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+                        <button className="justify-center items-center flex gap-2 bg-black py-2 px-3 text-xs text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
                         onClick={() => setShowReadModal(true)}>
-                            <BookOpenText size={20}/> Read
+                            <BookOpenText size={15}/> Read
                         </button>
                     </div>
                 </div>
 
             </div>
-
-           {generatedSummary && (
-            <div className="mt-6 rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50 to-white p-6 shadow-sm">
-                <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-100">
-                    <Sparkles size={20} className="text-violet-600" />
+            
+           <div className="mt-6 rounded-2xl border border-gray-300 p-6 shadow-sm w-full">
+            <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200">
+                <BookOpen size={20} className="text-black" />
                 </div>
 
                 <div>
-                    <h2 className="text-lg font-semibold text-gray-900">
-                    AI Generated Summary
-                    </h2>
-                    <p className="text-sm text-gray-500">
-                    Generated using AI to provide a concise overview of the story.
-                    </p>
-                </div>
-                </div>
-
-                <div className="mt-5 rounded-xl bg-white p-5 border border-gray-100">
-                <p className="leading-8 text-gray-700 whitespace-pre-line">
-                    {generatedSummary}
+                <h2 className="text-lg font-semibold text-gray-900">
+                    Description
+                </h2>
+                <p className="text-sm text-gray-500">
+                    A brief overview of this book.
                 </p>
                 </div>
             </div>
+
+            <div className="mt-5 rounded-xl bg-white p-5 border border-gray-100">
+                <p className="leading-8 text-gray-700 whitespace-pre-line">
+                {bookDetails?.description || "No description available for this book."}
+                </p>
+            </div>
+            </div>
+
+            {/**AI Summary */}
+            {bookDetails?.type.toLowerCase() === 'fiction' && bookDetails?.category.toLowerCase() === 'story book' && (
+                <div className="mt-6 rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50 to-white p-6 shadow-sm w-full">
+                    <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-100">
+                        <Sparkles size={20} className="text-violet-600" />
+                    </div>
+
+                    <div>
+                        <h2 className="text-lg font-semibold text-gray-900">
+                        AI Generated Summary
+                        </h2>
+                        <p className="text-sm text-gray-500">
+                        Generated using AI to provide a concise overview of the story.
+                        </p>
+                    </div>
+                    </div>
+
+                    <div className="mt-5 rounded-xl bg-white p-5 border border-gray-100">
+                    <p className="leading-8 text-gray-700 whitespace-pre-line">
+                        {bookDetails?.summary || "No summary available for this book."}
+                    </p>
+                    </div>
+                </div>
             )}
 
-           <div className="w-full py-4 rounded-xl my-6">
-                 <h1 className="text-gray-500 text-sm font-md">{bookDetails?.description || "No Description"}</h1>
-           </div>
+           <div className="mt-6 rounded-2xl border border-gray-300 p-6 shadow-sm w-full">
 
-           <div className="w-full flex flex-col gap-2">
-
-           <h1 className="text-md font-semibold text-gray-800">Book Details —</h1>
-
-            {informations.filter(info =>
-                info.value !== null &&
-                info.value !== undefined &&
-                info.value !== "" &&
-                info.value !== "—"
-            ).map((info, index) => (
-                <div key={index}
-                className="w-full border-b-1 border-gray-300 justify-between items-center flex py-2">
-                <h1 className="text-xs font-bold text-gray-500">{info.label}</h1>
-                <h1 className="text-sm">{info.value}</h1>
+            <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200">
+                <BookOpen size={20} className="text-black" />
                 </div>
-            ))}
+
+                <div>
+                <h2 className="text-lg font-semibold text-gray-900">
+                    Book Details
+                </h2>
+                <p className="text-sm text-gray-500">
+                    Information and details about this book.
+                </p>
+                </div>
+            </div>
+
+            <div className="mt-5 rounded-xl bg-white p-5 border border-gray-100">
+                {informations
+                .filter(
+                    (info) =>
+                    info.value !== null &&
+                    info.value !== undefined &&
+                    info.value !== "" &&
+                    info.value !== "—"
+                )
+                .map((info, index) => (
+                    <div
+                    key={index}
+                    className="w-full border-b border-gray-200 last:border-b-0 flex justify-between items-center py-3"
+                    >
+                    <h1 className="text-xs font-bold text-gray-500">
+                        {info.label}
+                    </h1>
+
+                    <h1 className="text-sm text-gray-800 text-right">
+                        {info.value}
+                    </h1>
+                    </div>
+                ))}
+            </div>
 
             </div>
             

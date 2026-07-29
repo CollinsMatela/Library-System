@@ -21,21 +21,21 @@ const Lib_Navigation = () => {
     }
     
     return(
-        <nav className=" bg-white border-b border-gray-300 h-20 w-full justify-center items-center flex px-6">
+        <nav className=" bg-white border-b border-gray-300 h-15 w-full justify-center items-center flex px-6">
 
-                       <div className='w-7xl justify-between items-center flex'>
+                       <div className='w-5xl justify-between items-center flex'>
                           <div className='h-full rounded-2xl flex gap-2 justify-center items-center'>
-                            <div className=" bg-gray-100 h-10 w-10 rounded-full justify-center items-center flex cursor-pointer" onClick={() => navigate('/library')}>
+                            <div className=" bg-gray-100 h-8 w-8 rounded-full justify-center items-center flex cursor-pointer" onClick={() => navigate('/library')}>
                               <img src={NaicLibraryLogo} alt="Logo" className='h-full w-full object-cover rounded-xl'/>
                             </div>
-                            <h1 className="text-medium text-black font-bold text-lg">Naic Municipal Library</h1>
+                            <h1 className="text-medium text-black font-bold text-sm">Naic Municipal Library</h1>
                           </div>
 
                           <div className='gap-2 justify-center items-center flex'>
-                            <button className={`${location.pathname === '/library' ? "bg-black text-white" : "bg-white text-black"} h-10 px-4 justify-center items-center flex text-sm transition-all duration-300 ease-in-out cursor-pointer gap-2 rounded-xl`} onClick={() => navigate('/library')}><Blocks size={20}/> Book Browse</button>
-                            <button className={`${location.pathname === '/library/catalog' ? "bg-black text-white" : "bg-white text-black"} h-10 px-4 justify-center items-center flex text-sm transition-all duration-300 ease-in-out cursor-pointer gap-2 rounded-xl`} onClick={() => navigate('/library/catalog')}><BookSearch size={20}/> Catalog</button>
-                            <button className={`${location.pathname === '/library/borrow-status' ? "bg-black text-white" : "bg-white text-black"} h-10 px-4 justify-center items-center flex text-sm transition-all duration-300 ease-in-out cursor-pointer gap-2 rounded-xl`} onClick={() => navigate('/library/borrow-status')}><BookSearch size={20}/> Borrow Status</button>
-                            <button className="h-10 px-4 justify-center items-center flex text-gray-500 font-bold transition-all duration-300 ease-in-out cursor-pointer gap-2 hover:bg-red-100 hover:text-red-500 hover:underline rounded-xl" onClick={handleLogout}><LogOut size={20}/></button>
+                            <button className={`${location.pathname === '/library' ? "bg-black text-white" : "bg-white text-black"} p-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2 rounded-xl hover:underline`} onClick={() => navigate('/library')}><Blocks size={15}/> Book Browse</button>
+                            <button className={`${location.pathname === '/library/catalog' ? "bg-black text-white" : "bg-white text-black"} p-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2 rounded-xl hover:underline`} onClick={() => navigate('/library/catalog')}><BookSearch size={15}/> Search & Catalog</button>
+                            <button className={`${location.pathname === '/library/borrow-status' ? "bg-black text-white" : "bg-white text-black"} p-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2 rounded-xl hover:underline`} onClick={() => navigate('/library/borrow-status')}><BookSearch size={15}/> Borrow Status</button>
+                            <button className="h-10 px-4 justify-center items-center flex text-gray-500 font-bold transition-all duration-300 ease-in-out cursor-pointer gap-2 hover:bg-red-100 hover:text-red-500 hover:underline rounded-xl" onClick={handleLogout}><LogOut size={15}/></button>
                           </div>
                        </div>
                               

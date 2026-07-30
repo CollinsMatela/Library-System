@@ -24,6 +24,7 @@ const Lib_Catalog = () => {
     const [language, setLanguage] = useState("");
     const [publication, setPublication] = useState("");
     const [publisher, setPublisher] = useState("");
+    const [illustrator, setIllustrator] = useState("");
     const [isbn, setIsbn] = useState("");
     const [field, setField] = useState("");
     const [ddc, setDdc] = useState("");
@@ -54,6 +55,7 @@ const Lib_Catalog = () => {
     setLanguage("");
     setPublication("");
     setPublisher("");
+    setIllustrator("");
     setIsbn("");
 
     setEdition("");
@@ -125,6 +127,12 @@ const Lib_Catalog = () => {
             book.publisher?.toLowerCase().includes(publisher.toLowerCase())
         );
     }
+    // Illustrator
+    if (illustrator !== "") {
+        filtered = filtered.filter(book =>
+            book.illustrator?.toLowerCase().includes(illustrator.toLowerCase())
+        );
+    }
 
     // ISBN
     if (isbn !== "") {
@@ -178,6 +186,7 @@ const Lib_Catalog = () => {
 
     setBookResults(filtered);
 }
+
     const displayedBooks = [...bookResults].sort((a, b) => {
     switch (sortBy) {
         case "titleAsc":
@@ -281,6 +290,8 @@ useEffect(() => {
                             setPublication={setPublication}
                             publisher={publisher}
                             setPublisher={setPublisher}
+                            illustrator={illustrator}
+                            setIllustrator={setIllustrator}
                             isbn={isbn}
                             setIsbn={setIsbn}
                             ddc={ddc}

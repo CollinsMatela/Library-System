@@ -31,6 +31,7 @@ const Lib_ViewBook = () => {
     { label: "Field", value: bookDetails?.field },
 
     // Basic Information
+    { label: "Illustrator", value: bookDetails?.illustrator },
     { label: "Language", value: bookDetails?.language },
     { label: "Publisher", value: bookDetails?.publisher },
     { label: "Publication Year", value: bookDetails?.publication },
@@ -135,13 +136,13 @@ const Lib_ViewBook = () => {
     onClose={() => setShowBorrowModal(false)}
     requestBorrow={requestBorrow}
     />)}
-    <section className="min-h-screen w-full justify-start items-center flex flex-col pb-10">
+    <section className="min-h-screen w-full bg-gray-50 justify-start items-center flex flex-col pb-10">
   
     <Lib_Navigation />
 
     <div className="w-5xl flex gap-4 mt-10">
         {/* Book Cover Container */}
-        <div className="bg-white w-120 flex flex-col gap-4">
+        <div className="bg-gray-50 w-120 flex flex-col">
             <img src={bookDetails?.cover} className="bg-gray-100 object-center shadow-xl mb-5" />
            
             {!isRequestExisting && bookDetails?.copies > 0 && (
@@ -150,9 +151,19 @@ const Lib_ViewBook = () => {
                </button>
             )}
             {isRequestExisting && (
-                <div className="justify-center items-center flex gap-2 bg-yellow-100 border border-yellow-500 py-2 w-full rounded-lg text-yellow-500">
-                <span className="font-semibold text-xs">Request Status: {isRequestExisting.status}</span>
-                <Hourglass size={15}/>
+                <div className="justify-start items-center flex gap-2 bg-white border border-gray-300 p-2 w-full rounded-lg">
+                
+                <div className="p-2 bg-yellow-100 rounded-full text-yellow-500">
+                    <Hourglass size={12}/>
+                </div>
+
+                <div className="flex flex-col">
+                   <h1 className="font-semibold text-xs">Your Request</h1>
+                   <h1 className="text-xs text-gray-500">Please keep wait.
+                     <span className="text-blue-600 italic text-xs cursor-pointer hover:underline" onClick={() => navigate("/library/borrow-status")}>view</span>
+                   </h1>
+                </div>
+               
                </div>
             )}
         </div>
@@ -193,7 +204,7 @@ const Lib_ViewBook = () => {
 
             </div>
             
-           <div className="mt-6 rounded-2xl border border-gray-300 p-6 shadow-sm w-full">
+           <div className="mt-6 rounded-2xl bg-white border border-gray-300 p-6 shadow-sm w-full">
             <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200">
                 <BookOpen size={20} className="text-black" />
@@ -242,7 +253,7 @@ const Lib_ViewBook = () => {
                 </div>
             )}
 
-           <div className="mt-6 rounded-2xl border border-gray-300 p-6 shadow-sm w-full">
+           <div className="mt-6 rounded-2xl bg-white border border-gray-300 p-6 shadow-sm w-full">
 
             <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200">

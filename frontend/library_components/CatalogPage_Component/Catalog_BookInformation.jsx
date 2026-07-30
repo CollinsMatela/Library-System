@@ -5,6 +5,8 @@ const Catalog_BookInformation = ({
     setPublication,
     publisher,
     setPublisher,
+    illustrator,
+    setIllustrator,
     isbn,
     setIsbn,
     ddc,
@@ -20,6 +22,13 @@ const Catalog_BookInformation = ({
 }) => {
 
     const fields = [
+        {
+            label: "Illustrator",
+            value: illustrator,
+            set: setIllustrator,
+            placeholder: "Enter Illustrator",
+            type: "text",
+        },
         {
             label: "Language",
             value: language,

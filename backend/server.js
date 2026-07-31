@@ -60,7 +60,7 @@ import LogBookRoute from "./routes/LogBookRoute.js";
 import FetchLogBookRoute from "./routes/FetchLogBookRoute.js"
 import UpdateLeaveRoute from "./routes/UpdateLeaveRoute.js"
 
-
+console.log("🔥 SERVER FILE STARTED");
 const app = express();
 app.use(cors());
 app.use(express.json());

@@ -18,19 +18,6 @@ const Home_Page = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [stories, setStories] = useState([]);
 
-  useEffect(() => {
-      fetchStories();
-  }, [])
-
-  const fetchStories = async () => {
-            try {
-              const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-stories`);
-                  setStories(res.data.stories);
-                  console.log(res.data.message);
-            } catch (error) {
-              console.log(error)
-      }
-    }
   return (
     <>
     {showLogin && (<LoginModal onClose={() => setShowLogin(false)}/>)}

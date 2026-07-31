@@ -124,8 +124,9 @@ const LoginModal = ({ onClose }) => {
           }}/>
         </div>
 
-        <button 
-        className={`p-2 w-full text-white text-sm rounded-full cursor-pointer outline-none hover:bg-blue-700 mt-6 ${isLoading ? 'bg-gray-500' : "bg-blue-600"}`} 
+        <button
+        disabled={isLoading}
+        className={`p-2 w-full text-sm rounded-full cursor-pointer outline-none mt-6 ${isLoading ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : "bg-blue-600 hover:bg-blue-700 text-white"}`} 
         onClick={() => confirmation()}>
           {isLoading ? 'Logging in...' : 'Login'}
         </button>

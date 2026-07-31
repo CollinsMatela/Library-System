@@ -8,7 +8,7 @@ const HomePageNavigation = () => {
     const [isLogin, setIsLogin] = useState(false);
 
     return(
-        <nav className="bg-white h-20 border-b  border-gray-300 w-full fixed top-0 z-50 justify-center items-center flex">
+        <nav className="bg-white h-20 w-full fixed top-0 z-50 justify-center items-center flex">
             {isLogin && (<LoginModal onClose={() => setIsLogin(false)}/>)}
                 
             <div className="w-6xl justify-between items-center flex">

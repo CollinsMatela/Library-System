@@ -110,9 +110,6 @@ app.use("/", LogBookRoute);
 app.use("/", FetchLogBookRoute);
 app.use("/", UpdateLeaveRoute);
 
-
-const PORT = process.env.PORT || 5000;
-
 app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
@@ -122,8 +119,5 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error(err));
   
-// app.listen(PORT, () => {
-//     console.log(`Server is running on port ${PORT}`);
-// });
 
 export default app;

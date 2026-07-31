@@ -5,6 +5,7 @@ import { useState } from "react";
 import LoadingScreen from '../loadings/loading'
 import {toast} from 'react-toastify'
 import NaicLibraryLogo from "../src/assets/NaicLibraryLogo.png"
+import { LoaderCircle } from "lucide-react" 
 
 const LoginModal = ({ onClose }) => {
 
@@ -128,7 +129,7 @@ const LoginModal = ({ onClose }) => {
         disabled={isLoading}
         className={`p-2 w-full text-sm rounded-full cursor-pointer outline-none mt-6 ${isLoading ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : "bg-blue-600 hover:bg-blue-700 text-white"}`} 
         onClick={() => confirmation()}>
-          {isLoading ? 'Logging in...' : 'Login'}
+          {isLoading ? <LoaderCircle size={15} className="text-gray-500 animate-spin"/> : 'Login'}
         </button>
         <button className="bg-white border border-gray-300 p-2 w-full text-gray-500 text-sm rounded-full cursor-pointer outline-none hover:bg-gray-100 mt-2" onClick={onClose}>Cancel</button>
 

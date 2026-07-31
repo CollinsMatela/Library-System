@@ -8,6 +8,10 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 
+import dns from "dns";
+
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
+
 import User_Registration_Route from "./routes/User_Registration_Route.js";
 import Employee_Registration_Route from "./routes/Employee_Registration_Route.js";
 import Fetch_Users_Route from "./routes/Fetch_Users_Route.js";
@@ -114,7 +118,7 @@ app.get('/', (req, res) => {
 });
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_LOCAL_URI)
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error(err));
   

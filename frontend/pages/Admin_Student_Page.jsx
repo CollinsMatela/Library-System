@@ -130,7 +130,7 @@ const Admin_Student_Page = () => {
                         {/* Rows */}
                         {filteredUser.length < 1 && (
                             <div className="bg-gray-100 h-15 w-full rounded-xl justify-center items-center flex px-4 py-2 mt-2">
-                                <p className="text-gray-500">No students found.</p>
+                                <p className="text-xs">No students found.</p>
                             </div>
                         )}
                         {

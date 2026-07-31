@@ -151,7 +151,7 @@ const Admin_LogBook = () => {
                 </div>
 
                 {orderedLogBookList.length === 0 && (
-                    <div className="w-full bg-gray-300 rounded-xl p-4">No Visitor Listed</div>
+                    <div className="w-full bg-gray-200 rounded-xl p-4 text-xs justify-center items-center flex">No Visitor Listed</div>
                 )}
 
                 {orderedLogBookList.length > 0 &&

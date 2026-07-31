@@ -4,6 +4,7 @@ import useAuthStore from "../store/useAuthStore";
 import { useState } from "react";
 import LoadingScreen from '../loadings/loading'
 import {toast} from 'react-toastify'
+import NaicLibraryLogo from "../src/assets/NaicLibraryLogo.png"
 
 const LoginModal = ({ onClose }) => {
 
@@ -85,12 +86,16 @@ const LoginModal = ({ onClose }) => {
       {loading && (<LoadingScreen/>)}
       <div
         className="absolute inset-0 bg-black/50 z-0"
-        onClick={onClose}
       ></div>
 
-      <div className="relative z-10 bg-white w-[400px] justify-center items-center flex flex-col rounded-xl p-6">
-        <h1 className="text-xl font-semibold">Login your Account</h1>
-        <h1 className="mb-6 text-xs text-gray-500 mb-6">Sign up now and discover engaging digital books.</h1>
+      <div className="relative z-10 bg-white w-100 justify-center items-center flex flex-col rounded-2xl p-6">
+
+        <div className="w-full justify-center items-center flex flex-col gap-1">
+          <img src={NaicLibraryLogo} alt="" className="h-15 w-15 bg-gray-200 p-2 rounded-full"/>
+          <h1 className="text-xl font-semibold">Login your Account</h1>
+          <h1 className="mb-6 text-xs text-gray-500">Sign up now and discover engaging digital books.</h1>
+        </div>
+        
 
         <div className={`${isErrorContainer ? "" : "hidden"} bg-red-100 w-full h-12 p-2 justify-center items-center flex rounded-xl mb-4`}>
             <p className="text-red-500 text-xs">
@@ -99,8 +104,8 @@ const LoginModal = ({ onClose }) => {
         </div>
 
         <div className={`w-full justify-center items-start flex flex-col mb-2`}>
-          <h1 className="text-xs text-gray-500">Username</h1>
-          <input type="text" placeholder="Your Username" className={`${isUsername ? "border-red-500" : "border-gray-300"} border h-12 w-full rounded-xl p-2 outline-none`}
+          <h1 className="text-xs text-gray-500">Email</h1>
+          <input type="text" placeholder="Your Email" className={`${isUsername ? "border-red-500" : "border-gray-300"} border p-2 text-xs w-full rounded-lg p-2 outline-none`}
           value={username} onChange={(e) => {setUsername(e.target.value)
                                              if(username){setIsUsername(false)}
           }}/>
@@ -108,13 +113,14 @@ const LoginModal = ({ onClose }) => {
 
         <div className="w-full justify-center items-start flex flex-col">
           <h1 className="text-xs text-gray-500">Password</h1>
-          <input type="password" placeholder="Your Password" className={`${isPassword ? "border-red-500" : "border-gray-300"} border h-12 w-full rounded-xl p-2 outline-none`}
+          <input type="password" placeholder="Your Password" className={`${isPassword ? "border-red-500" : "border-gray-300"} border p-2 text-xs w-full rounded-lg p-2 outline-none`}
           value={password} onChange={(e) => {setPassword(e.target.value)
                                              if(password){setIsPassword(false)}
           }}/>
         </div>
 
-        <button className="bg-blue-600 h-12 w-full text-white font-semibold rounded-xl cursor-pointer outline-none hover:bg-blue-700 mt-6" onClick={() => confirmation()}>Sign Up</button>
+        <button className="bg-blue-600 p-2 w-full text-white text-sm rounded-full cursor-pointer outline-none hover:bg-blue-700 mt-6" onClick={() => confirmation()}>Sign Up</button>
+        <button className="bg-white border border-gray-300 p-2 w-full text-gray-500 text-sm rounded-full cursor-pointer outline-none hover:bg-gray-100 mt-2" onClick={onClose}>Cancel</button>
 
       </div>
    </section>

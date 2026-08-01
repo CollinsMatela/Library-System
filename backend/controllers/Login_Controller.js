@@ -6,9 +6,6 @@ const Login_Controller = async (req, res) => {
   console.log("🔥 LOGIN CONTROLLER REACHED");
   const { username, password } = req.body;
   
-  console.log("Username:", username);
-  console.log("Admin username configured:", process.env.ADMIN_USERNAME);
-  console.log("Admin password configured:", !!process.env.ADMIN_PASSWORD);
 
   const admin = username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD
 

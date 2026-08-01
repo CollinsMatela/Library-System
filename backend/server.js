@@ -68,13 +68,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/", User_Registration_Route);
-app.use("/", Employee_Registration_Route);
 app.use("/", Fetch_Users_Route);
-app.use("/", Fetch_Employee_Route);
 app.use("/", Delete_Student_Route);
-app.use("/", Delete_Employee_Route);
 app.use("/", Edit_Student_Route);
-app.use("/", Edit_Employee_Route);
 app.use("/", Login_Route);
 app.use("/", Upload_Manually_Route);
 app.use("/", Change_Password_Route);
@@ -84,12 +80,6 @@ app.use("/", Fetch_BookById_Route);
 
 app.use("/", Fetch_One_Story_Route);
 app.use("/", Change_Avatar_Route);
-app.use("/", Quiz_Result_Route);
-app.use("/", Update_Question_Route);
-app.use("/", Fetch_QuizResults_Route);
-app.use("/", MarkAsRead_Route);
-app.use("/", Fetch_MarkAsRead_Route);
-app.use("/", Fetch_All_Marked_Route);
 
 app.use("/", EditBookPageRoute);
 app.use("/", EditBookInformationRoute);
@@ -119,5 +109,10 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch(err => console.error("❌ MongoDB connection failed:", err));
   
+// const PORT = process.env.PORT || 5000;
+
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
 
 export default app;

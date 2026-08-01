@@ -46,13 +46,47 @@ import UpdateLeaveRoute from "./routes/UpdateLeaveRoute.js"
 
 console.log("🔥 SERVER FILE STARTED");
 const app = express();
+
 app.set("trust proxy", 1);
 app.use(cors({
   origin: "https://library-system-frontend-omega.vercel.app",
   credentials: true
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// MongoDB connection
+let isConnected = false;
+
+const connectDB = async () => {
+  if (isConnected || mongoose.connection.readyState === 1) {
+    return;
+  }
+
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+
+    isConnected = true;
+
+    console.log("✅ MongoDB connected");
+  } catch (error) {
+    console.error("❌ MongoDB connection failed:", error);
+    throw error;
+  }
+};
+
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Database connection failed"
+    });
+  }
+});
 
 // Routes
 app.use("/", User_Registration_Route);
@@ -91,9 +125,4 @@ app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch(err => console.error("❌ MongoDB connection failed:", err));
-  
 export default app;

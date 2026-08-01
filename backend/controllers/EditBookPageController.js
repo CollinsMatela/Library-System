@@ -5,7 +5,7 @@ import cloudinary from "../config/cloudinary.js";
 import fs from "fs";
 
 const EditBookPageController = async (req, res) => {
-      const { bookId, pageId, pageText} = req.body;
+      const { bookId, pageId, pageText, pageImage, pageAudio } = req.body;
 
       try {
 
@@ -13,24 +13,6 @@ const EditBookPageController = async (req, res) => {
                  await NonFiction_Model.findById(bookId);
       
       if (!book) { return res.status(404).json({message: "Book not found"});}
-      
-      // Retrieve object from multer
-      const newPageImage = req.files?.find((f) => f.fieldname === 'pageImage');
-      const newPageAudio = req.files?.find((f) => f.fieldname === 'pageAudio');
-      
-      // Instance
-      let imageResult  = null;
-      let audioResult = null;
-      
-      // Upload to Cloudinary
-      if(newPageImage) { 
-        imageResult  = await cloudinary.uploader.upload(newPageImage.path, { folder: "books/pages/images" })
-        fs.unlinkSync(newPageImage.path);
-      }
-      if(newPageAudio) {
-        audioResult = await cloudinary.uploader.upload(newPageAudio.path, {resource_type: "video", folder: "books/pages/audio"})
-        fs.unlinkSync(newPageAudio.path);
-      }
 
       const currentPage = book.pages.id(pageId);
 
@@ -42,8 +24,8 @@ const EditBookPageController = async (req, res) => {
 
       const updatedPage = {
         pageText,
-        pageImage: imageResult  ? imageResult.secure_url : currentPage.pageImage,
-        pageAudio: audioResult ? audioResult.secure_url : currentPage.pageAudio
+        pageImage,
+        pageAudio
       }
 
 

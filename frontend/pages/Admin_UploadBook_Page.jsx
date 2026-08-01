@@ -12,6 +12,9 @@ import { toast } from "react-toastify";
 
 const Admin_UploadBook_Page = () => {
 
+        const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+        const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
         const navigate = useNavigate();
 
         const [errorMessage, setErrorMessage] = useState("");
@@ -64,6 +67,22 @@ const Admin_UploadBook_Page = () => {
         const [pageText, setPageText] = useState("");
         const [pageImage, setPageImage] = useState(null);
         const [pageImagePreview, setPageImagePreview] = useState("");
+
+        const uploadToCloudinary = async (file, resourceType = "image") => {
+            if (!file) return "";
+
+            const formData = new FormData();
+
+            formData.append("file", file);
+            formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+            const response = await axios.post(
+                `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
+                formData
+            );
+
+            return response.data.secure_url;
+        };
 
         const resetForm = () => {
             setErrorMessage("");
@@ -139,45 +158,99 @@ const Admin_UploadBook_Page = () => {
         };
         }, [pageImagePreview]);
 
-        const handleNextPage = () =>{
-           if(!selectedTypeOfBooks && !selectedCategoryOfBook){
-            toast.warning('Please select type and category of book.');
-            return
-           }
 
-           if (
-            selectedTypeOfBooks.trim().toLowerCase() === "fiction" &&
-            selectedCategoryOfBook.trim().toLowerCase() === "story book"
+
+        const handleNextPage = async () => {
+            console.log(CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET);
+
+            if (!selectedTypeOfBooks && !selectedCategoryOfBook) {
+                toast.warning("Please select type and category of book.");
+                return;
+            }
+
+            if (
+                selectedTypeOfBooks.trim().toLowerCase() === "fiction" &&
+                selectedCategoryOfBook.trim().toLowerCase() === "story book"
             ) {
-            if (!pageText || !pageImage || !audio) {
-                toast.warning(
-                "Story books require page text, at least one image, and page audio."
-                );
-                return;
-            }
+                if (!pageText || !pageImage || !audio) {
+                    toast.warning(
+                        "Story books require page text, at least one image, and page audio."
+                    );
+                    return;
+                }
             } else {
-            if (!pageText && !pageImage) {
-                toast.warning("Please enter page text or upload at least one image.");
-                return;
+                if (!pageText && !pageImage) {
+                    toast.warning(
+                        "Please enter page text or upload at least one image."
+                    );
+                    return;
+                }
             }
-            }
-              setPageList((prev) => [ 
-                ...prev,
-                 {
+
+            try {
+
+                toast.info("Uploading page...");
+
+                let imageUrl = "";
+                let audioUrl = "";
+
+                // Upload page image
+                if (pageImage) {
+                    imageUrl = await uploadToCloudinary(
+                        pageImage,
+                        "image"
+                    );
+                }
+
+                // Upload page audio
+                if (audio) {
+                    audioUrl = await uploadToCloudinary(
+                        audio,
+                        "video"
+                    );
+                }
+
+                const newPage = {
                     pageText,
-                    pageImage: pageImage, 
-                    pageAudio: audio
-                 }
-              ])
+                    pageImage: imageUrl,
+                    pageAudio: audioUrl
+                };
 
-              console.log(pageList);
+                setPageList((prev) => [
+                    ...prev,
+                    newPage
+                ]);
 
+                console.log("Saved page:", newPage);
+
+                // Clear current page
                 setPageText("");
                 setPageImage(null);
                 setAudio(null);
                 setAudioPreview(null);
                 setPageImagePreview("");
-        }
+
+                // Reset file inputs
+                if (pageImageInputRef.current) {
+                    pageImageInputRef.current.value = "";
+                }
+
+                if (audioInputRef.current) {
+                    audioInputRef.current.value = "";
+                }
+
+                toast.success("Page saved successfully.");
+
+            } catch (error) {
+
+                console.error("Cloudinary upload error:", error);
+
+                toast.error(
+                    error?.response?.data?.error?.message ||
+                    "Failed to upload page."
+                );
+            }
+        };
 
         const handlePageImagePreview = (e) => {
             const file = e.target.files[0];
@@ -295,84 +368,102 @@ const Admin_UploadBook_Page = () => {
         setShowConfirmation(true);
     };
 
-    const uploadStory = async () => {
-    const formData = new FormData();
-
-    // Book Type
-    formData.append("type", selectedTypeOfBooks);
-    formData.append("category", selectedCategoryOfBook);
-    formData.append("field", field);
-
-    // Basic Book Information
-    formData.append("title", title);
-    formData.append("author", author);
-    formData.append("description", description);
-    formData.append("language", language);
-    formData.append("publication", publication);
-    formData.append("publisher", publisher);
-    formData.append("isbn", isbn);
-    formData.append("illustrator", illustrator);
-    formData.append("moral", moral);
-
-    formData.append("ddc", ddc);
-    formData.append("copies", copies);
-    formData.append("callNumber", callNumber);
-    formData.append("availableAt", availableAt);
-
-    // Shared Book Information
-    formData.append("edition", edition);
-    formData.append("volume", volume);
-
-    // Fiction
-    formData.append("series", series);
-
-    // Non-Fiction
-    formData.append("subject", subject);
-    formData.append("gradeLevel", gradeLevel);
-
-    // Cover Image
-    if (file) {
-        formData.append("cover", file);
-    }
-
-    // Page text
-    formData.append(
-        "pages",
-        JSON.stringify(
-            pageList.map((page) => ({
-                pageText: page.pageText,
-            }))
-        )
-    );
-
-    // Page images (single image per page)
-    pageList.forEach((page, pageIndex) => {
-        if (page.pageImage) {
-            formData.append(`pageImage_${pageIndex}`, page.pageImage);
-        }
-
-        // If each page also has one audio
-        if (page.pageAudio) {
-            formData.append(`pageAudio_${pageIndex}`, page.pageAudio);
-        }
-    });
+   const uploadStory = async () => {
 
     try {
-        console.log([...formData.entries()]);
+
+        // =========================
+        // Upload cover to Cloudinary
+        // =========================
+
+        let coverUrl = "";
+
+        if (file) {
+            toast.info("Uploading cover...");
+
+            coverUrl = await uploadToCloudinary(
+                file,
+                "image"
+            );
+        }
+
+        console.log("Cover URL:", coverUrl);
+
+        // =========================
+        // Prepare book data
+        // =========================
+
+        const bookData = {
+
+            // Book Type
+            type: selectedTypeOfBooks,
+            category: selectedCategoryOfBook,
+            field,
+
+            // Basic Book Information
+            title,
+            author,
+            description,
+            language,
+            publication,
+            publisher,
+            isbn,
+            illustrator,
+            moral,
+
+            // Non-Fiction
+            ddc,
+            copies,
+            callNumber,
+            availableAt,
+
+            // Shared
+            edition,
+            volume,
+
+            // Fiction
+            series,
+
+            // Non-Fiction
+            subject,
+            gradeLevel,
+
+            // Cover Cloudinary URL
+            cover: coverUrl,
+
+            // Pages already contain Cloudinary URLs
+            pages: pageList,
+        };
+
+        console.log("BOOK DATA:", bookData);
+
+        // =========================
+        // Send to backend
+        // =========================
 
         const res = await axios.post(
             `${import.meta.env.VITE_API_URL}/upload-manually`,
-            formData
+            bookData
         );
 
         if (res.data.success) {
             toast.success(res.data.message);
             resetForm();
         }
+
     } catch (error) {
+
         console.log(error);
-        setErrorMessage(error?.response?.data?.message);
-        toast.error(error?.response?.data?.message);
+
+        setErrorMessage(
+            error?.response?.data?.message ||
+            "Failed to upload book."
+        );
+
+        toast.error(
+            error?.response?.data?.message ||
+            "Failed to upload book."
+        );
     }
 };
       return(

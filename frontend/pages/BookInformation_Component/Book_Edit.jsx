@@ -5,6 +5,9 @@ import {toast} from "react-toastify";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
 const Book_Edit = ({bookDetails, fetchBookById}) => {
 
+    const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+    const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
     const [errorMessage, setErrorMessage] = useState("");
     const [isBookInformationUpdate, setIsBookInformationUpdate] = useState(false);
     const [isBookPageUpdate, setIsBookPageUpdate] = useState(false);
@@ -184,39 +187,70 @@ useEffect(() => {
           }
     }
 
-    const handleImageChange = (e) => {
-    const file = e.target.files[0];
+    const uploadToCloudinary = async (file, resourceType = "image") => {
+                if (!file) return "";
+    
+                const formData = new FormData();
+    
+                formData.append("file", file);
+                formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    
+                const response = await axios.post(
+                    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
+                    formData
+                );
+    
+                return response.data.secure_url;
+    };
 
-    if (!file) return;
+    const handleImageChange = async (e) => {
+        const file = e.target.files[0];
 
-    setPages(prev => {
-        const updated = [...prev];
+        if (!file) return;
 
-        updated[selectedPageIndex] = {
-        ...updated[selectedPageIndex],
-        pageImage: file,
-        };
+        try {
+            const image = await uploadToCloudinary(file, "image");
 
-        return updated;
-    });
-    }
+            setPages(prev => {
+                const updated = [...prev];
 
-    const handleAudioChange = (e) => {
-    const file = e.target.files[0];
+                updated[selectedPageIndex] = {
+                    ...updated[selectedPageIndex],
+                    pageImage: image,
+                };
 
-    if (!file) return;
+                return updated;
+            });
 
-    setPages(prev => {
-        const updated = [...prev];
+        } catch (error) {
+            console.error("Image upload failed:", error);
+        }
+    };
 
-        updated[selectedPageIndex] = {
-        ...updated[selectedPageIndex],
-        pageAudio: file,
-        };
+    const handleAudioChange = async (e) => {
+        const file = e.target.files[0];
 
-        return updated;
-    });
-    setAudioPreview(URL.createObjectURL(file));
+        if (!file) return;
+
+        try {
+            const audio = await uploadToCloudinary(file, "video");
+
+            setPages(prev => {
+                const updated = [...prev];
+
+                updated[selectedPageIndex] = {
+                    ...updated[selectedPageIndex],
+                    pageAudio: audio,
+                };
+
+                return updated;
+            });
+
+            setAudioPreview(URL.createObjectURL(file));
+
+        } catch (error) {
+            console.error("Audio upload failed:", error);
+        }
     };
 
     const updateBookInformation = async () => {
@@ -265,25 +299,21 @@ useEffect(() => {
             toast.error(error?.response?.data?.message || "An error occurred while updating the book information.");
         }
     }
+
     const updatePage = async () => {
+        
             const currentPage = pages[selectedPageIndex];
 
-            const formData = new FormData();
+            const bookPageData = {
+                bookId: bookDetails._id,
+                pageId: currentPage._id,
+                pageText: currentPage.pageText,
+                pageImage: currentPage.pageImage,
+                pageAudio: currentPage.pageAudio
+            };
 
-            formData.append("bookId", bookDetails._id);
-            formData.append("pageId", currentPage._id);
-            formData.append("pageText", currentPage.pageText);
-
-            if (currentPage.pageImage instanceof File) {
-                formData.append("pageImage", currentPage.pageImage);
-            }
-
-            if (currentPage.pageAudio instanceof File) {
-                formData.append("pageAudio", currentPage.pageAudio);
-            }
-        
           try {
-            const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-page`, formData);
+            const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-page`, bookPageData);
             console.log("Page updated successfully:", res.data.message);
             toast.success(res.data.message);
             setErrorMessage("");

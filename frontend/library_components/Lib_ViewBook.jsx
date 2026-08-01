@@ -143,7 +143,7 @@ const Lib_ViewBook = () => {
     <div className="w-5xl flex gap-4 mt-10">
         {/* Book Cover Container */}
         <div className="bg-gray-50 w-120 flex flex-col">
-            <img src={bookDetails?.cover} className="bg-gray-100 object-center shadow-xl mb-5" />
+            <img src={bookDetails?.cover} className="bg-gray-100 h-64 object-center shadow-xl mb-5" />
            
             {!isRequestExisting && bookDetails?.copies > 0 && (
                <button className="justify-center items-center flex gap-2 bg-black py-2 w-full rounded-lg cursor-pointer text-white text-xs font-bold" onClick={() => setShowBorrowModal(true)}>

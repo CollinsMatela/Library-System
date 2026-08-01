@@ -9,7 +9,7 @@ const Lib_BookCard = ({ handleViewBook, book, showBorrowModal}) => {
                     <img
                         src={book.cover}
                         alt={book.title}
-                        className="h-72 object-cover rounded-md"
+                        className="h-64 object-cover rounded-md"
                     />
                     <span
                         className={`absolute top-3 left-3 justify-center items-center flex gap-2 rounded-full text-xs font-semibold ${

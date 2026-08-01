@@ -46,6 +46,7 @@ import UpdateLeaveRoute from "./routes/UpdateLeaveRoute.js"
 
 console.log("🔥 SERVER FILE STARTED");
 const app = express();
+app.set("trust proxy", 1);
 app.use(cors({
   origin: "https://library-system-frontend-omega.vercel.app",
   credentials: true

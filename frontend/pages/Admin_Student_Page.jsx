@@ -78,8 +78,8 @@ const Admin_Student_Page = () => {
         <Admin_Sidebar/>
         <div className="justify-between items-start flex mb-10">
             <div>
-              <h2 className="text-3xl font-bold text-gray-800">User Management</h2>
-               <p className="text-gray-400 text-sm">Manage user accounts, monitor learning progress, and keep track of student information and activities.</p>
+              <h2 className="text-lg font-bold text-gray-800">User Management</h2>
+               <p className="text-gray-400 text-xs">Manage user accounts, monitor learning progress, and keep track of student information and activities.</p>
             </div>
 
        </div>
@@ -130,7 +130,7 @@ const Admin_Student_Page = () => {
                         {/* Rows */}
                         {filteredUser.length < 1 && (
                             <div className="bg-gray-100 h-15 w-full rounded-xl justify-center items-center flex px-4 py-2 mt-2">
-                                <p className="text-xs">No students found.</p>
+                                <p className="text-xs text-gray-500">No students found.</p>
                             </div>
                         )}
                         {

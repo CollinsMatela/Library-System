@@ -111,8 +111,8 @@ const Admin_LogBook = () => {
 
             <header className="w-full justify-between items-start flex flex-col pb-10">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-800">Log Book Management</h1>
-                    <h1 className="text-gray-400 text-sm">Manage people entries to library</h1>
+                    <h1 className="text-lg font-bold text-gray-800">Log Book Management</h1>
+                    <h1 className="text-gray-400 text-xs">Manage people entries to library</h1>
                 </div>
             </header>
 

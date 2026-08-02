@@ -43,8 +43,8 @@ const Admin_Books_Page = () => {
               <header className="w-full justify-between items-start flex flex-col mb-10">
 
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-800">Library Books Management</h1>
-                    <h1 className="text-gray-400 text-sm">View all uploaded books available</h1>
+                    <h1 className="text-lg font-bold text-gray-800">Library Books Management</h1>
+                    <h1 className="text-gray-400 text-xs">View all uploaded books available</h1>
                 </div>
                 
               </header>

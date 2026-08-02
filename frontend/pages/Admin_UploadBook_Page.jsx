@@ -475,8 +475,8 @@ const Admin_UploadBook_Page = () => {
             <header className="w-full justify-between items-start flex flex-col pb-10">
 
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-800">Upload Book Management</h1>
-                    <h1 className="text-gray-400 text-md">Add a new book to the library by providing its details and uploading the required files. </h1>
+                    <h1 className="text-lg font-bold text-gray-800">Upload Book Management</h1>
+                    <h1 className="text-gray-400 text-xs">Add a new book to the library by providing its details and uploading the required files. </h1>
                 </div>
                 
               </header>

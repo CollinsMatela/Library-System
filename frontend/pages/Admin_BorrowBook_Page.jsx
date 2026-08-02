@@ -161,8 +161,8 @@ const Admin_BorrowBook_Page = () => {
               
               <header className="w-full justify-between items-start flex flex-col mb-10">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-800">Borrowing Books Management</h1>
-                    <h1 className="text-gray-400 text-sm">Manage borrow request from user</h1>
+                    <h1 className="text-lg font-bold text-gray-800">Borrowing Books Management</h1>
+                    <h1 className="text-gray-400 text-xs">Manage borrow request from user</h1>
                 </div>
                     
               </header>

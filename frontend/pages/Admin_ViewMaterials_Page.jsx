@@ -101,7 +101,7 @@ const Admin_ViewMaterials_Page = () => {
     
     <div className="w-full justify-between items-start flex">
             <div>
-              <h2 className="text-3xl font-bold text-gray-800">Book Information</h2>
+              <h2 className="text-lg font-bold text-gray-800">Book Information</h2>
                <p className="text-gray-400 text-xs">Oversee the book information of {bookDetails?.title || "the selected book"}.</p>
             </div>
             <button className="bg-gray-200 py-2 px-4 rounded-xl hover:bg-gray-300 cursor-pointer" onClick={() => navigate(-1)}>

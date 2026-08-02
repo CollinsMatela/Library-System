@@ -244,8 +244,8 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
         <section className="w-full justify-start items-center flex flex-col pl-80 pr-10 py-10">
 
                <div className="justify-between items-start flex flex-col w-full  mb-10">     
-                    <h2 className="text-3xl font-bold text-black">Registration Management</h2>
-                    <p className="text-gray-400 text-sm">Register user allowing them to access the school digital library system</p>   
+                    <h2 className="text-lg font-bold text-black">Registration Management</h2>
+                    <p className="text-gray-400 text-xs">Register user allowing them to access the school digital library system</p>   
                 </div>
 
                 <div className="flex items-center justify-start gap-2 w-full mb-5">
@@ -253,12 +253,25 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                         <User size={20}/>
                     </div>
                     <div>
-                        <h1 className="text-md font-bold text-gray-800 rounded-full">User Information</h1>
-                        <p className="text-gray-400 text-xs">Fill-up the requiered information.</p>
+                        <h1 className="text-md font-bold text-gray-800 rounded-full">Registration</h1>
+                        <p className="text-gray-400 text-xs">Register new users.</p>
                     </div>
                 </div>
                     
-                    <div className="w-full grid grid-cols-4 gap-2 pb-10">
+                    <div className="w-full p-6 rounded-xl border border-gray-300 mb-4">
+
+                        <div className="flex items-center justify-start gap-2 w-full mb-5">
+                            <div className="bg-gray-200 p-2 text-white rounded-full justify-center items-center flex">
+                                <User size={20} className="text-gray-500"/>
+                            </div>
+                            <div>
+                                <h1 className="text-md font-bold text-gray-800 rounded-full">User Information</h1>
+                                <p className="text-gray-400 text-xs">Fill-up the requiered information.</p>
+                            </div>
+                        </div>
+                        
+                        <div className="w-full grid grid-cols-4 gap-2">
+
                         <div className="w-full">
                             <h1 className="text-xs text-gray-500">Last Name <span className="text-red-500">*</span></h1>
                             <input type="text" 
@@ -485,19 +498,20 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                                 }}
                             />
                         </div>
+                        </div>
   
                     </div>
                     
                     {age && age < 18 && (
-                      <div className="w-full">
+                      <div className="w-full p-6 rounded-xl border border-gray-300 mb-4">
 
                          <div className="flex items-center justify-start gap-2 w-full mb-5">
-                            <div className="bg-black p-2 text-white rounded-xl justify-center items-center flex">
-                                <User size={20}/>
+                            <div className="bg-gray-200 p-2 text-white rounded-full justify-center items-center flex">
+                                <User size={20} className="text-gray-500"/>
                             </div>
                             <div>
                                 <h1 className="text-md font-bold text-gray-800 rounded-full">Parent Information</h1>
-                                <p className="text-gray-400 text-xs">Fill-up the requiered information.</p>
+                                <p className="text-gray-400 text-xs">Fill-up the required information.</p>
                             </div>
                         </div>
 
@@ -544,7 +558,7 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                     
                     
                {/* Buttons */}
-                    <div className="w-full justify-end items-center flex mt-10">
+                    <div className="w-full justify-end items-center flex">
                         <button className="bg-black text-white h-full w-fit rounded-xl cursor-pointer text-xs p-2 hover:-translate-y-1 justify-center items-center flex gap-2" onClick={handleConfirmation}><Plus size={15}/> Register</button>
                     </div>
         </section>

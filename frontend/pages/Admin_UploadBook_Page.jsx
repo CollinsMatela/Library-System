@@ -172,12 +172,12 @@ const Admin_UploadBook_Page = () => {
                 selectedTypeOfBooks.trim().toLowerCase() === "fiction" &&
                 selectedCategoryOfBook.trim().toLowerCase() === "story book"
             ) {
-                if (!pageText || !pageImage || !audio) {
-                    toast.warning(
-                        "Story books require page text, at least one image, and page audio."
-                    );
-                    return;
-                }
+                // if (!pageText || !pageImage || !audio) {
+                //     toast.warning(
+                //         "Story books require page text, at least one image, and page audio."
+                //     );
+                //     return;
+                // }
             } else {
                 if (!pageText && !pageImage) {
                     toast.warning(

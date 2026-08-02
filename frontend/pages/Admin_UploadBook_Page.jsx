@@ -7,7 +7,7 @@ import FictionBookInformation from "./UploadPage_Components/FictionBookInformati
 import NonFictionBookInformation from "./UploadPage_Components/NonFictionBookInformation";
 import TypeOfBooks from "./UploadPage_Components/TypeOfBooks";
 import PreviewBook from "./UploadPage_Components/PreviewBook"
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, X, Plus, Image, Save, AudioLines, FilePlay } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, X, Plus, Image, Save, AudioLines, FilePlay, Pencil } from "lucide-react";
 import { toast } from "react-toastify";
 
 const Admin_UploadBook_Page = () => {
@@ -611,21 +611,104 @@ const Admin_UploadBook_Page = () => {
 
                     
 
-                    <div className="w-full bg-white border border-gray-300 justify-between items-start flex flex-col gap-2 rounded-xl p-4">
+                    <div className="w-full bg-white justify-between items-start flex flex-col gap-4 rounded-xl">
                         {/* Page Text*/}
-                        <textarea 
-                        name="page-text" id="page-text"
-                        placeholder="Input the text of the page..."
-                        value={pageText}
-                        onChange={(e) => setPageText(e.target.value)}
-                        className="h-100 w-full outline-none text-xs">
-                        </textarea>
+                        <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border border-gray-300 p-6 rounded-lg">
+                                <div className="justify-between items-center flex gap-2 w-full">
+                                    <div class="flex gap-2 ujstify-center items-center">
+                                        <div className="p-2 rounded-full text-gray-500 bg-gray-200 justify-center items-center flex"><Pencil size={20}/></div>
+                                        <div>
+                                            <h1 className="text-gray-600 text-sm font-bold">Page Text</h1>
+                                            <h1 className="text-gray-600 text-xs">Input the text for the page...</h1>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <textarea 
+                                name="page-text" id="page-text"
+                                placeholder="Input the text of the page..."
+                                value={pageText}
+                                onChange={(e) => setPageText(e.target.value)}
+                                className="h-100 w-full outline-none text-xs bg-gray-50 shadow-sm border border-gray-300 p-4 rounded-xl">
+                                </textarea>
+                        </div>
+
+                         {/* Page Image Preview */}
+                        <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border border-gray-300 p-6 rounded-lg">
+
+                            <div className="justify-between items-center flex gap-2 w-full">
+                                    <div class="flex gap-2 ujstify-center items-center">
+                                        <div className="p-2 rounded-full text-gray-500 bg-gray-200 justify-center items-center flex"><Image size={20}/></div>
+                                        <div>
+                                            <h1 className="text-gray-600 text-sm font-bold">Preview Page Image</h1>
+                                            <h1 className="text-gray-600 text-xs">Preview of the page image...</h1>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            
+                            <div className="w-full h-100 bg-gray-100 justify-center items-center flex">
+                                {pageImagePreview && (
+                                     
+                                    <img src={pageImagePreview} 
+                                    alt="page-preview" 
+                                    title="Click to remove image"
+                                    className="h-full w-120 object-fit cursor-pointer" onClick={() => {
+                                        if (pageImagePreview) {
+                                            URL.revokeObjectURL(pageImagePreview);
+                                        }
+
+                                        setPageImage(null);
+                                        setPageImagePreview("");
+                                        }}/>
+                                     
+                            )}
+                            </div>
+                            
+                        </div>
+
+                        {/**Audio Preview */}
+                        {audioPreview && (
+                            <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border border-gray-300 p-6 rounded-lg">
+
+                                <div className="justify-between items-center flex gap-2 w-full">
+                                    <div class="flex gap-2 ujstify-center items-center">
+                                        <div className="p-2 rounded-full text-gray-500 bg-gray-200 justify-center items-center flex"><FilePlay size={20}/></div>
+                                        <div>
+                                            <h1 className="text-gray-600 text-sm font-bold">Preview Audio</h1>
+                                            <h1 className="text-gray-600 text-xs">{audioPreview}</h1>
+                                        </div>
+                                    </div>
+
+                                    <button className="bg-red-600 p-2 justify-center items-center flex gap-2 text-xs font-bold rounded-lg text-white hover:bg-red-700 hover:-translate-y-1 cursor-pointer transition"
+                                    title="Remove Audio"
+                                    onClick={() => {
+                                        if (audioPreview) {
+                                            URL.revokeObjectURL(audioPreview);
+                                        }
+                                        setAudio(null);
+                                        setAudioPreview(null);
+                                    }}
+                                    ><X size={15}/></button>
+                                    
+                                </div>
+
+                                <audio controls className="w-full" src={audioPreview}></audio>
+                                    
+                                
+                                
+                            </div>
+                        )}
 
                         <div className="w-full justify-end items-center flex gap-2">
-                            <button className={`${audioPreview ? 'hidden' : null} justify-center items-center flex gap-2 p-2 text-xs text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={() => audioInputRef.current.click()}>
-                                <AudioLines size={15}/> Add Audio
-                            </button>                       
-                            <button className={`${pageImagePreview ? 'hidden' : null} justify-center items-center flex gap-2 p-2 text-xs text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer`} onClick={() => pageImageInputRef.current.click()}>
+                            {(selectedTypeOfBooks.toLowerCase() === 'fiction' && selectedCategoryOfBook.toLowerCase() === 'story book') && (
+                                <button className={`${audioPreview ? 'hidden' : null} justify-center items-center flex gap-2 p-2 text-xs text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer border transition`} onClick={() => audioInputRef.current.click()}>
+                                    <AudioLines size={15}/> Add Audio
+                                </button>  
+                            )}
+                                                 
+                            <button className={`${pageImagePreview ? 'hidden' : null} justify-center items-center flex gap-2 p-2 text-xs text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer border transition`} onClick={() => pageImageInputRef.current.click()}>
                                 <Image size={15}/> Add Image
                             </button>
 
@@ -641,59 +724,17 @@ const Admin_UploadBook_Page = () => {
                                     className="hidden" 
                                     onChange={handleAudioPreview} 
                             />
-                            <button className="justify-center items-center flex gap-2 p-2 text-xs bg-blue-600 text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+                            <button className="justify-center items-center flex gap-2 p-2 text-xs bg-blue-600 text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer transition"
                                 onClick={handleNextPage}><Save size={15}/> Save {`(${pageList.length + 1})`}
                             </button>
                         </div>
                         
-                        {/**Audio Preview */}
-                        {audioPreview && (
-                            <div className="w-full justify-start items-center flex gap-2 p-2 bg-green-100 border border-green-600 rounded-xl">
-                                <div className="p-2 rounded-xl text-green-600 justify-center items-center flex"><FilePlay size={20}/></div>
-                                <div>
-                                    <h1 className="text-green-600 text-sm font-bold">Uploaded Audio</h1>
-                                    <h1 className="text-green-600 text-xs">{audioPreview}</h1>
-                                </div>
-                                
-                            </div>
-                        )}
+                        
                     </div>
 
                     
 
-                    {/* Page Image Preview */}
-                        <div className="w-full mt-4">
-                        
-                        {pageImagePreview && (
-                        <div className="gap-4">
-                            <div className="relative bg-gray-300 rounded-xl overflow-hidden">
-                            {/* Remove Overlay */}
-                            <div
-                                onClick={() => {
-                                if (pageImagePreview) {
-                                    URL.revokeObjectURL(pageImagePreview);
-                                }
-
-                                setPageImage(null);
-                                setPageImagePreview("");
-                                }}
-                                className="absolute inset-0 bg-black/20 hover:bg-red-500/50 opacity-0 hover:opacity-100 transition cursor-pointer flex items-end p-2"
-                            >
-                                <span className="text-white text-sm">
-                                Remove Image
-                                </span>
-                            </div>
-
-                            {/* Preview Image */}
-                            <img
-                                src={pageImagePreview}
-                                alt="page-preview"
-                                className="w-full object-cover"
-                            />
-                            </div>
-                        </div>
-                        )}
-                        </div>
+                   
                 </div>
 
                         

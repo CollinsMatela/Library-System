@@ -7,7 +7,7 @@ import FictionBookInformation from "./UploadPage_Components/FictionBookInformati
 import NonFictionBookInformation from "./UploadPage_Components/NonFictionBookInformation";
 import TypeOfBooks from "./UploadPage_Components/TypeOfBooks";
 import PreviewBook from "./UploadPage_Components/PreviewBook"
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, X, Plus, Image, Save, AudioLines, FilePlay, Pencil } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, X, Plus, Image, Save, AudioLines, FilePlay, Pencil, ImageOff, Info } from "lucide-react";
 import { toast } from "react-toastify";
 
 const Admin_UploadBook_Page = () => {
@@ -485,7 +485,18 @@ const Admin_UploadBook_Page = () => {
                 <div className={`w-full flex bg-white rounded-xl gap-10`}>
                     
                         {/* Story Details */}
-                        <div className="bg-white w-full flex flex-col gap-10">
+                        <div className="bg-white w-full flex flex-col">
+
+                        <div className="flex items-center justify-start gap-2">
+                            <div className="bg-black h-9 w-9 text-white rounded-xl justify-center items-center flex">
+                            <h1 className="font-bold text-md">1</h1>
+                            </div>
+                            <div>
+                                <h1 className="text-md font-bold text-gray-800 rounded-full">Step One</h1>
+                                <p className="text-gray-400 text-xs">Select Type and Category of the book.</p>
+                            </div>
+                            
+                        </div>
 
                        <TypeOfBooks
                        selectedTypeOfBooks={selectedTypeOfBooks}
@@ -499,7 +510,26 @@ const Admin_UploadBook_Page = () => {
                        gradeLevel={gradeLevel}
                        setGradeLevel={setGradeLevel}
                        />
-                        
+
+                       <div className="flex items-center justify-start gap-2">
+                            <div className="bg-black h-9 w-9 text-white rounded-xl justify-center items-center flex">
+                            <h1 className="font-bold text-md">2</h1>
+                            </div>
+                            <div>
+                                <h1 className="text-md font-bold text-gray-800 rounded-full">Step Two</h1>
+                                <p className="text-gray-400 text-xs">Fill the applicable information.</p>
+                            </div>
+                            
+                        </div>
+
+                        {(!selectedTypeOfBooks || !selectedCategoryOfBook) && (
+                            <div className="w-full bg-gray-100 p-6 rounded-xl justify-center items-center flex my-4 gap-1">
+                                <Info size={20} className="text-gray-500"/>
+                                <p className="text-gray-500 text-xs">Please select a book type and category to proceed.</p>
+                            </div>
+                            
+                        )}
+
                         {selectedTypeOfBooks.toLowerCase() === 'fiction' && selectedCategoryOfBook && (
                         <FictionBookInformation
                         selectedCategoryOfBook={selectedCategoryOfBook}
@@ -599,8 +629,8 @@ const Admin_UploadBook_Page = () => {
                     {/*Book Pages and Image insertion*/}
                 <div className="w-full flex flex-col gap-4">
                      <div className="flex items-center justify-start gap-2">
-                        <div className="bg-black h-10 w-10 text-white rounded-xl justify-center items-center flex">
-                        <h1 className="font-bold text-lg">3#</h1>
+                        <div className="bg-black h-9 w-9 text-white rounded-xl justify-center items-center flex">
+                        <h1 className="font-bold text-md">3</h1>
                         </div>
                         <div>
                             <h1 className="text-md font-bold text-gray-800 rounded-full">Step Three</h1>
@@ -649,6 +679,16 @@ const Admin_UploadBook_Page = () => {
                                 </div>
                             
                             <div className="w-full h-100 bg-gray-100 justify-center items-center flex">
+                                {!pageImagePreview && (
+                                     
+                                    <div className="h-full w-full flex flex-col items-center justify-center p-4 gap-1">
+                                        <ImageOff size={50} className="text-gray-500" />
+                                        <h1 className="text-gray-500 text-sm font-semibold">No Page Image</h1>
+                                        <h1 className="text-gray-400 text-xs">Please upload a page image</h1>
+                                    </div>
+                                     
+                                )}
+
                                 {pageImagePreview && (
                                      
                                     <img src={pageImagePreview} 

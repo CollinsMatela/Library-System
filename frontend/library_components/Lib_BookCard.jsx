@@ -3,7 +3,7 @@ import { useState } from 'react'
 const Lib_BookCard = ({ handleViewBook, book, showBorrowModal}) => {
 
     return(
-         <div className="relative justify-center items-center flex flex-col gap-2 border border-gray-300 shadow-sm rounded-xl cursor-pointer hover:-translate-y-1 bg-white" onClick={handleViewBook}>
+         <div className="relative justify-center items-center flex flex-col gap-2 border border-gray-300 shadow-sm rounded-xl cursor-pointer hover:-translate-y-1 transition  bg-white" onClick={handleViewBook}>
                     <img src={book.cover} alt={book.title}
                         className="h-full object-cover"
                     />

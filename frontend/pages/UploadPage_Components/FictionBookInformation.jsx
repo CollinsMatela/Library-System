@@ -1,3 +1,4 @@
+import { TextAlignCenter } from "lucide-react"
 
 const FictionBookInformation = ({
     selectedCategoryOfBook,
@@ -51,20 +52,22 @@ const FictionBookInformation = ({
     setVolume,
 }) => {
     return(
-        <div className="w-full flex flex-col gap-2">
-            <div className="flex items-center justify-start gap-2">
-                <div className="bg-black h-9 w-9 text-white rounded-xl justify-center items-center flex">
-                   <h1 className="font-bold text-lg">2#</h1>
-                </div>
-                <div>
-                    <h1 className="text-md font-bold text-gray-800 rounded-full">Step Two</h1>
-                    <p className="text-gray-400 text-xs">Fill the applicable information.</p>
-                </div>
-                
-            </div>
+        <div className="w-full flex flex-col gap-2 my-4">
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2">
+            <div className=" border border-gray-300 p-6 rounded-xl flex flex-col gap-2">
 
+                <div className="justify-between items-center flex gap-2 w-full">
+                                    <div class="flex gap-2 ujstify-center items-center">
+                                        <div className="p-2 rounded-full text-gray-500 bg-gray-200 justify-center items-center flex"><TextAlignCenter size={20}/></div>
+                                        <div>
+                                            <h1 className="text-gray-600 text-sm font-bold">Fill information.</h1>
+                                            <h1 className="text-gray-600 text-xs">Input the applicable information.</h1>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2">
                 <input
                     type="text"
                     placeholder="Title "
@@ -173,14 +176,19 @@ const FictionBookInformation = ({
                     value={availableAt}
                     onChange={(e) => setAvailableAt(e.target.value)}
                 />
-            </div>
+                </div>
 
-            <textarea
+                <textarea
                 placeholder="Description (Optional)"
-                className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs resize-none mt-2"
+                className="bg-white h-30 w-full border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs resize-none mt-2"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
             />
+
+                
+            </div>
+
+            
         </div>
     )
 }

@@ -106,7 +106,7 @@ const Library_Page = () => {
         onClose={() => setShowBorrowModal(false)}
         requestBorrow={requestBorrow}
         />)}
-        <section className="min-h-screen w-full justify-start items-center flex flex-col bg-gray-50">
+        <section className="min-h-screen w-full justify-start items-center flex flex-col bg-gray-50 pb-10">
            
             <Lib_Navigation/>
 

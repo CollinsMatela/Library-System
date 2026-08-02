@@ -1,4 +1,4 @@
-import { User } from "lucide-react";
+import { TextAlignCenter, User } from "lucide-react";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 const TypeOfBooks = ({selectedTypeOfBooks, setSelectedTypeOfBooks, selectedCategoryOfBook, setSelectedCategoryOfBook, field, setField,
@@ -114,17 +114,18 @@ if (selectedCategoryOfBook.toLowerCase() === "textbook") {
 };
 
     return(
-        <div className="w-full grid">
-            <div className="flex items-center justify-start gap-2">
-                <div className="bg-black h-9 w-9 text-white rounded-xl justify-center items-center flex">
-                   <h1 className="font-bold text-md">1#</h1>
-                </div>
-                <div>
-                    <h1 className="text-md font-bold text-gray-800 rounded-full">Step One</h1>
-                    <p className="text-gray-400 text-xs">Select Type and Category of the book.</p>
-                </div>
-                
-            </div>
+        <div className="w-full grid my-4 p-6 border border-gray-300 rounded-xl gap-2">
+            
+            <div className="justify-between items-center flex gap-2 w-full">
+                                    <div class="flex gap-2 ujstify-center items-center">
+                                        <div className="p-2 rounded-full text-gray-500 bg-gray-200 justify-center items-center flex"><TextAlignCenter size={20}/></div>
+                                        <div>
+                                            <h1 className="text-gray-600 text-sm font-bold">Select required information</h1>
+                                            <h1 className="text-gray-600 text-xs">Select the appropriate fields for your book.</h1>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
 
             <div className="w-full grid grid-cols-4 gap-2">
             <select className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2" value={selectedTypeOfBooks} onChange={(e) => setSelectedTypeOfBooks(e.target.value)}>

@@ -1,3 +1,5 @@
+import { TextAlignCenter } from "lucide-react";
+
 const NonFictionBookInformation = ({
     // Basic Information
     title,
@@ -30,7 +32,7 @@ const NonFictionBookInformation = ({
     setAvailableAt,
 }) => {
     return (
-        <div className="w-full flex flex-col gap-2">
+        <div className="w-full flex flex-col gap-2 my-4">
 
             <div className="flex items-center justify-start gap-2">
                 <div className="bg-black h-9 w-9 text-white rounded-xl justify-center items-center flex">
@@ -44,7 +46,20 @@ const NonFictionBookInformation = ({
             </div>
 
             {/* Basic Information */}
-            <div className="grid grid-cols-3 gap-2">
+            <div className="w-full flex flex-col gap-2 p-6 border border-gray-300 rounded-xl">
+
+                 <div className="justify-between items-center flex gap-2 w-full">
+                                    <div class="flex gap-2 ujstify-center items-center">
+                                        <div className="p-2 rounded-full text-gray-500 bg-gray-200 justify-center items-center flex"><TextAlignCenter size={20}/></div>
+                                        <div>
+                                            <h1 className="text-gray-600 text-sm font-bold">Fill information.</h1>
+                                            <h1 className="text-gray-600 text-xs">Input the applicable information.</h1>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                <div className="grid grid-cols-3 gap-2">
 
                 <input
                     type="text"
@@ -101,12 +116,6 @@ const NonFictionBookInformation = ({
 
             </div>
 
-            <textarea
-                placeholder="Description (Optional)"
-                className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2 resize-none"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-            />
 
             {/* Additional Information */}
             <div className="grid grid-cols-3 gap-2">
@@ -159,6 +168,14 @@ const NonFictionBookInformation = ({
                     value={availableAt}
                     onChange={(e) => setAvailableAt(e.target.value)}
                 />
+                 </div>
+
+                 <textarea
+                placeholder="Description (Optional)"
+                className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2 resize-none"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+            />
 
             </div>
 

@@ -3,17 +3,17 @@
 
 const View_Student_Modal = ({ user, onClose }) => {
     return (
-        <section className="fixed inset-0 bg-black/40 flex justify-center items-center z-50 px-4">
+        <section className="fixed inset-0 bg-black/50 flex justify-center items-center z-50 px-4">
             
-            <div className="bg-white w-full max-w-4xl rounded-2xl shadow-xl overflow-hidden">
+            <div className="bg-white w-full max-w-4xl rounded-2xl shadow-xl overflow-hidden ">
 
                 {/* Header */}
                 <div className="flex justify-between items-center border-b border-gray-100 px-6 py-4">
                     <div>
-                        <h2 className="text-2xl font-bold text-gray-800">
+                        <h2 className="text-lg font-bold text-gray-800">
                             User Information
                         </h2>
-                        <p className="text-sm text-gray-400">
+                        <p className="text-xs text-gray-400">
                             View user details and account information.
                         </p>
                     </div>
@@ -31,71 +31,78 @@ const View_Student_Modal = ({ user, onClose }) => {
 
                     {/* Personal Information */}
                     <div className="mb-8">
-                        <h3 className="text-lg font-semibold text-gray-700 mb-4">
+                        <h3 className="text-sm font-semibold text-gray-700 mb-4">
                             Personal Information
                         </h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
                             <div>
-                                <p className="text-sm text-gray-400">User ID</p>
-                                <p className="font-medium text-gray-700">
+                                <p className="text-xs text-gray-400">User ID</p>
+                                <p className="font-medium text-gray-700 text-xs">
                                     {user?._id}
                                 </p>
                             </div>
 
                             <div>
-                                <p className="text-sm text-gray-400">Last Name</p>
-                                <p className="font-medium text-gray-700">
+                                <p className="text-xs text-gray-400">Last Name</p>
+                                <p className="font-medium text-gray-700 text-xs">
                                     {user?.lastname}
                                 </p>
                             </div>
 
                             <div>
-                                <p className="text-sm text-gray-400">First Name</p>
-                                <p className="font-medium text-gray-700">
+                                <p className="text-xs text-gray-400">First Name</p>
+                                <p className="font-medium text-gray-700 text-xs">
                                     {user?.firstname}
                                 </p>
                             </div>
 
                             <div>
-                                <p className="text-sm text-gray-400">Middle Name</p>
-                                <p className="font-medium text-gray-700">
+                                <p className="text-xs text-gray-400">Middle Name</p>
+                                <p className="font-medium text-gray-700 text-xs">
                                     {user?.middlename}
                                 </p>
                             </div>
 
                             <div>
-                                <p className="text-sm text-gray-400">Birthdate</p>
-                                <p className="font-medium text-gray-700">
+                                <p className="text-xs text-gray-400">Extension Name</p>
+                                <p className="font-medium text-gray-700 text-xs">
+                                    {user?.extensionname || "N/A"}
+                                </p>
+                            </div>
+
+                            <div>
+                                <p className="text-xs text-gray-400">Birthdate</p>
+                                <p className="font-medium text-gray-700 text-xs">
                                     {user?.month}-{user?.day}-{user?.year}
                                 </p>
                             </div>
 
                             <div>
-                                <p className="text-sm text-gray-400">Age</p>
-                                <p className="font-medium text-gray-700">
+                                <p className="text-xs text-gray-400">Age</p>
+                                <p className="font-medium text-gray-700 text-xs">
                                     {user?.age}
                                 </p>
                             </div>
 
                             <div>
-                                <p className="text-sm text-gray-400">Gender</p>
-                                <p className="font-medium text-gray-700">
+                                <p className="text-xs text-gray-400">Gender</p>
+                                <p className="font-medium text-gray-700 text-xs">
                                     {user?.sex}
                                 </p>
                             </div>
 
                             <div>
-                                <p className="text-sm text-gray-400">Email</p>
-                                <p className="font-medium text-gray-700 break-words">
+                                <p className="text-xs text-gray-400">Email Address</p>
+                                <p className="font-medium text-gray-700 wrap-break-words text-xs">
                                     {user?.email}
                                 </p>
                             </div>
 
                             <div>
-                                <p className="text-sm text-gray-400">Contact Number</p>
-                                <p className="font-medium text-gray-700">
+                                <p className="text-xs text-gray-400">Contact Number</p>
+                                <p className="font-medium text-gray-700 text-xs">
                                     {user?.contact}
                                 </p>
                             </div>
@@ -106,27 +113,27 @@ const View_Student_Modal = ({ user, onClose }) => {
                     {/* Parent Information */}
                     {user?.age < 18 && (
                     <div className="mb-8">
-                        <h3 className="text-lg font-semibold text-gray-700 mb-4">
+                        <h3 className="text-sm font-semibold text-gray-700 mb-4">
                             Personal Information
                         </h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
                             <div>
-                                <p className="text-sm text-gray-400">Parent/Guardian Name</p>
-                                <p className="font-medium text-gray-700">
+                                <p className="text-xs text-gray-400">Parent/Guardian Name</p>
+                                <p className="font-medium text-gray-700 text-xs">
                                     {user?.parentName}
                                 </p>
                             </div>
                             <div>
-                                <p className="text-sm text-gray-400">Parent/Guardian Contact</p>
-                                <p className="font-medium text-gray-700">
+                                <p className="text-xs text-gray-400">Parent/Guardian Contact</p>
+                                <p className="font-medium text-gray-700 text-xs">
                                     {user?.parentContact}
                                 </p>
                             </div>
                             <div>
-                                <p className="text-sm text-gray-400">Parent/Guardian Relationship</p>
-                                <p className="font-medium text-gray-700">
+                                <p className="text-xs text-gray-400">Parent/Guardian Relationship</p>
+                                <p className="font-medium text-gray-700 text-xs">
                                     {user?.parentRelationship}
                                 </p>
                             </div>
@@ -139,26 +146,26 @@ const View_Student_Modal = ({ user, onClose }) => {
 
                     {/* Account Information */}
                     <div className="mb-8">
-                        <h3 className="text-lg font-semibold text-gray-700 mb-4">
+                        <h3 className="text-sm font-semibold text-gray-700 mb-4">
                             Account Information
                         </h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                             <div>
-                                <p className="text-sm text-gray-400">Username</p>
-                                <p className="font-medium text-gray-700">
+                                <p className="text-xs text-gray-400">Email</p>
+                                <p className="font-medium text-gray-700 text-xs">
                                     {user?.username}
                                 </p>
                             </div>
 
                             <div>
-                                <p className="text-sm text-gray-400">
+                                <p className="text-xs text-gray-400">
                                     Password Status
                                 </p>
 
                                 <span
-                                    className={`px-3 py-1 rounded-full text-sm font-medium ${
+                                    className={`px-3 py-1 rounded-full text-xs font-medium ${
                                         user?.isChangePassword
                                             ? "bg-green-100 text-green-600"
                                             : "bg-yellow-100 text-yellow-600"

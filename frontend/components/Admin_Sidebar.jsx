@@ -94,7 +94,7 @@ const Admin_SideBar = () => {
         User Registration
       </div>
 
-      <div className={`${isUsersAccount ? "bg-black text-white" : "hover:bg-gray-100 text-gray-500"} text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none rounded-xl mt-2 p-2`} onClick={handleUsers}>
+      <div className={`${isUsersAccount ? "bg-black text-white" : "hover:bg-gray-100 text-gray-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none rounded-xl mt-2 p-2`} onClick={handleUsers}>
         <Users className={`${isUsersAccount ? 'text-white' : 'text-gray-500'}`} size={15}/>
         Users Account
       </div>

@@ -24,9 +24,9 @@ const Admin_Page = () =>{
     const Pending = borrows.filter((borrow) => borrow.status === 'Pending')
 
     const cards = [
-      {icon: <Users size={15}/>, title: 'No. of Users', value: users.length, text: 'Registered Users in system'},
-      {icon: <LibraryBig size={15}/>, title: 'No. of Books', value: books.length, text: 'Uploaded Books in system'},
-      {icon: <SquareGanttChart size={15}/>, title: 'No. of Pending Request', value: Pending.length, text: 'Borrowing request from users in system'},
+      {icon: <Users size={20}/>, title: 'No. of Users', value: users.length, text: 'Registered Users in system'},
+      {icon: <LibraryBig size={20}/>, title: 'No. of Books', value: books.length, text: 'Uploaded Books in system'},
+      {icon: <SquareGanttChart size={20}/>, title: 'No. of Pending Request', value: Pending.length, text: 'Borrowing request from users in system'},
     ]
 
     const fetchUsers = async () => {
@@ -82,7 +82,7 @@ const Admin_Page = () =>{
           <h2 className="text-3xl font-bold text-gray-800">Hello {user?.username || "Admin"} 👋</h2>
           <p className="text-gray-400 text-xs">Welcome back! Here's today's overview of Naic Municipal Library.</p>
         </div>
-        <p className="w-fit bg-blue-100 text-blue-500 text-xs font-bold rounded-full px-2 py-1 mb-2">Admin Portal</p>
+        <p className="w-fit bg-blue-100 text-blue-500 text-xs font-semibold rounded-full p-2 mb-2">Admin Portal</p>
         
       </div>
 
@@ -90,22 +90,36 @@ const Admin_Page = () =>{
       <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
         {cards.map((card, index) => (
           <div
-            key={index}
-            className={`bg-blue-500 text-white rounded-2xl p-6`}
-          >
-            <p className="text-xs flex items-center gap-2">
-              {card.title}
-              {card.icon}
-            </p>
+  key={index}
+  className=" h-36 overflow-hidden rounded-2xl border-b-4 border-blue-700 bg-blue-500 p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+>
 
-            <h1 className="text-xl font-bold mt-3">
-              {card.value}
-            </h1>
+  {/* Content */}
+  <div className=" flex h-full flex-col justify-between back">
+    
+    {/* Title + Icon */}
+    <div className="flex items-center justify-between">
+      <p className="text-xs font-medium text-white">
+        {card.title}
+      </p>
 
-            <p className="text-xs text-white mt-2 border-t border-white pt-4">
-              {card.text}
-            </p>
-          </div>
+      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/30 text-white border">
+        {card.icon}
+      </div>
+    </div>
+
+    {/* Value */}
+    <h1 className="text-2xl font-bold text-white">
+      {card.value}
+    </h1>
+
+    {/* Description */}
+    <p className="text-xs text-white border-t pt-2">
+      {card.text}
+    </p>
+
+  </div>
+</div>
         ))}
       </div>
         

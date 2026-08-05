@@ -1,4 +1,4 @@
-import { Book, Check, X } from "lucide-react";
+import { Book, Check, X, Info, Calendar } from "lucide-react";
 
 const HistoryTable = ({Returned}) => {
     return(
@@ -7,55 +7,20 @@ const HistoryTable = ({Returned}) => {
         Returned.map((borrow) => (
             <div
                 key={borrow._id}
-                className={`w-full rounded-xl p-5 flex flex-col justify-between items-start  border border-gray-300 gap-2`}
+                 className={`w-full rounded-xl p-5 flex justify-between items-start  border border-gray-300 gap-2`}
             >
-                <div className="justify-center items-center flex gap-2">
-                    <Book size={15} className="text-gray-800"/>
-                    <h2 className="text-lg font-semibold text-gray-800">{borrow.title}</h2>
-                </div>
-
-                <div className="grid grid-cols-3 gap-2 w-full">
-                    
-                    <div className="border border-gray-300 rounded-xl p-2">
-                        <p className="text-gray-800 text-xs font-semibold flex gap-2"> User ID</p>
-                        <p className="text-gray-500 text-xs flex gap-2">{borrow.userId}</p>
+                <div className="w-full justify-start items-center flex gap-2">
+                    <div className="bg-gray-200 p-2 rounded-full">
+                       <Book size={15} className="text-gray-800"/> 
                     </div>
-
-                    <div className="border border-gray-300 rounded-xl p-2">
-                        <p className="text-gray-800 text-xs font-semibold flex gap-2"> Requested By</p>
-                        <p className="text-gray-500 text-xs flex gap-2">{borrow.name}</p>
+                    <div className="justify-start items-start flex flex-col">
+                        <h2 className="text-sm font-semibold text-gray-800 justify-center items-center flex gap-2">{borrow.title} 
+                            <span className={`justify-center items-center text-xs flex gap-1 ${borrow.status === 'Returned' ? 'text-green-500' : ""}`}><Info size={12}/>{borrow.status}</span>
+                            <h1 className="justify-center items-center text-xs flex gap-1 text-xs text-gray-400"><Calendar size={12}/> {borrow.returnDate.split('T')[0]}</h1>
+                            <h1 className="justify-center items-center text-xs flex gap-1 text-xs text-gray-400"> — {borrow.quantity} Qty</h1>
+                        </h2>
+                        <h2 className="text-xs text-gray-400">Requested by — {borrow.name}</h2>
                     </div>
-                    
-
-                    <div className="border border-gray-300 rounded-xl p-2">
-                        <p className="text-gray-800 text-xs font-semibold flex gap-2"> Requested Date</p>
-                        <p className="text-gray-500 text-xs flex gap-2">{borrow.createdAt.split("T")[0]}</p>
-                    </div>
-
-                    <div className="border border-gray-300 rounded-xl p-2">
-                        <p className="text-gray-800 text-xs font-semibold flex gap-2"> Borrowed Date</p>
-                        <p className="text-gray-500 text-xs flex gap-2">{borrow.borrowDate.split("T")[0]}</p>
-                    </div>
-
-                    <div className="border border-gray-300 rounded-xl p-2">
-                        <p className="text-gray-800 text-xs font-semibold flex gap-2"> Return Date</p>
-                        <p className="text-gray-500 text-xs flex gap-2">{borrow.returnDate.split("T")[0]}</p>
-                    </div>
-
-                    <div className="border border-gray-300 rounded-xl p-2">
-                        <p className="text-gray-800 text-xs font-semibold flex gap-2"> Quantity</p>
-                        <p className="text-gray-500 text-xs flex gap-2">{borrow.quantity}</p>
-                    </div>
-
-                    <div className="border border-gray-300 rounded-xl p-2">
-                        <p className="text-gray-800 text-xs font-semibold flex gap-2"> Status</p>
-                        <p className={`
-                          ${borrow.status === 'Pending' ? "text-yellow-600" : 
-                            borrow.status === 'Approve' ? "text-emerald-600" : ""}
-                            font-bold text-xs `}
-                        >{borrow.status}</p>
-                    </div>
-                    
                 </div>
 
             </div>

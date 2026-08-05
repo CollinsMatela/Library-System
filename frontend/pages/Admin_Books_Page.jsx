@@ -75,7 +75,7 @@ const Admin_Books_Page = () => {
               </div> 
               
 
-              <div className="bg-white w-full h-125 overflow-y-auto">
+              <div className="bg-white w-full h-100 overflow-y-auto">
                   {filteredBooks.length === 0 && (
                     <div className="bg-gray-100 w-full rounded-2xl justify-center items-center flex p-4">
                       <h1 className="text-xs text-gray-500">No books uploaded</h1>

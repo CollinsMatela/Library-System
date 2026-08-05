@@ -18,11 +18,12 @@ import defaultProfile from '../src/assets/Student.jpg'
 import LoadingScreen from '../loadings/loading'
 import { useNavigate } from 'react-router-dom'
 import BorrowModal from '../modals/BorrowModal'
+import { LoaderCircle } from 'lucide-react'
 
 const Library_Page = () => {
     const user = useAuthStore((state) => state.user);
     const logout = useAuthStore((state) => state.logout);
-    const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
     const navigate = useNavigate();
@@ -49,8 +50,18 @@ const Library_Page = () => {
     }
 
     useEffect(() => {
-           fetchBooks();
-           fetchAllBorrow();
+          const loadData = async () => {
+                setIsLoading(true)
+            try {
+                await Promise.all([fetchBooks(), fetchAllBorrow()])
+            } catch (error) {
+                toast.error('Failed to load the Data.')
+            } finally {
+                setIsLoading(false)
+            }
+          }
+           
+          loadData();
         },[])
     
     const fetchBooks = async () => {
@@ -100,7 +111,6 @@ const Library_Page = () => {
 
     return(
         <>
-        {loading && (<LoadingScreen/>)}
         {showBorrowModal && (<BorrowModal 
         book={filteredBook} 
         onClose={() => setShowBorrowModal(false)}
@@ -118,7 +128,14 @@ const Library_Page = () => {
             </header>
 
             <div className="w-5xl justify-center items-center flex flex-col mt-6 rounded-xl">                   
-                    
+                    {isLoading ? 
+                    (
+                    <div className='w-full justify-center items-center flex p-4'>
+                        <LoaderCircle size={20} className='animate-spin'/>
+                    </div>
+                    )
+                    :
+                    (
                     <div className='w-full grid grid-cols-4 gap-4'>
                         {books.map((book) => (
                             <Lib_BookCard 
@@ -130,6 +147,8 @@ const Library_Page = () => {
                             />
                         ))}
                     </div>
+                    )}
+                    
 
                  
                 

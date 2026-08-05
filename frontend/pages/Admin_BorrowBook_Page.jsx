@@ -84,7 +84,7 @@ const Admin_BorrowBook_Page = () => {
 
     const deleteBorrow = async (borrow) => {
         try {
-            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-borrow/${borrow._id}`)
+            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-user-request/${borrow._id}`)
             toast.success(res.data.message);
             fetchAllBorrow();
         } catch (error) {

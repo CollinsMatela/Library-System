@@ -1,7 +1,14 @@
 import Borrow_Model from '../models/Borrow_Model.js'
-const DeleteBorrowController = async (req, res) => {
+
+const DeleteBorrow_Controller = async (req, res) => {
     const {requestId} = req.params;
+
+    console.log("🔥 CONTROLLER REACHED");
+    console.log("🔥 PARAMS:", req.params);
+    console.log("🔥 REQUEST ID:", req.params.requestId);
+
     try {
+        console.log("Check:", requestId);
 
         if(!requestId) {
             console.log('Missing Request Id Found');
@@ -24,4 +31,4 @@ const DeleteBorrowController = async (req, res) => {
     }
 }
 
-export default DeleteBorrowController
+export default DeleteBorrow_Controller

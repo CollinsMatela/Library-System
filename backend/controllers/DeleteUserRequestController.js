@@ -1,5 +1,5 @@
 import Borrow_Model from '../models/Borrow_Model.js'
-const DeleteBorrowController = async (req, res) => {
+const DeleteUserRequestController = async (req, res) => {
     const {id} = req.params;
     try {
         if(!id){
@@ -15,4 +15,4 @@ const DeleteBorrowController = async (req, res) => {
         res.status(500).json({message: 'Internal Error'});
     }
 }
-export default DeleteBorrowController
+export default DeleteUserRequestController

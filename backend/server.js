@@ -37,7 +37,8 @@ import Fetch_AllBorrow_Route from './routes/Fetch_AllBorrow_Route.js'
 import Update_Borrow_Route from './routes/Update_Borrow_Route.js';
 import ApproveBorrowRoute from './routes/ApproveBorrowRoute.js'
 import ReturnBorrowRoute from './routes/ReturnBorrowRoute.js'
-import DeleteBorrowRoute from './routes/DeleteBorrowRoute.js'
+import DeleteUserRequestRoute from './routes/DeleteUserRequestRoute.js'
+import DeleteBorrow_Route from './routes/DeleteBorrow_Route.js'
 
 import SummarizationRoute from './routes/SummarizationRoute.js'
 import LogBookRoute from "./routes/LogBookRoute.js";
@@ -114,7 +115,8 @@ app.use("/", Fetch_AllBorrow_Route);
 app.use("/", Update_Borrow_Route);
 app.use("/", ApproveBorrowRoute);
 app.use("/", ReturnBorrowRoute);
-app.use("/", DeleteBorrowRoute);
+app.use("/", DeleteUserRequestRoute);
+app.use("/", DeleteBorrow_Route);
 
 app.use("/", SummarizationRoute);
 

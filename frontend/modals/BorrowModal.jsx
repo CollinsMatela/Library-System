@@ -6,34 +6,34 @@ const BorrowModal = ({book, onClose, requestBorrow}) => {
     
     return(
         <section className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
-    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden p-6">
 
         {/* Header */}
-        <div className="border-b border-gray-200 px-8 py-6">
-            <h1 className="text-2xl font-bold text-gray-900">
+        <div className="mb-6">
+            <h1 className="text-lg font-bold text-gray-900">
                 Request Borrow
             </h1>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-xs text-gray-500">
                 Please review the selected book before submitting your borrow request.
             </p>
         </div>
 
         {/* Body */}
-        <div className="w-full px-10 py-6 flex gap-6">
+        <div className="w-full grid grid-cols-2">
 
             {/* Book Cover */}
-            <div>
+            <div className=" bg-gray-50 justify-start item-center flex">
                 <img
                     src={book?.cover}
                     alt={book?.title}
-                    className="h-80 w-70 object-cover shadow-md"
+                    className="h-100 object-cover shadow-md"
                 />
             </div>
 
             {/* Book Information */}
-            <div className="col-span-2 flex flex-col justify-between">
+            
 
-                <div className="grid grid-cols-1 gap-4">
+                <div className="flex flex-col gap-4">
 
                     <div>
                         <p className="text-xs uppercase tracking-wide text-gray-500">
@@ -78,25 +78,25 @@ const BorrowModal = ({book, onClose, requestBorrow}) => {
 
                 </div>
 
-            </div>
+            
 
         </div>
 
         {/* Buttons */}
-                <div className="w-full px-10 flex flex-col gap-2 mb-10">
+                <div className="w-full justify-end items-center flex gap-2">
 
                     <button
-                        className="px-6 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition cursor-pointer"
-                        onClick={() => requestBorrow(book._id)}
-                    >
-                        Send Request
-                    </button>
-
-                    <button
-                        className="px-6 py-2 rounded-md border border-gray-300 hover:bg-gray-100 transition cursor-pointer"
+                        className="p-2 rounded-xl text-xs hover:bg-gray-100 transition cursor-pointer"
                         onClick={onClose}
                     >
                         Cancel
+                    </button>
+
+                    <button
+                        className="p-2 rounded-xl bg-blue-600 text-white text-xs hover:bg-blue-700 transition cursor-pointer"
+                        onClick={() => requestBorrow(book._id)}
+                    >
+                        Send Request
                     </button>
 
                 </div>

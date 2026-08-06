@@ -232,13 +232,15 @@ useEffect(() => {
 
 
     return (
+        <>
+       <Lib_Navigation />
         <section className="min-h-screen w-full">
 
             <div className="bg-gray-50 w-full flex flex-col items-center rounded-2xl pb-4">
 
-                <Lib_Navigation />
+                
 
-                <div className="w-full justify-center items-center flex flex-col mt-10 space-y-6 px-10 gap-2">
+                <div className="w-full justify-center items-center flex flex-col space-y-6 px-10 gap-2">
 
                     <header className="w-5xl mt-20">
                         <h1 className="text-xl font-bold">Search & Catalog</h1>
@@ -379,6 +381,7 @@ useEffect(() => {
             
 
         </section>
+         </>
     )
 }
 

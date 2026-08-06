@@ -5,6 +5,7 @@ import { toast } from "react-toastify"
 import { X, Hourglass, CheckCheck, Check, CalendarClock, Book, Info, MessageCircle, MessageCircleMore, Loader, LoaderCircle } from "lucide-react"
 import useAuthStore from '../store/useAuthStore'
 import Confirmation from '../popup/Confirmation_Popup'
+import Footer from '../components/Footer'
 
 const Lib_Borrow = () => {
 
@@ -172,6 +173,7 @@ const Lib_Borrow = () => {
                     </div>
         
                 </section>
+                 <Footer/>
         </>
     )
 }

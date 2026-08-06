@@ -6,6 +6,7 @@ import { BrushCleaning, ListFilter, MoveRight, LayoutGrid } from 'lucide-react';
 import Catalog_TypeOfBooks from './CatalogPage_Component/Catalog_TypeOfBooks';
 import Catalog_BookInformation from './CatalogPage_Component/Catalog_BookInformation';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer'
 
 const Lib_Catalog = () => {
 
@@ -381,6 +382,7 @@ useEffect(() => {
             
 
         </section>
+        <Footer/>
          </>
     )
 }

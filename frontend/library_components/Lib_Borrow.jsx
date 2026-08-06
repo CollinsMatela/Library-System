@@ -79,7 +79,7 @@ const Lib_Borrow = () => {
                     <div className="w-full justify-center items-center flex flex-col rounded-2xl px-10">
         
                         <div className='w-5xl flex flex-col'>
-                            <header className="w-full mt-10">
+                            <header className="w-full mt-20">
                                     <h1 className="text-xl font-bold">Request Status</h1>
                                     <p className="mt-2 text-gray-600 text-xs">
                                         Browse educational resources, fiction, and non-fiction books available in the library.

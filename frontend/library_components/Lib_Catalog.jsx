@@ -240,7 +240,7 @@ useEffect(() => {
 
                 <div className="w-full justify-center items-center flex flex-col mt-10 space-y-6 px-10 gap-2">
 
-                    <header className="w-5xl">
+                    <header className="w-5xl mt-20">
                         <h1 className="text-xl font-bold">Search & Catalog</h1>
                         <p className="text-gray-600 mt-2 text-xs">
                             Browse and search our collection of books by title, author, category, or other filters.

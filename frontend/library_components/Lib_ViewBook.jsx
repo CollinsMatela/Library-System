@@ -140,7 +140,7 @@ const Lib_ViewBook = () => {
   
     <Lib_Navigation />
 
-    <div className="w-5xl flex gap-4 mt-10">
+    <div className="w-5xl flex gap-4 mt-20">
         {/* Book Cover Container */}
         <div className="bg-gray-50 w-120 flex flex-col">
             <img src={bookDetails?.cover} className="bg-gray-100 h-100 object-center shadow-xl mb-5" />

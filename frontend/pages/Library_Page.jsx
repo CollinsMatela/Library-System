@@ -209,7 +209,7 @@ const Library_Page = () => {
                                     </div>
                             )}
                             {selectedCategory.length > 1 && (
-                                <div className='w-full h-100 grid grid-cols-3 gap-4'>
+                                <div className='w-full grid grid-cols-3 gap-4'>
 
                                     {selectedCategory.map((book) => (
                                         <Lib_BookCard 

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Lib_Navigation from "./Lib_Navigation";
 import axios from "axios";
 import useAuthStore from "../store/useAuthStore";
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Sparkles, Sparkle, Hourglass, BookOpen, Info } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Sparkles, Sparkle, Hourglass, BookOpen, Info, LoaderCircle } from "lucide-react";
 import Lib_BookLayout from "./Lib_BookLayout";
 import { toast } from "react-toastify";
 import BorrowModal from '../modals/BorrowModal'
@@ -13,6 +13,7 @@ const Lib_ViewBook = () => {
     const { id } = useParams();
     const user = useAuthStore((state) => state.user); 
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
     const [showReadModal, setShowReadModal] = useState(false);
 
     const [errorMessage, setErrorMessage] = useState("");
@@ -54,8 +55,17 @@ const Lib_ViewBook = () => {
 ];
 
     useEffect(() => {
-         fetchBookById();
-         fetchAllBorrow();
+        setIsLoading(true);
+        const loadData = async () => {
+            try {
+            await Promise.all([fetchBookById(), fetchAllBorrow()])
+            } catch (error) {
+                toast.error('Failed to load the page.')
+            } finally {
+            setIsLoading(false);
+            }
+        }
+        loadData();
     },[])
 
     const fetchBookById = async () => {
@@ -85,6 +95,7 @@ const Lib_ViewBook = () => {
          try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/request-borrow`, requestData);
             toast.success(res.data.message);
+            fetchAllBorrow();
             fetchBookById();
             setShowBorrowModal(false);
 
@@ -106,26 +117,6 @@ const Lib_ViewBook = () => {
             toast.error(error?.response?.data?.message)
          }
     }
-
-    
-    const AISummarization = async () => {
-
-          const texts = bookDetails.pages.map((p) => p.pageText);
-
-          const bookData = {
-            title: bookDetails.title,
-            texts: texts
-          }
-          try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/ai-summarization`, bookData)
-            setgeneratedSummary(res.data.summary);
-            toast.success(res.data.message);
-          } catch (error) {
-            console.log(error);
-            toast.error(error?.response?.data?.message);
-          }
-    }
-
     
 
     return(
@@ -136,18 +127,24 @@ const Lib_ViewBook = () => {
     onClose={() => setShowBorrowModal(false)}
     requestBorrow={requestBorrow}
     />)}
-    <section className="min-h-screen w-full bg-stone-50 justify-start items-center flex flex-col pb-10">
-  
     <Lib_Navigation />
-
-    <div className="w-5xl flex gap-4 mt-20">
+    <section className="min-h-screen w-full bg-stone-50 justify-start items-center flex flex-col pb-10">
+    {isLoading ? 
+    (
+    <div className="justify-center items-center flex mt-20">
+        <LoaderCircle size={20} className="animate-spin text-black"/>
+    </div>
+    )
+    :
+    (
+       <div className="w-5xl flex gap-4 mt-20">
         {/* Book Cover Container */}
         <div className="bg-gray-50 w-120 flex flex-col">
             <img src={bookDetails?.cover} className="bg-gray-100 h-100 object-center shadow-xl mb-5" />
            
             {!isRequestExisting && bookDetails?.copies > 0 && (
-               <button className="justify-center items-center flex gap-2 bg-black py-2 w-full rounded-lg cursor-pointer text-white text-xs font-bold" onClick={() => setShowBorrowModal(true)}>
-                <HandHelping size={15}/>Request Borrow
+               <button className="justify-center items-center flex gap-2 bg-blue-600 border hover:bg-blue-700 transition py-2 w-full rounded-lg cursor-pointer text-white text-xs font-bold" onClick={() => setShowBorrowModal(true)}>
+                <HandHelping size={15}/>Request
                </button>
             )}
             {isRequestExisting && (
@@ -305,7 +302,9 @@ const Lib_ViewBook = () => {
            
 
         </div>
-    </div>
+    </div> 
+    )}
+    
 
     </section>
     </>

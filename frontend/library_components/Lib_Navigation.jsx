@@ -1,10 +1,9 @@
 import useAuthStore from '../store/useAuthStore'
-import NotificationIcon from '../src/assets/notification-svgrepo-com.svg'
 import RankingIcon from '../src/assets/crown-svgrepo-com.svg'
 import defaultProfile from '../src/assets/Student.jpg'
 import NaicLibraryLogo from '../src/assets/NaicLibraryLogo.png'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { LogOut, Blocks, BookSearch } from 'lucide-react'
+import { LogOut, Blocks, BookSearch, BellDot, Info, BadgeInfo } from 'lucide-react'
 
 const Lib_Navigation = () => {
     const navigate = useNavigate();
@@ -34,8 +33,12 @@ const Lib_Navigation = () => {
                           <div className='gap-4 justify-center items-center flex'>
                             <button className={`${location.pathname === '/library' ? "border-b-2 border-black text-black" : "bg-transparent text-gray-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library')}><Blocks size={15}/> Book Browse</button>
                             <button className={`${location.pathname === '/library/catalog' ? "border-b-2 border-black text-black" : "bg-transparent text-gray-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/catalog')}><BookSearch size={15}/> Search & Catalog</button>
-                            <button className={`${location.pathname === '/library/borrow-status' ? "border-b-2 border-black text-black" : "bg-transparent text-gray-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/borrow-status')}><BookSearch size={15}/> Borrow Status</button>
-                            <button className="h-10 px-4 justify-center items-center flex text-gray-500 font-bold transition-all duration-300 ease-in-out cursor-pointer gap-2 hover:bg-red-100 hover:text-red-500 hover:underline rounded-xl" onClick={handleLogout}><LogOut size={15}/></button>
+                            <button className={`${location.pathname === '/library/borrow-status' ? "border-b-2 border-black text-black" : "bg-transparent text-gray-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/borrow-status')}><BadgeInfo size={15}/> Borrow Status</button>
+                            <button className=" p-2 justify-center items-center flex text-gray-500 font-bold transition-all duration-300 ease-in-out cursor-pointer gap-2 hover:bg-stone-200 hover:text-stone-500 rounded-full" onClick={() => alert('Testing')}><BellDot size={15}/></button>
+                            <button className='h-7 w-7 rounded-full bg-blue-600'>
+                              <h1 className='text-white text-xs font-bold'>{user.firstname.slice(0, 1).toUpperCase()}</h1>
+                            </button>
+                            <button className="p-2 justify-center items-center flex text-gray-500 font-bold transition-all duration-300 ease-in-out cursor-pointer gap-2 hover:bg-red-100 hover:text-red-500 rounded-full" onClick={handleLogout}><LogOut size={15}/></button>
                           </div>
                        </div>
                               

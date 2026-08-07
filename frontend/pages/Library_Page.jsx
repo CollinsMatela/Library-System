@@ -148,7 +148,7 @@ const Library_Page = () => {
         requestBorrow={requestBorrow}
         />)}
         <Lib_Navigation/>
-        <section className="min-h-screen w-full justify-start items-center flex flex-col bg-gray-50 pb-10">
+        <section className="min-h-screen w-full justify-start items-center flex flex-col bg-stone-50 pb-10">
 
             <header className="w-5xl mt-20">
                     <h1 className="text-xl font-bold">Browse Books</h1>

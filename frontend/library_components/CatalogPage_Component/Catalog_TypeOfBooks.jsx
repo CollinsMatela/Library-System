@@ -145,7 +145,7 @@ const Catalog_TypeOfBooks = ({type, setType, category, setCategory, field, setFi
     };
 
     return(
-    <div className='w-full grid grid-cols-3 gap-2'>
+    <div className='w-full grid grid-cols-4 gap-2'>
             <div>
                 <p className="text-xs font-medium text-gray-500">Type</p>
                 <select className='w-full px-4 py-2 bg-white border border-gray-300 rounded-xl outline-none text-xs'

@@ -5,7 +5,7 @@ const BorrowModal = ({book, onClose, requestBorrow}) => {
 
     
     return(
-        <section className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
+        <section className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
     <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden p-6">
 
         {/* Header */}

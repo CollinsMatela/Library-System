@@ -96,7 +96,7 @@ const Catalog_BookInformation = ({
     ];
 
     return (
-        <div className="w-full grid grid-cols-3 gap-4">
+        <div className="w-full grid grid-cols-4 gap-2">
             {fields.map((field) => (
                 <div key={field.label} className="flex flex-col gap-1">
                     <label className="text-xs text-gray-500">

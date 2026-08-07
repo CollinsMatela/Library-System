@@ -136,7 +136,7 @@ const Lib_ViewBook = () => {
     onClose={() => setShowBorrowModal(false)}
     requestBorrow={requestBorrow}
     />)}
-    <section className="min-h-screen w-full bg-gray-50 justify-start items-center flex flex-col pb-10">
+    <section className="min-h-screen w-full bg-stone-50 justify-start items-center flex flex-col pb-10">
   
     <Lib_Navigation />
 

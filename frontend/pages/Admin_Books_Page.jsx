@@ -92,9 +92,9 @@ const Admin_Books_Page = () => {
                           <img src={book?.cover} className="object-cover w-25 p-2" />
 
                           <div className="h-full flex flex-col w-full p-2">
-                            <div className="w-full flex gap-2 justify-center items-center">
+                            <div className="w-full flex gap-2 justify-center items-center mb-2">
                               <div className="bg-gray-200 shadow-sm p-2 rounded-full">
-                                <Book size={15}/>
+                                <Book size={15} className="text-gray-500"/>
                               </div>
                               
 

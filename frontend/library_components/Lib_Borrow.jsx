@@ -75,7 +75,7 @@ const Lib_Borrow = () => {
         onConfirm={() => deleteBorrow(selectedRequest._id)}
         onCancel={() => setConfirmation(false)}
         />)}
-        <section className="min-h-screen w-full bg-gray-50">
+        <section className="min-h-screen w-full bg-stone-50">
         <Lib_Navigation/>
                     <div className="w-full justify-center items-center flex flex-col rounded-2xl px-10">
         

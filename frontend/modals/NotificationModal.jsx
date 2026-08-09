@@ -38,7 +38,7 @@ const NotificationModal = ({onClose}) => {
         <section className="fixed h-full w-full z-50">
             <div className="absolute inset-0" onClick={onClose}></div>
 
-            <div className="absolute right-30 top-15 bg-stone-50 h-full w-100 p-6 border-l border-gray-300">
+            <div className="absolute right-30 top-15 bg-white h-[91vh] w-100 p-6 border-l border-gray-300 overflow-y-scroll">
                 <div className="w-full justify-between items-center flex pb-4 border-b border-gray-300">
                     <h1 className="text-lg font-bold">Notifications</h1>
                     <button onClick={onClose} className="cursor-pointer p-2 hover:bg-gray-200 rounded-full transition text-gray-500"><ArrowRight size={15}/></button>
@@ -52,7 +52,7 @@ const NotificationModal = ({onClose}) => {
                 )
                 :
                 (
-                    <div className="w-full h-full overflow-y-hidden">
+                    <div className="w-full">
                     {notifications.length === 0 && (
                     notifications.map((notif) => (
                         <div className="p-4 bg-gray-200 justify-center items-center flex gap-1 mt-2">

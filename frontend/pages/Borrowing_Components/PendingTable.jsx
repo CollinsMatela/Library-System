@@ -1,6 +1,8 @@
 import { Book, Check, X, Info , Calendar} from "lucide-react";
+import axios from 'axios';
 
 const PendingTable = ({Pendings, approveBorrow, deleteBorrow}) => {
+
     return(
         <div className="w-full flex flex-col gap-4">
     {Pendings.length > 0 ? (

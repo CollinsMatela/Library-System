@@ -11,8 +11,10 @@ import PendingTable from "./Borrowing_Components/PendingTable";
 import ApprovedTable from "./Borrowing_Components/ApprovedTable";
 import BorrowedTable from "./Borrowing_Components/BorrowedTable";
 import HistoryTable from "./Borrowing_Components/HistoryTable";
+import useAuthStore from "../store/useAuthStore";
 
 const Admin_BorrowBook_Page = () => {
+    const user = useAuthStore((state) => state.user);
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
     const [borrowList, setBorrowList] = useState([]);
@@ -61,6 +63,7 @@ const Admin_BorrowBook_Page = () => {
             const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-borrow`, borrowData);
             toast.success(res.data.message);
             fetchAllBorrow();
+            BorrowedNotification(borrow);
           } catch (error) {
             toast.error(error?.response?.data?.message);
             setErrorMessage(error?.response?.data?.message)
@@ -76,6 +79,7 @@ const Admin_BorrowBook_Page = () => {
             const res = await axios.put(`${import.meta.env.VITE_API_URL}/approve-borrow`, data);
             toast.success(res.data.message);
             fetchAllBorrow();
+            ApprovedNotification();
           } catch (error) {
             toast.error(error?.response?.data?.message);
             setErrorMessage(error?.response?.data?.message)
@@ -124,6 +128,32 @@ const Admin_BorrowBook_Page = () => {
     //         toast.error(error?.response?.dat?.message);
     //       }
     // }
+    const ApprovedNotification = async () => {
+          try {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/approved-notification`, {userId: user._id})
+            console.log(res.data.message);
+            
+          } catch (error) {
+            toast.error(error?.response?.data?.message);
+            setErrorMessage(error?.response?.data?.message)
+          }
+    }
+    const BorrowedNotification = async (borrow) => {
+        
+        const data = {
+            bookTitle: borrow.title,
+            userId: borrow.userId,
+            returnDate: returnDate
+        }
+          try {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/borrowed-notification`, data)
+            console.log(res.data.message);
+            
+          } catch (error) {
+            toast.error(error?.response?.data?.message);
+            setErrorMessage(error?.response?.data?.message)
+          }
+    }
 
     useEffect(() => {
         fetchAllBorrow();

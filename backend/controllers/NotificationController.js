@@ -53,8 +53,10 @@ export const ApprovedNotification = async (req, res) => {
        }
 }
 export const BorrowedNotification = async (req, res) => {
-      const {userId} = req.params;
-      const {bookTitle, returnDate} = req.body;
+      const {userId, bookTitle, returnDate} = req.body;
+
+
+      console.log(userId, bookTitle, returnDate)
 
       const expireDate = new Date();
         expireDate.setDate(expireDate.getDate() + 7)
@@ -73,8 +75,7 @@ export const BorrowedNotification = async (req, res) => {
        }
 }
 export const DueNotification = async (req, res) => {
-      const {userId} = req.params;
-      const {bookTitle, returnDate} = req.body;
+      const {userId, bookTitle, returnDate} = req.body;
 
       const dueDate = new Date(returnDate);
       const todayDate = new Date();

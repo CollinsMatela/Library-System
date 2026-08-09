@@ -1,4 +1,19 @@
-import NotificationModel from "../models/NotificationsModel"
+import NotificationModel from "../models/NotificationsModel.js"
+
+export const FetchNotification = async (req, res) => {
+        try {
+        const notifications = await NotificationModel.find();
+        
+        if(!notifications){
+          res.status(400).json({message: 'No found notifications'});
+          return
+        }
+
+        res.status(200).json({message: 'Successfully fetched notification', notifications: notifications});
+       } catch (error) {
+        res.status(500).json({message: 'Internal Error in Notification'})
+       }
+}
 
 export const BookUploadNotification = async (req, res) => {
        const {bookTitle} = req.body;

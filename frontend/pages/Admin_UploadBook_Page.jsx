@@ -157,7 +157,17 @@ const Admin_UploadBook_Page = () => {
             }
         };
         }, [pageImagePreview]);
-
+        
+        const uploadNotification = async () => {
+            const data = {bookTitle: title}
+              try {
+                console.log('Sending Notification...');
+                const res = await axios.post(`${import.meta.env.VITE_API_URL}/upload-notification`, data);
+                console.log(res.data.message);
+              } catch (error) {
+                toast.error(error?.response?.data?.message);
+              }
+        }
 
 
         const handleNextPage = async () => {
@@ -449,6 +459,7 @@ const Admin_UploadBook_Page = () => {
         if (res.data.success) {
             toast.success(res.data.message);
             resetForm();
+            uploadNotification();
         }
 
     } catch (error) {

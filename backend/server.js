@@ -45,6 +45,8 @@ import LogBookRoute from "./routes/LogBookRoute.js";
 import FetchLogBookRoute from "./routes/FetchLogBookRoute.js"
 import UpdateLeaveRoute from "./routes/UpdateLeaveRoute.js"
 
+import NotificationRoute from "./routes/NotificationRoute.js"
+
 console.log("🔥 SERVER FILE STARTED");
 const app = express();
 
@@ -123,6 +125,8 @@ app.use("/", SummarizationRoute);
 app.use("/", LogBookRoute);
 app.use("/", FetchLogBookRoute);
 app.use("/", UpdateLeaveRoute);
+
+app.use("/", NotificationRoute)
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');

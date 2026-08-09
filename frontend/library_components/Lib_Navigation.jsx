@@ -28,7 +28,7 @@ const Lib_Navigation = () => {
     return(
       <>
       {isNotification && (<NotificationModal onClose={() => setIsNotification(false)}/>)}
-      {isConfirmation && (<ConfirmationPopup message={'Do you want to logout?'} onConfirm={() => handleLogout} onCancel={() => setIsConfirmation(false)}/>)}
+      {isConfirmation && (<ConfirmationPopup message={'Do you want to logout?'} onConfirm={() => handleLogout()} onCancel={() => setIsConfirmation(false)}/>)}
 
         <nav className="fixed z-20 bg-white/50 backdrop-blur-sm h-15 w-full justify-center items-center flex px-6">
 

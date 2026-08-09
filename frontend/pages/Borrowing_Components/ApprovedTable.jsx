@@ -22,7 +22,7 @@ const ApprovedTable = ({Approved, returnDate, setReturnDate, quantity, setQuanti
                     </div>
                 </div>
 
-                <div className="justify-end items-center flex gap-2 w-full">
+                <div className="justify-end items-center flex gap-2 w-fit">
                     <input type="date" className="p-2 bg-gray-100 rounded-lg text-xs" value={returnDate} onChange={(e) => setReturnDate(e.target.value)}/>
                     <input type="number" min={1} className="p-2 w-20 bg-gray-100 rounded-lg text-xs" placeholder="Qty" value={quantity} onChange={(e) => setQuantity(e.target.value)}/>
 

@@ -22,7 +22,7 @@ const PendingTable = ({Pendings, approveBorrow, deleteBorrow}) => {
                     </div>
                 </div>
 
-                <div className="justify-end items-center flex gap-2 w-full">
+                <div className="justify-end items-center flex gap-2 w-fit">
                     <button
                         onClick={() => deleteBorrow(borrow)}
                         className="bg-white hover:bg-gray-200 flex gap-2 text-xs justify-center items-center text-gray-500 p-2 rounded-lg cursor-pointer hover:-translate-y-1 transition"

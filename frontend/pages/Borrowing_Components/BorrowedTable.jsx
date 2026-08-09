@@ -23,7 +23,7 @@ const BorrowedTable = ({Borrowed, ReturnBorrow}) => {
                     </div>
                 </div>
 
-                <div className="justify-end items-center flex gap-2 w-full">
+                <div className="justify-end items-center flex gap-2 w-fit">
                     <button
                         onClick={() => ReturnBorrow(borrow)}
                         className="bg-blue-600 hover:bg-blue-700 flex gap-2 text-xs justify-center items-center text-white p-2 rounded-lg cursor-pointer hover:-translate-y-1 transition"

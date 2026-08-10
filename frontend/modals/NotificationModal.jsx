@@ -9,13 +9,15 @@ const NotificationModal = ({onClose}) => {
     const user = useAuthStore((state) => state.user);
     const [notifications, setNotifications] = useState([]);
     const [filteredNotification, setFilteredNotification] = useState([]);
+    const [borrows, setBorrows] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const loadData = async () => {
               setIsLoading(true)
                try {
-                await fetchNotifications()
+                await Promise.all([fetchNotifications(), fetchAllBorrow()])
                } catch (error) {
                 toast.error('Failed to load the notifications');
                } finally {
@@ -31,6 +33,22 @@ const NotificationModal = ({onClose}) => {
         setFilteredNotification([...GlobalNotification, ...UserNotification])
     },[notifications])
 
+    useEffect(() => {
+        
+       DueNotification(borrows)
+    },[borrows])
+
+    const DueNotification = async (borrows) => {
+          try {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/due-notifications`, {borrows: borrows});
+            console.log(res.data.message);
+
+          } catch (error) {
+            toast.error(error?.response?.data?.message)
+            setErrorMessage(error?.response?.data?.message)
+          }
+    }
+
     const fetchNotifications = async () => {
           try {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/fetch-notifications`);
@@ -39,6 +57,17 @@ const NotificationModal = ({onClose}) => {
 
           } catch (error) {
             toast.error(error?.response?.data?.message)
+            setErrorMessage(error?.response?.data?.message)
+          }
+    }
+    const fetchAllBorrow = async () => {
+          try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/fetch-all-borrow`);
+            setBorrows(res.data.borrows);
+            toast.success(res.data.borrows);
+          } catch (error) {
+            toast.error(error?.response?.data?.message);
+            setErrorMessage(error?.response?.data?.message)
           }
     }
 

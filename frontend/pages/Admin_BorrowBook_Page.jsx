@@ -47,7 +47,7 @@ const Admin_BorrowBook_Page = () => {
             toast.warning('Please select date and quantity.')
             return;
           }
-
+     
           const borrowData = {
                 id: borrow._id,
                 borrowDate: new Date().toISOString().split("T")[0],
@@ -143,7 +143,8 @@ const Admin_BorrowBook_Page = () => {
         const data = {
             bookTitle: borrow.title,
             userId: borrow.userId,
-            returnDate: returnDate
+            returnDate: returnDate,
+            requestId: borrow._id
         }
           try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/borrowed-notification`, data)

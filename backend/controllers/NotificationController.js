@@ -53,11 +53,8 @@ export const ApprovedNotification = async (req, res) => {
        }
 }
 export const BorrowedNotification = async (req, res) => {
-      const {userId, bookTitle, returnDate} = req.body;
-
-
-      console.log(userId, bookTitle, returnDate)
-
+      const {userId, bookTitle, returnDate, requestId} = req.body;
+      console.log(requestId)
       const expireDate = new Date();
         expireDate.setDate(expireDate.getDate() + 7)
 
@@ -67,6 +64,7 @@ export const BorrowedNotification = async (req, res) => {
             type: 'Borrowed',
             title: `Successfully borrowed the ${bookTitle}.`,
             message: `Please return the book before ${returnDate}.`,
+            requestId: requestId,
             expiresAt: expireDate
         })
         res.status(200).json({message: 'Successfully created borrowed notification'});
@@ -75,25 +73,83 @@ export const BorrowedNotification = async (req, res) => {
        }
 }
 export const DueNotification = async (req, res) => {
-      const {userId, bookTitle, returnDate} = req.body;
-
-      const dueDate = new Date(returnDate);
-      const todayDate = new Date();
-      const isOverDue = todayDate > dueDate;
-
-      const expireDate = new Date();
-        expireDate.setDate(expireDate.getDate() + 7)
-
       try {
-        const notification = await NotificationModel.create({
-            recipient: userId,
-            type: `${isOverDue ? 'Over Due' : 'Due'}`,
-            title: `${isOverDue ? "Over due!" : `Due is on ${returnDate}`}`,
-            message: `Please return the book.`,
-            expiresAt: expireDate
-        })
-        res.status(200).json({message: 'Successfully created borrowed notification'});
+      const {borrows} = req.body;
+      console.log(borrows)
+
+      if (borrows.length === 0) {
+        return res.status(200).json({
+            message: "No borrows to process"
+        });
+      }
+
+      const today = new Date().toISOString().split("T")[0];;
+      const expireDate = new Date();
+      expireDate.setDate(expireDate.getDate() + 7)
+
+      const threeDaysFromNow = new Date();
+      threeDaysFromNow.setDate(threeDaysFromNow.getDate() + 3);
+      const threeDays = threeDaysFromNow.toISOString().split("T")[0];
+
+       const OverDue = borrows.filter((borrow) => borrow.returnDate < today);
+       const ComingDue = borrows.filter((borrow) => {
+             const returnDate = borrow.returnDate;
+             return returnDate >= today && returnDate <= threeDays;
+       })
+
+       console.log(OverDue.length, "Total Overdue")
+       console.log(ComingDue.length, "Total Coming Due")
+
+        // Overdue notifications
+        for (const item of OverDue) {
+            const existingNotification = await NotificationModel.findOne({
+                recipient: item.userId,
+                type: "Over Due",
+                requestId: item._id
+            });
+
+            if(existingNotification){
+              continue;
+            }
+
+            await NotificationModel.create({
+                recipient: item.userId,
+                type: "Over Due",
+                title: `Return the Book! ${item.title}`,
+                message: "This book is overdue. Please return it as soon as possible.",
+                requestId: item._id,
+                expiresAt: expireDate
+            });
+        }
+
+        // Coming due notifications
+        for (const item of ComingDue) {
+          const existingNotification = await NotificationModel.findOne({
+                recipient: item.userId,
+                type: "Due",
+                requestId: item._id
+            });
+
+            if(existingNotification){
+              continue;
+            }
+
+            await NotificationModel.create({
+                recipient: item.userId,
+                type: "Due",
+                title: `Due is Coming! ${item.title}`,
+                message: `The due is on ${new Date(item.returnDate).toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric'
+                })}.`,
+                requestId: item._id,
+                expiresAt: expireDate
+            });
+        }
+        
+        res.status(200).json({message: 'Successfully created due notification'});
        } catch (error) {
+        console.log("DueNotification Error:", error);
         res.status(500).json({message: 'Internal Error in Notification'})
        }
 }

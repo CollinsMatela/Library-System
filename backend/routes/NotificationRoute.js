@@ -4,9 +4,10 @@ import { generalLimiter } from '../middleware/rateLimiter.js'
 
 const router = express.Router()
 
-router.get('/fetch-notifications', generalLimiter, FetchNotification);
-router.post('/upload-notification', generalLimiter, BookUploadNotification);
-router.post('/approved-notification', generalLimiter, ApprovedNotification);
-router.post('/borrowed-notification', generalLimiter, BorrowedNotification);
+router.get('/fetch-notifications', FetchNotification);
+router.post('/upload-notification', BookUploadNotification);
+router.post('/approved-notification', ApprovedNotification);
+router.post('/borrowed-notification', BorrowedNotification);
+router.post('/due-notifications', DueNotification);
 
 export default router;

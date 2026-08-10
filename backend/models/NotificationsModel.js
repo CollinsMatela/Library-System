@@ -5,6 +5,7 @@ const NotificationSchema = new mongoose.Schema({
      type: {type: String, enum: ['Book Upload', 'Pending', 'Approved', 'Borrowed', 'Due', 'Over Due']},
      title: {type: String},
      message: {type: String},
+     requestId: {type: String, default: null},
      isRead: {type: Boolean, default: false},
      expiresAt: {type: Date, default: null}
 },

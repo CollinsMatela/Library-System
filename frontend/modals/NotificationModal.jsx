@@ -3,10 +3,12 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import NaicMunicupalLogo from '../src/assets/NaicLibraryLogo.png'
+import useAuthStore from "../store/useAuthStore"
 
 const NotificationModal = ({onClose}) => {
-
+    const user = useAuthStore((state) => state.user);
     const [notifications, setNotifications] = useState([]);
+    const [filteredNotification, setFilteredNotification] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -22,6 +24,12 @@ const NotificationModal = ({onClose}) => {
         }
         loadData();
     }, [])
+
+    useEffect(() => {
+        const UserNotification = notifications.filter((notif) => notif.recipient === user._id).reverse();
+        const GlobalNotification = notifications.filter((notif) => notif.recipient === null).reverse();
+        setFilteredNotification([...GlobalNotification, ...UserNotification])
+    },[notifications])
 
     const fetchNotifications = async () => {
           try {
@@ -53,8 +61,8 @@ const NotificationModal = ({onClose}) => {
                 :
                 (
                     <div className="w-full">
-                    {notifications.length === 0 && (
-                    notifications.map((notif) => (
+                    {filteredNotification.length === 0 && (
+                    filteredNotification.map((notif) => (
                         <div className="p-4 bg-gray-200 justify-center items-center flex gap-1 mt-2">
                          <Info size={20} className="text-gray-500"/>
                          <h1 className="text-xs text-gray-500">No Notifications Found.</h1>
@@ -62,8 +70,8 @@ const NotificationModal = ({onClose}) => {
                         ))
                     )}
 
-                    {notifications.length > 0 && (
-                        notifications.map((notif) => (
+                    {filteredNotification.length > 0 && (
+                        filteredNotification.map((notif) => (
                             <div className="w-full p-4 mt-2 bg-white border border-gray-300 rounded-xl justify-start items-center flex gap-2">
                                 <div className="relative h-8 w-8 justify-center items-center flex">
                                     <div className="absolute inset-0 bg-gray-100/50 rounded-full"></div>
@@ -71,10 +79,9 @@ const NotificationModal = ({onClose}) => {
                                 </div>
                                 <div className="w-full">
                                     <div className="w-full flex justify-between item-center">
-                                        <h1 className="text-xs font-semibold text-black">{notif.title}</h1>
-                                        <h1 className="text-xs text-gray-500">{new Date(notif.createdAt).toLocaleDateString("en-US", {month: 'short', day: '2-digit'})}</h1>
+                                        <h1 className="text-xs font-medium text-stone-800">{notif.title} <span className="text-xs text-stone-400 font-normal">• {new Date(notif.createdAt).toLocaleDateString("en-US", {month: 'short', day: '2-digit'})}</span></h1>
                                     </div>  
-                                    <h1 className="text-xs text-gray-500">{notif.message}</h1>
+                                    <h1 className="text-xs text-stone-400">{notif.message}</h1>
                                 </div>
                                
                             </div>

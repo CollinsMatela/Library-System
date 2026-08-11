@@ -7,10 +7,15 @@ const NotificationSchema = new mongoose.Schema({
      message: {type: String},
      requestId: {type: String, default: null},
      isRead: {type: Boolean, default: false},
-     expiresAt: {type: Date, default: null}
 },
 {
-     timestamps: true
+     timestamps: {
+            createdAt: {
+                type: Date,
+                expires: 604800
+            },
+            updatedAt: true
+        }
 })
 const NotificationModel = new mongoose.model('NotificationsModel', NotificationSchema)
 export default NotificationModel

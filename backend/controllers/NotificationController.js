@@ -17,8 +17,7 @@ export const FetchNotification = async (req, res) => {
 
 export const BookUploadNotification = async (req, res) => {
        const {bookTitle} = req.body;
-       const expireDate = new Date();
-        expireDate.setDate(expireDate.getDate() + 7)
+
 
        try {
         const notification = await NotificationModel.create({
@@ -26,7 +25,7 @@ export const BookUploadNotification = async (req, res) => {
             type: 'Book Upload',
             title: 'New Uploaded Book',
             message: `Try to read this newly book ${bookTitle}`,
-            expiresAt: expireDate
+
         })
         res.status(200).json({message: 'Successfully created upload notification'});
        } catch (error) {
@@ -36,8 +35,7 @@ export const BookUploadNotification = async (req, res) => {
 
 export const ApprovedNotification = async (req, res) => {
       const {userId} = req.params;
-      const expireDate = new Date();
-        expireDate.setDate(expireDate.getDate() + 7)
+
 
       try {
         const notification = await NotificationModel.create({
@@ -45,7 +43,7 @@ export const ApprovedNotification = async (req, res) => {
             type: 'Approved',
             title: 'Your Request has been approved',
             message: `Please proceed to library and bring 1 valid Id`,
-            expiresAt: expireDate
+
         })
         res.status(200).json({message: 'Successfully created upload notification'});
        } catch (error) {
@@ -55,8 +53,7 @@ export const ApprovedNotification = async (req, res) => {
 export const BorrowedNotification = async (req, res) => {
       const {userId, bookTitle, returnDate, requestId} = req.body;
       console.log(requestId)
-      const expireDate = new Date();
-        expireDate.setDate(expireDate.getDate() + 7)
+
 
       try {
         const notification = await NotificationModel.create({
@@ -65,7 +62,7 @@ export const BorrowedNotification = async (req, res) => {
             title: `Successfully borrowed the ${bookTitle}.`,
             message: `Please return the book before ${returnDate}.`,
             requestId: requestId,
-            expiresAt: expireDate
+
         })
         res.status(200).json({message: 'Successfully created borrowed notification'});
        } catch (error) {
@@ -84,8 +81,7 @@ export const DueNotification = async (req, res) => {
       }
 
       const today = new Date().toISOString().split("T")[0];;
-      const expireDate = new Date();
-      expireDate.setDate(expireDate.getDate() + 7)
+
 
       const threeDaysFromNow = new Date();
       threeDaysFromNow.setDate(threeDaysFromNow.getDate() + 3);
@@ -118,7 +114,6 @@ export const DueNotification = async (req, res) => {
                 title: `Return the Book! ${item.title}`,
                 message: "This book is overdue. Please return it as soon as possible.",
                 requestId: item._id,
-                expiresAt: expireDate
             });
         }
 
@@ -143,7 +138,7 @@ export const DueNotification = async (req, res) => {
                     day: 'numeric'
                 })}.`,
                 requestId: item._id,
-                expiresAt: expireDate
+
             });
         }
         

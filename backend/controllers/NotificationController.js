@@ -34,10 +34,9 @@ export const BookUploadNotification = async (req, res) => {
 }
 
 export const ApprovedNotification = async (req, res) => {
-      const {userId} = req.params;
-
-
+      const {userId} = req.body;
       try {
+
         const notification = await NotificationModel.create({
             recipient: userId,
             type: 'Approved',
@@ -45,11 +44,14 @@ export const ApprovedNotification = async (req, res) => {
             message: `Please proceed to library and bring 1 valid Id`,
 
         })
+
         res.status(200).json({message: 'Successfully created upload notification'});
        } catch (error) {
-        res.status(500).json({message: 'Internal Error in Notification'})
+        console.log(error)
+        res.status(500).json({message: 'Internal Error in Approved Notification'})
        }
 }
+
 export const BorrowedNotification = async (req, res) => {
       const {userId, bookTitle, returnDate, requestId} = req.body;
       console.log(requestId)
@@ -72,7 +74,6 @@ export const BorrowedNotification = async (req, res) => {
 export const DueNotification = async (req, res) => {
       try {
       const {borrows} = req.body;
-      console.log(borrows)
 
       if (borrows.length === 0) {
         return res.status(200).json({

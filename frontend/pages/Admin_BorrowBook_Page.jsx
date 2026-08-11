@@ -79,7 +79,7 @@ const Admin_BorrowBook_Page = () => {
             const res = await axios.put(`${import.meta.env.VITE_API_URL}/approve-borrow`, data);
             toast.success(res.data.message);
             fetchAllBorrow();
-            ApprovedNotification();
+            ApprovedNotification(borrow);
           } catch (error) {
             toast.error(error?.response?.data?.message);
             setErrorMessage(error?.response?.data?.message)
@@ -128,9 +128,10 @@ const Admin_BorrowBook_Page = () => {
     //         toast.error(error?.response?.dat?.message);
     //       }
     // }
-    const ApprovedNotification = async () => {
+    const ApprovedNotification = async (borrow) => {
+          
           try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/approved-notification`, {userId: user._id})
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/approved-notification`, {userId: borrow.userId})
             console.log(res.data.message);
             
           } catch (error) {

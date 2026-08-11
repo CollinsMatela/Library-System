@@ -52,6 +52,25 @@ export const ApprovedNotification = async (req, res) => {
        }
 }
 
+export const RemoveRequestNotification = async (req, res) => {
+       const {userId} = req.body;
+       try {
+         const notification = await NotificationModel.create({
+            recipient: userId,
+            type: 'Removed',
+            title: 'Your Request has been removed',
+            message: 'Your library request has been cancelled by the administrator.',
+
+        })
+
+        res.status(200).json({message: 'Successfully removed upload notification'});
+        
+       } catch (error) {
+         console.log(error);
+         res.status(500).json({message: 'Internal Error in Remove Notification'})
+       }
+}
+
 export const BorrowedNotification = async (req, res) => {
       const {userId, bookTitle, returnDate, requestId} = req.body;
       console.log(requestId)
@@ -146,30 +165,6 @@ export const DueNotification = async (req, res) => {
         res.status(200).json({message: 'Successfully created due notification'});
        } catch (error) {
         console.log("DueNotification Error:", error);
-        res.status(500).json({message: 'Internal Error in Notification'})
-       }
-}
-export const markAsReadNotification = async (req, res) => {
-      const {notificationId} = req.params;
-
-      try {
-        const notification = await NotificationModel.findByIdAndUpdate(
-            notificationId, 
-            {
-              isRead: true
-            },
-            {
-                new: true
-            }
-            )
-            if (!notification) {
-            return res.status(404).json({
-                message: "Notification not found"
-            });
-        }
-
-        res.status(200).json({message: 'Successfully isRead notification'});
-       } catch (error) {
         res.status(500).json({message: 'Internal Error in Notification'})
        }
 }

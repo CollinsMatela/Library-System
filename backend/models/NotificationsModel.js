@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const NotificationSchema = new mongoose.Schema({
      recipient: {type: String},
-     type: {type: String, enum: ['Book Upload', 'Pending', 'Approved', 'Borrowed', 'Deleted', 'Due', 'Over Due']},
+     type: {type: String, enum: ['Book Upload', 'Pending', 'Approved', 'Borrowed', 'Removed', 'Due', 'Over Due']},
      title: {type: String},
      message: {type: String},
      requestId: {type: String, default: null},

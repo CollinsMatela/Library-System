@@ -91,6 +91,7 @@ const Admin_BorrowBook_Page = () => {
             const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-user-request/${borrow._id}`)
             toast.success(res.data.message);
             fetchAllBorrow();
+            RemoveNotification(borrow);
         } catch (error) {
             toast.error(error?.response?.data?.message);
             setErrorMessage(error?.response?.data?.message)
@@ -132,6 +133,16 @@ const Admin_BorrowBook_Page = () => {
           
           try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/approved-notification`, {userId: borrow.userId})
+            console.log(res.data.message);
+            
+          } catch (error) {
+            toast.error(error?.response?.data?.message);
+            setErrorMessage(error?.response?.data?.message)
+          }
+    }
+    const RemoveNotification = async (borrow) => {
+         try {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/removed-notification`, {userId: borrow.userId})
             console.log(res.data.message);
             
           } catch (error) {

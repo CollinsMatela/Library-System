@@ -20,6 +20,7 @@ import Admin_StudentRegistration_Page from "../components/Admin_StudentRegistrat
 import Lib_Borrow from "../library_components/Lib_Borrow";
 import Admin_BorrowBook_Page from "../pages/Admin_BorrowBook_Page";
 import Admin_LogBook from "../pages/Admin_LogBook";
+import Lib_MyAccount from "../library_components/Lib_MyAccount"
 
 
 const ProtectedRoute = ({ allowedRoles }) => {
@@ -55,6 +56,7 @@ function App() {
          <Route element={<ProtectedRoute allowedRoles={["user"]}/>}>
                 <Route path="/library" element={<Library_Page/>}/>
                 <Route path="/library/catalog" element={<Lib_Catalog/>}/>
+                <Route path="/library/my-account" element={<Lib_MyAccount/>}/>
                 <Route path="/library/borrow-status" element={<Lib_Borrow/>}/>
                 <Route path="/library/view-book/:id" element={<Lib_ViewBook/>}/>
                 <Route path="/library/view-story/quiz/:id" element={<Lib_Quiz/>}/>

@@ -4,7 +4,7 @@ import defaultProfile from '../src/assets/Student.jpg'
 import NaicLibraryLogo from '../src/assets/NaicLibraryLogo.png'
 import NotificationModal from '../modals/NotificationModal'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { LogOut, Blocks, BookSearch, BellDot, Info, BadgeInfo } from 'lucide-react'
+import { LogOut, Blocks, BookSearch, BellDot, Info, BadgeInfo, User } from 'lucide-react'
 import { useState } from 'react'
 import ConfirmationPopup from '../popup/Confirmation_Popup'
 
@@ -15,6 +15,7 @@ const Lib_Navigation = () => {
     const logout = useAuthStore((state) => state.logout);
 
     const [isNotification, setIsNotification] = useState(false);
+    const [isProfile, setIsProfile] = useState(false);
     const [isConfirmation, setIsConfirmation] = useState(false);
 
     const handleLogout = () => {
@@ -50,13 +51,53 @@ const Lib_Navigation = () => {
                               <BellDot size={15} className={`${isNotification ? "text-black" : "text-gray-500"}`}/>
                             </button>
 
-                            <button className='h-7 w-7 rounded-full bg-blue-600'>
-                              <h1 className='text-white text-xs font-bold'>{user.firstname.slice(0, 1).toUpperCase()}</h1>
-                            </button>
-                            <button className="p-2 justify-center items-center flex text-gray-500 font-bold transition-all duration-300 ease-in-out cursor-pointer gap-2 hover:bg-red-100 hover:text-red-500 rounded-full" 
-                            onClick={() => setIsConfirmation(true)}>
-                              <LogOut size={15}/>
-                              </button>
+                            <div className='relative'>
+
+                                <button className='h-7 w-7 rounded-full bg-blue-600' onClick={() => setIsProfile(prev => !prev)}>
+                                  <h1 className='text-white text-xs font-bold'>{user.firstname.slice(0, 1).toUpperCase()}</h1>
+                                </button>
+
+                                {isProfile && (
+                                  <div className={'absolute w-70 right-0 bg-white shadow-xl justify-start items-start flex flex-col border border-stone-300 rounded-xl gap-1'}>
+
+                                    <div className='w-full justify-start items-start flex gap-2 border-b border-stone-300 p-4'>
+                                      <div className='h-10 w-10'>
+                                        {user.avatar ? 
+                                        (<img src={user?.avatar} className='object-cover' />)
+                                        :
+                                        (
+                                          <div className='h-10 w-10 justify-center items-center flex rounded-full bg-blue-600'>
+                                             <h1 className='text-white text-md font-bold'>{user.firstname.slice(0, 1).toUpperCase()}</h1>
+                                          </div>
+                                        )}
+                                        
+                                      </div>
+
+                                      <div className='w-full justify-start items-start flex flex-col'>
+                                        <h1 className='text-xs'>Hello, {user.firstname} {user.lastname}</h1>
+                                        <h1 className='text-xs text-stone-500'>Welcome to the Digital Library.</h1>
+                                      </div>
+                                         
+                                    </div>
+                                    
+                                    <div className='w-full flex flex-col gap-1'>
+                                      <button className='px-4 py-2 justify-start items-start w-full flex gap-2 border-b border-stone-300  p-1 cursor-pointer'>
+                                      <User size={15} className='text-stone-500'/>
+                                      <h1 className='text-xs text-stone-500 hover:text-black' onClick={() => navigate('/library/my-account')}>My Account</h1>
+                                    </button>
+                                     <button className='px-4 py-2 justify-start items-start w-full flex gap-2 border-b border-b-stone-300 p-1 cursor-pointer' 
+                                      onClick={() => setIsConfirmation(true)}>
+                                        <LogOut size={15} className='text-stone-500'/>
+                                        <h1 className='text-xs text-stone-500 hover:text-red-500'>Logout</h1>
+                                      </button>
+                                    </div>
+                                    
+                                </div>
+                                )}
+                                
+                                
+                            </div>
+
                           </div>
                        </div>
                               

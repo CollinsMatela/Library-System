@@ -10,6 +10,10 @@ const useAuthStore = create(persist((set) => ({
 
   setUser: (user) => set({ user }),
 
+  updateUser: (updatedData) => set((state) => ({
+                                                    user:{...state.user, ...updatedData}
+                                                    })),
+
   setAuth: (user, token, role) => set({ user, token, role }),
 
   logout: () => set({ user: null, token: null, role: null }),

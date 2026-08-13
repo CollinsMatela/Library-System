@@ -9,7 +9,12 @@ import axios from "axios";
 
 
 const Lib_MyAccount = () => {
-    const user = useAuthStore((state) => state.user)
+      const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+      const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
+      const user = useAuthStore((state) => state.user)
+      const updateUser = useAuthStore((state) => state.updateUser)
+
       const [isPersonal, setIsPersonal] = useState(true);
       const [isChangePass, setIsChangePass] = useState(false);
       const [errorMessage, setErrorMessage] = useState('');
@@ -39,6 +44,7 @@ const Lib_MyAccount = () => {
 
       const SaveProfile = async () => {
             try {
+
                 if(!profile){
                     toast.warning('Please Select a Profile Picture.')
                     return;
@@ -46,15 +52,23 @@ const Lib_MyAccount = () => {
 
                 const newProfile = await uploadToCloudinary(profile)
 
-                const data = {
-                    UserId: user._id,
-                    Avatar: newProfile
+                if(newProfile){
+                    toast.info('Processing the image.')
                 }
-
+                const data = {
+                    userId: user._id,
+                    newProfile: newProfile
+                }
+                
                 const res = await axios.patch(`${import.meta.env.VITE_API_URL}/update-user-avatar`, data)
                 toast.success(res.data.message);
+                console.log("Response:", res.data);
+                console.log("Updated User:", res.data.updatedUser);
+                updateUser(res.data.updatedUser) // Zustand
+                console.log("after updateUser");
                 setProfile(null);
                 setPreviewProfile('');
+                
 
             } catch (error) {
                 setErrorMessage(error?.response?.data?.message);
@@ -63,7 +77,10 @@ const Lib_MyAccount = () => {
       }
 
       const uploadToCloudinary = async (file, resourceType = "image") => {
-            if (!file) return "";
+            if (!file) {
+                toast.warning('The image file is empty');
+                return
+            };
 
             const formData = new FormData();
 
@@ -138,11 +155,21 @@ const Lib_MyAccount = () => {
                                                 </div>
                                                 </div>
                                             )
-                                            :
+                                            : user?.avatar ?
                                             (
-                                                <img src={user?.avatar} className="h-10 w-10 rounded-full hover:border-2 transition border-stone-300 cursor-pointer" title="Change Profile"/>
+                                                <div className="h-10 w-10 rounded-full justify-center items-center flex bg-blue-500 cursor-pointer transition hover:border-2 border-stone-300"
+                                                onClick={() => profileRef.current.click()}
+                                                title="Change Profile">
+                                                    <img src={user?.avatar} className="h-10 w-10 rounded-full hover:border-2 transition border-stone-300 cursor-pointer" title="Change Profile"/>
+                                                    <input 
+                                                    className="hidden"
+                                                    ref={profileRef}
+                                                    type="file"
+                                                    accept="image/**"
+                                                    onChange={ChangeProfile} />
+                                                </div>
                                             )
-                                            ?
+                                            :
                                             (
                                                 <div className="h-10 w-10 rounded-full justify-center items-center flex bg-blue-500 cursor-pointer transition hover:border-2 border-stone-300"
                                                 onClick={() => profileRef.current.click()}
@@ -156,8 +183,6 @@ const Lib_MyAccount = () => {
                                                     onChange={ChangeProfile} />
                                                 </div>
                                             ) 
-                                            :
-                                            (null)
                                             }
                                         </div>
 

@@ -52,10 +52,22 @@ const Lib_Navigation = () => {
                             </button>
 
                             <div className='relative'>
-
-                                <button className='h-7 w-7 rounded-full bg-blue-600' onClick={() => setIsProfile(prev => !prev)}>
+                              <div className='justify-center items-center flex'>
+                                {user.avatar ? 
+                                (
+                                 <button className='h-8 w-8 rounded-full cursor-pointer transition hover:border-2 border-blue-500' onClick={() => setIsProfile(prev => !prev)}>
+                                  <img src={user?.avatar} alt="user-avatar"  className='h-full w-full rounded-full'/>
+                                </button>
+                                )
+                                :
+                                (
+                                <button className='h-8 w-8 rounded-full bg-blue-600 cursor-pointer' onClick={() => setIsProfile(prev => !prev)}>
                                   <h1 className='text-white text-xs font-bold'>{user.firstname.slice(0, 1).toUpperCase()}</h1>
                                 </button>
+                                )}
+                              </div>
+                                
+                                
 
                                 {isProfile && (
                                   <div className={'absolute w-70 right-0 bg-white shadow-xl justify-start items-start flex flex-col border border-stone-300 rounded-xl gap-1'}>
@@ -63,7 +75,7 @@ const Lib_Navigation = () => {
                                     <div className='w-full justify-start items-start flex gap-2 border-b border-stone-300 p-4'>
                                       <div className='h-10 w-10'>
                                         {user.avatar ? 
-                                        (<img src={user?.avatar} className='object-cover' />)
+                                        (<img src={user?.avatar} className='object-cover rounded-full' />)
                                         :
                                         (
                                           <div className='h-10 w-10 justify-center items-center flex rounded-full bg-blue-600'>

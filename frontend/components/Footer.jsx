@@ -13,7 +13,7 @@ const Footer = ({ setShowLogin }) => {
 
 
       {/* Footer Information */}
-      <section className="bg-gray-100 px-6 md:px-16 py-14">
+      <section className="bg-stone-100 px-6 md:px-16 py-14">
 
         <div className="max-w-6xl mx-auto">
 
@@ -21,11 +21,11 @@ const Footer = ({ setShowLogin }) => {
 
             {/* Library */}
             <div>
-              <h3 className="text-xl font-bold text-gray-800 mb-4">
+              <h3 className="text-xl font-bold text-stone-800 mb-4">
                 Naic Municipal Library
               </h3>
 
-              <p className="text-gray-500 text-sm leading-relaxed">
+              <p className="text-stone-500 text-sm leading-relaxed">
                 A public library dedicated to providing accessible books,
                 information, educational resources, and digital services
                 to the community.
@@ -35,11 +35,11 @@ const Footer = ({ setShowLogin }) => {
 
             {/* Location */}
             <div>
-              <h3 className="text-lg font-bold text-gray-800 mb-4">
+              <h3 className="text-lg font-bold text-stone-800 mb-4">
                 Location
               </h3>
 
-              <p className="text-gray-500 text-sm leading-relaxed">
+              <p className="text-stone-500 text-sm leading-relaxed">
                 Naic Town Plaza,
                 <br />
                 Cavite 4110
@@ -49,20 +49,20 @@ const Footer = ({ setShowLogin }) => {
 
             {/* Contact */}
             <div>
-              <h3 className="text-lg font-bold text-gray-800 mb-4">
+              <h3 className="text-lg font-bold text-stone-800 mb-4">
                 Contact Us
               </h3>
 
-              <div className="space-y-2 text-sm text-gray-500">
+              <div className="space-y-2 text-sm text-stone-500">
                 <p>
-                  <span className="font-semibold text-gray-700">
+                  <span className="font-semibold text-stone-700">
                     Email:
                   </span>{" "}
                   naiclibrary4110@gmail.com
                 </p>
 
                 <p>
-                  <span className="font-semibold text-gray-700">
+                  <span className="font-semibold text-stone-700">
                     Phone:
                   </span>{" "}
                   (046) 412 0413
@@ -73,12 +73,12 @@ const Footer = ({ setShowLogin }) => {
 
             {/* Opening Hours */}
             <div>
-              <h3 className="text-lg font-bold text-gray-800 mb-4">
+              <h3 className="text-lg font-bold text-stone-800 mb-4">
                 Opening Hours
               </h3>
 
-              <p className="text-gray-500 text-sm leading-relaxed">
-                <span className="font-semibold text-gray-700">
+              <p className="text-stone-500 text-sm leading-relaxed">
+                <span className="font-semibold text-stone-700">
                   Monday – Thursday
                 </span>
                 <br />
@@ -91,11 +91,11 @@ const Footer = ({ setShowLogin }) => {
           {/* Bottom */}
           <div className="border-t border-gray-200 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
 
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-stone-500">
               © {new Date().getFullYear()} Naic Municipal Library. All rights reserved.
             </p>
 
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-stone-400">
               Digital Library Platform
             </p>
 

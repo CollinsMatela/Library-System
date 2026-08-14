@@ -38,17 +38,17 @@ const Lib_Navigation = () => {
                             <div className=" bg-gray-100 h-8 w-8 rounded-full justify-center items-center flex cursor-pointer" onClick={() => navigate('/library')}>
                               <img src={NaicLibraryLogo} alt="Logo" className='h-full w-full object-cover rounded-xl'/>
                             </div>
-                            <h1 className="text-medium text-black font-bold text-sm">Naic Municipal Library</h1>
+                            <h1 className="text-medium text-stone-900 font-bold text-sm">Naic Municipal Library</h1>
                           </div>
 
                           <div className='gap-4 justify-center items-center flex'>
-                            <button className={`${location.pathname === '/library' ? "border-b-2 border-black text-black" : "bg-transparent text-gray-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library')}><Blocks size={15}/> Book Browse</button>
-                            <button className={`${location.pathname === '/library/catalog' ? "border-b-2 border-black text-black" : "bg-transparent text-gray-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/catalog')}><BookSearch size={15}/> Search & Catalog</button>
-                            <button className={`${location.pathname === '/library/borrow-status' ? "border-b-2 border-black text-black" : "bg-transparent text-gray-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/borrow-status')}><BadgeInfo size={15}/> Borrow Status</button>
+                            <button className={`${location.pathname === '/library' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library')}><Blocks size={15}/> Book Browse</button>
+                            <button className={`${location.pathname === '/library/catalog' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/catalog')}><BookSearch size={15}/> Search & Catalog</button>
+                            <button className={`${location.pathname === '/library/borrow-status' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/borrow-status')}><BadgeInfo size={15}/> Borrow Status</button>
 
                             <button className=" p-2 justify-center items-center flex font-bold transition-all duration-300 ease-in-out cursor-pointer gap-2 hover:bg-stone-200 hover:text-stone-500 rounded-full"
                              onClick={() => setIsNotification(true)}>
-                              <BellDot size={15} className={`${isNotification ? "text-black" : "text-gray-500"}`}/>
+                              <BellDot size={15} className={`${isNotification ? "text-stone-900" : "text-stone-500"}`}/>
                             </button>
 
                             <div className='relative'>

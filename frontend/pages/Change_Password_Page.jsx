@@ -40,7 +40,7 @@ const Change_Password_Page = () => {
                 newPassword: newPassword
           }
           try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/change-password`, passwordDetails);
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/first-password`, passwordDetails);
             if(res.data.isSuccess){
                 if(user.role?.toLowerCase() === "user"){
                     navigate("/library")

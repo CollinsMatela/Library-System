@@ -19,9 +19,47 @@ const Lib_MyAccount = () => {
       const [isChangePass, setIsChangePass] = useState(false);
       const [errorMessage, setErrorMessage] = useState('');
 
+      const [currentPassword, setCurrentPassword] = useState('');
+      const [newPassword, setNewPassword] = useState('');
+
       const [profile, setProfile] = useState(null);
       const [previewProfile, setPreviewProfile] = useState('');
       const profileRef = useRef(null);
+
+      const handlePersonalInfo = () => {
+            setIsPersonal(true);
+            setIsChangePass(false);
+      }
+      const handleChangePass = () => {
+            setIsPersonal(false);
+            setIsChangePass(true);
+      }
+
+      const handleChangePassword = async () => {
+
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{12,}$/;
+
+            if(!passwordRegex.test(newPassword)){
+                toast.warning('New Password did not match the requirements.');
+                return;
+            }
+        
+            const data = {
+                id: user._id,
+                currentPassword: currentPassword,
+                newPassword: newPassword
+            }
+            try {
+                const res = await axios.post(`${import.meta.env.VITE_API_URL}/change-password`, data)
+                toast.success(res.data.message);
+                setCurrentPassword('');
+                setNewPassword('');
+
+            } catch (error) {
+                toast.error(error?.response?.data?.message);
+                setErrorMessage(error?.response?.data?.message);
+            }
+      }
 
       const ChangeProfile = (e) => {
             const file = e.target.files[0];
@@ -111,11 +149,11 @@ const Lib_MyAccount = () => {
                     <div className="w-5xl justify-center items-center flex flex-col mt-6 rounded-xl">                   
                             
                                 <div className='gap-4 justify-start items-start flex w-full'>
-                                    <div className='w-80 justify-start items-start flex flex-col gap-2 border-r border-ston-300 pr-4'>
-                                         <button className={`${isPersonal ? 'bg-black' : 'border-b border-stone-300'} w-full cursor-pointer rounded-xl p-2 justify-start items-start flex`}>
+                                    <div className='w-80 justify-start items-start flex flex-col gap-2 border-r border-stone-500 pr-4'>
+                                         <button className={`${isPersonal ? 'bg-black' : 'border-b border-stone-300'} w-full cursor-pointer p-2 justify-start items-start flex`} onClick={() => handlePersonalInfo()}>
                                             <h1 className={`${isPersonal ? 'text-white' : 'text-stone-500'} text-xs`}>Personal Information</h1>
                                          </button>
-                                         <button className={`${isChangePass ? 'bg-black' : 'border-b border-stone-300'} w-full cursor-pointer rounded-xl p-2 justify-start items-start flex`}>
+                                         <button className={`${isChangePass ? 'bg-black' : 'border-b border-stone-300'} w-full cursor-pointer p-2 justify-start items-start flex`} onClick={() => handleChangePass()}>
                                             <h1 className={`${isChangePass ? 'text-white' : 'text-stone-500'} text-xs`}>Change Password</h1>
                                          </button>
                                     </div>
@@ -245,8 +283,60 @@ const Lib_MyAccount = () => {
                                         </div>
                                     </div>
                                     )}
-                            
-                                </div>
+
+                                    {isChangePass && (
+                                    <div className="w-full bg-white border border-stone-200 rounded-xl p-5">
+                                        
+                                        {/* Header */}
+                                        <div className="border-b border-stone-200 pb-3 mb-4">
+                                        <h2 className="text-sm font-semibold text-stone-800">
+                                            Change Password
+                                        </h2>
+                                        <p className="text-xs text-stone-500 mt-1">
+                                           Update your password to keep your account secure.
+                                        </p>
+                                        </div>
+
+                                        <div className="grid grid-cols-3 gap-2 mb-4">
+                                            <div className="w-full">
+                                                <h1 className="text-xs text-stone-400">Current Password</h1>
+                                                <input type="password" placeholder="Enter current password" className="p-2  w-full text-xs text-stone-800 outline-none border border-stone-300 rounded-xl"
+                                                 onChange={(e) => setCurrentPassword(e.target.value)}
+                                                 value={currentPassword}/>
+                                            </div>
+                                            <div className="w-full">
+                                                <h1 className="text-xs text-stone-400">New Password</h1>
+                                                <input type="password" placeholder="Enter new password" className="p-2 w-full text-xs text-stone-800 outline-none border border-stone-300 rounded-xl"
+                                                onChange={(e) => setNewPassword(e.target.value)}
+                                                value={newPassword}/>
+                                            </div>
+                                        </div>
+
+                                        <div className={` bg-stone-100 w-full p-3 rounded-xl space-y-2 mb-4`}>
+                                            <p className="text-sm text-stone-800 font-semibold">
+                                                 Password Requirements
+                                            </p>
+
+                                            <div className="text-xs text-stone-700 list-disc pl-5 space-y-1">
+                                                <p className={`${newPassword.length >= 12 ? 'text-green-500 font-semibold' : ''} flex gap-1`}> <Check size={15}/>Minimum of 12 characters</p>
+                                                <p className={`${/[A-Z]/.test(newPassword) ? 'text-green-500 font-semibold' : ''} flex gap-1`}><Check size={15}/>At least one uppercase letter (A–Z)</p>
+                                                <p className={`${/[0-9]/.test(newPassword) ? 'text-green-500 font-semibold' : ''} flex gap-1`}><Check size={15}/>At least one number (0–9)</p>
+                                                <p className={`${/[!@#$%^&*]/.test(newPassword) ? 'text-green-500 font-semibold' : ''} flex gap-1`}><Check size={15}/>At least one special character (@#$%!&*)</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="w-full justify-between items-center flex py-4 border-t border-stone-300">
+                                            <h1 className="text-xs italic text-stone-400">Do not forget your new password.</h1>
+                                            <button className="text-xs bg-black p-2 text-white justify-center items-center flex gap-1 cursor-pointer hover:bg-stone-800"
+                                            onClick={() => handleChangePassword()}><Check size={15}/>Save</button>
+                                        </div>
+
+                                    </div>    
+                                    )}
+
+                                    
+                          </div>   
+                                
                      </div>
                     
                 </section>

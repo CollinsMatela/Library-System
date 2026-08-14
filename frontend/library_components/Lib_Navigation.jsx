@@ -7,6 +7,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { LogOut, Blocks, BookSearch, BellDot, Info, BadgeInfo, User } from 'lucide-react'
 import { useState } from 'react'
 import ConfirmationPopup from '../popup/Confirmation_Popup'
+import NotificationPopup from '../modals/NotificationModal'
 
 const Lib_Navigation = () => {
     const navigate = useNavigate();
@@ -28,7 +29,6 @@ const Lib_Navigation = () => {
     
     return(
       <>
-      {isNotification && (<NotificationModal onClose={() => setIsNotification(false)}/>)}
       {isConfirmation && (<ConfirmationPopup message={'Do you want to logout?'} onConfirm={() => handleLogout()} onCancel={() => setIsConfirmation(false)}/>)}
 
         <nav className="fixed z-20 bg-white/50 backdrop-blur-sm h-15 w-full justify-center items-center flex px-6">
@@ -45,11 +45,15 @@ const Lib_Navigation = () => {
                             <button className={`${location.pathname === '/library' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library')}><Blocks size={15}/> Book Browse</button>
                             <button className={`${location.pathname === '/library/catalog' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/catalog')}><BookSearch size={15}/> Search & Catalog</button>
                             <button className={`${location.pathname === '/library/borrow-status' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/borrow-status')}><BadgeInfo size={15}/> Borrow Status</button>
-
+                           
+                           <div className='relative'>
                             <button className=" p-2 justify-center items-center flex font-bold transition-all duration-300 ease-in-out cursor-pointer gap-2 hover:bg-stone-200 hover:text-stone-500 rounded-full"
-                             onClick={() => setIsNotification(true)}>
+                             onClick={() => setIsNotification(prev => !prev)}>
                               <BellDot size={15} className={`${isNotification ? "text-stone-900" : "text-stone-500"}`}/>
                             </button>
+                            {isNotification && (<NotificationPopup/>)}
+                           </div>
+                            
 
                             <div className='relative'>
                               <div className='justify-center items-center flex'>

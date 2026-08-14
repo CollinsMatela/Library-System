@@ -8,23 +8,19 @@ const Lib_BookCard = ({ handleViewBook, book, showBorrowModal}) => {
                         className="h-full object-cover"
                     />
 
-                   <div className="absolute inset-0 overflow-hidden w-full justify-center items-center flex flex-col bg-white/50 backdrop-blur-xs p-4 gap-2">
+                   <div className="absolute inset-0 overflow-hidden w-full justify-center items-center flex flex-col bg-white/10 backdrop-blur-xs p-4">
                             
                         
 
-                                <div className="h-60 w-full justify-center items-center flex bg-white/10">
-                                    <img src={book.cover} alt={book.title} className="object-fit h-full"/>
+                                <div className="h-60 w-full justify-center items-center flex">
+                                    <img src={book.cover} alt={book.title} className="object-fit h-full rounded-xs"/>
 
                                 </div>
 
-                                <div className="w-full justify-center items-center flex flex-col">
-                                        <h1 className="text-gray-800 font-medium text-xs text-center">{book.title.toUpperCase() || "—"}</h1>
-                                        <ul className="justify-center items-center flex flex-col gap-1">
-                                          <li className="text-white text-xs">● {book.author.length > 10 ? `${book.author.slice(0, 20)}...` : '' || "—"}</li>
-                                          <li className="text-white text-xs">● {book.category || "—"}</li>
-                                        </ul>
+                                <div className="w-full justify-center items-center flex flex-col mt-2">
+                                        <h1 className="text-stone-800 font-bold text-xs text-center">{book.title.toUpperCase() || "—"}</h1>
                                         
-                                    </div>
+                                </div>
 
                                 
                            

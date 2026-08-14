@@ -19,7 +19,7 @@ import defaultProfile from '../src/assets/Student.jpg'
 import LoadingScreen from '../loadings/loading'
 import { useNavigate } from 'react-router-dom'
 import BorrowModal from '../modals/BorrowModal'
-import { Info, LoaderCircle } from 'lucide-react'
+import { Book, ChevronRight, Info, LoaderCircle } from 'lucide-react'
 
 const Library_Page = () => {
     const user = useAuthStore((state) => state.user);
@@ -36,7 +36,7 @@ const Library_Page = () => {
     const showStories = (genre) => {
     setSelectedGenre(genre);
     };
-    
+    const [selectedTitle, setSelectedTitle] = useState('All');
     const [selectedCategory, setSelectedCategory] = useState([])
     const [selectedLetter, setSelectedLetter] = useState('')
 
@@ -157,7 +157,7 @@ const Library_Page = () => {
                     </p>
             </header>
 
-            <div className="w-5xl justify-center items-center flex flex-col mt-6 rounded-xl">                   
+            <div className="w-5xl justify-center items-center flex flex-col mt-6 rounded-xl ">                   
                     {isLoading ? 
                     (
                     <div className='w-full justify-center items-center flex p-4'>
@@ -167,12 +167,16 @@ const Library_Page = () => {
                     :
                     (
                         <div className='gap-4 justify-start items-start flex w-full'>
-                            <div className='justify-start items-start flex flex-col w-100 gap-2'>
-                                 <h1 className='text-lg font-semibold'>Filter Section</h1>
+                            <div className='justify-start items-start flex flex-col w-100 gap-2 border border-stone-300 rounded-xl shadow-sm bg-white'>
+                                <div className='w-full p-4 border-b border-stone-300'>
+                                    <h1 className='text-lg font-bold text-stone-800'>Selection Section</h1>
+                                    <h1 className='text-xs text-stone-500'>Find your choice</h1>
+                                </div>
+                                 
 
-                                 <div className='w-full flex flex-col gap-1'>
-                                    <h1 className='text-xs'>Alphabetical</h1>
-                                    <select className='w-full border border-gray-300 rounded-xl p-2 text-xs'
+                                 <div className='w-full flex flex-col gap-1 px-4'>
+                                    <h1 className='text-xs text-stone-800'>Alphabetical</h1>
+                                    <select className='w-full border border-gray-300 rounded-xl p-2 text-xs text-stone-500'
                                             onChange={(e) => filterByLetter(e.target.value)}
                                     >
                                         {alphabetical.map((item) => (
@@ -185,16 +189,18 @@ const Library_Page = () => {
                                     </select>
                                  </div>
 
-                                 <div className='w-full flex flex-col gap-1'>
-                                    <h1 className='text-xs'>Categories</h1>
+                                 <div className='w-full flex flex-col gap-1 px-4'>
+                                    <h1 className='text-xs text-stone-800'>Categories</h1>
                                     
                                         {categories.map((item) => (
                                             <button 
-                                            className='w-full border-b border-gray-300 text-xs text-gray-500 py-2 justify-start items-center flex cursor-pointer hover:text-black'
+                                            className='w-full border-b border-gray-300 text-xs text-stone-500 py-2 justify-start items-center flex cursor-pointer hover:text-stone-800 hover:font-semibold gap-2'
                                             value={item.value}
-                                            onClick={(e) => filterByCategory(e.target.value)}
+                                            onClick={(e) => {filterByCategory(e.target.value);
+                                                             setSelectedTitle(item.label);
+                                            }}
                                             >
-                                            {item.label}
+                                            <Book size={10}/>{item.label}
                                             </button>
                                         ))}
                                     
@@ -202,15 +208,15 @@ const Library_Page = () => {
 
                             </div>
 
-                            {selectedCategory.length === 0 && (
-                                    <div className='p-4 justify-center items-center flex w-full gap-1'>
-                                        <Info size={10} className='text-gray-500'/>
-                                        <h1 className='text-gray-500 text-xs'>No Book found</h1>
-                                    </div>
-                            )}
-                            {selectedCategory.length > 1 && (
-                                <div className='w-full grid grid-cols-3 gap-4'>
-
+                            
+                                <div className='w-full border border-stone-300 shadow-sm rounded-xl'>
+                                <header className='w-full p-4 border-b border-stone-300'>
+                                    <h1 className='text-lg font-bold text-stone-800 justify-start items-center flex'>Book Collection <ChevronRight size={15}/> <span className='text-stone-500 text-lg'>{selectedTitle || "All"} {selectedLetter}</span></h1>
+                                    <h1 className='text-xs text-stone-500 '>Browse and discover books in the library.</h1>
+                                </header>
+                            {selectedCategory.length > 1 ? (
+                                <div className='bg-white w-full grid grid-cols-3 gap-1 p-4'>
+                                    
                                     {selectedCategory.map((book) => (
                                         <Lib_BookCard 
                                         key={book._id}
@@ -221,8 +227,16 @@ const Library_Page = () => {
                                         />
                                     ))}
                                 </div>
+
+                               
+                                
+                            ) : (
+                                <div className='p-4 justify-center items-center flex w-full gap-1'>
+                                        <Info size={10} className='text-stone-500'/>
+                                        <h1 className='text-stone-500 text-xs'>No Book found</h1>
+                                    </div>
                             )}
-                    
+                          </div>
                         </div>
                     
                     )}

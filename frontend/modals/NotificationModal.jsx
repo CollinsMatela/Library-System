@@ -72,13 +72,11 @@ const NotificationModal = ({onClose}) => {
     }
 
     return(
-        <section className="fixed h-full w-full z-50">
-            <div className="absolute inset-0" onClick={onClose}></div>
 
-            <div className="absolute right-30 top-15 bg-white h-[91vh] w-100 p-6 border-l-1 border-gray-300 overflow-y-scroll">
-                <div className="w-full justify-between items-center flex pb-4 border-b border-gray-300">
+            <div className="absolute right-0 bg-white w-100 rounded-xl shadow-sm border border-gray-300">
+                <div className="w-full justify-start items-start flex flex-col p-4 border-b border-gray-300">
                     <h1 className="text-lg font-bold">Notifications</h1>
-                    <button onClick={onClose} className="cursor-pointer p-2 hover:bg-gray-200 rounded-full transition text-gray-500"><ArrowRight size={15}/></button>
+                    <p className="text-xs text-stone-500">Stay informed about your library activities.</p>
                 </div>
 
                 {isLoading ? 
@@ -89,7 +87,7 @@ const NotificationModal = ({onClose}) => {
                 )
                 :
                 (
-                    <div className="w-full">
+                    <div className="w-full h-100 overflow-y-auto">
                     {filteredNotification.length === 0 && (
                         <div className="p-4 bg-gray-200 rounded-xl justify-center items-center flex gap-1 mt-2">
                          <Info size={15} className="text-gray-500"/>
@@ -99,15 +97,13 @@ const NotificationModal = ({onClose}) => {
 
                     {filteredNotification.length > 0 && (
                         filteredNotification.map((notif) => (
-                            <div className="w-full p-4 mt-2 bg-white border border-gray-300 rounded-xl justify-start items-center flex gap-2">
+                            <div className="min-h-15 w-full bg-white px-4 border-b border-stone-300 justify-start items-center flex gap-2">
                                 <div className="relative h-8 w-8 justify-center items-center flex">
                                     <div className="absolute inset-0 bg-gray-100/50 rounded-full"></div>
                                     <img src={NaicMunicupalLogo} alt="library-logo" className="object-cover"/>
                                 </div>
                                 <div className="w-full">
-                                    <h1 className={`${notif.type === 'Approved' ? "text-blue-500" :
-                                                      notif.type === 'Removed' ? "text-red-500" : "text-black"
-                                    } text-xs font-medium`}>{notif.title} <span className="text-xs text-stone-400 font-normal">• {new Date(notif.createdAt).toLocaleDateString("en-US", {month: 'short', day: '2-digit'})}</span></h1>
+                                    <h1 className={`text-stone-800 text-xs font-medium`}>{notif.title} <span className="text-xs text-stone-400 font-normal">• {new Date(notif.createdAt).toLocaleDateString("en-US", {month: 'short', day: '2-digit'})}</span></h1>
                                     <h1 className="text-xs text-stone-400">{notif.message}</h1>
                                 </div>
                                
@@ -120,8 +116,6 @@ const NotificationModal = ({onClose}) => {
                 
             </div>
             
-
-        </section>
     )
 }
 export default NotificationModal;

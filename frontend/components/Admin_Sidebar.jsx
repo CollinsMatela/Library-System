@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore"
-import LittleMeLogo from "../public/LMLC.png"
 import { useState } from "react";
 import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User } from 'lucide-react'
 import NaicLogo from '../src/assets/NaicLibraryLogo.png'

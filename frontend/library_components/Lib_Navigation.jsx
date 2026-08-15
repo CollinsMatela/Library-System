@@ -38,7 +38,7 @@ const Lib_Navigation = () => {
                             <div className=" bg-gray-100 h-8 w-8 rounded-full justify-center items-center flex cursor-pointer" onClick={() => navigate('/library')}>
                               <img src={NaicLibraryLogo} alt="Logo" className='h-full w-full object-cover rounded-xl'/>
                             </div>
-                            <h1 className="text-medium text-stone-900 font-bold text-sm">Naic Municipal Library</h1>
+                            <h1 className="text-md text-stone-900 font-bold">Naic Municipal Library</h1>
                           </div>
 
                           <div className='gap-4 justify-center items-center flex'>

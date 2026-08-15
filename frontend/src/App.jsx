@@ -21,6 +21,7 @@ import Lib_Borrow from "../library_components/Lib_Borrow";
 import Admin_BorrowBook_Page from "../pages/Admin_BorrowBook_Page";
 import Admin_LogBook from "../pages/Admin_LogBook";
 import Lib_MyAccount from "../library_components/Lib_MyAccount"
+import LoginPage from "../pages/LoginPage";
 
 
 const ProtectedRoute = ({ allowedRoles }) => {
@@ -52,6 +53,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home_Page/>}/>
         <Route path="/unauthorized" element={<Unauthorized_Page/>}/>
+        <Route path="/login" element={<LoginPage/>}/>
         
          <Route element={<ProtectedRoute allowedRoles={["user"]}/>}>
                 <Route path="/library" element={<Library_Page/>}/>
@@ -75,7 +77,7 @@ function App() {
                 <Route path="/change-password" element={<Change_Password_Page/>}/>
         </Route>
          <Route path="/loading" element={<LoadingScreen/>}/>
-        <Route path="*" element={<Not_Found_Page/>}/>
+         <Route path="*" element={<Not_Found_Page/>}/>
 
       </Routes>
     </BrowserRouter>

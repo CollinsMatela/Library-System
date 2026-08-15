@@ -4,7 +4,7 @@ import BooksImage from "../src/assets/books.jpg"
 import LibraryImage from "../src/assets/library.png"
 import axios from 'axios';
 import { useEffect, useState } from "react";
-import LoginModal from '../modals/LoginModal'
+import { useNavigate } from "react-router-dom";
 import {
   BrainCircuit,
   AudioLines,
@@ -15,12 +15,12 @@ import {
 
 
 const Home_Page = () => {
-  const [showLogin, setShowLogin] = useState(false);
+  const navigate = useNavigate();
   const [stories, setStories] = useState([]);
 
   return (
     <>
-    {showLogin && (<LoginModal onClose={() => setShowLogin(false)}/>)}
+
       <Navigation />
 
       {/* Content */}
@@ -48,7 +48,7 @@ const Home_Page = () => {
 
       <button
         className="mt-8 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-8 py-4 rounded-full shadow-lg hover:scale-105 transition"
-        onClick={() => setShowLogin(true)}
+        onClick={() => navigate('/login')}
       >
         Explore the Library
       </button>

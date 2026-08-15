@@ -7,7 +7,7 @@ import {toast} from 'react-toastify'
 import NaicLibraryLogo from "../src/assets/NaicLibraryLogo.png"
 import { LoaderCircle } from "lucide-react" 
 
-const LoginModal = ({ onClose }) => {
+const LoginPage = () => {
 
   const setAuth = useAuthStore((state) => state.setAuth);
 
@@ -88,38 +88,36 @@ const LoginModal = ({ onClose }) => {
   }
 
   return (
-    <section className="fixed inset-0 flex justify-center items-center z-100">
+    <section className="h-screen w-full flex flex-col justify-center items-center bg-stone-50">
+     
 
-      <div
-        className="absolute inset-0 bg-black/50 z-0"
-      ></div>
 
-      <div className="relative z-10 bg-white w-100 justify-center items-center flex flex-col rounded-2xl p-6">
-
-        <div className="w-full justify-center items-center flex flex-col gap-1">
-          <img src={NaicLibraryLogo} alt="" className="h-15 w-15 bg-gray-200 p-2 rounded-full"/>
-          <h1 className="text-xl font-semibold">Login your Account</h1>
-          <h1 className="mb-6 text-xs text-gray-500">Sign up now and discover engaging digital books.</h1>
+        <div className="w-80 justify-center items-center flex flex-col mb-4 gap-1">
+          <div className="justify-center items-center flex gap-2 w-full">
+              <img src={NaicLibraryLogo} alt="" className="h-8 w-8 rounded-full"/>
+              <h1 className="text-lg font-extrabold text-stone-900">Naic Municipal Library</h1>
+          </div>
+          <h1 className="text-sm font-medium text-center text-stone-500">Welcome back enter your account and explore the library.</h1>
         </div>
         
 
-        <div className={`${isErrorContainer ? "" : "hidden"} bg-red-100 w-full h-12 p-2 justify-center items-center flex rounded-xl mb-4`}>
+        <div className={`${isErrorContainer ? "" : "hidden"} bg-red-100 w-80 p-3 justify-center items-center flex rounded-xl mb-4`}>
             <p className="text-red-500 text-xs">
               {Message}
             </p>
         </div>
 
-        <div className={`w-full justify-center items-start flex flex-col mb-2`}>
-          <h1 className="text-xs text-gray-500">Email</h1>
-          <input type="text" placeholder="Your Email" className={`${isUsername ? "border-red-500" : "border-gray-300"} border p-2 text-xs w-full rounded-lg outline-none`}
+        <div className={`w-80 justify-center items-start flex flex-col mb-2 gap-1`}>
+          <h1 className="text-sm text-stone-500 font-semibold">Email</h1>
+          <input type="text" className={`${isUsername ? "border-red-500" : "border-stone-300"} bg-white border p-3 text-xs w-full rounded-xl outline-none`}
           value={username} onChange={(e) => {setUsername(e.target.value)
                                              if(username){setIsUsername(false)}
           }}/>
         </div>
 
-        <div className="w-full justify-center items-start flex flex-col">
-          <h1 className="text-xs text-gray-500">Password</h1>
-          <input type="password" placeholder="Your Password" className={`${isPassword ? "border-red-500" : "border-gray-300"} border p-2 text-xs w-full rounded-lg outline-none`}
+        <div className="w-80 justify-center items-start flex flex-col gap-1">
+          <h1 className="text-sm text-stone-500 font-semibold">Password</h1>
+          <input type="password" className={`${isPassword ? "border-red-500" : "border-stone-300"} bg-white border p-3 text-xs w-full rounded-xl outline-none`}
           value={password} onChange={(e) => {setPassword(e.target.value)
                                              if(password){setIsPassword(false)}
           }}/>
@@ -127,15 +125,20 @@ const LoginModal = ({ onClose }) => {
 
         <button
         disabled={isLoading}
-        className={`p-2 w-full text-sm rounded-full justify-center items-center flex cursor-pointer outline-none mt-6 ${isLoading ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : "bg-blue-600 hover:bg-blue-700 text-white"}`} 
+        className={`p-3 w-80 text-sm rounded-xl justify-center items-center flex cursor-pointer outline-none mt-4 ${isLoading ? 'bg-stone-200 text-stone-500 cursor-not-allowed' : "bg-stone-800 hover:bg-stone-900 text-white"}`} 
         onClick={() => confirmation()}>
-          {isLoading ? <LoaderCircle size={20} className="text-gray-500 animate-spin"/> : 'Login'}
+          <h1 className="font-semibold">
+            {isLoading ? <LoaderCircle size={20} className="text-stone-500 animate-spin"/> : `Sign In`}
+          </h1>
+          
         </button>
-        <button className="bg-white border border-gray-300 p-2 w-full text-gray-500 text-sm rounded-full cursor-pointer outline-none hover:bg-gray-100 mt-2" onClick={onClose}>Cancel</button>
+        <button className="bg-white border border-stone-300 p-3 w-80 text-stone-500 text-sm rounded-xl mt-4 cursor-pointer outline-none hover:bg-stone-100" onClick={() => navigate(-1)}>
+          <h1>Cancel</h1>
+        </button>
 
-      </div>
+      
    </section>
   );
 };
 
-export default LoginModal;
+export default LoginPage;

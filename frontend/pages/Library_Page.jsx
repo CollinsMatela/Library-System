@@ -42,11 +42,12 @@ const Library_Page = () => {
 
     const filterByCategory = (category) => {
         let result = null
+        let newestOrderBook = books.reverse()
         setSelectedCategory([])
         if(!category){
-          setSelectedCategory(books)
+          setSelectedCategory(newestOrderBook)
         } else {
-            result = books.filter((b) => b.category.toLowerCase().trim() === category.toLowerCase().trim())
+            result = newestOrderBook.filter((b) => b.category.toLowerCase().trim() === category.toLowerCase().trim())
             setSelectedCategory(result)
         } 
     }

@@ -4,7 +4,7 @@ import defaultProfile from '../src/assets/Student.jpg'
 import NaicLibraryLogo from '../src/assets/NaicLibraryLogo.png'
 import NotificationModal from '../modals/NotificationModal'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { LogOut, Blocks, BookSearch, BellDot, Info, BadgeInfo, User } from 'lucide-react'
+import { LogOut, Blocks, BookSearch, BellDot, Info, BadgeInfo, User, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import ConfirmationPopup from '../popup/Confirmation_Popup'
 import NotificationPopup from '../modals/NotificationModal'
@@ -55,21 +55,26 @@ const Lib_Navigation = () => {
                            </div>
                             
 
-                            <div className='relative'>
-                              <div className='justify-center items-center flex'>
+                            <div className='relative cursor-pointer' onClick={() => setIsProfile(prev => !prev)}>
+                              <div className='justify-center items-center flex gap-1'>
                                 {user.avatar ? 
                                 (
-                                 <button className='h-8 w-8 rounded-full cursor-pointer transition hover:border-2 border-blue-500' onClick={() => setIsProfile(prev => !prev)}>
+                                 <button className='h-8 w-8 rounded-full cursor-pointer transition border-2 border-stone-200 hover:border-blue-500'>
                                   <img src={user?.avatar} alt="user-avatar"  className='h-full w-full rounded-full'/>
                                 </button>
                                 )
                                 :
                                 (
-                                <button className='h-8 w-8 rounded-full bg-blue-600 cursor-pointer' onClick={() => setIsProfile(prev => !prev)}>
+                                <button className='h-8 w-8 rounded-full bg-blue-600 cursor-pointer'>
                                   <h1 className='text-white text-xs font-bold'>{user.firstname.slice(0, 1).toUpperCase()}</h1>
                                 </button>
                                 )}
-                              </div>
+                                <div>
+
+                                </div>
+                                <h1 className='text-xs font-semibold text-stone-900'>{user.firstname} </h1>
+                                <ChevronDown size={15}/>
+                                </div>
                                 
                                 
 

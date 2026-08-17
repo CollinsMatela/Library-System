@@ -117,6 +117,19 @@ const Lib_ViewBook = () => {
             toast.error(error?.response?.data?.message)
          }
     }
+
+    
+        useEffect(() => {
+        if (showReadModal || showBorrowModal) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [showReadModal, showBorrowModal]);
     
 
     return(
@@ -143,7 +156,7 @@ const Lib_ViewBook = () => {
             <img src={bookDetails?.cover} className="bg-gray-100 h-100 object-center shadow-xl mb-5" />
            
             {!isRequestExisting && bookDetails?.copies > 0 && (
-               <button className="justify-center items-center flex gap-2 bg-blue-600 border hover:bg-blue-700 transition py-2 w-full rounded-lg cursor-pointer text-white text-xs font-bold" onClick={() => setShowBorrowModal(true)}>
+               <button className="justify-center items-center flex gap-2 bg-stone-800 border hover:bg-stone-900 transition py-2 w-full cursor-pointer text-white text-xs font-bold" onClick={() => setShowBorrowModal(true)}>
                 <HandHelping size={15}/>Request
                </button>
             )}
@@ -193,7 +206,7 @@ const Lib_ViewBook = () => {
 
                     <div className="flex gap-2">
 
-                        <button className="justify-center items-center flex gap-2 bg-black py-2 px-3 text-xs text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+                        <button className="justify-center items-center flex gap-2 bg-stone-800 py-2 px-3 text-xs text-white font-bold hover:bg-stone-900 cursor-pointer"
                         onClick={() => setShowReadModal(true)}>
                             <BookOpenText size={15}/> Read
                         </button>

@@ -1,4 +1,4 @@
-import {Book, ArrowLeft, ArrowRight, AudioLines, ImageOff, Images, X, VolumeOff} from "lucide-react";
+import {Book, ArrowLeft, ArrowRight, AudioLines, ImageOff, Images, X, VolumeOff, Type, Bold, Italic, TextAlignCenter} from "lucide-react";
 import { useState } from "react";
 import {
   speak,
@@ -7,37 +7,54 @@ import {
   stopSpeech,
 } from '../utils/speech.js';
 
-const Lib_BasedLayoutBook = ({book, showText, showImage, pageIndex, nextPage, prevPage, onClose}) => {
+const Lib_BasedLayoutBook = ({book, showText, textSize, textAlignment, isBold, isItalic, theme, pageIndex, nextPage, prevPage, onClose}) => {
+    
 
     const hasImage = book?.pages[pageIndex]?.pageImage;
     const hasText = book?.pages[pageIndex]?.pageText;
 
     return (
-    <div className="h-screen w-225 flex flex-col gap-4">
+    <div className="h-screen w-5xl flex flex-col gap-4 mt-10 rounded-xl">
 
 
       {showText && (
       book?.pages?.map((page, index) => (
-        <div key={page._id} className={`w-full bg-white flex flex-col`}>
+        <div key={page._id} className={`w-full flex flex-col`}>
           {/* Text */}
           {page.pageText && (
-            <div className="p-10 text-lg justify-center items-start flex flex-col bg-white">
-              <header className="w-full justify-end items-center flex mb-10 gap-2">
-              <button className="bg-white rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => speak(page.pageText)}><AudioLines/></button>
-              <button className="bg-white rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => stopSpeech()}><VolumeOff/></button>
+            <div className="justify-center items-start flex flex-col bg-white rounded-xl border border-stone-500">
+               
+              <header className={`${theme ? "bg-stone-950 border-stone-800" : "bg-white border-stone-300"} rounded-t-xl w-full justify-between items-center flex gap-2 border-b p-4`}>
+                <div className="w-fit justify-center items-center flex gap-1">
+                 
+                </div>
+                 
+                 
+                 <div className="w-fit justify-center items-center flex gap-1">
+                    <button className={`${theme ? "hover:bg-stone-800" : "hover:bg-stone-200"} justify-center items-center flex gap-1 border border-stone-300 rounded-lg p-2 text-stone-800 cursor-pointer`} onClick={() => speak(page.pageText)}>
+                        <AudioLines size={15} className={`${theme ? "text-stone-300" : "text-stone-500"}`}/>
+                        <h1 className={`${theme ? "text-white" : "text-stone-500"} text-xs`}>Text-To-Speech</h1>
+                    </button>
+                    <button className={`${theme ? "hover:bg-stone-800" : "hover:bg-stone-200"}  rounded-lg p-2 text-stone-500 cursor-pointer`} onClick={() => stopSpeech()}>
+                      <VolumeOff size={15} className={`${theme ? "text-stone-300" : "text-stone-500"}`}/>
+                    </button>
+                 </div>
+                 
               </header>
               
-              
-              <h1 className={`${showText ? "" : "hidden"} text-md text-gray-800 leading-loose whitespace-pre-line`}>{page.pageText}</h1>
+              {/**Text Container */}
+              <div className={`${showText ? "" : "hidden"}  text-${textAlignment}  w-full ${theme ? "bg-stone-950" : "bg-stone-50"} p-10`}>
+                 <h1 className={`text-${textSize} ${isBold && ('font-bold')} ${isItalic && ('italic')} ${theme ? "text-white" : "text-stone-800"} leading-loose whitespace-pre-line wrap-anywhere`}>{page.pageText}</h1>
+              </div>
 
-              <footer className="w-full justify-center items-center flex mt-10">
-                <h1 className="text-xs text-gray-500">Page {index + 1}</h1>
+              <footer className={`${theme ? "bg-stone-950 border-stone-800" : "bg-white border-stone-300"} w-full rounded-b-xl justify-center items-center flex border-t p-4`}>
+                <h1 className={`text-xs ${theme ? "text-white" : "text-stone-800"} p-2`}>Page {index + 1}</h1>
               </footer>
             </div>
           )}
 
           {/* Empty state */}
-          {!page.pageImage && !page.pageText && (
+          {!page.pageText && (
             <div className="flex justify-center items-center h-full">
               <ImageOff size={40} className="text-gray-500" />
             </div>
@@ -46,34 +63,6 @@ const Lib_BasedLayoutBook = ({book, showText, showImage, pageIndex, nextPage, pr
         </div>
       )))}
 
-      {showImage && (
-      book?.pages?.map((page, index) => (
-        <div key={page._id} className={`w-full bg-white flex flex-col`}>
-          {/* Text */}
-          {page.pageImage && (
-            <div className="relative text-lg justify-center items-start flex flex-col bg-gray-50">
-              <header className="absolute top-10 right-10 w-full justify-end items-center flex mb-10 gap-2">
-              <button className="bg-gray-200 rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => alert('TTS not yet integrated.')}><AudioLines className="text-gray-500"/></button>
-              </header>
-              
-              
-              <img src={page.pageImage} className="h-full w-full object-cover" />
-
-              <footer className="absolute bottom-10 w-full justify-center items-center flex mt-10">
-                <h1 className="text-xs text-gray-500 bg-white/50 py-2 px-3 rounded-lg">Image {index + 1}</h1>
-              </footer>
-            </div>
-          )}
-
-          {/* Empty state */}
-          {!page.pageImage && !page.pageText && (
-            <div className="flex justify-center items-center h-full">
-              <ImageOff size={40} className="text-gray-500" />
-            </div>
-          )}
-
-        </div>
-      )))}
 
     </div>
   );

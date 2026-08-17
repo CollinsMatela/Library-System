@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import {Book, ArrowLeft, ArrowRight, AudioLines, ImageOff, Images, X, TextInitial, Sparkle} from "lucide-react";
+import {Book, ArrowLeft, ArrowRight, AudioLines, ImageOff, Images, X, TextInitial, Sparkle, TextAlignCenter, Bold, Italic, Moon, Sun} from "lucide-react";
 import Lib_StoryLayoutBook from "./Lib_StoryLayoutBook";
 import Lib_BasedLayoutBook from "./Lib_BasedLayoutBook";
 import {
@@ -17,6 +17,12 @@ const Lib_BookLayout = ({book, onClose}) => {
 
     const [showText, setShowText] = useState(true);
     const [showImage, setShowImage] = useState(false);
+
+    const [textSize, setTextSize] = useState('xs');
+    const [textAlignment, setTextAlignment] = useState('')
+    const [isBold, setIsBold] = useState(false);
+    const [isItalic, setIsItalic] = useState(false);
+    const [theme, setTheme] = useState(false);
 
     const nextPage = () => {
         if (pageIndex >= book?.pages.length - 1) {
@@ -44,19 +50,51 @@ const Lib_BookLayout = ({book, onClose}) => {
 
 
     return(
-        <section className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
+        <section className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-50">
 
-            <div className="relative h-full w-full justify-center bg-trnasparent items-start flex overflow-auto">
+            <div className="relative h-full w-full justify-center bg-transparent items-start flex overflow-y-auto scroll-smooth">
 
                 
-                <div className="absolute right-10 top-10 flex flex-col gap-2">
-                    <button className="px-4 py-2 text-black cursor-pointer" onClick={() => {onClose(); stopSpeech();}}><X className="text-white hover:text-red-500"/></button>
-                    {book.category.toLowerCase() !== 'story book' && (
-                        <>
-                        <button className={`${showText ? "bg-white" : "border border-white text-white"} rounded-lg px-4 py-2 cursor-pointer hover:-translate-y-1`} onClick={displayText}><TextInitial/> </button>
-                        <button className={`${showImage ? "bg-white" : "border border-white text-white"} rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1`} onClick={displayImage}><Images/></button>
-                        </>
-                    )}
+                <div className="fixed left-1/2 -translate-x-1/2 top-5 flex  gap-1 bg-white/50 backdrop-blur-xs p-2 rounded-xl shadow-sm border border-stone-300">
+                     {/*Bold */}
+                    <button className={`${isBold ? "bg-stone-800" : "bg-white border border-stone-300"} transition duration-300 ease-in-out shadow-sm p-2 justify-center items-center flex gap-1 border rounded-lg`}
+                    onClick={() => setIsBold(prev => !prev)}>
+                        <Bold size={15} className={`${isBold ? "text-white" : "text-stone-500"} text-xs`}/>
+                    </button>
+                    {/*Italic */}
+                    <button className={`${isItalic ? "bg-stone-800" : "bg-white border border-stone-300"} transition duration-300 ease-in-out shadow-sm p-2 justify-center items-center flex gap-1 border rounded-lg`}
+                    onClick={() => setIsItalic(prev => !prev)}>
+                        <Italic size={15} className={`${isItalic ? "text-white" : "text-stone-500"} text-xs`}/>
+                    </button>
+                  {/*Text Align */}
+                    <div className="p-2 bg-white justify-center items-center flex gap-1 border border-stone-300 rounded-lg">
+                        <TextAlignCenter size={15} className="text-xs text-stone-500"/>
+                        <select className="outline-none text-stone-500 text-xs"
+                        onChange={(e) => setTextAlignment(e.target.value)}>
+                        <option value="start">Left</option>
+                        <option value="center">Center</option>
+                        <option value="end">Right</option>
+                      </select>
+                    </div>
+                    {/*Text Size */}
+                    <div className="p-2 bg-white justify-center items-center flex gap-1 border border-stone-300 rounded-lg">
+                        <h1 className="text-xs text-stone-500 border-r border-stone-300 pr-2">Size</h1>
+                        <select className="outline-none text-stone-500 text-xs"
+                        onChange={(e) => setTextSize(e.target.value)}>
+                        <option value="xs">xs</option>
+                        <option value="sm">sm</option>
+                        <option value="md">md</option>
+                        <option value="lg">lg</option>
+                        <option value="xl">xl</option>
+                      </select>
+                    </div>
+                    <button className={`${theme ? "bg-stone-800 rounded-xl" : "bg-white border border-stone-300 rounded-full"} transition duration-300 ease-in-out shadow-sm p-2 justify-center items-center flex cursor-pointer`}
+                    onClick={() => setTheme(prev => !prev)}>
+                       <h1 className={theme ? "text-white" : "text-stone-500"}>{theme ? <Moon size={15}/> : <Sun size={15}/>}</h1> 
+                    </button>
+                    
+                    <button className="p-2 text-black cursor-pointer" onClick={() => {onClose(); stopSpeech();}}><X size={15} className="text-stone-500 hover:text-red-500"/></button>
+                    
                     
                 </div>
 
@@ -80,7 +118,11 @@ const Lib_BookLayout = ({book, onClose}) => {
                  <Lib_BasedLayoutBook
                 book={book}
                 showText={showText}
-                showImage={showImage}
+                textSize={textSize}
+                textAlignment={textAlignment}
+                isBold={isBold}
+                isItalic={isItalic}
+                theme={theme}
                 pageIndex={pageIndex}
                 nextPage={nextPage}
                 prevPage={prevPage}

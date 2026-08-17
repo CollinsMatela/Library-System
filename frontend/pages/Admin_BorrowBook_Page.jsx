@@ -71,8 +71,10 @@ const Admin_BorrowBook_Page = () => {
     }
 
     const approveBorrow = async (borrow) => {
+
           const data = {
                 id: borrow._id,
+                userId: borrow.userId,
                 status: 'Approved'
           }
           try {

@@ -5,10 +5,6 @@ import NonFiction_Model from "../models/NonFiction_Model.js"
 const Borrow_Controller = async (req, res) => {
      const {userId, name, bookId} = req.body;
 
-     console.log(userId)
-     console.log(name)
-     console.log(bookId)
-
      try {
           let book = await Fiction_Model.findById({_id: bookId}) ||
                      await NonFiction_Model.findById({_id: bookId});

@@ -35,10 +35,14 @@ const Lib_Navigation = () => {
 
                        <div className='w-5xl justify-between items-center flex'>
                           <div className='h-full rounded-2xl flex gap-2 justify-center items-center'>
-                            <div className=" bg-gray-100 h-8 w-8 rounded-full justify-center items-center flex cursor-pointer" onClick={() => navigate('/library')}>
+                            <div className=" bg-gray-100 h-7 w-7 rounded-full justify-center items-center flex cursor-pointer" onClick={() => navigate('/library')}>
                               <img src={NaicLibraryLogo} alt="Logo" className='h-full w-full object-cover rounded-xl'/>
                             </div>
-                            <h1 className="text-xs text-stone-900 font-bold">Naic Municipal Library</h1>
+                            <div className='justify-start items-start flex flex-col'>
+                              <h1 className="text-xs text-stone-900 font-bold">Naic Municipal Library</h1>
+                              <h1 className="text-xs text-stone-400">Welcome to digital library platform.</h1>
+                            </div>
+                            
                           </div>
 
                           <div className='gap-4 justify-center items-center flex'>

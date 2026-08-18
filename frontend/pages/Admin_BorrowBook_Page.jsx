@@ -29,8 +29,8 @@ const Admin_BorrowBook_Page = () => {
     const [isBorrowed, setIsBorrowed] = useState(false);
     const [isHistory, setIsHistory] = useState(false);
 
-    const [returnDate, setReturnDate] = useState('')
-    const [quantity, setQuantity] = useState(1);
+    const [returnDate, setReturnDate] = useState({})
+    const [quantity, setQuantity] = useState({});
 
     const fetchAllBorrow = async () => {
           try {
@@ -43,7 +43,7 @@ const Admin_BorrowBook_Page = () => {
     }
 
     const updateBorrow = async (borrow) => {
-          if(!returnDate || !quantity) {
+          if(!returnDate[borrow._id] || !quantity[borrow._id]) {
             toast.warning('Please select date and quantity.')
             return;
           }
@@ -51,9 +51,9 @@ const Admin_BorrowBook_Page = () => {
           const borrowData = {
                 id: borrow._id,
                 borrowDate: new Date().toISOString().split("T")[0],
-                returnDate: returnDate.split("T")[0],
+                returnDate: returnDate[borrow._id].split("T")[0],
                 status: 'Borrowed',
-                quantity: quantity,
+                quantity: quantity[borrow._id],
 
                 bookId: borrow.bookId,
                 userId: borrow.userId
@@ -206,8 +206,8 @@ const Admin_BorrowBook_Page = () => {
               
               <header className="w-full justify-between items-start flex flex-col mb-10">
                 <div>
-                    <h1 className="text-lg font-bold text-gray-800">Borrowing Books Management</h1>
-                    <h1 className="text-gray-400 text-xs">Manage borrow request from user</h1>
+                    <h1 className="text-lg font-bold text-stone-800">Borrowing Books Management</h1>
+                    <h1 className="text-stone-400 text-xs">Manage borrow request from user</h1>
                 </div>
                     
               </header>
@@ -221,15 +221,15 @@ const Admin_BorrowBook_Page = () => {
                             <HandHelping size={20}/>
                         </div>
                         <div>
-                            <h1 className="text-md font-bold text-gray-800 rounded-full">Borrowing Information</h1>
-                            <p className="text-gray-400 text-xs">Manage user borrowing books.</p>
+                            <h1 className="text-md font-bold text-stone-800 rounded-full">Borrowing Information</h1>
+                            <p className="text-stone-400 text-xs">Manage user borrowing books.</p>
                         </div>
                     </div>
 
                     <div className="flex gap-2">
                         <button
                             className={`${
-                                isPending ? "bg-black text-white" : "bg-gray-100 text-black"
+                                isPending ? "bg-black text-white" : "bg-stone-100 text-black"
                             } flex items-center gap-2 px-4 py-2 rounded-xl text-xs hover:-translate-y-1 transition cursor-pointer`}
                             onClick={handlePending}
                         >
@@ -239,7 +239,7 @@ const Admin_BorrowBook_Page = () => {
 
                         <button
                             className={`${
-                                isApproved ? "bg-black text-white" : "bg-gray-100 text-black"
+                                isApproved ? "bg-black text-white" : "bg-stone-100 text-black"
                             } flex items-center gap-2 px-4 py-2 rounded-xl text-xs hover:-translate-y-1 transition cursor-pointer`}
                             onClick={handleApproved}
                         >
@@ -249,7 +249,7 @@ const Admin_BorrowBook_Page = () => {
 
                         <button
                             className={`${
-                                isBorrowed ? "bg-black text-white" : "bg-gray-100 text-black"
+                                isBorrowed ? "bg-black text-white" : "bg-stone-100 text-black"
                             } flex items-center gap-2 px-4 py-2 rounded-xl text-xs hover:-translate-y-1 transition cursor-pointer`}
                             onClick={handleBorrowed}
                         >
@@ -259,7 +259,7 @@ const Admin_BorrowBook_Page = () => {
 
                         <button
                             className={`${
-                                isHistory ? "bg-black text-white" : "bg-gray-100 text-black"
+                                isHistory ? "bg-black text-white" : "bg-stone-100 text-black"
                             } flex items-center gap-2 px-4 py-2 rounded-xl text-xs hover:-translate-y-1 transition cursor-pointer`}
                             onClick={handleHistory}
                         >

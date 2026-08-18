@@ -29,9 +29,6 @@ const ApproveBorrowController = async (req, res) => {
             });
         }
 
-        await sendEmail({to: user.email, subject: 'Request Approved'});
-        console.log('Email sent to', user.email);
-
         return res.status(200).json({
             message: "Borrow request is approved successfully.",
             borrowRequest

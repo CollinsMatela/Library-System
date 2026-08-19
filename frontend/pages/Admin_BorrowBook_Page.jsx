@@ -226,11 +226,11 @@ const Admin_BorrowBook_Page = () => {
                         </div>
                     </div>
 
-                    <div className="flex gap-2">
+                    <div className="flex gap-1">
                         <button
                             className={`${
-                                isPending ? "bg-black text-white" : "bg-stone-100 text-black"
-                            } flex items-center gap-2 px-4 py-2 rounded-xl text-xs hover:-translate-y-1 transition cursor-pointer`}
+                                isPending ? "bg-stone-800 text-white" : "border border-stone-300 text-black"
+                            } flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer`}
                             onClick={handlePending}
                         >
                             Pending
@@ -239,8 +239,8 @@ const Admin_BorrowBook_Page = () => {
 
                         <button
                             className={`${
-                                isApproved ? "bg-black text-white" : "bg-stone-100 text-black"
-                            } flex items-center gap-2 px-4 py-2 rounded-xl text-xs hover:-translate-y-1 transition cursor-pointer`}
+                                isApproved ? "bg-stone-800 text-white" : "border border-stone-300 text-black"
+                            } flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer`}
                             onClick={handleApproved}
                         >
                             Approved
@@ -249,8 +249,8 @@ const Admin_BorrowBook_Page = () => {
 
                         <button
                             className={`${
-                                isBorrowed ? "bg-black text-white" : "bg-stone-100 text-black"
-                            } flex items-center gap-2 px-4 py-2 rounded-xl text-xs hover:-translate-y-1 transition cursor-pointer`}
+                                isBorrowed ? "bg-stone-800 text-white" : "border border-stone-300 text-black"
+                            } flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer`}
                             onClick={handleBorrowed}
                         >
                             Borrowed
@@ -259,8 +259,8 @@ const Admin_BorrowBook_Page = () => {
 
                         <button
                             className={`${
-                                isHistory ? "bg-black text-white" : "bg-stone-100 text-black"
-                            } flex items-center gap-2 px-4 py-2 rounded-xl text-xs hover:-translate-y-1 transition cursor-pointer`}
+                                isHistory ? "bg-stone-800 text-white" : "border border-stone-300 text-black"
+                            } flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer`}
                             onClick={handleHistory}
                         >
                             History

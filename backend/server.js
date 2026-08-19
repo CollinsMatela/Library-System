@@ -47,6 +47,7 @@ import UpdateLeaveRoute from "./routes/UpdateLeaveRoute.js"
 
 import NotificationRoute from "./routes/NotificationRoute.js"
 import MyAccountRoute from "./routes/MyAccountRoute.js"
+import SendEmailRoute from "./routes/EmailRoute.js"
 
 console.log("🔥 SERVER FILE STARTED");
 const app = express();
@@ -54,7 +55,7 @@ const app = express();
 app.set("trust proxy", 1);
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: process.env.LOCAL_URL,
   credentials: true
 }));
 
@@ -130,15 +131,17 @@ app.use("/", UpdateLeaveRoute);
 app.use("/", NotificationRoute)
 app.use("/", MyAccountRoute);
 
+app.use("/", SendEmailRoute);
+
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
 
-// const PORT = 5000
+const PORT = 5000
 
-// app.listen(PORT, () => {
-//     console.log(`Server is running on port ${PORT}`);
-// });
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 
 export default app;

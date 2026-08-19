@@ -3,26 +3,21 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.EMAIL_API);
 
-export const sendEmail = async ({userData, borrowData}) => {
+export const sendEmail = async ({userData, subject, message}) => {
 
     try {
         const {data, error} = await resend.emails.send({
         from: "Naic Municipal Library <onboarding@resend.dev>",
-        to: userData.email,
-        subject: 'Request Approved',
+        to: 'naicwebsitelibrary@gmail.com',
+        subject: subject,
         html: `<p>
                     Hello, Mr./Ms. ${userData.firstname},
                 </p>
 
                 <p>
-                    Your borrow request has been 
-                    <strong>Approved</strong>!
+                    ${message}
                 </p>
-
-                <p>
-                    Please proceed to the Naic Municipal Library 
-                    to claim your requested book.
-                </p>`
+               `
         })
 
         if(error){

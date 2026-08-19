@@ -1,9 +1,9 @@
-import { Book, Check, X, Calendar, Info, MailPlus } from "lucide-react";
+import axios from "axios";
+import { Book, Check, X, Calendar, Info, MailPlus, Send } from "lucide-react";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const BorrowedTable = ({Borrowed, ReturnBorrow}) => {
-
-    const [isEmail, setIsEmail] = useState({});
 
     return(
         <div className="w-full flex flex-col gap-2">
@@ -28,17 +28,6 @@ const BorrowedTable = ({Borrowed, ReturnBorrow}) => {
                 </div>
 
                 <div className="justify-end items-center flex gap-2 w-fit">
-
-                    <div className="relative">
-                        <button className={`${isEmail[borrow._id] ? "bg-stone-800" : "border border-stone-300 hover:bg-stone-200"} p-2 rounded-lg transition cursor-pointer`} title="Send Email" onClick={() => setIsEmail(prev => ({...prev, [borrow._id]: !prev[borrow._id]}))}>
-                            <MailPlus size={15} className={`${isEmail[borrow._id] ? "text-white" : "text-stone-500"}`}/>
-                        </button>
-                        {isEmail[borrow._id] && (
-                            <div className="absolute right-0 z-10 bg-white h-100 w-100 border border-stone-300 rounded-xl shadow-sm p-6">
-                                 <h1 className={`text-sm`}>Send Email to {borrow.name}</h1>
-                            </div>
-                        )}
-                    </div>
                     
                     <button
                         onClick={() => ReturnBorrow(borrow)}

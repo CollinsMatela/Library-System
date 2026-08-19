@@ -153,7 +153,7 @@ const Library_Page = () => {
 
             <header className="w-5xl mt-20">
                     <h1 className="text-xl font-bold">Browse Books</h1>
-                    <p className="mt-2 text-gray-600 text-xs">
+                    <p className="mt-2 text-stone-600 text-xs">
                         Browse educational resources, fiction, and non-fiction books available in the library.
                     </p>
             </header>
@@ -177,7 +177,7 @@ const Library_Page = () => {
 
                                  <div className='w-full flex flex-col gap-1 px-4'>
                                     <h1 className='text-xs text-stone-800'>Alphabetical</h1>
-                                    <select className='w-full border border-gray-300 rounded-xl p-2 text-xs text-stone-500'
+                                    <select className='w-full border border-stone-300 rounded-xl p-2 text-xs text-stone-500'
                                             onChange={(e) => filterByLetter(e.target.value)}
                                     >
                                         {alphabetical.map((item) => (
@@ -195,7 +195,7 @@ const Library_Page = () => {
                                     
                                         {categories.map((item) => (
                                             <button 
-                                            className='w-full border-b border-gray-300 text-xs text-stone-500 py-2 justify-start items-center flex cursor-pointer hover:text-stone-800 hover:font-semibold gap-2'
+                                            className='w-full border-b border-stone-300 text-xs text-stone-500 py-2 justify-start items-center flex cursor-pointer hover:text-stone-800 hover:font-semibold gap-2'
                                             value={item.value}
                                             onClick={(e) => {filterByCategory(e.target.value);
                                                              setSelectedTitle(item.label);

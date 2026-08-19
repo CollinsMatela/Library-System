@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Lib_Navigation from '../library_components/Lib_Navigation'
-import { Search, Book } from 'lucide-react'
+import { Search, Book, BookCopy } from 'lucide-react'
 import axios from 'axios';
 import { BrushCleaning, ListFilter, MoveRight, LayoutGrid } from 'lucide-react';
 import Catalog_TypeOfBooks from './CatalogPage_Component/Catalog_TypeOfBooks';
@@ -245,26 +245,26 @@ useEffect(() => {
 
                     <header className="w-5xl mt-20">
                         <h1 className="text-xl font-bold">Search & Catalog</h1>
-                        <p className="text-gray-600 mt-2 text-xs">
+                        <p className="text-stone-600 mt-2 text-xs">
                             Browse and search our collection of books by title, author, category, or other filters.
                         </p>
                     </header>
 
                     {/* FILTERS */}
-                    <div className="bg-white rounded-xl border border-gray-300 w-5xl space-y-4 p-6">
+                    <div className="bg-white rounded-xl border border-stone-300 w-5xl">
 
-                         <div className='w-full justify-start items-center flex gap-2'>
-                            <div className='p-2 bg-gray-200 rounded-full'><ListFilter size={15} className='text-gray-500'/></div>
+                         <header className='w-full justify-start items-center flex gap-2 border-b border-stone-300 p-4'>
+                            <div className='p-2 bg-stone-800'><ListFilter size={15} className='text-white'/></div>
                             <div>
                                 <h1 className="text-sm font-semibold">Find Your Next Book</h1>
-                                <p className="text-xs text-gray-500">Filter books by category, title, language, and more.</p>
+                                <p className="text-xs text-stone-500">Filter books by category, title, language, and more.</p>
                             </div>
-                         </div>
+                         </header>
 
-                        <div className='flex flex-col gap-2'>
-                            <label className="block text-xs text-gray-600">Search Books</label>
+                        <div className='flex flex-col p-6'>
+                            <label className="block text-xs text-stone-600">Search Books</label>
 
-                            <div className="border border-gray-300 p-2 rounded-2xl justify-start items-center flex py-4 px-4">
+                            <div className="border border-stone-300 p-2 rounded-lg justify-start items-center flex py-4 px-4">
 
                                 <input
                                     type="search"
@@ -274,7 +274,7 @@ useEffect(() => {
                                     className="w-full text-xs outline-none"
                                 />
 
-                                <Search size={15} className=" text-black"/>
+                                <Search size={15} className=" text-stone-800"/>
                             </div>
                             
                         </div>
@@ -321,12 +321,12 @@ useEffect(() => {
                         />
 
                         {/* BUTTONS */}
-                        <div className="flex justify-end gap-2">
-                            <button className="p-2 justfify-center items-center flex gap-2 rounded-xl text-xs cursor-pointer hover:-translate-y-1" onClick={clearFilters}>
+                        <div className="flex justify-end gap-2 border-t border-stone-300 p-6">
+                            <button className="p-2 justfify-center items-center flex gap-2 text-xs cursor-pointer hover:bg-stone-200 transition" onClick={clearFilters}>
                                 <BrushCleaning size={15}/> Clear
                             </button>
 
-                            <button className="p-2 bg-black text-white justfify-center items-center text-xs flex gap-2 rounded-xl cursor-pointer hover:-translate-y-1" onClick={filterBooks}>
+                            <button className="p-2 bg-stone-800 text-white justfify-center items-center text-xs flex gap-2 cursor-pointer hover:bg-stone-900 transition" onClick={filterBooks}>
                                <Search size={15}/> Find
                             </button>
                         </div>
@@ -335,14 +335,25 @@ useEffect(() => {
 
                
 
-                <div className="w-5xl bg-white border border-gray-300 rounded-xl mb-2 space-y-2 p-6">
-                        <div className='justify-between items-center flex py-2'>
-                           <h1 className="text-md font-bold text-black"> Search Results ({bookResults.length})</h1>
+                <div className="w-5xl bg-white border border-stone-300 rounded-xl">
+                        <div className='justify-between items-center flex border-b border-stone-300 p-6'>
+                            <div className='justify-start items-center flex gap-2'>
+                               <div className='p-2 bg-stone-800'>
+                                <BookCopy size={15} className='text-white'/>
+                               </div>
+
+                               <div className='justify-start items-start flex flex-col'>
+                                <h1 className="text-sm font-bold text-stone-800"> Search Results ({bookResults.length})</h1>
+                               <h1 className="text-xs text-stone-500"> Books matching your search</h1> 
+                               </div>
+                               
+                            </div>
+                            
 
                             <div className='flex gap-2'>
-                            <button className={`${resultGrid ? "text-black" : "text-gray-300"} cursor-pointer`} onClick={() => setResultGrid((prev) => !prev)}><LayoutGrid size={15}/></button>
+                            <button className={`${resultGrid ? "text-stone-800" : "text-stone-300"} cursor-pointer`} onClick={() => setResultGrid((prev) => !prev)}><LayoutGrid size={15}/></button>
                             <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}
-                                    className='w-fit p-2 text-xs bg-gray-100 rounded-xl outline-none'>
+                                    className='w-fit p-2 text-xs bg-stone-100 rounded-xl outline-none'>
                                     <option value="">Sort By</option>
                                     <option value="titleAsc">Title (A-Z)</option>
                                     <option value="titleDesc">Title (Z-A)</option>
@@ -357,10 +368,10 @@ useEffect(() => {
                         
 
                         {bookResults.length > 0 ? (
-                            <div className={`space-y-2 grid ${resultGrid ? "grid-cols-4 gap-2" : "grid-cols-1"}`}>
+                            <div className={`p-6 grid ${resultGrid ? "grid-cols-4 gap-2" : "grid-cols-1"}`}>
                                 {displayedBooks.map((book, index) => (
                                     <div key={book._id} 
-                                    className={`bg-white ${resultGrid ? "hover:-translate-y-1" : "hover:bg-gray-100"} justify-between items-center flex transition-all duration-300 ease-in-out cursor-pointer mb-2 gap-2`}
+                                    className={`bg-white ${resultGrid ? "hover:-translate-y-1" : "hover:bg-stone-100"} justify-between items-center flex transition-all duration-300 ease-in-out cursor-pointer mb-2 gap-2`}
                                         onClick={() => handleViewBook(book._id)}
                                         >
                                         
@@ -369,24 +380,24 @@ useEffect(() => {
                                             <div className="h-full flex flex-col w-full p-2">
 
                                                 <div className="w-full flex gap-2 justify-center items-center mb-2">
-                                                <div className="bg-gray-200 shadow-sm p-2 rounded-full">
-                                                    <Book size={15} className='text-gray-500'/>
+                                                <div className="bg-stone-200 shadow-sm p-2 rounded-full">
+                                                    <Book size={15} className='text-stone-500'/>
                                                 </div>
                                                 
 
                                                 <div className="w-full flex flex-col">
                                                     <div className="flex justify-between items-center w-full">
-                                                    <h1 className="text-gray-800 font-semibold text-sm">{book?.title} <span className="text-gray-400 text-xs"> • {book?.category}</span></h1>
+                                                    <h1 className="text-stone-800 font-semibold text-sm">{book?.title} <span className="text-stone-400 text-xs"> • {book?.category}</span></h1>
                                                     <h1 className={`${book?.copies> 0 ? "text-green-600 bg-green-100" : "text-red-600 bg-red-100"} text-xs p-1 rounded-full`}>{book?.copies> 0 ? "Available" : "Not Available"}</h1>
                                                     </div>
-                                                    <h1 className="text-gray-400 text-xs">{book?.author}</h1>
+                                                    <h1 className="text-stone-400 text-xs">{book?.author}</h1>
                                                 </div>
                                                 
                                                 </div>
                                                 
                                                 
                                                 
-                                                <h1 className="text-gray-400 text-xs">{book?.description.length > 100 ? `${book?.description.slice(0, 200)}...` : book?.description}</h1>
+                                                <h1 className="text-stone-400 text-xs">{book?.description.length > 100 ? `${book?.description.slice(0, 200)}...` : book?.description}</h1>
                                                 
                                             </div>
                                         </div>
@@ -394,7 +405,7 @@ useEffect(() => {
                                 ))}
                             </div>
                         ) : (
-                            <div className="flex items-center justify-center h-40 text-gray-400">
+                            <div className="flex items-center justify-center h-40 text-stone-400">
                                 No results found
                             </div>
                         )}

@@ -96,10 +96,10 @@ const Catalog_BookInformation = ({
     ];
 
     return (
-        <div className="w-full grid grid-cols-4 gap-2">
+        <div className="w-full grid grid-cols-4 gap-2 px-6 mb-6">
             {fields.map((field) => (
                 <div key={field.label} className="flex flex-col gap-1">
-                    <label className="text-xs text-gray-500">
+                    <label className="text-xs text-stone-500">
                         {field.label}
                     </label>
 
@@ -107,7 +107,7 @@ const Catalog_BookInformation = ({
                         <select
                             value={field.value}
                             onChange={(e) => field.set(e.target.value)}
-                            className="w-full px-4 py-2 bg-white border border-gray-300 rounded-xl outline-none text-xs"
+                            className="w-full px-4 py-2 bg-white border border-stone-300 text-stone-500 rounded-lg outline-none text-xs"
                         >
                             <option value="">
                                 {field.placeholder}
@@ -125,7 +125,7 @@ const Catalog_BookInformation = ({
                             value={field.value}
                             placeholder={field.placeholder}
                             onChange={(e) => field.set(e.target.value)}
-                            className="w-full px-4 py-2 bg-white border border-gray-300 rounded-xl outline-none text-xs"
+                            className="w-full px-4 py-2 bg-white border border-stone-300 text-stone-500 rounded-lg outline-none text-xs"
                         />
                     )}
                 </div>

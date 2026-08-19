@@ -3,12 +3,12 @@ const Catalog_TypeOfBooks = ({type, setType, category, setCategory, field, setFi
 
     const renderCategoryFields = () => {
     const selectClass =
-            "w-full px-4 py-2 bg-white border border-gray-300 rounded-xl outline-none text-xs";
+            "w-full px-4 py-2 bg-white border border-stone-300 rounded-lg outline-none text-xs text-stone-500";
 
         if (category.toLowerCase() === "philosophy & psychology") {
             return (
                 <div>
-                    <p className="text-xs font-medium text-gray-500">
+                    <p className="text-xs font-medium text-stone-500">
                         Philosophy & Psychology Field
                     </p>
                     <select
@@ -27,7 +27,7 @@ const Catalog_TypeOfBooks = ({type, setType, category, setCategory, field, setFi
         if (category.toLowerCase() === "social sciences") {
             return (
                 <div>
-                    <p className="text-xs font-medium text-gray-500">
+                    <p className="text-xs font-medium text-stone-500">
                         Social Science Field
                     </p>
                     <select
@@ -54,7 +54,7 @@ const Catalog_TypeOfBooks = ({type, setType, category, setCategory, field, setFi
         if (category.toLowerCase() === "technology") {
             return (
                 <div>
-                    <p className="text-xs font-medium text-gray-500">
+                    <p className="text-xs font-medium text-stone-500">
                         Technology Field
                     </p>
                     <select
@@ -76,7 +76,7 @@ const Catalog_TypeOfBooks = ({type, setType, category, setCategory, field, setFi
         if (category.toLowerCase() === "the arts") {
             return (
                 <div>
-                    <p className="text-xs font-medium text-gray-500">
+                    <p className="text-xs font-medium text-stone-500">
                         Arts Field
                     </p>
                     <select
@@ -104,7 +104,7 @@ const Catalog_TypeOfBooks = ({type, setType, category, setCategory, field, setFi
             return (
                 <>
                     <div>
-                        <p className="text-xs font-medium text-gray-500">
+                        <p className="text-xs font-medium text-stone-500">
                             Subject
                         </p>
                         <input
@@ -117,7 +117,7 @@ const Catalog_TypeOfBooks = ({type, setType, category, setCategory, field, setFi
                     </div>
 
                     <div>
-                        <p className="text-xs font-medium text-gray-500">
+                        <p className="text-xs font-medium text-stone-500">
                             Grade Level
                         </p>
                         <select
@@ -145,10 +145,10 @@ const Catalog_TypeOfBooks = ({type, setType, category, setCategory, field, setFi
     };
 
     return(
-    <div className='w-full grid grid-cols-4 gap-2'>
+    <div className='w-full grid grid-cols-4 gap-2 px-6 mb-6'>
             <div>
-                <p className="text-xs font-medium text-gray-500">Type</p>
-                <select className='w-full px-4 py-2 bg-white border border-gray-300 rounded-xl outline-none text-xs'
+                <p className="text-xs font-medium text-stone-500">Type</p>
+                <select className='w-full px-4 py-2 bg-white border border-stone-300 text-stone-500 rounded-lg outline-none text-xs'
                 value={type}
                 onChange={(e) => setType(e.target.value)}>
                     <option value="">Select Type</option>
@@ -157,9 +157,9 @@ const Catalog_TypeOfBooks = ({type, setType, category, setCategory, field, setFi
                 </select> 
             </div>
             <div className={`${type.toLowerCase() === 'fiction' ? "" : "hidden"}`}>
-                <p className="text-xs font-medium text-gray-500">Category</p>
+                <p className="text-xs font-medium text-stone-500">Category</p>
                 <select
-                    className='w-full px-4 py-2 bg-white bg-white border border-gray-300 rounded-xl outline-none text-xs'
+                    className='w-full px-4 py-2 bg-white border border-stone-300 text-stone-500 rounded-lg outline-none text-xs'
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                 >
@@ -191,8 +191,8 @@ const Catalog_TypeOfBooks = ({type, setType, category, setCategory, field, setFi
             </div>
 
             <div className={`${type.toLowerCase() === 'non-fiction' ? "" : "hidden"}`}>
-                <p className="text-xs font-medium text-gray-500">Category</p>
-                <select className='w-full px-4 py-2 bg-white bg-white border border-gray-300 rounded-xl outline-none text-xs'
+                <p className="text-xs font-medium text-stone-500">Category</p>
+                <select className='w-full px-4 py-2 bg-white border border-stone-300 text-stone-500 rounded-lg outline-none text-xs'
                 value={category} 
                 onChange={(e) => setCategory(e.target.value)}>
                     <option value="">Type of Non-Fiction</option>

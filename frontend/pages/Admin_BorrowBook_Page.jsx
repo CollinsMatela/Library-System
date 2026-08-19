@@ -214,7 +214,7 @@ const Admin_BorrowBook_Page = () => {
                 <div className="w-full justify-between items-start flex">
 
                     <div className="flex items-center justify-start gap-2 w-full mb-4">
-                        <div className="bg-black p-2 text-white rounded-xl justify-center items-center flex">
+                        <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
                             <HandHelping size={20}/>
                         </div>
                         <div>

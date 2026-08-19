@@ -106,69 +106,68 @@ const Admin_LogBook = () => {
         onConfirm={() => updateLeaveTime(selectedVisitor)} 
         onCancel={() => setShowConfirmation(false)}/>)}
 
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col py-10 pl-80 pr-10">
-            <Admin_SideBar/>
+        <Admin_SideBar/>
 
-            <header className="w-full justify-between items-start flex flex-col pb-10">
-                <div>
-                    <h1 className="text-lg font-bold text-gray-800">Log Book Management</h1>
-                    <h1 className="text-gray-400 text-xs">Manage people entries to library</h1>
-                </div>
-            </header>
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-70">
+              
+              <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-10">
+                    <h1 className="text-sm font-bold text-stone-800">Logbook Management</h1>
+                    <h1 className="text-stone-400 text-xs">Manage borrow request from user</h1>                   
+              </header>
 
-            <div className="w-full justify-between items-start flex flex-col mb-10 pb-10">
+            <div className="w-full justify-between items-start flex flex-col mb-10 pb-10 px-10">
 
                 <div className="flex items-start justify-between gap-2 w-full mb-4">
                             
                             <div className="justify-center items-center flex gap-2">
-                                <div className="bg-black p-2 text-white rounded-xl justify-center items-center flex">
+                                <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
                                     <Users size={20}/>
                                 </div>
                                 <div>
-                                    <h1 className="text-md font-bold text-gray-800 rounded-full">Library Visitor</h1>
-                                    <p className="text-gray-400 text-xs">List of people entered library.</p>
+                                    <h1 className="text-md font-bold text-stone-800 rounded-full">Library Visitor</h1>
+                                    <p className="text-stone-400 text-xs">List of people entered library.</p>
                                 </div>
                             </div>
                             
                             <div>
-                                <button className="bg-black py-2 px-2 text-white text-xs rounded-xl cursor-pointer hover:-translate-y-1 justify-center items-center flex gap-2"
+                                <button className="bg-stone-800 py-2 px-2 text-white text-xs cursor-pointer hover:-translate-y-1 justify-center items-center flex gap-2"
                                 onClick={() => setShowLogBook(true)}
                                 ><Plus size={15}/> Add Visitor
                                 </button> 
                             </div>
                 </div>
 
-                <div className="grid grid-cols-9 w-full bg-black px-4 py-3 rounded-xl mb-2">
-                            <h1 className="text-xs font-bold text-white">No.</h1>
-                            <h1 className="text-xs font-bold text-white">Name</h1>
-                            <h1 className="text-xs font-bold text-white">Address</h1>
-                            <h1 className="text-xs font-bold text-white">Contact</h1>
-                            <h1 className="text-xs font-bold text-white">Purpose</h1>
-                            <h1 className="text-xs font-bold text-white">Date</h1>
-                            <h1 className="text-xs font-bold text-white">Time In</h1>
-                            <h1 className="text-xs font-bold text-white">Time Out</h1>
-                            <h1 className="text-xs font-bold text-white">Action</h1>
+                <div className="grid grid-cols-9 w-full bg-stone-900 rounded-xl px-4 py-3 mb-2">
+                            <h1 className="text-xs text-white">No.</h1>
+                            <h1 className="text-xs text-white">Name</h1>
+                            <h1 className="text-xs text-white">Address</h1>
+                            <h1 className="text-xs text-white">Contact</h1>
+                            <h1 className="text-xs text-white">Purpose</h1>
+                            <h1 className="text-xs text-white">Date</h1>
+                            <h1 className="text-xs text-white">Time In</h1>
+                            <h1 className="text-xs text-white">Time Out</h1>
+                            <h1 className="text-xs text-white">Action</h1>
                 </div>
 
                 {orderedLogBookList.length === 0 && (
-                    <div className="w-full bg-gray-200 rounded-xl p-4 text-xs justify-center items-center flex">No Visitor Listed</div>
+                    <div className="w-full bg-stone-200 rounded-xl p-4 text-xs justify-center items-center flex">No Visitor Listed</div>
                 )}
 
                 {orderedLogBookList.length > 0 &&
                 orderedLogBookList.map((log, index) => (
                     <div
                     key={log._id}
-                    className="w-full bg-white border border-gray-300 justify-between items-start flex rounded-xl p-4 mb-2"
+                    className="w-full bg-white border border-stone-300 justify-between items-start flex rounded-xl p-4 mb-2"
                     >
                         <div className="grid grid-cols-9 w-full">
-                            <h1 className="text-xs text-gray-500 justify-start items-center flex"><span>{index + 1}</span></h1>
-                            <h1 className="text-xs text-gray-500 justify-start items-center flex"><span>{log.name}</span></h1>
-                            <h1 className="text-xs text-gray-500 justify-start items-center flex"><span>{log.address}</span></h1>
-                            <h1 className="text-xs text-gray-500 justify-start items-center flex"><span>{log.contact}</span></h1>
-                            <h1 className="text-xs text-gray-500 justify-start items-center flex"><span>{log.purpose}</span></h1>
-                            <h1 className="text-xs text-gray-500 justify-start items-center flex">{new Date(log.createdAt).toISOString().split("T")[0]}</h1>
-                            <h1 className="text-xs text-gray-500 justify-start items-center flex">{new Date(log.createdAt).toLocaleTimeString()}</h1>
-                            <h1 className="text-xs text-gray-500 justify-start items-center flex">{log.leaveTime
+                            <h1 className="text-xs text-stone-500 justify-start items-center flex"><span>{index + 1}</span></h1>
+                            <h1 className="text-xs text-stone-500 justify-start items-center flex"><span>{log.name}</span></h1>
+                            <h1 className="text-xs text-stone-500 justify-start items-center flex"><span>{log.address}</span></h1>
+                            <h1 className="text-xs text-stone-500 justify-start items-center flex"><span>{log.contact}</span></h1>
+                            <h1 className="text-xs text-stone-500 justify-start items-center flex"><span>{log.purpose}</span></h1>
+                            <h1 className="text-xs text-stone-500 justify-start items-center flex">{new Date(log.createdAt).toISOString().split("T")[0]}</h1>
+                            <h1 className="text-xs text-stone-500 justify-start items-center flex">{new Date(log.createdAt).toLocaleTimeString()}</h1>
+                            <h1 className="text-xs text-stone-500 justify-start items-center flex">{log.leaveTime
                                                                                                     ? new Date(log.leaveTime).toLocaleTimeString()
                                                                                                     : "—"}</h1>
                             {!log.leaveTime && (

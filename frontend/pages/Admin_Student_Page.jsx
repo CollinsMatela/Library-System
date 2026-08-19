@@ -73,24 +73,23 @@ const Admin_Student_Page = () => {
         {showConfirmationPopup && (<Confirmation_Popup onConfirm={() => deleteStudent(selectedUser?._id)} onCancel={() => setShowConfirmationPopup(false)} />)}
         {showEditModal && (<Edit_Student_Modal selectedUser={selectedUser} reFetch={() => fetchUsers()} closeEditStudentModal={() => setShowEditModal(false)}/>)}
         {showViewStudent && (<View_Student_Modal user={selectedUser} onClose={() => setShowViewStudent(false)}/>)}
-       <section className="min-h-screen w-full pl-80 pr-10 pt-10">
+       <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-70">
+              
+              <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-10">
+                    <h1 className="text-sm font-bold text-stone-800">Users Account</h1>
+                    <h1 className="text-stone-400 text-xs">Manage user accounts</h1>                   
+              </header>
         
         <Admin_Sidebar/>
-        <div className="justify-between items-start flex mb-10">
-            <div>
-              <h2 className="text-lg font-bold text-gray-800">User Management</h2>
-               <p className="text-gray-400 text-xs">Manage user accounts, monitor learning progress, and keep track of student information and activities.</p>
-            </div>
-
-       </div>
+        
 
         {/* Student Container */}
-                  <div className="bg-white rounded-xl">
+                  <div className="w-full px-10">
 
                     <div className="w-full justify-between items-center flex rounded-t-xl">
 
                         <div className="flex items-center justify-start gap-2 mb-4">
-                            <div className="bg-black p-2 text-white rounded-xl justify-center items-center flex">
+                            <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
                               <Users size={20}/>
                             </div>
                             <div>
@@ -114,15 +113,15 @@ const Admin_Student_Page = () => {
                         </div>
                     </div>   
                       {/* Columns */}
-                        <div className="bg-gray-900 w-full rounded-xl grid grid-cols-7 justify-between items-center flex px-4 py-3">
+                        <div className="bg-stone-900 w-full rounded-xl grid grid-cols-7 justify-between items-center flex px-4 py-3">
         
-                                <h1 className="text-xs font-semibold text-white mr-14">No.</h1>
-                                <h1 className="text-xs font-semibold text-white">Lastname</h1>
-                                <h1 className="text-xs font-semibold text-white">Firstname</h1>
-                                <h1 className="text-xs font-semibold text-white">Middle</h1>
-                                <h1 className="text-xs font-semibold text-white">Email</h1>
-                                <h1 className="text-xs font-semibold text-white">Contact</h1>
-                                <h1 className="text-xs font-semibold text-white">Actions</h1>
+                                <h1 className="text-xs text-white mr-14">No.</h1>
+                                <h1 className="text-xs text-white">Lastname</h1>
+                                <h1 className="text-xs text-white">Firstname</h1>
+                                <h1 className="text-xs text-white">Middle</h1>
+                                <h1 className="text-xs text-white">Email</h1>
+                                <h1 className="text-xs text-white">Contact</h1>
+                                <h1 className="text-xs text-white">Actions</h1>
                             
                         </div>
                     <div className="h-100 w-full rounded-b-xl pb-10">

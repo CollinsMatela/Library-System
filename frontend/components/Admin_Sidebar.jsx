@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore"
 import { useState } from "react";
-import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User } from 'lucide-react'
+import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User, ArrowUp, Home, BookUser } from 'lucide-react'
 import NaicLogo from '../src/assets/NaicLibraryLogo.png'
 
 const Admin_SideBar = () => {
@@ -45,60 +45,61 @@ const Admin_SideBar = () => {
           navigate("/");
     }  
     return(
-        <aside className="fixed left-0 top-0 z-0 h-full w-70 bg-gray-50 border-r border-gray-200 px-4 py-10">
-       <div className="justify-start items-center flex gap-2">
-          <div className="bg-white rounded-full h-12 w-12 flex justify-center items-center">
+      <aside className="fixed left-0 top-0 z-0 h-full w-70 bg-stone-50 border-r border-stone-300">
+       <div className="justify-start items-center flex gap-2 px-4 py-3 border-b border-stone-300">
+        
+          <div className="bg-white rounded-full h-8 w-8 flex justify-center items-center">
               <img src={NaicLogo} alt="Little Me Logo" className="h-full w-full object-cover"/>
           </div>
           
           <div>
-            <h1 className="text-md font-bold text-black">Naic Municipal Library</h1>
-            <p className="text-xs text-gray-400">Admin Dashboard</p>
+            <h1 className="text-sm font-bold text-black">Naic Municipal Library</h1>
+            <p className="text-xs text-stone-400">Admin Portal</p>
           </div>
       </div>
 
-      <div className="text-gray-500 text-xs py-2 px-2 rounded-lg mt-6">
-        Admin Menu
+      <div className="text-stone-500 text-xs py-2 px-4 mt-6">
+        Menu
       </div>
 
-      <div className={`${isOverview ? "bg-black text-white" : "hover:bg-gray-100 text-gray-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none rounded-xl mt-2 p-2`} onClick={handleOverview}>
-        <AppWindow className={`${isOverview ? 'text-white' : 'text-gray-500'}`} size={15}/>
+      <div className={`${isOverview ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleOverview}>
+        <Home className={`${isOverview ? 'text-white' : 'text-stone-500'}`} size={15}/>
         Overview
         
       </div>
 
-      <div className={`${isLogBook ? "bg-black text-white" : "hover:bg-gray-100 text-gray-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none rounded-xl mt-2 p-2`} onClick={handleLogBook}>
-        <AppWindow className={`${isLogBook ? 'text-white' : 'text-gray-500'}`} size={15}/>
-        Log Book
+      <div className={`${isLogBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleLogBook}>
+        <BookUser className={`${isLogBook ? 'text-white' : 'text-stone-500'}`} size={15}/>
+        Logbook
         
       </div>
 
-      <div className={`${isUploadStory ? "bg-black text-white" : "hover:bg-gray-100 text-gray-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none rounded-xl mt-2 p-2`} onClick={handleUploadStory}>
-        <FileUp className={`${isUploadStory ? 'text-white' : 'text-gray-500'}`} size={15}/>
-        Upload Books
+      <div className={`${isUploadStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUploadStory}>
+        <ArrowUp className={`${isUploadStory ? 'text-white' : 'text-stone-500'}`} size={15}/>
+        Upload
       </div>
 
-      <div className={`${isViewStory ? "bg-black text-white" : "hover:bg-gray-100 text-gray-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none rounded-xl mt-2 p-2`} onClick={handleViewStory}>
-        <LibraryBig className={`${isViewStory ? 'text-white' : 'text-gray-500'}`} size={15}/>
-        Books List
+      <div className={`${isViewStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleViewStory}>
+        <LibraryBig className={`${isViewStory ? 'text-white' : 'text-stone-500'}`} size={15}/>
+        Books
       </div>
 
-      <div className={`${isBorrowBook ? "bg-black text-white" : "hover:bg-gray-100 text-gray-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none rounded-xl mt-2 p-2`} onClick={handleBorrowBook}>
-        <HandHelping className={`${isBorrowBook ? 'text-white' : 'text-gray-500'}`} size={15}/>
-        Book Borrow
+      <div className={`${isBorrowBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleBorrowBook}>
+        <HandHelping className={`${isBorrowBook ? 'text-white' : 'text-stone-500'}`} size={15}/>
+        Request
       </div>
 
-      <div className={`${isUserRegistration ? "bg-black text-white" : "hover:bg-gray-100 text-gray-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none rounded-xl mt-2 p-2`} onClick={handleUserRegistration}>
-        <User className={`${isUserRegistration ? 'text-white' : 'text-gray-500'}`} size={15}/>
-        User Registration
+      <div className={`${isUserRegistration ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUserRegistration}>
+        <User className={`${isUserRegistration ? 'text-white' : 'text-stone-500'}`} size={15}/>
+        Registration
       </div>
 
-      <div className={`${isUsersAccount ? "bg-black text-white" : "hover:bg-gray-100 text-gray-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none rounded-xl mt-2 p-2`} onClick={handleUsers}>
-        <Users className={`${isUsersAccount ? 'text-white' : 'text-gray-500'}`} size={15}/>
-        Users Account
+      <div className={`${isUsersAccount ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUsers}>
+        <Users className={`${isUsersAccount ? 'text-white' : 'text-stone-500'}`} size={15}/>
+        Accounts
       </div>
 
-      <div className="h-10 text-xs justify-start items-center flex font-semibold text-red-500 flex  gap-2 cursor-pointer py-2 hover:bg-red-100 hover:border-none rounded-xl mt-2 p-2" onClick={handleLogout}>
+      <div className="h-10 text-xs justify-start items-center flex font-semibold text-red-500 flex  gap-2 cursor-pointer py-2 hover:bg-red-100 hover:border-none mt-2 p-4" onClick={handleLogout}>
         <LogOut className={`text-red-500`} size={15}/>
         Logout
       </div>

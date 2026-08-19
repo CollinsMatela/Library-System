@@ -202,17 +202,14 @@ const Admin_BorrowBook_Page = () => {
       return(
         <>
         <Admin_Sidebar/>
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col py-10 pl-80 pr-10">
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-70">
               
-              <header className="w-full justify-between items-start flex flex-col mb-10">
-                <div>
-                    <h1 className="text-lg font-bold text-stone-800">Borrowing Books Management</h1>
-                    <h1 className="text-stone-400 text-xs">Manage borrow request from user</h1>
-                </div>
-                    
+              <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-10">
+                    <h1 className="text-sm font-bold text-stone-800">Borrowing Books Management</h1>
+                    <h1 className="text-stone-400 text-xs">Manage borrow request from user</h1>                   
               </header>
 
-              <div className="h-20 w-full justify-between items-center flex flex-col">
+              <div className="h-20 w-full justify-between items-center flex flex-col px-10">
 
                 <div className="w-full justify-between items-start flex">
 
@@ -221,7 +218,7 @@ const Admin_BorrowBook_Page = () => {
                             <HandHelping size={20}/>
                         </div>
                         <div>
-                            <h1 className="text-md font-bold text-stone-800 rounded-full">Borrowing Information</h1>
+                            <h1 className="text-sm font-bold text-stone-800 rounded-full">Request Information</h1>
                             <p className="text-stone-400 text-xs">Manage user borrowing books.</p>
                         </div>
                     </div>

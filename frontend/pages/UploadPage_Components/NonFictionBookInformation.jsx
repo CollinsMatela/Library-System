@@ -34,26 +34,15 @@ const NonFictionBookInformation = ({
     return (
         <div className="w-full flex flex-col gap-2 my-4">
 
-            <div className="flex items-center justify-start gap-2">
-                <div className="bg-black h-9 w-9 text-white rounded-xl justify-center items-center flex">
-                   <h1 className="font-bold text-lg">2#</h1>
-                </div>
-                <div>
-                    <h1 className="text-md font-bold text-gray-800 rounded-full">Step Two</h1>
-                    <p className="text-gray-400 text-xs">Fill the applicable information.</p>
-                </div>
-                
-            </div>
-
             {/* Basic Information */}
-            <div className="w-full flex flex-col gap-2 p-6 border border-gray-300 rounded-xl">
+            <div className="w-full flex flex-col gap-2 p-6 border border-stone-300 rounded-xl">
 
                  <div className="justify-between items-center flex gap-2 w-full">
                                     <div class="flex gap-2 ujstify-center items-center">
-                                        <div className="p-2 rounded-full text-gray-500 bg-gray-200 justify-center items-center flex"><TextAlignCenter size={20}/></div>
+                                        <div className="p-2 rounded-full text-stone-500 bg-stone-200 justify-center items-center flex"><TextAlignCenter size={20}/></div>
                                         <div>
-                                            <h1 className="text-gray-600 text-sm font-bold">Fill information.</h1>
-                                            <h1 className="text-gray-600 text-xs">Input the applicable information.</h1>
+                                            <h1 className="text-stone-600 text-sm font-bold">Fill information.</h1>
+                                            <h1 className="text-stone-600 text-xs">Input the applicable information.</h1>
                                         </div>
                                     </div>
                                     
@@ -64,7 +53,7 @@ const NonFictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="Title"
-                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
+                    className="bg-white border-1 border-stone-300 p-2 rounded-lg text-stone-500 text-xs mt-2"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
@@ -72,13 +61,13 @@ const NonFictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="Author (Optional)"
-                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
+                    className="bg-white border-1 border-stone-300 p-2 rounded-lg text-stone-500 text-xs mt-2"
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
                 />
 
                 <select
-                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
+                    className="bg-white border-1 border-stone-300 p-2 rounded-lg text-stone-500 text-xs mt-2"
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}
                 >
@@ -91,7 +80,7 @@ const NonFictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="Publisher (Optional)"
-                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
+                    className="bg-white border-1 border-stone-300 p-2 rounded-lg text-stone-500 text-xs mt-2"
                     value={publisher}
                     onChange={(e) => setPublisher(e.target.value)}
                 />
@@ -101,7 +90,7 @@ const NonFictionBookInformation = ({
                     min="1900"
                     max={new Date().getFullYear()}
                     placeholder="Publication Year (Optional)"
-                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
+                    className="bg-white border-1 border-stone-300 p-2 rounded-lg text-stone-500 text-xs mt-2"
                     value={publication}
                     onChange={(e) => setPublication(e.target.value)}
                 />
@@ -109,7 +98,7 @@ const NonFictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="ISBN (Optional)"
-                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
+                    className="bg-white border-1 border-stone-300 p-2 rounded-lg text-stone-500 text-xs mt-2"
                     value={isbn}
                     onChange={(e) => setIsbn(e.target.value)}
                 />
@@ -123,7 +112,7 @@ const NonFictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="Edition (Optional)"
-                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
+                    className="bg-white border-1 border-stone-300 p-2 rounded-lg text-stone-500 text-xs mt-2"
                     value={edition}
                     onChange={(e) => setEdition(e.target.value)}
                 />
@@ -131,7 +120,7 @@ const NonFictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="Volume (Optional)"
-                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
+                    className="bg-white border-1 border-stone-300 p-2 rounded-lg text-stone-500 text-xs mt-2"
                     value={volume}
                     onChange={(e) => setVolume(e.target.value)}
                 />
@@ -139,7 +128,7 @@ const NonFictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="DDC Classification (Optional)"
-                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
+                    className="bg-white border-1 border-stone-300 p-2 rounded-lg text-stone-500 text-xs mt-2"
                     value={ddc}
                     onChange={(e) => setDdc(e.target.value)}
                 />
@@ -148,7 +137,7 @@ const NonFictionBookInformation = ({
                     type="number"
                     placeholder="Number of Copies"
                     min={1}
-                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
+                    className="bg-white border-1 border-stone-300 p-2 rounded-lg text-stone-500 text-xs mt-2"
                     value={copies}
                     onChange={(e) => setCopies(e.target.value)}
                 />
@@ -156,7 +145,7 @@ const NonFictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="Call Number (Optional)"
-                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
+                    className="bg-white border-1 border-stone-300 p-2 rounded-lg text-stone-500 text-xs mt-2"
                     value={callNumber}
                     onChange={(e) => setCallNumber(e.target.value)}
                 />
@@ -164,7 +153,7 @@ const NonFictionBookInformation = ({
                 <input
                     type="text"
                     placeholder="Available At (Optional)"
-                    className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2"
+                    className="bg-white border-1 border-stone-300 p-2 rounded-lg text-stone-500 text-xs mt-2"
                     value={availableAt}
                     onChange={(e) => setAvailableAt(e.target.value)}
                 />
@@ -172,7 +161,7 @@ const NonFictionBookInformation = ({
 
                  <textarea
                 placeholder="Description (Optional)"
-                className="bg-white border-1 border-gray-300 p-2 rounded-lg text-gray-500 text-xs mt-2 resize-none"
+                className="bg-white border-1 border-stone-300 p-2 rounded-lg text-stone-500 text-xs mt-2 resize-none"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
             />

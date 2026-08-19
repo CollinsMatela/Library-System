@@ -7,7 +7,7 @@ import FictionBookInformation from "./UploadPage_Components/FictionBookInformati
 import NonFictionBookInformation from "./UploadPage_Components/NonFictionBookInformation";
 import TypeOfBooks from "./UploadPage_Components/TypeOfBooks";
 import PreviewBook from "./UploadPage_Components/PreviewBook"
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, X, Plus, Image, Save, AudioLines, FilePlay, Pencil, ImageOff, Info } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, X, Plus, Image, Save, AudioLines, FilePlay, Pencil, ImageOff, Info, ArrowUp } from "lucide-react";
 import { toast } from "react-toastify";
 
 const Admin_UploadBook_Page = () => {
@@ -481,30 +481,26 @@ const Admin_UploadBook_Page = () => {
         <>
         <Admin_SideBar/>
         {showConfirmation && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={uploadStory} onCancel={() => {setShowConfirmation(false); setErrorMessage("")}}/>)}
-        <section className="min-h-screen w-full pl-80 pr-10 py-10">
-
-            <header className="w-full justify-between items-start flex flex-col pb-10">
-
-                <div>
-                    <h1 className="text-lg font-bold text-gray-800">Upload Book Management</h1>
-                    <h1 className="text-gray-400 text-xs">Add a new book to the library by providing its details and uploading the required files. </h1>
-                </div>
-                
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-70">
+              
+              <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-10">
+                    <h1 className="text-sm font-bold text-stone-800">Upload Management</h1>
+                    <h1 className="text-stone-400 text-xs">Manage uploading books to the library</h1>                   
               </header>
 
                 {/* MANUALLY UPLOAD STORY CONTAINER */}
-                <div className={`w-full flex bg-white rounded-xl gap-10`}>
+                <div className={`w-full flex bg-white rounded-xl gap-10 px-10`}>
                     
                         {/* Story Details */}
                         <div className="bg-white w-full flex flex-col">
 
                         <div className="flex items-center justify-start gap-2">
-                            <div className="bg-black h-9 w-9 text-white rounded-xl justify-center items-center flex">
+                            <div className="bg-stone-800 h-9 w-9 text-white justify-center items-center flex">
                             <h1 className="font-bold text-md">1</h1>
                             </div>
                             <div>
-                                <h1 className="text-md font-bold text-gray-800 rounded-full">Step One</h1>
-                                <p className="text-gray-400 text-xs">Select Type and Category of the book.</p>
+                                <h1 className="text-md font-bold text-stone-800 rounded-full">Step One</h1>
+                                <p className="text-stone-400 text-xs">Select Type and Category of the book.</p>
                             </div>
                             
                         </div>
@@ -523,20 +519,20 @@ const Admin_UploadBook_Page = () => {
                        />
 
                        <div className="flex items-center justify-start gap-2">
-                            <div className="bg-black h-9 w-9 text-white rounded-xl justify-center items-center flex">
+                            <div className="bg-stone-800 h-9 w-9 text-white justify-center items-center flex">
                             <h1 className="font-bold text-md">2</h1>
                             </div>
                             <div>
-                                <h1 className="text-md font-bold text-gray-800 rounded-full">Step Two</h1>
-                                <p className="text-gray-400 text-xs">Fill the applicable information.</p>
+                                <h1 className="text-md font-bold text-stone-800 rounded-full">Step Two</h1>
+                                <p className="text-stone-400 text-xs">Fill the applicable information.</p>
                             </div>
                             
                         </div>
 
                         {(!selectedTypeOfBooks || !selectedCategoryOfBook) && (
-                            <div className="w-full bg-gray-100 p-6 rounded-xl justify-center items-center flex my-4 gap-1">
-                                <Info size={20} className="text-gray-500"/>
-                                <p className="text-gray-500 text-xs">Please select a book type and category to proceed.</p>
+                            <div className="w-full bg-stone-100 p-6 rounded-xl justify-center items-center flex my-4 gap-1">
+                                <Info size={20} className="text-stone-500"/>
+                                <p className="text-stone-500 text-xs">Please select a book type and category to proceed.</p>
                             </div>
                             
                         )}
@@ -640,12 +636,12 @@ const Admin_UploadBook_Page = () => {
                     {/*Book Pages and Image insertion*/}
                 <div className="w-full flex flex-col gap-4">
                      <div className="flex items-center justify-start gap-2">
-                        <div className="bg-black h-9 w-9 text-white rounded-xl justify-center items-center flex">
+                        <div className="bg-stone-800 h-9 w-9 text-white justify-center items-center flex">
                         <h1 className="font-bold text-md">3</h1>
                         </div>
                         <div>
-                            <h1 className="text-md font-bold text-gray-800 rounded-full">Step Three</h1>
-                            <p className="text-gray-400 text-xs">Fill the applicable book page information.</p>
+                            <h1 className="text-md font-bold text-stone-800 rounded-full">Step Three</h1>
+                            <p className="text-stone-400 text-xs">Fill the applicable book page information.</p>
                         </div>
                         
                     </div>
@@ -654,13 +650,13 @@ const Admin_UploadBook_Page = () => {
 
                     <div className="w-full bg-white justify-between items-start flex flex-col gap-4 rounded-xl">
                         {/* Page Text*/}
-                        <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border border-gray-300 p-6 rounded-lg">
+                        <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border border-stone-300 p-6 rounded-lg">
                                 <div className="justify-between items-center flex gap-2 w-full">
                                     <div class="flex gap-2 ujstify-center items-center">
-                                        <div className="p-2 rounded-full text-gray-500 bg-gray-200 justify-center items-center flex"><Pencil size={20}/></div>
+                                        <div className="p-2 rounded-full text-stone-500 bg-stone-200 justify-center items-center flex"><Pencil size={20}/></div>
                                         <div>
-                                            <h1 className="text-gray-600 text-sm font-bold">Page Text</h1>
-                                            <h1 className="text-gray-600 text-xs">Input the text for the page...</h1>
+                                            <h1 className="text-stone-600 text-sm font-bold">Page Text</h1>
+                                            <h1 className="text-stone-600 text-xs">Input the text for the page...</h1>
                                         </div>
                                     </div>
                                     
@@ -671,19 +667,19 @@ const Admin_UploadBook_Page = () => {
                                 placeholder="Input the text of the page..."
                                 value={pageText}
                                 onChange={(e) => setPageText(e.target.value)}
-                                className="h-100 w-full outline-none text-xs bg-gray-50 shadow-sm border border-gray-300 p-4 rounded-xl">
+                                className="h-100 w-full outline-none text-xs bg-stone-50 shadow-sm border border-stone-300 p-4 rounded-xl">
                                 </textarea>
                         </div>
 
                          {/* Page Image Preview */}
-                        <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border border-gray-300 p-6 rounded-lg">
+                        <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border border-stone-300 p-6 rounded-lg">
 
                             <div className="justify-between items-center flex gap-2 w-full">
                                     <div class="flex gap-2 ujstify-center items-center">
-                                        <div className="p-2 rounded-full text-gray-500 bg-gray-200 justify-center items-center flex"><Image size={20}/></div>
+                                        <div className="p-2 rounded-full text-stone-500 bg-stone-200 justify-center items-center flex"><Image size={20}/></div>
                                         <div>
-                                            <h1 className="text-gray-600 text-sm font-bold">Preview Page Image</h1>
-                                            <h1 className="text-gray-600 text-xs">Preview of the page image...</h1>
+                                            <h1 className="text-stone-600 text-sm font-bold">Preview Page Image</h1>
+                                            <h1 className="text-stone-600 text-xs">Preview of the page image...</h1>
                                         </div>
                                     </div>
                                     
@@ -693,9 +689,9 @@ const Admin_UploadBook_Page = () => {
                                 {!pageImagePreview && (
                                      
                                     <div className="h-full w-full flex flex-col items-center justify-center p-4 gap-1">
-                                        <ImageOff size={50} className="text-gray-500" />
-                                        <h1 className="text-gray-500 text-sm font-semibold">No Page Image</h1>
-                                        <h1 className="text-gray-400 text-xs">Please upload a page image</h1>
+                                        <ImageOff size={50} className="text-stone-500" />
+                                        <h1 className="text-stone-500 text-sm font-semibold">No Page Image</h1>
+                                        <h1 className="text-stone-400 text-xs">Please upload a page image</h1>
                                     </div>
                                      
                                 )}
@@ -721,14 +717,14 @@ const Admin_UploadBook_Page = () => {
 
                         {/**Audio Preview */}
                         {audioPreview && (
-                            <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border border-gray-300 p-6 rounded-lg">
+                            <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border border-stone-300 p-6 rounded-lg">
 
                                 <div className="justify-between items-center flex gap-2 w-full">
                                     <div class="flex gap-2 ujstify-center items-center">
-                                        <div className="p-2 rounded-full text-gray-500 bg-gray-200 justify-center items-center flex"><FilePlay size={20}/></div>
+                                        <div className="p-2 rounded-full text-stone-500 bg-stone-200 justify-center items-center flex"><FilePlay size={20}/></div>
                                         <div>
-                                            <h1 className="text-gray-600 text-sm font-bold">Preview Audio</h1>
-                                            <h1 className="text-gray-600 text-xs">{audioPreview}</h1>
+                                            <h1 className="text-stone-600 text-sm font-bold">Preview Audio</h1>
+                                            <h1 className="text-stone-600 text-xs">{audioPreview}</h1>
                                         </div>
                                     </div>
 
@@ -754,12 +750,12 @@ const Admin_UploadBook_Page = () => {
 
                         <div className="w-full justify-end items-center flex gap-2">
                             {(selectedTypeOfBooks.toLowerCase() === 'fiction' && selectedCategoryOfBook.toLowerCase() === 'story book') && (
-                                <button className={`${audioPreview ? 'hidden' : null} justify-center items-center flex gap-2 p-2 text-xs text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer border transition`} onClick={() => audioInputRef.current.click()}>
+                                <button className={`${audioPreview ? 'hidden' : null} justify-center items-center flex gap-1 p-2 text-xs text-stone-800 font-bold hover:bg-stone-200 cursor-pointer transition`} onClick={() => audioInputRef.current.click()}>
                                     <AudioLines size={15}/> Add Audio
                                 </button>  
                             )}
                                                  
-                            <button className={`${pageImagePreview ? 'hidden' : null} justify-center items-center flex gap-2 p-2 text-xs text-black font-bold rounded-lg hover:-translate-y-1 cursor-pointer border transition`} onClick={() => pageImageInputRef.current.click()}>
+                            <button className={`${pageImagePreview ? 'hidden' : null} justify-center items-center flex gap-1 p-2 text-xs text-stone-800 font-bold hover:bg-stone-200 cursor-pointer transition`} onClick={() => pageImageInputRef.current.click()}>
                                 <Image size={15}/> Add Image
                             </button>
 
@@ -775,8 +771,8 @@ const Admin_UploadBook_Page = () => {
                                     className="hidden" 
                                     onChange={handleAudioPreview} 
                             />
-                            <button className="justify-center items-center flex gap-2 p-2 text-xs bg-blue-600 text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer transition"
-                                onClick={handleNextPage}><Save size={15}/> Save {`(${pageList.length + 1})`}
+                            <button className="justify-center items-center flex gap-1 p-2 text-xs bg-stone-800 text-white font-bold hover:bg-stone-900 cursor-pointer transition"
+                                onClick={handleNextPage}><ArrowUp size={15}/> Save {`(${pageList.length + 1})`}
                             </button>
                         </div>
                         
@@ -789,16 +785,6 @@ const Admin_UploadBook_Page = () => {
                 </div>
 
                         
-
-
-                         </div>
-                    
- 
-                    
-                </div>
-                
-                
-                  
                   <PreviewBook
                   type={selectedTypeOfBooks}
                   category={selectedCategoryOfBook}
@@ -819,6 +805,16 @@ const Admin_UploadBook_Page = () => {
                   setPreview={setPreview}
                   setFile={setFile}
                   />
+
+                         </div>
+                    
+ 
+                    
+                </div>
+                
+                
+                  
+                  
                 
 
 

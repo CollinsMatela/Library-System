@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 import Confirmation_Popup from "../popup/Confirmation_Popup"
-import { Pen } from "lucide-react"
+import { Pen, X } from "lucide-react"
 import { toast } from "react-toastify"
 
 const Edit_Student_Modal = ({selectedUser, reFetch, closeEditStudentModal}) => {
@@ -207,57 +207,56 @@ const Edit_Student_Modal = ({selectedUser, reFetch, closeEditStudentModal}) => {
            <div className="fixed inset-0 bg-black/50"></div>
 
 
-           <div className="relative bg-white flex flex-col w-4xl rounded-2xl space-y-2 p-6">
+           <div className="relative bg-white flex flex-col w-4xl rounded-2xl space-y-2">
                
-               <div className="flex justify-between items-center border-gray-100">
+               <div className="flex justify-between items-center border-sone-100 border-b border-stone-300 p-4">
                     <div>
-                        <h2 className="text-lg font-bold text-gray-800">
-                            User Information
+                        <h2 className="text-sm font-bold text-stone-800">
+                            Edit Information
                         </h2>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-stone-400">
                             View user details and account information.
                         </p>
                     </div>
 
                     <button
                         onClick={closeEditStudentModal}
-                        className="text-gray-400 hover:text-red-500 text-2xl cursor-pointer"
+                        className="text-stone-400 hover:text-red-500 text-2xl cursor-pointer"
                     >
-                        ×
+                        <X size={15}/>
                     </button>
                 </div>
 
-               <div className="w-full flex flex-col space-y-2 gap-2 mt-4">
+               <div className="w-full flex flex-col space-y-2 gap-2 p-4">
                 {/* Student Information Container */}
-                <h1 className="text-sm font-semibold text-gray-700 mb-4">User Information</h1>
                <div className="w-full grid grid-cols-4 gap-2">
                <div className="w-full">
-                   <h1 className="text-xs text-gray-500">Last Name</h1>
-                   <input type="text" className={`border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setLastname(e.target.value)} value={lastname} />
+                   <h1 className="text-xs text-stone-500">Last Name</h1>
+                   <input type="text" className={`border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setLastname(e.target.value)} value={lastname} />
                </div>
                <div className="w-full">
-                   <h1 className="text-xs text-gray-500">First Name</h1>
-                   <input type="text" className={`border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setFirstname(e.target.value)} value={firstname} />
+                   <h1 className="text-xs text-stone-500">First Name</h1>
+                   <input type="text" className={`border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setFirstname(e.target.value)} value={firstname} />
                </div>
                <div className="w-full">
-                   <h1 className="text-xs text-gray-500">Middle Name</h1>
-                   <input type="text" className={`border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setMiddlename(e.target.value)} value={middlename} />
+                   <h1 className="text-xs text-stone-500">Middle Name</h1>
+                   <input type="text" className={`border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setMiddlename(e.target.value)} value={middlename} />
                </div>
                <div className="w-full">
-                   <h1 className="text-xs text-gray-500">Extension Name</h1>
-                   <input type="text" className={`border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setExtensionName(e.target.value)} value={extensionName || "N/A"} />
+                   <h1 className="text-xs text-stone-500">Extension Name</h1>
+                   <input type="text" className={`border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setExtensionName(e.target.value)} value={extensionName || "N/A"} />
                </div>
                <div className="w-full flex flex-col">
-                   <h1 className="text-xs text-gray-500">Date of birth</h1>
+                   <h1 className="text-xs text-stone-500">Date of birth</h1>
                         <div className="w-full flex gap-2">
-                        <select name="year" className={`border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setYear(e.target.value)} value={year}>
+                        <select name="year" className={`border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setYear(e.target.value)} value={year}>
                             {Array.from({ length: 90 }, (_, i) => {
                                     const year = new Date().getFullYear() - i;
                                     return <option key={year} value={year}>{year}</option>;
                             })}
                         </select>
                         
-                        <select name="month" className={`border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setMonth(e.target.value)} value={month}>
+                        <select name="month" className={`border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setMonth(e.target.value)} value={month}>
                             <option value="">Month</option>
                             <option value="1">January</option>
                             <option value="2">February</option>
@@ -272,7 +271,7 @@ const Edit_Student_Modal = ({selectedUser, reFetch, closeEditStudentModal}) => {
                             <option value="11">November</option>
                             <option value="12">December</option>
                         </select>
-                        <select name="day" className={`border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setDay(e.target.value)} value={day}>
+                        <select name="day" className={`border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setDay(e.target.value)} value={day}>
                             <option value="">Day</option>
                             {Array.from({ length: 31 }, (_, i) => {
                                     const day = i + 1;
@@ -282,27 +281,27 @@ const Edit_Student_Modal = ({selectedUser, reFetch, closeEditStudentModal}) => {
                         </div>
                </div>
                <div className="w-full">
-                <h1 className="text-xs text-gray-500">Email</h1>
+                <h1 className="text-xs text-stone-500">Email</h1>
                 <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs"
+                    className="border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs"
                 />
             </div>
 
             <div className="w-full">
-                <h1 className="text-xs text-gray-500">Contact</h1>
+                <h1 className="text-xs text-stone-500">Contact</h1>
                 <input
                     type="text"
                     value={contact}
                     onChange={(e) => setContact(e.target.value)}
-                    className="border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs"
+                    className="border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs"
                 />
             </div>
                <div className="w-full">
-                <h1 className="text-xs text-gray-500">Sex</h1>
-                <select name="sex" className={`border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setSex(e.target.value)} value={sex}>
+                <h1 className="text-xs text-stone-500">Sex</h1>
+                <select name="sex" className={`border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setSex(e.target.value)} value={sex}>
                     <option value="">Select Sex</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -310,32 +309,32 @@ const Edit_Student_Modal = ({selectedUser, reFetch, closeEditStudentModal}) => {
                </div>
                
                <div className="w-full">
-                <h1 className="text-xs text-gray-500">Home Address</h1>
+                <h1 className="text-xs text-stone-500">Home Address</h1>
                 <input
                     type="text"
                     value={homeAddress}
                     onChange={(e) => setHomeAddress(e.target.value)}
-                    className="border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs"
+                    className="border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs"
                 />
                 </div>
 
                 <div className="w-full">
-                <h1 className="text-xs text-gray-500">City/Municipality</h1>
+                <h1 className="text-xs text-stone-500">City/Municipality</h1>
                 <input
                     type="text"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs"
+                    className="border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs"
                 />
                 </div>
 
                 <div className="w-full">
-                <h1 className="text-xs text-gray-500">Institution</h1>
+                <h1 className="text-xs text-stone-500">Institution</h1>
                 <input
                     type="text"
                     value={institution}
                     onChange={(e) => setInstitution(e.target.value)}
-                    className="border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs"
+                    className="border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs"
                 />
                </div>
               
@@ -347,22 +346,22 @@ const Edit_Student_Modal = ({selectedUser, reFetch, closeEditStudentModal}) => {
             {/* Parent Information Container */}
                {selectedUser.age < 18 && (
                 <>
-                <h1 className="text-lg font-semibold text-gray-700 mb-4">Parent/Guardian Information</h1>
+                <h1 className="text-lg font-semibold text-stone-700 mb-4">Parent/Guardian Information</h1>
                <div className="w-full grid grid-cols-3 gap-2">
                     <div className="w-full">
-                        <h1 className="text-xs text-gray-500">Name</h1>
-                        <input type="text" className={`border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setParentLastname(e.target.value)} value={parentName} />
+                        <h1 className="text-xs text-stone-500">Name</h1>
+                        <input type="text" className={`border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setParentLastname(e.target.value)} value={parentName} />
                     </div>
 
                         <div className="flex-1">
-                                <h1 className="text-xs text-gray-500">Contact</h1>
-                                <input type="text" className={`border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setParentContact(e.target.value)} value={parentContact} />
+                                <h1 className="text-xs text-stone-500">Contact</h1>
+                                <input type="text" className={`border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setParentContact(e.target.value)} value={parentContact} />
                         </div>
 
                         <div className="w-full flex gap-2">
                             <div className="flex-1">
-                                <h1 className="text-xs text-gray-500">Relationship</h1>
-                                <select name="relationship" className={`border border-gray-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setParentRelationship(e.target.value)} value={parentRelationship}>
+                                <h1 className="text-xs text-stone-500">Relationship</h1>
+                                <select name="relationship" className={`border border-stone-300 w-full outline-none rounded-xl p-2 text-black text-xs`} onChange={(e) => setParentRelationship(e.target.value)} value={parentRelationship}>
                                     <option value="">Select Relationship</option>
                                         <option value="Father">Father</option>
                                         <option value="Mother">Mother</option>
@@ -381,8 +380,8 @@ const Edit_Student_Modal = ({selectedUser, reFetch, closeEditStudentModal}) => {
 
                </div>
                
-                <div className="w-full justify-end items-center flex gap-2 mt-10 mb-2">
-                        <button className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 cursor-pointer font-bold text-xs justify-center items-center flex gap-2" onClick={handleConfirmation}><Pen size={15}/> Update</button>
+                <div className="w-full justify-end items-center flex gap-2 border-t border-stone-300 p-4">
+                        <button className="bg-stone-800 text-white p-2 hover:bg-stone-900 cursor-pointer font-bold text-xs justify-center items-center flex gap-2" onClick={handleConfirmation}><Pen size={15}/> Update</button>
                 </div>
 
             </div>

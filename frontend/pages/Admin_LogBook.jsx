@@ -1,5 +1,5 @@
 import Admin_SideBar from "../components/Admin_Sidebar"
-import { Plus, Check, Users } from "lucide-react"
+import { Plus, Check, Users, LoaderCircle } from "lucide-react"
 import LogBookModal from "../modals/LogBookModal"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
@@ -7,7 +7,8 @@ import axios from 'axios'
 import Confirmation from '../popup/Confirmation_Popup'
 
 const Admin_LogBook = () => {
-
+    
+    const [isLoading, setIsLoading] = useState(false)
     const [showLogBook, setShowLogBook] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -45,7 +46,18 @@ const Admin_LogBook = () => {
     }
 
     useEffect(() => {
-        fetchLogBook();
+        setIsLoading(true)
+        const loadData = async () => {
+              try {
+                await fetchLogBook()
+              } catch (error) {
+                console.log(error);
+                toast.error("Failed to load data")
+              } finally {
+                setIsLoading(false)
+              }
+        }
+        loadData()
     },[])
 
     const fetchLogBook = async () => {
@@ -148,8 +160,17 @@ const Admin_LogBook = () => {
                             <h1 className="text-xs text-white">Time Out</h1>
                             <h1 className="text-xs text-white">Action</h1>
                 </div>
-
-                {orderedLogBookList.length === 0 && (
+                
+                {isLoading ? 
+                (
+                <div className="w-full justify-center items-center flex p-4">
+                    <LoaderCircle size={20} className="text-stone-500 animate-spin"/>
+                </div>
+                )
+                :
+                (
+                    <>
+                    {orderedLogBookList.length === 0 && (
                     <div className="w-full bg-stone-200 rounded-xl p-4 text-xs justify-center items-center flex">No Visitor Listed</div>
                 )}
 
@@ -178,6 +199,9 @@ const Admin_LogBook = () => {
                     </div>
                 ))
                 }
+                    </>
+                )}
+                
             </div>
 
         </section>

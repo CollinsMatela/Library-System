@@ -4,7 +4,7 @@ import defaultProfile from '../src/assets/Student.jpg'
 import NaicLibraryLogo from '../src/assets/NaicLibraryLogo.png'
 import NotificationModal from '../modals/NotificationModal'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { LogOut, Blocks, BookSearch, BellDot, Info, BadgeInfo, User, ChevronDown } from 'lucide-react'
+import { LogOut, Blocks, BookSearch, BellDot, Info, BadgeInfo, User, ChevronDown, LayoutList } from 'lucide-react'
 import { useState } from 'react'
 import ConfirmationPopup from '../popup/Confirmation_Popup'
 import NotificationPopup from '../modals/NotificationModal'
@@ -48,7 +48,7 @@ const Lib_Navigation = () => {
                           <div className='gap-4 justify-center items-center flex'>
                             <button className={`${location.pathname === '/library' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library')}><Blocks size={15}/> Book Browse</button>
                             <button className={`${location.pathname === '/library/catalog' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/catalog')}><BookSearch size={15}/> Search & Catalog</button>
-                            <button className={`${location.pathname === '/library/borrow-status' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/borrow-status')}><BadgeInfo size={15}/> Borrow Status</button>
+                            <button className={`${location.pathname === '/library/borrow-status' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/borrow-status')}><LayoutList size={15}/> Borrow Status</button>
                            
                            <div className='relative'>
                             <button className=" p-2 justify-center items-center flex font-bold transition-all duration-300 ease-in-out cursor-pointer gap-2 hover:bg-stone-200 hover:text-stone-500 rounded-full"

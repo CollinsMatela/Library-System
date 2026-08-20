@@ -241,42 +241,42 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
         <Admin_SideBar/>
         {showConfirmationPopup && (<Confirmation_Popup errorMessage={errorMessage} message={'Are you sure to register this user?'} onConfirm={() => {UserRegistration();}} onCancel={() => {setShowConfirmationPopup(false); setErrorMessage("");}} />)}
         {showAccountPopup && (<Account_Popup newAccountDetails={newStudent} closeAccountConfirmation={() => {setShowAccountPopup(false);}}/>)}
-        <section className="w-full justify-start items-center flex flex-col pl-80 pr-10 py-10">
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-70">
+              
+              <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-10">
+                    <h1 className="text-sm font-bold text-stone-800">User Registration</h1>
+                    <h1 className="text-stone-400 text-xs">Manage creating account for users</h1>                   
+              </header>
 
-               <div className="justify-between items-start flex flex-col w-full  mb-10">     
-                    <h2 className="text-lg font-bold text-black">Registration Management</h2>
-                    <p className="text-gray-400 text-xs">Register user allowing them to access the school digital library system</p>   
-                </div>
-
-                <div className="flex items-center justify-start gap-2 w-full mb-5">
-                    <div className="bg-black p-2 text-white rounded-xl justify-center items-center flex">
+                <div className="flex items-center justify-start gap-2 w-full mb-5 px-10">
+                    <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
                         <User size={20}/>
                     </div>
                     <div>
-                        <h1 className="text-md font-bold text-gray-800 rounded-full">Registration</h1>
-                        <p className="text-gray-400 text-xs">Register new users.</p>
+                        <h1 className="text-md font-bold text-stone-800 rounded-full">Registration</h1>
+                        <p className="text-stone-400 text-xs">Register new users.</p>
                     </div>
                 </div>
-                    
-                    <div className="w-full p-6 rounded-xl border border-gray-300 mb-4">
+                    <div className="w-full px-10">
+                    <div className="w-full p-6 rounded-xl border border-stone-300 mb-4 ">
 
                         <div className="flex items-center justify-start gap-2 w-full mb-5">
-                            <div className="bg-gray-200 p-2 text-white rounded-full justify-center items-center flex">
-                                <User size={20} className="text-gray-500"/>
+                            <div className="bg-stone-200 p-2 text-white rounded-full justify-center items-center flex">
+                                <User size={20} className="text-stone-500"/>
                             </div>
                             <div>
-                                <h1 className="text-md font-bold text-gray-800 rounded-full">User Information</h1>
-                                <p className="text-gray-400 text-xs">Fill-up the requiered information.</p>
+                                <h1 className="text-md font-bold text-stone-800 rounded-full">User Information</h1>
+                                <p className="text-stone-400 text-xs">Fill-up the requiered information.</p>
                             </div>
                         </div>
                         
                         <div className="w-full grid grid-cols-4 gap-2">
 
                         <div className="w-full">
-                            <h1 className="text-xs text-gray-500">Last Name <span className="text-red-500">*</span></h1>
+                            <h1 className="text-xs text-stone-500">Last Name <span className="text-red-500">*</span></h1>
                             <input type="text" 
                                    placeholder="Last Name" 
-                                   className={`border-1 border-gray-300 p-2 text-xs w-full outline-none rounded-xl ${isLastname ? 'border-red-500' : ''}`} 
+                                   className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl ${isLastname ? 'border-red-500' : ''}`} 
                                    value={lastname} 
                                    onChange={(e) => {setLastname(e.target.value);
                                                     if(e.target.value !== "") setIsLastname(false);}
@@ -284,10 +284,10 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                                    />
                         </div>
                         <div className="w-full">
-                            <h1 className="text-xs text-gray-500">First Name <span className="text-red-500">*</span></h1>
+                            <h1 className="text-xs text-stone-500">First Name <span className="text-red-500">*</span></h1>
                             <input type="text" 
                                    placeholder="First Name" 
-                                   className={`border-1 border-gray-300 p-2 text-xs w-full outline-none rounded-xl ${isFirstname ? 'border-red-500' : ''}`} 
+                                   className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl ${isFirstname ? 'border-red-500' : ''}`} 
                                    value={firstname} 
                                    onChange={(e) => {setFirstname(e.target.value);
                                                     if(e.target.value !== "") setIsFirstname(false);}
@@ -295,10 +295,10 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                                    />
                         </div>
                         <div className="w-full">
-                            <h1 className="text-xs text-gray-500">Middle Name <span className="text-red-500">*</span></h1>
+                            <h1 className="text-xs text-stone-500">Middle Name <span className="text-red-500">*</span></h1>
                             <input type="text" 
                                    placeholder="Middle Name" 
-                                   className={`border-1 border-gray-300 p-2 text-xs w-full outline-none rounded-xl ${isMiddlename ? 'border-red-500' : ''}`} 
+                                   className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl ${isMiddlename ? 'border-red-500' : ''}`} 
                                    value={middlename} 
                                    onChange={(e) => {setMiddlename(e.target.value);
                                                     if(e.target.value !== "") setIsMiddlename(false);}
@@ -307,10 +307,10 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                         </div>
 
                         <div className="w-full">
-                            <h1 className="text-xs text-gray-500">Extension Name</h1>
+                            <h1 className="text-xs text-stone-500">Extension Name</h1>
                             <input type="text" 
                                    placeholder="Extension Name e.g. Jr., lll (if applicable)" 
-                                   className={`border-1 border-gray-300 p-2 text-xs w-full outline-none rounded-xl px-4`} 
+                                   className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl px-4`} 
                                    value={extensionname} 
                                    onChange={(e) => {setExtensionName(e.target.value)}
                                    } 
@@ -320,12 +320,12 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                         <div className="flex flex-col w-full">
 
                         {/* Date of Birth */}
-                        <h1 className="text-xs text-gray-500">Date of Birth <span className="text-red-500">*</span></h1>
+                        <h1 className="text-xs text-stone-500">Date of Birth <span className="text-red-500">*</span></h1>
                         <div className="w-full grid grid-cols-3 gap-2">
 
                             
                                 <select
-                                    className={`border border-gray-300 p-2 text-xs flex-1 rounded-xl text-gray-500 outline-none ${
+                                    className={`border border-stone-300 p-2 text-xs flex-1 rounded-xl text-stone-500 outline-none ${
                                         isYear ? "border-red-500" : ""
                                     }`}
                                     value={year}
@@ -346,7 +346,7 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                                 </select>
 
                                 <select
-                                    className={`border border-gray-300 p-2 text-xs flex-1 rounded-xl text-gray-500 outline-none ${
+                                    className={`border border-stone-300 p-2 text-xs flex-1 rounded-xl text-stone-500 outline-none ${
                                         isMonth ? "border-red-500" : ""
                                     }`}
                                     value={month}
@@ -371,7 +371,7 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                                 </select>
 
                                 <select
-                                    className={`border border-gray-300 p-2 text-xs flex-1 rounded-xl text-gray-500 outline-none ${
+                                    className={`border border-stone-300 p-2 text-xs flex-1 rounded-xl text-stone-500 outline-none ${
                                         isDay ? "border-red-500" : ""
                                     }`}
                                     value={day}
@@ -396,7 +396,7 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                                 placeholder="Age"
                                 value={age}
                                 disabled
-                                className="bg-gray-100 p-2 text-xs w-full rounded-xl text-gray-500 cursor-not-allowed"
+                                className="bg-stone-100 p-2 text-xs w-full rounded-xl text-stone-500 cursor-not-allowed"
                             />
                         </div>
                         </div>
@@ -407,8 +407,8 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                         
                         
                         <div className="w-full">
-                            <h1 className="text-xs text-gray-500">Sex <span className="text-red-500">*</span></h1>
-                            <select className={`border-1 border-gray-300 p-2 text-xs w-full outline-none rounded-xl text-gray-500 ${isSex ? 'border-red-500' : ''}`} 
+                            <h1 className="text-xs text-stone-500">Sex <span className="text-red-500">*</span></h1>
+                            <select className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl text-stone-500 ${isSex ? 'border-red-500' : ''}`} 
                                     value={sex} 
                                     onChange={(e) => {setSex(e.target.value)
                                                      if(e.target.value !== "") setIsSex(false);
@@ -420,13 +420,13 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                         </div>
 
                         <div className="w-full">
-                            <h1 className="text-xs text-gray-500">
+                            <h1 className="text-xs text-stone-500">
                                 Home Address <span className="text-red-500">*</span>
                             </h1>
                             <input
                                 type="text"
                                 placeholder="Home Address"
-                                className={`border-1 border-gray-300 p-2 text-xs w-full outline-none rounded-xl ${isHomeAddress ? "border-red-500" : ""}`}
+                                className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl ${isHomeAddress ? "border-red-500" : ""}`}
                                 value={homeAddress}
                                 onChange={(e) => {
                                     setAddress(e.target.value);
@@ -436,13 +436,13 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                         </div>
 
                         <div className="w-full">
-                            <h1 className="text-xs text-gray-500">
+                            <h1 className="text-xs text-stone-500">
                                 City/Municipality <span className="text-red-500">*</span>
                             </h1>
                             <input
                                 type="text"
                                 placeholder="City/Municipality"
-                                className={`border-1 border-gray-300 p-2 text-xs w-full outline-none rounded-xl ${isCity ? "border-red-500" : ""}`}
+                                className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl ${isCity ? "border-red-500" : ""}`}
                                 value={city}
                                 onChange={(e) => {
                                     setCity(e.target.value);
@@ -452,13 +452,13 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                         </div>
 
                         <div className="w-full">
-                            <h1 className="text-xs text-gray-500">
+                            <h1 className="text-xs text-stone-500">
                                 Email Address <span className="text-red-500">*</span>
                             </h1>
                             <input
                                 type="email"
                                 placeholder="Email Address"
-                                className={`border-1 border-gray-300 p-2 text-xs w-full outline-none rounded-xl ${isEmail ? "border-red-500" : ""}`}
+                                className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl ${isEmail ? "border-red-500" : ""}`}
                                 value={email}
                                 onChange={(e) => {
                                     setEmail(e.target.value);
@@ -468,13 +468,13 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                         </div>
 
                         <div className="w-full">
-                            <h1 className="text-xs text-gray-500">
+                            <h1 className="text-xs text-stone-500">
                                 Contact Number <span className="text-red-500">*</span>
                             </h1>
                             <input
                                 type="text"
                                 placeholder="09XXXXXXXXX"
-                                className={`border-1 border-gray-300 p-2 text-xs w-full outline-none rounded-xl ${isContact ? "border-red-500" : ""}`}
+                                className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl ${isContact ? "border-red-500" : ""}`}
                                 value={contact}
                                 onChange={(e) => {
                                     setContact(e.target.value);
@@ -484,13 +484,13 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                         </div>
 
                         <div className="w-full">
-                            <h1 className="text-xs text-gray-500">
+                            <h1 className="text-xs text-stone-500">
                                 School/Office <span className="text-red-500">*</span>
                             </h1>
                             <input
                                 type="text"
                                 placeholder="School/Office"
-                                className={`border-1 border-gray-300 p-2 text-xs w-full outline-none rounded-xl ${isInstitution ? "border-red-500" : ""}`}
+                                className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl ${isInstitution ? "border-red-500" : ""}`}
                                 value={institution}
                                 onChange={(e) => {
                                     setInstitution(e.target.value);
@@ -503,24 +503,24 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                     </div>
                     
                     {age && age < 18 && (
-                      <div className="w-full p-6 rounded-xl border border-gray-300 mb-4">
+                      <div className="w-full p-6 rounded-xl border border-stone-300 mb-4">
 
                          <div className="flex items-center justify-start gap-2 w-full mb-5">
-                            <div className="bg-gray-200 p-2 text-white rounded-full justify-center items-center flex">
-                                <User size={20} className="text-gray-500"/>
+                            <div className="bg-stone-200 p-2 text-white rounded-full justify-center items-center flex">
+                                <User size={20} className="text-stone-500"/>
                             </div>
                             <div>
-                                <h1 className="text-md font-bold text-gray-800 rounded-full">Parent Information</h1>
-                                <p className="text-gray-400 text-xs">Fill-up the required information.</p>
+                                <h1 className="text-md font-bold text-stone-800 rounded-full">Parent Information</h1>
+                                <p className="text-stone-400 text-xs">Fill-up the required information.</p>
                             </div>
                         </div>
 
                         <div className="w-full grid grid-cols-4 gap-2">
                             <div className="w-full">
-                            <h1 className="text-xs text-gray-500">Parent/Guardian Name <span className="text-red-500">*</span></h1>
+                            <h1 className="text-xs text-stone-500">Parent/Guardian Name <span className="text-red-500">*</span></h1>
                             <input type="text" 
                                    placeholder="Name" 
-                                   className={`border-1 border-gray-300 p-2 text-xs w-full outline-none rounded-xl ${isParentName ? 'border-red-500' : ''}`} 
+                                   className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl ${isParentName ? 'border-red-500' : ''}`} 
                                    value={parentName} 
                                    onChange={(e) => {setParentName(e.target.value);
                                                     if(e.target.value !== "") setIsParentName(false);}
@@ -528,10 +528,10 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                                    />
                              </div>
                              <div className="w-full">
-                                <h1 className="text-xs text-gray-500">Parent/Guardian Contact <span className="text-red-500">*</span></h1>
+                                <h1 className="text-xs text-stone-500">Parent/Guardian Contact <span className="text-red-500">*</span></h1>
                                 <input type="text" 
                                         placeholder="Contact Number" 
-                                        className={`border-1 border-gray-300 p-2 text-xs w-full outline-none rounded-xl ${isParentContact ? 'border-red-500' : ''}`} 
+                                        className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl ${isParentContact ? 'border-red-500' : ''}`} 
                                         value={parentContact} 
                                         onChange={(e) => {setParentContact(e.target.value)
                                                           if(e.target.value !== "") setIsParentContact(false);
@@ -540,8 +540,8 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                             </div>
 
                             <div className="w-full">
-                            <h1 className="text-xs text-gray-500">Parent/Guardian Relationship <span className="text-red-500">*</span></h1>
-                            <select className={`border-1 border-gray-300 p-2 text-xs w-full outline-none rounded-xl text-gray-500 ${isParentRelationship ? 'border-red-500' : ''}`} 
+                            <h1 className="text-xs text-stone-500">Parent/Guardian Relationship <span className="text-red-500">*</span></h1>
+                            <select className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl text-stone-500 ${isParentRelationship ? 'border-red-500' : ''}`} 
                                     value={parentRelationship} 
                                     onChange={(e) => {setParentRelationship(e.target.value)
                                                       if(e.target.value !== "") setIsParentRelationship(false);
@@ -555,11 +555,12 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                         </div>
                     </div>  
                     )}
+                    </div>
                     
                     
                {/* Buttons */}
-                    <div className="w-full justify-end items-center flex">
-                        <button className="bg-black text-white h-full w-fit rounded-xl cursor-pointer text-xs p-2 hover:-translate-y-1 justify-center items-center flex gap-2" onClick={handleConfirmation}><Plus size={15}/> Register</button>
+                    <div className="w-full justify-end items-center flex px-10">
+                        <button className="bg-stone-800 text-white h-full w-fit cursor-pointer text-xs p-2 hover:bg-stone-900 justify-center items-center flex gap-2" onClick={handleConfirmation}><Plus size={15}/> Register</button>
                     </div>
         </section>
         </>

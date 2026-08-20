@@ -1,4 +1,4 @@
-import {Book, ArrowLeft, ArrowRight, AudioLines, ImageOff, Eye, VolumeOff} from "lucide-react";
+import {Book, ArrowLeft, ArrowRight, AudioLines, ImageOff, Eye, VolumeOff, X} from "lucide-react";
 import {
   speak,
   pauseSpeech,
@@ -28,7 +28,7 @@ const Lib_StoryLayoutBook = ({book, showText, showImage, pageIndex, nextPage, pr
 
       
    
-        <div className={`h-full w-full justify-center items-center flex p-10`}>
+        <div className={`h-full w-full justify-center items-center flex`}>
           {/* Text */}
 
             <div className="relative h-full w-full text-lg justify-center items-start flex flex-col bg-gray-50">
@@ -36,6 +36,10 @@ const Lib_StoryLayoutBook = ({book, showText, showImage, pageIndex, nextPage, pr
               <button className="bg-gray-200 rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => AutoStoryTelling(hasText)}><AudioLines className="text-gray-500"/></button>
               </header> */}
               
+              <button className="absolute top-10 right-10 p-2 rounded-xl justify-center items-center flex gap-2 cursor-pointer"
+              onClick={onClose}>
+                <X size={15} className="text-white"/> 
+              </button>
               <button className="absolute left-10 p-4 rounded-full justify-center items-center flex gap-2 bg-white/50 cursor-pointer backdrop-blur-sm"
               onClick={prevPage}>
                 <ArrowLeft size={15}/> 

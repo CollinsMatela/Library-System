@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Edit_Student_Modal from "../modals/Edit_Student_Modal"
 import Confirmation_Popup from "../popup/Confirmation_Popup"
 import View_Student_Modal from "../modals/View_Student_Modal"
-import { View, UserPen, Trash, Search, Users } from "lucide-react"
+import { View, UserPen, Trash, Search, Users, LoaderCircle } from "lucide-react"
 import { toast } from "react-toastify"
 
 
@@ -13,6 +13,7 @@ const Admin_Student_Page = () => {
     const [users, setUsers] = useState([]);
 
     const [search, setSearch] = useState('');
+    const [isLoading, setIsLoading]= useState(false);
     
     const filteredUser = users.filter((user) => {
         const fullName = `${user.firstname} ${user.lastname}`.toLowerCase();
@@ -39,7 +40,18 @@ const Admin_Student_Page = () => {
     }
 
     useEffect(() => {
-       fetchUsers();
+       setIsLoading(true)
+       const loadData = async () => {
+             try {
+                await fetchUsers();
+             } catch (error) {
+                console.log(error);
+                toast.error("Failed to load data")
+             } finally {
+                setIsLoading(false)
+             }
+       }
+       loadData()
     },[])
     const fetchUsers = async () => {
 
@@ -124,7 +136,16 @@ const Admin_Student_Page = () => {
                                 <h1 className="text-xs text-white">Actions</h1>
                             
                         </div>
-                    <div className="h-100 w-full rounded-b-xl pb-10">
+
+                    {isLoading ?
+                    (
+                     <div className="w-full justify-center items-center flex p-4">
+                        <LoaderCircle size={20} className="text-stone-500 animate-spin"/>
+                     </div>
+                    )
+                    :
+                    (
+                      <div className="h-100 w-full rounded-b-xl pb-10">
                         
                         {/* Rows */}
                         {filteredUser.length < 1 && (
@@ -157,7 +178,9 @@ const Admin_Student_Page = () => {
                               )
                               })
                               }
-                    </div>
+                    </div>  
+                    )}
+                    
                     </div>
        </section>
        </>

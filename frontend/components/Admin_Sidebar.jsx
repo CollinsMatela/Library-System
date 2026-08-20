@@ -45,7 +45,7 @@ const Admin_SideBar = () => {
           navigate("/");
     }  
     return(
-      <aside className="fixed left-0 top-0 z-0 h-full w-70 bg-stone-50 border-r border-stone-300">
+      <aside className="fixed left-0 top-0 z-0 h-full w-70 bg-stone-100 border-r border-stone-300">
        <div className="justify-start items-center flex gap-2 px-4 py-3 border-b border-stone-300">
         
           <div className="bg-white rounded-full h-8 w-8 flex justify-center items-center">

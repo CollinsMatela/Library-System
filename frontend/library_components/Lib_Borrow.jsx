@@ -16,7 +16,7 @@ const Lib_Borrow = () => {
     const [selectedRequest, setSelectedRequest] = useState(null);
     const [request, setRequest] = useState([]);
 
-    const [isPending, setIsPending] = useState(false);
+    const [isPending, setIsPending] = useState(true);
     const [isApprove, setIsApprove] = useState(false);
     const [isBorrow, setIsBorrow] = useState(false);
     const [isHistory, setIsHistory] = useState(false);
@@ -176,7 +176,7 @@ const Lib_Borrow = () => {
                          <div className="flex flex-col gap-2 w-full">
                             
                                 {isPending && (
-                                    pendingList.map((pending) => (
+                                    pendingList.length > 0 ? (pendingList.map((pending) => (
                                         
                                         <div key={pending._id} className="w-full justify-start items-center flex gap-2 border border-stone-300 p-4 rounded-xl">
                                             <div className="bg-yellow-500 p-2 rounded-lg">
@@ -204,12 +204,19 @@ const Lib_Borrow = () => {
                                             </div>
                 
                                         
-                                    ))
+                                    )
+                                
+                                )) : (
+                                    <div className="bg-stone-200 w-full rounded-xl justify-center items-center flex p-4">
+                                            <h1 className="text-xs text-stone-500">No Pending Request</h1>
+                                    </div>
+                                )
                                     
                                 )}
 
                                 {isApprove && (
-                                    approveList.map((approve) => (
+                                    approveList.length > 0 ? 
+                                    (approveList.map((approve) => (
                                         
                                         <div key={approve._id} className="w-full justify-start items-center flex gap-2 border border-stone-300 p-4 rounded-xl">
                                             <div className="bg-blue-600 p-2 rounded-lg">
@@ -237,12 +244,16 @@ const Lib_Borrow = () => {
                                             </div>
                 
                                         
-                                    ))
+                                    ))) : (
+                                        <div className="bg-stone-200 w-full rounded-xl justify-center items-center flex p-4">
+                                            <h1 className="text-xs text-stone-500">No Approved Request</h1>
+                                        </div>
+                                    )
                                     
                                 )}
 
                                 {isBorrow && (
-                                    borrowedList.map((borrow) => (
+                                    borrowedList.length > 0 ? (borrowedList.map((borrow) => (
                                         
                                         <div key={borrow._id} className="w-full justify-start items-center flex gap-2 border border-stone-300 p-4 rounded-xl">
                                             <div className="bg-orange-600 p-2 rounded-lg">
@@ -269,12 +280,16 @@ const Lib_Borrow = () => {
                                             </div>
                 
                                         
-                                    ))
+                                    ))) : (
+                                         <div className="bg-stone-200 w-full rounded-xl justify-center items-center flex p-4">
+                                            <h1 className="text-xs text-stone-500">No Borrowed Request</h1>
+                                        </div>
+                                    )
                                     
                                 )}
 
                                 {isHistory && (
-                                    historyList.map((history) => (
+                                    historyList.length > 0 ? (historyList.map((history) => (
                                         
                                         <div key={history._id} className="w-full justify-start items-center flex gap-2 border border-stone-300 p-4 rounded-xl">
                                             <div className="bg-green-600 p-2 rounded-lg">
@@ -301,7 +316,11 @@ const Lib_Borrow = () => {
                                             </div>
                 
                                         
-                                    ))
+                                    ))) : (
+                                        <div className="bg-stone-200 w-full rounded-xl justify-center items-center flex p-4">
+                                            <h1 className="text-xs text-stone-500">No Borrowed Request</h1>
+                                        </div>
+                                    )
                                     
                                 )}
 

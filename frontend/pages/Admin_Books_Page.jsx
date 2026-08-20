@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import SearchIcon from '../src/assets/search-svgrepo-com.svg'
 import Admin_Sidebar from '../components/Admin_Sidebar'
-import { MoveRight, Search, LibraryBig, Book } from "lucide-react";
+import { MoveRight, Search, LibraryBig, Book, LoaderCircle } from "lucide-react";
 
 const Admin_Books_Page = () => {
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     
     const [books, setBooks] = useState([]);
     const [search, setSearch] = useState("");
@@ -15,7 +16,18 @@ const Admin_Books_Page = () => {
     const filteredBooks = books.filter((story) => story.title.toLowerCase().includes(search.toLowerCase()));
 
     useEffect(() => {
-       fetchBooks();
+      setIsLoading(true)
+       const loadData = async () => {
+             try {
+               await fetchBooks();
+             } catch (error) {
+              console.log(error);
+              TableRowsSplit.error('Failed to load data');
+             } finally {
+              setIsLoading(false)
+             }
+       }
+       loadData();
     }, [])
 
     const fetchBooks = async () => {
@@ -70,8 +82,15 @@ const Admin_Books_Page = () => {
                         </div>
               </div> 
               
-
-              <div className="bg-white w-full px-10">
+              {isLoading ? 
+              (
+              <div className="w-full justify-center items-center flex p-4">
+                 <LoaderCircle size={20} className="text-stone-500 animate-spin"/>
+              </div>
+              )
+              :
+              (
+                <div className="w-full px-10">
                   {filteredBooks.length === 0 && (
                     <div className="bg-stone-100 w-full rounded-2xl justify-center items-center flex p-4">
                       <h1 className="text-xs text-stone-500">No books uploaded</h1>
@@ -110,17 +129,12 @@ const Admin_Books_Page = () => {
                               
                           </div>
                       </div>
-
-                      {/* <div className="h-full flex items-center justify-center mr-2 p-4">
-                          <h1 className="text-black"><MoveRight size={15}/></h1>
-                      </div> */}
-                      
-
-
                     </div>
                     ))
                   )}
               </div>
+              )}
+              
         </section>
         </>
       )

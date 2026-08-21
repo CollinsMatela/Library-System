@@ -17,6 +17,7 @@ const Lib_BookLayout = ({book, onClose}) => {
 
     const [showText, setShowText] = useState(true);
     const [showImage, setShowImage] = useState(false);
+    const [isEnd, setIsEnd] = useState(false);
 
     const [textSize, setTextSize] = useState('xs');
     const [textAlignment, setTextAlignment] = useState('')
@@ -27,10 +28,12 @@ const Lib_BookLayout = ({book, onClose}) => {
     const nextPage = () => {
         if (pageIndex >= book?.pages.length - 1) {
         toast.info('Reached the last page.')
+        setIsEnd(true);
         return;
     }
           setPageIndex((prev) => prev + 1);
     }
+
     const prevPage = () => {
         if(pageIndex === 0){
             toast.info('Already in the first page.')
@@ -104,6 +107,7 @@ const Lib_BookLayout = ({book, onClose}) => {
                  (
                  <Lib_StoryLayoutBook
                  book={book}
+                 isEnd={isEnd}
                 showText={showText}
                 showImage={showImage}
                 pageIndex={pageIndex}

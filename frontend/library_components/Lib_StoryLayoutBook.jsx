@@ -1,4 +1,4 @@
-import {Book, ArrowLeft, ArrowRight, AudioLines, ImageOff, Eye, VolumeOff, X} from "lucide-react";
+import {Book, ArrowLeft, ArrowRight, AudioLines, ImageOff, Eye, VolumeOff, X, ChevronLeft} from "lucide-react";
 import {
   speak,
   pauseSpeech,
@@ -9,17 +9,19 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import TagalogIntroduction from "../src/assets/audio/Tagalog-Introduction.mp3"
 import EnglishIntroduction from "../src/assets/audio/English-Introduction.mp3"
-const Lib_StoryLayoutBook = ({book, showText, showImage, pageIndex, nextPage, prevPage, onClose}) => {
+import { typeEffect } from "../utils/typeEffect.js";
+const Lib_StoryLayoutBook = ({book, isEnd, showText, showImage, pageIndex, nextPage, prevPage, onClose}) => {
 
     const [isIntroduction, setIsIntroduction] = useState(true);
 
     const hasImage = book?.pages[pageIndex]?.pageImage;
     const hasText = book?.pages[pageIndex]?.pageText;
     const hasAudio = book?.pages[pageIndex]?.pageAudio;
+
+    const summary = book?.moral;
+    const displaySummary = typeEffect(isEnd ? summary : '');
+    const [displayText, setDisplayText] = useState('');
     
-    useEffect(() => {
-        
-    },[isIntroduction])
     
 
 
@@ -30,7 +32,20 @@ const Lib_StoryLayoutBook = ({book, showText, showImage, pageIndex, nextPage, pr
    
         <div className={`h-full w-full justify-center items-center flex`}>
           {/* Text */}
+          {isEnd && (
+            <div className="h-full w-full justify-center items-center flex flex-col">
+              <div className="w-5xl justify-center items-center flex flex-col gap-6">
+                <h1 className="text-lg font-bold text-white">Story Summary</h1>
+                <p className="text-white leading-relaxed">{displaySummary}</p>
+                <button className="text-xs text-white justify-center items-center flex gap-1 cursor-pointer hover:underline"
+                onClick={onClose}
+                ><ChevronLeft size={15}/>Return</button>
+              </div>
+              
+            </div>
+          )}
 
+          {!isEnd && (
             <div className="relative h-full w-full text-lg justify-center items-start flex flex-col bg-gray-50">
               {/* <header className="absolute top-10 right-10 w-full justify-end items-center flex mb-10 gap-2">
               <button className="bg-gray-200 rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => AutoStoryTelling(hasText)}><AudioLines className="text-gray-500"/></button>
@@ -47,13 +62,15 @@ const Lib_StoryLayoutBook = ({book, showText, showImage, pageIndex, nextPage, pr
               </button>
               
               <img src={book.pages[pageIndex].pageImage} className="h-full w-full object-fill" />
-
-              <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/50 via-black/20 to-transparent px-8 py-8 flex flex-col gap-2 justify-center">
+              
+                <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/50 via-black/20 to-transparent px-8 py-8 flex flex-col gap-2 justify-center">
               <p className="w-fit text-xs bg-white px-3 py-1 rounded-lg">{`Page ${pageIndex + 1}.`}</p>
                 <p className="max-w-4xl text-center text-white text-2xl md:text-sm font-medium leading-relaxed drop-shadow-lg">
                     {hasText}
                 </p>
-            </div>
+              </div>
+              
+              
            
            {isIntroduction ? 
            (
@@ -87,6 +104,7 @@ const Lib_StoryLayoutBook = ({book, showText, showImage, pageIndex, nextPage, pr
 
               
             </div>
+            )}
 
 
           {/* Empty state */}

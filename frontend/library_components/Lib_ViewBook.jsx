@@ -152,8 +152,8 @@ const Lib_ViewBook = () => {
     (
        <div className="w-5xl flex gap-4 mt-20">
         {/* Book Cover Container */}
-        <div className="bg-gray-50 w-120 flex flex-col">
-            <img src={bookDetails?.cover} className="bg-gray-100 h-100 object-center shadow-xl mb-5" />
+        <div className="bg-stone-50 w-120 flex flex-col">
+            <img src={bookDetails?.cover} className="bg-stone-100 h-100 object-center shadow-xl mb-5" />
            
             {!isRequestExisting && bookDetails?.copies > 0 && (
                <button className="justify-center items-center flex gap-2 bg-stone-800 border hover:bg-stone-900 transition py-2 w-full cursor-pointer text-white text-xs font-bold" onClick={() => setShowBorrowModal(true)}>
@@ -161,7 +161,7 @@ const Lib_ViewBook = () => {
                </button>
             )}
             {isRequestExisting && (
-                <div className="justify-start items-center flex gap-2 bg-white border border-gray-300 p-2 w-full rounded-lg">
+                <div className="justify-start items-center flex gap-2 bg-white border border-stone-300 p-2 w-full rounded-lg">
                 
                 <div className="p-2 bg-yellow-100 rounded-full text-yellow-500">
                     <Hourglass size={12}/>
@@ -169,7 +169,7 @@ const Lib_ViewBook = () => {
 
                 <div className="flex flex-col">
                    <h1 className="font-semibold text-xs">Your Request</h1>
-                   <h1 className="text-xs text-gray-500">Please keep wait.
+                   <h1 className="text-xs text-stone-500">Please keep wait.
                      <span className="text-blue-600 italic text-xs cursor-pointer hover:underline" onClick={() => navigate("/library/borrow-status")}>view</span>
                    </h1>
                 </div>
@@ -181,17 +181,17 @@ const Lib_ViewBook = () => {
         {/* Book Details Container */}
         <div className=" w-full p-4 justify-start items-start flex flex-col">
 
-            <div className="w-full justify-between items-start flex flex-col border-gray-300 border-b">
+            <div className="w-full justify-between items-start flex flex-col border-stone-300 border-b">
                 <div className="w-full flex flex-col gap-2">
                     <h1 className="text-black text-4xl font-bold italic">{bookDetails?.title || "Book name"}</h1>
-                    <h1 className="text-sm text-gray-500">By: {bookDetails?.author || "—"}</h1>
+                    <h1 className="text-sm text-stone-500">By: {bookDetails?.author || "—"}</h1>
                 </div>
 
                 <div className="w-full flex justify-between items-center gap-3 my-4">
 
                     <div className="flex gap-2">
-                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-xs font-bold rounded-full"><Book size={15}/>{bookDetails?.category}</div>
-                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-xs font-bold rounded-full"><BookOpenText size={15}/>{bookDetails?.pages.length} Pages</div>
+                        <div className="justify-center items-center flex gap-2 bg-stone-200 py-2 px-3 text-xs font-bold rounded-full"><Book size={15}/>{bookDetails?.category}</div>
+                        <div className="justify-center items-center flex gap-2 bg-stone-200 py-2 px-3 text-xs font-bold rounded-full"><BookOpenText size={15}/>{bookDetails?.pages.length} Pages</div>
                         <div
                         className={`justify-center items-center flex gap-2 py-2 px-3 text-xs font-bold rounded-full ${
                             bookDetails?.copies > 0
@@ -215,24 +215,24 @@ const Lib_ViewBook = () => {
 
             </div>
             
-           <div className="mt-6 rounded-2xl bg-white border border-gray-300 p-6 shadow-sm w-full">
+           <div className="mt-6 rounded-2xl bg-white border border-stone-300 p-6 shadow-sm w-full">
             <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-200">
                 <BookOpen size={20} className="text-black" />
                 </div>
 
                 <div>
-                <h2 className="text-lg font-semibold text-gray-900">
+                <h2 className="text-lg font-semibold text-stone-900">
                     Description
                 </h2>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-stone-500">
                     A brief overview of this book.
                 </p>
                 </div>
             </div>
 
-            <div className="mt-5 rounded-xl bg-white p-5 border border-gray-100">
-                <p className="leading-8 text-gray-700 whitespace-pre-line">
+            <div className="mt-5 rounded-xl bg-white p-5 border border-stone-100">
+                <p className="leading-8 text-stone-700 whitespace-pre-line">
                 {bookDetails?.description || "No description available for this book."}
                 </p>
             </div>
@@ -240,48 +240,48 @@ const Lib_ViewBook = () => {
 
             {/**AI Summary */}
             {bookDetails?.type.toLowerCase() === 'fiction' && bookDetails?.category.toLowerCase() === 'story book' && (
-                <div className="mt-6 rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50 to-white p-6 shadow-sm w-full">
+                <div className="mt-6 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm w-full">
                     <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-100">
-                        <Sparkles size={20} className="text-violet-600" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-100">
+                        <Sparkles size={20} className="text-stone-800" />
                     </div>
 
                     <div>
-                        <h2 className="text-lg font-semibold text-gray-900">
+                        <h2 className="text-lg font-semibold text-stone-900">
                         AI Generated Summary
                         </h2>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-stone-500">
                         Generated using AI to provide a concise overview of the story.
                         </p>
                     </div>
                     </div>
 
-                    <div className="mt-5 rounded-xl bg-white p-5 border border-gray-100">
-                    <p className="leading-8 text-gray-700 whitespace-pre-line">
-                        {bookDetails?.summary || "No summary available for this book."}
+                    <div className="mt-5 rounded-xl bg-white p-5 border border-stone-100">
+                    <p className="leading-8 text-stone-700 whitespace-pre-line">
+                        {bookDetails?.moral || "No summary available for this book."}
                     </p>
                     </div>
                 </div>
             )}
 
-           <div className="mt-6 rounded-2xl bg-white border border-gray-300 p-6 shadow-sm w-full">
+           <div className="mt-6 rounded-2xl bg-white border border-stone-300 p-6 shadow-sm w-full">
 
             <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-200">
                 <BookOpen size={20} className="text-black" />
                 </div>
 
                 <div>
-                <h2 className="text-lg font-semibold text-gray-900">
+                <h2 className="text-lg font-semibold text-stone-900">
                     Book Details
                 </h2>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-stone-500">
                     Information and details about this book.
                 </p>
                 </div>
             </div>
 
-            <div className="mt-5 rounded-xl bg-white p-5 border border-gray-100">
+            <div className="mt-5 rounded-xl bg-white p-5 border border-stone-100">
                 {informations
                 .filter(
                     (info) =>
@@ -293,13 +293,13 @@ const Lib_ViewBook = () => {
                 .map((info, index) => (
                     <div
                     key={index}
-                    className="w-full border-b border-gray-200 last:border-b-0 flex justify-between items-center py-3"
+                    className="w-full border-b border-stone-200 last:border-b-0 flex justify-between items-center py-3"
                     >
-                    <h1 className="text-xs font-bold text-gray-500">
+                    <h1 className="text-xs font-bold text-stone-500">
                         {info.label}
                     </h1>
 
-                    <h1 className="text-sm text-gray-800 text-right">
+                    <h1 className="text-sm text-stone-800 text-right">
                         {info.value}
                     </h1>
                     </div>

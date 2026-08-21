@@ -4,9 +4,10 @@ import axios from 'axios';
 import Edit_Question_Modal from "../modals/Edit_Question_Modal";
 import AdminSidebar from '../components/Admin_Sidebar';
 import Book_Edit from "./BookInformation_Component/Book_Edit";
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Sparkles } from "lucide-react";
 import { toast } from "react-toastify";
 import ConfirmationPopup from "../popup/Confirmation_Popup"
+
 const Admin_ViewMaterials_Page = () => {
   const { id } = useParams();
   const [bookDetails, setBookDetails] = useState(null);
@@ -15,6 +16,28 @@ const Admin_ViewMaterials_Page = () => {
 
   const [isConfirmation, setIsConfirmation] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [moral, setMoral] = useState('');
+
+  const AISummarization = async () => {
+            const texts = bookDetails.pages.map((p) => p.pageText);
+  
+            const bookData = {
+              bookId: bookDetails._id,
+              title: bookDetails.title,
+              language: bookDetails.language,
+              texts: texts
+            }
+  
+            try {
+              const res = await axios.post(`${import.meta.env.VITE_API_URL}/ai-summarization`, bookData)
+              setMoral(res.data.summary)
+              toast.success(res.data.message);
+              fetchBookById();
+            } catch (error) {
+              console.log(error);
+              toast.error(error?.response?.data?.message);
+            }
+      }
 
   const informations = [
     // Basic Information
@@ -97,43 +120,38 @@ const Admin_ViewMaterials_Page = () => {
     message={'Are you sure to delete this book?'}
     onConfirm={() => deleteBook(bookDetails._id)} 
     onCancel={() => setIsConfirmation(false)}/>)}
-    <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-80 pr-10 pt-10 gap-10">
-    
-    <div className="w-full justify-between items-start flex">
-            <div>
-              <h2 className="text-lg font-bold text-gray-800">Book Information</h2>
-               <p className="text-gray-400 text-xs">Oversee the book information of {bookDetails?.title || "the selected book"}.</p>
-            </div>
-            <button className="bg-gray-200 py-2 px-4 rounded-xl hover:bg-gray-300 cursor-pointer" onClick={() => navigate(-1)}>
-              <ArrowLeft size={15}/>
-            </button>
-    </div>
+    <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-70">
+              
+    <header className="w-full justify-between items-start flex flex-col border-b border-stone-300 p-3 px-10">
+        <h1 className="text-sm font-bold text-stone-800">Book Information</h1>
+        <h1 className="text-stone-400 text-xs">Manage the selected book</h1>                   
+    </header>
 
-    <div className="w-full flex gap-4">
+    <div className="w-full flex gap-4 p-10">
         {/* Book Cover Container */}
         <div className="bg-white w-120 flex flex-col gap-4">
-            <img src={bookDetails?.cover} className="bg-gray-100 h-100 object-cover shadow-xl mb-5" />
+            <img src={bookDetails?.cover} className="bg-stone-100 h-100 object-cover shadow-xl mb-5" />
 
         </div>
         
         {/* Book Details Container */}
-        <div className=" w-full p-4 justify-start items-start flex flex-col gap-5">
+        <div className=" w-full justify-start items-start flex flex-col gap-5">
 
-            <div className="w-full justify-between items-start flex flex-col border-gray-300 border-b">
+            <div className="w-full justify-between items-start flex flex-col border-stone-300 border-b">
                 <div className="w-full flex flex-col gap-2">
-                    <h1 className="text-gray-800 text-xl font-bold italic">{bookDetails?.title || "Book name"}</h1>
-                    <h1 className="text-xs text-gray-500">By: {bookDetails?.author || "—"}</h1>
+                    <h1 className="text-stone-800 text-xl font-bold italic">{bookDetails?.title || "Book name"}</h1>
+                    <h1 className="text-xs text-stone-500">By: {bookDetails?.author || "—"}</h1>
                 </div>
 
                 <div className="w-full flex justify-between items-center gap-3 my-4">
 
                     <div className="flex gap-2">
-                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-xs font-bold rounded-full"><Book size={15}/>{bookDetails?.category}</div>
-                        <div className="justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-xs font-bold rounded-full"><BookOpenText size={15}/>{bookDetails?.pages.length} Pages</div>
+                        <div className="justify-center items-center flex gap-2 bg-stone-200 py-2 px-3 text-xs font-bold rounded-full"><Book size={15}/>{bookDetails?.category}</div>
+                        <div className="justify-center items-center flex gap-2 bg-stone-200 py-2 px-3 text-xs font-bold rounded-full"><BookOpenText size={15}/>{bookDetails?.pages.length} Pages</div>
                     </div>
 
                     <div className="flex gap-2">
-                        <button className="justify-center items-center flex gap-2 bg-red-600 py-2 px-3 text-xs text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+                        <button className="justify-center items-center flex gap-2 bg-red-600 py-2 px-3 text-xs text-white font-bold hover:-translate-y-1 cursor-pointer"
                         onClick={handleDeleteConfirmation}>
                             <Trash size={15}/> Remove
                         </button>
@@ -142,13 +160,25 @@ const Admin_ViewMaterials_Page = () => {
 
             </div>
 
-           <div className="w-full py-4 rounded-xl">
-                 <h1 className="text-gray-500 text-xs font-md">{bookDetails?.description || "No Description"}</h1>
+           <div className="w-full py-4 rounded-xl flex flex-col gap-2">
+            <div className="flex flex-col gap-2">
+                <h1 className="text-sm text-stone-800 font-bold">Description</h1>
+                <h1 className="text-stone-500 text-xs font-md">{bookDetails?.description || "No description"}</h1>
+            </div>
+
+            <div className="flex flex-col gap-2">
+                <div className="justify-between items-center flex">
+                  <h1 className="text-sm text-stone-800 font-bold">AI Summarization</h1>
+                </div>
+                
+                <h1 className="text-stone-500 text-xs font-md">{bookDetails?.moral || "No summarized story yet"}</h1>
+            </div>
+                 
            </div>
            
 
            <div className="w-full flex flex-col gap-2">
-
+            <h1 className="text-sm text-stone-800 font-bold">Book Details</h1>
             {informations.filter(info =>
                 info.value !== null &&
                 info.value !== undefined &&
@@ -156,9 +186,9 @@ const Admin_ViewMaterials_Page = () => {
                 info.value !== "—"
             ).map((info, index) => (
                 <div key={index}
-                className="w-full border-b border-gray-300 justify-between items-center flex p-2">
-                <h1 className="text-xs font-md text-gray-500">{info.label}</h1>
-                <h1 className="text-xs font-bold uppercase">{info.value}</h1>
+                className="w-full border-b border-stone-300 justify-between items-center flex py-1">
+                <h1 className="text-xs text-stone-500">{info.label}</h1>
+                <h1 className="text-xs">{info.value}</h1>
                 </div>
             ))}
 

@@ -37,7 +37,7 @@ const Book_Edit = ({bookDetails, fetchBookById}) => {
     const [isbn, setIsbn] = useState(bookDetails?.isbn || "");
 
     const [illustrator, setIllustrator] = useState(bookDetails?.illustrator || "");
-    const [moral, setMoral] = useState(bookDetails?.moral || "");
+    const [moral, setMoral] = useState(bookDetails?.moral || "No summary yet");
 
     //Fiction Series
     const [fictionSeries, setFictionSeries] = useState(bookDetails?.fictionSeries || "");
@@ -168,24 +168,25 @@ useEffect(() => {
     }, [bookDetails]);
 
     const AISummarization = async () => {
-
-          const texts = pages.map((p) => p.pageText);
-
-          const bookData = {
-            title: title,
-            language: language,
-            texts: texts
-          }
-
-          try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/ai-summarization`, bookData)
-            setMoral(res.data.summary);
-            toast.success(res.data.message);
-          } catch (error) {
-            console.log(error);
-            toast.error(error?.response?.data?.message);
-          }
-    }
+            const texts = bookDetails.pages.map((p) => p.pageText);
+  
+            const bookData = {
+              bookId: bookDetails._id,
+              title: bookDetails.title,
+              language: bookDetails.language,
+              texts: texts
+            }
+  
+            try {
+              const res = await axios.post(`${import.meta.env.VITE_API_URL}/ai-summarization`, bookData)
+              setMoral(res.data.summary)
+              toast.success(res.data.message);
+              fetchBookById();
+            } catch (error) {
+              console.log(error);
+              toast.error(error?.response?.data?.message);
+            }
+      }
 
     const uploadToCloudinary = async (file, resourceType = "image") => {
                 if (!file) return "";
@@ -619,22 +620,22 @@ switch (bookDetails?.category?.toLowerCase()) {
         onCancel={() => setIsBookPageUpdate(false)}
         />)}
 
-        <div className="w-full border-t-1 border-gray-300 pt-10 flex flex-col">
+        <div className="w-full border-t-1 border-stone-300 pt-10 flex flex-col px-10">
             
             <div className="flex items-center justify-start gap-2">
-                          <div className="bg-black p-2 rounded-xl">
+                          <div className="bg-stone-800 p-2">
                                <PenBox size={20} color="white"/>
                           </div>
                           <div>
-                                <h2 className="text-md font-bold text-gray-800">Edit Book</h2>
-                                <p className="text-xs text-gray-500">Manage the changing and updating book information.</p>
+                                <h2 className="text-md font-bold text-stone-800">Edit Book</h2>
+                                <p className="text-xs text-stone-500">Manage the changing and updating book information.</p>
                           </div>
                       </div>
             
             <div className="w-full grid grid-cols-3 gap-4 mt-10">
                     {fields.map((field) => (
                 <div key={field.label} className="flex flex-col gap-1">
-                    <label className="text-xs text-gray-500">
+                    <label className="text-xs text-stone-500">
                         {field.label}
                     </label>
 
@@ -642,7 +643,7 @@ switch (bookDetails?.category?.toLowerCase()) {
                         <select
                             value={field.value}
                             onChange={(e) => field.set(e.target.value)}
-                            className='w-full p-2 text-xs bg-white bg-white border border-gray-300 rounded-xl outline-none'
+                            className='w-full p-2 text-xs bg-white bg-white border border-stone-300 rounded-xl outline-none'
                         >
                             <option value="">
                                 {field.placeholder}
@@ -660,7 +661,7 @@ switch (bookDetails?.category?.toLowerCase()) {
                             value={field.value}
                             placeholder={field.placeholder}
                             onChange={(e) => field.set(e.target.value)}
-                            className='w-full p-2 text-xs bg-white border border-gray-300 rounded-xl outline-none'
+                            className='w-full p-2 text-xs bg-white border border-stone-300 rounded-xl outline-none'
                         />
                     )}
                 </div>
@@ -668,74 +669,74 @@ switch (bookDetails?.category?.toLowerCase()) {
                 </div>
 
             <div className="w-full mt-4 flex flex-col gap-1">
-                <label className="text-xs text-gray-500">Description</label>
-                    <textarea className="w-full border border-gray-300 outline-none p-2 text-xs rounded-xl"
+                <label className="text-xs text-stone-500">Description</label>
+                    <textarea className="w-full h-30 border border-stone-300 outline-none p-2 text-xs rounded-xl"
                 placeholder="Enter book description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 ></textarea>   
             </div>
 
-            {moral && (
-            <div className="mt-6 rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50 to-white p-6 shadow-sm">
-                <div className="flex justify-between items-center gap-3">
+            {category.toLowerCase() === 'story book' && (
+            <div className="mt-6 rounded-2xl border border-violet-200 bg-white">
+                <div className="flex justify-between items-start gap-2 p-4 border-b border-stone-300">
                     <div className="justify-center items-center flex gap-2">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-100">
-                        <Sparkles size={15} className="text-violet-600" />
-                        </div>
 
                         <div>
-                            <h2 className="text-lg font-semibold text-gray-900">
-                            AI Generated Summary
+                            <h2 className="text-sm font-semibold text-stone-900">
+                            Generate Summary
                             </h2>
-                            <p className="text-xs text-gray-500">
-                            Generated using AI to provide a moral and concise overview of the story.
+                            <p className="text-xs text-stone-500">
+                            An AI feature that automatic generate summary of the story
                             </p>
                         </div>
                     </div>
-                
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-600 cursor-pointer hover:-translate-y-1"
-                     onClick={AISummarization}>
-                    <Repeat size={15} className="text-white" />
-                </div>
+    
                 </div>
 
-                <div className="mt-5 rounded-xl bg-white p-5 border border-gray-100">
-                <p className="leading-8 text-xs text-gray-700 whitespace-pre-line">
-                    {moral}
+                <div className="p-4 border border-stone-100">
+                <p className="leading-8 text-xs text-stone-700 whitespace-pre-line">
+                    {moral || "Not yet generated summary."}
                 </p>
+                </div>
+
+                <div className="w-full justify-end items-center flex p-4 border-t border-stone-300">
+                    <button className="bg-stone-800 cursor-pointer hover:bg-stone-900 p-2 justify-center items-center flex gap-1" onClick={() => AISummarization()}>
+                        <Sparkles size={15} className="text-white" /> <h1 className="text-xs text-white">Generate</h1>
+                    </button>
+                    
                 </div>
             </div>
             )}
 
             {/* // Save Button */}
-            <div className="w-full justify-end items-center flex mt-10">
-            <button className="justify-center items-center flex gap-2 bg-green-600 p-2 text-xs text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+            <div className="w-full justify-end items-center flex mt-4">
+            <button className="justify-center items-center flex gap-2 bg-green-600 p-2 text-xs text-white font-bold hover:-translate-y-1 cursor-pointer"
             onClick={UpdateInformationConfirmation}
             >
                 <Pen size={15}/> Save Information 
             </button>
             </div>
             
-            <div className="flex flex-col w-full gap-2 border-t-1 border-gray-300 mt-10 py-10">
+            <div className="flex flex-col w-full gap-2 border-t-1 border-stone-300 mt-10 py-10">
 
             <div className="flex justify-between items-start gap-3 mb-5">
                 <div className="justify-center items-center flex gap-2">
-                    <div className="bg-black p-2 rounded-xl">
+                    <div className="bg-stone-800 p-2">
                         <FileText size={20} className="text-white" />
                     </div>
 
                     <div>
-                        <h2 className="text-md font-bold text-black">
+                        <h2 className="text-md font-bold text-stone-800">
                             Edit Page 
                         </h2>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-stone-500">
                           Manage to edit and update the book page information.
                         </p>
                     </div>
                 </div>
 
-                    <select className='w-fit p-2 text-xs bg-white border border-gray-300 rounded-xl outline-none'
+                    <select className='w-fit p-2 text-xs bg-white border border-stone-300 rounded-xl outline-none'
                         onChange={(e) => setSelectedPageIndex(parseInt(e.target.value))}
                     >
                         <option value="">Select Page No.</option>
@@ -757,25 +758,25 @@ switch (bookDetails?.category?.toLowerCase()) {
                 {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
                 <div className="w-full flex flex-col gap-4">
 
-                <div className="w-full bg-white border border-gray-300 rounded-xl p-4">
+                <div className="w-full bg-white border border-stone-300 rounded-xl p-4">
 
                 <div className="flex items-center gap-3 mb-5">
-                    <div className="bg-gray-200 p-2 rounded-xl">
-                        <FileText size={20} className="text-gray-700" />
+                    <div className="bg-stone-200 p-2 rounded-xl">
+                        <FileText size={20} className="text-stone-700" />
                     </div>
 
                     <div>
-                        <h2 className="text-md font-bold text-gray-800">
+                        <h2 className="text-md font-bold text-stone-800">
                             Page Text
                         </h2>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-stone-500">
                             Edit the narration or story content for this page.
                         </p>
                     </div>
                 </div>
 
                 <textarea
-                    className="w-full min-h-[400px] resize-none rounded-xl border border-gray-300 bg-gray-50 p-4 text-sm text-gray-700 leading-7 outline-none transition-all duration-200 focus:border-green-500 focus:ring-2 focus:ring-green-200"
+                    className="w-full min-h-[400px] resize-none rounded-xl border border-stone-300 bg-stone-50 p-4 text-sm text-stone-700 leading-7 outline-none transition-all duration-200 focus:border-green-500 focus:ring-2 focus:ring-green-200"
                     placeholder="Enter the page text..."
                     value={pages[selectedPageIndex]?.pageText || ""}
                     onChange={(e) => {
@@ -786,11 +787,11 @@ switch (bookDetails?.category?.toLowerCase()) {
                 />
 
                 <div className="flex justify-between items-center mt-3">
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-stone-400">
                         Write the content that will appear on this page.
                     </span>
 
-                    <span className="text-xs font-medium text-gray-500">
+                    <span className="text-xs font-medium text-stone-500">
                         {pages[selectedPageIndex]?.pageText?.length || 0} characters
                     </span>
                 </div>
@@ -798,19 +799,19 @@ switch (bookDetails?.category?.toLowerCase()) {
             </div>
                     
                     {/**Image Preview */}
-                    <div className="w-full bg-white border border-gray-300 rounded-xl p-4">
+                    <div className="w-full bg-white border border-stone-300 rounded-xl p-4">
 
                         <div className="flex justify-between items-start gap-3 mb-5">
                             <div className="justify-center items-center flex gap-2">
-                                    <div className="bg-gray-200 p-2 rounded-xl">
-                                    <Image size={20} className="text-gray-700" />
+                                    <div className="bg-stone-200 p-2 rounded-xl">
+                                    <Image size={20} className="text-stone-700" />
                                     </div>
 
                                     <div>
-                                        <h2 className="text-md font-bold text-gray-800">
+                                        <h2 className="text-md font-bold text-stone-800">
                                             Page Image
                                         </h2>
-                                        <p className="text-xs text-gray-500">
+                                        <p className="text-xs text-stone-500">
                                             Update the image displayed on this page.
                                         </p>
                                     </div>
@@ -818,7 +819,7 @@ switch (bookDetails?.category?.toLowerCase()) {
                             
                             {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
                             <div className="flex flex-col gap-1">
-                                <button className='w-fit justify-center items-center flex gap-2 p-2 text-xs bg-black text-white cursor-pointer rounded-xl outline-none hover:-translate-y-1'
+                                <button className='w-fit justify-center items-center flex gap-2 p-2 text-xs bg-stone text-white cursor-pointer rounded-xl outline-none hover:-translate-y-1'
                                 onClick={() => imageRef.current.click()}
                                 >
                                 <input
@@ -843,18 +844,18 @@ switch (bookDetails?.category?.toLowerCase()) {
                                                 : pages[selectedPageIndex].pageImage
                                     }
                                     alt="Page Preview"
-                                    className="w-full max-h-80 object-contain rounded-lg border border-gray-200 bg-gray-50"
+                                    className="w-full max-h-80 object-contain rounded-lg border border-stone-200 bg-stone-50"
                                 />
                             </div>
                         ) : (
-                            <div className="w-full h-72 border-2 border-dashed border-gray-300 rounded-xl bg-gray-50 flex flex-col justify-center items-center">
-                                <Image size={20} className="text-gray-400 mb-3" />
+                            <div className="w-full h-72 border-2 border-dashed border-stone-300 rounded-xl bg-stone-50 flex flex-col justify-center items-center">
+                                <Image size={20} className="text-stone-400 mb-3" />
 
-                                <h3 className="font-semibold text-gray-700 text-sm">
+                                <h3 className="font-semibold text-stone-700 text-sm">
                                     No Image Uploaded
                                 </h3>
 
-                                <p className="text-xs text-gray-500 text-center mt-1">
+                                <p className="text-xs text-stone-500 text-center mt-1">
                                     Upload an image to preview it here.
                                 </p>
                             </div>
@@ -864,23 +865,23 @@ switch (bookDetails?.category?.toLowerCase()) {
 
                     {/**Audio Preview */}
                         {type.toLowerCase() === 'fiction' && category.toLowerCase() === 'story book' && (
-                            <div className="w-full justify-start items-start flex flex-col p-4 bg-white border border-gray-300 rounded-xl mb-2">
+                            <div className="w-full justify-start items-start flex flex-col p-4 bg-white border border-stone-300 rounded-xl mb-2">
                                 <div className="flex justify-between items-start gap-2 mb-5 w-full">
                                         
                                         <div className="justify-center items-center flex gap-2">
-                                            <div className="bg-gray-200 p-2 rounded-xl">
-                                                <FilePlay size={20} className="text-gray-700"/>
+                                            <div className="bg-stone-200 p-2 rounded-xl">
+                                                <FilePlay size={20} className="text-stone-700"/>
                                             </div>
                                             <div>
-                                                    <h2 className="text-md font-bold text-gray-800">Narration Audio</h2>
-                                                    <p className="text-xs text-gray-500">Update the audio narration of this page.</p>
+                                                    <h2 className="text-md font-bold text-stone-800">Narration Audio</h2>
+                                                    <p className="text-xs text-stone-500">Update the audio narration of this page.</p>
                                             </div>
                                         </div>
                                         
 
                                         {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < pages.length && (
                                         <div className="flex flex-col gap-1">
-                                            <button className='w-fit justify-center items-center flex gap-2 p-2 text-xs bg-black text-white cursor-pointer rounded-xl outline-none hover:-translate-y-1'
+                                            <button className='w-fit justify-center items-center flex gap-2 p-2 text-xs bg-stone text-white cursor-pointer rounded-xl outline-none hover:-translate-y-1'
                                             onClick={() => audioRef.current.click()}
                                             >
                                             <input
@@ -908,16 +909,16 @@ switch (bookDetails?.category?.toLowerCase()) {
                                         }
                                     />
                                     :
-                                    <div className="w-full rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 p-6 flex flex-col items-center justify-center text-center">
-                                        <div className="p-3 rounded-full bg-gray-200 mb-3">
-                                            <FilePlay size={20} className="text-gray-500" />
+                                    <div className="w-full rounded-xl border-2 border-dashed border-stone-300 bg-stone-50 p-6 flex flex-col items-center justify-center text-center">
+                                        <div className="p-3 rounded-full bg-stone-200 mb-3">
+                                            <FilePlay size={20} className="text-stone-500" />
                                         </div>
 
-                                        <h2 className="text-gray-700 text-sm font-semibold">
+                                        <h2 className="text-stone-700 text-sm font-semibold">
                                             No Narration Audio
                                         </h2>
 
-                                        <p className="text-xs text-gray-500 mt-1">
+                                        <p className="text-xs text-stone-500 mt-1">
                                             Upload an audio narration to preview it here.
                                         </p>
                                     </div>
@@ -930,7 +931,7 @@ switch (bookDetails?.category?.toLowerCase()) {
                         )}
 
                     <div className="w-full justify-end items-center flex">
-                    <button className="justify-center items-center flex gap-2 bg-green-600 py-2 px-3 text-xs text-white font-bold rounded-lg hover:-translate-y-1 cursor-pointer"
+                    <button className="justify-center items-center flex gap-2 bg-green-600 py-2 px-3 text-xs text-white font-bold hover:-translate-y-1 cursor-pointer"
                     onClick={UpdatePageConformation}
                     >
                         <Pen size={15}/> Save Page No. {selectedPageIndex + 1}

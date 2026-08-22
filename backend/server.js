@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { connectCloudinary } from "./config/cloudinary.js";
-connectCloudinary(); // 👈 IMPORTANT: run AFTER dotenv
+connectCloudinary(); 
 
 import express from 'express';
 import cors from 'cors';
@@ -55,7 +55,7 @@ const app = express();
 app.set("trust proxy", 1);
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: process.env.LOCAL_URL,
   credentials: true
 }));
 
@@ -138,10 +138,10 @@ app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
 
-// const PORT = 5000
+const PORT = 5000
 
-// app.listen(PORT, () => {
-//     console.log(`Server is running on port ${PORT}`);
-// });
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 
 export default app;

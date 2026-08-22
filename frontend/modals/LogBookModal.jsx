@@ -10,9 +10,9 @@ const LogBookModal = ({logBook, setLogBook, confirmation, onClose}) => {
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden px-4 flex flex-col gap-2">
 
             {/* Header */}
-            <div className="py-6">
-                <h1 className="text-2xl font-bold text-gray-900"> Register Visitor</h1>
-                <p className="text-sm text-gray-500 mt-1">Please review the selected book before submitting your borrow request.</p>
+            <div className="px-4">
+                <h1 className="text-lg font-bold text-gray-900"> Register Visitor</h1>
+                <p className="text-xs text-gray-500 mt-1">Please review the selected book before submitting your borrow request.</p>
             </div>
 
             <div className="flex flex-col gap-2">

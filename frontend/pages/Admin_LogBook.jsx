@@ -142,23 +142,26 @@ const Admin_LogBook = () => {
                             </div>
                             
                             <div>
-                                <button className="bg-stone-800 py-2 px-2 text-white text-xs cursor-pointer hover:-translate-y-1 justify-center items-center flex gap-2"
+                                <button className="bg-stone-800 p-2 text-white text-xs cursor-pointer hover:-translate-y-1 justify-center items-center flex gap-2"
                                 onClick={() => setShowLogBook(true)}
                                 ><Plus size={15}/> Add Visitor
                                 </button> 
                             </div>
                 </div>
+                
+                <div className="w-full border border-stone-300 rounded-xl p-2">
 
-                <div className="grid grid-cols-9 w-full bg-stone-900 rounded-xl px-4 py-3 mb-2">
-                            <h1 className="text-xs text-white">No.</h1>
-                            <h1 className="text-xs text-white">Name</h1>
-                            <h1 className="text-xs text-white">Address</h1>
-                            <h1 className="text-xs text-white">Contact</h1>
-                            <h1 className="text-xs text-white">Purpose</h1>
-                            <h1 className="text-xs text-white">Date</h1>
-                            <h1 className="text-xs text-white">Time In</h1>
-                            <h1 className="text-xs text-white">Time Out</h1>
-                            <h1 className="text-xs text-white">Action</h1>
+                
+                <div className="grid grid-cols-9 w-full bg-stone-100 rounded-t-xl px-4 py-3 mb-2">
+                            <h1 className="text-xs text-stone-500">No.</h1>
+                            <h1 className="text-xs text-stone-500">Name</h1>
+                            <h1 className="text-xs text-stone-500">Address</h1>
+                            <h1 className="text-xs text-stone-500">Contact</h1>
+                            <h1 className="text-xs text-stone-500">Purpose</h1>
+                            <h1 className="text-xs text-stone-500">Date</h1>
+                            <h1 className="text-xs text-stone-500">Time In</h1>
+                            <h1 className="text-xs text-stone-500">Time Out</h1>
+                            <h1 className="text-xs text-stone-500">Action</h1>
                 </div>
                 
                 {isLoading ? 
@@ -178,7 +181,7 @@ const Admin_LogBook = () => {
                 orderedLogBookList.map((log, index) => (
                     <div
                     key={log._id}
-                    className="w-full bg-white border border-stone-300 justify-between items-start flex rounded-xl p-4 mb-2"
+                    className={`w-full bg-white justify-between items-start flex p-2 mb-1 border-b border-b-stone-300 border-l-2 ${log.leaveTime ? "border-l-blue-500" : "border-l-yellow-500"}`}
                     >
                         <div className="grid grid-cols-9 w-full">
                             <h1 className="text-xs text-stone-500 justify-start items-center flex"><span>{index + 1}</span></h1>
@@ -191,9 +194,15 @@ const Admin_LogBook = () => {
                             <h1 className="text-xs text-stone-500 justify-start items-center flex">{log.leaveTime
                                                                                                     ? new Date(log.leaveTime).toLocaleTimeString()
                                                                                                     : "—"}</h1>
-                            {!log.leaveTime && (
-                                <button className="bg-blue-600 w-fit text-white p-2 rounded-xl cursor-pointer hover:-translate-y-1 hover:bg-blue-700" onClick={() => LeaveConfirmation(log)}><Check size={15}/></button>
-                            )}
+                            <div className="w-full">
+                             <button 
+                            disabled={log.leaveTime}
+                            className={`${!log.leaveTime ? "bg-stone-800 hover:bg-stone-900 cursor-pointer" : "bg-stone-200 cursor-not-allowed"} text-white w-fit justify-center items-center flex p-2 rounded-lg`} 
+                            onClick={() => LeaveConfirmation(log)}><Check size={15}/>
+                            </button>   
+                            </div>
+                            
+
                             
                         </div>
                     </div>
@@ -201,6 +210,7 @@ const Admin_LogBook = () => {
                 }
                     </>
                 )}
+                </div>
                 
             </div>
 

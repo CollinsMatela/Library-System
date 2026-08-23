@@ -105,14 +105,14 @@ const Admin_Student_Page = () => {
                               <Users size={20}/>
                             </div>
                             <div>
-                                <h1 className="text-md font-bold text-gray-800 rounded-full">Users Table</h1>
-                                <p className="text-gray-400 text-xs">Manage student accounts, progress, and information.</p>
+                                <h1 className="text-md font-bold text-stone-800 rounded-full">Users Table</h1>
+                                <p className="text-stone-400 text-xs">Manage student accounts, progress, and information.</p>
                             </div>
                           
                         </div>
                         
 
-                        <div className="justify-between items-center flex border-1 border-gray-300 rounded-lg px-4">
+                        <div className="justify-between items-center flex border-1 border-stone-300 rounded-lg px-4">
                             
                             <input type="search" 
                                    placeholder="Search by name" 
@@ -120,20 +120,21 @@ const Admin_Student_Page = () => {
                                    value={search}
                                    onChange={(e) => setSearch(e.target.value)}
                             />
-                            <Search size={15} className="text-gray-500"/>
+                            <Search size={15} className="text-stone-500"/>
                              
                         </div>
-                    </div>   
+                    </div>
+
+                    <div className="w-full border border-stone-300 rounded-xl p-2">
+
+                    
                       {/* Columns */}
-                        <div className="bg-stone-900 w-full rounded-xl grid grid-cols-7 justify-between items-center flex px-4 py-3">
+                        <div className=" rounded-t-xl w-full bg-stone-100 grid grid-cols-4 justify-between items-center flex px-4 py-3">
         
-                                <h1 className="text-xs text-white mr-14">No.</h1>
-                                <h1 className="text-xs text-white">Lastname</h1>
-                                <h1 className="text-xs text-white">Firstname</h1>
-                                <h1 className="text-xs text-white">Middle</h1>
-                                <h1 className="text-xs text-white">Email</h1>
-                                <h1 className="text-xs text-white">Contact</h1>
-                                <h1 className="text-xs text-white">Actions</h1>
+                                <h1 className="text-xs text-stone-500">Fullname</h1>
+                                <h1 className="text-xs text-stone-500">Email</h1>
+                                <h1 className="text-xs text-stone-500">Contact</h1>
+                                <h1 className="text-xs text-stone-500">Actions</h1>
                             
                         </div>
 
@@ -149,8 +150,8 @@ const Admin_Student_Page = () => {
                         
                         {/* Rows */}
                         {filteredUser.length < 1 && (
-                            <div className="bg-gray-100 h-15 w-full rounded-xl justify-center items-center flex px-4 py-2 mt-2">
-                                <p className="text-xs text-gray-500">No students found.</p>
+                            <div className="bg-stone-100 h-15 w-full justify-center items-center flex px-4 py-2">
+                                <p className="text-xs text-stone-500">No students found.</p>
                             </div>
                         )}
                         {
@@ -159,19 +160,28 @@ const Admin_Student_Page = () => {
                                 const updatedCreatedAt = new Date(user.createdAt).toISOString().split("T")[0];;
                                 
                                 return (
-                                <div key={user._id} className="bg-white min-h-12 w-full rounded-xl border-1 border-gray-300 grid grid-cols-7 justify-start items-center px-4 py-2 mt-2 hover:border-blue-500 hover:bg-blue-100 cursor-pointer">
-                                    <h1 className="text-xs text-gray-500 justify-start items-center wrap-break-word">{index + 1}</h1>
-                                    <h1 className="text-xs text-gray-500 justify-start items-center wrap-break-word">{user.lastname}</h1>
-                                    <h1 className="text-xs text-gray-500 justify-start items-center wrap-break-word">{user.firstname}</h1>
-                                    <h1 className="text-xs text-gray-500 justify-start items-center wrap-break-word">{user.middlename}</h1>
-                                    <h1 className="text-xs text-gray-500 justify-start items-center wrap-break-word">{user.email}</h1>
-                                    <h1 className="text-xs text-gray-500 justify-start items-center wrap-break-word">{user.contact}</h1>
+                                <div key={user._id} className="bg-white min-h-12 w-ful border-b border-stone-300 grid grid-cols-4 justify-start items-center px-4 py-2 hover:border-blue-500 hover:bg-blue-100 cursor-pointer">
+                                    <div className="w-full justify-start items-center flex gap-1 border-amber-200">
+                                        <h1 className="text-xs text-stone-500 justify-start items-center wrap-break-word">{index + 1}</h1>
+                                        {user.avatar ? (
+                                            <img src={user.avatar} alt="" className="h-8 w-8 rounded-full object-cover"/>
+                                        )
+                                        :
+                                        (
+                                            <div className="h-8 w-8 rounded-full bg-blue-500 justify-center items-center flex text-white">{user.firstname.slice(0,1).toUpperCase()}</div>
+                                        )}
+                                        <h1 className="text-xs text-stone-500 justify-start items-center wrap-break-word">{user.firstname} {user.middlename} {user.lastname}</h1>
+                                    </div>
+                                    
+                                    
+                                    <h1 className="text-xs text-stone-500 justify-start items-center wrap-break-word">{user.email}</h1>
+                                    <h1 className="text-xs text-stone-500 justify-start items-center wrap-break-word">{user.contact}</h1>
 
                                     
-                                    <div className="break-words gap-2 flex">
-                                        <button className="bg-blue-500 text-white justify-center items-center flex p-2 rounded-lg cursor-pointer hover:bg-blue-600" onClick={() => handleViewStudent(user)}><View size={15}/></button>
-                                        <button className="bg-amber-500 text-white justify-center items-center flex p-2 rounded-lg cursor-pointer hover:bg-amber-600" onClick={() => handleEditStudent(user)}><UserPen size={15}/></button>
-                                        <button className="bg-red-500 text-white justify-center items-center flex p-2 rounded-lg cursor-pointer hover:bg-red-600" onClick={() => deleteConfirmation(user)}><Trash size={15}/></button>
+                                    <div className="break-words gap-2 justify-start flex">
+                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 rounded-lg cursor-pointer hover:bg-stone-900" onClick={() => handleViewStudent(user)}><View size={15}/></button>
+                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 rounded-lg cursor-pointer hover:bg-stone-900" onClick={() => handleEditStudent(user)}><UserPen size={15}/></button>
+                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 rounded-lg cursor-pointer hover:bg-stone-900" onClick={() => deleteConfirmation(user)}><Trash size={15}/></button>
                                         
                                     </div>
                                 </div>
@@ -180,6 +190,7 @@ const Admin_Student_Page = () => {
                               }
                     </div>  
                     )}
+                    </div>
                     
                     </div>
        </section>

@@ -45,63 +45,63 @@ const Admin_SideBar = () => {
           navigate("/");
     }  
     return(
-      <aside className="fixed left-0 top-0 z-0 h-full w-70 bg-white border-r border-stone-300">
-       <div className="justify-start items-center flex gap-2 px-4 py-3 border-b border-stone-300">
+      <aside className="fixed left-0 top-0 z-0 h-full w-20 md:w-60 bg-white border-r border-stone-300">
+       <div className="justify-center md:justify-start items-center flex gap-2 p-3 border-b border-stone-300">
         
           <div className="bg-white rounded-full h-8 w-8 flex justify-center items-center">
               <img src={NaicLogo} alt="Little Me Logo" className="h-full w-full object-cover"/>
           </div>
           
           <div>
-            <h1 className="text-sm font-bold text-black">Naic Municipal Library</h1>
-            <p className="text-xs text-stone-400">Admin Portal</p>
+            <h1 className="hidden md:block text-sm font-bold text-black">Naic Municipal Library</h1>
+            <p className="hidden md:block text-xs text-stone-400">Admin Portal</p>
           </div>
       </div>
 
-      <div className="text-stone-500 text-xs py-2 px-4 mt-6">
-        Menu
+      <div className="justify-center md:justify-start items-center flex text-stone-500 text-xs py-2 px-4 mt-6">
+        <h1>Menu</h1>
       </div>
 
-      <div className={`${isOverview ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleOverview}>
+      <div className={`${isOverview ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center md:justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleOverview}>
         <Home className={`${isOverview ? 'text-white' : 'text-stone-500'}`} size={15}/>
-        Overview
+       <h1 className="hidden md:block">Overview</h1>
         
       </div>
 
-      <div className={`${isLogBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleLogBook}>
+      <div className={`${isLogBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center md:justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleLogBook}>
         <BookUser className={`${isLogBook ? 'text-white' : 'text-stone-500'}`} size={15}/>
-        Logbook
+        <h1 className="hidden md:block">Logbook</h1>
         
       </div>
 
-      <div className={`${isUploadStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUploadStory}>
+      <div className={`${isUploadStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center md:justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUploadStory}>
         <ArrowUp className={`${isUploadStory ? 'text-white' : 'text-stone-500'}`} size={15}/>
-        Upload
+        <h1 className="hidden md:block">Upload</h1>
       </div>
 
-      <div className={`${isViewStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleViewStory}>
+      <div className={`${isViewStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center md:justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleViewStory}>
         <LibraryBig className={`${isViewStory ? 'text-white' : 'text-stone-500'}`} size={15}/>
-        Books
+        <h1 className="hidden md:block">Catalog</h1>
       </div>
 
-      <div className={`${isBorrowBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleBorrowBook}>
+      <div className={`${isBorrowBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center md:justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleBorrowBook}>
         <HandHelping className={`${isBorrowBook ? 'text-white' : 'text-stone-500'}`} size={15}/>
-        Request
+        <h1 className="hidden md:block">Request</h1>
       </div>
 
-      <div className={`${isUserRegistration ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUserRegistration}>
+      <div className={`${isUserRegistration ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center md:justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUserRegistration}>
         <User className={`${isUserRegistration ? 'text-white' : 'text-stone-500'}`} size={15}/>
-        Registration
+        <h1 className="hidden md:block">Registration</h1>
       </div>
 
-      <div className={`${isUsersAccount ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUsers}>
+      <div className={`${isUsersAccount ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center md:justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUsers}>
         <Users className={`${isUsersAccount ? 'text-white' : 'text-stone-500'}`} size={15}/>
-        Accounts
+        <h1 className="hidden md:block">Accounts</h1>
       </div>
 
-      <div className="h-10 text-xs justify-start items-center flex font-semibold text-red-500 flex  gap-2 cursor-pointer py-2 hover:bg-red-100 hover:border-none mt-2 p-4" onClick={handleLogout}>
+      <div className="h-10 text-xs justify-center md:justify-start items-center flex font-semibold text-red-500 flex  gap-2 cursor-pointer py-2 hover:bg-red-100 hover:border-none mt-2 p-4" onClick={handleLogout}>
         <LogOut className={`text-red-500`} size={15}/>
-        Logout
+        <h1 className="hidden md:block">Logout</h1>
       </div>
 
     </aside>

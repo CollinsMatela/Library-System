@@ -98,16 +98,16 @@ const Admin_Page = () =>{
 
 
     return (
-  <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-70">
+  <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-20 md:pl-60">
               
-              <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-10">
-                    <h1 className="text-sm font-bold text-stone-800">Library Overview</h1>
-                    <h1 className="text-stone-400 text-xs">Oversee the details of library system</h1>                   
-              </header>
+    <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-10">
+          <h1 className="text-sm font-bold text-stone-800">Library Overview</h1>
+          <h1 className="text-stone-400 text-xs">Oversee the details of library</h1>                   
+    </header>
     
     <Admin_SideBar/>
 
-    <div className="w-full px-10 mb-10 flex flex-col gap-6">
+    <div className="w-full px-10 mb-4 flex flex-col gap-6">
 
 
       <div className="w-full justify-between items-start flex">
@@ -119,63 +119,126 @@ const Admin_Page = () =>{
       </div>
 
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
         {cards.map((card, index) => (
           <div
-  key={index}
-  className=" h-36 overflow-hidden rounded-2xl border-b-4 border-stone-300 bg-stone-800 p-4 shadow-sm transition-all duration-300 hover:bg-stone-900 hover:shadow-lg"
->
+        key={index}
+        className=" h-fit overflow-hidden rounded-2xl border-b-4 border-stone-300 bg-stone-800 p-4 shadow-sm transition-all duration-300 hover:bg-stone-900 hover:shadow-lg"
+      >
 
-  {/* Content */}
-  <div className=" flex h-full flex-col justify-between back">
-    
-    {/* Title + Icon */}
-    <div className="flex items-center justify-between">
-      <p className="text-xs font-medium text-white">
-        {card.title}
-      </p>
+        {/* Content */}
+        <div className=" flex h-full flex-w flex-col justify-center md:justify-between back">
+          
+          {/* Title + Icon */}
+          <div className="flex items-start justify-between">
+            <p className="text-xs font-medium text-white">
+              {card.title}
+            </p>
 
-      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/30 text-white border">
-        {card.icon}
+            <div className=" h-9 w-9 items-center justify-center flex rounded-xl bg-white/30 text-white border">
+              {card.icon}
+            </div>
+          </div>
+
+          {/* Value */}
+          <h1 className="text-2xl font-bold text-white">
+            {isLoading ? (<LoaderCircle size={20} className="text-white animate-spin"/>) : (`${card.value}`)}
+          </h1>
+
+          {/* Description */}
+          <p className="hidden sm:block text-xs text-white border-t pt-2">
+            {card.text}
+          </p>
+
+        </div>
       </div>
-    </div>
-
-    {/* Value */}
-    <h1 className="text-2xl font-bold text-white">
-      {isLoading ? (<LoaderCircle size={20} className="text-white animate-spin"/>) : (`${card.value}`)}
-    </h1>
-
-    {/* Description */}
-    <p className="text-xs text-white border-t pt-2">
-      {card.text}
-    </p>
-
-  </div>
-</div>
-        ))}
+              ))}
       </div>
         
       
-      
+      <div className="w-full bg-white border border-stone-300 rounded-xl shadow-sm p-4">
+        <div className="flex items-center justify-start gap-2 mb-5">
+              <div className="hidden md:block bg-stone-800 p-2">
+                   <Book size={20} color="white"/>
+              </div>
+              <div>
+                    <h2 className="text-md font-bold text-stone-800">Newest Book</h2>
+                    <p className="text-xs text-stone-500">Latest added book to the library</p>
+              </div>
+          </div>
+{isLoading ? 
+          (
+          <div className="w-full justify-center items-center flex"><LoaderCircle size={20} className="text-stone-500 animate-spin"/></div>
+          ) :
+          (books.length > 0 ? (
+            <div className="flex flex-col md:flex-row gap-6">
+              {/* Cover */}
+              <img
+                src={books[newestBookIndex].cover}
+                alt={books[newestBookIndex].title}
+                className="hidden md:block w-50 h-72 object-cover shadow-sm rounded-md"
+              />
+
+              {/* Details */}
+              <div className="flex-1 space-y-3">
+                <div>
+                  <h3 className="text-sm font-bold text-stone-800">
+                    {books[newestBookIndex].title}
+                  </h3>
+                  <p className="text-stone-500 text-xs">
+                    <span className="">{books[newestBookIndex].author}</span>
+                  </p>
+                </div>
+
+                <div className="hidden md:flex bg-stone-100 justify-start items-start flex-col p-4 rounded-xl">
+                    <p className="text-xs text-stone-500 font-semibold">Type</p>
+                    <p className="text-xs text-stone-500 ">{books[newestBookIndex].description || 'No Description'}</p>
+                  </div>
+
+                <div className="grid grid-cols-3 gap-2">
+
+                  <div className="hidden md:flex bg-stone-100 justify-start items-start flex-col p-4 rounded-xl">
+                    <p className="text-xs text-stone-500 font-semibold">Type</p>
+                    <p className="text-xs text-stone-500 ">{books[newestBookIndex].type}</p>
+                  </div>
+
+                  <div className="hidden md:flex bg-stone-100 justify-start items-start flex-col p-4 rounded-xl">
+                    <p className="text-xs text-stone-500 font-semibold">Category</p>
+                    <p className="text-xs text-stone-500 ">{books[newestBookIndex].category}</p>
+                  </div>
+
+                  <div className="hidden md:flex bg-stone-100 justify-start items-start flex-col p-4 rounded-xl">
+                    <p className="text-xs text-stone-500 font-semibold">Pages</p>
+                    <p className="text-xs text-stone-500 ">{books[newestBookIndex].pages.length}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="h-72 flex items-center justify-center text-stone-500">
+              No books uploaded yet.
+            </div>
+          ))}
+        </div>
 
 
       
       </div>
    
     
-    <div className="w-full justify-between items-start flex gap-4 px-10">
+    <div className="w-full justify-between items-start flex-col md:flex-row gap-4 px-10">
 
-      <div className="grid grid-cols-1 h-full w-1/2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 h-full w-full gap-4 bg-white mb-4">
 
         <div className="bg-white border border-stone-300 rounded-xl shadow-sm p-4">
 
             <div className="flex items-center justify-start gap-2 mb-5">
-              <div className="bg-stone-800 p-2">
+              <div className="hidden md:block bg-stone-800 p-2">
                    <User size={20} color="white"/>
               </div>
               <div>
-                    <h2 className="text-md font-bold text-stone-800">Recent Registered User</h2>
-                    <p className="text-xs text-stone-500">Most recently added user to the library</p>
+                    <h2 className="text-md font-bold text-stone-800">Recent Users</h2>
+                    <p className="text-xs text-stone-500">Most recent added users</p>
               </div>
           </div>
           
@@ -185,16 +248,16 @@ const Admin_Page = () =>{
           ) :
           (
           users.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3).map((user) => (
-                      <div key={user._id} className="bg-white w-full border border-stone-300 rounded-xl p-2 mb-2">
+                      <div key={user._id} className=" bg-white w-full border border-stone-300 rounded-xl p-2 mb-2">
                         <div className="flex gap-2  ">
                             {user.avatar ? 
                             <img src={user.avatar} className="bg-stone-100 h-12 w-12 rounded-full" />
                             :
                             <div className="bg-blue-600 h-10 w-10 rounded-full text-white font-bold justify-center items-center flex">{user.firstname.charAt(0).toUpperCase()}</div>
                             }
-                            <div>
-                              <h1 className="text-stone-800 text-sm">{user.firstname} {user.lastname}</h1>
-                              <h1 className="text-xs text-stone-500">Created At: {user.createdAt.split("T")[0]}</h1>
+                            <div className="justify-center items-center md:items-start flex-col">
+                              <h1 className="text-stone-800 text-xs">{user.firstname} {user.lastname}</h1>
+                              <h1 className="text-xs text-stone-500">{new Date(user.createdAt).toLocaleDateString()}</h1>
                             </div>
                         </div>
                             
@@ -207,12 +270,12 @@ const Admin_Page = () =>{
       <div className="bg-white border border-stone-300 rounded-xl shadow-sm p-4">
           <div className="flex items-center justify-between">
           <div className="flex items-center justify-start gap-2 mb-5">
-              <div className="bg-stone-800 p-2">
+              <div className="hidden md:block bg-stone-800 p-2">
                    <SquareGanttChart size={20} color="white"/>
               </div>
               <div>
                     <h2 className="text-md font-bold text-stone-800">Pendings Borrow</h2>
-                    <p className="text-xs text-stone-500">Most recently pendings of borrowing to the library</p>
+                    <p className="text-xs text-stone-500">Most recent request</p>
               </div>
           </div>
         </div>
@@ -231,7 +294,7 @@ const Admin_Page = () =>{
     .map((pen) => (
       <div
         key={pen._id}
-        className="w-full rounded-xl border border-yellow-500 bg-white p-2"
+        className="w-full rounded-xl border border-stone-300 bg-white p-2"
       >
         <div className="flex items-center gap-2">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-yellow-500">
@@ -239,12 +302,11 @@ const Admin_Page = () =>{
           </div>
 
           <div>
-            <h1 className="text-sm text-yellow-500">
+            <h1 className="text-sm text-stone-500">
               {pen.name}
             </h1>
 
-            <h1 className="text-xs text-yellow-400">
-              Requested on:{" "}
+            <h1 className="text-xs text-stone-400">
               {new Date(pen.createdAt).toLocaleDateString()}
             </h1>
           </div>
@@ -260,69 +322,7 @@ const Admin_Page = () =>{
 
       </div>
 
-      <div className="w-full lg:w-1/2 bg-white border border-stone-300 rounded-xl shadow-sm p-4">
-        <div className="flex items-center justify-start gap-2 mb-5">
-              <div className="bg-stone-800 p-2">
-                   <Book size={20} color="white"/>
-              </div>
-              <div>
-                    <h2 className="text-md font-bold text-stone-800">Newest Book</h2>
-                    <p className="text-xs text-stone-500">Latest added book to the library</p>
-              </div>
-          </div>
-{isLoading ? 
-          (
-          <div className="w-full justify-center items-center flex"><LoaderCircle size={20} className="text-stone-500 animate-spin"/></div>
-          ) :
-          (books.length > 0 ? (
-            <div className="flex flex-col md:flex-row gap-6">
-              {/* Cover */}
-              <img
-                src={books[newestBookIndex].cover}
-                alt={books[newestBookIndex].title}
-                className="w-50 h-72 object-cover shadow-sm rounded-md"
-              />
-
-              {/* Details */}
-              <div className="flex-1 space-y-3">
-                <div>
-                  <h3 className="text-sm font-bold text-stone-800">
-                    {books[newestBookIndex].title}
-                  </h3>
-                  <p className="text-stone-500 text-xs">
-                    <span className="">{books[newestBookIndex].author}</span>
-                  </p>
-                </div>
-
-                <p className="text-stone-600 text-xs line-clamp-4">
-                  {books[newestBookIndex].description || 'No Description'}
-                </p>
-
-                <div className="grid grid-cols-1 gap-2 mt-6">
-
-                  <div className="bg-white justify-between items-center flex border-b border-stone-300">
-                    <p className="text-xs text-black">Type</p>
-                    <p className="text-xs">{books[newestBookIndex].type}</p>
-                  </div>
-
-                  <div  className="bg-white justify-between items-center flex border-b border-stone-300">
-                    <p className="text-xs text-black">Category</p>
-                    <p className="text-xs">{books[newestBookIndex].category}</p>
-                  </div>
-
-                  <div  className="bg-white justify-between items-center flex border-b border-stone-300">
-                    <p className="text-xs text-black">Pages</p>
-                    <p className="text-xs">{books[newestBookIndex].pages.length}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="h-72 flex items-center justify-center text-stone-500">
-              No books uploaded yet.
-            </div>
-          ))}
-        </div>
+      
         
       
       

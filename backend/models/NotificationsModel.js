@@ -6,7 +6,6 @@ const NotificationSchema = new mongoose.Schema({
      title: {type: String},
      message: {type: String},
      requestId: {type: String, default: null},
-     isRead: {type: Boolean, default: false},
 },
 {
      timestamps: true

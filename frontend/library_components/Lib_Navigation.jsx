@@ -4,7 +4,7 @@ import defaultProfile from '../src/assets/Student.jpg'
 import NaicLibraryLogo from '../src/assets/NaicLibraryLogo.png'
 import NotificationModal from '../modals/NotificationModal'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { LogOut, Blocks, BookSearch, BellDot, Info, BadgeInfo, User, ChevronDown, LayoutList } from 'lucide-react'
+import { LogOut, Blocks, BookSearch, BellDot, Info, BadgeInfo, User, ChevronDown, LayoutList, Menu } from 'lucide-react'
 import { useState } from 'react'
 import ConfirmationPopup from '../popup/Confirmation_Popup'
 import NotificationPopup from '../modals/NotificationModal'
@@ -18,6 +18,7 @@ const Lib_Navigation = () => {
     const [isNotification, setIsNotification] = useState(false);
     const [isProfile, setIsProfile] = useState(false);
     const [isConfirmation, setIsConfirmation] = useState(false);
+    const [isMenu, setIsMenu] = useState(false);
 
     const handleLogout = () => {
           logout();
@@ -33,19 +34,19 @@ const Lib_Navigation = () => {
 
         <nav className="fixed z-20 bg-white/50 backdrop-blur-sm h-15 w-full justify-center items-center flex px-6">
 
-                       <div className='w-5xl justify-between items-center flex'>
+                       <div className='w-full sm:w-xl md:w-2xl lg:w-5xl justify-between items-center flex'>
                           <div className='h-full rounded-2xl flex gap-2 justify-center items-center'>
                             <div className=" bg-gray-100 h-7 w-7 rounded-full justify-center items-center flex cursor-pointer" onClick={() => navigate('/library')}>
                               <img src={NaicLibraryLogo} alt="Logo" className='h-full w-full object-cover rounded-xl'/>
                             </div>
                             <div className='justify-start items-start flex flex-col'>
-                              <h1 className="text-xs text-stone-900 font-bold">Naic Municipal Library</h1>
-                              <h1 className="text-xs text-stone-400">Welcome to digital library platform.</h1>
+                              <h1 className=" text-xs text-stone-900 font-bold">Naic Municipal Library</h1>
+                              <h1 className="hidden lg:block text-xs text-stone-400">Welcome to digital library platform.</h1>
                             </div>
                             
                           </div>
 
-                          <div className='gap-4 justify-center items-center flex'>
+                          <div className='hidden lg:flex gap-4 justify-center items-center'>
                             <button className={`${location.pathname === '/library' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library')}><Blocks size={15}/> Book Browse</button>
                             <button className={`${location.pathname === '/library/catalog' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/catalog')}><BookSearch size={15}/> Search & Catalog</button>
                             <button className={`${location.pathname === '/library/borrow-status' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/borrow-status')}><LayoutList size={15}/> Borrow Status</button>
@@ -55,7 +56,7 @@ const Lib_Navigation = () => {
                              onClick={() => setIsNotification(prev => !prev)}>
                               <BellDot size={15} className={`${isNotification ? "text-stone-900" : "text-stone-500"}`}/>
                             </button>
-                            {isNotification && (<NotificationPopup/>)}
+                            {isNotification && (<NotificationPopup onClose={() => setIsNotification(false)}/>)}
                            </div>
                             
 
@@ -123,6 +124,20 @@ const Lib_Navigation = () => {
                                 
                             </div>
 
+                          </div>
+
+                          <div className='block lg:hidden relative' onClick={() => setIsMenu(prev => !prev)}>
+                            <div className='p-2 border border-stone-300 rounded-lg'><Menu size={15}/></div>
+                            <div className={`${isMenu ? "block" : "hidden"} absolute right-0 bg-white border border-stone-300 w-50 justify-center items-start flex flex-col`}>
+                              <button className='text-xs text-stone-500 p-2 border-b border-stone-300 w-full text-start hover:bg-stone-300 transition' onClick={() => navigate('/library')}>Browse</button>
+                              <button className='text-xs text-stone-500 p-2 border-b border-stone-300 w-full text-start hover:bg-stone-300 transition' onClick={() => navigate('/library/catalog')}>Search & Catalog</button>
+                              <button className='text-xs text-stone-500 p-2 border-b border-stone-300 w-full text-start hover:bg-stone-300 transition' onClick={() => navigate('/library/borrow-status')}>Status</button>
+                              <button className='text-xs text-stone-500 p-2 border-b border-stone-300 w-full text-start hover:bg-stone-300 transition' onClick={() => {setIsNotification(prev => !prev)}}>Notification</button>
+                              <button className='text-xs text-stone-500 p-2 border-b border-stone-300 w-full text-start hover:bg-stone-300 transition' onClick={() => navigate('/library/my-account')}>My Account</button>
+                              <button className='text-xs text-stone-500 p-2 border-b border-stone-300 w-full text-start hover:bg-stone-300 transition' onClick={() => setIsConfirmation(true)}>Logout</button>
+                            </div>
+                            {isNotification && (<NotificationPopup onClose={() => setIsNotification(false)}/>)}
+                           
                           </div>
                        </div>
                               

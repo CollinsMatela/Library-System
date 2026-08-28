@@ -1,4 +1,4 @@
-import { ArrowRight, Info, LoaderCircle } from "lucide-react";
+import { ArrowLeft, ArrowRight, Info, LoaderCircle } from "lucide-react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
@@ -73,10 +73,16 @@ const NotificationModal = ({onClose}) => {
 
     return(
 
-            <div className="absolute right-0 bg-white w-100 rounded-xl shadow-sm border border-gray-300">
-                <div className="w-full justify-start items-start flex flex-col p-4 border-b border-gray-300">
-                    <h1 className="text-lg font-bold">Notifications</h1>
-                    <p className="text-xs text-stone-500">Stay informed about your library activities.</p>
+            <div className="absolute right-0 bg-white w-95 lg:w-100 rounded-xl shadow-sm border border-gray-300">
+                <div className="w-full justify-between items-start flex p-4 border-b border-gray-300">
+                    <div>
+                     <h1 className="text-lg font-bold">Notifications</h1>
+                     <p className="text-xs text-stone-500">Stay informed about your library activities.</p>   
+                    </div>
+                    <button className="cursor-pointer " onClick={onClose}>
+                        <ArrowLeft size={15}/>
+                    </button>
+                    
                 </div>
 
                 {isLoading ? 

@@ -8,17 +8,17 @@ const Lib_BookCard = ({ handleViewBook, book, showBorrowModal}) => {
                         className="h-full object-cover"
                     />
 
-                   <div className="absolute inset-0 overflow-hidden w-full justify-center items-center flex flex-col bg-white/10 backdrop-blur-xs p-4">
+                   <div className="absolute inset-0 overflow-hidden w-full justify-center items-center flex flex-col bg-white/10 backdrop-blur-xs">
                             
                         
 
                                 <div className="h-60 w-full justify-center items-center flex">
-                                    <img src={book.cover} alt={book.title} className="object-fit h-full rounded-xs"/>
+                                    <img src={book.cover} alt={book.title} className="object-fit h-full"/>
 
                                 </div>
 
                                 <div className="w-full justify-center items-center flex flex-col mt-2">
-                                        <h1 className="text-stone-800 font-bold text-xs text-center">{book.title.toUpperCase() || "—"}</h1>
+                                        <h1 className="hidden lg:block text-stone-800 font-bold text-xs text-center">{book.title.toUpperCase() || "—"}</h1>
                                         
                                 </div>
 

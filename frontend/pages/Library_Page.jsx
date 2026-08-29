@@ -151,7 +151,7 @@ const Library_Page = () => {
         <Lib_Navigation/>
         <section className="min-h-screen w-full justify-start items-center flex flex-col bg-stone-50 pb-10">
             
-            <div className='w-full sm:w-xl md:w-2xl lg:w-5xl px-6 sm:px-0'>
+            <div className='w-full lg:w-5xl px-4 lg:px-0'>
             <header className="w-full mt-20">
                     <h1 className="text-xl font-bold">Browse Books</h1>
                     <p className="mt-2 text-stone-600 text-xs">

@@ -235,15 +235,13 @@ useEffect(() => {
     return (
         <>
        <Lib_Navigation />
-        <section className="min-h-screen w-full">
-
-            <div className="bg-stone-50 w-full flex flex-col items-center rounded-2xl pb-4">
+        <section className="min-h-screen w-full justify-center items-center flex">
 
                 
 
-                <div className="w-full justify-center items-center flex flex-col space-y-4 px-10 gap-2">
+                <div className="w-full lg:w-5xl justify-center items-center flex flex-col space-y-4  gap-2">
 
-                    <header className="w-5xl mt-20">
+                    <header className="w-full mt-20 px-4 lg:px-0">
                         <h1 className="text-xl font-bold">Search & Catalog</h1>
                         <p className="text-stone-600 mt-2 text-xs">
                             Browse and search our collection of books by title, author, category, or other filters.
@@ -251,7 +249,7 @@ useEffect(() => {
                     </header>
 
                     {/* FILTERS */}
-                    <div className="bg-white rounded-xl border border-stone-300 w-5xl">
+                    <div className="bg-white lg:rounded-xl border-y lg:border border-stone-300 w-full">
 
                          <header className='w-full justify-start items-center flex gap-2 border-b border-stone-300 p-4'>
                             <div className='p-2 bg-stone-800'><ListFilter size={15} className='text-white'/></div>
@@ -335,8 +333,8 @@ useEffect(() => {
 
                
 
-                <div className="w-5xl bg-white border border-stone-300 rounded-xl">
-                        <div className='justify-between items-center flex border-b border-stone-300 p-6'>
+                <div className="w-full bg-white border-y lg:border border-stone-300 lg:rounded-xl">
+                        <div className='justify-between items-start flex flex-col sm:flex-row border-b border-stone-300 p-6'>
                             <div className='justify-start items-center flex gap-2'>
                                <div className='p-2 bg-stone-800'>
                                 <BookCopy size={15} className='text-white'/>
@@ -359,8 +357,6 @@ useEffect(() => {
                                     <option value="titleDesc">Title (Z-A)</option>
                                     <option value="authorAsc">Author (A-Z)</option>
                                     <option value="authorDesc">Author (Z-A)</option>
-                                    <option value="newest">Publication (Newest)</option>
-                                    <option value="oldest">Publication (Oldest)</option>
                                 </select> 
                             </div>
                            
@@ -380,18 +376,22 @@ useEffect(() => {
                                             <div className="h-full flex flex-col w-full p-2">
 
                                                 <div className="w-full flex gap-2 justify-center items-center mb-2">
-                                                <div className="bg-stone-200 shadow-sm p-2 rounded-full">
+                                                <div className="bg-stone-200 shadow-sm p-2 rounded-full hidden sm:block">
                                                     <Book size={15} className='text-stone-500'/>
                                                 </div>
                                                 
 
-                                                <div className="w-full flex flex-col">
-                                                    <div className="flex justify-between items-center w-full">
-                                                    <h1 className="text-stone-800 font-semibold text-sm">{book?.title} <span className="text-stone-400 text-xs"> • {book?.category}</span></h1>
-                                                    <h1 className={`${book?.copies> 0 ? "text-green-600 bg-green-100" : "text-red-600 bg-red-100"} text-xs p-1 rounded-full`}>{book?.copies> 0 ? "Available" : "Not Available"}</h1>
+                                                
+                                                    <div className="flex flex-col md:flex-row justify-between items-start w-full">
+                                                    <h1 className="text-stone-800 text-sm">{book?.title} <span className="text-stone-400 text-xs"> By {book?.author}</span></h1>
+                                                    <div className='justify-center items-center flex flex-row gap-2'>
+                                                     <h1 className="text-stone-500 bg-stone-200 p-1 text-center rounded-full text-xs">{book?.category}</h1>   
+                                                     <h1 className={`${book?.copies> 0 ? "text-green-600 bg-green-200" : "text-red-600 bg-red-100"} text-xs text-center p-1 rounded-full`}>{book?.copies> 0 ? "Available" : "Not Available"}</h1>   
                                                     </div>
-                                                    <h1 className="text-stone-400 text-xs">{book?.author}</h1>
-                                                </div>
+                                                    
+                                                    </div>
+                                                    
+                                                
                                                 
                                                 </div>
                                                 
@@ -414,7 +414,7 @@ useEffect(() => {
 
                      </div>
 
-            </div>
+            
 
             
 

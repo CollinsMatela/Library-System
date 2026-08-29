@@ -34,7 +34,7 @@ const Lib_Navigation = () => {
 
         <nav className="fixed z-20 bg-white/50 backdrop-blur-sm h-15 w-full justify-center items-center flex px-6">
 
-                       <div className='w-full sm:w-xl md:w-2xl lg:w-5xl justify-between items-center flex'>
+                       <div className='w-full lg:w-5xl justify-between items-center flex'>
                           <div className='h-full rounded-2xl flex gap-2 justify-center items-center'>
                             <div className=" bg-gray-100 h-7 w-7 rounded-full justify-center items-center flex cursor-pointer" onClick={() => navigate('/library')}>
                               <img src={NaicLibraryLogo} alt="Logo" className='h-full w-full object-cover rounded-xl'/>

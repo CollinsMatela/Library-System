@@ -150,10 +150,14 @@ const Lib_ViewBook = () => {
     )
     :
     (
-       <div className="w-5xl flex gap-4 mt-20">
+       <div className="w-full bg-stone-50 lg:w-5xl justify-center items-start lg:items-start flex flex-col md:flex-row mt-20">
         {/* Book Cover Container */}
-        <div className="bg-stone-50 w-120 flex flex-col">
-            <img src={bookDetails?.cover} className="bg-stone-100 h-100 object-center shadow-xl mb-5" />
+        <div className=" w-full md:w-100 flex flex-col px-4 sm:px-0 gap-2">
+
+            <div className="w-full bg-stone-200 justify-center items-center flex">
+              <img src={bookDetails?.cover} className="bg-stone-100 h-100 object-center shadow-xl" />  
+            </div>
+            
            
             {!isRequestExisting && bookDetails?.copies > 0 && (
                <button className="justify-center items-center flex gap-2 bg-stone-800 border hover:bg-stone-900 transition py-2 w-full cursor-pointer text-white text-xs font-bold" onClick={() => setShowBorrowModal(true)}>
@@ -183,15 +187,15 @@ const Lib_ViewBook = () => {
 
             <div className="w-full justify-between items-start flex flex-col border-stone-300 border-b">
                 <div className="w-full flex flex-col gap-2">
-                    <h1 className="text-black text-4xl font-bold italic">{bookDetails?.title || "Book name"}</h1>
+                    <h1 className="text-black text-2xl md:text-4xl font-bold italic">{bookDetails?.title || "Book name"}</h1>
                     <h1 className="text-sm text-stone-500">By: {bookDetails?.author || "—"}</h1>
                 </div>
 
-                <div className="w-full flex justify-between items-center gap-3 my-4">
+                <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-3 my-4">
 
-                    <div className="flex gap-2">
-                        <div className="justify-center items-center flex gap-2 bg-stone-200 py-2 px-3 text-xs font-bold rounded-full"><Book size={15}/>{bookDetails?.category}</div>
-                        <div className="justify-center items-center flex gap-2 bg-stone-200 py-2 px-3 text-xs font-bold rounded-full"><BookOpenText size={15}/>{bookDetails?.pages.length} Pages</div>
+                    <div className="flex gap-2 w-full">
+                        <div className="justify-center items-center flex gap-2 bg-stone-200 py-2 px-3 text-xs font-bold rounded-full"><Book size={15} className="hidden sm:block"/>{bookDetails?.category}</div>
+                        <div className="justify-center items-center flex gap-2 bg-stone-200 py-2 px-3 text-xs font-bold rounded-full"><BookOpenText size={15} className="hidden sm:block"/>{bookDetails?.pages.length} Pages</div>
                         <div
                         className={`justify-center items-center flex gap-2 py-2 px-3 text-xs font-bold rounded-full ${
                             bookDetails?.copies > 0
@@ -199,14 +203,14 @@ const Lib_ViewBook = () => {
                             : "bg-red-100 text-red-700"
                         }`}
                         >
-                        <Info size={15} />
+                        <Info size={15} className="hidden sm:block"/>
                         {bookDetails?.copies > 0 ? "Available" : "Not Available"}
                         </div>
                     </div>
 
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 w-full sm:w-fit">
 
-                        <button className="justify-center items-center flex gap-2 bg-stone-800 py-2 px-3 text-xs text-white font-bold hover:bg-stone-900 cursor-pointer"
+                        <button className="justify-center items-center flex gap-2 bg-stone-800 w-full p-2 text-xs text-white font-bold hover:bg-stone-900 cursor-pointer"
                         onClick={() => setShowReadModal(true)}>
                             <BookOpenText size={15}/> Read
                         </button>

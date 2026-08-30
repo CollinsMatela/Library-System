@@ -114,9 +114,9 @@ const Lib_Borrow = () => {
         />)}
         <section className="min-h-screen w-full bg-stone-50">
         <Lib_Navigation/>
-                    <div className="w-full justify-center items-center flex flex-col rounded-2xl px-10">
+                    <div className="w-full justify-center items-center flex flex-col rounded-2xl px-4">
         
-                        <div className='w-5xl flex flex-col'>
+                        <div className='w-full flex flex-col'>
                             <header className="w-full mt-20">
                                     <h1 className="text-xl font-bold">Request Status</h1>
                                     <p className="mt-2 text-stone-600 text-xs">
@@ -126,15 +126,15 @@ const Lib_Borrow = () => {
                         </div>
                         {isLoading ? 
                         (
-                            <div className="w-5xl justify-center items-center flex  mt-4">
+                            <div className="w-full justify-center items-center flex  mt-4">
                                 <LoaderCircle size={20} className="animate-spin"/>
                             </div>
                         )
                         :
                         (
-                         <div className="w-5xl flex gap-4 my-10">
+                         <div className="w-full flex flex-col lg:flex-row gap-4 my-10">
                          
-                            <div  className='w-80 justify-start items-start flex flex-col gap-2 border-r border-stone-500 pr-4'>
+                            <div  className='w-full lg:w-80 justify-start items-start flex flex-row lg:flex-col gap-2 lg:border-r border-stone-500 pr-4'>
                                 <button
                                     className={`${isPending ? 'bg-black' : 'border-b border-stone-300'} w-full cursor-pointer p-2 justify-start items-start flex`}
                                     onClick={() => handlePending()}
@@ -178,20 +178,20 @@ const Lib_Borrow = () => {
                                 {isPending && (
                                     pendingList.length > 0 ? (pendingList.map((pending) => (
                                         
-                                        <div key={pending._id} className="w-full justify-start items-center flex gap-2 border border-stone-300 p-4 rounded-xl">
+                                        <div key={pending._id} className="w-full justify-start items-start flex gap-2 border border-stone-300 p-4 rounded-xl">
                                             <div className="bg-yellow-500 p-2 rounded-lg">
                                             <Ellipsis size={15} className="text-white"/> 
                                             </div>
 
-                                            <div className="grid grid-cols-2 gap-2 w-full">
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
                                                 <div className="justify-start items-start flex flex-col w-full">
                                                     <h1 className="text-sm font-semibold text-stone-800 justify-center items-center flex gap-2">{pending.title} </h1>
                                                     <h2 className="text-xs text-stone-400">Requested date — {pending.createdAt.split('T')[0]}</h2>
                                                 </div>
 
                                                 <div className="justify-end items-center flex">
-                                                <button className="p-2 text-stone-500 text-xs w-fit justify-end items-center flex gap-1 hover:bg-stone-200 cursor-pointer"
-                                                title="Remove Request"
+                                                <button className="p-2 text-stone-500 text-xs w-full sm:w-fit justify-center sm:justify-end border border-stone-300 rounded-xl items-center flex gap-1 hover:bg-stone-200 cursor-pointer"
+                                                title="Remove Request" 
                                                 onClick={() => handleConfirmation(req)}
                                                 ><X size={15}/> Remove
                                                 </button>
@@ -218,19 +218,19 @@ const Lib_Borrow = () => {
                                     approveList.length > 0 ? 
                                     (approveList.map((approve) => (
                                         
-                                        <div key={approve._id} className="w-full justify-start items-center flex gap-2 border border-stone-300 p-4 rounded-xl">
+                                        <div key={approve._id} className="w-full justify-start items-start flex gap-2 border border-stone-300 p-4 rounded-xl">
                                             <div className="bg-blue-600 p-2 rounded-lg">
                                             <Check size={15} className="text-white"/> 
                                             </div>
 
-                                            <div className="grid grid-cols-2 gap-2 w-full">
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
                                                 <div className="justify-start items-start flex flex-col w-full">
                                                     <h1 className="text-sm font-semibold text-stone-800 justify-center items-center flex gap-2">{approve.title} </h1>
                                                     <h2 className="text-xs text-stone-400">Requested date — {approve.createdAt.split('T')[0]}</h2>
                                                 </div>
 
                                                 <div className="justify-end items-center flex">
-                                                <button className="p-2 text-stone-500 text-xs w-fit justify-end items-center flex gap-1 hover:bg-stone-200 cursor-pointer"
+                                                <button className="p-2 text-stone-500 text-xs w-full sm:w-fit justify-center sm:justify-end border border-stone-300 rounded-xl items-center flex gap-1 hover:bg-stone-200 cursor-pointer"
                                                 title="Remove Request"
                                                 onClick={() => handleConfirmation(req)}
                                                 ><X size={15}/> Remove
@@ -255,18 +255,18 @@ const Lib_Borrow = () => {
                                 {isBorrow && (
                                     borrowedList.length > 0 ? (borrowedList.map((borrow) => (
                                         
-                                        <div key={borrow._id} className="w-full justify-start items-center flex gap-2 border border-stone-300 p-4 rounded-xl">
+                                        <div key={borrow._id} className="w-full justify-start items-start flex gap-2 border border-stone-300 p-4 rounded-xl">
                                             <div className="bg-orange-600 p-2 rounded-lg">
                                             <ClockFading size={15} className="text-white"/> 
                                             </div>
 
-                                            <div className="grid grid-cols-2 gap-2 w-full">
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
                                                 <div className="justify-start items-start flex flex-col w-full">
                                                     <h1 className="text-sm font-semibold text-stone-800 justify-center items-center flex gap-2">{borrow.title} </h1>
                                                     <h2 className="text-xs text-stone-400">Return date — {borrow.returnDate.split()[0]}</h2>
                                                 </div>
 
-                                                <div className="border-l border-stone-300 px-2 flex flex-col">
+                                                <div className="border-0 sm:border-l border-stone-300 px-2 flex flex-col">
                                                      <h1 className="text-xs text-stone-500">Quantity</h1>
                                                      <h1 className="text-xs text-stone-500">{borrow.quantity}</h1>
                                                 </div>
@@ -291,18 +291,18 @@ const Lib_Borrow = () => {
                                 {isHistory && (
                                     historyList.length > 0 ? (historyList.map((history) => (
                                         
-                                        <div key={history._id} className="w-full justify-start items-center flex gap-2 border border-stone-300 p-4 rounded-xl">
+                                        <div key={history._id} className="w-full justify-start items-start flex gap-2 border border-stone-300 p-4 rounded-xl">
                                             <div className="bg-green-600 p-2 rounded-lg">
                                             <CheckCheck size={15} className="text-white"/> 
                                             </div>
 
-                                            <div className="grid grid-cols-2 gap-2 w-full">
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
                                                 <div className="justify-start items-start flex flex-col w-full">
                                                     <h1 className="text-sm font-semibold text-stone-800 justify-center items-center flex gap-2">{history.title} </h1>
                                                     <h2 className="text-xs text-stone-400">Return Date — {history.returnDate.split()[0]}</h2>
                                                 </div>
 
-                                                <div className="border-l border-stone-300 px-2 flex flex-col">
+                                                <div className="border-0 sm:border-l border-stone-300 px-2 flex flex-col">
                                                      <h1 className="text-xs text-stone-500">Quantity</h1>
                                                      <h1 className="text-xs text-stone-500">{history.quantity}</h1>
                                                 </div>

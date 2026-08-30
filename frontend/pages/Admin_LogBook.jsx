@@ -120,19 +120,19 @@ const Admin_LogBook = () => {
 
         <Admin_SideBar/>
 
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-70">
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-70">
               
-              <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-10">
+              <header className="w-full justify-between items-start flex flex-col mb-10 border-0 lg:border-b border-stone-300 p-3 px-4 md:px-10">
                     <h1 className="text-sm font-bold text-stone-800">Logbook Management</h1>
                     <h1 className="text-stone-400 text-xs">Manage borrow request from user</h1>                   
               </header>
 
-            <div className="w-full justify-between items-start flex flex-col mb-10 pb-10 px-10">
+            <div className="w-full justify-between items-start flex flex-col mb-10 pb-10 px-4 md:px-10">
 
                 <div className="flex items-start justify-between gap-2 w-full mb-4">
                             
                             <div className="justify-center items-center flex gap-2">
-                                <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
+                                <div className="hidden sm:flex bg-stone-800 p-2 text-white justify-center items-center">
                                     <Users size={20}/>
                                 </div>
                                 <div>
@@ -149,10 +149,10 @@ const Admin_LogBook = () => {
                             </div>
                 </div>
                 
-                <div className="w-full border border-stone-300 rounded-xl p-2">
+                <div className="w-full border-0 lg:border border-stone-300 lg:rounded-xl lg:p-2">
 
                 
-                <div className="grid grid-cols-9 w-full bg-stone-100 rounded-t-xl px-4 py-3 mb-2">
+                <div className="hidden lg:grid grid-cols-9 w-full bg-stone-100 rounded-t-xl px-4 py-3 mb-2">
                             <h1 className="text-xs text-stone-500">No.</h1>
                             <h1 className="text-xs text-stone-500">Name</h1>
                             <h1 className="text-xs text-stone-500">Address</h1>
@@ -181,30 +181,28 @@ const Admin_LogBook = () => {
                 orderedLogBookList.map((log, index) => (
                     <div
                     key={log._id}
-                    className={`w-full bg-white justify-between items-start flex p-2 mb-1 border-b border-b-stone-300 border-l-2 ${log.leaveTime ? "border-l-blue-500" : "border-l-yellow-500"}`}
+                    className={`w-full bg-white justify-between items-start flex flex-col lg:flex-row px-2 mb-1 border-0 lg:border-b border-stone-300 border-l-2 ${log.leaveTime ? "border-l-blue-500" : "border-l-yellow-500"}`}
                     >
-                        <div className="grid grid-cols-9 w-full">
-                            <h1 className="text-xs text-stone-500 justify-start items-center flex"><span>{index + 1}</span></h1>
-                            <h1 className="text-xs text-stone-500 justify-start items-center flex"><span>{log.name}</span></h1>
-                            <h1 className="text-xs text-stone-500 justify-start items-center flex"><span>{log.address}</span></h1>
-                            <h1 className="text-xs text-stone-500 justify-start items-center flex"><span>{log.contact}</span></h1>
-                            <h1 className="text-xs text-stone-500 justify-start items-center flex"><span>{log.purpose}</span></h1>
-                            <h1 className="text-xs text-stone-500 justify-start items-center flex">{new Date(log.createdAt).toISOString().split("T")[0]}</h1>
-                            <h1 className="text-xs text-stone-500 justify-start items-center flex">{new Date(log.createdAt).toLocaleTimeString()}</h1>
-                            <h1 className="text-xs text-stone-500 justify-start items-center flex">{log.leaveTime
+                        <div className="grid grid-cols-1 lg:grid-cols-9 gap-2 w-full lg:p-2">
+                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">No.</span>{index + 1}</h1>
+                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">Name:</span>{log.name}</h1>
+                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">Address:</span>{log.address}</h1>
+                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">Contact:</span>{log.contact}</h1>
+                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">Purpose:</span>{log.purpose}</h1>
+                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">Date:</span>{new Date(log.createdAt).toISOString().split("T")[0]}</h1>
+                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">Time In:</span>{new Date(log.createdAt).toLocaleTimeString()}</h1>
+                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">Time Out:</span>{log.leaveTime
                                                                                                     ? new Date(log.leaveTime).toLocaleTimeString()
-                                                                                                    : "—"}</h1>
-                            <div className="w-full">
-                             <button 
+                                                                                                    : ""}</h1>
+                            <div className="w-full lg:w-fit justify-end items-center flex border-y lg:border-0 border-stone-300 py-2 lg:p-0">
+                            <button 
                             disabled={log.leaveTime}
                             className={`${!log.leaveTime ? "bg-stone-800 hover:bg-stone-900 cursor-pointer" : "bg-stone-200 cursor-not-allowed"} text-white w-fit justify-center items-center flex p-2 rounded-lg`} 
                             onClick={() => LeaveConfirmation(log)}><Check size={15}/>
                             </button>   
                             </div>
-                            
-
-                            
                         </div>
+                        
                     </div>
                 ))
                 }

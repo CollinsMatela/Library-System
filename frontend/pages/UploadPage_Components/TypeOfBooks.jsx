@@ -114,7 +114,7 @@ if (selectedCategoryOfBook.toLowerCase() === "textbook") {
 };
 
     return(
-        <div className="w-full grid my-4 p-6 border border-stone-300 rounded-xl gap-2">
+        <div className="w-full grid my-4 md:p-6 border-0 md:border border-stone-300 md:rounded-xl gap-2">
             
             <div className="justify-between items-center flex gap-2 w-full">
                                     <div class="flex gap-2 ujstify-center items-center">
@@ -127,7 +127,7 @@ if (selectedCategoryOfBook.toLowerCase() === "textbook") {
                                     
                                 </div>
 
-            <div className="w-full grid grid-cols-4 gap-2">
+            <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
             <select className="bg-white border-1 border-stone-300 p-2 rounded-lg text-stone-500 text-xs mt-2" value={selectedTypeOfBooks} onChange={(e) => setSelectedTypeOfBooks(e.target.value)}>
                 <option value="">Type of Books</option>
                 <option value="fiction">Fiction</option>

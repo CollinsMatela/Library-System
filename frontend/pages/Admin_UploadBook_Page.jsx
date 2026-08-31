@@ -481,15 +481,15 @@ const Admin_UploadBook_Page = () => {
         <>
         <Admin_SideBar/>
         {showConfirmation && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={uploadStory} onCancel={() => {setShowConfirmation(false); setErrorMessage("")}}/>)}
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-70">
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60 pb-10">
               
-              <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-10">
+              <header className="w-full justify-between items-start flex flex-col mb-10 border-0 lg:border border-stone-300 p-3 px-4 md:px-10">
                     <h1 className="text-sm font-bold text-stone-800">Upload Management</h1>
                     <h1 className="text-stone-400 text-xs">Manage uploading books to the library</h1>                   
               </header>
 
                 {/* MANUALLY UPLOAD STORY CONTAINER */}
-                <div className={`w-full flex bg-white rounded-xl gap-10 px-10`}>
+                <div className={`w-full flex bg-white rounded-xl gap-10 px-4 md:px-10`}>
                     
                         {/* Story Details */}
                         <div className="bg-white w-full flex flex-col">
@@ -650,7 +650,7 @@ const Admin_UploadBook_Page = () => {
 
                     <div className="w-full bg-white justify-between items-start flex flex-col gap-4 rounded-xl">
                         {/* Page Text*/}
-                        <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border border-stone-300 p-6 rounded-lg">
+                        <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border-0 md:border border-stone-300 md:p-6 md:rounded-lg">
                                 <div className="justify-between items-center flex gap-2 w-full">
                                     <div class="flex gap-2 ujstify-center items-center">
                                         <div className="p-2 rounded-full text-stone-500 bg-stone-200 justify-center items-center flex"><Pencil size={20}/></div>
@@ -672,7 +672,7 @@ const Admin_UploadBook_Page = () => {
                         </div>
 
                          {/* Page Image Preview */}
-                        <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border border-stone-300 p-6 rounded-lg">
+                        <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border-0 md:border border-stone-300 md:p-6 md:rounded-lg">
 
                             <div className="justify-between items-center flex gap-2 w-full">
                                     <div class="flex gap-2 ujstify-center items-center">
@@ -685,7 +685,7 @@ const Admin_UploadBook_Page = () => {
                                     
                                 </div>
                             
-                            <div className="w-full h-100 bg-gray-100 justify-center items-center flex">
+                            <div className="w-full h-50 sm:h-100 bg-stone-100 justify-center items-center flex">
                                 {!pageImagePreview && (
                                      
                                     <div className="h-full w-full flex flex-col items-center justify-center p-4 gap-1">
@@ -701,7 +701,7 @@ const Admin_UploadBook_Page = () => {
                                     <img src={pageImagePreview} 
                                     alt="page-preview" 
                                     title="Click to remove image"
-                                    className="h-full w-120 object-fit cursor-pointer" onClick={() => {
+                                    className="h-full w-fit object-fit cursor-pointer" onClick={() => {
                                         if (pageImagePreview) {
                                             URL.revokeObjectURL(pageImagePreview);
                                         }
@@ -717,7 +717,7 @@ const Admin_UploadBook_Page = () => {
 
                         {/**Audio Preview */}
                         {audioPreview && (
-                            <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border border-stone-300 p-6 rounded-lg">
+                            <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border-0 md:border border-stone-300 md:p-6 md:rounded-lg">
 
                                 <div className="justify-between items-center flex gap-2 w-full">
                                     <div class="flex gap-2 ujstify-center items-center">

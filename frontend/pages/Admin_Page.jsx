@@ -98,14 +98,14 @@ const Admin_Page = () =>{
 
 
     return (
-  <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-20 md:pl-60">
+  <>
+  <Admin_SideBar/>
+  <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pb-10 md:pl-20 lg:pl-60">
               
-    <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-10">
+    <header className="w-full justify-between items-start flex flex-col mb-10 border-0 lg:border-b border-stone-300 p-3 px-10">
           <h1 className="text-sm font-bold text-stone-800">Library Overview</h1>
           <h1 className="text-stone-400 text-xs">Oversee the details of library</h1>                   
     </header>
-    
-    <Admin_SideBar/>
 
     <div className="w-full px-10 mb-4 flex flex-col gap-6">
 
@@ -119,7 +119,7 @@ const Admin_Page = () =>{
       </div>
 
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2">
         {cards.map((card, index) => (
           <div
         key={index}
@@ -331,7 +331,7 @@ const Admin_Page = () =>{
 
 
   </section>
-  
+  </>
 );
 }
 export default Admin_Page

@@ -25,7 +25,7 @@ const PreviewBook = ({preview, type, category, pages, title, description, moral,
 
     return(
         <>
-        <div className="flex items-center justify-start gap-2 mb-4">
+        <div className="flex items-center justify-start border-t border-stone-300 py-4 gap-2 mt-10 mb-4">
             <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
                 <Book size={20}/>
             </div>
@@ -37,9 +37,9 @@ const PreviewBook = ({preview, type, category, pages, title, description, moral,
         </div>
 
         
-        <div className="w-full flex gap-4 border border-stone-300 p-6 rounded-xl mb-4">
+        <div className="w-full flex flex-col gap-4 justify-start items-start flex border-0 md:border border-stone-300 md:p-6 md:rounded-xl mb-4">
         {/* Book Cover Container */}
-        <div className="bg-gray-200 h-100 w-120 justify-center items-center flex flex-col gap-4 shadow-lg">
+        <div className="bg-stone-200 h-50 md:h-100 w-full justify-center items-center flex flex-col gap-4">
 
             {!preview && (<div className="h-full w-full flex flex-col items-center justify-center p-4 gap-1">
                 <ImageOff size={50} className="text-stone-500" />
@@ -61,40 +61,15 @@ const PreviewBook = ({preview, type, category, pages, title, description, moral,
                 <div className="w-full flex justify-between items-center gap-3 my-4">
 
                     <div className="flex gap-2">
-                        <div className={`${!category ? "hidden" : ""} justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-xs font-bold rounded-full uppercase`}><Book size={15}/>{category}</div>
-                        <div className={`${pages.length > 0 ? "" : "hidden"} justify-center items-center flex gap-2 bg-gray-200 py-2 px-3 text-xs font-bold rounded-full uppercase`}><BookOpenText size={15}/>{pages.length} Pages</div>
+                        <div className={`${!category ? "hidden" : ""} justify-center items-center flex gap-2 bg-stone-200 py-2 px-3 text-xs font-bold rounded-full uppercase`}><Book size={15}/>{category}</div>
+                        <div className={`${pages.length > 0 ? "" : "hidden"} justify-center items-center flex gap-2 bg-stone-200 py-2 px-3 text-xs font-bold rounded-full uppercase`}><BookOpenText size={15}/>{pages.length} Pages</div>
                     </div>
 
                 </div>
 
             </div>
 
-           {moral && (
-            <div className="mt-6 rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50 to-white p-6 shadow-sm">
-                <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-100">
-                    <Sparkles size={20} className="text-violet-600" />
-                </div>
-
-                <div>
-                    <h2 className="text-lg font-semibold text-stone-900">
-                    AI Generated Moral Summary
-                    </h2>
-                    <p className="text-xs text-stone-500">
-                    Generated using AI to provide a concise overview of the story.
-                    </p>
-                </div>
-                </div>
-
-                <div className="mt-5 rounded-xl bg-white p-5 border border-stone-100">
-                <p className="leading-8 text-stone-700 whitespace-pre-line">
-                    {moral}
-                </p>
-                </div>
-            </div>
-            )}
-
-            <div className=" rounded-2xl bg-white border border-stone-300 p-6 shadow-sm w-full">
+            <div className=" md:rounded-xl bg-white border-0 md:border border-stone-300 md:p-6 md:shadow-sm w-full">
             <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-200">
                 <BookOpen size={20} className="text-black" />
@@ -110,7 +85,7 @@ const PreviewBook = ({preview, type, category, pages, title, description, moral,
                 </div>
             </div>
 
-            <div className="mt-5 rounded-xl bg-white p-5 border border-stone-100">
+            <div className="mt-5 rounded-xl bg-white p-6 border border-stone-100">
                 <p className="leading-8 text-stone-700 whitespace-pre-line text-xs">
                 {description || "No description added to this book."}
                 </p>

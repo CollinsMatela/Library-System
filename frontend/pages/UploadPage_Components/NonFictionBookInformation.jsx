@@ -35,7 +35,7 @@ const NonFictionBookInformation = ({
         <div className="w-full flex flex-col gap-2 my-4">
 
             {/* Basic Information */}
-            <div className="w-full flex flex-col gap-2 p-6 border border-stone-300 rounded-xl">
+            <div className="w-full flex flex-col gap-2 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
 
                  <div className="justify-between items-center flex gap-2 w-full">
                                     <div class="flex gap-2 ujstify-center items-center">
@@ -48,7 +48,7 @@ const NonFictionBookInformation = ({
                                     
                                 </div>
 
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
 
                 <input
                     type="text"
@@ -107,7 +107,7 @@ const NonFictionBookInformation = ({
 
 
             {/* Additional Information */}
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
 
                 <input
                     type="text"

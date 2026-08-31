@@ -120,7 +120,7 @@ const Admin_LogBook = () => {
 
         <Admin_SideBar/>
 
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-70">
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
               <header className="w-full justify-between items-start flex flex-col mb-10 border-0 lg:border-b border-stone-300 p-3 px-4 md:px-10">
                     <h1 className="text-sm font-bold text-stone-800">Logbook Management</h1>

@@ -54,10 +54,10 @@ const FictionBookInformation = ({
     return(
         <div className="w-full flex flex-col gap-2 my-4">
 
-            <div className=" border border-stone-300 p-6 rounded-xl flex flex-col gap-2">
+            <div className=" border-0 md:border border-stone-300 md:p-6 md:rounded-xl flex flex-col gap-2">
 
 
-               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2">
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                 <input
                     type="text"
                     placeholder="Title "

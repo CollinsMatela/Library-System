@@ -85,20 +85,21 @@ const Admin_Student_Page = () => {
         {showConfirmationPopup && (<Confirmation_Popup onConfirm={() => deleteStudent(selectedUser?._id)} onCancel={() => setShowConfirmationPopup(false)} />)}
         {showEditModal && (<Edit_Student_Modal selectedUser={selectedUser} reFetch={() => fetchUsers()} closeEditStudentModal={() => setShowEditModal(false)}/>)}
         {showViewStudent && (<View_Student_Modal user={selectedUser} onClose={() => setShowViewStudent(false)}/>)}
-       <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-70">
+         <Admin_Sidebar/>   
+       <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
-              <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-10">
+              <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-4 lg:px-10">
                     <h1 className="text-sm font-bold text-stone-800">Users Account</h1>
                     <h1 className="text-stone-400 text-xs">Manage user accounts</h1>                   
               </header>
         
-        <Admin_Sidebar/>
+        
         
 
         {/* Student Container */}
-                  <div className="w-full px-10">
+                  <div className="w-full px-4">
 
-                    <div className="w-full justify-between items-center flex rounded-t-xl">
+                    <div className="w-full justify-between items-start flex flex-col sm:flex-row rounded-t-xl mb-4 lg:mb-2">
 
                         <div className="flex items-center justify-start gap-2 mb-4">
                             <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
@@ -106,13 +107,13 @@ const Admin_Student_Page = () => {
                             </div>
                             <div>
                                 <h1 className="text-md font-bold text-stone-800 rounded-full">Users Table</h1>
-                                <p className="text-stone-400 text-xs">Manage student accounts, progress, and information.</p>
+                                <p className="text-stone-400 text-xs">Manage student accounts.</p>
                             </div>
                           
                         </div>
                         
 
-                        <div className="justify-between items-center flex border-1 border-stone-300 rounded-lg px-4">
+                        <div className="w-full sm:w-50 justify-between items-center flex border-1 border-stone-300 rounded-lg px-4">
                             
                             <input type="search" 
                                    placeholder="Search by name" 
@@ -125,16 +126,16 @@ const Admin_Student_Page = () => {
                         </div>
                     </div>
 
-                    <div className="w-full border border-stone-300 rounded-xl p-2">
+                    <div className="w-full border-0 md:border border-stone-300 rounded-xl md:p-2">
 
                     
                       {/* Columns */}
-                        <div className=" rounded-t-xl w-full bg-stone-100 grid grid-cols-4 justify-between items-center flex px-4 py-3">
+                        <div className="hidden rounded-t-xl w-full bg-stone-100 md:grid md:grid-cols-4 px-4 py-3">
         
                                 <h1 className="text-xs text-stone-500">Fullname</h1>
                                 <h1 className="text-xs text-stone-500">Email</h1>
                                 <h1 className="text-xs text-stone-500">Contact</h1>
-                                <h1 className="text-xs text-stone-500">Actions</h1>
+                                
                             
                         </div>
 
@@ -160,7 +161,7 @@ const Admin_Student_Page = () => {
                                 const updatedCreatedAt = new Date(user.createdAt).toISOString().split("T")[0];;
                                 
                                 return (
-                                <div key={user._id} className="bg-white min-h-12 w-ful border-b border-stone-300 grid grid-cols-4 justify-start items-center px-4 py-2 hover:border-blue-500 hover:bg-blue-100 cursor-pointer">
+                                <div key={user._id} className="bg-white gap-2 min-h-12 w-ful border-b border-stone-300 grid grid-cols-2 md:grid-cols-4 justify-start items-center md:px-4 py-2 hover:border-blue-500 hover:bg-blue-100 cursor-pointer">
                                     <div className="w-full justify-start items-center flex gap-1 border-amber-200">
                                         <h1 className="text-xs text-stone-500 justify-start items-center wrap-break-word">{index + 1}</h1>
                                         {user.avatar ? (
@@ -174,16 +175,16 @@ const Admin_Student_Page = () => {
                                     </div>
                                     
                                     
-                                    <h1 className="text-xs text-stone-500 justify-start items-center wrap-break-word">{user.email}</h1>
-                                    <h1 className="text-xs text-stone-500 justify-start items-center wrap-break-word">{user.contact}</h1>
+                                    <h1 className="hidden md:block text-xs text-stone-500 justify-start items-center wrap-break-word">{user.email}</h1>
+                                    <h1 className="hidden md:block text-xs text-stone-500 justify-start items-center wrap-break-word">{user.contact}</h1>
 
                                     
-                                    <div className="break-words gap-2 justify-start flex">
-                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 rounded-lg cursor-pointer hover:bg-stone-900" onClick={() => handleViewStudent(user)}><View size={15}/></button>
-                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 rounded-lg cursor-pointer hover:bg-stone-900" onClick={() => handleEditStudent(user)}><UserPen size={15}/></button>
-                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 rounded-lg cursor-pointer hover:bg-stone-900" onClick={() => deleteConfirmation(user)}><Trash size={15}/></button>
-                                        
+                                    <div className=" wrap-break-words gap-2 justify-end flex">
+                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 cursor-pointer hover:bg-stone-900" onClick={() => handleViewStudent(user)}><View size={15}/></button>
+                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 cursor-pointer hover:bg-stone-900" onClick={() => handleEditStudent(user)}><UserPen size={15}/></button>
+                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 cursor-pointer hover:bg-stone-900" onClick={() => deleteConfirmation(user)}><Trash size={15}/></button>
                                     </div>
+
                                 </div>
                               )
                               })

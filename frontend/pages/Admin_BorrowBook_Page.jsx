@@ -202,16 +202,16 @@ const Admin_BorrowBook_Page = () => {
       return(
         <>
         <Admin_Sidebar/>
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-70">
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
-              <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-10">
+              <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-4 lg:px-10">
                     <h1 className="text-sm font-bold text-stone-800">Borrowing Books Management</h1>
                     <h1 className="text-stone-400 text-xs">Manage borrow request from user</h1>                   
               </header>
 
-              <div className="h-20 w-full justify-between items-center flex flex-col px-10">
+              <div className="h-20 w-full justify-between items-center flex flex-col px-4 lg:px-10">
 
-                <div className="w-full justify-between items-start flex">
+                <div className="w-full justify-between items-start flex flex-col md:flex-row mb-4 lg:mb-2">
 
                     <div className="flex items-center justify-start gap-2 w-full mb-4">
                         <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
@@ -223,45 +223,45 @@ const Admin_BorrowBook_Page = () => {
                         </div>
                     </div>
 
-                    <div className="flex gap-1">
+                    <div className="w-full grid grid-cols-4">
                         <button
                             className={`${
                                 isPending ? "bg-stone-800 text-white" : "border border-stone-300 text-black"
-                            } flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer`}
+                            } justify-center flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer w-full`}
                             onClick={handlePending}
                         >
                             Pending
-                            <span className="font-semibold">{Pendings.length || 0}</span>
+                            <span className="hidden sm:block font-semibold">{Pendings.length || 0}</span>
                         </button>
 
                         <button
                             className={`${
                                 isApproved ? "bg-stone-800 text-white" : "border border-stone-300 text-black"
-                            } flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer`}
+                            } justify-center flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer w-full`}
                             onClick={handleApproved}
                         >
                             Approved
-                            <span className="font-semibold">{Approved.length || 0}</span>
+                            <span className="hidden sm:block font-semibold">{Approved.length || 0}</span>
                         </button>
 
                         <button
                             className={`${
                                 isBorrowed ? "bg-stone-800 text-white" : "border border-stone-300 text-black"
-                            } flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer`}
+                            } justify-center flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer w-full`}
                             onClick={handleBorrowed}
                         >
                             Borrowed
-                            <span className="font-semibold">{Borrowed.length || 0}</span>
+                            <span className="hidden sm:block font-semibold">{Borrowed.length || 0}</span>
                         </button>
 
                         <button
                             className={`${
                                 isHistory ? "bg-stone-800 text-white" : "border border-stone-300 text-black"
-                            } flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer`}
+                            } justify-center flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer w-full`}
                             onClick={handleHistory}
                         >
                             History
-                            <span className="font-semibold">{Returned.length || 0}</span>
+                            <span className="hidden sm:block font-semibold">{Returned.length || 0}</span>
                         </button>
                         
                     </div>

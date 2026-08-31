@@ -9,11 +9,11 @@ const HistoryTable = ({Returned}) => {
                 key={borrow._id}
                  className={`w-full rounded-xl p-4 flex justify-between items-start  border border-stone-300 gap-2`}
             >
-                <div className="w-full justify-start items-center flex gap-2">
+                <div className="w-full justify-start items-start flex gap-2">
                     <div className={`bg-green-600 p-2 rounded-lg`}>
                        <CheckCheck size={15} className="text-white"/> 
                     </div>
-                    <div className="grid grid-cols-3 gap-2 w-full">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 w-full">
                         <div className="justify-start items-start flex flex-col w-full">
                             <h1 className="text-sm font-semibold text-gray-800 justify-center items-center flex gap-2">{borrow.title} </h1>
                             <h2 className="text-xs text-stone-400">Requested by — {borrow.name}</h2>

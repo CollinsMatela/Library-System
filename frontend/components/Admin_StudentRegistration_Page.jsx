@@ -241,14 +241,14 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
         <Admin_SideBar/>
         {showConfirmationPopup && (<Confirmation_Popup errorMessage={errorMessage} message={'Are you sure to register this user?'} onConfirm={() => {UserRegistration();}} onCancel={() => {setShowConfirmationPopup(false); setErrorMessage("");}} />)}
         {showAccountPopup && (<Account_Popup newAccountDetails={newStudent} closeAccountConfirmation={() => {setShowAccountPopup(false);}}/>)}
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-70">
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60 pb-20">
               
-              <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-10">
+              <header className="w-full justify-between items-start flex flex-col mb-10 border-0 lg:border border-stone-300 p-3 px-4 lg:px-10">
                     <h1 className="text-sm font-bold text-stone-800">User Registration</h1>
                     <h1 className="text-stone-400 text-xs">Manage creating account for users</h1>                   
               </header>
 
-                <div className="flex items-center justify-start gap-2 w-full mb-5 px-10">
+                <div className="flex items-center justify-start gap-2 w-full mb-5 px-4 lg:px-10">
                     <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
                         <User size={20}/>
                     </div>
@@ -257,8 +257,8 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                         <p className="text-stone-400 text-xs">Register new users.</p>
                     </div>
                 </div>
-                    <div className="w-full px-10">
-                    <div className="w-full p-6 rounded-xl border border-stone-300 mb-4 ">
+                    <div className="w-full px-4 lg:px-10">
+                    <div className="w-full md:p-6 rounded-xl border-0 md:border border-stone-300 mb-4 ">
 
                         <div className="flex items-center justify-start gap-2 w-full mb-5">
                             <div className="bg-stone-200 p-2 text-white rounded-full justify-center items-center flex">
@@ -270,7 +270,7 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                             </div>
                         </div>
                         
-                        <div className="w-full grid grid-cols-4 gap-2">
+                        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
 
                         <div className="w-full">
                             <h1 className="text-xs text-stone-500">Last Name <span className="text-red-500">*</span></h1>
@@ -503,7 +503,7 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                     </div>
                     
                     {age && age < 18 && (
-                      <div className="w-full p-6 rounded-xl border border-stone-300 mb-4">
+                      <div className="w-full md:p-6 rounded-xl border-0 md:border border-stone-300 mb-4">
 
                          <div className="flex items-center justify-start gap-2 w-full mb-5">
                             <div className="bg-stone-200 p-2 text-white rounded-full justify-center items-center flex">
@@ -515,9 +515,9 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                             </div>
                         </div>
 
-                        <div className="w-full grid grid-cols-4 gap-2">
+                        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
                             <div className="w-full">
-                            <h1 className="text-xs text-stone-500">Parent/Guardian Name <span className="text-red-500">*</span></h1>
+                            <h1 className="text-xs text-stone-500">Parent Name <span className="text-red-500">*</span></h1>
                             <input type="text" 
                                    placeholder="Name" 
                                    className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl ${isParentName ? 'border-red-500' : ''}`} 
@@ -528,7 +528,7 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                                    />
                              </div>
                              <div className="w-full">
-                                <h1 className="text-xs text-stone-500">Parent/Guardian Contact <span className="text-red-500">*</span></h1>
+                                <h1 className="text-xs text-stone-500">Parent Contact <span className="text-red-500">*</span></h1>
                                 <input type="text" 
                                         placeholder="Contact Number" 
                                         className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl ${isParentContact ? 'border-red-500' : ''}`} 
@@ -540,7 +540,7 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                             </div>
 
                             <div className="w-full">
-                            <h1 className="text-xs text-stone-500">Parent/Guardian Relationship <span className="text-red-500">*</span></h1>
+                            <h1 className="text-xs text-stone-500">Parent Relationship <span className="text-red-500">*</span></h1>
                             <select className={`border-1 border-stone-300 p-2 text-xs w-full outline-none rounded-xl text-stone-500 ${isParentRelationship ? 'border-red-500' : ''}`} 
                                     value={parentRelationship} 
                                     onChange={(e) => {setParentRelationship(e.target.value)
@@ -559,7 +559,7 @@ const Admin_StudentRegistration_Page = ({ reFetchStudent}) => {
                     
                     
                {/* Buttons */}
-                    <div className="w-full justify-end items-center flex px-10">
+                    <div className="w-full justify-end items-center flex px-4 lg:px-10">
                         <button className="bg-stone-800 text-white h-full w-fit cursor-pointer text-xs p-2 hover:bg-stone-900 justify-center items-center flex gap-2" onClick={handleConfirmation}><Plus size={15}/> Register</button>
                     </div>
         </section>

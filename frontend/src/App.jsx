@@ -22,7 +22,7 @@ import Admin_BorrowBook_Page from "../pages/Admin_BorrowBook_Page";
 import Admin_LogBook from "../pages/Admin_LogBook";
 import Lib_MyAccount from "../library_components/Lib_MyAccount"
 import LoginPage from "../pages/LoginPage";
-import Admin_PublicationLog from "../components/Admin_PublicationLog";
+import Admin_Inventory from "../components/Admin_Inventory";
 
 
 const ProtectedRoute = ({ allowedRoles }) => {
@@ -75,7 +75,7 @@ function App() {
                 <Route path="/admin/borrow-book" element={<Admin_BorrowBook_Page />} />
                 <Route path="/admin/users" element={<Admin_Student_Page />} />
                 <Route path="/admin/user-registration" element={<Admin_StudentRegistration_Page />} />
-                <Route path="/admin/publication-log" element={<Admin_PublicationLog />} />
+                <Route path="/admin/inventory" element={<Admin_Inventory />} />
                 <Route path="/change-password" element={<Change_Password_Page/>}/>
         </Route>
          <Route path="/loading" element={<LoadingScreen/>}/>

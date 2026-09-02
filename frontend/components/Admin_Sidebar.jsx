@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore"
 import { useState } from "react";
-import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User, ArrowUp, Home, BookUser, ScrollText } from 'lucide-react'
+import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User, ArrowUp, Home, BookUser, ScrollText, Package } from 'lucide-react'
 import NaicLogo from '../src/assets/NaicLibraryLogo.png'
 
 const Admin_SideBar = () => {
@@ -16,7 +16,7 @@ const Admin_SideBar = () => {
     const isUsersAccount = location.pathname === "/admin/users";
     const isUserRegistration = location.pathname === "/admin/user-registration";
     const isBorrowBook = location.pathname === "/admin/borrow-book"
-    const isPublicationLog = location.pathname === "/admin/publication-log";
+    const isInventory = location.pathname === "/admin/inventory";
 
     const handleOverview = () => {
           navigate('/admin');
@@ -39,8 +39,8 @@ const Admin_SideBar = () => {
     const handleBorrowBook = () => {
           navigate('/admin/borrow-book');
     }
-    const handlePublicationLog = () => {
-          navigate('/admin/publication-log');
+    const handleInventory = () => {
+          navigate('/admin/inventory');
     }
 
     const handleLogout = () =>{
@@ -67,52 +67,52 @@ const Admin_SideBar = () => {
         <h1 className="hidden lg:block">Menu</h1>
       </div>
       
-      <div className="w-full grid grid-cols-8 md:grid-cols-1">
+      <div className="w-full grid grid-cols-9 md:grid-cols-1">
 
-      <div className={`${isOverview ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleOverview}>
+      <div className={`${isOverview ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleOverview}>
         <Home className={`${isOverview ? 'text-white' : 'text-stone-500'}`} size={15}/>
        <h1 className="hidden lg:block">Overview</h1>
         
       </div>
 
-      <div className={`${isLogBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleLogBook}>
+      <div className={`${isLogBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleLogBook}>
         <BookUser className={`${isLogBook ? 'text-white' : 'text-stone-500'}`} size={15}/>
         <h1 className="hidden lg:block">Logbook</h1>
         
       </div>
 
-      <div className={`${isUploadStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUploadStory}>
+      <div className={`${isUploadStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUploadStory}>
         <ArrowUp className={`${isUploadStory ? 'text-white' : 'text-stone-500'}`} size={15}/>
         <h1 className="hidden lg:block">Upload</h1>
       </div>
 
-      <div className={`${isViewStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleViewStory}>
+      <div className={`${isViewStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleViewStory}>
         <LibraryBig className={`${isViewStory ? 'text-white' : 'text-stone-500'}`} size={15}/>
         <h1 className="hidden lg:block">Catalog</h1>
       </div>
 
-      <div className={`${isBorrowBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleBorrowBook}>
+      <div className={`${isBorrowBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleBorrowBook}>
         <HandHelping className={`${isBorrowBook ? 'text-white' : 'text-stone-500'}`} size={15}/>
         <h1 className="hidden lg:block">Request</h1>
       </div>
 
-      <div className={`${isUserRegistration ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUserRegistration}>
+      <div className={`${isUserRegistration ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUserRegistration}>
         <User className={`${isUserRegistration ? 'text-white' : 'text-stone-500'}`} size={15}/>
         <h1 className="hidden lg:block">Registration</h1>
       </div>
 
-      <div className={`${isUsersAccount ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUsers}>
+      <div className={`${isUsersAccount ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUsers}>
         <Users className={`${isUsersAccount ? 'text-white' : 'text-stone-500'}`} size={15}/>
         <h1 className="hidden lg:block">Accounts</h1>
       </div>
 
-      <div className={`${isPublicationLog ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-semibold gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handlePublicationLog}>
-        <ScrollText className={`${isPublicationLog ? 'text-white' : 'text-stone-500'}`} size={15}/>
-        <h1 className="hidden lg:block">Publication Log</h1>
+      <div className={`${isInventory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleInventory}>
+        <Package className={`${isInventory ? 'text-white' : 'text-stone-500'}`} size={15}/>
+        <h1 className="hidden lg:block">Inventory</h1>
       </div>
 
-      <div className="h-10 text-xs justify-center lg:justify-start items-center flex font-semibold text-red-500 flex  gap-2 cursor-pointer py-2 hover:bg-red-100 hover:border-none mt-2 p-4" onClick={handleLogout}>
-        <LogOut className={`text-red-500`} size={20}/>
+      <div className="h-10 text-xs justify-center lg:justify-start items-center flex font-normal text-red-500 flex  gap-2 cursor-pointer py-2 hover:bg-red-100 hover:border-none mt-2 p-4" onClick={handleLogout}>
+        <LogOut className={`text-red-500`} size={15}/>
         <h1 className="hidden lg:block">Logout</h1>
       </div>
       </div>

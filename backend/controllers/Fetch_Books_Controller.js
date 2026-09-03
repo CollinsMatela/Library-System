@@ -1,15 +1,10 @@
-import Fiction_Model from '../models/Fiction_Model.js'
-import NonFiction_Model from '../models/NonFiction_Model.js'
+import Books_Model from "../models/Books_Model.js";
 
 const Fetch_Books_Controller = async (req, res) => {
 
     try {
-        const [fiction, non_fiction] = await Promise.all([
-              Fiction_Model.find(),
-              NonFiction_Model.find()
-        ])
+        const books = await Books_Model.find().sort({ createdAt: -1 });
 
-        const books = [...fiction, ...non_fiction];
 
         res.status(200).json({message: "Successfully fetched books", isSucess: true, books: books})
     } catch (error) {

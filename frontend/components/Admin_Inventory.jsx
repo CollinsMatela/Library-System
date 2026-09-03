@@ -77,18 +77,17 @@ const Admin_Inventory = () => {
                         </div>
                         
                         <div className="w-full border border-stone-300 p-2 rounded-lg flex flex-col gap-2">
-                        <div className="w-full grid grid-cols-11 p-3 bg-stone-100 rounded-t-lg gap-2">
+                        <div className="w-full grid grid-cols-10 p-3 bg-stone-100 rounded-t-lg gap-2">
                             <h1 className="text-stone-500 text-xs">No.</h1>
                             <h1 className="text-stone-500 text-xs">Title</h1>
                             <h1 className="text-stone-500 text-xs">Author</h1>
                             <h1 className="text-stone-500 text-xs">Category</h1>
                             <h1 className="text-stone-500 text-xs">ISBN</h1>
-                            <h1 className="text-stone-500 text-xs">Edition</h1>
-                            <h1 className="text-stone-500 text-xs">Volume</h1>
                             <h1 className="text-stone-500 text-xs">Arrival Date</h1>
-                            <h1 className="text-stone-500 text-xs">From</h1>
+                            <h1 className="text-stone-500 text-xs">Donated From</h1>
                             <h1 className="text-stone-500 text-xs" title="Published Date">Pub. Date</h1>
                             <h1 className="text-stone-500 text-xs">Status</h1>
+                            <h1 className="text-stone-500 text-xs">Actions</h1>
                         </div>
 
                         <div className="w-full justify-start items-start flex">
@@ -105,15 +104,27 @@ const Admin_Inventory = () => {
                                     ) : (
                                         <div className="w-full justify-start items-start flex flex-col">
                                             {books.map((book, index) => (
-                                                <div key={book._id} className="w-full grid grid-cols-11 border-b border-stone-300 py-4 hover:bg-blue-50 hover:border-blue-600">
+                                                <div key={book._id} className="w-full grid grid-cols-10 border-b border-stone-300 py-4 hover:bg-blue-50 hover:border-blue-600">
                                                     <h1 className="text-xs text-stone-500">{index + 1}</h1>
                                                     <h1 className="text-xs text-stone-500">{book.title}</h1>
                                                     <h1 className="text-xs text-stone-500">{book.author}</h1>
                                                     <h1 className="text-xs text-stone-500">{book.category}</h1>
-                                                    <h1 className="text-xs text-stone-500">Arrival Date</h1>
+                                                    <h1 className="text-xs text-stone-500">{book.isbn}</h1>
+                                                    <h1 className="text-xs text-stone-500">{book.donatedFrom}</h1>
+                                                    <h1 className="text-xs text-stone-500">{new Date(book.receivedDate).toLocaleDateString()}</h1>
                                                     <h1 className="text-xs text-stone-500">{new Date(book.createdAt).toLocaleDateString()}</h1>
-                                                    <h1 className="text-xs text-stone-500">Admin</h1>
-                                                    <h1 className="text-xs text-stone-500">Published</h1>
+                                                    <h1
+                                                    className={`text-xs ${
+                                                        book.copies > 0
+                                                        ? "text-green-500 bg-green-200"
+                                                        : "text-red-500 bg-red-200"
+                                                    } rounded-full p-1 text-center w-fit`}
+                                                    >
+                                                    {book.copies}{" "}
+                                                    {book.copies > 0 ? "Available" : "Not Available"}
+                                                    </h1>
+                                                    <h1 className="text-xs text-stone-500">Actions</h1>
+                            
                                                     
                                                 </div>
                                             ))}

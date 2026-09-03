@@ -4,10 +4,10 @@ import Confirmation_Popup from "../popup/Confirmation_Popup";
 import axios from 'axios'
 import Admin_SideBar from "../components/Admin_Sidebar";
 import FictionBookInformation from "./UploadPage_Components/FictionBookInformation"
-import NonFictionBookInformation from "./UploadPage_Components/NonFictionBookInformation";
+import BookInformation from "./UploadPage_Components/BookInformation";
 import TypeOfBooks from "./UploadPage_Components/TypeOfBooks";
 import PreviewBook from "./UploadPage_Components/PreviewBook"
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, X, Plus, Image, Save, AudioLines, FilePlay, Pencil, ImageOff, Info, ArrowUp } from "lucide-react";
+import {  X, Plus, Image, Save, AudioLines, FilePlay, Pencil, ImageOff, Info, ArrowUp } from "lucide-react";
 import { toast } from "react-toastify";
 
 const Admin_UploadBook_Page = () => {
@@ -25,10 +25,10 @@ const Admin_UploadBook_Page = () => {
 
         const [showConfirmation, setShowConfirmation] = useState(false);
 
-        const [selectedTypeOfBooks, setSelectedTypeOfBooks] = useState("");
-        const [selectedCategoryOfBook, setSelectedCategoryOfBook] = useState("");
+        
 
-        // Book Information 
+        // Book Information
+        const [selectedCategoryOfBook, setSelectedCategoryOfBook] = useState("");
         const [title, setTitle] = useState("");
         const [author, setAuthor] = useState("");
         const [description, setDescription] = useState("");
@@ -36,24 +36,17 @@ const Admin_UploadBook_Page = () => {
         const [publication, setPublication] = useState("");
         const [publisher, setPublisher] = useState("");
         const [isbn, setIsbn] = useState("");
-        const [availability, setAvailability] = useState(true);
         const [ddc, setDdc] = useState("");
         const [copies, setCopies] = useState(1);
         const [callNumber, setCallNumber] = useState("");
-        const [availableAt, setAvailableAt] = useState("")
-        
+        const [donatedFrom, setDonatedFrom] = useState("")
+        const [receivedDate, setReceivedDate] = useState(new Date()); // Default to today's date
         const [illustrator, setIllustrator] = useState("");
         const [moral, setMoral] = useState("");
-
-
-        // Fictions Addiotionals Information
         const [series, setSeries] = useState("");
-        
         const [field, setField] = useState("")
-        // text book
         const [subject, setSubject] = useState(""); 
         const [gradeLevel, setGradeLevel] = useState(""); 
-
         const [edition, setEdition] = useState("");
         const [volume, setVolume] = useState("");
         
@@ -84,16 +77,19 @@ const Admin_UploadBook_Page = () => {
             return response.data.secure_url;
         };
 
+
         const resetForm = () => {
             setErrorMessage("");
             setShowConfirmation(false);
 
-            // Book Selection
-            setSelectedTypeOfBooks("");
+            // =========================
+            // Book Category
+            // =========================
             setSelectedCategoryOfBook("");
-            setField("");
-
-            // Basic Book Information
+            
+            // =========================
+            // Basic Information
+            // =========================
             setTitle("");
             setAuthor("");
             setDescription("");
@@ -101,39 +97,57 @@ const Admin_UploadBook_Page = () => {
             setPublication("");
             setPublisher("");
             setIsbn("");
-            setAvailability(true);
-            setDdc("");
-            setCopies(0);
-            setCallNumber("");
-            setAvailableAt("");
 
-            setIllustrator("");
-            setMoral("");
-
-            // Fiction
-            setSeries("");
-
-            setSubject("");
-            setGradeLevel("");
-
+            // =========================
+            // Publication Details
+            // =========================
             setEdition("");
             setVolume("");
 
+            // =========================
+            // Classification
+            // =========================
+            setDdc("");
+            setField("");
+            setSubject("");
+            setGradeLevel("");
+
+            // =========================
+            // Inventory
+            // =========================
+            setCopies(1);
+            setCallNumber("");
+            setDonatedFrom("");
+            setReceivedDate(
+                new Date().toISOString().split("T")[0]
+            );
+
+            // =========================
+            // Literature / Fiction
+            // =========================
+            setIllustrator("");
+            setMoral("");
+            setSeries("");
+
+            // =========================
             // Cover Image
+            // =========================
             setFile(null);
             setPreview(null);
 
-            // Reset the actual file input
+            // Reset actual cover file input
             if (fileInputRef.current) {
                 fileInputRef.current.value = "";
             }
 
+            // =========================
             // Pages
+            // =========================
             setPageList([]);
             setPageText("");
             setPageImage(null);
             setPageImagePreview("");
-            setAudio(null)
+            setAudio(null);
             setAudioPreview(null);
 
             // Reset page image input
@@ -141,6 +155,8 @@ const Admin_UploadBook_Page = () => {
                 pageImageInputRef.current.value = "";
             }
         };
+
+
 
         useEffect(() => {
         return () => {
@@ -173,29 +189,24 @@ const Admin_UploadBook_Page = () => {
         const handleNextPage = async () => {
             console.log(CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET);
 
-            if (!selectedTypeOfBooks && !selectedCategoryOfBook) {
+            if (!selectedCategoryOfBook) {
                 toast.warning("Please select type and category of book.");
                 return;
             }
 
-            if (
-                selectedTypeOfBooks.trim().toLowerCase() === "fiction" &&
-                selectedCategoryOfBook.trim().toLowerCase() === "story book"
-            ) {
                 // if (!pageText || !pageImage || !audio) {
                 //     toast.warning(
                 //         "Story books require page text, at least one image, and page audio."
                 //     );
                 //     return;
                 // }
-            } else {
                 if (!pageText && !pageImage) {
                     toast.warning(
                         "Please enter page text or upload at least one image."
                     );
                     return;
                 }
-            }
+
 
             try {
 
@@ -325,24 +336,18 @@ const Admin_UploadBook_Page = () => {
 
     const handleConfirmation = () => {
 
-        if (!selectedTypeOfBooks) {
-            toast.warning('Please select type of book')
-            return;
-        }
-
         if (!selectedCategoryOfBook) {
             toast.warning('Please select book category')
             return;
         }
-        if (
-            selectedTypeOfBooks.toLowerCase() === "non-fiction" &&
-            (
-                selectedCategoryOfBook.toLowerCase() === "philosophy & psychology" ||
-                selectedCategoryOfBook.toLowerCase() === "social sciences" ||
-                selectedCategoryOfBook.toLowerCase() === "technology" ||
-                selectedCategoryOfBook.toLowerCase() === "the arts"
-            )
-        ) {
+        if 
+        (
+            selectedCategoryOfBook.toLowerCase() === "philosophy/psychology" ||
+            selectedCategoryOfBook.toLowerCase() === "social sciences" ||
+            selectedCategoryOfBook.toLowerCase() === "technology / applied sciences" ||
+            selectedCategoryOfBook.toLowerCase() === "the arts"
+        )
+         {
             if (!field) {
                 toast.warning("Please select a field.");
                 return;
@@ -382,10 +387,6 @@ const Admin_UploadBook_Page = () => {
 
     try {
 
-        // =========================
-        // Upload cover to Cloudinary
-        // =========================
-
         let coverUrl = "";
 
         if (file) {
@@ -399,16 +400,9 @@ const Admin_UploadBook_Page = () => {
 
         console.log("Cover URL:", coverUrl);
 
-        // =========================
-        // Prepare book data
-        // =========================
-
         const bookData = {
-
-            // Book Type
-            type: selectedTypeOfBooks,
+            // Category
             category: selectedCategoryOfBook,
-            field,
 
             // Basic Book Information
             title,
@@ -418,38 +412,41 @@ const Admin_UploadBook_Page = () => {
             publication,
             publisher,
             isbn,
-            illustrator,
-            moral,
 
-            // Non-Fiction
-            ddc,
-            copies,
-            callNumber,
-            availableAt,
-
-            // Shared
+            // Publication Details
             edition,
             volume,
 
-            // Fiction
+            // Inventory Information
+            copies,
+            callNumber,
+            donatedFrom,
+            receivedDate,
+
+            // Classification
+            ddc,
+
+            // Literature / Fiction
+            illustrator,
+            moral,
             series,
 
             // Non-Fiction
+            field,
             subject,
             gradeLevel,
 
-            // Cover Cloudinary URL
+            // Cover
             cover: coverUrl,
 
-            // Pages already contain Cloudinary URLs
+            // Digital Pages
             pages: pageList,
         };
 
+
+
         console.log("BOOK DATA:", bookData);
 
-        // =========================
-        // Send to backend
-        // =========================
 
         const res = await axios.post(
             `${import.meta.env.VITE_API_URL}/upload-manually`,
@@ -506,8 +503,6 @@ const Admin_UploadBook_Page = () => {
                         </div>
 
                        <TypeOfBooks
-                       selectedTypeOfBooks={selectedTypeOfBooks}
-                       setSelectedTypeOfBooks={setSelectedTypeOfBooks}
                        selectedCategoryOfBook={selectedCategoryOfBook}
                        setSelectedCategoryOfBook={setSelectedCategoryOfBook}
                        field={field}
@@ -528,109 +523,79 @@ const Admin_UploadBook_Page = () => {
                             </div>
                             
                         </div>
-
-                        {(!selectedTypeOfBooks || !selectedCategoryOfBook) && (
-                            <div className="w-full bg-stone-100 p-6 rounded-xl justify-center items-center flex my-4 gap-1">
-                                <Info size={20} className="text-stone-500"/>
-                                <p className="text-stone-500 text-xs">Please select a book type and category to proceed.</p>
-                            </div>
-                            
-                        )}
-
-                        {selectedTypeOfBooks.toLowerCase() === 'fiction' && selectedCategoryOfBook && (
-                        <FictionBookInformation
+                       
+                    <BookInformation
+                        // Category
                         selectedCategoryOfBook={selectedCategoryOfBook}
 
-                            title={title}
-                            setTitle={setTitle}
+                        // Basic Information
+                        title={title}
+                        setTitle={setTitle}
 
-                            author={author}
-                            setAuthor={setAuthor}
+                        author={author}
+                        setAuthor={setAuthor}
 
-                            description={description}
-                            setDescription={setDescription}
+                        description={description}
+                        setDescription={setDescription}
 
-                            language={language}
-                            setLanguage={setLanguage}
+                        language={language}
+                        setLanguage={setLanguage}
 
-                            publication={publication}
-                            setPublication={setPublication}
+                        // Publication Information
+                        publication={publication}
+                        setPublication={setPublication}
 
-                            publisher={publisher}
-                            setPublisher={setPublisher}
+                        publisher={publisher}
+                        setPublisher={setPublisher}
 
-                            isbn={isbn}
-                            setIsbn={setIsbn}
+                        isbn={isbn}
+                        setIsbn={setIsbn}
 
-                            illustrator={illustrator}
-                            setIllustrator={setIllustrator}
+                        edition={edition}
+                        setEdition={setEdition}
 
-                            moral={moral}
-                            setMoral={setMoral}
+                        volume={volume}
+                        setVolume={setVolume}
 
-                            series={series}
-                            setSeries={setSeries}
+                        // Inventory Information
+                        copies={copies}
+                        setCopies={setCopies}
 
-                            copies={copies}
-                            setCopies={setCopies}
+                        callNumber={callNumber}
+                        setCallNumber={setCallNumber}
 
-                            callNumber={callNumber}
-                            setCallNumber={setCallNumber}
+                        donatedFrom={donatedFrom}
+                        setDonatedFrom={setDonatedFrom}
 
-                            availableAt={availableAt}
-                            setAvailableAt={setAvailableAt}
+                        receivedDate={receivedDate}
+                        setReceivedDate={setReceivedDate}
 
-                            edition={edition}
-                            setEdition={setEdition}
+                        // Non-Fiction / Classification
+                        ddc={ddc}
+                        setDdc={setDdc}
 
-                            volume={volume}
-                            setVolume={setVolume}
+                        field={field}
+                        setField={setField}
 
-                        />
-                        )}
+                        subject={subject}
+                        setSubject={setSubject}
 
-                        {selectedTypeOfBooks.toLowerCase() === "non-fiction" && selectedCategoryOfBook && (
-                        <NonFictionBookInformation
-                            selectedCategoryOfBook={selectedCategoryOfBook}
+                        gradeLevel={gradeLevel}
+                        setGradeLevel={setGradeLevel}
 
-                            title={title}
-                            setTitle={setTitle}
+                        // Literature / Fiction
+                        illustrator={illustrator}
+                        setIllustrator={setIllustrator}
 
-                            author={author}
-                            setAuthor={setAuthor}
+                        moral={moral}
+                        setMoral={setMoral}
 
-                            description={description}
-                            setDescription={setDescription}
+                        series={series}
+                        setSeries={setSeries}
+                    />
 
-                            language={language}
-                            setLanguage={setLanguage}
 
-                            publication={publication}
-                            setPublication={setPublication}
 
-                            publisher={publisher}
-                            setPublisher={setPublisher}
-
-                            isbn={isbn}
-                            setIsbn={setIsbn}
-
-                            availability={availability}
-                            setAvailability={setAvailability}
-
-                            ddc={ddc}
-                            setDdc={setDdc}
-
-                            copies={copies}
-                            setCopies={setCopies}
-
-                            callNumber={callNumber}
-                            setCallNumber={setCallNumber}
-
-                            availableAt={availableAt}
-                            setAvailableAt={setAvailableAt}
-
-                        />
-                    )}
 
 
                     {/*Book Pages and Image insertion*/}
@@ -749,7 +714,7 @@ const Admin_UploadBook_Page = () => {
                         )}
 
                         <div className="w-full justify-end items-center flex gap-2">
-                            {(selectedTypeOfBooks.toLowerCase() === 'fiction' && selectedCategoryOfBook.toLowerCase() === 'story book') && (
+                            {(selectedCategoryOfBook.toLowerCase() === 'literature') && (
                                 <button className={`${audioPreview ? 'hidden' : null} justify-center items-center flex gap-1 p-2 text-xs text-stone-800 font-bold hover:bg-stone-200 cursor-pointer transition`} onClick={() => audioInputRef.current.click()}>
                                     <AudioLines size={15}/> Add Audio
                                 </button>  
@@ -786,7 +751,6 @@ const Admin_UploadBook_Page = () => {
 
                         
                   <PreviewBook
-                  type={selectedTypeOfBooks}
                   category={selectedCategoryOfBook}
                   pages={pageList}
                   moral={moral}

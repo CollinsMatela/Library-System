@@ -29,20 +29,35 @@ export const alphabetical = [
   { label: "Z", value: "z" },
 ];
 export const categories = [
-{ label: "All", value: "" },
+  // DDC Classification
   { label: "Generalities (000-099)", value: "generalities" },
   { label: "Philosophy/Psychology (100-199)", value: "philosophy/psychology" },
   { label: "Religion (200-299)", value: "religion" },
-  { label: "Social Science (300-399)", value: "social science" },
+  { label: "Social Sciences (300-399)", value: "social sciences" },
   { label: "Language (400-499)", value: "language" },
   { label: "Natural Sciences & Mathematics (500-599)", value: "natural sciences & mathematics" },
-  { label: "Technology (Applied Science) (600-699)", value: "technology (applied science)" },
+  { label: "Technology / Applied Sciences (600-699)", value: "technology / applied sciences" },
   { label: "The Arts (700-799)", value: "the arts" },
-  { label: "Literature and Rhetoric (800-899)", value: "literature and rhetoric" },
-  { label: "Geography and History (900-999)", value: "geography and history" },
-  { label: "Story Book", value: "story book" },
+  { label: "Literature & Rhetoric (800-899)", value: "literature & rhetoric" },
+  { label: "Geography & History (900-999)", value: "geography & history" },
 
-  // School Subjects
+  // Textbook Categories
+  { label: "Textbooks", value: "textbooks" },
+
+  // Library Color-Coded Categories
+  { label: "Love / Romance", value: "love / romance" },
+  { label: "Novel", value: "novel" },
+  { label: "Suspense / Thriller / Mystery / Action", value: "suspense / thriller / mystery / action" },
+  { label: "Political", value: "political" },
+  { label: "Literature", value: "literature" },
+  { label: "Fiction", value: "fiction" },
+  { label: "Non-Fiction", value: "non-fiction" },
+  { label: "Biography", value: "biography" },
+  { label: "Fantasy", value: "fantasy" },
+  { label: "Documentary", value: "documentary" },
+];
+
+export const subjects = [
   { label: "Chemistry", value: "chemistry" },
   { label: "Christian", value: "christian" },
   { label: "English", value: "english" },
@@ -59,4 +74,14 @@ export const categories = [
   { label: "Statistics", value: "statistics" },
   { label: "Values", value: "values" },
   { label: "YDT", value: "ydt" },
+];
+
+export const gradeLevels = [
+  { label: "Grade 1", value: "grade 1" },
+  { label: "Grade 2", value: "grade 2" },
+  { label: "Grade 3", value: "grade 3" },
+  { label: "Grade 4", value: "grade 4" },
+  { label: "Grade 5", value: "grade 5" },
+  { label: "Grade 6", value: "grade 6" },
+  { label: "Secondary / Tertiary", value: "secondary / tertiary" },
 ];

@@ -5,6 +5,8 @@ import {toast} from "react-toastify";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
 const Book_Edit = ({bookDetails, fetchBookById}) => {
 
+    console.log(bookDetails)
+
     const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
     const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
@@ -677,7 +679,7 @@ switch (bookDetails?.category?.toLowerCase()) {
                 ></textarea>   
             </div>
 
-            {category.toLowerCase() === 'story book' && (
+            {category.toLowerCase() === 'literature' && (
             <div className="mt-6 rounded-2xl border border-violet-200 bg-white">
                 <div className="flex justify-between items-start gap-2 p-4 border-b border-stone-300">
                     <div className="justify-center items-center flex gap-2">
@@ -864,7 +866,7 @@ switch (bookDetails?.category?.toLowerCase()) {
                     </div>
 
                     {/**Audio Preview */}
-                        {type.toLowerCase() === 'fiction' && category.toLowerCase() === 'story book' && (
+                        {category.toLowerCase() === 'literature' && (
                             <div className="w-full justify-start items-start flex flex-col p-4 bg-white border border-stone-300 rounded-xl mb-2">
                                 <div className="flex justify-between items-start gap-2 mb-5 w-full">
                                         

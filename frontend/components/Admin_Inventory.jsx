@@ -110,8 +110,8 @@ const Admin_Inventory = () => {
                                                     <h1 className="text-xs text-stone-500">{book.author}</h1>
                                                     <h1 className="text-xs text-stone-500">{book.category}</h1>
                                                     <h1 className="text-xs text-stone-500">{book.isbn}</h1>
-                                                    <h1 className="text-xs text-stone-500">{book.donatedFrom}</h1>
                                                     <h1 className="text-xs text-stone-500">{new Date(book.receivedDate).toLocaleDateString()}</h1>
+                                                    <h1 className="text-xs text-stone-500">{book.donatedFrom}</h1>
                                                     <h1 className="text-xs text-stone-500">{new Date(book.createdAt).toLocaleDateString()}</h1>
                                                     <h1
                                                     className={`text-xs ${

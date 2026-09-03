@@ -1,23 +1,23 @@
 import Borrow_Model from "../models/Borrow_Model.js";
-import Fiction_Model from "../models/Fiction_Model.js"
-import NonFiction_Model from "../models/NonFiction_Model.js"
+import Book_Model from "../models/Books_Model.js";
 
 const Borrow_Controller = async (req, res) => {
      const {userId, name, bookId} = req.body;
 
      try {
-          let book = await Fiction_Model.findById({_id: bookId}) ||
-                     await NonFiction_Model.findById({_id: bookId});
+          const book = await Book_Model.findById(bookId);
+
           if(!book) {
              res.status(404).json({message: 'Book is not found'})
              return;
           } else {
             console.log('book found', book.title)
           }
-          const isExistRequest = await Borrow_Model.findOne({
-            userId: userId,
-            bookId: bookId
-          })
+
+          // const isExistRequest = await Borrow_Model.findOne({
+          //   userId: userId,
+          //   bookId: bookId
+          // })
 
           const activeRequest = await Borrow_Model.findOne({
             userId,
@@ -33,7 +33,7 @@ const Borrow_Controller = async (req, res) => {
             });
           }
 
-          const borrow = await Borrow_Model.create({
+          await Borrow_Model.create({
             userId: userId,
             name: name,
             bookId: bookId,

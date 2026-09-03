@@ -36,7 +36,7 @@ const Library_Page = () => {
     const showStories = (genre) => {
     setSelectedGenre(genre);
     };
-    const [selectedTitle, setSelectedTitle] = useState('All');
+    const [selectedTitle, setSelectedTitle] = useState('');
     const [selectedCategory, setSelectedCategory] = useState([])
     const [selectedLetter, setSelectedLetter] = useState('')
 
@@ -44,11 +44,13 @@ const Library_Page = () => {
         let result = null
         let newestOrderBook = books.reverse()
         setSelectedCategory([])
+
         if(!category){
           setSelectedCategory(newestOrderBook)
         } else {
             result = newestOrderBook.filter((b) => b.category.toLowerCase().trim() === category.toLowerCase().trim())
             setSelectedCategory(result)
+            console.log(result)
         } 
     }
 
@@ -195,8 +197,9 @@ const Library_Page = () => {
                                  <div className='w-full flex flex-row lg:flex-col gap-1 lg:px-4 overflow-auto'>
                                     <h1 className='hidden lg:block text-xs text-stone-800'>Categories</h1>
                                     
-                                        {categories.map((item) => (
-                                            <button 
+                                        {categories.map((item, index) => (
+                                            <button
+                                            key={index}
                                             className='py-4 px-10 lg:py-2 lg:px-0 bg-white border lg:border-0 lg:border-b border-stone-300 rounded-2xl lg:rounded-none text-xs text-stone-500 justify-center lg:justify-start items-center flex cursor-pointer hover:text-stone-800 hover:font-semibold gap-2'
                                             value={item.value}
                                             onClick={(e) => {filterByCategory(e.target.value);
@@ -217,7 +220,7 @@ const Library_Page = () => {
                                     <h1 className='text-lg font-bold text-stone-800 justify-start items-center flex'>Book Collection <ChevronRight size={15}/> <span className='text-stone-500 text-lg'>{selectedTitle || "All"} {selectedLetter}</span></h1>
                                     <h1 className='text-xs text-stone-500 '>Browse and discover books in the library.</h1>
                                 </header>
-                            {selectedCategory.length > 1 ? (
+                            {selectedCategory.length > 0 ? (
                                 <div className='bg-white w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-1 p-4'>
                                     
                                     {selectedCategory.map((book) => (
@@ -236,7 +239,7 @@ const Library_Page = () => {
                             ) : (
                                 <div className='p-4 justify-center items-center flex w-full gap-1'>
                                         <Info size={10} className='text-stone-500'/>
-                                        <h1 className='text-stone-500 text-xs'>No Book found</h1>
+                                        <h1 className='text-stone-500 text-xs'>{`No books found in this category ${selectedTitle}.`}</h1>
                                     </div>
                             )}
                           </div>

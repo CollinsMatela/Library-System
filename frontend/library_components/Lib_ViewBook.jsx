@@ -88,7 +88,7 @@ const Lib_ViewBook = () => {
 
         const requestData = {
             userId: user._id,
-            name: `${user.firstname, user.lastname}`,
+            name: `${user.firstname} ${user.lastname}`,
             bookId: bookId,
         }
 
@@ -243,7 +243,7 @@ const Lib_ViewBook = () => {
             </div>
 
             {/**AI Summary */}
-            {bookDetails?.type.toLowerCase() === 'fiction' && bookDetails?.category.toLowerCase() === 'story book' && (
+            {bookDetails?.category.toLowerCase() === 'literature' && (
                 <div className="mt-6 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm w-full">
                     <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-100">

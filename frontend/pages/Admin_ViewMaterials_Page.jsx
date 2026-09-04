@@ -8,6 +8,7 @@ import Edit_BookPage from "./BookInformation_Component/Edit_BookPage";
 import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Sparkles } from "lucide-react";
 import { toast } from "react-toastify";
 import ConfirmationPopup from "../popup/Confirmation_Popup"
+import AddPage_Modal from "../modals/AddPage_Modal";
 
 const Admin_ViewMaterials_Page = () => {
   const { id } = useParams();
@@ -25,6 +26,8 @@ const Admin_ViewMaterials_Page = () => {
   const [isInformationUpdate, setIsInformationUpdate] = useState(false);
   const [isBookPageUpdate, setIsBookPageUpdate] = useState(false);
   const [selectedPageIndex, setSelectedPageIndex] = useState(null);
+
+  const [isAddPageModal, setIsAddPageModal] = useState(false);
 
   const [audioPreview, setAudioPreview] = useState('');
 
@@ -227,6 +230,7 @@ const Admin_ViewMaterials_Page = () => {
   return(
     <>
     <AdminSidebar />
+
     {isConfirmation && (<ConfirmationPopup 
     errorMessage={errorMessage}
     message={'Are you sure to delete this book?'}
@@ -240,6 +244,14 @@ const Admin_ViewMaterials_Page = () => {
     onConfirm={updateBookInformation}
     onCancel={() => setIsInformationUpdate(false)}
     />)}
+
+    {isAddPageModal && (
+    <AddPage_Modal
+    onClose={() => setIsAddPageModal(false)}
+    bookDetails={bookDetails}
+    setBookDetails={setBookDetails}
+    />
+    )}
 
     
     <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pb-15 md:pl-20 lg:pl-60">
@@ -317,7 +329,6 @@ const Admin_ViewMaterials_Page = () => {
                Summarization={AISummarization}
                updateBookInformation={updateBookInformation}
     />
-    {bookDetails?.category === "literature" && (
         <Edit_BookPage bookDetails={bookDetails}
                setBookDetails={setBookDetails}
                fetchBookById={fetchBookById}
@@ -327,8 +338,9 @@ const Admin_ViewMaterials_Page = () => {
                showPageUpdateConfirmation={() => {setIsBookPageUpdate(true); setErrorMessage("")}}
                selectedPageIndex={selectedPageIndex}
                setSelectedPageIndex={setSelectedPageIndex}
+               isAddPageModal={() => setIsAddPageModal(true)}
     />
-    )}
+    
     
 
     {/* // Save Button */}

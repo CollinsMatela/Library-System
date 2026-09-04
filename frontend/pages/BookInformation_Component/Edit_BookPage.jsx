@@ -3,7 +3,7 @@ import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Tras
 import axios from "axios";
 import {toast} from "react-toastify";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
-const Edit_BookPage = ({bookDetails, setBookDetails, fetchBookById, handleImageChange, handleAudioChange, updatePage, showPageUpdateConfirmation, selectedPageIndex, setSelectedPageIndex}) => {
+const Edit_BookPage = ({bookDetails, setBookDetails, fetchBookById, handleImageChange, handleAudioChange, updatePage, showPageUpdateConfirmation, selectedPageIndex, setSelectedPageIndex, isAddPageModal}) => {
 
     console.log(bookDetails)
 
@@ -76,7 +76,8 @@ const Edit_BookPage = ({bookDetails, setBookDetails, fetchBookById, handleImageC
                         ))}
                     </select>
 
-                    <button className="bg-blue-200 border border-blue-500 text-xs text-blue-500 rounded-lg justify-center items-center flex gap-1 hover:bg-blue-300 p-2">
+                    <button className="bg-blue-200 border border-blue-500 text-xs text-blue-500 rounded-lg justify-center items-center flex gap-1 hover:bg-blue-300 p-2"
+                    onClick={isAddPageModal}>
                     <Plus size={15} />
                     <h1 className="hidden sm:block">Add Page</h1>
                     </button>  

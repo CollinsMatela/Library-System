@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import Edit_Question_Modal from "../modals/Edit_Question_Modal";
 import AdminSidebar from '../components/Admin_Sidebar';
-import Book_Edit from "./BookInformation_Component/Book_Edit";
+import Edit_BookInformation from "./BookInformation_Component/Edit_BookInformation";
+import Edit_BookPage from "./BookInformation_Component/Edit_BookPage";
 import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Sparkles } from "lucide-react";
 import { toast } from "react-toastify";
 import ConfirmationPopup from "../popup/Confirmation_Popup"
@@ -12,11 +13,33 @@ const Admin_ViewMaterials_Page = () => {
   const { id } = useParams();
   const [bookDetails, setBookDetails] = useState(null);
 
+  const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+  const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
   const navigate = useNavigate();
 
   const [isConfirmation, setIsConfirmation] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [moral, setMoral] = useState('');
+
+  const [isInformationUpdate, setIsInformationUpdate] = useState(false);
+  const [isBookPageUpdate, setIsBookPageUpdate] = useState(false);
+
+  const uploadToCloudinary = async (file, resourceType = "image") => {
+                if (!file) return "";
+    
+                const formData = new FormData();
+    
+                formData.append("file", file);
+                formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    
+                const response = await axios.post(
+                    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
+                    formData
+                );
+    
+                return response.data.secure_url;
+    };
 
   const AISummarization = async () => {
             const texts = bookDetails.pages.map((p) => p.pageText);
@@ -38,6 +61,99 @@ const Admin_ViewMaterials_Page = () => {
               toast.error(error?.response?.data?.message);
             }
       }
+  
+  const handleImageChange = async (e) => {
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        try {
+            const image = await uploadToCloudinary(file, "image");
+
+            setPages(prev => {
+                const updated = [...prev];
+
+                updated[selectedPageIndex] = {
+                    ...updated[selectedPageIndex],
+                    pageImage: image,
+                };
+
+                return updated;
+            });
+
+        } catch (error) {
+            console.error("Image upload failed:", error);
+        }
+    };
+
+    const handleAudioChange = async (e) => {
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        try {
+            const audio = await uploadToCloudinary(file, "video");
+
+            setPages(prev => {
+                const updated = [...prev];
+
+                updated[selectedPageIndex] = {
+                    ...updated[selectedPageIndex],
+                    pageAudio: audio,
+                };
+
+                return updated;
+            });
+
+            setAudioPreview(URL.createObjectURL(file));
+
+        } catch (error) {
+            console.error("Audio upload failed:", error);
+        }
+    };
+
+    const updateBookInformation = async () => {
+
+        try {
+            const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-book/${bookDetails._id}`, {bookDetails});
+            console.log(res.data.message);
+            setErrorMessage("");
+            toast.success(res.data.message);
+            fetchBookById(bookDetails._id);
+            setIsInformationUpdate(false);
+        } catch (error) {
+            console.error("Error updating book information:", error);
+            setErrorMessage(error?.response?.data?.message || "An error occurred while updating the book information.");
+            toast.error(error?.response?.data?.message || "An error occurred while updating the book information.");
+        }
+    }
+
+    const updatePage = async () => {
+        
+            const currentPage = pages[selectedPageIndex];
+
+            const bookPageData = {
+                bookId: bookDetails._id,
+                pageId: currentPage._id,
+                pageText: currentPage.pageText,
+                pageImage: currentPage.pageImage,
+                pageAudio: currentPage.pageAudio
+            };
+
+          try {
+            const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-page`, bookPageData);
+            console.log("Page updated successfully:", res.data.message);
+            toast.success(res.data.message);
+            setErrorMessage("");
+            fetchBookById(bookDetails._id);
+            setIsBookPageUpdate(false);
+            
+          } catch (error) {
+            console.error("Error updating page:", error);
+            setErrorMessage(error?.response?.data?.message || "An error occurred while updating the page.");
+            toast.error(error?.response?.data?.message || "An error occurred while updating the page.");
+          }
+    }
 
   const informations = [
     // Basic Information
@@ -119,14 +235,24 @@ const Admin_ViewMaterials_Page = () => {
     message={'Are you sure to delete this book?'}
     onConfirm={() => deleteBook(bookDetails._id)} 
     onCancel={() => setIsConfirmation(false)}/>)}
-    <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pl-70">
+
+    {isInformationUpdate && (
+    <ConfirmationPopup
+    errorMessage={errorMessage}
+    message={'Are you sure to update the book information?'}
+    onConfirm={updateBookInformation}
+    onCancel={() => setIsInformationUpdate(false)}
+    />)}
+
+    
+    <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pb-10 md:pl-20 lg:pl-60">
               
-    <header className="w-full justify-between items-start flex flex-col border-b border-stone-300 p-3 px-10">
+    <header className="w-full justify-between items-start flex flex-col border-b border-stone-300 p-3 px-4 lg:px-10">
         <h1 className="text-sm font-bold text-stone-800">Book Information</h1>
         <h1 className="text-stone-400 text-xs">Manage the selected book</h1>                   
     </header>
 
-    <div className="w-full flex gap-4 p-10">
+    <div className="w-full flex gap-4 py-10 px-4 lg:px-10">
         {/* Book Cover Container */}
         <div className="bg-white w-120 flex flex-col gap-4">
             <img src={bookDetails?.cover} className="bg-stone-100 h-100 object-cover shadow-xl mb-5" />
@@ -164,14 +290,6 @@ const Admin_ViewMaterials_Page = () => {
                 <h1 className="text-sm text-stone-800 font-bold">Description</h1>
                 <h1 className="text-stone-500 text-xs font-md">{bookDetails?.description || "No description"}</h1>
             </div>
-
-            <div className="flex flex-col gap-2">
-                <div className="justify-between items-center flex">
-                  <h1 className="text-sm text-stone-800 font-bold">AI Summarization</h1>
-                </div>
-                
-                <h1 className="text-stone-500 text-xs font-md">{bookDetails?.moral || "No summarized story yet"}</h1>
-            </div>
                  
            </div>
            
@@ -195,8 +313,18 @@ const Admin_ViewMaterials_Page = () => {
         </div>
     </div>
 
-    <Book_Edit bookDetails={bookDetails}
+    <Edit_BookInformation 
+               bookDetails={bookDetails}
+               setBookDetails={setBookDetails}
                fetchBookById={fetchBookById}
+               Summarization={AISummarization}
+               updateBookInformation={updateBookInformation}
+               showBookInformationConfirmation={() => {setIsInformationUpdate(true); setErrorMessage("")}}
+    />
+    <Edit_BookPage bookDetails={bookDetails}
+               setBookDetails={setBookDetails}
+               fetchBookById={fetchBookById}
+               Summarization={AISummarization}
     />
 
     </section>

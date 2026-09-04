@@ -24,6 +24,9 @@ const Admin_ViewMaterials_Page = () => {
 
   const [isInformationUpdate, setIsInformationUpdate] = useState(false);
   const [isBookPageUpdate, setIsBookPageUpdate] = useState(false);
+  const [selectedPageIndex, setSelectedPageIndex] = useState(null);
+
+  const [audioPreview, setAudioPreview] = useState('');
 
   const uploadToCloudinary = async (file, resourceType = "image") => {
                 if (!file) return "";
@@ -70,16 +73,14 @@ const Admin_ViewMaterials_Page = () => {
         try {
             const image = await uploadToCloudinary(file, "image");
 
-            setPages(prev => {
-                const updated = [...prev];
-
-                updated[selectedPageIndex] = {
-                    ...updated[selectedPageIndex],
-                    pageImage: image,
-                };
-
-                return updated;
-            });
+            setBookDetails((bookDetails) => ({
+            ...bookDetails,
+            pages: bookDetails.pages.map((page, index) =>
+                index === selectedPageIndex
+                ? { ...page, pageImage: image }
+                : page
+            ),
+            }));
 
         } catch (error) {
             console.error("Image upload failed:", error);
@@ -94,16 +95,12 @@ const Admin_ViewMaterials_Page = () => {
         try {
             const audio = await uploadToCloudinary(file, "video");
 
-            setPages(prev => {
-                const updated = [...prev];
-
-                updated[selectedPageIndex] = {
-                    ...updated[selectedPageIndex],
-                    pageAudio: audio,
-                };
-
-                return updated;
-            });
+            setBookDetails({...bookDetails, pages: bookDetails.pages.map((page, index) => {
+                if (index === selectedPageIndex) {
+                    return { ...page, pageAudio: audio };
+                }
+                return page;
+            })});
 
             setAudioPreview(URL.createObjectURL(file));
 
@@ -130,7 +127,7 @@ const Admin_ViewMaterials_Page = () => {
 
     const updatePage = async () => {
         
-            const currentPage = pages[selectedPageIndex];
+            const currentPage = bookDetails.pages[selectedPageIndex];
 
             const bookPageData = {
                 bookId: bookDetails._id,
@@ -245,17 +242,17 @@ const Admin_ViewMaterials_Page = () => {
     />)}
 
     
-    <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pb-10 md:pl-20 lg:pl-60">
+    <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pb-15 md:pl-20 lg:pl-60">
               
-    <header className="w-full justify-between items-start flex flex-col border-b border-stone-300 p-3 px-4 lg:px-10">
+    <header className="w-full justify-between items-start flex flex-col border-0 lg:border-b border-stone-300 p-3 px-4 lg:px-10">
         <h1 className="text-sm font-bold text-stone-800">Book Information</h1>
         <h1 className="text-stone-400 text-xs">Manage the selected book</h1>                   
     </header>
 
-    <div className="w-full flex gap-4 py-10 px-4 lg:px-10">
+    <div className="w-full flex flex-col md:flex-row gap-4 py-10 px-4 lg:px-10">
         {/* Book Cover Container */}
-        <div className="bg-white w-120 flex flex-col gap-4">
-            <img src={bookDetails?.cover} className="bg-stone-100 h-100 object-cover shadow-xl mb-5" />
+        <div className="bg-stone-200 md:bg-white w-full md:w-120 justify-start items-center flex flex-col gap-4">
+            <img src={bookDetails?.cover} className="bg-stone-100 h-100 w-120 object-cover" />
 
         </div>
         
@@ -276,9 +273,9 @@ const Admin_ViewMaterials_Page = () => {
                     </div>
 
                     <div className="flex gap-2">
-                        <button className="justify-center items-center flex gap-2 bg-red-600 py-2 px-3 text-xs text-white font-bold hover:-translate-y-1 cursor-pointer"
+                        <button className="justify-center items-center flex gap-2 bg-red-200 p-2 text-xs text-red-500 border border-red-500 rounded-lg hover:bg-red-300 cursor-pointer"
                         onClick={handleDeleteConfirmation}>
-                            <Trash size={15}/> Remove
+                            <Trash size={15}/> <h1 className="hidden sm:block">Remove</h1>
                         </button>
                     </div>
                 </div>
@@ -319,13 +316,29 @@ const Admin_ViewMaterials_Page = () => {
                fetchBookById={fetchBookById}
                Summarization={AISummarization}
                updateBookInformation={updateBookInformation}
-               showBookInformationConfirmation={() => {setIsInformationUpdate(true); setErrorMessage("")}}
     />
-    <Edit_BookPage bookDetails={bookDetails}
+    {bookDetails?.category === "literature" && (
+        <Edit_BookPage bookDetails={bookDetails}
                setBookDetails={setBookDetails}
                fetchBookById={fetchBookById}
-               Summarization={AISummarization}
+               handleImageChange={handleImageChange}
+               handleAudioChange={handleAudioChange}
+               updatePage={updatePage}
+               showPageUpdateConfirmation={() => {setIsBookPageUpdate(true); setErrorMessage("")}}
+               selectedPageIndex={selectedPageIndex}
+               setSelectedPageIndex={setSelectedPageIndex}
     />
+    )}
+    
+
+    {/* // Save Button */}
+            <div className="w-full justify-end items-center flex px-4 lg:px-10">
+            <button className="justify-center items-center flex gap-2 bg-green-200 p-2 rounded-lg border border-green-500 text-xs text-green-500 hover:bg-green-300 cursor-pointer"
+            onClick={() => {setIsInformationUpdate(true); setErrorMessage("")}}
+            >
+                <Pen size={15}/> Save Information 
+            </button>
+            </div>
 
     </section>
     </>

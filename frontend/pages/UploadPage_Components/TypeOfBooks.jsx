@@ -119,17 +119,6 @@ if (selectedCategoryOfBook.toLowerCase() === "textbooks") {
 
     return(
         <div className="w-full grid my-4 md:p-6 border-0 md:border border-stone-300 md:rounded-xl gap-2">
-            
-            <div className="justify-between items-center flex gap-2 w-full">
-                                    <div class="flex gap-2 ujstify-center items-center">
-                                        <div className="p-2 rounded-full text-stone-500 bg-stone-200 justify-center items-center flex"><TextAlignCenter size={20}/></div>
-                                        <div>
-                                            <h1 className="text-stone-600 text-sm font-bold">Select required information</h1>
-                                            <h1 className="text-stone-600 text-xs">Select the appropriate fields for your book.</h1>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
 
             <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
 

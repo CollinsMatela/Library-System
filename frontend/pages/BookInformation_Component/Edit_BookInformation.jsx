@@ -3,7 +3,7 @@ import { TextAlignCenter, Pen, Trash, Image, Sparkle, Sparkles, Repeat, PenBox, 
 import axios from "axios";
 import {toast} from "react-toastify";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
-const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summarization, updateBookInformation, showBookInformationConfirmation}) => {
+const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summarization, updateBookInformation}) => {
 
     console.log(bookDetails)
 
@@ -34,12 +34,12 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
 
             {/* Header */}
             <div className="flex gap-2 items-center">
-                <div className="p-2 rounded-full text-stone-500 bg-stone-200 flex justify-center items-center">
+                <div className="p-2 text-white bg-stone-800 flex justify-center items-center">
                     <TextAlignCenter size={20} />
                 </div>
 
                 <div>
-                    <h1 className="text-stone-600 text-sm font-bold">
+                    <h1 className="text-stone-800 text-sm font-bold">
                         Edit Information
                     </h1>
 
@@ -304,7 +304,9 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
             </div>
 
             {/* ================= AI Summarization ================= */}
-            <div className="w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            {
+                bookDetails?.category === "literature" && (
+                    <div className="w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
 
                 <div className="w-full flex justify-between items-center">
                     <div>
@@ -318,7 +320,8 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                     </div>
 
                     <button className="bg-stone-200 justify-center items-center flex text-xs text-stone-500 gap-1 border border-stone-500 p-2 rounded-lg">
-                        <Sparkles size={15}/> Generate Summary
+                        <Sparkles size={15}/> 
+                        <h1 className="hidden sm:block">Generate Summary</h1>
                     </button>
                     
                 </div>
@@ -330,15 +333,8 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                     onChange={(e) => setBookDetails({...bookDetails, moral: e.target.value})}
                 />
 
-            </div>
-            {/* // Save Button */}
-            <div className="w-full justify-end items-center flex mt-4">
-            <button className="justify-center items-center flex gap-2 bg-green-600 p-2 text-xs text-white font-bold hover:-translate-y-1 cursor-pointer"
-            onClick={showBookInformationConfirmation}
-            >
-                <Pen size={15}/> Save Information 
-            </button>
-            </div>
+            </div>)}
+            
         </div>
         </>
     )

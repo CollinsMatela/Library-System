@@ -47,36 +47,8 @@ const BookInformation = ({
     return (
         <div className="w-full flex flex-col gap-4 my-4">
 
-            {/* Header */}
-            <div className="flex gap-2 items-center">
-                <div className="p-2 rounded-full text-stone-500 bg-stone-200 flex justify-center items-center">
-                    <TextAlignCenter size={20} />
-                </div>
-
-                <div>
-                    <h1 className="text-stone-600 text-sm font-bold">
-                        Book Information
-                    </h1>
-
-                    <p className="text-stone-500 text-xs">
-                        Input the applicable information about the book.
-                    </p>
-                </div>
-            </div>
-
-
             {/* ================= BASIC INFORMATION ================= */}
             <div className="w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
-
-                <div>
-                    <h2 className="text-stone-700 text-sm font-bold">
-                        Basic Information
-                    </h2>
-
-                    <p className="text-stone-500 text-xs">
-                        Provide the basic details of the book.
-                    </p>
-                </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
 

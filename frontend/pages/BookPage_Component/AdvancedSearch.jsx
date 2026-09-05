@@ -1,4 +1,5 @@
 
+import { Search } from "lucide-react";
 import { categories, gradeLevels, subjects, fields } from "../../mockdata";
 
 const inputClassName =
@@ -6,7 +7,7 @@ const inputClassName =
 
 const AdvancedSearch = ({ filters, onFilterChange, onClear, onSubmit, FindBook }) => {
   return (
-    <div className="mb-2 w-full bg-white px-4 lg:px-10">
+    <div className="mb-2 w-full bg-white">
       <form onSubmit={onSubmit} className="w-full overflow-hidden rounded-lg border border-stone-300 bg-white">
         <header className="border-b border-stone-300 p-4">
           <h1 className="text-xs  text-stone-800">Advanced Searching</h1>
@@ -52,8 +53,16 @@ const AdvancedSearch = ({ filters, onFilterChange, onClear, onSubmit, FindBook }
               ))}
             </select>
           </label>
+          <label className="text-xs  text-stone-500">
+            Language
+            <select name="language" value={filters.language} onChange={onFilterChange} className={inputClassName}>
+              <option value="">All Language</option>
+              <option value="english">English</option>
+              <option value="filipino">Filipino</option>
+              <option value="english & filipino">English & filipino</option>
+            </select>
+          </label>
           <FilterFields label="Author" name="author" value={filters.author} onChange={onFilterChange} placeholder="e.g., Jose Rizal" />
-          <FilterFields label="Language" name="language" value={filters.language} onChange={onFilterChange} placeholder="e.g., English" />
           <FilterFields label="Publisher" name="publisher" value={filters.publisher} onChange={onFilterChange} placeholder="Enter publisher" />
           <FilterFields label="ISBN" name="isbn" value={filters.isbn} onChange={onFilterChange} placeholder="Enter ISBN" />
           <FilterFields label="Publication Year" name="publication" value={filters.publication} onChange={onFilterChange} type="number" placeholder="e.g., 2024" />
@@ -70,7 +79,10 @@ const AdvancedSearch = ({ filters, onFilterChange, onClear, onSubmit, FindBook }
 
         <footer className="flex items-center justify-end gap-2 border-t border-stone-300 p-4">
           <button type="button" onClick={onClear} className="rounded-lg border border-stone-300 px-3 py-2 text-xs text-stone-500 transition hover:bg-stone-100">Clear</button>
-          <button type="submit" className="rounded-lg border border-blue-500 bg-blue-200 px-3 py-2 text-xs text-blue-500 transition hover:bg-blue-300" onClick={FindBook}>Find Books</button>
+          <button type="submit" className="rounded-lg border border-stone-800 bg-stone-800 px-3 py-2 text-xs text-white transition hover:bg-stone-900 justify-center items-center flex gap-1" onClick={FindBook}>
+           <Search size={15}/>
+            Find Books
+          </button>
         </footer>
       </form>
     </div>

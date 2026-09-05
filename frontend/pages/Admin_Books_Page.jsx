@@ -109,7 +109,7 @@ const Admin_Books_Page = () => {
         <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
               <header className="w-full justify-between items-start flex flex-col mb-10 border-0 lg:border-b border-stone-300 p-3 px-4 lg:px-10">
-                    <h1 className="text-sm font-bold text-stone-800">Books Management</h1>
+                    <h1 className="text-sm font-bold text-stone-800">Catalog Management</h1>
                     <h1 className="text-stone-400 text-xs">Manage uploaded books from library</h1>                   
               </header>
 
@@ -119,7 +119,7 @@ const Admin_Books_Page = () => {
                                 <LibraryBig size={20}/>
                             </div>
                             <div>
-                                <h1 className="text-sm font-bold text-stone-800 rounded-full">Uploaded Books</h1>
+                                <h1 className="text-sm font-bold text-stone-800 rounded-full">Find your book</h1>
                                 <p className="text-stone-400 text-xs">List of all uploaded Books.</p>
                             </div>
                         </div>
@@ -148,7 +148,8 @@ const Admin_Books_Page = () => {
                             }
                         </div>
               </div>
-                           
+              
+              <div className="w-full px-4 lg:px-10 mb-10">
               {isAdvanceSearch && 
               (
                 <AdvancedSearch
@@ -159,7 +160,7 @@ const Admin_Books_Page = () => {
                   FindBook={FindBook}
                 />
               )}
-              
+
               {isLoading ? 
               (
               <div className="w-full justify-center items-center flex p-4">
@@ -168,7 +169,7 @@ const Admin_Books_Page = () => {
               )
               :
               (
-                <div className="w-full px-4 lg:px-10 mb-10">
+                <div className="w-full">
                   
                   <div className="w-full p-2 border border-stone-200 rounded-lg">
 
@@ -240,6 +241,11 @@ const Admin_Books_Page = () => {
                   </div>
               </div>
               )}
+
+              </div>
+              
+              
+              
               
         </section>
         </>

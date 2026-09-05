@@ -43,7 +43,7 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
                     {/* Text Container */}
                     <div className="bg-stone-50 h-full w-full flex flex-col items-center justify-center gap-1">
                     <textarea
-                    className="w-full h-full outline-none border border-stone-300 p-4 text-xs rounded-lg"
+                    className="w-full h-90 outline-none border border-stone-300 p-4 text-xs rounded-lg"
                     placeholder="Enter page content..."
                     value={text}
                     onChange={(e) => setText(e.target.value)}

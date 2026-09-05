@@ -57,6 +57,34 @@ export const categories = [
   { label: "Documentary", value: "documentary" },
 ];
 
+export const fields = [
+  { label: "Logic", value: "logic" },
+  { label: "Ethics", value: "ethics" },
+  { label: "Political Science", value: "political science" },
+  { label: "Economics", value: "economics" },
+  { label: "Law", value: "law" },
+  { label: "Public Administration", value: "public administration" },
+  { label: "Education", value: "education" },
+  { label: "Commerce", value: "commerce" },
+  { label: "Customs", value: "customs" },
+  { label: "Etiquette", value: "etiquette" },
+  { label: "Folklore", value: "folklore" },
+  { label: "Medicine", value: "medicine" },
+  { label: "Engineering", value: "engineering" },
+  { label: "Agriculture", value: "agriculture" },
+  { label: "Home Economics", value: "home economics" },
+  { label: "Architecture", value: "architecture" },
+  { label: "Sculpture", value: "sculpture" },
+  { label: "Drawing", value: "drawing" },
+  { label: "Printing & Paintings", value: "printing & paintings" },
+  { label: "Photography", value: "photography" },
+  { label: "Music", value: "music" },
+  {
+    label: "Recreational & Performing Arts",
+    value: "recreational & performing arts",
+  },
+];
+
 export const subjects = [
   { label: "Chemistry", value: "chemistry" },
   { label: "Christian", value: "christian" },

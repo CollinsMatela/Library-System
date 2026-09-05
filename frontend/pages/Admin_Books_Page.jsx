@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import SearchIcon from '../src/assets/search-svgrepo-com.svg'
 import Admin_Sidebar from '../components/Admin_Sidebar'
-import { MoveRight, Search, LibraryBig, Book, LoaderCircle } from "lucide-react";
+import { MoveRight, Search, LibraryBig, Book, LoaderCircle, ChevronDown, ChevronUp } from "lucide-react";
+import AdvancedSearch from "./BookPage_Component/AdvancedSearch";
+import { toast } from "react-toastify";
 
 const Admin_Books_Page = () => {
     const navigate = useNavigate();
@@ -11,9 +13,45 @@ const Admin_Books_Page = () => {
     const [isLoading, setIsLoading] = useState(false);
     
     const [books, setBooks] = useState([]);
+    const [filtered, setFiltered] = useState([]);
     const [search, setSearch] = useState("");
 
-    const filteredBooks = books.filter((story) => story.title.toLowerCase().includes(search.toLowerCase()));
+    const [isAdvanceSearch, setIsAdvanceSearch] = useState(false);
+    const [advancedSearch, setAdvancedSearch] = useState({
+      title: "",
+      category: "",
+      field: "",
+      gradeLevel: "",
+      subject: "",
+      author: "",
+      language: "",
+      publisher: "",
+      isbn: "",
+      publication: "",
+      edition: "",
+      volume: "",
+      ddc: "",
+      callNumber: "",
+      copies: "",
+      donatedFrom: "",
+      receivedDate: "",
+      illustrator: "",
+      series: "",
+    });
+
+ const FindBook = () => {
+
+       const result = books.filter((book) => {
+        return Object.entries(advancedSearch).every(([key, value]) => {
+            if (!value) return true;
+
+            return book[key]?.toString().toLowerCase().includes(value.toString().toLowerCase());
+        });
+      });
+
+      return setFiltered(result);
+ }
+  
 
     useEffect(() => {
       setIsLoading(true)
@@ -22,7 +60,7 @@ const Admin_Books_Page = () => {
                await fetchBooks();
              } catch (error) {
               console.log(error);
-              TableRowsSplit.error('Failed to load data');
+              toast.error('Failed to load data');
              } finally {
               setIsLoading(false)
              }
@@ -47,6 +85,24 @@ const Admin_Books_Page = () => {
           navigate(`/admin/book-information/${id}`);
     }
 
+    const handleAdvancedSearchChange = (e) => {
+      const { name, value } = e.target;
+      setAdvancedSearch((currentFilters) => ({
+        ...currentFilters,
+        [name]: value,
+      }));
+    };
+
+    const clearAdvancedSearch = () => {
+      setAdvancedSearch({
+        title: "", category: "", field: "", gradeLevel: "", subject: "", author: "",
+        language: "", publisher: "", isbn: "", publication: "", edition: "",
+        volume: "", ddc: "", callNumber: "", copies: "", donatedFrom: "",
+        receivedDate: "", illustrator: "", series: "",
+      });
+      setFiltered([])
+    };
+
       return(
         <>
         <Admin_Sidebar/>
@@ -69,18 +125,40 @@ const Admin_Books_Page = () => {
                         </div>
                         
 
-                        <div className="justify-between items-center flex border border-stone-300 rounded-lg px-4 w-full md:w-100">
+                        <div className="justify-between items-center flex border border-stone-300 rounded-lg px-2 w-full md:w-fit">
                             
-                            <input type="search" 
+                            <input type="search"
+                                   name="title"
                                    placeholder="Search book title" 
                                    className="bg-white py-2 outline-none text-xs"
-                                   value={search}
-                                   onChange={(e) => setSearch(e.target.value)}
+                                   value={advancedSearch.title}
+                                   onChange={handleAdvancedSearchChange}
                             />
-                            <Search size={15} className="text-stone-500"/>
-                             
+                            <div className="h-full py-1 px-2 border-l border-stone-300" onClick={FindBook}>
+                              <Search size={15} className="text-stone-300 hover:text-stone-900 cursor-pointer transition"/> 
+                            </div>
+                            
                         </div>
-              </div> 
+                        <div className="justify-center items-center flex gap-1 bg-stone-100 border border-stone-300 rounded-lg p-2 w-fit cursor-pointer" onClick={() => setIsAdvanceSearch(isAdvanceSearch => !isAdvanceSearch)}>
+                          <h1 className="text-xs text-stone-500">Adv</h1>
+                            {isAdvanceSearch ? 
+                            (<ChevronDown size={15} className="text-stone-500"/>)
+                            :
+                            (<ChevronUp size={15} className="text-stone-500"/>)
+                            }
+                        </div>
+              </div>
+                           
+              {isAdvanceSearch && 
+              (
+                <AdvancedSearch
+                  filters={advancedSearch}
+                  onFilterChange={handleAdvancedSearchChange}
+                  onClear={clearAdvancedSearch}
+                  onSubmit={(event) => event.preventDefault()}
+                  FindBook={FindBook}
+                />
+              )}
               
               {isLoading ? 
               (
@@ -90,23 +168,42 @@ const Admin_Books_Page = () => {
               )
               :
               (
-                <div className="w-full px-4 lg:px-10">
-                  {filteredBooks.length === 0 && (
-                    <div className="bg-stone-100 w-full rounded-2xl justify-center items-center flex p-4">
-                      <h1 className="text-xs text-stone-500">No books uploaded</h1>
+                <div className="w-full px-4 lg:px-10 mb-10">
+                  
+                  <div className="w-full p-2 border border-stone-200 rounded-lg">
+
+                    <div className="mb-2 w-full">
+                      <div className="flex items-center justify-between rounded-t-lg bg-stone-100 px-4 py-3">
+                        <div>
+                          <h2 className="text-xs font-medium text-stone-700">Search results</h2>
+                          <p className="mt-1 text-xs text-stone-500">
+                            Showing books that match your selected filters.
+                          </p>
+                        </div>
+
+                        <span className="px-3 py-1 text-xs font-medium text-stone-500">
+                          {filtered.length} {filtered.length === 1 ? "book" : "books"} found
+                        </span>
+                      </div>
                     </div>
+                  {filtered.length === 0 && (
+                    <div className="flex w-full flex-col items-center justify-center rounded-lg border border-stone-200 bg-stone-50 px-4 py-10 text-center">
+
+                    <h2 className="text-sm font-medium text-stone-500">
+                      No books found
+                    </h2>
+
+                    <p className="mt-1 text-xs text-stone-500">
+                      Try changing or clearing your search filters.
+                    </p>
+                  </div>
                   )}
 
-                  {filteredBooks.length > 0 && (
-                    filteredBooks.map((book) => (
-                      <div key={book._id} className="bg-white hover:bg-stone-200 h-30 w-full justify-between items-center flex transition cursor-pointer mb-2 gap-2"
+                  {filtered.length > 0 && (
+                    filtered.map((book) => (
+                      <div key={book._id} className="bg-stone-50 p-2 hover:bg-stone-100 h-fit w-full rounded-lg border border-stone-300 justify-between items-center flex flex-col transition cursor-pointer mb-1 gap-2"
                       onClick={() => handleViewStories(book._id)}
                       >
-                      
-                      <div className="h-full flex w-full">
-                          <img src={book?.cover} className="hidden sm:block object-cover w-25" />
-
-                          <div className="h-full flex flex-col w-full p-2">
                             <div className="w-full flex gap-2 justify-center items-center mb-2">
                               <div className="hidden md:block bg-stone-200 shadow-sm p-2 rounded-full">
                                 <Book size={15} className="text-stone-500"/>
@@ -116,14 +213,14 @@ const Admin_Books_Page = () => {
                               <div className="w-full">
                                 <div className="flex flex-col md:flex-row justify-between items-start w-full">
 
-                                  <div className="justify-center items-center flex gap-2">
-                                  <h1 className="text-stone-800 font-semibold text-sm">{book?.title}</h1>
+                                  <div className="justify-center items-center flex gap-1">
+                                  <h1 className="text-stone-800 font-semibold text-xs">{book?.title}</h1>
                                   <h1 className="text-stone-400 text-xs">By {book?.author}</h1>
                                   </div>
 
-                                  <div className="justify-center items-center flex gap-2">
-                                  <h1 className="text-stone-500 text-xs font-normal p-1 bg-stone-200 rounded-full"> {book?.category}</h1>
-                                  <h1 className={`${book?.copies> 0 ? "text-green-600 bg-green-100" : "text-red-600 bg-red-100"} text-xs p-1 rounded-full`}>{book?.copies> 0 ? "Available" : "Not Available"}</h1>
+                                  <div className="justify-center items-center flex gap-1">
+                                  <h1 className="text-stone-500 text-xs font-normal p-1 bg-stone-200 rounded-lg border"> {book?.category}</h1>
+                                  <h1 className={`${book?.copies> 0 ? "text-green-500 bg-green-100" : "text-red-500 bg-red-100"} border text-xs p-1 rounded-lg`}>{book?.copies> 0 ? "Available" : "Not Available"}</h1>
                                   </div>
                                   
                                 </div>
@@ -131,16 +228,16 @@ const Admin_Books_Page = () => {
                               </div>
                               
                             </div>
-                              
-                              
-                              
-                              <h1 className="text-stone-400 text-xs overflow-auto">{book?.description.length > 100 ? `${book?.description.slice(0, 200)}...` : book?.description}</h1>
-                              
-                          </div>
-                      </div>
+
+                            <div className="w-full">
+                              <h1 className="text-xs text-stone-500">Description:</h1>
+                              <h1 className="text-stone-500 text-xs overflow-auto">{book?.description.length > 100 ? `${book?.description.slice(0, 200)}...` : book?.description}</h1>
+                            </div>
+                            
                     </div>
                     ))
                   )}
+                  </div>
               </div>
               )}
               

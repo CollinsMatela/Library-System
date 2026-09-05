@@ -348,7 +348,7 @@ const Admin_ViewMaterials_Page = () => {
             <button className="justify-center items-center flex gap-2 bg-green-200 p-2 rounded-lg border border-green-500 text-xs text-green-500 hover:bg-green-300 cursor-pointer"
             onClick={() => {setIsInformationUpdate(true); setErrorMessage("")}}
             >
-                <Pen size={15}/> Save Information 
+                <Pen size={15}/> Save Changes 
             </button>
             </div>
 

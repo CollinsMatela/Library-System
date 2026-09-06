@@ -42,7 +42,7 @@ export const categories = [
   { label: "Geography & History (900-999)", value: "geography & history" },
 
   // Textbook Categories
-  { label: "Textbooks", value: "textbooks" },
+  { label: "Textbook", value: "textbook" },
 
   // Library Color-Coded Categories
   { label: "Love / Romance", value: "love / romance" },

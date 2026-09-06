@@ -215,7 +215,7 @@ const Library_Page = () => {
                             </div>
 
                             
-                                <div className='w-full border-0 lg:border border-stone-300 lg:shadow-lg lg:rounded-xl'>
+                                <div className='w-full border-0 lg:border border-stone-300 lg:shadow-lg lg:rounded-xl pb-10'>
                                 <header className='w-full p-4 border-b border-stone-300'>
                                     <h1 className='text-lg font-bold text-stone-800 justify-start items-center flex'>Book Collection <ChevronRight size={15}/> <span className='text-stone-500 text-lg'>{selectedTitle || "All"} {selectedLetter}</span></h1>
                                     <h1 className='text-xs text-stone-500 '>Browse and discover books in the library.</h1>
@@ -237,10 +237,16 @@ const Library_Page = () => {
                                
                                 
                             ) : (
-                                <div className='p-4 justify-center items-center flex w-full gap-1'>
-                                        <Info size={10} className='text-stone-500'/>
-                                        <h1 className='text-stone-500 text-xs'>{`No books found in this category ${selectedTitle}.`}</h1>
-                                    </div>
+                                <div className="flex w-full flex-col items-center justify-center border-b border-stone-200 bg-stone-50 px-4 py-10 text-center">
+
+                                    <h2 className="text-sm font-medium text-stone-500">
+                                    No Books found
+                                    </h2>
+
+                                    <p className="mt-1 text-xs text-stone-500">
+                                    There are no available books in this {selectedTitle}
+                                    </p>
+                                </div>
                             )}
                           </div>
                         </div>

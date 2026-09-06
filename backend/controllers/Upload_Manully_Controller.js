@@ -18,11 +18,9 @@ const Upload_Manually_Controller = async (req, res) => {
         ddc,
         copies,
         callNumber,
-        pages,
         subject,
         gradeLevel,
         series,
-        cover,
         donatedFrom,
         receivedDate,
     } = req.body;
@@ -47,11 +45,9 @@ const Upload_Manually_Controller = async (req, res) => {
             ddc,
             copies,
             callNumber,
-            pages,
             subject,
             gradeLevel,
             series,
-            cover,
             donatedFrom,
             receivedDate,
         });
@@ -91,10 +87,6 @@ const Upload_Manually_Controller = async (req, res) => {
             // Publication
             edition,
             volume,
-
-            // Digital Content
-            cover: cover || "",
-            pages: pages || [],
         });
 
         console.log("Book successfully created:", book);

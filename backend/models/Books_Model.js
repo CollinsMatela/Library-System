@@ -108,7 +108,7 @@ const BookSchema = new mongoose.Schema({
 
     cover: {
         type: String,
-        required: true
+        default: ""
     },
 
     edition: {

@@ -50,6 +50,16 @@ const BookInformation = ({
             {/* ================= BASIC INFORMATION ================= */}
             <div className="w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
 
+                <div>
+                    <h2 className="text-stone-700 text-sm font-bold">
+                        Primary Details
+                    </h2>
+
+                    <p className="text-stone-500 text-xs">
+                        Provide the title and other information of the book.
+                    </p>
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
 
                     {/* Title */}

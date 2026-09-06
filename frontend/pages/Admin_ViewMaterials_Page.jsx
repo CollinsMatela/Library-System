@@ -5,7 +5,7 @@ import Edit_Question_Modal from "../modals/Edit_Question_Modal";
 import AdminSidebar from '../components/Admin_Sidebar';
 import Edit_BookInformation from "./BookInformation_Component/Edit_BookInformation";
 import Edit_BookPage from "./BookInformation_Component/Edit_BookPage";
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Sparkles } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Sparkles, ImageOff } from "lucide-react";
 import { toast } from "react-toastify";
 import ConfirmationPopup from "../popup/Confirmation_Popup"
 import AddPage_Modal from "../modals/AddPage_Modal";
@@ -263,8 +263,20 @@ const Admin_ViewMaterials_Page = () => {
 
     <div className="w-full flex flex-col md:flex-row gap-4 py-10 px-4 lg:px-10">
         {/* Book Cover Container */}
-        <div className="bg-stone-200 md:bg-white w-full md:w-120 justify-start items-center flex flex-col gap-4">
-            <img src={bookDetails?.cover} className="bg-stone-100 h-100 w-120 object-cover" />
+        <div className="border border-stone-200 bg-stone-100 w-full md:w-120 justify-center items-center flex flex-col gap-4">
+            {!bookDetails?.cover ?
+            (
+                <div className="w-fit justify-center items-center flex flex-col gap-1">
+                    <ImageOff size={50} className="text-stone-300"/>
+                   <h1 className="text-xs text-stone-500">Not Available</h1> 
+                </div>
+                
+            )
+            :
+            (
+                <img src={bookDetails?.cover} className="bg-stone-100 h-100 w-120 object-cover" />
+            )}
+            
 
         </div>
         

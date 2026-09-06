@@ -7,7 +7,7 @@ import FictionBookInformation from "./UploadPage_Components/FictionBookInformati
 import BookInformation from "./UploadPage_Components/BookInformation";
 import TypeOfBooks from "./UploadPage_Components/TypeOfBooks";
 import PreviewBook from "./UploadPage_Components/PreviewBook"
-import {  X, Plus, Image, Save, AudioLines, FilePlay, Pencil, ImageOff, Info, ArrowUp } from "lucide-react";
+import {  X, Plus, Image, Save, AudioLines, FilePlay, Pencil, ImageOff, Info, ArrowUp, Pen } from "lucide-react";
 import { toast } from "react-toastify";
 
 const Admin_UploadBook_Page = () => {
@@ -15,14 +15,7 @@ const Admin_UploadBook_Page = () => {
         const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
         const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
-        const navigate = useNavigate();
-
         const [errorMessage, setErrorMessage] = useState("");
-
-        const fileInputRef = useRef();
-        const pageImageInputRef = useRef();
-        const audioInputRef = useRef();
-
         const [showConfirmation, setShowConfirmation] = useState(false);
 
         
@@ -49,17 +42,6 @@ const Admin_UploadBook_Page = () => {
         const [gradeLevel, setGradeLevel] = useState(""); 
         const [edition, setEdition] = useState("");
         const [volume, setVolume] = useState("");
-        
-        // Preview Image
-        const [file, setFile] = useState(null);
-        const [preview, setPreview] = useState(null);
-        const [audio, setAudio] = useState(null);
-        const [audioPreview, setAudioPreview] = useState(null);
-
-        const [pageList, setPageList] = useState([]);
-        const [pageText, setPageText] = useState("");
-        const [pageImage, setPageImage] = useState(null);
-        const [pageImagePreview, setPageImagePreview] = useState("");
 
         const uploadToCloudinary = async (file, resourceType = "image") => {
             if (!file) return "";
@@ -82,14 +64,8 @@ const Admin_UploadBook_Page = () => {
             setErrorMessage("");
             setShowConfirmation(false);
 
-            // =========================
-            // Book Category
-            // =========================
             setSelectedCategoryOfBook("");
             
-            // =========================
-            // Basic Information
-            // =========================
             setTitle("");
             setAuthor("");
             setDescription("");
@@ -98,23 +74,14 @@ const Admin_UploadBook_Page = () => {
             setPublisher("");
             setIsbn("");
 
-            // =========================
-            // Publication Details
-            // =========================
             setEdition("");
             setVolume("");
 
-            // =========================
-            // Classification
-            // =========================
             setDdc("");
             setField("");
             setSubject("");
             setGradeLevel("");
 
-            // =========================
-            // Inventory
-            // =========================
             setCopies(1);
             setCallNumber("");
             setDonatedFrom("");
@@ -122,57 +89,10 @@ const Admin_UploadBook_Page = () => {
                 new Date().toISOString().split("T")[0]
             );
 
-            // =========================
-            // Literature / Fiction
-            // =========================
             setIllustrator("");
             setMoral("");
             setSeries("");
-
-            // =========================
-            // Cover Image
-            // =========================
-            setFile(null);
-            setPreview(null);
-
-            // Reset actual cover file input
-            if (fileInputRef.current) {
-                fileInputRef.current.value = "";
-            }
-
-            // =========================
-            // Pages
-            // =========================
-            setPageList([]);
-            setPageText("");
-            setPageImage(null);
-            setPageImagePreview("");
-            setAudio(null);
-            setAudioPreview(null);
-
-            // Reset page image input
-            if (pageImageInputRef.current) {
-                pageImageInputRef.current.value = "";
-            }
         };
-
-
-
-        useEffect(() => {
-        return () => {
-            if (preview) {
-            URL.revokeObjectURL(preview);
-            }
-        };
-        }, [preview]);
-
-        useEffect(() => {
-        return () => {
-            if (pageImagePreview) {
-            URL.revokeObjectURL(pageImagePreview);
-            }
-        };
-        }, [pageImagePreview]);
         
         const uploadNotification = async () => {
             const data = {bookTitle: title}
@@ -185,159 +105,10 @@ const Admin_UploadBook_Page = () => {
               }
         }
 
-
-        const handleNextPage = async () => {
-            console.log(CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET);
-
-            if (!selectedCategoryOfBook) {
-                toast.warning("Please select type and category of book.");
-                return;
-            }
-
-                // if (!pageText || !pageImage || !audio) {
-                //     toast.warning(
-                //         "Story books require page text, at least one image, and page audio."
-                //     );
-                //     return;
-                // }
-                if (!pageText && !pageImage) {
-                    toast.warning(
-                        "Please enter page text or upload at least one image."
-                    );
-                    return;
-                }
-
-
-            try {
-
-                toast.info("Uploading page...");
-
-                let imageUrl = "";
-                let audioUrl = "";
-
-                // Upload page image
-                if (pageImage) {
-                    imageUrl = await uploadToCloudinary(
-                        pageImage,
-                        "image"
-                    );
-                }
-
-                // Upload page audio
-                if (audio) {
-                    audioUrl = await uploadToCloudinary(
-                        audio,
-                        "video"
-                    );
-                }
-
-                const newPage = {
-                    pageText,
-                    pageImage: imageUrl,
-                    pageAudio: audioUrl
-                };
-
-                setPageList((prev) => [
-                    ...prev,
-                    newPage
-                ]);
-
-                console.log("Saved page:", newPage);
-
-                // Clear current page
-                setPageText("");
-                setPageImage(null);
-                setAudio(null);
-                setAudioPreview(null);
-                setPageImagePreview("");
-
-                // Reset file inputs
-                if (pageImageInputRef.current) {
-                    pageImageInputRef.current.value = "";
-                }
-
-                if (audioInputRef.current) {
-                    audioInputRef.current.value = "";
-                }
-
-                toast.success("Page saved successfully.");
-
-            } catch (error) {
-
-                console.error("Cloudinary upload error:", error);
-
-                toast.error(
-                    error?.response?.data?.error?.message ||
-                    "Failed to upload page."
-                );
-            }
-        };
-
-        const handlePageImagePreview = (e) => {
-            const file = e.target.files[0];
-
-            if (!file) {
-                toast.warning("Please select an image.");
-                return;
-            }
-
-            // Optional: only allow image files
-            if (!file.type.startsWith("image/")) {
-                toast.warning("Please select a valid image.");
-                return;
-            }
-
-            // Revoke the previous preview URL to prevent memory leaks
-            if (pageImagePreview) {
-                URL.revokeObjectURL(pageImagePreview);
-            }
-
-            setPageImage(file);
-            setPageImagePreview(URL.createObjectURL(file));
-        };
-
-        const handleAudioPreview = async (e) => {
-              const audio = e.target.files[0];
-
-              if(!audio){
-                toast.warning('Please an audio.');
-                return;
-              }
-
-              setAudio(audio);
-              setAudioPreview(URL.createObjectURL(audio));
-        }
-        
-
-        const handleImagePreview = (e) => {
-            const selected = e.target.files[0];
-
-            if (!selected) return;
-
-            // Free the previous object URL
-            if (preview) {
-                URL.revokeObjectURL(preview);
-            }
-
-            const newPreview = URL.createObjectURL(selected);
-
-            setFile(selected);
-            setPreview(newPreview);
-        };
-    const openFileExplorer = () => {
-        setPreview(null)
-        setFile(null)
-        fileInputRef.current.click();
-    }
-    const AudioExplorer = () => {
-        setAudio(null);
-        audioInputRef.current.click();
-    }
-
     const handleConfirmation = () => {
 
         if (!selectedCategoryOfBook) {
-            toast.warning('Please select book category')
+            toast.warning('Select Category')
             return;
         }
         if 
@@ -349,33 +120,33 @@ const Admin_UploadBook_Page = () => {
         )
          {
             if (!field) {
-                toast.warning("Please select a field.");
+                toast.warning("Select Field.");
                 return;
             }
         }
       
         if (!title) {
-            toast.warning('Please enter book title')
+            toast.warning('Enter Title')
             return;
         }
 
         if (!language) {
-            toast.warning('Please select language')
+            toast.warning('Select Language')
             return;
         }
 
         if (!copies || copies < 1) {
-            toast.warning('Please enter no. of copies')
+            toast.warning('Enter no. of Copies')
             return;
         } 
 
         if(selectedCategoryOfBook.toLowerCase() === 'textbook') {
             if (!gradeLevel) {
-            toast.warning('Please select grade level')
+            toast.warning('Select Grade Level')
             return;
             } 
             if (!subject) {
-            toast.warning('Please select subject')
+            toast.warning('Select Subject')
             return;
             } 
         }
@@ -386,19 +157,6 @@ const Admin_UploadBook_Page = () => {
    const uploadStory = async () => {
 
     try {
-
-        let coverUrl = "";
-
-        if (file) {
-            toast.info("Uploading cover...");
-
-            coverUrl = await uploadToCloudinary(
-                file,
-                "image"
-            );
-        }
-
-        console.log("Cover URL:", coverUrl);
 
         const bookData = {
             // Category
@@ -435,17 +193,7 @@ const Admin_UploadBook_Page = () => {
             field,
             subject,
             gradeLevel,
-
-            // Cover
-            cover: coverUrl,
-
-            // Digital Pages
-            pages: pageList,
         };
-
-
-
-        console.log("BOOK DATA:", bookData);
 
 
         const res = await axios.post(
@@ -486,18 +234,18 @@ const Admin_UploadBook_Page = () => {
               </header>
 
                 {/* MANUALLY UPLOAD STORY CONTAINER */}
-                <div className={`w-full flex bg-white rounded-xl gap-10 px-4 md:px-10`}>
+                <div className={`w-full flex flex-col bg-white rounded-xl gap-10 px-4 md:px-10`}>
                     
                         {/* Story Details */}
                         <div className="bg-white w-full flex flex-col">
 
-                        <div className="flex items-center justify-start gap-2">
+                        <div className="flex items-center justify-start gap-2 mb-4">
                             <div className="bg-stone-800 h-9 w-9 text-white justify-center items-center flex">
-                            <h1 className="font-bold text-md">1</h1>
+                            <Pen size={15} className="text-white"/>
                             </div>
                             <div>
-                                <h1 className="text-md font-bold text-stone-800 rounded-full">Step One</h1>
-                                <p className="text-stone-400 text-xs">Select Type and Category of the book.</p>
+                                <h1 className="text-md font-bold text-stone-800 rounded-full">Upload Book</h1>
+                                <p className="text-stone-400 text-xs">Fill in the book details below to upload it.</p>
                             </div>
                             
                         </div>
@@ -512,17 +260,6 @@ const Admin_UploadBook_Page = () => {
                        gradeLevel={gradeLevel}
                        setGradeLevel={setGradeLevel}
                        />
-
-                       <div className="flex items-center justify-start gap-2">
-                            <div className="bg-stone-800 h-9 w-9 text-white justify-center items-center flex">
-                            <h1 className="font-bold text-md">2</h1>
-                            </div>
-                            <div>
-                                <h1 className="text-md font-bold text-stone-800 rounded-full">Step Two</h1>
-                                <p className="text-stone-400 text-xs">Fill the applicable information.</p>
-                            </div>
-                            
-                        </div>
                        
                     <BookInformation
                         // Category
@@ -594,196 +331,18 @@ const Admin_UploadBook_Page = () => {
                         setSeries={setSeries}
                     />
 
-
-
-
-
-                    {/*Book Pages and Image insertion*/}
-                <div className="w-full flex flex-col gap-4">
-                     <div className="flex items-center justify-start gap-2">
-                        <div className="bg-stone-800 h-9 w-9 text-white justify-center items-center flex">
-                        <h1 className="font-bold text-md">3</h1>
-                        </div>
-                        <div>
-                            <h1 className="text-md font-bold text-stone-800 rounded-full">Step Three</h1>
-                            <p className="text-stone-400 text-xs">Fill the applicable book page information.</p>
-                        </div>
-                        
+                    <div className="justify-end items-center flex">
+                        <button className="bg-green-200 text-xs text-green-500 justify-center items-center flex gap-2 p-2 rounded-lg border border-green-500 hover:bg-green-300 transition"
+                        onClick={handleConfirmation}>
+                            <Plus size={15}/>
+                            <h1>Upload Book</h1>
+                        </button>
                     </div>
-
-                    
-
-                    <div className="w-full bg-white justify-between items-start flex flex-col gap-4 rounded-xl">
-                        {/* Page Text*/}
-                        <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border-0 md:border border-stone-300 md:p-6 md:rounded-lg">
-                                <div className="justify-between items-center flex gap-2 w-full">
-                                    <div class="flex gap-2 ujstify-center items-center">
-                                        <div className="p-2 rounded-full text-stone-500 bg-stone-200 justify-center items-center flex"><Pencil size={20}/></div>
-                                        <div>
-                                            <h1 className="text-stone-600 text-sm font-bold">Page Text</h1>
-                                            <h1 className="text-stone-600 text-xs">Input the text for the page...</h1>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-
-                                <textarea 
-                                name="page-text" id="page-text"
-                                placeholder="Input the text of the page..."
-                                value={pageText}
-                                onChange={(e) => setPageText(e.target.value)}
-                                className="h-100 w-full outline-none text-xs bg-stone-50 shadow-sm border border-stone-300 p-4 rounded-xl">
-                                </textarea>
-                        </div>
-
-                         {/* Page Image Preview */}
-                        <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border-0 md:border border-stone-300 md:p-6 md:rounded-lg">
-
-                            <div className="justify-between items-center flex gap-2 w-full">
-                                    <div class="flex gap-2 ujstify-center items-center">
-                                        <div className="p-2 rounded-full text-stone-500 bg-stone-200 justify-center items-center flex"><Image size={20}/></div>
-                                        <div>
-                                            <h1 className="text-stone-600 text-sm font-bold">Preview Page Image</h1>
-                                            <h1 className="text-stone-600 text-xs">Preview of the page image...</h1>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            
-                            <div className="w-full h-50 sm:h-100 bg-stone-100 justify-center items-center flex">
-                                {!pageImagePreview && (
-                                     
-                                    <div className="h-full w-full flex flex-col items-center justify-center p-4 gap-1">
-                                        <ImageOff size={50} className="text-stone-500" />
-                                        <h1 className="text-stone-500 text-sm font-semibold">No Page Image</h1>
-                                        <h1 className="text-stone-400 text-xs">Please upload a page image</h1>
-                                    </div>
-                                     
-                                )}
-
-                                {pageImagePreview && (
-                                     
-                                    <img src={pageImagePreview} 
-                                    alt="page-preview" 
-                                    title="Click to remove image"
-                                    className="h-full w-fit object-fit cursor-pointer" onClick={() => {
-                                        if (pageImagePreview) {
-                                            URL.revokeObjectURL(pageImagePreview);
-                                        }
-
-                                        setPageImage(null);
-                                        setPageImagePreview("");
-                                        }}/>
-                                     
-                            )}
-                            </div>
-                            
-                        </div>
-
-                        {/**Audio Preview */}
-                        {audioPreview && (
-                            <div className="w-full justify-end items-end flex flex-col gap-4 bg-white border-0 md:border border-stone-300 md:p-6 md:rounded-lg">
-
-                                <div className="justify-between items-center flex gap-2 w-full">
-                                    <div class="flex gap-2 ujstify-center items-center">
-                                        <div className="p-2 rounded-full text-stone-500 bg-stone-200 justify-center items-center flex"><FilePlay size={20}/></div>
-                                        <div>
-                                            <h1 className="text-stone-600 text-sm font-bold">Preview Audio</h1>
-                                            <h1 className="text-stone-600 text-xs">{audioPreview}</h1>
-                                        </div>
-                                    </div>
-
-                                    <button className="bg-red-600 p-2 justify-center items-center flex gap-2 text-xs font-bold rounded-lg text-white hover:bg-red-700 hover:-translate-y-1 cursor-pointer transition"
-                                    title="Remove Audio"
-                                    onClick={() => {
-                                        if (audioPreview) {
-                                            URL.revokeObjectURL(audioPreview);
-                                        }
-                                        setAudio(null);
-                                        setAudioPreview(null);
-                                    }}
-                                    ><X size={15}/></button>
-                                    
-                                </div>
-
-                                <audio controls className="w-full" src={audioPreview}></audio>
-                                    
-                                
-                                
-                            </div>
-                        )}
-
-                        <div className="w-full justify-end items-center flex gap-2">
-                            {(selectedCategoryOfBook.toLowerCase() === 'literature') && (
-                                <button className={`${audioPreview ? 'hidden' : null} justify-center items-center flex gap-1 p-2 text-xs text-stone-800 font-bold hover:bg-stone-200 cursor-pointer transition`} onClick={() => audioInputRef.current.click()}>
-                                    <AudioLines size={15}/> Add Audio
-                                </button>  
-                            )}
-                                                 
-                            <button className={`${pageImagePreview ? 'hidden' : null} justify-center items-center flex gap-1 p-2 text-xs text-stone-800 font-bold hover:bg-stone-200 cursor-pointer transition`} onClick={() => pageImageInputRef.current.click()}>
-                                <Image size={15}/> Add Image
-                            </button>
-
-                            <input 
-                                    type="file" 
-                                    ref={pageImageInputRef} 
-                                    className="hidden" 
-                                    onChange={handlePageImagePreview} 
-                            />
-                            <input 
-                                    type="file" 
-                                    ref={audioInputRef} 
-                                    className="hidden" 
-                                    onChange={handleAudioPreview} 
-                            />
-                            <button className="justify-center items-center flex gap-1 p-2 text-xs bg-stone-800 text-white font-bold hover:bg-stone-900 cursor-pointer transition"
-                                onClick={handleNextPage}><ArrowUp size={15}/> Save {`(${pageList.length + 1})`}
-                            </button>
-                        </div>
-                        
-                        
-                    </div>
-
-                    
-
                    
                 </div>
 
-                        
-                  <PreviewBook
-                  category={selectedCategoryOfBook}
-                  pages={pageList}
-                  moral={moral}
-                  setMoral={setMoral}
-                  preview={preview}
-                  title={title}
-                  description={description} 
-                  language={language}
-                  author={author}
-                  publication={publication}
-                  file={file}
-                  fileInputRef={fileInputRef}
-                  openFileExplorer={openFileExplorer}
-                  handleImagePreview={handleImagePreview}
-                  handleConfirmation={handleConfirmation}
-                  setPreview={setPreview}
-                  setFile={setFile}
-                  />
-
                          </div>
                     
- 
-                    
-                </div>
-                
-                
-                  
-                  
-                
-
-
-
-
         </section>
         </>
       )

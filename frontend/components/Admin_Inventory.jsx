@@ -59,20 +59,6 @@ const Admin_Inventory = () => {
                                 <p className="text-stone-400 text-xs">Manage book inventory records</p>
                             </div> 
                             </div>
-
-                            <div className="justify-start items-center flex gap-2">
-
-                                <div className="justify-center items-center flex border border-stone-300 rounded-lg w-full md:w-50">
-                                    <input type="search" name="search" placeholder="Search Title" className="bg-white py-2 outline-none text-xs"/>
-                                    <Search size={15}/>
-                                </div>
-
-                                <button className="bg-stone-800 text-white p-2 hover:bg-stone-600 justify-center items-center flex gap-1"
-                                onClick={() => setIsInventoryModal(true)}>
-                                    <Plus size={15}/>
-                                    <h1 className="text-xs">Input</h1>
-                                </button>
-                            </div>
                             
                         </div>
                         
@@ -98,8 +84,15 @@ const Admin_Inventory = () => {
                                 ) : (
 
                                     books.length === 0 ? (
-                                        <div className="justify-center items-center flex p-2 bg-stone-200">
-                                            <p className="text-stone-400 text-xs">No publication records found.</p>
+                                        <div className="flex w-full flex-col items-center justify-center rounded-lg border border-stone-200 bg-stone-50 px-4 py-10 text-center">
+
+                                            <h2 className="text-sm font-medium text-stone-500">
+                                            No books found
+                                            </h2>
+
+                                            <p className="mt-1 text-xs text-stone-500">
+                                            Try uploading books to be able to store to inventory.
+                                            </p>
                                         </div>
                                     ) : (
                                         <div className="w-full justify-start items-start flex flex-col">

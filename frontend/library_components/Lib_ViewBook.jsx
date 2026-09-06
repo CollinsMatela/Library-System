@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Lib_Navigation from "./Lib_Navigation";
 import axios from "axios";
 import useAuthStore from "../store/useAuthStore";
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Sparkles, Sparkle, Hourglass, BookOpen, Info, LoaderCircle } from "lucide-react";
+import { ImageOff, BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Sparkles, Sparkle, Hourglass, BookOpen, Info, LoaderCircle } from "lucide-react";
 import Lib_BookLayout from "./Lib_BookLayout";
 import { toast } from "react-toastify";
 import BorrowModal from '../modals/BorrowModal'
@@ -154,9 +154,22 @@ const Lib_ViewBook = () => {
         {/* Book Cover Container */}
         <div className=" w-full md:w-100 flex flex-col px-4 sm:px-0 gap-2">
 
-            <div className="w-full bg-stone-200 justify-center items-center flex">
-              <img src={bookDetails?.cover} className="bg-stone-100 h-100 object-center shadow-xl" />  
-            </div>
+            <div className="border border-stone-200 bg-stone-100 h-100 w-full justify-center items-center flex flex-col gap-4">
+            {!bookDetails?.cover ?
+            (
+                <div className="w-fit justify-center items-center flex flex-col gap-1">
+                    <ImageOff size={50} className="text-stone-300"/>
+                   <h1 className="text-xs text-stone-500">Not Available</h1> 
+                </div>
+                
+            )
+            :
+            (
+                <img src={bookDetails?.cover} className="bg-stone-100 h-100 w-120 object-cover" />
+            )}
+            
+
+        </div>
             
            
             {!isRequestExisting && bookDetails?.copies > 0 && (

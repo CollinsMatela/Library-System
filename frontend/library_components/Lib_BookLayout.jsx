@@ -58,7 +58,7 @@ const Lib_BookLayout = ({book, onClose}) => {
             <div className="relative h-full w-full justify-center bg-transparent items-start flex overflow-y-auto scroll-smooth">
 
                 
-                {book?.type.toLowerCase() === 'non-fiction' && (<div className="fixed left-1/2 -translate-x-1/2 top-5 flex  gap-1 bg-white/50 backdrop-blur-xs p-2 rounded-xl shadow-sm border border-stone-300">
+                {book?.category.toLowerCase() !== 'literature' && (<div className="fixed left-1/2 -translate-x-1/2 top-5 flex  gap-1 bg-white/50 backdrop-blur-xs p-2 rounded-xl shadow-sm border border-stone-300">
                      {/*Bold */}
                     <button className={`${isBold ? "bg-stone-800" : "bg-white border border-stone-300"} transition duration-300 ease-in-out shadow-sm p-2 justify-center items-center flex gap-1 border rounded-lg`}
                     onClick={() => setIsBold(prev => !prev)}>
@@ -101,8 +101,8 @@ const Lib_BookLayout = ({book, onClose}) => {
                     
                 </div>)}
 
-                {book?.type.toLowerCase() === 'fiction' &&
-                 book?.category.toLowerCase() === 'story book' 
+                {
+                 book?.category.toLowerCase() === 'literature' 
                  &&
                  (
                  <Lib_StoryLayoutBook
@@ -117,7 +117,7 @@ const Lib_BookLayout = ({book, onClose}) => {
                  />
                  )}
                 
-                {book?.type.toLowerCase() === 'non-fiction' &&
+                {book?.category.toLowerCase() !== 'literature' &&
                 (
                  <Lib_BasedLayoutBook
                 book={book}

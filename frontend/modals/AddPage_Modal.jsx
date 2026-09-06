@@ -1,10 +1,34 @@
 import { AudioLines, ImageOff, ImagePlus, Plus } from "lucide-react"
+import { useEffect } from "react";
 import { useRef, useState } from "react"
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
     
-    console.log(bookDetails)
+    useEffect(() => {
+      console.log(CLOUDINARY_CLOUD_NAME)
+      console.log(CLOUDINARY_UPLOAD_PRESET)
+    },[])
+
+    const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+    const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
+    const uploadToCloudinary = async (file, resourceType = "image") => {
+                    if (!file) return "";
+        
+                    const formData = new FormData();
+        
+                    formData.append("file", file);
+                    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+        
+                    const response = await axios.post(
+                        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
+                        formData
+                    );
+        
+                    return response.data.secure_url;
+        };
 
     const imageRef = useRef(null);
     const audioRef = useRef(null);
@@ -13,19 +37,35 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
     const [audio, setAudio] = useState(null);
     const [text, setText] = useState("");
 
-    const SaveNewPage = () => {
-          setBookDetails((bookDetails) => ({...bookDetails, 
+    const SaveNewPage = async () => {
+    try {
+        const [convertedImage, convertedAudio] = await Promise.all([
+            uploadToCloudinary(image, "image"),
+            uploadToCloudinary(audio, "video")
+        ]);
+
+        setBookDetails((bookDetails) => ({
+            ...bookDetails,
             pages: [
                 ...(bookDetails.pages || []),
                 {
-                pageText: text,
-                pageImage: image,
-                pageAudio: audio  
+                    pageText: text,
+                    pageImage: convertedImage,
+                    pageAudio: convertedAudio
                 }
-            ]}))
-            toast.info("Page added temporarily. Click 'Save Information' to save your changes.");
-            onClose()
+            ]
+        }));
+
+        toast.info(
+            "Page added temporarily. Click 'Save Information' to save your changes."
+        );
+
+        onClose();
+    } catch (error) {
+        console.error("Upload failed:", error);
+        toast.error("Failed to upload page files.");
     }
+};
 
 
     return(

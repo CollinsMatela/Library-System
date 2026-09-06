@@ -118,12 +118,14 @@ if (selectedCategoryOfBook.toLowerCase() === "textbooks") {
 };
 
     return(
-        <div className="w-full grid my-4 md:p-6 border-0 md:border border-stone-300 md:rounded-xl gap-2">
+        <div className="w-full grid md:p-6 border-0 md:border border-stone-300 md:rounded-xl gap-2">
 
-            <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+            <header>
+                    <h1 className="text-stone-700 text-sm font-bold">Category Details</h1>
+                    <h1 className="text-stone-500 text-xs">Provide the category detail of the book.</h1>
+            </header>
 
-
-            {/* Non-Fiction */}
+            <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-3">
             <select className={` bg-white border border-stone-300 p-2 rounded-lg text-gray-500 text-xs mt-2`} value={selectedCategoryOfBook} onChange={(e) => setSelectedCategoryOfBook(e.target.value)}>
                 <option value="">Select book categories</option>
                 {categories.map((category) => (

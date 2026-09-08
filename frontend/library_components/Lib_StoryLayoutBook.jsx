@@ -61,9 +61,9 @@ const Lib_StoryLayoutBook = ({book, isEnd, showText, showImage, pageIndex, nextP
                 
               </button>
               
-              <img src={book.pages[pageIndex].pageImage} className="h-full w-full object-fill" />
+              <img src={book?.pages[pageIndex]?.pageImage} className="h-full w-full object-fill" />
               
-                <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/50 via-black/20 to-transparent px-8 py-8 flex flex-col gap-2 justify-center">
+              <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/50 via-black/20 to-transparent px-8 py-8 flex flex-col gap-2 justify-center">
               <p className="w-fit text-xs bg-white px-3 py-1 rounded-lg">{`Page ${pageIndex + 1}.`}</p>
                 <p className="max-w-4xl text-center text-white text-2xl md:text-sm font-medium leading-relaxed drop-shadow-lg">
                     {hasText}
@@ -108,7 +108,7 @@ const Lib_StoryLayoutBook = ({book, isEnd, showText, showImage, pageIndex, nextP
 
 
           {/* Empty state */}
-          {!book.pages[pageIndex].pageImage && (
+          {!book?.pages[pageIndex]?.pageImage && (
             <div className="flex justify-center items-center h-full">
               <ImageOff size={40} className="text-gray-500" />
             </div>

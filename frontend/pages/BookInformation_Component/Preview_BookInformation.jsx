@@ -4,7 +4,43 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
 
-const Preview_BookInformation = ({bookDetails}) => {
+const Preview_BookInformation = ({bookDetails, setBookDetails}) => {
+    
+
+    const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+    const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
+    const uploadToCloudinary = async (file, resourceType = "image") => {
+                if (!file) return "";
+    
+                const formData = new FormData();
+    
+                formData.append("file", file);
+                formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    
+                const response = await axios.post(
+                    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
+                    formData
+                );
+    
+                return response.data.secure_url;
+    };
+
+
+      const coverRef = useRef(null)
+
+      const handleCover = async (e) => {
+            const coverFile = e.target.files[0];
+            if(!coverFile) return;
+            
+            const convertedCover = await uploadToCloudinary(coverFile)
+            setBookDetails((bookDetails) => ({
+                ...bookDetails,
+                cover: convertedCover
+            }))
+
+            toast.info('Book cover temporarily saved. Click SAVE CHANGES to save it permanently.')
+      }
 
       return(
         <>
@@ -26,22 +62,34 @@ const Preview_BookInformation = ({bookDetails}) => {
         <div className="w-full flex flex-col md:flex-row gap-4">
         {/* Book Cover Container */}
         <div className="bg-white w-120 justify-start items-start flex flex-col gap-4">
-            {!bookDetails?.cover ?
+            {bookDetails?.cover ?
+            (
+                <img src={bookDetails.cover} className="bg-stone-100 h-100 w-80 object-cover" />
+            )
+            :
             (
                 <div className="h-100 w-80 bg-stone-100 border border-stone-300 rounded-lg justify-center items-center flex flex-col gap-1">
                     <ImageOff size={50} className="text-stone-300"/>
                 </div>
-                
-            )
-            :
-            (
-                <img src={bookDetails?.cover} className="bg-stone-100 h-100 w-80 object-cover" />
             )}
-
-            <button className="w-full bg-yellow-100 border border-yellow-500 justify-center items-center flex gap-1 p-2 rounded-lg">
+            
+            <div className="w-full">
+            <button className="w-full bg-yellow-100 border border-yellow-500 justify-center items-center flex gap-1 p-2 rounded-lg hover:bg-yellow-200"
+            onClick={(e) => coverRef.current.click()}>
                         <Plus size={15} className="text-yellow-500"/>
-                        <h1 className="text-xs text-yellow-500">Add Cover</h1>
+                        {!bookDetails?.cover && (<h1 className="text-xs text-yellow-500">Add Cover</h1>)}
+                        {bookDetails?.cover && (<h1 className="text-xs text-yellow-500">Change Cover</h1>)}
             </button>
+
+
+            <input 
+            type="file"
+            accept="image/**"
+            className="hidden"
+            ref={coverRef}
+            onChange={handleCover} />
+            </div>
+            
             
 
         </div>

@@ -116,6 +116,7 @@ const Admin_ViewMaterials_Page = () => {
     const updateBookInformation = async () => {
 
         try {
+            
             const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-book/${bookDetails._id}`, {bookDetails});
             console.log(res.data.message);
             setErrorMessage("");
@@ -355,6 +356,7 @@ const Admin_ViewMaterials_Page = () => {
     />
     {bookDetails && (<Preview_BookInformation
                bookDetails={bookDetails}
+               setBookDetails={setBookDetails}
     />)}
     
     

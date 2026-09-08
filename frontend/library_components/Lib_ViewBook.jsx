@@ -223,14 +223,14 @@ const Lib_ViewBook = () => {
 
                     <div className="justify-end flex gap-2 w-full">
 
-                        {bookDetails?.copies === 0 && (<button className="justify-center items-center flex gap-2 bg-stone-200 border border-stone-300 rounded-lg w-fit p-2 text-xs cursor-not-allowed"
+                        {bookDetails?.pages?.length === 0 && (<button className="justify-center items-center flex gap-2 bg-stone-200 border border-stone-300 rounded-lg w-fit p-2 text-xs cursor-not-allowed"
                         disabled={true}
                         onClick={() => setShowReadModal(true)}>
                             <LockKeyhole size={15} className="text-stone-500"/> 
                             <h1 className="text-xs text-stone-500">Coming Soon</h1>
                         </button>)}
 
-                        {bookDetails?.copies > 0 && (<button className="justify-center items-center flex gap-2 bg-stone-800 w-fit rounded-lg p-2 hover:bg-stone-900 cursor-pointer"
+                        {bookDetails?.pages?.length > 0 && (<button className="justify-center items-center flex gap-2 bg-stone-800 w-fit rounded-lg p-2 hover:bg-stone-900 cursor-pointer"
                         onClick={() => setShowReadModal(true)}>
                             <BookOpenText size={15} className="text-white"/> 
                             <h1 className="text-xs text-white">Read</h1><h1></h1>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { TextAlignCenter, Pen, Trash, Image, Sparkle, Sparkles, Repeat, PenBox, FilePlay, FileText } from "lucide-react";
+import { TextAlignCenter, Pen, Trash, Image, Sparkle, Sparkles, Repeat, PenBox, FilePlay, FileText, Book, BookOpenText, ImageOff } from "lucide-react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
@@ -334,6 +334,8 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                 />
 
             </div>)}
+
+            
             
         </div>
         </>

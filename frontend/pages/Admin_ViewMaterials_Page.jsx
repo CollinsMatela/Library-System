@@ -9,6 +9,7 @@ import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Tras
 import { toast } from "react-toastify";
 import ConfirmationPopup from "../popup/Confirmation_Popup"
 import AddPage_Modal from "../modals/AddPage_Modal";
+import Preview_BookInformation from "./BookInformation_Component/Preview_BookInformation";
 
 const Admin_ViewMaterials_Page = () => {
   const { id } = useParams();
@@ -341,7 +342,7 @@ const Admin_ViewMaterials_Page = () => {
                Summarization={AISummarization}
                updateBookInformation={updateBookInformation}
     />
-        <Edit_BookPage bookDetails={bookDetails}
+    <Edit_BookPage bookDetails={bookDetails}
                setBookDetails={setBookDetails}
                fetchBookById={fetchBookById}
                handleImageChange={handleImageChange}
@@ -352,11 +353,14 @@ const Admin_ViewMaterials_Page = () => {
                setSelectedPageIndex={setSelectedPageIndex}
                isAddPageModal={() => setIsAddPageModal(true)}
     />
+    {bookDetails && (<Preview_BookInformation
+               bookDetails={bookDetails}
+    />)}
     
     
 
     {/* // Save Button */}
-            <div className="w-full justify-end items-center flex px-4 lg:px-10">
+            <div className="w-full justify-end items-center flex px-4 lg:px-10 mt-4">
             <button className="justify-center items-center flex gap-2 bg-green-200 p-2 rounded-lg border border-green-500 text-xs text-green-500 hover:bg-green-300 cursor-pointer"
             onClick={() => {setIsInformationUpdate(true); setErrorMessage("")}}
             >

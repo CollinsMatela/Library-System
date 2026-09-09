@@ -23,14 +23,11 @@ import Admin_LogBook from "../pages/Admin_LogBook";
 import Lib_MyAccount from "../library_components/Lib_MyAccount"
 import LoginPage from "../pages/LoginPage";
 import Admin_Inventory from "../components/Admin_Inventory";
+import Admin_Edit from "../pages/Admin_Edit";
 
 
 const ProtectedRoute = ({ allowedRoles }) => {
   const { token, role } = useAuthStore();
-
-  console.log("ProtectedRoute check:");
-  console.log("token:", token);
-  console.log("role:", role);
 
   if (!token) {
     return <Navigate to="/" replace />;
@@ -74,6 +71,7 @@ function App() {
                 <Route path="/admin/book-information/:id" element={<Admin_ViewMaterials_Page />} />
                 <Route path="/admin/borrow-book" element={<Admin_BorrowBook_Page />} />
                 <Route path="/admin/users" element={<Admin_Student_Page />} />
+                <Route path="/admin/edit" element={<Admin_Edit />} />
                 <Route path="/admin/user-registration" element={<Admin_StudentRegistration_Page />} />
                 <Route path="/admin/inventory" element={<Admin_Inventory />} />
                 <Route path="/change-password" element={<Change_Password_Page/>}/>

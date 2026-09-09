@@ -15,9 +15,6 @@ const Admin_ViewMaterials_Page = () => {
   const { id } = useParams();
   const [bookDetails, setBookDetails] = useState(null);
 
-  const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-  const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
-
   const navigate = useNavigate();
 
   const [isConfirmation, setIsConfirmation] = useState(false);
@@ -26,136 +23,12 @@ const Admin_ViewMaterials_Page = () => {
 
   const [isInformationUpdate, setIsInformationUpdate] = useState(false);
   const [isBookPageUpdate, setIsBookPageUpdate] = useState(false);
-  const [selectedPageIndex, setSelectedPageIndex] = useState(null);
+
 
   const [isAddPageModal, setIsAddPageModal] = useState(false);
 
   const [audioPreview, setAudioPreview] = useState('');
 
-  const uploadToCloudinary = async (file, resourceType = "image") => {
-                if (!file) return "";
-    
-                const formData = new FormData();
-    
-                formData.append("file", file);
-                formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-    
-                const response = await axios.post(
-                    `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
-                    formData
-                );
-    
-                return response.data.secure_url;
-    };
-
-  const AISummarization = async () => {
-            const texts = bookDetails.pages.map((p) => p.pageText);
-  
-            const bookData = {
-              bookId: bookDetails._id,
-              title: bookDetails.title,
-              language: bookDetails.language,
-              texts: texts
-            }
-  
-            try {
-              const res = await axios.post(`${import.meta.env.VITE_API_URL}/ai-summarization`, bookData)
-              setMoral(res.data.summary)
-              toast.success(res.data.message);
-              fetchBookById();
-            } catch (error) {
-              console.log(error);
-              toast.error(error?.response?.data?.message);
-            }
-      }
-  
-  const handleImageChange = async (e) => {
-        const file = e.target.files[0];
-
-        if (!file) return;
-
-        try {
-            const image = await uploadToCloudinary(file, "image");
-
-            setBookDetails((bookDetails) => ({
-            ...bookDetails,
-            pages: bookDetails.pages.map((page, index) =>
-                index === selectedPageIndex
-                ? { ...page, pageImage: image }
-                : page
-            ),
-            }));
-
-        } catch (error) {
-            console.error("Image upload failed:", error);
-        }
-    };
-
-    const handleAudioChange = async (e) => {
-        const file = e.target.files[0];
-
-        if (!file) return;
-
-        try {
-            const audio = await uploadToCloudinary(file, "video");
-
-            setBookDetails({...bookDetails, pages: bookDetails.pages.map((page, index) => {
-                if (index === selectedPageIndex) {
-                    return { ...page, pageAudio: audio };
-                }
-                return page;
-            })});
-
-            setAudioPreview(URL.createObjectURL(file));
-
-        } catch (error) {
-            console.error("Audio upload failed:", error);
-        }
-    };
-
-    const updateBookInformation = async () => {
-
-        try {
-            
-            const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-book/${bookDetails._id}`, {bookDetails});
-            console.log(res.data.message);
-            setErrorMessage("");
-            toast.success(res.data.message);
-            fetchBookById(bookDetails._id);
-            setIsInformationUpdate(false);
-        } catch (error) {
-            console.error("Error updating book information:", error);
-            setErrorMessage(error?.response?.data?.message || "An error occurred while updating the book information.");
-            toast.error(error?.response?.data?.message || "An error occurred while updating the book information.");
-        }
-    }
-
-    const updatePage = async () => {
-        
-            const currentPage = bookDetails.pages[selectedPageIndex];
-
-            const bookPageData = {
-                bookId: bookDetails._id,
-                pageId: currentPage._id,
-                pageText: currentPage.pageText,
-                pageImage: currentPage.pageImage,
-                pageAudio: currentPage.pageAudio
-            };
-
-          try {
-            const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-page`, bookPageData);
-            console.log("Page updated successfully:", res.data.message);
-            toast.success(res.data.message);
-            setErrorMessage("");
-            fetchBookById(bookDetails._id);
-            setIsBookPageUpdate(false);
-            
-          } catch (error) {
-            console.error("Error updating page:", error);
-            setErrorMessage(error?.response?.data?.message || "An error occurred while updating the page.");
-            toast.error(error?.response?.data?.message || "An error occurred while updating the page.");
-          }
-    }
 
   const informations = [
     // Basic Information

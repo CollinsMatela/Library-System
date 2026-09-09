@@ -70,7 +70,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                         type="text"
                         placeholder="Title"
                         className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
-                        value={bookDetails?.title}
+                        value={bookDetails?.title || ""}
                         onChange={(e) => setBookDetails({...bookDetails, title: e.target.value})}
                     />
 
@@ -79,14 +79,14 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                         type="text"
                         placeholder="Author"
                         className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
-                        value={bookDetails?.author}
+                        value={bookDetails?.author || ""}
                         onChange={(e) => setBookDetails({...bookDetails, author: e.target.value})}
                     />
 
                     {/* Language */}
                     <select
                         className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
-                        value={bookDetails?.language}
+                        value={bookDetails?.language || ""}
                         onChange={(e) => setBookDetails({...bookDetails, language: e.target.value})}
                     >
                         <option value="">
@@ -111,7 +111,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                         type="text"
                         placeholder="Publisher"
                         className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
-                        value={bookDetails?.publisher}
+                        value={bookDetails?.publisher || ""}
                         onChange={(e) => setBookDetails({...bookDetails, publisher: e.target.value})}
                     />
 
@@ -120,7 +120,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                         type="text"
                         placeholder="ISBN"
                         className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
-                        value={bookDetails?.isbn}
+                        value={bookDetails?.isbn || ""}
                         onChange={(e) => setBookDetails({...bookDetails, isbn: e.target.value})}
                     />
 
@@ -150,7 +150,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                         max={new Date().getFullYear()}
                         placeholder="Publication Year"
                         className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
-                        value={bookDetails?.publication}
+                        value={bookDetails?.publication || '0000'}
                         onChange={(e) => setBookDetails({...bookDetails, publication: e.target.value})}
                     />
 
@@ -159,7 +159,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                         type="text"
                         placeholder="Edition"
                         className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
-                        value={bookDetails?.edition}
+                        value={bookDetails?.edition || ""}
                         onChange={(e) => setBookDetails({...bookDetails, edition: e.target.value})}
                     />
 
@@ -168,7 +168,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                         type="text"
                         placeholder="Volume"
                         className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
-                        value={bookDetails?.volume}
+                        value={bookDetails?.volume || ""}
                         onChange={(e) => setBookDetails({...bookDetails, volume: e.target.value})}
                     />
 
@@ -196,7 +196,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                         type="text"
                         placeholder="DDC Classification"
                         className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
-                        value={bookDetails?.ddc}
+                        value={bookDetails?.ddc || ""}
                         onChange={(e) => setBookDetails({...bookDetails, ddc: e.target.value})}
                     />
 
@@ -205,7 +205,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                         type="text"
                         placeholder="Call Number"
                         className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
-                        value={bookDetails?.callNumber}
+                        value={bookDetails?.callNumber || ""}
                         onChange={(e) => setBookDetails({...bookDetails, callNumber: e.target.value})}
                     />
 
@@ -215,7 +215,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                         min={1}
                         placeholder="Number of Copies"
                         className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
-                        value={bookDetails?.copies}
+                        value={bookDetails?.copies || 0}
                         onChange={(e) => setBookDetails({...bookDetails, copies: e.target.value})}
                     />
 
@@ -224,7 +224,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                         type="text"
                         placeholder="Donated From"
                         className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
-                        value={bookDetails?.donatedFrom}
+                        value={bookDetails?.donatedFrom || ""}
                         onChange={(e) => setBookDetails({...bookDetails, donatedFrom: e.target.value})}
                     />
 
@@ -264,7 +264,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                         type="text"
                         placeholder="Illustrator"
                         className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
-                        value={bookDetails?.illustrator}
+                        value={bookDetails?.illustrator || ""}
                         onChange={(e) => setBookDetails({...bookDetails, illustrator: e.target.value})}
                     />
 
@@ -273,7 +273,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                         type="text"
                         placeholder="Series"
                         className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
-                        value={bookDetails?.series}
+                        value={bookDetails?.series || ""}
                         onChange={(e) => setBookDetails({...bookDetails, series: e.target.value})}
                     />
 

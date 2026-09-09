@@ -15,6 +15,7 @@ const Edit_BookPage = ({bookDetails, setBookDetails, fetchBookById, handleImageC
     const [isBookPageUpdate, setIsBookPageUpdate] = useState(false);
 
     const [selectedNewImage, setSelectedNewImage] = useState(null);
+    
 
     const [imageFile, setImageFile] = useState(null);
     const imageRef = useRef(null);

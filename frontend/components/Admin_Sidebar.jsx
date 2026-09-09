@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore"
 import { useState } from "react";
-import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User, ArrowUp, Home, BookUser, ScrollText, Package } from 'lucide-react'
+import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User, ArrowUp, Home, BookUser, ScrollText, Package, SquarePen } from 'lucide-react'
 import NaicLogo from '../src/assets/NaicLibraryLogo.png'
 
 const Admin_SideBar = () => {
@@ -17,6 +17,7 @@ const Admin_SideBar = () => {
     const isUserRegistration = location.pathname === "/admin/user-registration";
     const isBorrowBook = location.pathname === "/admin/borrow-book"
     const isInventory = location.pathname === "/admin/inventory";
+    const isEdit = location.pathname === "/admin/edit"
 
     const handleOverview = () => {
           navigate('/admin');
@@ -41,6 +42,9 @@ const Admin_SideBar = () => {
     }
     const handleInventory = () => {
           navigate('/admin/inventory');
+    }
+    const handleEdit = () => {
+          navigate('/admin/edit');
     }
 
     const handleLogout = () =>{
@@ -84,6 +88,11 @@ const Admin_SideBar = () => {
       <div className={`${isUploadStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUploadStory}>
         <ArrowUp className={`${isUploadStory ? 'text-white' : 'text-stone-500'}`} size={15}/>
         <h1 className="hidden lg:block">Upload</h1>
+      </div>
+
+      <div className={`${isEdit ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleEdit}>
+        <SquarePen className={`${isEdit ? 'text-white' : 'text-stone-500'}`} size={15}/>
+        <h1 className="hidden lg:block">Edit</h1>
       </div>
 
       <div className={`${isViewStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleViewStory}>

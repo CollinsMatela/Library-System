@@ -197,6 +197,10 @@ const Admin_Books_Page = () => {
                     <p className="mt-1 text-xs text-stone-500">
                       Try changing or clearing your search filters.
                     </p>
+                    <button className="text-xs text-stone-500 p-1 rounded-lg bg-stone-200 border border-stone-500 mt-2 hover:bg-stone-300 cursor-pointer"
+                    onClick={FindBook}>
+                      <h1>View All</h1>
+                    </button>
                   </div>
                   )}
 

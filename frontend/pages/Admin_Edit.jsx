@@ -295,30 +295,76 @@ const Admin_Edit = () => {
             </div>                
         </header>
     
-        <div className="px-4 lg:px-10">
-            <div className="w-full flex gap-1">
-                <select className="bg-stone-200 text-xs text-stone-500 p-2 rounded-lg border border-stone-500"
-                onClick={(e) => setSelectedCategory(e.target.value)}>
-                    <option value="">Select category</option>
-                    {categories.map((category, index) => (
-                        <option 
-                        key={index} 
-                        value={category.value}>
-                            {category.label}
-                    </option>
-                    ))}
-                </select>
+        <div className="w-full px-4 lg:px-10">
+    <div className="w-full bg-stone-200 border border-stone-300 rounded-lg p-6">
+        
+        <div className="mb-4">
+            <h1 className="text-xs font-semibold text-stone-800">
+                Find a Book to Edit
+            </h1>
+            <p className="text-xs text-stone-500">
+                Select a category and choose the book you want to edit.
+            </p>
+        </div>
 
-                <select className="bg-stone-200 text-xs text-stone-500 p-2 rounded-lg border border-stone-500"
-                onClick={(e) => setSelectedBook(e.target.value)}>
-                    <option value="">Select book to edit</option>
-                    {books.filter((book) => book.category === selectedCategory).map((book) => (
-                        <option key={book._id} value={book._id}>{book.title}</option>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+
+            {/* Category */}
+            <div className="flex flex-col gap-1.5">
+                
+                <select
+                    value={selectedCategory}
+                    onChange={(e) => {
+                        setSelectedCategory(e.target.value)
+                        setSelectedBook("")
+                    }}
+                    className="w-full bg-white text-xs text-stone-700 p-2.5 rounded-lg border outline-none border-stone-300 transition"
+                >
+                    <option value="">Select category</option>
+
+                    {categories.map((category, index) => (
+                        <option
+                            key={index}
+                            value={category.value}
+                        >
+                            {category.label}
+                        </option>
                     ))}
                 </select>
             </div>
-            
+
+            {/* Book */}
+            <div className="flex flex-col gap-1.5">
+                
+
+                <select
+                    value={selectedBook}
+                    onChange={(e) => setSelectedBook(e.target.value)}
+                    disabled={!selectedCategory}
+                    className="w-full bg-white text-xs text-stone-700 p-2.5 rounded-lg border outline-none border-stone-300 outline-none transition disabled:bg-stone-50 disabled:text-stone-400 disabled:cursor-not-allowed"
+                >
+                    <option value="">
+                        {selectedCategory
+                            ? "Select book to edit"
+                            : "Select a category first"}
+                    </option>
+
+                    {books
+                        .filter((book) => book.category === selectedCategory)
+                        .map((book) => (
+                            <option
+                                key={book._id}
+                                value={book._id}
+                            >
+                                {book.title}
+                            </option>
+                        ))}
+                </select>
+            </div>
+
         </div>
+    </div>
+</div>
 
     <Edit_BookInformation 
             bookDetails={bookDetails}
@@ -346,7 +392,7 @@ const Admin_Edit = () => {
     
 
     {/* // Save Button */}
-    <div className="w-full justify-end items-center flex px-4 lg:px-10 mt-4">
+    <div className="w-full justify-end items-center flex px-4 lg:px-10 mt-4 mb-10">
     <button className="justify-center items-center flex gap-2 bg-green-200 p-2 rounded-lg border border-green-500 text-xs text-green-500 hover:bg-green-300 cursor-pointer"
     onClick={() => {setIsInformationUpdate(true); setErrorMessage("")}}
     >

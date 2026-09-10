@@ -17,14 +17,6 @@ const initialForm = {
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_PATTERN = /^09\d{9}$/;
 
-const isValidBirthDate = (year, month, day) => {
-    const date = new Date(year, month - 1, day);
-    return date.getFullYear() === Number(year)
-        && date.getMonth() === Number(month) - 1
-        && date.getDate() === Number(day)
-        && date <= new Date();
-};
-
 const RegistrationPage = () => {
     const navigate = useNavigate()
     const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
@@ -38,6 +30,10 @@ const RegistrationPage = () => {
     const [errors, setErrors] = useState({});
 
     const [errorMessage, setErrorMessage] = useState("");
+
+    const daysInMonth = form.year && form.month
+    ? new Date(form.year, form.month, 0).getDate()
+    : 31;
 
     const calculateAge = (year, month, day) => {
         const today = new Date();
@@ -67,12 +63,6 @@ const RegistrationPage = () => {
             if (!String(form[field]).trim()) nextErrors[field] = true;
         });
 
-        if (form.year && form.month && form.day && !isValidBirthDate(form.year, form.month, form.day)) {
-            nextErrors.year = true;
-            nextErrors.month = true;
-            nextErrors.day = true;
-        }
-
         if (!EMAIL_PATTERN.test(form.email.trim())) nextErrors.email = true;
         if (!PHONE_PATTERN.test(form.contact.trim())) nextErrors.contact = true;
 
@@ -80,14 +70,26 @@ const RegistrationPage = () => {
             ["parentName", "parentRelationship"].forEach((field) => {
                 if (!form[field].trim()) nextErrors[field] = true;
             });
-            if (!PHONE_PATTERN.test(form.parentContact.trim())) nextErrors.parentContact = true;
+            if (!PHONE_PATTERN.test(form.parentContact.trim())) {
+                nextErrors.parentContact = true;
+            }
         }
 
         setErrors(nextErrors);
-        if (Object.keys(nextErrors).length) {
-            toast.warning("Please fill up the required information.");
+        if (Object.keys(nextErrors).length > 0) {
+        if (nextErrors.email) {
+            toast.warning("Please enter a valid email address.");
+        } else if (nextErrors.contact) {
+            toast.warning("Please enter a valid 11-digit contact number.");
+        } else if (nextErrors.parentContact) {
+            toast.warning("Please enter a valid parent contact number.");
+        } else {
+            toast.warning("Please fill in all required fields.");
         }
-        return Object.keys(nextErrors).length > 0;
+
+        return true;
+        }
+        return false;
     };
 
     const resetForm = () => {
@@ -127,6 +129,7 @@ const RegistrationPage = () => {
                 resetForm();
                 toast.success(res.data.message);
                 setShowConfirmationPopup(false);
+                navigate('/')
             }
 
         } catch (error) {
@@ -134,19 +137,20 @@ const RegistrationPage = () => {
             toast.error(error?.response?.data?.message);
             setErrorMessage(error?.response?.data?.message || "User Registration Request Error.");
         }
+
         };
 
     return(
     <>
         {showConfirmationPopup && (<Confirmation_Popup errorMessage={errorMessage} message={'Are you sure to register this user?'} onConfirm={() => {UserRegistration();}} onCancel={() => {setShowConfirmationPopup(false); setErrorMessage("");}} />)}
         {showAccountPopup && (<Account_Popup newAccountDetails={newStudent} closeAccountConfirmation={() => {setShowAccountPopup(false);}}/>)}
-        <section className="bg-white min-h-screen w-full justify-center items-center flex flex-col pb-20">
+        <section className="bg-stone-100 min-h-screen w-full justify-center items-center flex flex-col pb-20">
               
               
 
                     <div className="w-5xl mt-10">
                         <h1 className="text-6xl font-bold text-stone-700 mb-4">REGISTRATION</h1>
-                    <div className="w-full md:p-6 rounded-lg border-0 md:border border-stone-300 mb-4 ">
+                    <div className="bg-white w-full md:p-6 rounded-lg border-0 md:border border-stone-300 mb-4 ">
 
                         <div className="flex items-center justify-start gap-2 w-full mb-5">
                             <div className="bg-stone-200 p-2 text-white rounded-full justify-center items-center flex">
@@ -244,7 +248,7 @@ const RegistrationPage = () => {
                                     onChange={(e) => updateField("day", e.target.value)}
                                 >
                                     <option value="">Day</option>
-                                    {Array.from({ length: 31 }, (_, index) => (
+                                    {Array.from({ length: daysInMonth }, (_, index) => (
                                         <option key={index + 1} value={index + 1}>
                                             {index + 1}
                                         </option>

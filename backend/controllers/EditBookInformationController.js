@@ -26,7 +26,7 @@ const EditBookInformationController = async (req, res) => {
         return res.status(404).json({message: "Failed to update book information"});
       }
       
-      res.status(200).json({message: "Fiction book information updated successfully", book: updatedBook});
+      res.status(200).json({message: "Book Updated Successfully", book: updatedBook});
     
     
     } catch (error) {

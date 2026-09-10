@@ -32,23 +32,6 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
 
         <div className="w-full flex flex-col gap-4 my-4 px-4 lg:px-10">
 
-            {/* Header */}
-            <div className="flex gap-2 items-center">
-                <div className="p-2 text-white bg-stone-800 flex justify-center items-center">
-                    <TextAlignCenter size={20} />
-                </div>
-
-                <div>
-                    <h1 className="text-stone-800 text-sm font-bold">
-                        Edit Information
-                    </h1>
-
-                    <p className="text-stone-500 text-xs">
-                        Input the applicable information about the book.
-                    </p>
-                </div>
-            </div>
-
 
             {/* ================= BASIC INFORMATION ================= */}
             <div className="w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">

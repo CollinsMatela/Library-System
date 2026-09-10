@@ -298,7 +298,7 @@ const Admin_Edit = () => {
         <div className="w-full px-4 lg:px-10">
     <div className="w-full bg-stone-200 border border-stone-300 rounded-lg p-6">
         
-        <div className="mb-4">
+        <div className="mb-2">
             <h1 className="text-xs font-semibold text-stone-800">
                 Find a Book to Edit
             </h1>
@@ -307,7 +307,7 @@ const Admin_Edit = () => {
             </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
 
             {/* Category */}
             <div className="flex flex-col gap-1.5">

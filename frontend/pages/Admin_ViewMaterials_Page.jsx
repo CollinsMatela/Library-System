@@ -19,15 +19,8 @@ const Admin_ViewMaterials_Page = () => {
 
   const [isConfirmation, setIsConfirmation] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [moral, setMoral] = useState('');
-
   const [isInformationUpdate, setIsInformationUpdate] = useState(false);
-  const [isBookPageUpdate, setIsBookPageUpdate] = useState(false);
-
-
   const [isAddPageModal, setIsAddPageModal] = useState(false);
-
-  const [audioPreview, setAudioPreview] = useState('');
 
 
   const informations = [
@@ -87,56 +80,19 @@ const Admin_ViewMaterials_Page = () => {
             toast.error(error?.response?.data?.message);
           }
     }
-    const deleteBook = async (bookId) => {
-        try {
-            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-book/${bookId}`);
-            console.log(res.data.message);
-            toast.success(res.data.message);
-            navigate(-1); // Navigate back to the previous page after deletion
-        } catch (error) {
-            console.log(error);
-            setErrorMessage(error?.response?.data?.message);
-            toast.error(error?.response?.data?.message);
-        }
-    }
-    const handleDeleteConfirmation = () => {
-          setIsConfirmation(true);
-    }
+
   return(
     <>
     <AdminSidebar />
-
-    {isConfirmation && (<ConfirmationPopup 
-    errorMessage={errorMessage}
-    message={'Are you sure to delete this book?'}
-    onConfirm={() => deleteBook(bookDetails._id)} 
-    onCancel={() => setIsConfirmation(false)}/>)}
-
-    {isInformationUpdate && (
-    <ConfirmationPopup
-    errorMessage={errorMessage}
-    message={'Are you sure to update the book information?'}
-    onConfirm={updateBookInformation}
-    onCancel={() => setIsInformationUpdate(false)}
-    />)}
-
-    {isAddPageModal && (
-    <AddPage_Modal
-    onClose={() => setIsAddPageModal(false)}
-    bookDetails={bookDetails}
-    setBookDetails={setBookDetails}
-    />
-    )}
-
     
     <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pb-15 md:pl-20 lg:pl-60">
               
-    <header className="w-full justify-between items-start flex flex-col border-0 lg:border-b border-stone-300 p-3 px-4 lg:px-10">
+    <header className="bg-white w-full justify-between items-start flex flex-col border-0 lg:border-b border-stone-300 p-3 px-4 lg:px-10">
         <h1 className="text-sm font-bold text-stone-800">Book Information</h1>
         <h1 className="text-stone-400 text-xs">Manage the selected book</h1>                   
     </header>
 
-    <div className="w-full flex flex-col md:flex-row gap-4 py-10 px-4 lg:px-10">
+    <div className="w-full flex flex-col md:flex-row gap-4 px-4 lg:px-10 mt-6">
         {/* Book Cover Container */}
         <div className="border border-stone-200 bg-stone-100 w-full md:w-120 justify-center items-center flex flex-col gap-4">
             {!bookDetails?.cover ?
@@ -171,12 +127,7 @@ const Admin_ViewMaterials_Page = () => {
                         <div className="justify-center items-center flex gap-2 bg-stone-200 py-2 px-3 text-xs font-bold rounded-full"><BookOpenText size={15}/>{bookDetails?.pages.length} Pages</div>
                     </div>
 
-                    <div className="flex gap-2">
-                        <button className="justify-center items-center flex gap-2 bg-red-200 p-2 text-xs text-red-500 border border-red-500 rounded-lg hover:bg-red-300 cursor-pointer"
-                        onClick={handleDeleteConfirmation}>
-                            <Trash size={15}/> <h1 className="hidden sm:block">Remove</h1>
-                        </button>
-                    </div>
+                    
                 </div>
 
             </div>
@@ -209,39 +160,6 @@ const Admin_ViewMaterials_Page = () => {
         </div>
     </div>
 
-    <Edit_BookInformation 
-               bookDetails={bookDetails}
-               setBookDetails={setBookDetails}
-               fetchBookById={fetchBookById}
-               Summarization={AISummarization}
-               updateBookInformation={updateBookInformation}
-    />
-    <Edit_BookPage bookDetails={bookDetails}
-               setBookDetails={setBookDetails}
-               fetchBookById={fetchBookById}
-               handleImageChange={handleImageChange}
-               handleAudioChange={handleAudioChange}
-               updatePage={updatePage}
-               showPageUpdateConfirmation={() => {setIsBookPageUpdate(true); setErrorMessage("")}}
-               selectedPageIndex={selectedPageIndex}
-               setSelectedPageIndex={setSelectedPageIndex}
-               isAddPageModal={() => setIsAddPageModal(true)}
-    />
-    {bookDetails && (<Preview_BookInformation
-               bookDetails={bookDetails}
-               setBookDetails={setBookDetails}
-    />)}
-    
-    
-
-    {/* // Save Button */}
-            <div className="w-full justify-end items-center flex px-4 lg:px-10 mt-4">
-            <button className="justify-center items-center flex gap-2 bg-green-200 p-2 rounded-lg border border-green-500 text-xs text-green-500 hover:bg-green-300 cursor-pointer"
-            onClick={() => {setIsInformationUpdate(true); setErrorMessage("")}}
-            >
-                <Pen size={15}/> Save Changes 
-            </button>
-            </div>
 
     </section>
     </>

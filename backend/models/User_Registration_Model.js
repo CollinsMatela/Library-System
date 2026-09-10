@@ -28,7 +28,7 @@ const UserRegistrationSchema = new mongoose.Schema({
       parentContact: { type: String, default: "" },
       parentRelationship: { type: String, default: "" },
 
-      role: {type: String, default: "User"},
+      role: {type: String, default: ""},
       username: {type: String, required:true},
       password: {type: String, required:true},
 

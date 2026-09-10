@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import Confirmation_Popup from "../popup/Confirmation_Popup"
 import Account_Popup from "../popup/Account_Conformation"
@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { months } from "../mockdata";
 
 const initialForm = {
+    role: "",
     lastname: "", firstname: "", middlename: "", extensionname: "",
     year: "", month: "", day: "", sex: "",
     homeAddress: "", city: "", email: "", contact: "", institution: "",
@@ -30,6 +31,10 @@ const RegistrationPage = () => {
     const [errors, setErrors] = useState({});
 
     const [errorMessage, setErrorMessage] = useState("");
+
+    useEffect(() => {
+        console.log(form);
+    }, [form])
 
     const daysInMonth = form.year && form.month
     ? new Date(form.year, form.month, 0).getDate()
@@ -57,7 +62,7 @@ const RegistrationPage = () => {
 
     const validateForm = () => {
         const nextErrors = {};
-        const requiredFields = ["lastname", "firstname", "middlename", "year", "month", "day", "sex", "homeAddress", "city", "institution"];
+        const requiredFields = ["role", "lastname", "firstname", "middlename", "year", "month", "day", "sex", "homeAddress", "city", "institution"];
 
         requiredFields.forEach((field) => {
             if (!String(form[field]).trim()) nextErrors[field] = true;
@@ -111,7 +116,7 @@ const RegistrationPage = () => {
 
     const UserRegistration = async () => {
 
-        const studentInformation = {
+        const userInformation = {
             // Student Information
             ...form,
             age,
@@ -121,7 +126,7 @@ const RegistrationPage = () => {
 
             const res = await axios.post(
                 `${import.meta.env.VITE_API_URL}/register-user`,
-                studentInformation
+                userInformation
             );
 
             if (res.data.isSuccess) {
@@ -129,7 +134,6 @@ const RegistrationPage = () => {
                 resetForm();
                 toast.success(res.data.message);
                 setShowConfirmationPopup(false);
-                navigate('/')
             }
 
         } catch (error) {
@@ -150,12 +154,31 @@ const RegistrationPage = () => {
 
                     <div className="w-5xl mt-10">
                         <h1 className="text-6xl font-bold text-stone-700 mb-4">REGISTRATION</h1>
+                    
+                    <div className="bg-white w-full md:p-6 rounded-lg border-0 md:border border-stone-300 mb-4 ">
+                        <div className="flex flex-col items-start justify-start w-full mb-5">
+                                <h1 className="text-md font-bold text-stone-800 rounded-full">Select Role</h1>
+                                <p className="text-stone-400 text-xs">Fill-up the requiered information.</p>
+                        </div>
+
+                         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                            <div className="w-full">
+                            <h1 className="text-xs text-stone-500">Role <span className="text-red-500">*</span></h1>
+                            <select className={`border border-stone-300 p-2 text-xs w-full outline-none rounded-lg ${errors.role ? 'border-red-500' : ''}`} 
+                            onChange={(e) => updateField('role', e.target.value)}>
+                                <option value="">Select Role</option>
+                                <option value="student">Student</option>
+                                <option value="teacher">Teacher</option>
+                                <option value="guest">Guest</option>
+                            </select>
+                                
+                            </div>
+                         </div>
+                    </div>
+
                     <div className="bg-white w-full md:p-6 rounded-lg border-0 md:border border-stone-300 mb-4 ">
 
                         <div className="flex items-center justify-start gap-2 w-full mb-5">
-                            <div className="bg-stone-200 p-2 text-white rounded-full justify-center items-center flex">
-                                <User size={20} className="text-stone-500"/>
-                            </div>
                             <div>
                                 <h1 className="text-md font-bold text-stone-800 rounded-full">User Information</h1>
                                 <p className="text-stone-400 text-xs">Fill-up the requiered information.</p>
@@ -173,6 +196,7 @@ const RegistrationPage = () => {
                                    onChange={(e) => updateField("lastname", e.target.value)}
                                    />
                         </div>
+
                         <div className="w-full">
                             <h1 className="text-xs text-stone-500">First Name <span className="text-red-500">*</span></h1>
                             <input type="text" 
@@ -353,7 +377,7 @@ const RegistrationPage = () => {
                     </div>
                     
                     {age && age < 18 && (
-                      <div className="w-full md:p-6 rounded-lg border-0 md:border border-stone-300 mb-4">
+                      <div className="bg-white w-full md:p-6 rounded-lg border-0 md:border border-stone-300 mb-4">
 
                          <div className="flex items-center justify-start gap-2 w-full mb-5">
                             <div className="bg-stone-200 p-2 text-white rounded-full justify-center items-center flex">
@@ -402,7 +426,7 @@ const RegistrationPage = () => {
 
                     {/* Buttons */}
                     <div className="w-full justify-end items-center flex gap-1">
-                        <button className="bg-stone-200 text-stone-500 h-full w-fit rounded-lg cursor-pointer text-xs p-2 hover:bg-stone-300 justify-center items-center flex gap-2" 
+                        <button className="bg-transparent text-stone-500 h-full w-fit rounded-lg cursor-pointer text-xs p-2 hover:bg-stone-300 justify-center items-center flex gap-2" 
                         onClick={() => navigate(-1)}><ArrowLeft size={15}/> 
                         Cancel
                         </button>

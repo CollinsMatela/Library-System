@@ -11,7 +11,7 @@ export const firstTime_Password = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-        if(role.toLowerCase() === "user"){
+        if(["student", "teacher", "guest"].includes(role.toLowerCase())){
            const updateUser = await User_Registration_Model
            .findOneAndUpdate(
             {_id: id},

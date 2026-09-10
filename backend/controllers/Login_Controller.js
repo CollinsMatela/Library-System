@@ -41,7 +41,7 @@ const Login_Controller = async (req, res) => {
     }
 
     if(student){
-      console.log("Student found")
+      console.log("Student found:", student)
     }
 
     // 3. Student login
@@ -51,7 +51,7 @@ const Login_Controller = async (req, res) => {
         return res.status(401).json({ message: "Login failed. Please try again." });
       }
       user = student;
-      role = "User";
+      role = student.role;
     }
 
     // 5. Safety check (prevents crashes)

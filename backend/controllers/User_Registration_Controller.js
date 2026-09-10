@@ -5,7 +5,8 @@ import { randomUUID } from "crypto";
 
 const User_Registration_Controller = async (req, res) => {
     const {
-    // Student Information
+    role,
+    // User Information
     lastname, firstname, middlename, extensionname, year, month, day, age, sex,
     // Contact Information
     homeAddress, city, email, contact, institution,
@@ -24,7 +25,7 @@ const User_Registration_Controller = async (req, res) => {
             return res.status(409).json({message: "The email is already existing."});
         }
 
-        if(!lastname || !firstname || !middlename || !year || !month || !day || 
+        if(!role || !lastname || !firstname || !middlename || !year || !month || !day || 
            !homeAddress || !city || !email || !contact || !institution
         ) {
             return res.status(409).json({message: "Fill all required information."});
@@ -56,20 +57,21 @@ const User_Registration_Controller = async (req, res) => {
         const newUser = await User_Registration_Model.create({
             id: crypto.randomUUID(),
 
+            role,
+
             lastname, firstname, middlename, extensionname,
 
             year, month, day, age, sex,
 
             homeAddress, city, email, contact, institution, parentName, parentContact, parentRelationship,
 
-            role: 'User',
             username: username,
             password: hashedPassword
         });
 
         const AccountData = {
               name: `${firstname} ${lastname}`,
-              role: "User",
+              role: role,
               username: username,
               password: defaultPassword
         }

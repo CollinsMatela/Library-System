@@ -33,15 +33,15 @@ const Home_Page = () => {
         Welcome to Naic Municipal Library
       </div>
 
-      <h1 className="mt-6 text-5xl sm:text-6xl lg:text-7xl font-extrabold text-gray-800 leading-none">
+      <h1 className="mt-6 text-5xl sm:text-6xl lg:text-7xl font-extrabold text-stone-800 leading-none">
         Discover
         <br />
-        <span className="text-gray-800">Knowledge</span>
+        <span className="text-stone-800">Knowledge</span>
         <br />
         That Inspires
       </h1>
 
-      <p className="mt-6 text-sm text-gray-600 max-w-lg">
+      <p className="mt-6 text-sm text-stone-600 max-w-lg">
         Explore books, resources, and knowledge for learning, research,
         personal growth, and lifelong discovery—all in one place.
       </p>
@@ -56,11 +56,11 @@ const Home_Page = () => {
 
     {/* Right Side */}
     <div className="text-left">
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+      <h2 className="text-3xl md:text-4xl font-bold text-stone-800 mb-6">
         A Place to Learn, Read, and Discover
       </h2>
 
-      <p className="text-gray-700 text-lg leading-relaxed">
+      <p className="text-stone-700 text-lg leading-relaxed">
         Naic Municipal Library is a public library dedicated to providing
         accessible information, educational resources, and reading materials
         for the community. Whether you are a student, teacher, researcher,
@@ -68,7 +68,7 @@ const Home_Page = () => {
         support your journey.
       </p>
 
-      <p className="text-gray-700 text-lg leading-relaxed mt-5">
+      <p className="text-stone-700 text-lg leading-relaxed mt-5">
         Browse our collection, discover new books, find useful references,
         and expand your knowledge. From academic learning and research to
         personal reading and exploration, the library is here to help the
@@ -79,7 +79,7 @@ const Home_Page = () => {
   </div>
 </section>
 
-<section className="min-h-screen w-full py-20 bg-gray-100 px-6 md:px-16">
+<section className="min-h-screen w-full py-20 bg-stone-100 px-6 md:px-16">
   <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
 
     {/* Content */}
@@ -88,12 +88,12 @@ const Home_Page = () => {
         About Naic Municipal Library
       </span>
 
-      <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mt-6 mb-6 leading-tight">
+      <h2 className="text-4xl md:text-5xl font-extrabold text-stone-800 mt-6 mb-6 leading-tight">
         Knowledge and Resources
         <span className="text-blue-600"> Within Reach</span>
       </h2>
 
-      <p className="text-gray-600 text-sm leading-relaxed mb-4">
+      <p className="text-stone-600 text-sm leading-relaxed mb-4">
         Naic Municipal Library is a public library that provides accessible
         books, educational materials, references, and digital resources for
         the community. It serves as a place where students, teachers,
@@ -101,7 +101,7 @@ const Home_Page = () => {
         discover information.
       </p>
 
-      <p className="text-gray-600 text-sm leading-relaxed">
+      <p className="text-stone-600 text-sm leading-relaxed">
         Through our digital library platform, users can conveniently explore
         available resources and discover materials that support education,
         research, personal development, and lifelong learning.
@@ -110,17 +110,17 @@ const Home_Page = () => {
       <div className="flex gap-8 mt-8">
         <div>
           <h3 className="text-3xl font-bold text-blue-600">100+</h3>
-          <p className="text-gray-500">Library Resources</p>
+          <p className="text-stone-500">Library Resources</p>
         </div>
 
         <div>
           <h3 className="text-3xl font-bold text-blue-600">24/7</h3>
-          <p className="text-gray-500">Digital Access</p>
+          <p className="text-stone-500">Digital Access</p>
         </div>
 
         <div>
           <h3 className="text-3xl font-bold text-blue-600">Free</h3>
-          <p className="text-gray-500">Community Service</p>
+          <p className="text-stone-500">Community Service</p>
         </div>
       </div>
     </div>
@@ -149,19 +149,19 @@ const Home_Page = () => {
         Explore Library Features
       </span>
 
-      <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mt-6 leading-tight">
+      <h2 className="text-4xl md:text-5xl font-extrabold text-stone-800 mt-6 leading-tight">
         Everything You Need to
         <span className="text-blue-600"> Explore & Manage Books</span>
       </h2>
 
-      <p className="text-gray-600 mt-6 text-sm leading-relaxed">
+      <p className="text-stone-600 mt-6 text-sm leading-relaxed">
         The Naic Municipal Library digital platform makes it easier for
         community members to discover library resources, explore book
         collections, and access important information from one convenient
         platform.
       </p>
 
-      <p className="text-gray-500 mt-4  text-sm leading-relaxed">
+      <p className="text-stone-500 mt-4  text-sm leading-relaxed">
         Search through the library collection, view detailed book information,
         check availability, and manage your library activities with a simple
         and accessible digital experience.
@@ -180,11 +180,11 @@ const Home_Page = () => {
       <BrainCircuit size={20}/>
     </div>
 
-    <h3 className="font-bold text-gray-800 text-lg">
+    <h3 className="font-bold text-stone-800 text-lg">
       AI Story Summarization
     </h3>
 
-    <p className="text-sm text-gray-500 mt-2 leading-relaxed">
+    <p className="text-sm text-stone-500 mt-2 leading-relaxed">
       Get concise, easy-to-understand summaries of selected books and stories
       using AI-powered text summarization.
     </p>
@@ -196,11 +196,11 @@ const Home_Page = () => {
        <AudioLines size={20}/>
     </div>
 
-    <h3 className="font-bold text-gray-800 text-lg">
+    <h3 className="font-bold text-stone-800 text-lg">
       Text-to-Speech
     </h3>
 
-    <p className="text-sm text-gray-500 mt-2 leading-relaxed">
+    <p className="text-sm text-stone-500 mt-2 leading-relaxed">
       Listen to digital reading materials with text-to-speech technology,
       making stories and information more accessible.
     </p>
@@ -212,11 +212,11 @@ const Home_Page = () => {
       <Clapperboard size={20}/>
     </div>
 
-    <h3 className="font-bold text-gray-800 text-lg">
+    <h3 className="font-bold text-stone-800 text-lg">
       Automatic Storytelling
     </h3>
 
-    <p className="text-sm text-gray-500 mt-2 leading-relaxed">
+    <p className="text-sm text-stone-500 mt-2 leading-relaxed">
       Transform written stories into engaging visual storytelling experiences
       with automatically generated story videos.
     </p>
@@ -228,11 +228,11 @@ const Home_Page = () => {
       <Sparkles size={20}/>
     </div>
 
-    <h3 className="font-bold text-gray-800 text-lg">
+    <h3 className="font-bold text-stone-800 text-lg">
       Interactive Reading
     </h3>
 
-    <p className="text-sm text-gray-500 mt-2 leading-relaxed">
+    <p className="text-sm text-stone-500 mt-2 leading-relaxed">
       Experience a more engaging way to explore digital books through
       multimedia content and interactive reading features.
     </p>
@@ -261,7 +261,7 @@ const Home_Page = () => {
       <span className="text-blue-500"> Access the Library</span>
     </h2>
 
-    <p className="text-gray-400 mt-6 max-w-3xl mx-auto text-sm leading-relaxed">
+    <p className="text-stone-400 mt-6 max-w-3xl mx-auto text-sm leading-relaxed">
       The Naic Municipal Library digital platform makes it easier for users
       to discover resources, access information, and manage their library
       activities through a convenient online experience.
@@ -273,72 +273,72 @@ const Home_Page = () => {
   <div className="max-w-6xl mx-auto mt-16 grid md:grid-cols-3 gap-8">
 
     {/* Card 1 */}
-    <div className="bg-gray-950 border border-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/40 hover:-translate-y-2 transition duration-300 text-center">
+    <div className="bg-stone-950 border border-stone-800 rounded-3xl p-8 shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/40 hover:-translate-y-2 transition duration-300 text-center">
       <h3 className="font-bold text-xl text-white">
         Find Books Easily
       </h3>
 
-      <p className="text-gray-400 mt-3 leading-relaxed">
+      <p className="text-stone-400 mt-3 leading-relaxed">
         Search and browse the library collection without having to manually
         look through shelves or physical records.
       </p>
     </div>
 
     {/* Card 2 */}
-    <div className="bg-gray-950 border border-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/40 hover:-translate-y-2 transition duration-300 text-center">
+    <div className="bg-stone-950 border border-stone-800 rounded-3xl p-8 shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/40 hover:-translate-y-2 transition duration-300 text-center">
       <h3 className="font-bold text-xl text-white">
         Access Information Online
       </h3>
 
-      <p className="text-gray-400 mt-3 leading-relaxed">
+      <p className="text-stone-400 mt-3 leading-relaxed">
         View book details, descriptions, availability, and other important
         information from anywhere with an internet connection.
       </p>
     </div>
 
     {/* Card 3 */}
-    <div className="bg-gray-950 border border-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/40 hover:-translate-y-2 transition duration-300 text-center">
+    <div className="bg-stone-950 border border-stone-800 rounded-3xl p-8 shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/40 hover:-translate-y-2 transition duration-300 text-center">
       <h3 className="font-bold text-xl text-white">
         Read Digital Resources
       </h3>
 
-      <p className="text-gray-400 mt-3 leading-relaxed">
+      <p className="text-stone-400 mt-3 leading-relaxed">
         Access available digital books and reading materials directly through
         the platform for a more convenient reading experience.
       </p>
     </div>
 
     {/* Card 4 */}
-    <div className="bg-gray-950 border border-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/40 hover:-translate-y-2 transition duration-300 text-center">
+    <div className="bg-stone-950 border border-stone-800 rounded-3xl p-8 shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/40 hover:-translate-y-2 transition duration-300 text-center">
       <h3 className="font-bold text-xl text-white">
         Use AI-Powered Features
       </h3>
 
-      <p className="text-gray-400 mt-3 leading-relaxed">
+      <p className="text-stone-400 mt-3 leading-relaxed">
         Make reading more convenient with features such as AI summaries,
         automatic storytelling, and text-to-speech.
       </p>
     </div>
 
     {/* Card 5 */}
-    <div className="bg-gray-950 border border-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/40 hover:-translate-y-2 transition duration-300 text-center">
+    <div className="bg-stone-950 border border-stone-800 rounded-3xl p-8 shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/40 hover:-translate-y-2 transition duration-300 text-center">
       <h3 className="font-bold text-xl text-white">
         Save Time
       </h3>
 
-      <p className="text-gray-400 mt-3 leading-relaxed">
+      <p className="text-stone-400 mt-3 leading-relaxed">
         Quickly find the resources you need and check book information before
         visiting the library.
       </p>
     </div>
 
     {/* Card 6 */}
-    <div className="bg-gray-950 border border-gray-800 rounded-3xl p-8 shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/40 hover:-translate-y-2 transition duration-300 text-center">
+    <div className="bg-stone-950 border border-stone-800 rounded-3xl p-8 shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/40 hover:-translate-y-2 transition duration-300 text-center">
       <h3 className="font-bold text-xl text-white">
         Manage Library Activities
       </h3>
 
-      <p className="text-gray-400 mt-3 leading-relaxed">
+      <p className="text-stone-400 mt-3 leading-relaxed">
         Keep track of your book requests, borrowing activities, and other
         library transactions in one convenient place.
       </p>

@@ -223,6 +223,12 @@ const Lib_MyAccount = () => {
                                             ) 
                                             }
                                         </div>
+                                        <div>
+                                            <p className="text-xs text-stone-500">Role</p>
+                                            <p className="text-sm font-medium text-stone-800 mt-1">
+                                            {user.role}
+                                            </p>
+                                        </div>
 
                                         {/* Last Name */}
                                         <div>

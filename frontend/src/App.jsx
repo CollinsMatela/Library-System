@@ -29,6 +29,11 @@ import Admin_Edit from "../pages/Admin_Edit";
 const ProtectedRoute = ({ allowedRoles }) => {
   const { token, role } = useAuthStore();
 
+  console.log("🔐 PROTECTED ROUTE");
+    console.log("TOKEN:", token);
+    console.log("ROLE:", role);
+    console.log("ALLOWED ROLES:", allowedRoles);
+
   if (!token) {
     return <Navigate to="/" replace />;
   }
@@ -54,7 +59,7 @@ function App() {
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/registration" element={<Admin_StudentRegistration_Page />} />
         
-         <Route element={<ProtectedRoute allowedRoles={["user"]}/>}>
+         <Route element={<ProtectedRoute allowedRoles={["student", "teacher", "guest"]}/>}>
                 <Route path="/library" element={<Library_Page/>}/>
                 <Route path="/library/catalog" element={<Lib_Catalog/>}/>
                 <Route path="/library/my-account" element={<Lib_MyAccount/>}/>
@@ -74,7 +79,6 @@ function App() {
                 <Route path="/admin/users" element={<Admin_Student_Page />} />
                 <Route path="/admin/edit" element={<Admin_Edit />} />
                 <Route path="/admin/inventory" element={<Admin_Inventory />} />
-                <Route path="/change-password" element={<Change_Password_Page/>}/>
         </Route>
          <Route path="/loading" element={<LoadingScreen/>}/>
          <Route path="*" element={<Not_Found_Page/>}/>

@@ -60,17 +60,23 @@ const LoginPage = () => {
             const token = res.data.token;
             const role = res.data.role.toLowerCase();
             
+            console.log("1 API ROLE:", res.data.role);
+            console.log("2 LOGIN ROLE:", role);
+
             setAuth(user, token, role);
+
+            console.log("3 ZUSTAND ROLE:", useAuthStore.getState().role);
             
+            console.log(role)
             if(user.isChangePassword === false){
               navigate(`/change-password`);
             }
             else {
-              if(role.toLowerCase() === "user"){
-              navigate(`/library`);
-              } 
-              else if (role.toLowerCase() === "admin"){
-                navigate(`/admin`);
+              if (["student", "teacher", "guest"].includes(role)) {
+                  navigate("/library");
+              }
+              else if (role === "admin") {
+                  navigate("/admin");
               }
 
             }

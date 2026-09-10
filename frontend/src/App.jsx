@@ -16,7 +16,7 @@ import Admin_Books_Page from "../pages/Admin_Books_Page";
 import Admin_ViewMaterials_Page from "../pages/Admin_ViewMaterials_Page";
 import Admin_Student_Page from "../pages/Admin_Student_Page";
 import Lib_Catalog from "../library_components/Lib_Catalog";
-import Admin_StudentRegistration_Page from "../components/Admin_StudentRegistration_Page";
+import Admin_StudentRegistration_Page from "../pages/RegistrationPage";
 import Lib_Borrow from "../library_components/Lib_Borrow";
 import Admin_BorrowBook_Page from "../pages/Admin_BorrowBook_Page";
 import Admin_LogBook from "../pages/Admin_LogBook";
@@ -52,6 +52,7 @@ function App() {
         <Route path="/" element={<Home_Page/>}/>
         <Route path="/unauthorized" element={<Unauthorized_Page/>}/>
         <Route path="/login" element={<LoginPage/>}/>
+        <Route path="/registration" element={<Admin_StudentRegistration_Page />} />
         
          <Route element={<ProtectedRoute allowedRoles={["user"]}/>}>
                 <Route path="/library" element={<Library_Page/>}/>
@@ -72,7 +73,6 @@ function App() {
                 <Route path="/admin/borrow-book" element={<Admin_BorrowBook_Page />} />
                 <Route path="/admin/users" element={<Admin_Student_Page />} />
                 <Route path="/admin/edit" element={<Admin_Edit />} />
-                <Route path="/admin/user-registration" element={<Admin_StudentRegistration_Page />} />
                 <Route path="/admin/inventory" element={<Admin_Inventory />} />
                 <Route path="/change-password" element={<Change_Password_Page/>}/>
         </Route>

@@ -14,7 +14,7 @@ const Admin_SideBar = () => {
     const isUploadStory = location.pathname === "/admin/upload-book";
     const isViewStory = location.pathname === "/admin/books";
     const isUsersAccount = location.pathname === "/admin/users";
-    const isUserRegistration = location.pathname === "/admin/user-registration";
+    const isMembers = location.pathname === "/admin/members";
     const isBorrowBook = location.pathname === "/admin/borrow-book"
     const isInventory = location.pathname === "/admin/inventory";
     const isEdit = location.pathname === "/admin/edit"
@@ -34,8 +34,8 @@ const Admin_SideBar = () => {
     const handleUsers = () => {
           navigate('/admin/users');
     }
-    const handleUserRegistration = () => {
-          navigate('/admin/user-registration');
+    const handleMembers = () => {
+          navigate('/admin/members');
     }
     const handleBorrowBook = () => {
           navigate('/admin/borrow-book');
@@ -105,9 +105,9 @@ const Admin_SideBar = () => {
         <h1 className="hidden lg:block">Request</h1>
       </div>
 
-      <div className={`${isUserRegistration ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUserRegistration}>
-        <User className={`${isUserRegistration ? 'text-white' : 'text-stone-500'}`} size={15}/>
-        <h1 className="hidden lg:block">Registration</h1>
+      <div className={`${isMembers ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleMembers}>
+        <Users className={`${isMembers ? 'text-white' : 'text-stone-500'}`} size={15}/>
+        <h1 className="hidden lg:block">Members</h1>
       </div>
 
       <div className={`${isUsersAccount ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUsers}>

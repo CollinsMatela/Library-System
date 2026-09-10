@@ -128,3 +128,9 @@ export const months = [
     { value: "11", label: "November" },
     { value: "12", label: "December" }
 ]
+
+export const position = [
+    {value: "head librarian", label: "Head Librarian"},
+    {value: "it librarian", label: "IT Librarian"},
+    {value: "assistant librarian", label: "Assistant Librarian"},
+]

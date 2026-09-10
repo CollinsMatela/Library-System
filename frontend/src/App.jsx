@@ -24,6 +24,7 @@ import Lib_MyAccount from "../library_components/Lib_MyAccount"
 import LoginPage from "../pages/LoginPage";
 import Admin_Inventory from "../components/Admin_Inventory";
 import Admin_Edit from "../pages/Admin_Edit";
+import Admin_Members from "../pages/Admin_Members";
 
 
 const ProtectedRoute = ({ allowedRoles }) => {
@@ -79,6 +80,7 @@ function App() {
                 <Route path="/admin/users" element={<Admin_Student_Page />} />
                 <Route path="/admin/edit" element={<Admin_Edit />} />
                 <Route path="/admin/inventory" element={<Admin_Inventory />} />
+                <Route path="/admin/members" element={<Admin_Members />} />
         </Route>
          <Route path="/loading" element={<LoadingScreen/>}/>
          <Route path="*" element={<Not_Found_Page/>}/>

@@ -2,7 +2,7 @@ import User_Registration_Model from "../models/User_Registration_Model.js";
 const Fetch_Users_Controller = async (req, res) => {
       
      try {
-        const users = await User_Registration_Model.find();
+        const users = await User_Registration_Model.find().select("-password");
         res.status(200).json({message: "Successfully fetched users", users: users});
      } catch (error) {
         console.error(error)

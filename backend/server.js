@@ -49,6 +49,7 @@ import NotificationRoute from "./routes/NotificationRoute.js"
 import MyAccountRoute from "./routes/MyAccountRoute.js"
 import SendEmailRoute from "./routes/EmailRoute.js"
 import Member_Route from "./routes/Member_Route.js";
+import AdminLoginRoute from "./routes/AdminLoginRoute.js"
 
 console.log("🔥 SERVER FILE STARTED");
 const app = express();
@@ -134,7 +135,7 @@ app.use("/", MyAccountRoute);
 
 app.use("/", SendEmailRoute);
 app.use("/", Member_Route);
-
+app.use("/", AdminLoginRoute);
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');

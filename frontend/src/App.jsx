@@ -25,6 +25,7 @@ import LoginPage from "../pages/LoginPage";
 import Admin_Inventory from "../components/Admin_Inventory";
 import Admin_Edit from "../pages/Admin_Edit";
 import Admin_Members from "../pages/Admin_Members";
+import Admin_Login from "../pages/Admin_Login";
 
 
 const ProtectedRoute = ({ allowedRoles }) => {
@@ -59,6 +60,7 @@ function App() {
         <Route path="/unauthorized" element={<Unauthorized_Page/>}/>
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/registration" element={<Admin_StudentRegistration_Page />} />
+        <Route path="/admin-login" element={<Admin_Login />} />
         
          <Route element={<ProtectedRoute allowedRoles={["student", "teacher", "guest"]}/>}>
                 <Route path="/library" element={<Library_Page/>}/>
@@ -70,7 +72,7 @@ function App() {
                 <Route path="/change-password" element={<Change_Password_Page/>}/>
          </Route>
 
-         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+         <Route element={<ProtectedRoute allowedRoles={["admin", "head librarian", "it librarian", "assistant librarian"]} />}>
                 <Route path="/admin" element={<Admin_Page />} />
                 <Route path="/admin/log-book" element={<Admin_LogBook />} />
                 <Route path="/admin/upload-book" element={<Admin_UploadBook_Page />} />

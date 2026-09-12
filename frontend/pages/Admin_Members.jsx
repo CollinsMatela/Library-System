@@ -82,12 +82,13 @@ const Admin_Members = () => {
                           </div>
 
                            {members?.length === 0 && 
-                            members.map((member) => (
+                            
                                 <div
-                                className="w-full grid gric-cols-4 border border-stone-300">
-                                <h1>{member.firstname}</h1>
+                                className="w-full p-6 bg-stone-50 rounded-lg justify-center items-center flex flex-col border border-stone-200">
+                                <h1 className="text-sm font-medium text-stone-500">No librarian found</h1>
+                                <h1 className="text-xs mt-1 text-stone-500">Add new librarian member</h1>
                                 </div>
-                            ))
+                            
                             }
 
                             {members?.length > 0 && 

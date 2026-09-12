@@ -5,8 +5,12 @@ import {
   Clock,
   Library,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Footer = ({ setShowLogin }) => {
+
+  const navigate = useNavigate();
+
   return (
     <footer className="w-full">
 
@@ -17,7 +21,7 @@ const Footer = ({ setShowLogin }) => {
 
         <div className="max-w-6xl mx-auto">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
 
             {/* Library */}
             <div>
@@ -84,6 +88,18 @@ const Footer = ({ setShowLogin }) => {
                 <br />
                 8:00 AM – 5:00 PM
               </p>
+            </div>
+
+            {/* Opening Hours */}
+            <div>
+              <h3 className="text-lg font-bold text-stone-800 mb-4">
+                Librarian Login
+              </h3>
+
+              <button className="bg-stone-800 p-2 rounded-lg hover:bg-stone-900 cursor-pointer"
+              onClick={() => navigate('/admin-login')}>
+                <h1 className="text-xs text-white">Go to Login</h1>
+              </button>
             </div>
 
           </div>

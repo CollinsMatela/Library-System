@@ -4,7 +4,7 @@ const Confirmation_Popup = ({errorMessage, message, onConfirm, onCancel}) => {
     return(
        <section className="fixed z-100 flex items-center justify-center h-screen">
             
-                <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+                <div className="fixed inset-0 flex items-center justify-center bg-stone-800/50 z-50">
                     
                     <div className="bg-white rounded-2xl p-6 w-100 border border-stone-300 shadow-xl">
                         <h2 className="text-lg justify-start items-center flex gap-2 text-stone-800 font-bold mb-3">
@@ -24,7 +24,7 @@ const Confirmation_Popup = ({errorMessage, message, onConfirm, onCancel}) => {
                             <button onClick={onCancel} className="p-2 bg-white text-stone-500 text-xs justify-center items-center flex gap-2 rounded-lg mt-4 cursor-pointer">
                                 <X size={15}/> Cancel
                             </button>
-                            <button onClick={onConfirm} className="p-2 bg-black text-white text-xs justify-center items-center flex gap-2 rounded-lg mt-4 cursor-pointer">
+                            <button onClick={onConfirm} className="p-2 bg-stone-800 text-white text-xs justify-center items-center flex gap-2 rounded-lg mt-4 cursor-pointer">
                                 <Check size={15}/> Confirm
                             </button>
                         </div>

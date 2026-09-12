@@ -2,6 +2,7 @@ import { Eye, EyeOff, Plus, Save, UserPlus, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { position } from "../mockdata";
 import Confirmation from "../popup/Confirmation_Popup"
+import LibrarianAccount from "../popup/LibrarianAccount"
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -15,14 +16,21 @@ const emptyMember = {
     suffix: "",
     role: "",
     email: "",
-    password: "",
-    confirmpassword: "",
 };
 const [errorMessage, setErrorMessage] = useState('');
 const [form, setForm] = useState(() => ({...emptyMember}))
 const [errors, setErrors] = useState({});
+const [newAccount, setNewAccount] = useState({
+      role: "",
+      fullname: "",
+      email: "",
+      tempPassword: ""
+});
+const [tempPassword, setTempPassword] = useState('');
 
 const [showConfirmation, setShowConfirmation] = useState(false);
+const [showNewAccount, setShowNewAccount] = useState(false);
+
 const updateFields = (label, value) => {
       setForm((form) => ({...form, [label]: value}))
       setErrors((errors) => ({...errors, [label]: false}))
@@ -36,14 +44,24 @@ const resetForm = () => {
   setForm({ ...emptyMember });
 };
 
+const AccountDetail = (librarian, tempPassword) => {
+      setNewAccount((current) => ({...current,
+        role: librarian.role,
+        fullname: `${librarian.firstname} ${librarian.lastname}`,
+        email: librarian.email,
+        tempPassword: tempPassword
+      }))
+}
 const FormRequest = async () => {
       try {
         const res = await axios.post(`${import.meta.env.VITE_API_URL}/add-member`, {form: form});
         console.log(res.data.message);
         toast.success('Added member successfully.')
-        resetForm()
+        AccountDetail(res.data.librarian, res.data.tempPassword)
         setShowConfirmation(false)
-        onClose()
+        setShowNewAccount(true)
+        resetForm()
+        
       } catch (error) {
         console.log(error.response?.data?.message);
         setErrorMessage(error.response?.data?.message);
@@ -57,9 +75,17 @@ const FormRequest = async () => {
             <Confirmation 
             errorMessage={errorMessage} 
             message={'Are you sure to add new member'}
-            onConfirm={FormRequest}
+            onConfirm={() =>{ FormRequest(); }}
             onCancel={() => setShowConfirmation(false)}
-            />)}
+        />)}
+        {showNewAccount && (
+            <LibrarianAccount
+            account={newAccount}
+            onClose={() => {setShowNewAccount(false); onClose(), setNewLibrarian(null)}}
+            />
+        )}
+
+        
         <div className="fixed inset-0 bg-black/50 justify-center items-center flex">
             <div className="bg-white w-2xl p-2 rounded-lg">
                 <header className="w-full bg-stone-200 p-2 rounded-t-lg mb-2">
@@ -111,43 +137,18 @@ const FormRequest = async () => {
                           placeholder="Enter Suffix"
                           className="w-full border border-stone-300 rounded-lg text-xs p-2 outline-none"/>
                      </div>
-                </div>
-                </div>
 
-                <div className="w-full border border-stone-300 p-2 rounded-lg mb-2">
-                    <h1 className="text-xs text-stone-500 font-semibold">Account Information</h1>
-                    <p className="text-xs text-stone-500">Fill the required information</p>
-                    <div className="w-full grid grid-cols-4 gap-2">
-                         <div className="w-full">
-                          <label className="text-xs text-stone-500">Email</label>
-                          <input 
-                          type="text"
-                          value={form.email}
-                          onChange={(e) => updateFields('email', e.target.value)}
-                          placeholder="Enter Email"
-                          className="w-full border border-stone-300 rounded-lg text-xs p-2 outline-none"/>
-                     </div>
-
-                     <div className="w-full">
-                          <label className="text-xs text-stone-500">Password</label>
-                          <input 
-                          type="password"
-                          value={form.password}
-                          onChange={(e) => updateFields('password', e.target.value)}
-                          placeholder="Enter Password"
-                          className="w-full border border-stone-300 rounded-lg text-xs p-2 outline-none"/>
-                     </div>
-
-                     <div className="w-full">
-                          <label className="text-xs text-stone-500">Confirm Password</label>
-                          <input 
-                          type="password"
-                          value={form.confirmpassword}
-                          onChange={(e) => updateFields('confirmpassword', e.target.value)}
-                          placeholder="Enter Password"
-                          className="w-full border border-stone-300 rounded-lg text-xs p-2 outline-none"/>
-                     </div>
+                    <div className="w-full">
+                        <label className="text-xs text-stone-500">Email</label>
+                        <input 
+                        type="text"
+                        value={form.email}
+                        onChange={(e) => updateFields('email', e.target.value)}
+                        placeholder="Enter Email"
+                        className="w-full border border-stone-300 rounded-lg text-xs p-2 outline-none"/>
                     </div>
+
+                </div>
                 </div>
 
                 <div className="w-full border border-stone-300 p-2 rounded-lg mb-2">

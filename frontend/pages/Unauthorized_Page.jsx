@@ -4,17 +4,17 @@ const Unauthorized = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 px-4">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-stone-800 px-4">
       
 
         
-        <h1 className="text-6xl font-extrabold text-red-500">403</h1>
+        <h1 className="text-6xl font-extrabold text-white">403</h1>
         
-        <h2 className="text-2xl font-semibold mt-4 text-gray-800">
-          Unauthorized Access
+        <h2 className="text-8xl font-bold mt-4 text-stone-700">
+          UNAUTHORIZED ACCESS
         </h2>
         
-        <p className="text-gray-500 mt-2">
+        <p className="text-stone-500 font-semibold text-sm mt-2">
           You don’t have permission to view this page.
         </p>
 
@@ -22,7 +22,7 @@ const Unauthorized = () => {
           
           <button
             onClick={() => navigate(-1)}
-            className="px-5 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition"
+            className="p-2 text-stone-500 text-xs rounded-lg border border-stone-700 hover:bg-stone-600 transition"
           >
             Go Back
           </button>

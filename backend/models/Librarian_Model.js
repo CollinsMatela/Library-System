@@ -10,7 +10,7 @@ const LibrarianSchema = new mongoose.Schema({
       email: {type: String, default:""},
       password: {type: String, default:""},
 
-      isChangePassword: {type:String, default: ""},
+      isChangePassword: {type:Boolean, default: false},
       avatar: {type:String, default:""}
 })
 

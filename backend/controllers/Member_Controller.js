@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import LibrarianModel from "../models/Librarian_Model.js";
+import {nanoid} from 'nanoid'
 
 export const Fetch_Members_Controller = async (req, res) => {
        try {
@@ -51,16 +52,10 @@ export const Add_Member_Controller = async (req, res) => {
     suffix = "",
     role,
     email,
-    password,
-    confirmpassword,
   } = req.body.form ?? {};
 
-  if (!lastname || !firstname || !role || !email || !password || !confirmpassword) {
+  if (!lastname || !firstname || !role || !email) {
     return res.status(400).json({ message: "Please complete all required fields." });
-  }
-
-  if (password !== confirmpassword) {
-    return res.status(400).json({ message: "Passwords do not match." });
   }
 
   try {
@@ -71,10 +66,11 @@ export const Add_Member_Controller = async (req, res) => {
     if (existingMember) {
       return res.status(409).json({ message: "A member with this email already exists." });
     }
+    
+    const randomPassword = nanoid(10);
+    const hashedPassword = await bcrypt.hash(randomPassword, 10);
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    await LibrarianModel.create({
+    const newLibrarian = await LibrarianModel.create({
       lastname: lastname.trim(),
       firstname: firstname.trim(),
       middlename: middlename.trim(),
@@ -84,7 +80,7 @@ export const Add_Member_Controller = async (req, res) => {
       password: hashedPassword,
     });
 
-    return res.status(201).json({ message: "Member added successfully." });
+    return res.status(201).json({ message: "Member added successfully.", librarian: newLibrarian, tempPassword:randomPassword  });
   } catch (error) {
     console.error("Failed to add member:", error);
     return res.status(500).json({ message: "Internal server error." });

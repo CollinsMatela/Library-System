@@ -83,6 +83,7 @@ function App() {
                 <Route path="/admin/edit" element={<Admin_Edit />} />
                 <Route path="/admin/inventory" element={<Admin_Inventory />} />
                 <Route path="/admin/members" element={<Admin_Members />} />
+                <Route path="/change-password" element={<Change_Password_Page/>}/>
         </Route>
          <Route path="/loading" element={<LoadingScreen/>}/>
          <Route path="*" element={<Not_Found_Page/>}/>

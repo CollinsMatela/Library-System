@@ -138,12 +138,16 @@ const LoginPage = () => {
           </h1>
           
         </button>
-        <button className="bg-stone-100 p-3 w-80 text-stone-500 text-sm rounded-xl mt-4 border border-stone-200 cursor-pointer outline-none" onClick={() => navigate("/registration")}>
+
+        <div className="mt-4 border-t border-stone-300 justify-center items-center flex flex-col">
+         <button className="bg-stone-100 p-3 w-80 text-stone-500 text-sm rounded-xl mt-4 border border-stone-200 cursor-pointer outline-none" onClick={() => navigate("/registration")}>
           <h1 className="text-stone-500">No Account? Register</h1>
         </button>
         <button className="bg-trnasparent p-3 w-80 text-stone-500 text-sm rounded-xl mt-4 cursor-pointer outline-none" onClick={() => navigate(-1)}>
           <h1>Cancel</h1>
-        </button>
+        </button> 
+        </div>
+        
 
       
    </section>

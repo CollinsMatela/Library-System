@@ -57,7 +57,9 @@ const Admin_Members = () => {
             />
         )}
         <Admin_SideBar/>
-        {showMemberModal && (<MembersModal onClose={() => setShowMemberModal(false)}/>)}
+        {showMemberModal && (<MembersModal 
+        onClose={() => setShowMemberModal(false)}
+        reFetch={FetchMembersRequest}/>)}
         <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
                 <header className="w-full justify-between items-start flex flex-col mb-10 border-0 lg:border-b border-stone-300 p-3 px-4 md:px-10">
                     <h1 className="text-sm font-bold text-stone-800">Members Management</h1>
@@ -65,7 +67,7 @@ const Admin_Members = () => {
                 </header>
 
                 <div className="w-full px-4 lg:px-10">
-                     <div className="bg-white w-full border border-stone-300 rounded-lg p-2">
+                     <div className="bg-white w-full border border-stone-300 rounded-lg p-2 space-y-2">
                           <div className="bg-stone-100 px-4 py-3 w-full justify-between items-center border border-stone-300 rounded-lg flex mb-2">
                              <div>
                                 <h2 className="text-xs font-medium text-stone-700">Librarian Member</h2>
@@ -95,7 +97,7 @@ const Admin_Members = () => {
                             members.map((member, index) => (
                                 <div
                                 key={member._id}
-                                className="w-full justify-between items-center flex border border-stone-300 p-4 rounded-lg mb-2 gap-2">
+                                className="w-full justify-between items-center flex border border-stone-300 p-4 rounded-lg gap-2">
 
                                 <div className="w-full justify-center items-center flex gap-2">
                                 <h1 className="text-xs text-stone-500">{index + 1}</h1>
@@ -115,7 +117,7 @@ const Admin_Members = () => {
                                 </div>
 
                                 <div className="w-full justify-start items-start flex flex-col">
-                                    <h1 className="text-xs text-stone-700">{member.firstname} {member.extensionname} {member.middlename} {member.lastname}</h1>
+                                    <h1 className="text-xs text-stone-700 font-medium">{member.firstname} {member.extensionname} {member.middlename} {member.lastname}</h1>
                                     <h1 className="text-xs text-stone-500">{member.role.toUpperCase()}</h1>
                                 </div>
                                 </div>

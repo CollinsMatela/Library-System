@@ -50,7 +50,7 @@ const Account_Conformation = ({newAccountDetails, closeAccountConfirmation}) => 
                                 onClick={() => {
                                     closeAccountConfirmation();
                                 }}
-                                className="p-2 bg-stone-800 hover:bg-stone-900 text-white text-xs cursor-pointer justify-center items-center flex gap-2"
+                                className="p-2 bg-stone-800 hover:bg-stone-900 rounded-lg text-white text-xs cursor-pointer justify-center items-center flex gap-2"
                             >
                                 <Check size={15}/> Confirm
                             </button>

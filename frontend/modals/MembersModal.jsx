@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 
 
-const MembersModal = ({onClose}) => {
+const MembersModal = ({onClose, reFetch}) => {
 const emptyMember = {
     lastname: "",
     firstname: "",
@@ -17,6 +17,7 @@ const emptyMember = {
     role: "",
     email: "",
 };
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const [errorMessage, setErrorMessage] = useState('');
 const [form, setForm] = useState(() => ({...emptyMember}))
 const [errors, setErrors] = useState({});
@@ -36,12 +37,46 @@ const updateFields = (label, value) => {
       setErrors((errors) => ({...errors, [label]: false}))
 }
 
-// const validationForm = () => {
+const validationForm = () => {
+    const nextError = {};
 
-// }
+    const requiredFields = [
+        "lastname",
+        "firstname",
+        "email",
+        "role"
+    ];
+
+    requiredFields.forEach((field) => {
+        if (!form[field].trim()) {
+            nextError[field] = true;
+        }
+    });
+
+    if (form.email.trim() && !EMAIL_PATTERN.test(form.email.trim())) {
+        nextError.email = true;
+    }
+
+    setErrors(nextError);
+
+    return Object.keys(nextError).length > 0;
+};
+
+
+const handleValidation = () => {
+      const isError = validationForm();
+      if(isError) {
+        toast.warning("Please fill in all required fields.");
+        return
+      };
+
+      FormRequest()
+}
 
 const resetForm = () => {
-  setForm({ ...emptyMember });
+    setForm({ ...emptyMember });
+    setErrors({});
+    setErrorMessage("");
 };
 
 const AccountDetail = (librarian, tempPassword) => {
@@ -61,6 +96,7 @@ const FormRequest = async () => {
         setShowConfirmation(false)
         setShowNewAccount(true)
         resetForm()
+        reFetch()
         
       } catch (error) {
         console.log(error.response?.data?.message);
@@ -75,7 +111,7 @@ const FormRequest = async () => {
             <Confirmation 
             errorMessage={errorMessage} 
             message={'Are you sure to add new member'}
-            onConfirm={() =>{ FormRequest(); }}
+            onConfirm={() =>{ handleValidation() }}
             onCancel={() => setShowConfirmation(false)}
         />)}
         {showNewAccount && (

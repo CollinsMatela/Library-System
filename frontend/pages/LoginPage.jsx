@@ -138,7 +138,10 @@ const LoginPage = () => {
           </h1>
           
         </button>
-        <button className="bg-white border border-stone-300 p-3 w-80 text-stone-500 text-sm rounded-xl mt-4 cursor-pointer outline-none hover:bg-stone-100" onClick={() => navigate(-1)}>
+        <button className="bg-stone-100 p-3 w-80 text-stone-500 text-sm rounded-xl mt-4 border border-stone-200 cursor-pointer outline-none" onClick={() => navigate("/registration")}>
+          <h1 className="text-stone-500">No Account? Register</h1>
+        </button>
+        <button className="bg-trnasparent p-3 w-80 text-stone-500 text-sm rounded-xl mt-4 cursor-pointer outline-none" onClick={() => navigate(-1)}>
           <h1>Cancel</h1>
         </button>
 

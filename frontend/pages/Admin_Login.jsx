@@ -63,7 +63,7 @@ const Admin_Login = () => {
             setAuth(user, token, role);
 
             if(user.isChangePassword === false){
-              navigate(`/change-password`);
+              navigate(`/admin-change-password`);
             }
             else {
                 navigate("/admin");
@@ -82,15 +82,18 @@ const Admin_Login = () => {
   }
 
   return (
-    <section className="h-screen w-full flex flex-col justify-center items-center bg-stone-50">
+    <section className="h-screen w-full flex flex-col justify-center items-center bg-stone-900">
      
 
 
         <div className="w-80 justify-center items-center flex flex-col mb-4 gap-1">
           <div className="justify-center items-center flex gap-2 w-full">
-              <img src={NaicLibraryLogo} alt="" className="h-8 w-8 rounded-full"/>
+              <div className="h-8 w-8 rounded-full bg-white">
+                <img src={NaicLibraryLogo} alt="" className="object-cover"/>
+              </div>
+              
               <div>
-                <h1 className="text-md font-extrabold text-stone-900">Naic Municipal Library</h1>
+                <h1 className="text-md font-extrabold text-stone-300">Naic Municipal Library</h1>
                 <h1 className="text-xs text-blue-500 font-bold">Librarian Login</h1>
               </div>
               
@@ -105,16 +108,16 @@ const Admin_Login = () => {
         </div>
 
         <div className={`w-80 justify-center items-start flex flex-col mb-2 gap-1`}>
-          <h1 className="text-sm text-stone-500 font-semibold">Email</h1>
-          <input type="text" className={`${isEmail ? "border-red-500" : "border-stone-300"} bg-white border p-3 text-xs w-full rounded-xl outline-none`}
+          <h1 className="text-sm text-stone-300 font-semibold">Email</h1>
+          <input type="text" className={`${isEmail ? "border-red-500" : "border-stone-700"} bg-stone-800 border p-3 text-xs text-white w-full rounded-xl outline-none`}
           value={email} onChange={(e) => {setEmail(e.target.value)
                                              if(email){setIsEmail(false)}
           }}/>
         </div>
 
         <div className="w-80 justify-center items-start flex flex-col gap-1">
-          <h1 className="text-sm text-stone-500 font-semibold">Password</h1>
-          <input type="password" className={`${isPassword ? "border-red-500" : "border-stone-300"} bg-white border p-3 text-xs w-full rounded-xl outline-none`}
+          <h1 className="text-sm text-stone-300 font-semibold">Password</h1>
+          <input type="password" className={`${isPassword ? "border-red-500" : "border-stone-700"} bg-stone-800 border p-3 text-xs text-white w-full rounded-xl outline-none`}
           value={password} onChange={(e) => {setPassword(e.target.value)
                                              if(password){setIsPassword(false)}
           }}/>
@@ -122,14 +125,14 @@ const Admin_Login = () => {
 
         <button
         disabled={isLoading}
-        className={`p-3 w-80 text-sm rounded-xl justify-center items-center flex cursor-pointer outline-none mt-4 ${isLoading ? 'bg-stone-200 text-stone-500 cursor-not-allowed' : "bg-stone-800 hover:bg-stone-900 text-white"}`} 
+        className={`p-3 w-80 text-sm rounded-xl justify-center items-center flex cursor-pointer outline-none mt-4 ${isLoading ? 'bg-stone-200 text-stone-500 cursor-not-allowed' : "bg-stone-300 hover:bg-stone-400 text-stone-800"}`} 
         onClick={() => confirmation()}>
           <h1 className="font-semibold">
             {isLoading ? <LoaderCircle size={20} className="text-stone-500 animate-spin"/> : `Sign In`}
           </h1>
           
         </button>
-        <button className="bg-white border border-stone-300 p-3 w-80 text-stone-500 text-sm rounded-xl mt-4 cursor-pointer outline-none hover:bg-stone-100" onClick={() => navigate(-1)}>
+        <button className="bg-transparent p-3 w-80 text-stone-500 text-sm rounded-xl mt-4 cursor-pointer outline-none hover:bg-stone-800" onClick={() => navigate(-1)}>
           <h1>Cancel</h1>
         </button>
 

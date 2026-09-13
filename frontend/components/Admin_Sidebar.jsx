@@ -3,8 +3,10 @@ import useAuthStore from "../store/useAuthStore"
 import { useState } from "react";
 import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User, ArrowUp, Home, BookUser, ScrollText, Package, SquarePen } from 'lucide-react'
 import NaicLogo from '../src/assets/NaicLibraryLogo.png'
+import Confirmation_Popup from "../popup/Confirmation_Popup";
 
 const Admin_SideBar = () => {
+    const [showConfirmation, setShowConfirmation] = useState(false)
     const navigate = useNavigate();
     const location = useLocation();
     const logout = useAuthStore((state) => state.logout);
@@ -53,6 +55,14 @@ const Admin_SideBar = () => {
           navigate("/");
     }  
     return(
+      <>
+      {showConfirmation && (
+        <Confirmation_Popup
+        onConfirm={() => handleLogout()}
+        onCancel={() => setShowConfirmation(false)}
+        message={'Are you sure to logout?'}
+        />
+      )}
       <aside className="fixed bottom-0 md:top-0 lg:left-0 z-0 h-fit md:h-full w-full md:w-20 lg:w-60 bg-white border-r border-stone-300">
         
        <div className="hidden md:flex justify-center lg:justify-start items-center lg:gap-2 p-3 border-b border-stone-300">
@@ -120,13 +130,15 @@ const Admin_SideBar = () => {
         <h1 className="hidden lg:block">Inventory</h1>
       </div>
 
-      <div className="h-10 text-xs justify-center lg:justify-start items-center flex font-normal text-red-500 flex  gap-2 cursor-pointer py-2 hover:bg-red-100 hover:border-none mt-2 p-4" onClick={handleLogout}>
+      <div className="h-10 text-xs justify-center lg:justify-start items-center flex font-normal text-red-500 gap-2 cursor-pointer py-2 hover:bg-red-100 hover:border-none mt-2 p-4" 
+      onClick={() => setShowConfirmation(true)}>
         <LogOut className={`text-red-500`} size={15}/>
         <h1 className="hidden lg:block">Logout</h1>
       </div>
       </div>
 
     </aside>
+    </>
     )
 }
 export default Admin_SideBar

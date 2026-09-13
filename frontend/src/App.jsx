@@ -26,6 +26,7 @@ import Admin_Inventory from "../components/Admin_Inventory";
 import Admin_Edit from "../pages/Admin_Edit";
 import Admin_Members from "../pages/Admin_Members";
 import Admin_Login from "../pages/Admin_Login";
+import Admin_ChangePassword from "../pages/Admin_ChangePassword";
 
 
 const ProtectedRoute = ({ allowedRoles }) => {
@@ -83,7 +84,7 @@ function App() {
                 <Route path="/admin/edit" element={<Admin_Edit />} />
                 <Route path="/admin/inventory" element={<Admin_Inventory />} />
                 <Route path="/admin/members" element={<Admin_Members />} />
-                <Route path="/change-password" element={<Change_Password_Page/>}/>
+                <Route path="/admin-change-password" element={<Admin_ChangePassword/>}/>
         </Route>
          <Route path="/loading" element={<LoadingScreen/>}/>
          <Route path="*" element={<Not_Found_Page/>}/>

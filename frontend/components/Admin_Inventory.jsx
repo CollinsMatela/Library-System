@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import InventoryModal from "../modals/InventoryModal";
 import { LibraryBig, LoaderCircle, Plus, ScrollText, Search } from "lucide-react";
+import Admin_Header from "./Admin_Header";
 const Admin_Inventory = () => {
 
     const [books, setBooks] = useState([]);
@@ -42,10 +43,7 @@ const Admin_Inventory = () => {
             {isInventoryModal && <InventoryModal onClose={() => setIsInventoryModal(false)} />}
             <AdminSidebar />
             <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
-                <header className="w-full justify-between items-start flex flex-col mb-10 border-0 lg:border-b border-stone-300 p-3 px-4 md:px-10">
-                    <h1 className="text-sm font-bold text-stone-800">Inventory</h1>
-                    <h1 className="text-stone-400 text-xs">Manage book inventory</h1>                   
-              </header>
+              <Admin_Header mainText={'Inventory Management'} subText={'Oversee the record of books'}/>
 
               <div className="w-full justify-start items-start flex flex-col rounded-t-xl px-4 gap-2 mb-4 lg:px-10">
 
@@ -84,7 +82,7 @@ const Admin_Inventory = () => {
                                 ) : (
 
                                     books.length === 0 ? (
-                                        <div className="flex w-full flex-col items-center justify-center rounded-lg border border-stone-200 bg-stone-50 px-4 py-10 text-center">
+                                        <div className="flex w-full flex-col items-center justify-center rounded-lg border border-stone-200 bg-stone-50 p-6 text-center">
 
                                             <h2 className="text-sm font-medium text-stone-500">
                                             No books found

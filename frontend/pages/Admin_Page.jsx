@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom"
 import Admin_SideBar from "../components/Admin_Sidebar"
 import {Users, Contact, LibraryBig, Book, SquareGanttChart, CircleAlert, User, LoaderCircle} from 'lucide-react'
 import { toast } from "react-toastify"
+import Admin_Header from "../components/Admin_Header"
 
 const Admin_Page = () =>{
     const user = useAuthStore((state) => state.user);
@@ -102,17 +103,14 @@ const Admin_Page = () =>{
   <Admin_SideBar/>
   <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col pb-10 md:pl-20 lg:pl-60">
               
-    <header className="w-full justify-between items-start flex flex-col mb-10 border-0 lg:border-b border-stone-300 p-3 px-10">
-          <h1 className="text-sm font-bold text-stone-800">Library Overview</h1>
-          <h1 className="text-stone-400 text-xs">Oversee the details of library</h1>                   
-    </header>
+    <Admin_Header mainText={'Overview Library'} subText={'Oversee the details of the library'}/>
 
     <div className="w-full px-10 mb-4 flex flex-col gap-6">
 
 
       <div className="w-full justify-between items-start flex">
         <div>
-          <h2 className="text-3xl font-bold text-stone-800">Hello, Librarian</h2>
+          <h2 className="text-3xl font-bold text-stone-800">Hello, {`${user.firstname || 'Admin'}`}</h2>
           <p className="text-stone-400 text-xs">Welcome back! Here's today's overview of Naic Municipal Library.</p>
         </div>
         

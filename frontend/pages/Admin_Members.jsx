@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import axios from "axios"
 import Confirmation_Popup from "../popup/Confirmation_Popup"
+import Admin_Header from "../components/Admin_Header"
 
 const Admin_Members = () => {
     const [members, setMembers] = useState([])
@@ -61,10 +62,7 @@ const Admin_Members = () => {
         onClose={() => setShowMemberModal(false)}
         reFetch={FetchMembersRequest}/>)}
         <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
-                <header className="w-full justify-between items-start flex flex-col mb-10 border-0 lg:border-b border-stone-300 p-3 px-4 md:px-10">
-                    <h1 className="text-sm font-bold text-stone-800">Members Management</h1>
-                    <h1 className="text-stone-400 text-xs">Manage borrow request from user</h1>                   
-                </header>
+                <Admin_Header mainText={'Member Management'} subText={'Manage the librarian account'}/>
 
                 <div className="w-full px-4 lg:px-10">
                      <div className="bg-white w-full border border-stone-300 rounded-lg p-2 space-y-2">

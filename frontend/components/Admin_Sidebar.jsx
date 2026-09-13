@@ -81,7 +81,7 @@ const Admin_SideBar = () => {
         <h1 className="hidden lg:block">Menu</h1>
       </div>
       
-      <div className="w-full grid grid-cols-9 md:grid-cols-1">
+      <div className="w-full grid grid-cols-10 md:grid-cols-1">
 
       <div className={`${isOverview ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleOverview}>
         <Home className={`${isOverview ? 'text-white' : 'text-stone-500'}`} size={15}/>

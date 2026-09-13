@@ -6,6 +6,7 @@ import Admin_Sidebar from '../components/Admin_Sidebar'
 import { MoveRight, Search, LibraryBig, Book, LoaderCircle, ChevronDown, ChevronUp } from "lucide-react";
 import AdvancedSearch from "./BookPage_Component/AdvancedSearch";
 import { toast } from "react-toastify";
+import Admin_Header from "../components/Admin_Header";
 
 const Admin_Books_Page = () => {
     const navigate = useNavigate();
@@ -108,10 +109,7 @@ const Admin_Books_Page = () => {
         <Admin_Sidebar/>
         <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
-              <header className="w-full justify-between items-start flex flex-col mb-10 border-0 lg:border-b border-stone-300 p-3 px-4 lg:px-10">
-                    <h1 className="text-sm font-bold text-stone-800">Catalog Management</h1>
-                    <h1 className="text-stone-400 text-xs">Manage uploaded books from library</h1>                   
-              </header>
+              <Admin_Header mainText={'Catalog Management'} subText={'Find the specific book you wanted'}/>
 
               <div className="w-full justify-between items-start flex flex-col md:flex-row rounded-t-xl px-4 gap-2 mb-4 lg:px-10">
                         <div className="flex items-center justify-start gap-2 w-full">

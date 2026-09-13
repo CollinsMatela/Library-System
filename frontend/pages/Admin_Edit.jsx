@@ -12,6 +12,7 @@ import Preview_BookInformation from "./BookInformation_Component/Preview_BookInf
 import AddPage_Modal from "../modals/AddPage_Modal";
 import Confirmation_Popup from "../popup/Confirmation_Popup";
 import { categories } from "../mockdata";
+import Admin_Header from "../components/Admin_Header";
 
 const Admin_Edit = () => {
     const navigate = useNavigate();
@@ -288,12 +289,7 @@ const Admin_Edit = () => {
 
         <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
-        <header className="w-full justify-between items-start flex flex-col mb-10 border-0 lg:border-b border-stone-300 p-3 px-4 lg:px-10">
-            <div>
-               <h1 className="text-sm font-bold text-stone-800">Editing Management</h1>
-               <h1 className="text-stone-400 text-xs">Update the information of book.</h1>  
-            </div>                
-        </header>
+        <Admin_Header mainText={'Editing Management'} subText={'Update the information of book'}/>
     
         <div className="w-full px-4 lg:px-10">
     <div className="w-full bg-stone-200 border border-stone-300 rounded-lg p-6">

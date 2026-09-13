@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import axios from 'axios'
 import Confirmation from '../popup/Confirmation_Popup'
+import Admin_Header from "../components/Admin_Header"
 
 const Admin_LogBook = () => {
     
@@ -122,10 +123,7 @@ const Admin_LogBook = () => {
 
         <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
-              <header className="w-full justify-between items-start flex flex-col mb-10 border-0 lg:border-b border-stone-300 p-3 px-4 md:px-10">
-                    <h1 className="text-sm font-bold text-stone-800">Logbook Management</h1>
-                    <h1 className="text-stone-400 text-xs">Manage borrow request from user</h1>                   
-              </header>
+            <Admin_Header mainText={'Logbook Management'} subText={'Manage the visitors entered the library'}/>
 
             <div className="w-full justify-between items-start flex flex-col mb-10 pb-10 px-4 md:px-10">
 
@@ -174,7 +172,10 @@ const Admin_LogBook = () => {
                 (
                     <>
                     {orderedLogBookList.length === 0 && (
-                    <div className="w-full bg-stone-200 rounded-xl p-4 text-xs justify-center items-center flex">No Visitor Listed</div>
+                    <div className="w-full bg-stone-50 border border-stone-200 rounded-xl p-6 text-xs justify-center items-center flex flex-col">
+                       <h1 className="text-sm text-stone-500 font-medium">No visitor listed</h1>
+                       <h1 className="text-xs text-stone-500 mt-1">Try add new library visitor</h1>
+                    </div>
                 )}
 
                 {orderedLogBookList.length > 0 &&

@@ -12,6 +12,7 @@ import ApprovedTable from "./Borrowing_Components/ApprovedTable";
 import BorrowedTable from "./Borrowing_Components/BorrowedTable";
 import HistoryTable from "./Borrowing_Components/HistoryTable";
 import useAuthStore from "../store/useAuthStore";
+import Admin_Header from "../components/Admin_Header";
 
 const Admin_BorrowBook_Page = () => {
     const user = useAuthStore((state) => state.user);
@@ -204,10 +205,7 @@ const Admin_BorrowBook_Page = () => {
         <Admin_Sidebar/>
         <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
-              <header className="w-full justify-between items-start flex flex-col mb-10 border-b border-stone-300 p-3 px-4 lg:px-10">
-                    <h1 className="text-sm font-bold text-stone-800">Borrowing Books Management</h1>
-                    <h1 className="text-stone-400 text-xs">Manage borrow request from user</h1>                   
-              </header>
+              <Admin_Header mainText={'Borrowing Management'} subText={'Manage borrow request from users'}/>
 
               <div className="h-20 w-full justify-between items-center flex flex-col px-4 lg:px-10">
 

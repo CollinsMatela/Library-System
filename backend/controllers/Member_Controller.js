@@ -87,3 +87,41 @@ export const Add_Member_Controller = async (req, res) => {
   }
 };
 
+export const Update_Role_Librarian_Controller = async (req, res) => {
+      try {
+        const {id} = req.params;
+        const {role} = req.body;
+
+        if (!id) {
+            return res.status(400).json({
+                message: "Librarian ID is required."
+            });
+        }
+
+        if (!role) {
+            return res.status(400).json({
+                message: "Librarian role is required."
+            });
+        }
+
+        console.log(id, role)
+        const librarian = await LibrarianModel.findByIdAndUpdate(id, {
+          role: role
+        },
+        {new: true}
+      );
+        if(!librarian){
+          res.status(404).json({message: "Librarian is not found."})
+          return
+        } else {
+          console.log("Librarian: ", librarian.firstname)
+          console.log("Librarian: ", librarian.role)
+        }
+
+        res.status(200).json({message: "Successfully changed librarian role"})
+
+      } catch (error) {
+        console.error("Failed to update member role:", error);
+        return res.status(500).json({ message: "Internal server error." });
+      }
+}

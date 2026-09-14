@@ -11,8 +11,12 @@ const Admin_Members = () => {
     const [members, setMembers] = useState([])
     const [selectedMember, setSelectedMember] = useState(null);
     const [showMemberModal, setShowMemberModal] = useState(false);
-    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+    const [roleConfirmation, setRoleConfirmation] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
+
+    const [selectedLibrarian, setSelectedLibrarian] = useState(null);
+    const [selectedNewRole, setSelectedNewRole] = useState('')
 
     useEffect(() => {
        const loadData = async () => {
@@ -45,22 +49,52 @@ const Admin_Members = () => {
             setErrorMessage(error.response?.data?.message)
           }
     }
+    const UpdateRoleRequest = async (selectedLibrarian, selectedNewRole) => {
+          try {
+            const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-role-librarian/${selectedLibrarian._id}`, {role: selectedNewRole})
+            console.log(res.data.message)
+            toast.success(res.data.message)
+            FetchMembersRequest()
+            setSelectedLibrarian(null);
+            setSelectedNewRole('');
+            setRoleConfirmation(false)
+          } catch (error) {
+            toast.error('Failed to update librarian role')
+            console.log(error.response?.data?.message)
+            setErrorMessage(error.response?.data?.message)
+          }
+    }
+    const handleUpdateRole = (librarian, newRole) => {
+          setRoleConfirmation(true)
+          setSelectedLibrarian(librarian)
+          setSelectedNewRole(newRole)
+    }
 
       return(
         <>
-        {showConfirmation && 
+        {deleteConfirmation && 
         (
             <Confirmation_Popup
             errorMessage={errorMessage}
             message={'Are you sure to delete this account?'}
             onConfirm={() => DeleteMemberRequest(selectedMember)}
-            onCancel={() => {setShowConfirmation(false); setErrorMessage('')}}
+            onCancel={() => {setDeleteConfirmation(false); setErrorMessage('')}}
+            />
+        )}
+        {roleConfirmation && 
+        (
+            <Confirmation_Popup
+            errorMessage={errorMessage}
+            message={'Are you sure to update the role?'}
+            onConfirm={() => UpdateRoleRequest(selectedLibrarian, selectedNewRole)}
+            onCancel={() => {setRoleConfirmation(false); setErrorMessage('')}}
             />
         )}
         <Admin_SideBar/>
         {showMemberModal && (<MembersModal 
         onClose={() => setShowMemberModal(false)}
-        reFetch={FetchMembersRequest}/>)}
+        reFetch={FetchMembersRequest}/>)
+        }
         <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
                 <Admin_Header mainText={'Member Management'} subText={'Manage the librarian account'}/>
 
@@ -120,7 +154,14 @@ const Admin_Members = () => {
                                 </div>
                                 </div>
 
-                                <div className="w-full justify-end items-center flex">
+                                <div className="w-full justify-end items-center flex gap-2">
+                                    <select className="border border-stone-300 p-2 text-xs text-stone-500 rounded-lg outline-none"
+                                    onChange={(e) => handleUpdateRole(member, e.target.value)}>
+                                        <option value="">Select Role</option>
+                                        <option value="head librarian">Head Librarian</option>
+                                        <option value="it librarian">IT Librarian</option>
+                                        <option value="assistant librarian">Assistant Librarian</option>
+                                    </select>
                                     <button className="bg-red-500 p-2 rounded-lg hover:bg-red-600 cursor-pointer"
                                     onClick={() => {setSelectedMember(member._id); setShowConfirmation(true)}}>
                                         <h1 className="text-xs text-white">Delete Account</h1>

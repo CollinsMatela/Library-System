@@ -32,11 +32,11 @@ const Admin_Header = ({mainText, subText}) => {
 
                 <div className="justify-center items-center flex gap-2">
                   <div className="h-8 w-8 rounded-full justify-center items-center flex bg-blue-600">
-                    <h1 className="text-xs font-bold text-white">{user.firstname.slice(0,1).toUpperCase()}</h1>
+                    <h1 className="text-xs font-bold text-white">{user?.firstname?.slice(0,1).toUpperCase() || "N/A"}</h1>
                   </div>
                   <div className="hidden sm:block">
                      <h1 className="text-xs text-stone-700 font-semibold">{user.firstname} {user.lastname}</h1>
-                     <h1 className="text-xs text-stone-500">{user.role.toUpperCase()}</h1>
+                     <h1 className="text-xs text-stone-500">{user?.role?.toUpperCase() || "Admin"}</h1>
                   </div>
                  
                 </div>

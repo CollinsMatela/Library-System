@@ -118,7 +118,7 @@ if (selectedCategoryOfBook.toLowerCase() === "textbooks") {
 };
 
     return(
-        <div className="w-full grid md:p-6 border-0 md:border border-stone-300 md:rounded-xl gap-2">
+        <div className="bg-white w-full grid md:p-6 border-0 md:border border-stone-300 md:rounded-xl gap-2">
 
             <header>
                     <h1 className="text-stone-700 text-sm font-bold">Category Details</h1>

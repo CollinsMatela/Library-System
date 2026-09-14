@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react"
+import { Plus, Trash, Users } from "lucide-react"
 import Admin_SideBar from "../components/Admin_Sidebar"
 import MembersModal from "../modals/MembersModal"
 import { useEffect, useState } from "react"
@@ -95,11 +95,23 @@ const Admin_Members = () => {
         onClose={() => setShowMemberModal(false)}
         reFetch={FetchMembersRequest}/>)
         }
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
+        <section className="bg-stone-50 min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
                 <Admin_Header mainText={'Member Management'} subText={'Manage the librarian account'}/>
 
-                <div className="w-full px-4 lg:px-10">
-                     <div className="bg-white w-full border border-stone-300 rounded-lg p-2 space-y-2">
+                <div className="w-full justify-start items-start flex flex-col px-4 lg:px-10">
+
+                    <div className="justify-center items-center flex gap-2 mb-2">
+                                <div className="hidden sm:flex bg-stone-800 p-2 text-white justify-center items-center">
+                                    <Users size={20}/>
+                                </div>
+                                <div>
+                                    <h1 className="text-md font-bold text-stone-800 rounded-full">Librarians List</h1>
+                                    <p className="text-stone-400 text-xs">List of registered authorized people.</p>
+                                </div>
+                    </div>
+
+                     <div className="bg-white h-120 w-full border border-stone-300 rounded-lg p-2 space-y-2">
+
                           <div className="bg-stone-100 px-4 py-3 w-full justify-between items-center border border-stone-300 rounded-lg flex mb-2">
                              <div>
                                 <h2 className="text-xs font-medium text-stone-700">Librarian Member</h2>
@@ -111,7 +123,7 @@ const Admin_Members = () => {
                              <button className="text-xs text-white p-2 bg-stone-800 hover:bg-stone-900 justify-center items-center flex gap-1 rounded-lg"
                              onClick={() => setShowMemberModal(true)}>
                                 <Plus size={15}/>
-                                Add Librarian
+                                
                                 </button>
                           </div>
 
@@ -162,9 +174,10 @@ const Admin_Members = () => {
                                         <option value="it librarian">IT Librarian</option>
                                         <option value="assistant librarian">Assistant Librarian</option>
                                     </select>
-                                    <button className="bg-red-500 p-2 rounded-lg hover:bg-red-600 cursor-pointer"
+                                    <button className="bg-red-500 p-2 rounded-lg hover:bg-red-600 cursor-pointer justify-center items-center flex gap-1"
                                     onClick={() => {setSelectedMember(member._id); setShowConfirmation(true)}}>
-                                        <h1 className="text-xs text-white">Delete Account</h1>
+                                        <Trash size={15} className="text-white"/>
+                                        <h1 className="text-xs text-white">Delete</h1>
                                     </button>
                                 </div>
                                 

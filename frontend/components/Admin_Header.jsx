@@ -5,7 +5,7 @@ const Admin_Header = ({mainText, subText}) => {
 
     return(
         <>
-        <header className="w-full justify-between items-start flex mb-10 border-0 lg:border-b border-stone-300 p-3 px-4 md:px-10">
+        <header className="w-full bg-white justify-between items-start flex mb-10 border-0 lg:border-b border-stone-300 p-3 px-4 md:px-10">
           <div>
             <h1 className="text-sm font-bold text-stone-800">{mainText}</h1>
             <h1 className="text-stone-400 text-xs">{subText}</h1> 

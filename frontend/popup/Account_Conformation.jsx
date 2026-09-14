@@ -1,66 +1,110 @@
 
-import { useState } from "react";
 import { Check } from "lucide-react";
 
-const Account_Conformation = ({newAccountDetails, closeAccountConfirmation}) => {
-
+const Account_Conformation = ({
+    newAccountDetails,
+    closeAccountConfirmation
+}) => {
     return (
-        <section className="flex items-center justify-center h-screen">
-            
-                <div className="fixed inset-0 z-150 flex items-center justify-center bg-black/50 bg-opacity-50 z-50">
-                    
-                    <div className="bg-white rounded-2xl w-lg shadow-xl border border-stone-300">
-                        <h1 className="text-lg text-stone-800 font-bold p-4 border-b border-stone-300">
-                         Save this account
-                        </h1>
-                        
-                        <div className="p-4">
-                             <div className="bg-yellow-100 border border-yellow-500 rounded-xl p-4">
-                            <h1 className="text-lg font-bold text-yellow-800 mb-2">
-                                 Important Notice
-                            </h1>
+        <div className="fixed inset-0 z-150 flex items-center justify-center bg-black/50 p-4">
 
-                            <p className="text-xs text-yellow-700 mb-3">
-                                This is the <span className="font-semibold">only time</span> you will see the account password number.
+            {/* Modal */}
+            <div className="w-full max-w-lg overflow-hidden rounded-2xl bg-white shadow-xl border border-stone-300">
+
+                {/* Header */}
+                <div className="border-b border-stone-300 px-5 py-4">
+                    <h1 className="text-lg font-bold text-stone-800">
+                        Save this account
+                    </h1>
+                </div>
+
+                {/* Body */}
+                <div className="p-5">
+
+                    {/* Important Notice */}
+                    <div className="rounded-xl border border-yellow-500 bg-yellow-100 p-4">
+                        <h2 className="mb-2 text-lg font-bold text-yellow-800">
+                            Important Notice
+                        </h2>
+
+                        <div className="space-y-2 text-xs leading-relaxed text-yellow-700">
+                            <p>
+                                This is the{" "}
+                                <span className="font-semibold">
+                                    only time
+                                </span>{" "}
+                                you will see the account password.
                             </p>
 
-                            <p className="text-xs text-yellow-700 mb-3">
-                                Please make sure to <span className="font-semibold">save or copy it now</span>. 
-                                You will not be able to view this PIN again after closing this window.
+                            <p>
+                                Please make sure to{" "}
+                                <span className="font-semibold">
+                                    save or copy it now
+                                </span>
+                                . You will not be able to view this password
+                                again after closing this window.
                             </p>
 
-                            <p className="text-xs text-yellow-700">
-                                If the PIN is lost, the account will need to be reset by an administrator.
+                            <p>
+                                If the password is lost, the account will need
+                                to be reset by an administrator.
                             </p>
-                        </div>
-
-                        <div className="bg-white rounded-2xl w-full mt-4 px-4">
-                            <h1 className="text-sm font-bold text-stone-800 mb-2">
-                                Account Details
-                            </h1>
-                            <h1 className="text-xs text-stone-500">Name: {newAccountDetails?.role || "—"} {newAccountDetails?.name || "—"}</h1>
-                            <h1 className="text-xs text-stone-500">Username: {newAccountDetails?.username || "—"}</h1>
-                            <h1 className="text-xs text-stone-500">Password: {newAccountDetails?.password || "—"}</h1>
-                        </div>
-                        </div>
-                       
-
-                        <div className="w-full justify-end items-end flex p-4 border-t border-stone-300">
-                            <button 
-                                onClick={() => {
-                                    closeAccountConfirmation();
-                                }}
-                                className="p-2 bg-stone-800 hover:bg-stone-900 rounded-lg text-white text-xs cursor-pointer justify-center items-center flex gap-2"
-                            >
-                                <Check size={15}/> Confirm
-                            </button>
                         </div>
                     </div>
 
-                </div>
-            
+                    {/* Account Details */}
+                    <div className="mt-5">
+                        <h2 className="mb-3 text-sm font-bold text-stone-800">
+                            Account Details
+                        </h2>
 
-        </section>
+                        <div className="rounded-xl border border-stone-200 bg-stone-50 p-4 space-y-3">
+
+                            <div>
+                                <p className="text-[11px] font-medium text-stone-400">
+                                    Name
+                                </p>
+                                <p className="text-xs text-stone-700">
+                                    {newAccountDetails?.role || "—"}{" "}
+                                    {newAccountDetails?.name || "—"}
+                                </p>
+                            </div>
+
+                            <div>
+                                <p className="text-[11px] font-medium text-stone-400">
+                                    Username
+                                </p>
+                                <p className="text-xs text-stone-700">
+                                    {newAccountDetails?.username || "—"}
+                                </p>
+                            </div>
+
+                            <div>
+                                <p className="text-[11px] font-medium text-stone-400">
+                                    Password
+                                </p>
+                                <p className="text-xs font-semibold text-stone-800 break-all">
+                                    {newAccountDetails?.password || "—"}
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                {/* Footer */}
+                <div className="flex justify-end border-t border-stone-300 p-4">
+                    <button
+                        onClick={closeAccountConfirmation}
+                        className="flex items-center justify-center gap-2 rounded-lg bg-stone-800 px-4 py-2 text-xs font-medium text-white transition hover:bg-stone-900 cursor-pointer"
+                    >
+                        <Check size={15} />
+                        Confirm
+                    </button>
+                </div>
+
+            </div>
+        </div>
     );
 };
 

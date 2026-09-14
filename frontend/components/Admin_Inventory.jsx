@@ -5,8 +5,9 @@ import axios from "axios";
 import InventoryModal from "../modals/InventoryModal";
 import { LibraryBig, LoaderCircle, Plus, ScrollText, Search } from "lucide-react";
 import Admin_Header from "./Admin_Header";
+import useAuthStore from "../store/useAuthStore";
 const Admin_Inventory = () => {
-
+    const user = useAuthStore((state) => state.user)
     const [books, setBooks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isInventoryModal, setIsInventoryModal] = useState(false);
@@ -42,12 +43,12 @@ const Admin_Inventory = () => {
         <>
             {isInventoryModal && <InventoryModal onClose={() => setIsInventoryModal(false)} />}
             <AdminSidebar />
-            <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
+            <section className="bg-stone-50 min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               <Admin_Header mainText={'Inventory Management'} subText={'Oversee the record of books'}/>
 
               <div className="w-full justify-start items-start flex flex-col rounded-t-xl px-4 gap-2 mb-4 lg:px-10">
 
-                        <div className="flex items-center justify-start gap-2 w-full mb-4">
+                        <div className="flex items-center justify-start gap-2 w-full mb-2">
                             <div className="w-full justify-start items-start flex gap-2">
                                <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
                                 <ScrollText size={20}/>
@@ -60,18 +61,19 @@ const Admin_Inventory = () => {
                             
                         </div>
                         
-                        <div className="w-full border border-stone-300 p-2 rounded-lg flex flex-col gap-2">
-                        <div className="w-full grid grid-cols-10 p-3 bg-stone-100 rounded-t-lg gap-2">
-                            <h1 className="text-stone-500 text-xs">No.</h1>
+                        <div className="h-120 w-full bg-white border border-stone-300 p-2 rounded-lg flex flex-col gap-2">
+                        <div className="w-full grid grid-cols-10 p-3 bg-stone-200 rounded-t-lg gap-2">
+                            
                             <h1 className="text-stone-500 text-xs">Title</h1>
                             <h1 className="text-stone-500 text-xs">Author</h1>
                             <h1 className="text-stone-500 text-xs">Category</h1>
                             <h1 className="text-stone-500 text-xs">ISBN</h1>
-                            <h1 className="text-stone-500 text-xs">Arrival Date</h1>
-                            <h1 className="text-stone-500 text-xs">Donated From</h1>
+                            <h1 className="text-stone-500 text-xs">When</h1>
+                            <h1 className="text-stone-500 text-xs">From</h1>
+                            <h1 className="text-stone-500 text-xs">Added By</h1>
                             <h1 className="text-stone-500 text-xs" title="Published Date">Pub. Date</h1>
                             <h1 className="text-stone-500 text-xs">Status</h1>
-                            <h1 className="text-stone-500 text-xs">Actions</h1>
+                            <h1 className="text-stone-500 text-xs">Action</h1>
                         </div>
 
                         <div className="w-full justify-start items-start flex">
@@ -95,14 +97,15 @@ const Admin_Inventory = () => {
                                     ) : (
                                         <div className="w-full justify-start items-start flex flex-col">
                                             {books.map((book, index) => (
-                                                <div key={book._id} className="w-full grid grid-cols-10 border-b border-stone-300 py-4 hover:bg-blue-50 hover:border-blue-600">
-                                                    <h1 className="text-xs text-stone-500">{index + 1}</h1>
-                                                    <h1 className="text-xs text-stone-500">{book.title}</h1>
+                                                <div key={book._id} className="w-full grid grid-cols-10 justify-center items-center border border-stone-300 rounded-lg p-4 hover:bg-blue-50 hover:border-blue-600">
+                                                    
+                                                    <h1 className="text-xs text-stone-500 flex">{index + 1} {book.title}</h1>
                                                     <h1 className="text-xs text-stone-500">{book.author}</h1>
                                                     <h1 className="text-xs text-stone-500">{book.category}</h1>
                                                     <h1 className="text-xs text-stone-500">{book.isbn}</h1>
                                                     <h1 className="text-xs text-stone-500">{new Date(book.receivedDate).toLocaleDateString()}</h1>
                                                     <h1 className="text-xs text-stone-500">{book.donatedFrom}</h1>
+                                                    <h1 className="text-xs text-stone-500">{user.firstname} {user.lastname}</h1>
                                                     <h1 className="text-xs text-stone-500">{new Date(book.createdAt).toLocaleDateString()}</h1>
                                                     <h1
                                                     className={`text-xs ${

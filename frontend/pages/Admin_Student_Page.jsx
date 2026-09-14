@@ -86,7 +86,7 @@ const Admin_Student_Page = () => {
         {showEditModal && (<Edit_Student_Modal selectedUser={selectedUser} reFetch={() => fetchUsers()} closeEditStudentModal={() => setShowEditModal(false)}/>)}
         {showViewStudent && (<View_Student_Modal user={selectedUser} onClose={() => setShowViewStudent(false)}/>)}
          <Admin_Sidebar/>   
-       <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
+       <section className="bg-stone-50 min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
               <Admin_Header mainText={'Account Management'} subText={'Manage the registered  users'}/>
         
@@ -94,11 +94,11 @@ const Admin_Student_Page = () => {
         
 
         {/* Student Container */}
-                  <div className="w-full px-4">
+                  <div className="w-full px-4 lg:px-10">
 
-                    <div className="w-full justify-between items-start flex flex-col sm:flex-row rounded-t-xl mb-4 lg:mb-2">
+                    <div className="w-full justify-between items-start flex flex-col sm:flex-row rounded-t-xl">
 
-                        <div className="flex items-center justify-start gap-2 mb-4">
+                        <div className="flex items-center justify-start gap-2 mb-2">
                             <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
                               <Users size={20}/>
                             </div>
@@ -109,8 +109,7 @@ const Admin_Student_Page = () => {
                           
                         </div>
                         
-
-                        <div className="w-full sm:w-50 justify-between items-center flex border-1 border-stone-300 rounded-lg px-4">
+                        <div className="bg-white w-full sm:w-50 justify-between items-center flex border border-stone-300 rounded-lg px-4">
                             
                             <input type="search" 
                                    placeholder="Search by name" 
@@ -123,16 +122,16 @@ const Admin_Student_Page = () => {
                         </div>
                     </div>
 
-                    <div className="w-full border-0 md:border border-stone-300 rounded-xl md:p-2">
+                    <div className="w-full bg-white border-0 md:border border-stone-300 rounded-xl md:p-2">
 
                     
                       {/* Columns */}
-                        <div className="hidden rounded-t-xl w-full bg-stone-100 md:grid md:grid-cols-4 px-4 py-3">
+                        <div className="hidden rounded-t-lg w-full bg-stone-200 md:grid md:grid-cols-5 px-4 py-3">
         
                                 <h1 className="text-xs text-stone-500">Fullname</h1>
                                 <h1 className="text-xs text-stone-500">Email</h1>
                                 <h1 className="text-xs text-stone-500">Contact</h1>
-                                
+                                <h1 className="text-xs text-stone-500">Type</h1>
                             
                         </div>
 
@@ -159,8 +158,8 @@ const Admin_Student_Page = () => {
                                 const updatedCreatedAt = new Date(user.createdAt).toISOString().split("T")[0];;
                                 
                                 return (
-                                <div key={user._id} className="bg-white gap-2 min-h-12 w-ful border-b border-stone-300 grid grid-cols-2 md:grid-cols-4 justify-start items-center md:px-4 py-2 hover:border-blue-500 hover:bg-blue-100 cursor-pointer">
-                                    <div className="w-full justify-start items-center flex gap-1 border-amber-200">
+                                <div key={user._id} className="bg-white gap-2 min-h-12 w-full rounded-lg border border-stone-300 grid grid-cols-2 md:grid-cols-5 justify-start items-center md:px-4 py-4 mt-2 hover:border-blue-500 hover:bg-blue-100 cursor-pointer">
+                                    <div className="w-full justify-start items-center flex gap-2 border-amber-200">
                                         <h1 className="text-xs text-stone-500 justify-start items-center wrap-break-word">{index + 1}</h1>
                                         {user.avatar ? (
                                             <img src={user.avatar} alt="" className="h-8 w-8 rounded-full object-cover"/>
@@ -175,12 +174,26 @@ const Admin_Student_Page = () => {
                                     
                                     <h1 className="hidden md:block text-xs text-stone-500 justify-start items-center wrap-break-word">{user.email}</h1>
                                     <h1 className="hidden md:block text-xs text-stone-500 justify-start items-center wrap-break-word">{user.contact}</h1>
-
+                                    <span
+                                    className={`hidden md:inline-flex items-center justify-center px-2 py-1 rounded-full text-xs w-fit capitalize
+                                        ${
+                                        user.role?.toLowerCase() === "student"
+                                            ? "bg-blue-200 text-blue-700"
+                                            : user.role?.toLowerCase() === "teacher"
+                                            ? "bg-green-200 text-green-700"
+                                            : user.role?.toLowerCase() === "guest"
+                                            ? "bg-stone-200 text-stone-600"
+                                            : "bg-stone-100 text-stone-500"
+                                        }
+                                    `}
+                                    >
+                                    {user.role}
+                                    </span>
                                     
-                                    <div className=" wrap-break-words gap-2 justify-end flex">
-                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 cursor-pointer hover:bg-stone-900" onClick={() => handleViewStudent(user)}><View size={15}/></button>
-                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 cursor-pointer hover:bg-stone-900" onClick={() => handleEditStudent(user)}><UserPen size={15}/></button>
-                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 cursor-pointer hover:bg-stone-900" onClick={() => deleteConfirmation(user)}><Trash size={15}/></button>
+                                    <div className=" wrap-break-words gap-1 justify-end flex">
+                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 cursor-pointer rounded-lg hover:bg-stone-900" onClick={() => handleViewStudent(user)}><View size={15}/></button>
+                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 cursor-pointer rounded-lg hover:bg-stone-900" onClick={() => handleEditStudent(user)}><UserPen size={15}/></button>
+                                        <button className="bg-red-600 text-white justify-center items-center flex p-2 cursor-pointer rounded-lg hover:bg-stone-900" onClick={() => deleteConfirmation(user)}><Trash size={15}/></button>
                                     </div>
 
                                 </div>

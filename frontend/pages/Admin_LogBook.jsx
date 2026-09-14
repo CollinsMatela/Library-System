@@ -121,11 +121,11 @@ const Admin_LogBook = () => {
 
         <Admin_SideBar/>
 
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
+        <section className="bg-stone-50 min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
             <Admin_Header mainText={'Logbook Management'} subText={'Manage the visitors entered the library'}/>
 
-            <div className="w-full justify-between items-start flex flex-col mb-10 pb-10 px-4 md:px-10">
+            <div className="w-full justify-between items-start flex flex-col px-4 md:px-10">
 
                 <div className="flex items-start justify-between gap-2 w-full mb-4">
                             
@@ -140,17 +140,17 @@ const Admin_LogBook = () => {
                             </div>
                             
                             <div>
-                                <button className="bg-stone-800 p-2 text-white text-xs cursor-pointer hover:-translate-y-1 justify-center items-center flex gap-2"
+                                <button className="bg-stone-800 p-2 rounded-lg text-white text-xs cursor-pointer hover:-translate-y-1 justify-center items-center flex gap-2"
                                 onClick={() => setShowLogBook(true)}
-                                ><Plus size={15}/> Add Visitor
+                                ><Plus size={15}/> 
                                 </button> 
                             </div>
                 </div>
                 
-                <div className="w-full border-0 lg:border border-stone-300 lg:rounded-xl lg:p-2">
+                <div className="bg-white h-120 w-full border-0 lg:border border-stone-300 lg:rounded-xl lg:p-2">
 
                 
-                <div className="hidden lg:grid grid-cols-9 w-full bg-stone-100 rounded-t-xl px-4 py-3 mb-2">
+                <div className="hidden lg:grid grid-cols-9 w-full bg-stone-200 rounded-t-lg px-4 py-3 mb-2">
                             <h1 className="text-xs text-stone-500">No.</h1>
                             <h1 className="text-xs text-stone-500">Name</h1>
                             <h1 className="text-xs text-stone-500">Address</h1>

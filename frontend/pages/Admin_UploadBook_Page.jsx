@@ -227,15 +227,15 @@ const Admin_UploadBook_Page = () => {
         <>
         <Admin_SideBar/>
         {showConfirmation && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={uploadStory} onCancel={() => {setShowConfirmation(false); setErrorMessage("")}}/>)}
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60 pb-10">
+        <section className="bg-stone-50 min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60 pb-10">
               
               <Admin_Header mainText={'Upload Management'} subText={'Upload new books for the library'}/>
 
                 {/* MANUALLY UPLOAD STORY CONTAINER */}
-                <div className={`w-full flex flex-col bg-white rounded-xl gap-10 px-4 md:px-10`}>
+                <div className={`w-full flex flex-col rounded-xl gap-10 px-4 md:px-10`}>
                     
                         {/* Story Details */}
-                        <div className="bg-white w-full flex flex-col">
+                        <div className=" w-full flex flex-col">
 
                         <div className="flex items-center justify-start gap-2 mb-4">
                             <div className="bg-stone-800 h-9 w-9 text-white justify-center items-center flex">

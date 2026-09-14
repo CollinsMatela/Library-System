@@ -203,15 +203,15 @@ const Admin_BorrowBook_Page = () => {
       return(
         <>
         <Admin_Sidebar/>
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
+        <section className="bg-stone-50 min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
               <Admin_Header mainText={'Borrowing Management'} subText={'Manage borrow request from users'}/>
 
               <div className="h-20 w-full justify-between items-center flex flex-col px-4 lg:px-10">
 
-                <div className="w-full justify-between items-start flex flex-col md:flex-row mb-4 lg:mb-2">
+                <div className="w-full justify-between items-start flex flex-col md:flex-row mb-2 lg:mb-2">
 
-                    <div className="flex items-center justify-start gap-2 w-full mb-4">
+                    <div className="flex items-center justify-start gap-2 w-full ">
                         <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
                             <HandHelping size={20}/>
                         </div>

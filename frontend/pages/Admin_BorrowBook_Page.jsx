@@ -29,6 +29,7 @@ const Admin_BorrowBook_Page = () => {
     const [isApproved, setIsApproved] = useState(false);
     const [isBorrowed, setIsBorrowed] = useState(false);
     const [isHistory, setIsHistory] = useState(false);
+    const [selectedStatus, setSelectedStatus] = useState('') 
 
     const [returnDate, setReturnDate] = useState({})
     const [quantity, setQuantity] = useState({});
@@ -200,6 +201,25 @@ const Admin_BorrowBook_Page = () => {
         setIsHistory(true);
     }
 
+    const handleStatus = (status) => {
+          setSelectedStatus(status)
+          if(status === "pending"){
+            handlePending()
+          }
+          else if (status === "approved"){
+            handleApproved()
+          }
+          else if (status === "borrowed"){
+            handleBorrowed()
+          }
+          else if (status === "history"){
+            handleHistory()
+          } else {
+            toast.warning("Selected status is invalid");
+            return
+          }
+    }
+
       return(
         <>
         <Admin_Sidebar/>
@@ -207,9 +227,9 @@ const Admin_BorrowBook_Page = () => {
               
               <Admin_Header mainText={'Borrowing Management'} subText={'Manage borrow request from users'}/>
 
-              <div className="h-20 w-full justify-between items-center flex flex-col px-4 lg:px-10">
+              <div className="w-full justify-between items-center flex flex-col px-4 lg:px-10">
 
-                <div className="w-full justify-between items-start flex flex-col md:flex-row mb-2 lg:mb-2">
+                <div className="w-full justify-between items-start flex flex-col md:flex-row mb-2 lg:mb-4">
 
                     <div className="flex items-center justify-start gap-2 w-full ">
                         <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
@@ -221,71 +241,55 @@ const Admin_BorrowBook_Page = () => {
                         </div>
                     </div>
 
-                    <div className="w-full grid grid-cols-4">
-                        <button
-                            className={`${
-                                isPending ? "bg-stone-800 text-white" : "border border-stone-300 text-black"
-                            } justify-center flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer w-full`}
-                            onClick={handlePending}
-                        >
-                            Pending
-                            <span className="hidden sm:block font-semibold">{Pendings.length || 0}</span>
-                        </button>
-
-                        <button
-                            className={`${
-                                isApproved ? "bg-stone-800 text-white" : "border border-stone-300 text-black"
-                            } justify-center flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer w-full`}
-                            onClick={handleApproved}
-                        >
-                            Approved
-                            <span className="hidden sm:block font-semibold">{Approved.length || 0}</span>
-                        </button>
-
-                        <button
-                            className={`${
-                                isBorrowed ? "bg-stone-800 text-white" : "border border-stone-300 text-black"
-                            } justify-center flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer w-full`}
-                            onClick={handleBorrowed}
-                        >
-                            Borrowed
-                            <span className="hidden sm:block font-semibold">{Borrowed.length || 0}</span>
-                        </button>
-
-                        <button
-                            className={`${
-                                isHistory ? "bg-stone-800 text-white" : "border border-stone-300 text-black"
-                            } justify-center flex items-center gap-2 px-4 py-2 text-xs hover:-translate-y-1 transition cursor-pointer w-full`}
-                            onClick={handleHistory}
-                        >
-                            History
-                            <span className="hidden sm:block font-semibold">{Returned.length || 0}</span>
-                        </button>
+            
+                        <select className="bg-white outline-none border border-stone-300 rounded-lg p-2 text-xs text-stone-500"
+                        onChange={(e) => handleStatus(e.target.value)}>
+                            <option value="">Select Status</option>
+                            <option value="pending">Pending Status</option>
+                            <option value="approved">Approved Status</option>
+                            <option value="borrowed">Borrowed Status</option>
+                            <option value="history">History/Record Status</option>
+                        </select>
                         
-                    </div>
+                    
                     
                 </div>
                 
-                {/**Tables */}
-                {isPending && (
-                    <PendingTable Pendings={Pendings}
-                                  approveBorrow={approveBorrow}
-                                  deleteBorrow={deleteBorrow}
-                    />)}
-                {isApproved && (
-                    <ApprovedTable Approved={Approved}
-                                   returnDate={returnDate}
-                                   setReturnDate={setReturnDate}
-                                   quantity={quantity}
-                                   setQuantity={setQuantity}
-                                   updateBorrow={updateBorrow}
-                                   deleteBorrow={deleteBorrow}
-                    />)}
-                {isBorrowed && (
-                    <BorrowedTable Borrowed={Borrowed}
-                                   ReturnBorrow={ReturnBorrow}
-                    />)}
-                {isHistory && (<HistoryTable Returned={Returned}/>)}
+                <div className="h-120 w-full border border-stone-300 bg-white rounded-lg p-2">
+
+                  <div className="mb-2 w-full">
+                      <div className="flex items-center justify-between rounded-lg border border-stone-300 bg-stone-100 px-4 py-3">
+                        <div>
+                          <h2 className="text-xs font-medium text-stone-700 capitalize">{`${selectedStatus} List` || 'Select Status'}</h2>
+                          <p className="mt-1 text-xs text-stone-500">
+                            Showing list of request.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/**Tables */}
+                    {isPending && (
+                        <PendingTable Pendings={Pendings}
+                                    approveBorrow={approveBorrow}
+                                    deleteBorrow={deleteBorrow}
+                        />)}
+                    {isApproved && (
+                        <ApprovedTable Approved={Approved}
+                                    returnDate={returnDate}
+                                    setReturnDate={setReturnDate}
+                                    quantity={quantity}
+                                    setQuantity={setQuantity}
+                                    updateBorrow={updateBorrow}
+                                    deleteBorrow={deleteBorrow}
+                        />)}
+                    {isBorrowed && (
+                        <BorrowedTable Borrowed={Borrowed}
+                                    ReturnBorrow={ReturnBorrow}
+                        />)}
+                    {isHistory && (<HistoryTable Returned={Returned}/>)}
+                </div>
+                
                 
                         
               </div>

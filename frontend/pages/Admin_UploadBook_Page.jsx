@@ -7,7 +7,7 @@ import FictionBookInformation from "./UploadPage_Components/FictionBookInformati
 import BookInformation from "./UploadPage_Components/BookInformation";
 import TypeOfBooks from "./UploadPage_Components/TypeOfBooks";
 import PreviewBook from "./UploadPage_Components/PreviewBook"
-import {  X, Plus, Image, Save, AudioLines, FilePlay, Pencil, ImageOff, Info, ArrowUp, Pen } from "lucide-react";
+import {  X, Plus, Image, Save, AudioLines, FilePlay, Pencil, ImageOff, Info, ArrowUp, Pen, BookPlus } from "lucide-react";
 import { toast } from "react-toastify";
 import Admin_Header from "../components/Admin_Header";
 
@@ -238,8 +238,8 @@ const Admin_UploadBook_Page = () => {
                         <div className=" w-full flex flex-col">
 
                         <div className="flex items-center justify-start gap-2 mb-4">
-                            <div className="bg-stone-800 h-9 w-9 text-white justify-center items-center flex">
-                            <Pen size={15} className="text-white"/>
+                            <div className="hidden sm:flex bg-stone-800 p-2 text-white justify-center items-center">
+                            <BookPlus size={20} className="text-white"/>
                             </div>
                             <div>
                                 <h1 className="text-md font-bold text-stone-800 rounded-full">Upload Book</h1>

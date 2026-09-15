@@ -107,7 +107,7 @@ const Admin_Books_Page = () => {
       return(
         <>
         <Admin_Sidebar/>
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
+        <section className="bg-stone-50 min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
               <Admin_Header mainText={'Catalog Management'} subText={'Find the specific book you wanted'}/>
 
@@ -167,12 +167,12 @@ const Admin_Books_Page = () => {
               )
               :
               (
-                <div className="w-full">
+                <div className="w-full bg-white">
                   
-                  <div className="w-full p-2 border border-stone-200 rounded-lg">
+                  <div className="h-120 w-full p-2 border border-stone-200 rounded-lg">
 
                     <div className="mb-2 w-full">
-                      <div className="flex items-center justify-between rounded-t-lg bg-stone-100 px-4 py-3">
+                      <div className="flex items-center justify-between rounded-lg border border-stone-300 bg-stone-100 px-4 py-3">
                         <div>
                           <h2 className="text-xs font-medium text-stone-700">Search results</h2>
                           <p className="mt-1 text-xs text-stone-500">

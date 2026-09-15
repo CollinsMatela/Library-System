@@ -9,7 +9,7 @@ const PendingTable = ({Pendings, approveBorrow, deleteBorrow}) => {
         Pendings.map((borrow) => (
             <div
                 key={borrow._id}
-                className={`w-full rounded-xl p-4 flex justify-between items-start  border border-gray-300 gap-2`}
+                className={`w-full rounded-xl p-4 flex justify-between items-start  border border-stone-300 gap-2`}
             >
                 <div className="w-full justify-start items-start flex gap-2">
                     <div className="bg-yellow-500 p-2 rounded-lg">
@@ -18,7 +18,7 @@ const PendingTable = ({Pendings, approveBorrow, deleteBorrow}) => {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-2 gap-2 w-full">
                         <div className="justify-start items-start flex flex-col w-full">
-                            <h1 className="text-sm font-semibold text-gray-800 justify-center items-center flex gap-2">{borrow.title} </h1>
+                            <h1 className="text-sm font-semibold text-stone-800 justify-center items-center flex gap-2">{borrow.title} </h1>
                             <h2 className="text-xs text-stone-400">Requested by — {borrow.name}</h2>
                         </div>
 
@@ -30,7 +30,7 @@ const PendingTable = ({Pendings, approveBorrow, deleteBorrow}) => {
                         <div className="justify-end items-center flex gap-2 w-full border-t md:border-0 border-stone-300 pt-2 md:pt-0">
                             <button
                                 onClick={() => deleteBorrow(borrow)}
-                                className="bg-white hover:bg-gray-200 flex gap-2 text-xs justify-center items-center text-gray-500 p-2 cursor-pointer hover:-translate-y-1 transition"
+                                className="bg-white hover:bg-stone-200 flex gap-2 text-xs justify-center items-center text-stone-500 p-2 cursor-pointer hover:-translate-y-1 transition"
                             >
                                 <X size={15}/>
                             </button>
@@ -51,8 +51,9 @@ const PendingTable = ({Pendings, approveBorrow, deleteBorrow}) => {
             </div>
         ))
     ) : (
-        <div className="w-full flex justify-center items-center py-4 bg-gray-100 rounded-xl">
-            <p className="text-gray-500 text-xs">No requests found.</p>
+        <div className="w-full flex flex-col justify-center items-center py-6 bg-stone-50 border border-stone-200 rounded-lg">
+            <h1 className="text-stone-700 font-semibold text-xs">No requests found.</h1>
+            <h1 className="text-stone-500 text-xs">Keep wait on user request.</h1>
         </div>
     )}
 </div>

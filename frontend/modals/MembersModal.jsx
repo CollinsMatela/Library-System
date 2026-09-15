@@ -117,7 +117,7 @@ const FormRequest = async () => {
         {showNewAccount && (
             <LibrarianAccount
             account={newAccount}
-            onClose={() => {setShowNewAccount(false); onClose(), setNewLibrarian(null)}}
+            onClose={() => {setShowNewAccount(false); onClose()}}
             />
         )}
 

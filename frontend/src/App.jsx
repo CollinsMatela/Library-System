@@ -24,9 +24,9 @@ import Lib_MyAccount from "../library_components/Lib_MyAccount"
 import LoginPage from "../pages/LoginPage";
 import Admin_Inventory from "../components/Admin_Inventory";
 import Admin_Edit from "../pages/Admin_Edit";
-import Admin_Members from "../pages/Admin_Members";
 import Admin_Login from "../pages/Admin_Login";
 import Admin_ChangePassword from "../pages/Admin_ChangePassword";
+import Admin_Authority from "../pages/Admin_Authority";
 
 
 const ProtectedRoute = ({ allowedRoles }) => {
@@ -83,7 +83,7 @@ function App() {
                 <Route path="/admin/users" element={<Admin_Student_Page />} />
                 <Route path="/admin/edit" element={<Admin_Edit />} />
                 <Route path="/admin/inventory" element={<Admin_Inventory />} />
-                <Route path="/admin/members" element={<Admin_Members />} />
+                <Route path="/admin/authority" element={<Admin_Authority />} />
                 <Route path="/admin-change-password" element={<Admin_ChangePassword/>}/>
         </Route>
          <Route path="/loading" element={<LoadingScreen/>}/>

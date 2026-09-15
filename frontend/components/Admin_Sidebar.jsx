@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore"
 import { useState } from "react";
-import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User, ArrowUp, Home, BookUser, ScrollText, Package, SquarePen } from 'lucide-react'
+import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User, ArrowUp, Home, BookUser, ScrollText, Package, SquarePen, ShieldCog } from 'lucide-react'
 import NaicLogo from '../src/assets/NaicLibraryLogo.png'
 import Confirmation_Popup from "../popup/Confirmation_Popup";
 
@@ -16,7 +16,7 @@ const Admin_SideBar = () => {
     const isUploadStory = location.pathname === "/admin/upload-book";
     const isViewStory = location.pathname === "/admin/books";
     const isUsersAccount = location.pathname === "/admin/users";
-    const isMembers = location.pathname === "/admin/members";
+    const isAuthority = location.pathname === "/admin/authority";
     const isBorrowBook = location.pathname === "/admin/borrow-book"
     const isInventory = location.pathname === "/admin/inventory";
     const isEdit = location.pathname === "/admin/edit"
@@ -36,8 +36,8 @@ const Admin_SideBar = () => {
     const handleUsers = () => {
           navigate('/admin/users');
     }
-    const handleMembers = () => {
-          navigate('/admin/members');
+    const handleAuthority = () => {
+          navigate('/admin/authority');
     }
     const handleBorrowBook = () => {
           navigate('/admin/borrow-book');
@@ -115,9 +115,9 @@ const Admin_SideBar = () => {
         <h1 className="hidden lg:block">Request</h1>
       </div>
 
-      <div className={`${isMembers ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleMembers}>
-        <Users className={`${isMembers ? 'text-white' : 'text-stone-500'}`} size={15}/>
-        <h1 className="hidden lg:block">Members</h1>
+      <div className={`${isAuthority ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleAuthority}>
+        <ShieldCog className={`${isAuthority ? 'text-white' : 'text-stone-500'}`} size={15}/>
+        <h1 className="hidden lg:block">Authority</h1>
       </div>
 
       <div className={`${isUsersAccount ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUsers}>
@@ -130,11 +130,6 @@ const Admin_SideBar = () => {
         <h1 className="hidden lg:block">Inventory</h1>
       </div>
 
-      <div className="h-10 text-xs justify-center lg:justify-start items-center flex font-normal text-red-500 gap-2 cursor-pointer py-2 hover:bg-red-100 hover:border-none mt-2 p-4" 
-      onClick={() => setShowConfirmation(true)}>
-        <LogOut className={`text-red-500`} size={15}/>
-        <h1 className="hidden lg:block">Logout</h1>
-      </div>
       </div>
 
     </aside>

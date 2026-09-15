@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import SearchIcon from '../src/assets/search-svgrepo-com.svg'
 import Admin_Sidebar from '../components/Admin_Sidebar'
-import { Pen } from "lucide-react";
+import { Pen, SquarePen } from "lucide-react";
 import AdvancedSearch from "./BookPage_Component/AdvancedSearch";
 import { toast } from "react-toastify";
 import Edit_BookInformation from "./BookInformation_Component/Edit_BookInformation";
@@ -292,10 +292,23 @@ const Admin_Edit = () => {
         <Admin_Header mainText={'Editing Management'} subText={'Update the information of book'}/>
     
         <div className="w-full px-4 lg:px-10">
-    <div className="w-full bg-stone-200 border border-stone-300 rounded-lg p-6">
+
+            <div className="flex items-center justify-start gap-2 w-full mb-4">
+                            <div className="w-full justify-start items-start flex gap-2">
+                               <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
+                                <SquarePen size={20}/>
+                            </div>
+                            <div>
+                                <h1 className="text-sm font-bold text-stone-800 rounded-full">Choose Book</h1>
+                                <p className="text-stone-400 text-xs">Manage to edit your selectede book</p>
+                            </div> 
+                            </div>
+                            
+                        </div>
+    <div className="w-full bg-stone-800 bg-stone-200 border border-stone-300 rounded-lg p-6">
         
         <div className="mb-2">
-            <h1 className="text-xs font-semibold text-stone-800">
+            <h1 className="text-xs font-semibold text-stone-100">
                 Find a Book to Edit
             </h1>
             <p className="text-xs text-stone-500">
@@ -314,7 +327,7 @@ const Admin_Edit = () => {
                         setSelectedCategory(e.target.value)
                         setSelectedBook("")
                     }}
-                    className="w-full bg-white text-xs text-stone-700 p-2.5 rounded-lg border outline-none border-stone-300 transition"
+                    className="w-full bg-stone-700 text-xs text-stone-100 p-2.5 rounded-lg border outline-none border-stone-500 transition"
                 >
                     <option value="">Select category</option>
 
@@ -337,7 +350,7 @@ const Admin_Edit = () => {
                     value={selectedBook}
                     onChange={(e) => setSelectedBook(e.target.value)}
                     disabled={!selectedCategory}
-                    className="w-full bg-white text-xs text-stone-700 p-2.5 rounded-lg border outline-none border-stone-300 outline-none transition disabled:bg-stone-50 disabled:text-stone-400 disabled:cursor-not-allowed"
+                    className="w-full bg-stone-700 text-xs text-stone-100 p-2.5 rounded-lg border border-stone-500 outline-none transition disabled:bg-stone-700 disabled:text-stone-500 disabled:cursor-not-allowed"
                 >
                     <option value="">
                         {selectedCategory

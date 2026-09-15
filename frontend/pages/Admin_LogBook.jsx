@@ -150,7 +150,7 @@ const Admin_LogBook = () => {
                 <div className="bg-white h-120 w-full border-0 lg:border border-stone-300 lg:rounded-xl lg:p-2">
 
                 
-                <div className="hidden lg:grid grid-cols-9 w-full bg-stone-200 rounded-t-lg px-4 py-3 mb-2">
+                <div className="hidden lg:grid grid-cols-9 w-full bg-stone-100 rounded-lg border border-stone-300 px-4 py-3 mb-2">
                             <h1 className="text-xs text-stone-500">No.</h1>
                             <h1 className="text-xs text-stone-500">Name</h1>
                             <h1 className="text-xs text-stone-500">Address</h1>

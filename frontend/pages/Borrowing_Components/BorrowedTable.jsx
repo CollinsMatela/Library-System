@@ -49,8 +49,9 @@ const BorrowedTable = ({Borrowed, ReturnBorrow}) => {
             </div>
         ))
     ) : (
-        <div className="w-full flex justify-center items-center py-4 bg-stone-100 rounded-xl">
-            <p className="text-stone-500 text-xs">No requests found.</p>
+        <div className="w-full flex flex-col justify-center items-center py-6 bg-stone-50 border border-stone-200 rounded-lg">
+            <h1 className="text-stone-700 font-semibold text-xs">No borrowed found.</h1>
+            <h1 className="text-stone-500 text-xs">No approved request.</h1>
         </div>
     )}
 </div>

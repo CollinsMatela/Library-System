@@ -62,7 +62,7 @@ const Admin_Inventory = () => {
                         </div>
                         
                         <div className="h-120 w-full bg-white border border-stone-300 p-2 rounded-lg flex flex-col gap-2">
-                        <div className="w-full grid grid-cols-10 p-3 bg-stone-200 rounded-t-lg gap-2">
+                        <div className="w-full grid grid-cols-10 p-3 bg-stone-100 rounded-lg border border-stone-300 gap-2">
                             
                             <h1 className="text-stone-500 text-xs">Title</h1>
                             <h1 className="text-stone-500 text-xs">Author</h1>

@@ -4,19 +4,17 @@ const Not_Found_Page = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50 px-4">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-stone-800 px-4">
         
-        <h1 className="text-7xl font-extrabold text-gray-600">404</h1>
-        
-        <h2 className="text-2xl font-bold text-gray-400">
-         Page Not Found
+        <h2 className="text-8xl font-extrabold text-stone-700">
+          404 Page Not Found
         </h2>
           
           <button
             onClick={() => navigate(-1)}
-            className="w-fit px-4 py-2 mt-2 bg-black text-white text-xs rounded-xl font-semibold hover:-translate-y-1 cursor-pointer transition"
+            className="p-2 text-stone-500 text-xs rounded-lg border border-stone-700 hover:bg-stone-600 transition"
           >
-            Return
+            Go Back
           </button>
 
 

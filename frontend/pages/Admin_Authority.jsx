@@ -7,9 +7,8 @@ import axios from "axios"
 import Confirmation_Popup from "../popup/Confirmation_Popup"
 import Admin_Header from "../components/Admin_Header"
 
-const Admin_Members = () => {
+const Admin_Authority = () => {
     const [members, setMembers] = useState([])
-    const [selectedMember, setSelectedMember] = useState(null);
     const [showMemberModal, setShowMemberModal] = useState(false);
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
     const [roleConfirmation, setRoleConfirmation] = useState(false)
@@ -41,7 +40,7 @@ const Admin_Members = () => {
             const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-member/${id}`)
             console.log(res.data.message);
             toast.success("Successfully deleted account")
-            setShowConfirmation(false)
+            setDeleteConfirmation(false);
             FetchMembersRequest();
           } catch (error) {
             toast.error('Failed to delete account');
@@ -69,6 +68,10 @@ const Admin_Members = () => {
           setSelectedLibrarian(librarian)
           setSelectedNewRole(newRole)
     }
+    const handleDeleteLibrarian = (librarian) => {
+          setDeleteConfirmation(true);
+          setSelectedLibrarian(librarian)
+    }
 
       return(
         <>
@@ -77,7 +80,7 @@ const Admin_Members = () => {
             <Confirmation_Popup
             errorMessage={errorMessage}
             message={'Are you sure to delete this account?'}
-            onConfirm={() => DeleteMemberRequest(selectedMember)}
+            onConfirm={() => DeleteMemberRequest(selectedLibrarian._id)}
             onCancel={() => {setDeleteConfirmation(false); setErrorMessage('')}}
             />
         )}
@@ -96,11 +99,11 @@ const Admin_Members = () => {
         reFetch={FetchMembersRequest}/>)
         }
         <section className="bg-stone-50 min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
-                <Admin_Header mainText={'Member Management'} subText={'Manage the librarian account'}/>
+                <Admin_Header mainText={'Authority Management'} subText={'Manage the authorized librarian account'}/>
 
                 <div className="w-full justify-start items-start flex flex-col px-4 lg:px-10">
 
-                    <div className="justify-center items-center flex gap-2 mb-2">
+                    <div className="justify-center items-center flex gap-2 mb-4">
                                 <div className="hidden sm:flex bg-stone-800 p-2 text-white justify-center items-center">
                                     <Users size={20}/>
                                 </div>
@@ -175,7 +178,7 @@ const Admin_Members = () => {
                                         <option value="assistant librarian">Assistant Librarian</option>
                                     </select>
                                     <button className="bg-red-500 p-2 rounded-lg hover:bg-red-600 cursor-pointer justify-center items-center flex gap-1"
-                                    onClick={() => {setSelectedMember(member._id); setShowConfirmation(true)}}>
+                                    onClick={() => handleDeleteLibrarian(member)}>
                                         <Trash size={15} className="text-white"/>
                                         <h1 className="text-xs text-white">Delete</h1>
                                     </button>
@@ -192,4 +195,4 @@ const Admin_Members = () => {
         </>
       )
 }
-export default Admin_Members
+export default Admin_Authority

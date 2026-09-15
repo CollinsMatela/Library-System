@@ -98,7 +98,7 @@ const Admin_Student_Page = () => {
 
                     <div className="w-full justify-between items-start flex flex-col sm:flex-row rounded-t-xl">
 
-                        <div className="flex items-center justify-start gap-2 mb-2">
+                        <div className="flex items-center justify-start gap-2 mb-4">
                             <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
                               <Users size={20}/>
                             </div>
@@ -126,7 +126,7 @@ const Admin_Student_Page = () => {
 
                     
                       {/* Columns */}
-                        <div className="hidden rounded-t-lg w-full bg-stone-200 md:grid md:grid-cols-5 px-4 py-3">
+                        <div className="hidden rounded-lg border border-stone-300 w-full bg-stone-100 md:grid md:grid-cols-5 px-4 py-3">
         
                                 <h1 className="text-xs text-stone-500">Fullname</h1>
                                 <h1 className="text-xs text-stone-500">Email</h1>

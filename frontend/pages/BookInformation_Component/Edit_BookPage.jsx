@@ -64,7 +64,7 @@ const Edit_BookPage = ({bookDetails, setBookDetails, fetchBookById, handleImageC
                 </div>
                 
                 <div className="flex gap-2">
-                 <select className='w-fit p-2 text-xs text-stone-500 bg-stone-200 border border-stone-500 rounded-lg outline-none'
+                 <select className='w-fit p-2 text-xs text-stone-500 bg-white border border-stone-300 rounded-lg outline-none'
                         onChange={(e) => setSelectedPageIndex(parseInt(e.target.value))}
                     >
                         <option value="">Select Page No.</option>
@@ -77,7 +77,7 @@ const Edit_BookPage = ({bookDetails, setBookDetails, fetchBookById, handleImageC
                         ))}
                     </select>
 
-                    <button className="bg-blue-200 border border-blue-500 text-xs text-blue-500 rounded-lg justify-center items-center flex gap-1 hover:bg-blue-300 p-2"
+                    <button className="bg-stone-800 text-xs text-white rounded-lg justify-center items-center flex gap-1 hover:bg-stone-900 p-2"
                     onClick={isAddPageModal}>
                     <Plus size={15} />
                     <h1 className="hidden sm:block">Add Page</h1>
@@ -87,10 +87,14 @@ const Edit_BookPage = ({bookDetails, setBookDetails, fetchBookById, handleImageC
                 </div>
 
             {selectedPageIndex === null && (
-                <div className="w-full p-6 border-2 border-dashed border-stone-300 rounded-xl bg-stone-50 flex justify-center items-center gap-1">
-                    <Info size={20} className="text-stone-400" />
-                    <p className="text-stone-500 text-xs">
-                        Select a page to edit its content.
+                <div className="w-full p-8 border border-stone-200 rounded-xl bg-stone-50 flex flex-col justify-center items-center text-center">
+
+                    <h3 className="text-xs font-medium text-stone-700">
+                        No page selected
+                    </h3>
+
+                    <p className="text-xs text-stone-500 mt-1 max-w-xs">
+                        Select a page from the list to view and edit its content.
                     </p>
                 </div>
             )}

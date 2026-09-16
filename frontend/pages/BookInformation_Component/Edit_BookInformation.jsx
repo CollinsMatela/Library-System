@@ -34,7 +34,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
 
 
             {/* ================= BASIC INFORMATION ================= */}
-            <div className="w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
@@ -112,7 +112,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
 
 
             {/* ================= PUBLICATION DETAILS ================= */}
-            <div className="w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
@@ -160,7 +160,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
 
 
             {/* ================= CLASSIFICATION & INVENTORY ================= */}
-            <div className="w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
@@ -228,7 +228,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
 
 
             {/* ================= FICTION DETAILS ================= */}
-            <div className="w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
@@ -265,7 +265,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
 
 
             {/* ================= DESCRIPTION ================= */}
-            <div className="w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
@@ -289,7 +289,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
             {/* ================= AI Summarization ================= */}
             {
                 bookDetails?.category === "literature" && (
-                    <div className="w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+                    <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
 
                 <div className="w-full flex justify-between items-center">
                     <div>
@@ -302,9 +302,10 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summa
                         </p> 
                     </div>
 
-                    <button className="bg-stone-200 justify-center items-center flex text-xs text-stone-500 gap-1 border border-stone-500 p-2 rounded-lg">
-                        <Sparkles size={15}/> 
-                        <h1 className="hidden sm:block">Generate Summary</h1>
+                    <button className="bg-purple-600 justify-center items-center flex gap-1 p-2 rounded-lg hover:bg-purple-700 transition cursor-pointer"
+                    onClick={() => Summarization()}>
+                        <Sparkles size={15} className="text-white"/> 
+                        <h1 className="hidden sm:block text-xs text-white">AI Summarization</h1>
                     </button>
                     
                 </div>

@@ -8,7 +8,7 @@ import { View, UserPen, Trash, Search, Users, LoaderCircle } from "lucide-react"
 import { toast } from "react-toastify"
 import Admin_Header from "../components/Admin_Header"
 
-const Admin_Student_Page = () => {
+const Admin_User = () => {
 
     const [users, setUsers] = useState([]);
 
@@ -103,7 +103,7 @@ const Admin_Student_Page = () => {
                               <Users size={20}/>
                             </div>
                             <div>
-                                <h1 className="text-md font-bold text-stone-800 rounded-full">Users Table</h1>
+                                <h1 className="text-md font-bold text-stone-800 rounded-full">User Table</h1>
                                 <p className="text-stone-400 text-xs">Manage student accounts.</p>
                             </div>
                           
@@ -191,8 +191,8 @@ const Admin_Student_Page = () => {
                                     </span>
                                     
                                     <div className=" wrap-break-words gap-1 justify-end flex">
-                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 cursor-pointer rounded-lg hover:bg-stone-900" onClick={() => handleViewStudent(user)}><View size={15}/></button>
-                                        <button className="bg-stone-800 text-white justify-center items-center flex p-2 cursor-pointer rounded-lg hover:bg-stone-900" onClick={() => handleEditStudent(user)}><UserPen size={15}/></button>
+                                        <button className="bg-transparent text-stone-400 hover:text-blue-500 justify-center items-center flex p-2 cursor-pointer rounded-lg border border-stone-300 hover:border-blue-500" onClick={() => handleViewStudent(user)}><View size={15}/></button>
+                                        <button className="bg-transparent text-stone-400 hover:text-blue-500 justify-center items-center flex p-2 cursor-pointer rounded-lg border border-stone-300 hover:border-blue-500" onClick={() => handleEditStudent(user)}><UserPen size={15}/></button>
                                         <button className="bg-red-600 text-white justify-center items-center flex p-2 cursor-pointer rounded-lg hover:bg-stone-900" onClick={() => deleteConfirmation(user)}><Trash size={15}/></button>
                                     </div>
 
@@ -209,4 +209,4 @@ const Admin_Student_Page = () => {
        </>
     )
 }
-export default Admin_Student_Page;
+export default Admin_User;

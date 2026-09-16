@@ -78,18 +78,21 @@ const Admin_Edit = () => {
     };
 
   const AISummarization = async () => {
-            const texts = bookDetails.pages.map((p) => p.pageText);
-  
-            const bookData = {
-              bookId: bookDetails._id,
-              title: bookDetails.title,
-              language: bookDetails.language,
-              texts: texts
-            }
-  
             try {
+
+                let texts = bookDetails.pages.map((p) => p.pageText);
+                if(texts.length === 0){
+                    toast.warning('No page texts found')
+                    return
+                }
+                const bookData = {
+                bookId: bookDetails._id,
+                title: bookDetails.title,
+                language: bookDetails.language,
+                texts: texts
+                }
               const res = await axios.post(`${import.meta.env.VITE_API_URL}/ai-summarization`, bookData)
-              setMoral(res.data.summary)
+              setBookDetails((bookDetails) => ({...bookDetails, moral: res.data.summary}))
               toast.success(res.data.message);
               fetchBookById();
             } catch (error) {
@@ -248,18 +251,7 @@ const Admin_Edit = () => {
             toast.error(error?.response?.data?.message);
           }
     }
-    const deleteBook = async (bookId) => {
-        try {
-            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-book/${bookId}`);
-            console.log(res.data.message);
-            toast.success(res.data.message);
-            navigate(-1); // Navigate back to the previous page after deletion
-        } catch (error) {
-            console.log(error);
-            setErrorMessage(error?.response?.data?.message);
-            toast.error(error?.response?.data?.message);
-        }
-    }
+    
 
       return(
         <>
@@ -287,7 +279,7 @@ const Admin_Edit = () => {
         />
         )}
 
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
+        <section className="bg-stone-50 min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
         <Admin_Header mainText={'Editing Management'} subText={'Update the information of book'}/>
     
@@ -401,8 +393,8 @@ const Admin_Edit = () => {
     
 
     {/* // Save Button */}
-    <div className="w-full justify-end items-center flex px-4 lg:px-10 mt-4 mb-10">
-    <button className="justify-center items-center flex gap-2 bg-green-200 p-2 rounded-lg border border-green-500 text-xs text-green-500 hover:bg-green-300 cursor-pointer"
+    <div className="w-full justify-end items-center flex px-4 lg:px-10 mb-10">
+    <button className="justify-center items-center flex gap-2 bg-stone-800 p-2 rounded-lg text-xs text-white hover:bg-stone-900 cursor-pointer"
     onClick={() => {setIsInformationUpdate(true); setErrorMessage("")}}
     >
         <Pen size={15}/> Save Changes 

@@ -3,14 +3,18 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import InventoryModal from "../modals/InventoryModal";
-import { LibraryBig, LoaderCircle, Plus, ScrollText, Search } from "lucide-react";
+import { LibraryBig, LoaderCircle, Plus, ScrollText, Search, Trash } from "lucide-react";
 import Admin_Header from "./Admin_Header";
 import useAuthStore from "../store/useAuthStore";
+import Confirmation_Popup from "../popup/Confirmation_Popup";
 const Admin_Inventory = () => {
     const user = useAuthStore((state) => state.user)
     const [books, setBooks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isInventoryModal, setIsInventoryModal] = useState(false);
+    const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('')
+    const [selectedBook, setSelectedBook] = useState(null);
 
     useEffect(() => {
         setIsLoading(true);
@@ -38,9 +42,34 @@ const Admin_Inventory = () => {
             setErrorMessage(error?.response?.data?.message);
             }
     }
+    const deleteBook = async (id) => {
+        try {
+            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-book/${id}`);
+            console.log(res.data.message);
+            toast.success(res.data.message);
+            setDeleteConfirmation(false);
+            fetchBooks();
+        } catch (error) {
+            console.log(error);
+            setErrorMessage(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message);
+        }
+    }
+    const handleDelete = (book) => {
+          setSelectedBook(book)
+          setDeleteConfirmation(true)
+    }
 
     return(
         <>
+        {deleteConfirmation && (
+            <Confirmation_Popup
+            errorMessage={errorMessage}
+            message={'Are you sure to delete this book?'}
+            onConfirm={() => deleteBook(selectedBook._id)}
+            onCancel={() => setDeleteConfirmation(false)}
+            />
+        )}
             {isInventoryModal && <InventoryModal onClose={() => setIsInventoryModal(false)} />}
             <AdminSidebar />
             <section className="bg-stone-50 min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
@@ -84,9 +113,9 @@ const Admin_Inventory = () => {
                                 ) : (
 
                                     books.length === 0 ? (
-                                        <div className="flex w-full flex-col items-center justify-center rounded-lg border border-stone-200 bg-stone-50 p-6 text-center">
+                                        <div className="flex w-full flex-col items-center justify-center rounded-lg border border-stone-300 bg-stone-50 p-6 text-center">
 
-                                            <h2 className="text-sm font-medium text-stone-500">
+                                            <h2 className="text-xs font-medium text-stone-700">
                                             No books found
                                             </h2>
 
@@ -117,7 +146,11 @@ const Admin_Inventory = () => {
                                                     {book.copies}{" "}
                                                     {book.copies > 0 ? "Available" : "Not Available"}
                                                     </h1>
-                                                    <h1 className="text-xs text-stone-500">Actions</h1>
+                                                    <button className="bg-red-600 p-2 rounded-lg w-fit cursor-pointer hover:bg-red-700"
+                                                    onClick={() => handleDelete(book)}>
+                                                        <Trash size={15} className="text-white"/>
+                    
+                                                    </button>
                             
                                                     
                                                 </div>

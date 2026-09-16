@@ -72,8 +72,8 @@ const Admin_SideBar = () => {
           </div>
           
           <div>
-            <h1 className="hidden lg:block text-sm font-bold text-black">Naic Municipal Library</h1>
-            <p className="hidden lg:block text-xs text-stone-400">Admin Portal</p>
+            <h1 className="hidden lg:block text-sm font-bold text-stone-800">Naic Municipal Library</h1>
+            <p className="hidden lg:block text-xs text-stone-400">Library Management Portal</p>
           </div>
       </div>
 

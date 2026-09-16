@@ -44,10 +44,10 @@ const Preview_BookInformation = ({bookDetails, setBookDetails}) => {
 
       return(
         <>
-        <div className="w-full px-4 lg:px-10">
+        <div className="w-full px-4 lg:px-10 mb-4">
 
         {/* ================= DESCRIPTION ================= */}
-            <div className="w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
@@ -74,11 +74,11 @@ const Preview_BookInformation = ({bookDetails, setBookDetails}) => {
             )}
             
             <div className="w-full">
-            <button className="w-full bg-yellow-100 border border-yellow-500 justify-center items-center flex gap-1 p-2 rounded-lg hover:bg-yellow-200"
+            <button className="w-full bg-stone-200 justify-center items-center flex gap-1 p-2 rounded-lg hover:bg-stone-300 cursor-pointer"
             onClick={(e) => coverRef.current.click()}>
-                        <Plus size={15} className="text-yellow-500"/>
-                        {!bookDetails?.cover && (<h1 className="text-xs text-yellow-500">Add Cover</h1>)}
-                        {bookDetails?.cover && (<h1 className="text-xs text-yellow-500">Change Cover</h1>)}
+                        <Plus size={15} className="text-stone-500"/>
+                        {!bookDetails?.cover && (<h1 className="text-xs text-stone-500">Add Cover</h1>)}
+                        {bookDetails?.cover && (<h1 className="text-xs text-stone-500">Change Cover</h1>)}
             </button>
 
 

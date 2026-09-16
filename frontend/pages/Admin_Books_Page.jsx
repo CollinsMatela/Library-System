@@ -147,7 +147,7 @@ const Admin_Books_Page = () => {
                         </div>
               </div>
               
-              <div className="w-full px-4 lg:px-10 mb-10">
+              <div className="w-full px-4 lg:px-10">
               {isAdvanceSearch && 
               (
                 <AdvancedSearch
@@ -186,9 +186,9 @@ const Admin_Books_Page = () => {
                       </div>
                     </div>
                   {filtered.length === 0 && (
-                    <div className="flex w-full flex-col items-center justify-center rounded-lg border border-stone-200 bg-stone-50 px-4 py-10 text-center">
+                    <div className="flex w-full flex-col items-center justify-center rounded-lg border border-stone-300 bg-stone-50 px-4 py-10 text-center">
 
-                    <h2 className="text-sm font-medium text-stone-500">
+                    <h2 className="text-xs font-medium text-stone-700">
                       No books found
                     </h2>
 

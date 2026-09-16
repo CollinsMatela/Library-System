@@ -172,8 +172,8 @@ const Admin_LogBook = () => {
                 (
                     <>
                     {orderedLogBookList.length === 0 && (
-                    <div className="w-full bg-stone-50 border border-stone-200 rounded-xl p-6 text-xs justify-center items-center flex flex-col">
-                       <h1 className="text-sm text-stone-500 font-medium">No visitor listed</h1>
+                    <div className="w-full bg-stone-50 border border-stone-300 rounded-xl p-6 text-xs justify-center items-center flex flex-col">
+                       <h1 className="text-xs text-stone-700 font-medium">No visitor listed</h1>
                        <h1 className="text-xs text-stone-500 mt-1">Try add new library visitor</h1>
                     </div>
                 )}

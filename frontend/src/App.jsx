@@ -14,7 +14,7 @@ import LoadingScreen from '../loadings/loading'
 import Profile_Page from "../pages/Profile_Page";
 import Admin_Books_Page from "../pages/Admin_Books_Page";
 import Admin_ViewMaterials_Page from "../pages/Admin_ViewMaterials_Page";
-import Admin_Student_Page from "../pages/Admin_Student_Page";
+import Admin_User from "../pages/Admin_User";
 import Lib_Catalog from "../library_components/Lib_Catalog";
 import Admin_StudentRegistration_Page from "../pages/RegistrationPage";
 import Lib_Borrow from "../library_components/Lib_Borrow";
@@ -80,7 +80,7 @@ function App() {
                 <Route path="/admin/books" element={<Admin_Books_Page />} />
                 <Route path="/admin/book-information/:id" element={<Admin_ViewMaterials_Page />} />
                 <Route path="/admin/borrow-book" element={<Admin_BorrowBook_Page />} />
-                <Route path="/admin/users" element={<Admin_Student_Page />} />
+                <Route path="/admin/users" element={<Admin_User />} />
                 <Route path="/admin/edit" element={<Admin_Edit />} />
                 <Route path="/admin/inventory" element={<Admin_Inventory />} />
                 <Route path="/admin/authority" element={<Admin_Authority />} />

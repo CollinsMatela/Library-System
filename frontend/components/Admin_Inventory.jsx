@@ -124,26 +124,25 @@ const Admin_Inventory = () => {
                                             </p>
                                         </div>
                                     ) : (
-                                        <div className="w-full justify-start items-start flex flex-col">
+                                        <div className="h-100 w-full justify-start items-start flex flex-col overflow-x-auto">
                                             {books.map((book, index) => (
-                                                <div key={book._id} className="w-full grid grid-cols-10 justify-center items-center border border-stone-300 rounded-lg p-4 hover:bg-blue-50 hover:border-blue-600">
+                                                <div key={book._id} className="w-full bg-stone-50 grid grid-cols-10 justify-center items-center mb-2 border border-stone-300 rounded-lg p-2 hover:bg-blue-50 hover:border-blue-600">
                                                     
-                                                    <h1 className="text-xs text-stone-500 flex">{index + 1} {book.title}</h1>
-                                                    <h1 className="text-xs text-stone-500">{book.author}</h1>
-                                                    <h1 className="text-xs text-stone-500">{book.category}</h1>
-                                                    <h1 className="text-xs text-stone-500">{book.isbn}</h1>
-                                                    <h1 className="text-xs text-stone-500">{new Date(book.receivedDate).toLocaleDateString()}</h1>
-                                                    <h1 className="text-xs text-stone-500">{book.donatedFrom}</h1>
-                                                    <h1 className="text-xs text-stone-500">{user.firstname} {user.lastname}</h1>
-                                                    <h1 className="text-xs text-stone-500">{new Date(book.createdAt).toLocaleDateString()}</h1>
+                                                    <h1 className="text-[10px] text-stone-500 flex wrap-break-word">{index + 1} {book.title}</h1>
+                                                    <h1 className="text-[10px] text-stone-500 wrap-break-word">{book.author || "N/A"}</h1>
+                                                    <h1 className="text-[10px] text-stone-500 wrap-break-word">{book.category || "N/A"}</h1>
+                                                    <h1 className="text-[10px] text-stone-500 wrap-break-word">{book.isbn || "N/A"}</h1>
+                                                    <h1 className="text-[10px] text-stone-500 wrap-break-word">{new Date(book.receivedDate).toLocaleDateString()}</h1>
+                                                    <h1 className="text-[10px] text-stone-500 wrap-break-word">{book.donatedFrom || "N/A"}</h1>
+                                                    <h1 className="text-[10px] text-stone-500 wrap-break-word">{book.addedBy || "N/A"}</h1>
+                                                    <h1 className="text-[10px] text-stone-500 wrap-break-word">{new Date(book.createdAt).toLocaleDateString()}</h1>
                                                     <h1
-                                                    className={`text-xs ${
+                                                    className={`text-[10px] border ${
                                                         book.copies > 0
-                                                        ? "text-green-500 bg-green-200"
-                                                        : "text-red-500 bg-red-200"
-                                                    } rounded-full p-1 text-center w-fit`}
+                                                        ? "text-green-500 bg-green-100"
+                                                        : "text-red-500 bg-red-100"
+                                                    } rounded-lg p-1 text-center w-fit`}
                                                     >
-                                                    {book.copies}{" "}
                                                     {book.copies > 0 ? "Available" : "Not Available"}
                                                     </h1>
                                                     <button className="bg-red-600 p-2 rounded-lg w-fit cursor-pointer hover:bg-red-700"

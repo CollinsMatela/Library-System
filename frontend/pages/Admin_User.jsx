@@ -158,7 +158,7 @@ const Admin_User = () => {
                                 const updatedCreatedAt = new Date(user.createdAt).toISOString().split("T")[0];;
                                 
                                 return (
-                                <div key={user._id} className="bg-white gap-2 min-h-12 w-full rounded-lg border border-stone-300 grid grid-cols-2 md:grid-cols-5 justify-start items-center md:px-4 py-4 mt-2 hover:border-blue-500 hover:bg-blue-100 cursor-pointer">
+                                <div key={user._id} className="bg-gray-50 gap-2 min-h-12 w-full rounded-lg border border-stone-300 grid grid-cols-2 md:grid-cols-5 justify-start items-center md:px-4 py-2 mt-2 hover:border-blue-500 hover:bg-blue-100 cursor-pointer">
                                     <div className="w-full justify-start items-center flex gap-2 border-amber-200">
                                         <h1 className="text-xs text-stone-500 justify-start items-center wrap-break-word">{index + 1}</h1>
                                         {user.avatar ? (
@@ -168,21 +168,21 @@ const Admin_User = () => {
                                         (
                                             <div className="h-8 w-8 rounded-full bg-blue-500 justify-center items-center flex text-white">{user.firstname.slice(0,1).toUpperCase()}</div>
                                         )}
-                                        <h1 className="text-xs text-stone-500 justify-start items-center wrap-break-word">{user.firstname} {user.middlename} {user.lastname}</h1>
+                                        <h1 className="text-[10px] text-stone-500 justify-start items-center wrap-break-word">{user.firstname} {user.middlename} {user.lastname}</h1>
                                     </div>
                                     
                                     
-                                    <h1 className="hidden md:block text-xs text-stone-500 justify-start items-center wrap-break-word">{user.email}</h1>
-                                    <h1 className="hidden md:block text-xs text-stone-500 justify-start items-center wrap-break-word">{user.contact}</h1>
+                                    <h1 className="hidden md:block text-[10px] text-stone-500 justify-start items-center wrap-break-word">{user.email}</h1>
+                                    <h1 className="hidden md:block text-[10px] text-stone-500 justify-start items-center wrap-break-word">{user.contact}</h1>
                                     <span
-                                    className={`hidden md:inline-flex items-center justify-center px-2 py-1 rounded-full text-xs w-fit capitalize
+                                    className={`hidden text-[10px] md:inline-flex items-center justify-center px-2 py-1 rounded-lg border text-xs w-fit capitalize
                                         ${
                                         user.role?.toLowerCase() === "student"
-                                            ? "bg-blue-200 text-blue-700"
+                                            ? "bg-blue-100 text-blue-700"
                                             : user.role?.toLowerCase() === "teacher"
-                                            ? "bg-green-200 text-green-700"
+                                            ? "bg-green-100 text-green-700"
                                             : user.role?.toLowerCase() === "guest"
-                                            ? "bg-stone-200 text-stone-600"
+                                            ? "bg-stone-100 text-stone-600"
                                             : "bg-stone-100 text-stone-500"
                                         }
                                     `}

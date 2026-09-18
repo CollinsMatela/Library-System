@@ -182,17 +182,17 @@ const Admin_LogBook = () => {
                 orderedLogBookList.map((log, index) => (
                     <div
                     key={log._id}
-                    className={`w-full bg-white justify-between items-start flex flex-col lg:flex-row px-2 mb-1 border-0 lg:border-b border-stone-300 border-l-2 ${log.leaveTime ? "border-l-blue-500" : "border-l-yellow-500"}`}
+                    className={`w-full bg-stone-50 justify-between items-start flex flex-col lg:flex-row px-2 mb-2 rounded-lg border border-stone-300 border-l-3 ${log.leaveTime ? "border-l-blue-500" : "border-l-yellow-500"}`}
                     >
                         <div className="grid grid-cols-1 lg:grid-cols-9 gap-2 w-full lg:p-2">
-                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">No.</span>{index + 1}</h1>
-                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">Name:</span>{log.name}</h1>
-                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">Address:</span>{log.address}</h1>
-                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">Contact:</span>{log.contact}</h1>
-                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">Purpose:</span>{log.purpose}</h1>
-                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">Date:</span>{new Date(log.createdAt).toISOString().split("T")[0]}</h1>
-                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">Time In:</span>{new Date(log.createdAt).toLocaleTimeString()}</h1>
-                            <h1 className="text-xs text-stone-500 justify-between items-center flex"><span className="lg:hidden">Time Out:</span>{log.leaveTime
+                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">No.</span>{index + 1}</h1>
+                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">Name:</span>{log.name}</h1>
+                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">Address:</span>{log.address}</h1>
+                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">Contact:</span>{log.contact}</h1>
+                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">Purpose:</span>{log.purpose}</h1>
+                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">Date:</span>{new Date(log.createdAt).toISOString().split("T")[0]}</h1>
+                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">Time In:</span>{new Date(log.createdAt).toLocaleTimeString()}</h1>
+                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">Time Out:</span>{log.leaveTime
                                                                                                     ? new Date(log.leaveTime).toLocaleTimeString()
                                                                                                     : ""}</h1>
                             <div className="w-full lg:w-fit justify-end items-center flex border-y lg:border-0 border-stone-300 py-2 lg:p-0">

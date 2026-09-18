@@ -185,6 +185,8 @@ const Admin_Books_Page = () => {
                         </span>
                       </div>
                     </div>
+
+                  <div className="w-full h-100 overflow-y-auto">
                   {filtered.length === 0 && (
                     <div className="flex w-full flex-col items-center justify-center rounded-lg border border-stone-300 bg-stone-50 px-4 py-10 text-center">
 
@@ -207,23 +209,23 @@ const Admin_Books_Page = () => {
                       <div key={book._id} className="bg-stone-50 p-2 hover:bg-stone-100 h-fit w-full rounded-lg border border-stone-300 justify-between items-center flex flex-col transition cursor-pointer mb-1 gap-2"
                       onClick={() => handleViewStories(book._id)}
                       >
-                            <div className="w-full flex gap-2 justify-center items-center mb-2">
-                              <div className="hidden md:block bg-stone-200 shadow-sm p-2 rounded-full">
+                            <div className="w-full flex gap-2 justify-center items-center">
+                              <div className="hidden md:block bg-stone-200 p-2 rounded-full">
                                 <Book size={15} className="text-stone-500"/>
                               </div>
                               
 
-                              <div className="w-full">
-                                <div className="flex flex-col md:flex-row justify-between items-start w-full">
+                              <div className="w-full justify-center items-center flex">
+                                <div className="flex flex-col md:flex-row justify-between items-center w-full">
 
-                                  <div className="justify-center items-center flex gap-1">
-                                  <h1 className="text-stone-800 font-semibold text-xs">{book?.title}</h1>
-                                  <h1 className="text-stone-400 text-xs">By {book?.author}</h1>
+                                  <div className="justify-center items-start flex flex-col">
+                                  <h1 className="text-stone-800 font-semibold text-[10px]">{book?.title} <span className="text-stone-500 font-normal">{book?.field}</span></h1>
+                                  <h1 className="text-stone-500 text-[10px]">By {book?.author}</h1>
                                   </div>
 
                                   <div className="justify-center items-center flex gap-1">
-                                  <h1 className="text-stone-500 text-xs font-normal p-1 bg-stone-200 rounded-lg border"> {book?.category}</h1>
-                                  <h1 className={`${book?.copies> 0 ? "text-green-500 bg-green-100" : "text-red-500 bg-red-100"} border text-xs p-1 rounded-lg`}>{book?.copies> 0 ? "Available" : "Not Available"}</h1>
+                                  <h1 className="text-stone-400 text-[10px] font-normal p-1 bg-stone-100 rounded-lg border border-stone-300"> {book?.category}</h1>
+                                  <h1 className={`${book?.copies> 0 ? "text-green-500 bg-green-100" : "text-red-500 bg-red-100"} border text-[10px] p-1 rounded-lg`}>{book?.copies> 0 ? "Available" : "Not Available"}</h1>
                                   </div>
                                   
                                 </div>
@@ -231,18 +233,15 @@ const Admin_Books_Page = () => {
                               </div>
                               
                             </div>
-
-                            <div className="w-full">
-                              <h1 className="text-xs text-stone-500">Description:</h1>
-                              <h1 className="text-stone-500 text-xs overflow-auto">{book?.description.length > 100 ? `${book?.description.slice(0, 200)}...` : book?.description}</h1>
-                            </div>
                             
                     </div>
                     ))
                   )}
+                     </div>
                   </div>
               </div>
               )}
+              
 
               </div>
               

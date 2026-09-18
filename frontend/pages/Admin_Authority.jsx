@@ -144,7 +144,7 @@ const Admin_Authority = () => {
                             members.map((member, index) => (
                                 <div
                                 key={member._id}
-                                className="w-full justify-between items-center flex border border-stone-300 p-4 rounded-lg gap-2">
+                                className="w-full bg-stone-50 justify-between items-center flex border border-stone-300 p-2 rounded-lg gap-2">
 
                                 <div className="w-full justify-center items-center flex gap-2">
                                 <h1 className="text-xs text-stone-500">{index + 1}</h1>
@@ -164,13 +164,13 @@ const Admin_Authority = () => {
                                 </div>
 
                                 <div className="w-full justify-start items-start flex flex-col">
-                                    <h1 className="text-xs text-stone-700 font-medium">{member.firstname} {member.extensionname} {member.middlename} {member.lastname}</h1>
-                                    <h1 className="text-xs text-stone-500">{member.role.toUpperCase()}</h1>
+                                    <h1 className="text-[10px] text-stone-700 font-medium">{member.firstname} {member.extensionname} {member.middlename} {member.lastname}</h1>
+                                    <h1 className="text-[10px] text-stone-500">{member.role.toUpperCase()}</h1>
                                 </div>
                                 </div>
 
                                 <div className="w-full justify-end items-center flex gap-2">
-                                    <select className="border border-stone-300 p-2 text-xs text-stone-500 rounded-lg outline-none"
+                                    <select className="border border-stone-300 p-2 text-[10px] text-stone-500 rounded-lg outline-none"
                                     onChange={(e) => handleUpdateRole(member, e.target.value)}>
                                         <option value="">Select Role</option>
                                         <option value="head librarian">Head Librarian</option>
@@ -180,7 +180,7 @@ const Admin_Authority = () => {
                                     <button className="bg-red-500 p-2 rounded-lg hover:bg-red-600 cursor-pointer justify-center items-center flex gap-1"
                                     onClick={() => handleDeleteLibrarian(member)}>
                                         <Trash size={15} className="text-white"/>
-                                        <h1 className="text-xs text-white">Delete</h1>
+                                        <h1 className="text-[10px] text-white">Delete</h1>
                                     </button>
                                 </div>
                                 

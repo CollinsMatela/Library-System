@@ -40,6 +40,7 @@ const bookSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
+    
     status: {
       type: String,
       enum: ["Available", "Borrowed", "Reserved", "Lost", "Damaged"],

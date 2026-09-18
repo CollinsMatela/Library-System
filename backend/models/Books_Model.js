@@ -119,6 +119,10 @@ const BookSchema = new mongoose.Schema({
     volume: {
         type: String,
         default: ""
+    },
+    addedBy: {
+      type: String,
+      default: "",
     }
 }, {
     timestamps: true

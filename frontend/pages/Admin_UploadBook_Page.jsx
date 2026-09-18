@@ -10,9 +10,10 @@ import PreviewBook from "./UploadPage_Components/PreviewBook"
 import {  X, Plus, Image, Save, AudioLines, FilePlay, Pencil, ImageOff, Info, ArrowUp, Pen, BookPlus } from "lucide-react";
 import { toast } from "react-toastify";
 import Admin_Header from "../components/Admin_Header";
+import useAuthStore from "../store/useAuthStore";
 
 const Admin_UploadBook_Page = () => {
-
+        const user = useAuthStore((state) => state.user);
         const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
         const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
@@ -163,6 +164,9 @@ const Admin_UploadBook_Page = () => {
             // Category
             category: selectedCategoryOfBook,
 
+            // Librarian Added
+            addedBy: user?.firstname && user?.lastname ? `${user?.firstname} ${user?.lastname}` : "System Administrator",
+
             // Basic Book Information
             title,
             author,
@@ -196,7 +200,7 @@ const Admin_UploadBook_Page = () => {
             gradeLevel,
         };
 
-
+        console.log(bookData)
         const res = await axios.post(
             `${import.meta.env.VITE_API_URL}/upload-manually`,
             bookData

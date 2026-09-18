@@ -86,7 +86,7 @@ export const Admin_FirstPassword = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-        if(["head librarian", "it librarian", "assistant librarian"].includes(role.toLowerCase())){
+        if(["system administrator", "head librarian", "it librarian", "assistant librarian"].includes(role.toLowerCase())){
            const updateUser = await Librarian_Model
            .findOneAndUpdate(
             {_id: id},

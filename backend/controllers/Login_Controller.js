@@ -13,26 +13,6 @@ const Login_Controller = async (req, res) => {
     let user = null;
     let role = null;
 
-    if(admin){
-      console.log('Correct')
-      user = "admin";
-      role = "admin";
-
-      const token = jwt.sign(
-        { user: user,
-          role: role
-        },
-        process.env.JWT_SECRET,
-        {expiresIn: "1h"}
-      )
-      return res.status(200).json({isSuccess: true,
-                                   message: "Admin Logged In",
-                                   token,
-                                   user,
-                                   role
-                                  })
-    }
-
     const student = await User_Registration_Model.findOne({username: username,});
 
     // 2. If no user found at all

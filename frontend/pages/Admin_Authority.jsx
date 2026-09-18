@@ -173,6 +173,7 @@ const Admin_Authority = () => {
                                     <select className="border border-stone-300 p-2 text-[10px] text-stone-500 rounded-lg outline-none"
                                     onChange={(e) => handleUpdateRole(member, e.target.value)}>
                                         <option value="">Select Role</option>
+                                        <option value="system administrator">System Administrator</option>
                                         <option value="head librarian">Head Librarian</option>
                                         <option value="it librarian">IT Librarian</option>
                                         <option value="assistant librarian">Assistant Librarian</option>

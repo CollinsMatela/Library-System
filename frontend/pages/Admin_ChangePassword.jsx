@@ -43,7 +43,7 @@ const Admin_ChangePassword = () => {
           try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/admin-first-password`, passwordDetails);
             if(res.data.isSuccess){
-                if(["head librarian", "it librarian", "assistant librarian"].includes(user.role)){
+                if(["system administrator", "head librarian", "it librarian", "assistant librarian"].includes(user.role)){
                     navigate("/admin")
                 }
             }

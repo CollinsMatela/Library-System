@@ -48,12 +48,12 @@ const Admin_Header = ({mainText, subText}) => {
 
                 <div className="relative cursor-pointer" onClick={() => setIsProfile(prev => !prev)}>
                   <div className="justify-center items-center flex gap-1">
-                    <div className={`h-8 w-8 rounded-full justify-center items-center flex border-2 border-stone-300 cursor-pointer ${!user ? "bg-blue-600" : "bg-emerald-500"}`}>
-                    <h1 className="text-xs font-bold text-white">{user?.firstname?.slice(0,1).toUpperCase() || "AD"}</h1>
+                    <div className={`h-8 w-8 rounded-full justify-center items-center flex border-2 border-blue-300 cursor-pointer bg-blue-500`}>
+                    <h1 className="text-xs font-bold text-white">{user?.firstname?.slice(0,1).toUpperCase()}</h1>
                     </div>
                     <div className="hidden sm:block">
                       <h1 className="text-xs text-stone-700 font-semibold">{user.firstname} {user.lastname}</h1>
-                      <h1 className="text-xs text-stone-500">{user?.role?.toUpperCase() || "Admin"}</h1>
+                      <h1 className="text-xs text-stone-500">{user?.role?.toUpperCase()}</h1>
                     </div>
                   </div>
                   {isProfile && (

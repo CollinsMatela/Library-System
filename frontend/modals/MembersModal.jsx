@@ -125,7 +125,7 @@ const FormRequest = async () => {
         <div className="fixed inset-0 bg-black/50 justify-center items-center flex">
             <div className="bg-white w-2xl p-2 rounded-lg">
                 <header className="w-full bg-stone-200 p-2 rounded-t-lg mb-2">
-                    <h1 className="text-xs text-stone-500 font-semibold">Register Librarian</h1>
+                    <h1 className="text-xs text-stone-500 font-semibold">Register Authorization</h1>
                     <h1 className="text-xs text-stone-500">Fill the required fields to register.</h1>
                 </header>
                 

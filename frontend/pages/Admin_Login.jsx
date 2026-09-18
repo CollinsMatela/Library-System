@@ -52,7 +52,7 @@ const Admin_Login = () => {
 
         try {
           const res = await axios.post(`${import.meta.env.VITE_API_URL}/admin-login`, account);
-          console.log(res.data.message);
+        
           if(res.data.isSuccess){
             console.log(res.data.message);
 

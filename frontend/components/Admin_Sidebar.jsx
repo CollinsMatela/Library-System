@@ -9,6 +9,7 @@ const Admin_SideBar = () => {
     const [showConfirmation, setShowConfirmation] = useState(false)
     const navigate = useNavigate();
     const location = useLocation();
+    const user = useAuthStore((state) => state.user);
     const logout = useAuthStore((state) => state.logout);
 
     const isOverview = location.pathname === "/admin";

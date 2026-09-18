@@ -73,7 +73,7 @@ function App() {
                 <Route path="/change-password" element={<Change_Password_Page/>}/>
          </Route>
 
-         <Route element={<ProtectedRoute allowedRoles={["admin", "head librarian", "it librarian", "assistant librarian"]} />}>
+         <Route element={<ProtectedRoute allowedRoles={["system administrator", "head librarian", "it librarian", "assistant librarian"]} />}>
                 <Route path="/admin" element={<Admin_Page />} />
                 <Route path="/admin/log-book" element={<Admin_LogBook />} />
                 <Route path="/admin/upload-book" element={<Admin_UploadBook_Page />} />

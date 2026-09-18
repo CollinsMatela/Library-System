@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 
 const Admin_LoginController = async (req, res) => {
     const {email, password} = req.body
+
       try {
         
         if(!email || !password){
@@ -16,9 +17,6 @@ const Admin_LoginController = async (req, res) => {
             res.status(404).json({message: 'Librarian cannot found'})
             return
         }
-
-        console.log('Librarian Password', librarian.password);
-        console.log('Current Password', password);
 
         const isMatch = await bcrypt.compare(password, librarian.password);
         if (!isMatch) {
@@ -42,7 +40,7 @@ const Admin_LoginController = async (req, res) => {
             role: librarian.role,
             token: token
         })
-
+    
       } catch (error) {
         console.log("LOGIN ERROR:", error);
         res.status(500).json({message: 'Internal Server Error'})

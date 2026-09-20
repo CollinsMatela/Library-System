@@ -120,7 +120,7 @@ const BookSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
-    addedBy: {
+    addedById: {
       type: String,
       default: "",
     }

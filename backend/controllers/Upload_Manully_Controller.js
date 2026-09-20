@@ -23,7 +23,7 @@ const Upload_Manually_Controller = async (req, res) => {
         series,
         donatedFrom,
         receivedDate,
-        addedBy
+        addedById
     } = req.body;
 
     try {
@@ -51,7 +51,7 @@ const Upload_Manually_Controller = async (req, res) => {
             series,
             donatedFrom,
             receivedDate,
-            addedBy
+            addedById
         });
 
         console.log("========================================");
@@ -90,7 +90,7 @@ const Upload_Manually_Controller = async (req, res) => {
             edition,
             volume,
 
-            addedBy
+            addedById
         });
 
         console.log("Book successfully created:", book);

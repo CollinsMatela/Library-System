@@ -165,7 +165,7 @@ const Admin_UploadBook_Page = () => {
             category: selectedCategoryOfBook,
 
             // Librarian Added
-            addedBy: user?.firstname && user?.lastname ? `${user?.firstname} ${user?.lastname}` : "System Administrator",
+            addedById: user?._id,
 
             // Basic Book Information
             title,

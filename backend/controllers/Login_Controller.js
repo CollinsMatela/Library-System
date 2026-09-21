@@ -4,34 +4,32 @@ import bcrypt from "bcrypt";
 
 const Login_Controller = async (req, res) => {
   console.log("🔥 LOGIN CONTROLLER REACHED");
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   
-
-  const admin = username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD
 
   try {
     let user = null;
     let role = null;
 
-    const student = await User_Registration_Model.findOne({username: username,});
+    const userAccount = await User_Registration_Model.findOne({email: email,});
 
     // 2. If no user found at all
-    if (!student) {
+    if (!userAccount) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    if(student){
-      console.log("Student found:", student)
+    if(userAccount){
+      console.log("userAccount found:", userAccount)
     }
 
-    // 3. Student login
-    if (student) {
-      const isMatch = await bcrypt.compare(password, student.password);
+    // 3. userAccount login
+    if (userAccount) {
+      const isMatch = await bcrypt.compare(password, userAccount.password);
       if (!isMatch) {
         return res.status(401).json({ message: "Login failed. Please try again." });
       }
-      user = student;
-      role = student.role;
+      user = userAccount;
+      role = userAccount.role;
     }
 
     // 5. Safety check (prevents crashes)

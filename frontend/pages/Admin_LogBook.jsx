@@ -134,7 +134,7 @@ const Admin_LogBook = () => {
                                     <Users size={20}/>
                                 </div>
                                 <div>
-                                    <h1 className="text-md font-bold text-stone-800 rounded-full">Library Visitor</h1>
+                                    <h1 className="text-md font-bold text-stone-800 rounded-full">Record Visit</h1>
                                     <p className="text-stone-400 text-xs">List of people entered library.</p>
                                 </div>
                             </div>
@@ -143,6 +143,7 @@ const Admin_LogBook = () => {
                                 <button className="bg-stone-800 p-2 rounded-lg text-white text-xs cursor-pointer hover:-translate-y-1 justify-center items-center flex gap-2"
                                 onClick={() => setShowLogBook(true)}
                                 ><Plus size={15}/> 
+                                <h1>Add Visitor</h1>
                                 </button> 
                             </div>
                 </div>
@@ -198,8 +199,9 @@ const Admin_LogBook = () => {
                             <div className="w-full lg:w-fit justify-end items-center flex border-y lg:border-0 border-stone-300 py-2 lg:p-0">
                             <button 
                             disabled={log.leaveTime}
-                            className={`${!log.leaveTime ? "bg-stone-800 hover:bg-stone-900 cursor-pointer" : "bg-stone-200 cursor-not-allowed"} text-white w-fit justify-center items-center flex p-2 rounded-lg`} 
+                            className={`${!log.leaveTime ? "bg-stone-800 hover:bg-stone-900 cursor-pointer text-white" : "bg-stone-200 cursor-not-allowed text-stone-500"} w-fit justify-center items-center flex p-2 rounded-lg gap-1`} 
                             onClick={() => LeaveConfirmation(log)}><Check size={15}/>
+                            <h1 className="text-[10px]">{!log.leaveTime ? "Active" : "Check out"}</h1>
                             </button>   
                             </div>
                         </div>

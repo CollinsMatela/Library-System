@@ -17,10 +17,10 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [isUsername, setIsUsername] = useState(false);
+  const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isErrorContainer, setIsErrorContainer] = useState(false);
   const [Message, setIsMessage ] = useState("");
@@ -28,9 +28,9 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const confirmation = () => {
-       if(username === "") {
-          toast.warning('Enter login username');
-          setIsUsername(true);
+       if(email === "") {
+          toast.warning('Enter login email');
+          setIsEmail(true);
           return
        }
        if(password === "") {
@@ -46,7 +46,7 @@ const LoginPage = () => {
         setIsLoading(true);
 
         const account = {
-          username: username,
+          email: email,
           password: password
         }
 
@@ -115,9 +115,9 @@ const LoginPage = () => {
 
         <div className={`w-80 justify-center items-start flex flex-col mb-2 gap-1`}>
           <h1 className="text-sm text-stone-500 font-semibold">Email</h1>
-          <input type="text" className={`${isUsername ? "border-red-500" : "border-stone-300"} bg-white border p-3 text-xs w-full rounded-xl outline-none`}
-          value={username} onChange={(e) => {setUsername(e.target.value)
-                                             if(username){setIsUsername(false)}
+          <input type="text" className={`${isEmail ? "border-red-500" : "border-stone-300"} bg-white border p-3 text-xs w-full rounded-xl outline-none`}
+          value={email} onChange={(e) => {setEmail(e.target.value)
+                                             if(email){setIsEmail(false)}
           }}/>
         </div>
 

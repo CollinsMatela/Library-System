@@ -29,7 +29,6 @@ const UserRegistrationSchema = new mongoose.Schema({
       parentRelationship: { type: String, default: "" },
 
       role: {type: String, default: ""},
-      username: {type: String, required:true},
       password: {type: String, required:true},
 
       isChangePassword: { type: Boolean, default: false },

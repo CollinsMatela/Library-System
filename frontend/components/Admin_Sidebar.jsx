@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore"
 import { useState } from "react";
-import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User, ArrowUp, Home, BookUser, ScrollText, Package, SquarePen, ShieldCog } from 'lucide-react'
+import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User, ArrowUp, Home, BookUser, ScrollText, Package, SquarePen, ShieldCog, Lock, Pen, Square } from 'lucide-react'
 import NaicLogo from '../src/assets/NaicLibraryLogo.png'
 import Confirmation_Popup from "../popup/Confirmation_Popup";
 
@@ -21,6 +21,11 @@ const Admin_SideBar = () => {
     const isBorrowBook = location.pathname === "/admin/borrow-book"
     const isInventory = location.pathname === "/admin/inventory";
     const isEdit = location.pathname === "/admin/edit"
+
+    const lowAccess = !["assistant librarian", "it librarian", "head librarian", "system administrator"].includes(user?.role) // Librarian Assistant
+    const midAccess = !["it librarian", "head librarian", "system administrator"].includes(user?.role) // IT Librarian
+    const highAccess = !["head librarian", "system administrator"].includes(user?.role) // Head Librarian
+    const fullAccess = !["system administrator"].includes(user?.role); // System Administrator
 
     const handleOverview = () => {
           navigate('/admin');
@@ -74,62 +79,102 @@ const Admin_SideBar = () => {
           
           <div>
             <h1 className="hidden lg:block text-sm font-bold text-stone-800">Naic Municipal Library</h1>
-            <p className="hidden lg:block text-xs text-stone-400">Library Management Portal</p>
+            <p className="hidden lg:block text-[10px] text-stone-400">Library Management Portal</p>
           </div>
       </div>
 
-      <div className="hidden lg:flex justify-center md:justify-start items-center text-stone-500 text-xs py-2 px-4 mt-6">
+      <div className="hidden lg:flex justify-center md:justify-start items-center text-stone-800 text-[10px] py-2 px-4 mt-6">
         <h1 className="hidden lg:block">Menu</h1>
       </div>
       
       <div className="w-full grid grid-cols-10 md:grid-cols-1">
 
-      <div className={`${isOverview ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleOverview}>
-        <Home className={`${isOverview ? 'text-white' : 'text-stone-500'}`} size={15}/>
+      <div className={`${isOverview ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleOverview}>
+        <Home className={`${isOverview ? 'text-white' : 'text-stone-800'}`} size={15}/>
        <h1 className="hidden lg:block">Overview</h1>
         
       </div>
 
-      <div className={`${isLogBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleLogBook}>
-        <BookUser className={`${isLogBook ? 'text-white' : 'text-stone-500'}`} size={15}/>
+      <button disabled={lowAccess}
+      className={`${lowAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isLogBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleLogBook}>
+        {lowAccess ?
+        <Lock className={`${isLogBook ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        :
+        <BookUser className={`${isLogBook ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        }
         <h1 className="hidden lg:block">Logbook</h1>
         
-      </div>
+      </button>
 
-      <div className={`${isUploadStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUploadStory}>
-        <ArrowUp className={`${isUploadStory ? 'text-white' : 'text-stone-500'}`} size={15}/>
-        <h1 className="hidden lg:block">Upload</h1>
-      </div>
-
-      <div className={`${isEdit ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleEdit}>
-        <SquarePen className={`${isEdit ? 'text-white' : 'text-stone-500'}`} size={15}/>
-        <h1 className="hidden lg:block">Edit</h1>
-      </div>
-
-      <div className={`${isViewStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleViewStory}>
-        <LibraryBig className={`${isViewStory ? 'text-white' : 'text-stone-500'}`} size={15}/>
+      <button disabled={lowAccess}
+      className={`${lowAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isViewStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleViewStory}>
+        {lowAccess ?
+        <Lock className={`${isViewStory ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        :
+        <LibraryBig className={`${isViewStory ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        }
         <h1 className="hidden lg:block">Catalog</h1>
-      </div>
+      </button>
 
-      <div className={`${isBorrowBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleBorrowBook}>
-        <HandHelping className={`${isBorrowBook ? 'text-white' : 'text-stone-500'}`} size={15}/>
-        <h1 className="hidden lg:block">Request</h1>
-      </div>
+      <button disabled={midAccess}
+       className={`${midAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isUploadStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleUploadStory}>
+        {midAccess ?
+        <Lock className={`${isUploadStory ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        :
+        <LibraryBig className={`${isUploadStory ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        }
+        <h1 className="hidden lg:block">Upload</h1>
+      </button>
 
-      <div className={`${isAuthority ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleAuthority}>
-        <ShieldCog className={`${isAuthority ? 'text-white' : 'text-stone-500'}`} size={15}/>
-        <h1 className="hidden lg:block">Authority</h1>
-      </div>
+      <button disabled={midAccess}
+      className={`${midAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isEdit ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleEdit}>
+        {midAccess ?
+        <Lock className={`${isEdit ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        :
+        <SquarePen className={`${isEdit ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        }
+        <h1 className="hidden lg:block">Edit</h1>
+      </button>
 
-      <div className={`${isUsersAccount ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleUsers}>
-        <Users className={`${isUsersAccount ? 'text-white' : 'text-stone-500'}`} size={15}/>
-        <h1 className="hidden lg:block">Accounts</h1>
-      </div>
-
-      <div className={`${isInventory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-500"} h-10 text-xs justify-center lg:justify-start items-center flex font-normal gap-2 cursor-pointer hover:border-none mt-2 p-4`} onClick={handleInventory}>
-        <Package className={`${isInventory ? 'text-white' : 'text-stone-500'}`} size={15}/>
+      <button disabled={midAccess}
+      className={`${midAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isInventory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleInventory}>
+        {midAccess ?
+        <Lock className={`${isInventory ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        :
+        <Package className={`${isInventory ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        }
         <h1 className="hidden lg:block">Inventory</h1>
-      </div>
+      </button>
+
+      <button disabled={highAccess}
+      className={`${highAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isBorrowBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleBorrowBook}>
+        {highAccess ?
+        <Lock className={`${isBorrowBook ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        :
+        <HandHelping className={`${isBorrowBook ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        }
+        <h1 className="hidden lg:block">Request</h1>
+      </button>
+
+      <button disabled={fullAccess}
+      className={`${fullAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isAuthority ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleAuthority}>
+        {fullAccess ?
+        <Lock className={`${isAuthority ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        :
+        <ShieldCog className={`${isAuthority ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        }
+        <h1 className="hidden lg:block">Authority</h1>
+      </button>
+
+      <button disabled={fullAccess}
+      className={`${fullAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isUsersAccount ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2 hover:border-none mt-1 p-4`} onClick={handleUsers}>
+        {fullAccess ?
+        <Lock className={`${isUsersAccount ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        :
+        <Users className={`${isUsersAccount ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        }
+        <h1 className="hidden lg:block">Accounts</h1>
+      </button>
 
       </div>
 

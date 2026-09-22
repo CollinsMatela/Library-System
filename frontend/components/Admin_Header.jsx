@@ -52,14 +52,23 @@ const Admin_Header = ({mainText, subText}) => {
                     <h1 className="text-xs font-bold text-white">{user?.firstname?.slice(0,1).toUpperCase()}</h1>
                     </div>
                     <div className="hidden sm:block">
-                      <h1 className="text-xs text-stone-700 font-semibold">{user.firstname} {user.lastname}</h1>
-                      <h1 className="text-xs text-stone-500">{user?.role?.toUpperCase()}</h1>
+                      <h1 className="text-xs text-stone-800 font-medium">{user.firstname.toUpperCase()}</h1>
                     </div>
                   </div>
                   {isProfile && (
-                    <div className="absolute w-50 right-0 bg-white flex flex-col justify-start items-start border border-stone-300 rounded-lg gap-1 p-2">
-                       <button className="w-full text-xs text-stone-500 p-1 text-start hover:bg-red-100 hover:text-red-500 hover:border-red-500 transition border-b border-stone-300 cursor-pointer"
-                       onClick={() => setIsLogoutConfirmation(true)}>Logout</button>
+                    <div className="absolute w-50 right-0 bg-white flex flex-col justify-start items-start border border-stone-300 rounded-lg gap-1">
+                       <div className="justify-center items-center flex gap-1 p-4 border-b border-stone-300">
+                        <div className={`h-8 w-8 rounded-full justify-center items-center flex border-2 border-blue-300 cursor-pointer bg-blue-500`}>
+                        <h1 className="text-xs font-bold text-white">{user?.firstname?.slice(0,1).toUpperCase()}</h1>
+                        </div>
+                        <div className="hidden sm:block">
+                          <h1 className="text-xs text-stone-700 font-semibold">Hello, {user.firstname} {user.lastname}</h1>
+                          <h1 className="text-[10px] text-stone-500">{user.role.toUpperCase()}</h1>
+                        </div>
+                      </div>
+                       <button className="w-full text-xs text-stone-500 p-1 text-start hover:bg-red-100 hover:text-red-500 hover:border-red-500 transition cursor-pointer px-4 mb-1"
+                       onClick={() => setIsLogoutConfirmation(true)}>Logout
+                       </button>
                     </div>
                   )}
 

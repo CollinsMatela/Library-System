@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore"
 import { useState } from "react";
-import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User, ArrowUp, Home, BookUser, ScrollText, Package, SquarePen, ShieldCog, Lock, Pen, Square } from 'lucide-react'
+import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User, ArrowUp, Home, BookUser, ScrollText, Package, SquarePen, ShieldCog, Lock, Pen, Square, Plus } from 'lucide-react'
 import NaicLogo from '../src/assets/NaicLibraryLogo.png'
 import Confirmation_Popup from "../popup/Confirmation_Popup";
 
@@ -121,7 +121,7 @@ const Admin_SideBar = () => {
         {midAccess ?
         <Lock className={`${isUploadStory ? 'text-white' : 'text-stone-800'}`} size={15}/>
         :
-        <LibraryBig className={`${isUploadStory ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        <Plus className={`${isUploadStory ? 'text-white' : 'text-stone-800'}`} size={15}/>
         }
         <h1 className="hidden lg:block">Upload</h1>
       </button>

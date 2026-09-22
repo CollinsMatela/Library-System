@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 const LogBookModal = ({ logBook, setLogBook, confirmation, onClose }) => {
 
     return (
-        <section className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+        <section className="fixed inset-0 z-50 bg-black/50 backdrop-blur-[2px] flex items-center justify-center p-4">
 
             <div className="bg-white border border-stone-300 rounded-2xl w-full max-w-lg overflow-hidden shadow-xl">
 

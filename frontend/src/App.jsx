@@ -76,16 +76,27 @@ function App() {
          <Route element={<ProtectedRoute allowedRoles={["system administrator", "head librarian", "it librarian", "assistant librarian"]} />}>
                 <Route path="/admin" element={<Admin_Page />} />
                 <Route path="/admin/log-book" element={<Admin_LogBook />} />
-                <Route path="/admin/upload-book" element={<Admin_UploadBook_Page />} />
                 <Route path="/admin/books" element={<Admin_Books_Page />} />
                 <Route path="/admin/book-information/:id" element={<Admin_ViewMaterials_Page />} />
-                <Route path="/admin/borrow-book" element={<Admin_BorrowBook_Page />} />
-                <Route path="/admin/users" element={<Admin_User />} />
+                <Route path="/admin-change-password" element={<Admin_ChangePassword/>}/>
+          </Route>
+
+          <Route element={<ProtectedRoute allowedRoles={["system administrator", "head librarian", "it librarian"]} />}>
+                <Route path="/admin/upload-book" element={<Admin_UploadBook_Page />} />
                 <Route path="/admin/edit" element={<Admin_Edit />} />
                 <Route path="/admin/inventory" element={<Admin_Inventory />} />
-                <Route path="/admin/authority" element={<Admin_Authority />} />
-                <Route path="/admin-change-password" element={<Admin_ChangePassword/>}/>
-        </Route>
+          </Route>
+
+          <Route element={<ProtectedRoute allowedRoles={["system administrator", "head librarian"]} />}>
+                <Route path="/admin/borrow-book" element={<Admin_BorrowBook_Page />} />
+          </Route>
+
+          <Route element={<ProtectedRoute allowedRoles={["system administrator"]} />}>
+                <Route path="/admin/users" element={<Admin_User />} />
+                <Route path="/admin/authority" element={<Admin_Authority />} />            
+          </Route>
+          
+
          <Route path="/loading" element={<LoadingScreen/>}/>
          <Route path="*" element={<Not_Found_Page/>}/>
 

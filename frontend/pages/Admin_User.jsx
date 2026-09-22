@@ -158,7 +158,7 @@ const Admin_User = () => {
                                 const updatedCreatedAt = new Date(user.createdAt).toISOString().split("T")[0];;
                                 
                                 return (
-                                <div key={user._id} className="bg-gray-50 gap-2 min-h-12 w-full rounded-lg border border-stone-300 grid grid-cols-2 md:grid-cols-5 justify-start items-center md:px-4 py-2 mt-2 hover:border-blue-500 hover:bg-blue-100 cursor-pointer">
+                                <div key={user._id} className="bg-stone-50 gap-2 min-h-12 w-full rounded-lg border border-stone-300 grid grid-cols-2 md:grid-cols-5 justify-start items-center md:px-4 py-2 mt-2 hover:border-blue-500 hover:bg-blue-100 cursor-pointer">
                                     <div className="w-full justify-start items-center flex gap-2 border-amber-200">
                                         <h1 className="text-xs text-stone-500 justify-start items-center wrap-break-word">{index + 1}</h1>
                                         {user.avatar ? (
@@ -192,7 +192,7 @@ const Admin_User = () => {
                                     
                                     <div className=" wrap-break-words gap-1 justify-end flex">
                                         <button className="bg-transparent text-stone-400 hover:text-blue-500 justify-center items-center flex p-2 cursor-pointer rounded-lg border border-stone-300 hover:border-blue-500" onClick={() => handleViewStudent(user)}><View size={15}/></button>
-                                        <button className="bg-transparent text-stone-400 hover:text-blue-500 justify-center items-center flex p-2 cursor-pointer rounded-lg border border-stone-300 hover:border-blue-500" onClick={() => handleEditStudent(user)}><UserPen size={15}/></button>
+                                        {/* <button className="bg-transparent text-stone-400 hover:text-blue-500 justify-center items-center flex p-2 cursor-pointer rounded-lg border border-stone-300 hover:border-blue-500" onClick={() => handleEditStudent(user)}><UserPen size={15}/></button> */}
                                         <button className="bg-red-600 text-white justify-center items-center flex p-2 cursor-pointer rounded-lg hover:bg-stone-900" onClick={() => deleteConfirmation(user)}><Trash size={15}/></button>
                                     </div>
 

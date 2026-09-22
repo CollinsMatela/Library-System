@@ -334,7 +334,7 @@ const Admin_UploadBook_Page = () => {
                     />
 
                     <div className="justify-end items-center flex">
-                        <button className="bg-green-200 text-xs text-green-500 justify-center items-center flex gap-2 p-2 rounded-lg border border-green-500 hover:bg-green-300 transition"
+                        <button className="bg-green-600 text-xs text-white justify-center items-center flex gap-2 p-2 rounded-lg hover:bg-green-700 transition"
                         onClick={handleConfirmation}>
                             <Plus size={15}/>
                             <h1>Upload Book</h1>

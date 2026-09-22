@@ -3,7 +3,7 @@ import { Check, X, TriangleAlert } from "lucide-react";
 
 const Confirmation_Popup = ({ errorMessage, message, onConfirm, onCancel }) => {
     return (
-        <section className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <section className="fixed inset-0 z-9999 flex items-center justify-center p-4">
             {/* Overlay */}
             <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
 

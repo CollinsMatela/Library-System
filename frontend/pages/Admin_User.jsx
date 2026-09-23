@@ -99,11 +99,11 @@ const Admin_User = () => {
                     <div className="w-full justify-between items-start flex flex-col sm:flex-row rounded-t-xl">
 
                         <div className="flex items-center justify-start gap-2 mb-4">
-                            <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
+                            <div className="bg-stone-800 rounded-lg p-2 text-white justify-center items-center flex">
                               <Users size={20}/>
                             </div>
                             <div>
-                                <h1 className="text-md font-bold text-stone-800 rounded-full">User Table</h1>
+                                <h1 className="text-md font-bold text-stone-800 rounded-full">User Accounts</h1>
                                 <p className="text-stone-400 text-xs">Manage student accounts.</p>
                             </div>
                           

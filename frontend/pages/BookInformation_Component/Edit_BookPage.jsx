@@ -49,7 +49,7 @@ const Edit_BookPage = ({bookDetails, setBookDetails, fetchBookById, handleImageC
 
             <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
                 <div className="justify-center items-center flex gap-2">
-                    <div className="bg-stone-800 p-2">
+                    <div className="bg-stone-800 rounded-lg p-2">
                         <FileText size={20} className="text-white" />
                     </div>
 

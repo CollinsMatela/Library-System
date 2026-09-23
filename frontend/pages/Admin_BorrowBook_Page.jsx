@@ -232,7 +232,7 @@ const Admin_BorrowBook_Page = () => {
                 <div className="w-full justify-between items-start flex flex-col md:flex-row mb-2 lg:mb-4">
 
                     <div className="flex items-center justify-start gap-2 w-full ">
-                        <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
+                        <div className="bg-stone-800 rounded-lg p-2 text-white justify-center items-center flex">
                             <HandHelping size={20}/>
                         </div>
                         <div>
@@ -260,7 +260,7 @@ const Admin_BorrowBook_Page = () => {
                   <div className="mb-2 w-full">
                       <div className="flex items-center justify-between rounded-lg border border-stone-300 bg-stone-100 px-4 py-3">
                         <div>
-                          <h2 className="text-xs font-medium text-stone-700 capitalize">{`${selectedStatus} List` || 'Select Status'}</h2>
+                          <h2 className="text-xs font-medium text-stone-700 capitalize">{`${selectedStatus || "Pending"} Request` || 'Select Status'}</h2>
                           <p className="mt-1 text-xs text-stone-500">
                             Showing list of request.
                           </p>

@@ -113,7 +113,7 @@ const Admin_Books_Page = () => {
 
               <div className="w-full justify-between items-start flex flex-col md:flex-row rounded-t-xl px-4 gap-2 mb-4 lg:px-10">
                         <div className="flex items-center justify-start gap-2 w-full">
-                            <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
+                            <div className="bg-stone-800 p-2 rounded-lg text-white justify-center items-center flex">
                                 <LibraryBig size={20}/>
                             </div>
                             <div>

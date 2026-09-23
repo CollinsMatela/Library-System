@@ -3,16 +3,13 @@ import { useState } from 'react'
 const Lib_BookCard = ({ handleViewBook, book, showBorrowModal}) => {
 
     return(
-         <div className="relative h-80 border border-stone-200 rounded-lg justify-center items-center flex flex-col gap-2 cursor-pointer hover:-translate-y-1 hover:shadow-2xl transition  bg-white" onClick={handleViewBook}>
-                    {book?.cover && (<img src={book.cover} alt={book.title}
-                        className="h-full object-cover"
-                    />)}
+         <div className="relative h-80 border-b-4 border-stone-300 rounded-lg justify-center items-center flex flex-col gap-2 cursor-pointer hover:-translate-y-1 hover:shadow-lg transition bg-white" onClick={handleViewBook}>
 
-                   <div className="absolute inset-0 p-2 overflow-hidden w-full justify-center items-center flex flex-col bg-white/10 rounded-lg backdrop-blur-xs">
+                   <div className="absolute inset-0 overflow-hidden w-full justify-center items-center flex flex-col bg-white/10 rounded-lg backdrop-blur-xs">
                             
                         
 
-                                <div className="h-full w-full justify-center items-center flex bg-stone-100">
+                              
 
                                     {!book?.cover ?
                                     (
@@ -23,16 +20,16 @@ const Lib_BookCard = ({ handleViewBook, book, showBorrowModal}) => {
                                     )
                                     :
                                     (
-                                       <img src={book.cover} alt={book.title} className="object-fit h-full"/> 
+                                       <img src={book.cover} alt={book.title} className="object-cover h-full w-full rounded-lg"/> 
                                     )}
                                     
 
-                                </div>
+                                
 
-                                <div className="w-full justify-center items-center flex flex-col mt-2">
+                                {/* <div className="w-full justify-center items-center flex flex-col mt-2">
                                         <h1 className="hidden lg:block text-stone-800 font-bold text-xs text-center">{book.title.toUpperCase() || "—"}</h1>
                                         
-                                </div>
+                                </div> */}
 
                                 
                            

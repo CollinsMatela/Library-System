@@ -1,6 +1,5 @@
 import Borrow_Model from "../models/Borrow_Model.js";
-import Fiction_Model from "../models/Fiction_Model.js";
-import NonFiction_Model from "../models/NonFiction_Model.js";
+import Book_Model from "../models/Books_Model.js"
 import User_Model from "../models/User_Registration_Model.js"
 import mongoose from "mongoose";
 
@@ -25,10 +24,7 @@ const Update_Borrow_Controller = async (req, res) => {
         const request = await Borrow_Model.findById(id);
         const user = await User_Model.findById(userId);
        
-        let book = await Fiction_Model.findById(bookId);
-            if (!book) {
-                book = await NonFiction_Model.findById(bookId);
-            }
+        let book = await Book_Model.findById(bookId);
 
         if (!user) {
             return res.status(400).json({
@@ -37,7 +33,7 @@ const Update_Borrow_Controller = async (req, res) => {
         }
         if (!book) {
             return res.status(400).json({
-                message: "Book is required.",
+                message: "Book not required.",
             });
         }
 
@@ -68,20 +64,21 @@ const Update_Borrow_Controller = async (req, res) => {
         );
 
         if (status === "Borrowed") {
-            if (book.type.toLowerCase() === "fiction") {
-                await Fiction_Model.findByIdAndUpdate(bookId, {
-                    $inc: {
-                        copies: -Number(quantity)
-                    }
-                });
-            } else if (book.type.toLowerCase() === "non-fiction") {
-                await NonFiction_Model.findByIdAndUpdate(bookId, {
+       
+            await Book_Model.findByIdAndUpdate(bookId, {
                     $inc: {
                         copies: -Number(quantity)
                     }
                 });
             }
-        }
+        else {
+                await Book_Model.findByIdAndUpdate(bookId, {
+                    $inc: {
+                        copies: -Number(quantity)
+                    }
+                });
+            }
+        
 
         return res.status(200).json({
             message: "Borrow request updated successfully.",

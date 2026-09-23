@@ -1,6 +1,5 @@
 import Borrow_Model from "../models/Borrow_Model.js";
-import Fiction_Model from "../models/Fiction_Model.js";
-import NonFiction_Model from "../models/NonFiction_Model.js";
+import Books_Model from "../models/Books_Model.js";
 
 const ReturnBorrowController = async (req, res) => {
     const { id, status } = req.body;
@@ -29,10 +28,10 @@ const ReturnBorrowController = async (req, res) => {
             }
         );
 
-        let fictionBook = await Fiction_Model.findById(borrowRequest.bookId);
+        let book = await Books_Model.findById(borrowRequest.bookId);
 
-        if (fictionBook) {
-            await Fiction_Model.findByIdAndUpdate(
+        if (book) {
+            await Books_Model.findByIdAndUpdate(
                 borrowRequest.bookId,
                 {
                     $inc: {
@@ -40,26 +39,7 @@ const ReturnBorrowController = async (req, res) => {
                     },
                 }
             );
-        } else {
-            const nonFictionBook = await NonFiction_Model.findById(
-                borrowRequest.bookId
-            );
-
-            if (!nonFictionBook) {
-                return res.status(404).json({
-                    message: "Book not found.",
-                });
-            }
-
-            await NonFiction_Model.findByIdAndUpdate(
-                borrowRequest.bookId,
-                {
-                    $inc: {
-                        copies: + Number(borrowRequest.quantity),
-                    },
-                }
-            );
-        }
+        } 
 
         return res.status(200).json({
             message: "Book returned successfully.",

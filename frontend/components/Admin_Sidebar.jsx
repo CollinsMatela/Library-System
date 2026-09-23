@@ -83,20 +83,23 @@ const Admin_SideBar = () => {
           </div>
       </div>
 
+
+      <div className="w-full px-2">
+
       <div className="hidden lg:flex justify-center md:justify-start items-center text-stone-800 text-[10px] py-2 px-4 mt-6">
         <h1 className="hidden lg:block">Menu</h1>
       </div>
       
       <div className="w-full grid grid-cols-10 md:grid-cols-1">
 
-      <div className={`${isOverview ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleOverview}>
+      <div className={`${isOverview ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 rounded-lg text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 py-4 px-2`} onClick={handleOverview}>
         <Home className={`${isOverview ? 'text-white' : 'text-stone-800'}`} size={15}/>
        <h1 className="hidden lg:block">Overview</h1>
         
       </div>
 
       <button disabled={lowAccess}
-      className={`${lowAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isLogBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleLogBook}>
+      className={`${lowAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isLogBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 rounded-lg text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 py-4 px-2`} onClick={handleLogBook}>
         {lowAccess ?
         <Lock className={`${isLogBook ? 'text-white' : 'text-stone-800'}`} size={15}/>
         :
@@ -107,7 +110,7 @@ const Admin_SideBar = () => {
       </button>
 
       <button disabled={lowAccess}
-      className={`${lowAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isViewStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleViewStory}>
+      className={`${lowAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isViewStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 rounded-lg text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 py-4 px-2`} onClick={handleViewStory}>
         {lowAccess ?
         <Lock className={`${isViewStory ? 'text-white' : 'text-stone-800'}`} size={15}/>
         :
@@ -117,7 +120,7 @@ const Admin_SideBar = () => {
       </button>
 
       <button disabled={midAccess}
-       className={`${midAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isUploadStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleUploadStory}>
+       className={`${midAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isUploadStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 rounded-lg text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 py-4 px-2`} onClick={handleUploadStory}>
         {midAccess ?
         <Lock className={`${isUploadStory ? 'text-white' : 'text-stone-800'}`} size={15}/>
         :
@@ -127,7 +130,7 @@ const Admin_SideBar = () => {
       </button>
 
       <button disabled={midAccess}
-      className={`${midAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isEdit ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleEdit}>
+      className={`${midAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isEdit ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] rounded-lg justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 py-4 px-2`} onClick={handleEdit}>
         {midAccess ?
         <Lock className={`${isEdit ? 'text-white' : 'text-stone-800'}`} size={15}/>
         :
@@ -137,7 +140,7 @@ const Admin_SideBar = () => {
       </button>
 
       <button disabled={midAccess}
-      className={`${midAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isInventory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleInventory}>
+      className={`${midAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isInventory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 rounded-lg text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 py-4 px-2`} onClick={handleInventory}>
         {midAccess ?
         <Lock className={`${isInventory ? 'text-white' : 'text-stone-800'}`} size={15}/>
         :
@@ -147,7 +150,7 @@ const Admin_SideBar = () => {
       </button>
 
       <button disabled={highAccess}
-      className={`${highAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isBorrowBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleBorrowBook}>
+      className={`${highAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isBorrowBook ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 rounded-lg text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 py-4 px-2`} onClick={handleBorrowBook}>
         {highAccess ?
         <Lock className={`${isBorrowBook ? 'text-white' : 'text-stone-800'}`} size={15}/>
         :
@@ -157,7 +160,7 @@ const Admin_SideBar = () => {
       </button>
 
       <button disabled={fullAccess}
-      className={`${fullAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isAuthority ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 p-4`} onClick={handleAuthority}>
+      className={`${fullAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isAuthority ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 rounded-lg text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 py-4 px-2`} onClick={handleAuthority}>
         {fullAccess ?
         <Lock className={`${isAuthority ? 'text-white' : 'text-stone-800'}`} size={15}/>
         :
@@ -167,7 +170,7 @@ const Admin_SideBar = () => {
       </button>
 
       <button disabled={fullAccess}
-      className={`${fullAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isUsersAccount ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2 hover:border-none mt-1 p-4`} onClick={handleUsers}>
+      className={`${fullAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isUsersAccount ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 rounded-lg text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2 hover:border-none mt-1 py-4 px-2`} onClick={handleUsers}>
         {fullAccess ?
         <Lock className={`${isUsersAccount ? 'text-white' : 'text-stone-800'}`} size={15}/>
         :
@@ -175,6 +178,7 @@ const Admin_SideBar = () => {
         }
         <h1 className="hidden lg:block">Accounts</h1>
       </button>
+      </div>
 
       </div>
 

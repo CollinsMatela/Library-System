@@ -1,6 +1,7 @@
 import { useState } from "react"
 import useAuthStore from "../store/useAuthStore"
 import Confirmation_Popup from "../popup/Confirmation_Popup"
+import { ChevronDown } from "lucide-react"
 const Admin_Header = ({mainText, subText}) => {
 
     const user = useAuthStore((state) => state.user)
@@ -48,17 +49,18 @@ const Admin_Header = ({mainText, subText}) => {
 
                 <div className="relative cursor-pointer" onClick={() => setIsProfile(prev => !prev)}>
                   <div className="justify-center items-center flex gap-1">
-                    <div className={`h-8 w-8 rounded-full justify-center items-center flex border-2 border-blue-300 cursor-pointer bg-blue-500`}>
+                    <div className={`h-8 w-8 rounded-full justify-center items-center flex cursor-pointer bg-blue-500`}>
                     <h1 className="text-xs font-bold text-white">{user?.firstname?.slice(0,1).toUpperCase()}</h1>
                     </div>
-                    <div className="hidden sm:block">
-                      <h1 className="text-xs text-stone-800 font-medium">{user.firstname.toUpperCase()}</h1>
+                    <div className="hidden sm:flex justify-center items-center gap-1">
+                      <h1 className="text-xs text-stone-800 font-medium">{user.firstname}</h1>
+                      <ChevronDown size={15}/>
                     </div>
                   </div>
                   {isProfile && (
                     <div className="absolute w-50 right-0 bg-white flex flex-col justify-start items-start border border-stone-300 rounded-lg gap-1">
                        <div className="justify-center items-center flex gap-1 p-4 border-b border-stone-300">
-                        <div className={`h-8 w-8 rounded-full justify-center items-center flex border-2 border-blue-300 cursor-pointer bg-blue-500`}>
+                        <div className={`h-8 w-8 rounded-full justify-center items-center flex cursor-pointer bg-blue-500`}>
                         <h1 className="text-xs font-bold text-white">{user?.firstname?.slice(0,1).toUpperCase()}</h1>
                         </div>
                         <div className="hidden sm:block">

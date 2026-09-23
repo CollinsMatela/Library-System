@@ -104,11 +104,11 @@ const Admin_Authority = () => {
                 <div className="w-full justify-start items-start flex flex-col px-4 lg:px-10">
 
                     <div className="justify-center items-center flex gap-2 mb-4">
-                                <div className="hidden sm:flex bg-stone-800 p-2 text-white justify-center items-center">
+                                <div className="hidden sm:flex rounded-lg bg-stone-800 p-2 text-white justify-center items-center">
                                     <Users size={20}/>
                                 </div>
                                 <div>
-                                    <h1 className="text-md font-bold text-stone-800 rounded-full">Librarians List</h1>
+                                    <h1 className="text-md font-bold text-stone-800 rounded-full">Authorized List</h1>
                                     <p className="text-stone-400 text-xs">List of registered authorized people.</p>
                                 </div>
                     </div>
@@ -117,7 +117,7 @@ const Admin_Authority = () => {
 
                           <div className="bg-stone-100 px-4 py-3 w-full justify-between items-center border border-stone-300 rounded-lg flex mb-2">
                              <div>
-                                <h2 className="text-xs font-medium text-stone-700">Librarian Member</h2>
+                                <h2 className="text-xs font-medium text-stone-700">Authorized Member</h2>
                                 <p className="mt-1 text-xs text-stone-500">
                                     Manage librarian accounts and access permissions.
                                 </p>

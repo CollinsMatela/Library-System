@@ -130,8 +130,8 @@ const Admin_LogBook = () => {
                 <div className="flex items-start justify-between gap-2 w-full mb-4">
                             
                             <div className="justify-center items-center flex gap-2">
-                                <div className="hidden sm:flex bg-stone-800 p-2 text-white justify-center items-center">
-                                    <Users size={20}/>
+                                <div className="hidden sm:flex bg-stone-800 rounded-lg border border-stone-200 p-2 text-white justify-center items-center">
+                                    <Users size={20} className="text-white"/>
                                 </div>
                                 <div>
                                     <h1 className="text-md font-bold text-stone-800 rounded-full">Record Visit</h1>

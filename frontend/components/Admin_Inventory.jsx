@@ -79,7 +79,7 @@ const Admin_Inventory = () => {
 
                         <div className="flex items-center justify-start gap-2 w-full mb-2">
                             <div className="w-full justify-start items-start flex gap-2">
-                               <div className="bg-stone-800 p-2 text-white justify-center items-center flex">
+                               <div className="bg-stone-800 rounded-lg p-2 text-white justify-center items-center flex">
                                 <ScrollText size={20}/>
                             </div>
                             <div>

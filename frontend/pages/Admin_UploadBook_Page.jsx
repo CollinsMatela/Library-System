@@ -242,7 +242,7 @@ const Admin_UploadBook_Page = () => {
                         <div className=" w-full flex flex-col">
 
                         <div className="flex items-center justify-start gap-2 mb-4">
-                            <div className="hidden sm:flex bg-stone-800 p-2 text-white justify-center items-center">
+                            <div className="hidden sm:flex rounded-lg bg-stone-800 p-2 text-white justify-center items-center">
                             <BookPlus size={20} className="text-white"/>
                             </div>
                             <div>

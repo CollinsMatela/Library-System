@@ -19,7 +19,7 @@ import defaultProfile from '../src/assets/Student.jpg'
 import LoadingScreen from '../loadings/loading'
 import { useNavigate } from 'react-router-dom'
 import BorrowModal from '../modals/BorrowModal'
-import { Book, ChevronRight, Info, LoaderCircle } from 'lucide-react'
+import { Book, ChevronRight, Info, LoaderCircle, MoveRight } from 'lucide-react'
 
 const Library_Page = () => {
     const user = useAuthStore((state) => state.user);
@@ -172,7 +172,7 @@ const Library_Page = () => {
                     (
                         <div className='gap-4 justify-start items-start flex flex-col lg:flex-row w-full'>
 
-                            <div className=' justify-start items-start flex flex-col w-full lg:w-100 gap-2 lg:border border-stone-300 lg:rounded-xl lg:shadow-lg bg-white'>
+                            <div className=' justify-start items-start flex flex-col w-full lg:w-100 gap-2 lg:border border-stone-300 lg:rounded-lg lg:shadow-md bg-white'>
                                 <div className='w-full lg:p-4 border-b border-stone-300'>
                                     <h1 className='text-lg font-bold text-stone-800'>Selection Section</h1>
                                     <h1 className='text-xs text-stone-500'>Find your choice</h1>
@@ -200,13 +200,13 @@ const Library_Page = () => {
                                         {categories.map((item, index) => (
                                             <button
                                             key={index}
-                                            className='py-4 px-10 lg:py-2 lg:px-0 bg-white border lg:border-0 lg:border-b border-stone-300 rounded-2xl lg:rounded-none text-xs text-stone-500 justify-center lg:justify-start items-center flex cursor-pointer hover:text-stone-800 hover:font-semibold gap-2'
+                                            className='py-4 px-10 lg:py-2 lg:px-0 bg-white border lg:border-0 lg:border-b border-stone-300 lg:rounded-none text-[10px] text-stone-800 justify-center lg:justify-start items-center flex cursor-pointer hover:text-stone-800 hover:font-semibold gap-2'
                                             value={item.value}
                                             onClick={(e) => {filterByCategory(e.target.value);
                                                              setSelectedTitle(item.label);
                                             }}
                                             >
-                                            <Book size={15} className='hidden lg:block'/>{item.label}
+                                            <MoveRight size={10} className='hidden lg:block'/>{item.label}
                                             </button>
                                         ))}
                                     
@@ -215,13 +215,13 @@ const Library_Page = () => {
                             </div>
 
                             
-                                <div className='w-full border-0 lg:border border-stone-300 lg:shadow-lg lg:rounded-xl pb-10'>
+                                <div className='w-full border-0 lg:border border-stone-300 lg:shadow-lg lg:rounded-lg pb-10'>
                                 <header className='w-full p-4 border-b border-stone-300'>
                                     <h1 className='text-lg font-bold text-stone-800 justify-start items-center flex'>Book Collection <ChevronRight size={15}/> <span className='text-stone-500 text-lg'>{selectedTitle || "All"} {selectedLetter}</span></h1>
                                     <h1 className='text-xs text-stone-500 '>Browse and discover books in the library.</h1>
                                 </header>
                             {selectedCategory.length > 0 ? (
-                                <div className='bg-white w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-1 p-4'>
+                                <div className='bg-white w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 p-4'>
                                     
                                     {selectedCategory.map((book) => (
                                         <Lib_BookCard 

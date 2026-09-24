@@ -2,7 +2,7 @@ import { Book, Check, X, Info, Calendar, BookA, CheckCheck } from "lucide-react"
 
 const HistoryTable = ({Returned}) => {
     return(
-        <div className="w-full flex flex-col gap-4">
+        <div className="w-full flex flex-col gap-2">
     {Returned.length > 0 ? (
         Returned.map((borrow) => (
             <div

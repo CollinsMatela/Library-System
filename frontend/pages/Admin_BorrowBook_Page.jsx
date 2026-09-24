@@ -13,10 +13,16 @@ import BorrowedTable from "./Borrowing_Components/BorrowedTable";
 import HistoryTable from "./Borrowing_Components/HistoryTable";
 import useAuthStore from "../store/useAuthStore";
 import Admin_Header from "../components/Admin_Header";
+import Confirmation_Popup from "../popup/Confirmation_Popup";
 
 const Admin_BorrowBook_Page = () => {
     const user = useAuthStore((state) => state.user);
     const navigate = useNavigate();
+    const [selectedRequest, setSelectedRequest] = useState(null);
+    const [pendingConfirmation, setPendingConfirmation] = useState(false);
+    const [approveConfirmation, setApproveConfirmation] = useState(false);
+    const [returnConfirmation, setReturnConfirmation] = useState(false);
+    const [deleteConfirmation, setDeleteConfirmation] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [borrowList, setBorrowList] = useState([]);
 
@@ -46,7 +52,7 @@ const Admin_BorrowBook_Page = () => {
 
     const updateBorrow = async (borrow) => {
           if(!returnDate[borrow._id] || !quantity[borrow._id]) {
-            toast.warning('Please select date and quantity.')
+            setErrorMessage('Please select date and quantity.')
             return;
           }
      
@@ -66,6 +72,7 @@ const Admin_BorrowBook_Page = () => {
             toast.success(res.data.message);
             fetchAllBorrow();
             BorrowedNotification(borrow);
+            setApproveConfirmation(false)
           } catch (error) {
             toast.error(error?.response?.data?.message);
             setErrorMessage(error?.response?.data?.message)
@@ -84,6 +91,7 @@ const Admin_BorrowBook_Page = () => {
             toast.success(res.data.message);
             fetchAllBorrow();
             ApprovedNotification(borrow);
+            setPendingConfirmation(false)
           } catch (error) {
             toast.error(error?.response?.data?.message);
             setErrorMessage(error?.response?.data?.message)
@@ -96,6 +104,7 @@ const Admin_BorrowBook_Page = () => {
             toast.success(res.data.message);
             fetchAllBorrow();
             RemoveNotification(borrow);
+            setDeleteConfirmation(false);
         } catch (error) {
             toast.error(error?.response?.data?.message);
             setErrorMessage(error?.response?.data?.message)
@@ -112,6 +121,7 @@ const Admin_BorrowBook_Page = () => {
             const res = await axios.put(`${import.meta.env.VITE_API_URL}/return-borrow`, borrowData);
             toast.success(res.data.message);
             fetchAllBorrow();
+            setReturnConfirmation(false)
           } catch (error) {
             toast.error(error?.response?.data?.message);
             setErrorMessage(error?.response?.data?.message)
@@ -220,8 +230,63 @@ const Admin_BorrowBook_Page = () => {
           }
     }
 
+   const confirmationProcess = (request) => {
+    setErrorMessage('');
+    if (!request) {
+        toast.warning("No selected request")
+        return
+    }
+    setSelectedRequest(request)
+
+    if (request.status.toLowerCase() === "pending") {
+        setPendingConfirmation(true)
+    } else if (request.status.toLowerCase() === "approved") {
+        setApproveConfirmation(true)
+    } else if (request.status.toLowerCase() === "borrowed") {
+        setReturnConfirmation(true)
+    } else {
+        toast.warning("Invalid request status")
+    }
+    }
+    const deletionProcess = (request) => {
+          if(!request){
+            toast.warning("No selected request")
+            return
+          }
+          setErrorMessage('');
+          setDeleteConfirmation(true)
+          setSelectedRequest(request)
+    }
       return(
         <>
+        {pendingConfirmation && (
+          <Confirmation_Popup
+          message={'Are you sure to approve this request?'}
+          errorMessage={errorMessage}
+          onConfirm={() => approveBorrow(selectedRequest)}
+          onCancel={() => setPendingConfirmation(false)}/>
+        )}
+        {approveConfirmation && (
+          <Confirmation_Popup
+          message={'Are you sure to let borrow this request?'}
+          errorMessage={errorMessage}
+          onConfirm={() => updateBorrow(selectedRequest)}
+          onCancel={() => setApproveConfirmation(false)}/>
+        )}
+        {returnConfirmation && (
+          <Confirmation_Popup
+          message={'Confirm the return of this book?'}
+          errorMessage={errorMessage}
+          onConfirm={() => ReturnBorrow(selectedRequest)}
+          onCancel={() => setReturnConfirmation(false)}/>
+        )}
+        {deleteConfirmation && (
+          <Confirmation_Popup
+          message={'Are you sure to delete this request?'}
+          errorMessage={errorMessage}
+          onConfirm={() => deleteBorrow(selectedRequest)}
+          onCancel={() => setDeleteConfirmation(false)}/>
+        )}
         <Admin_Sidebar/>
         <section className="bg-stone-50 min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
@@ -267,12 +332,13 @@ const Admin_BorrowBook_Page = () => {
                         </div>
                       </div>
                     </div>
-
-                    {/**Tables */}
+                    
+                    <div className=" h-100 w-full overflow-y-auto">
+                      {/**Tables */}
                     {isPending && (
                         <PendingTable Pendings={Pendings}
-                                    approveBorrow={approveBorrow}
-                                    deleteBorrow={deleteBorrow}
+                                    approveBorrow={confirmationProcess}
+                                    deleteBorrow={deletionProcess}
                         />)}
                     {isApproved && (
                         <ApprovedTable Approved={Approved}
@@ -280,14 +346,18 @@ const Admin_BorrowBook_Page = () => {
                                     setReturnDate={setReturnDate}
                                     quantity={quantity}
                                     setQuantity={setQuantity}
-                                    updateBorrow={updateBorrow}
-                                    deleteBorrow={deleteBorrow}
+                                    updateBorrow={confirmationProcess}
+                                    deleteBorrow={deletionProcess}
                         />)}
                     {isBorrowed && (
                         <BorrowedTable Borrowed={Borrowed}
-                                    ReturnBorrow={ReturnBorrow}
+                                    ReturnBorrow={confirmationProcess}
                         />)}
-                    {isHistory && (<HistoryTable Returned={Returned}/>)}
+                    {isHistory && (
+                      <HistoryTable Returned={Returned}
+                      />)}
+                    </div>
+                    
                 </div>
                 
                 

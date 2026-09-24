@@ -6,12 +6,25 @@ import axios from "axios";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 
+
 const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
     
     useEffect(() => {
       console.log(CLOUDINARY_CLOUD_NAME)
       console.log(CLOUDINARY_UPLOAD_PRESET)
     },[])
+
+    // Added tools for react-quill
+    let modules = {
+    toolbar: [
+        [{ header: [1, 2, 3, false] }],
+        ["bold", "italic", "underline", "strike"],
+        [{ align: [] }],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["link"],
+        ["clean"],
+    ],
+    };
 
     const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
     const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
@@ -136,6 +149,8 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
                     </div>
                     )} 
                     </div>)}
+
+
                     {/* Text Container */}
                     <div className="bg-stone-50 w-full h-full flex flex-col mb-12">
                     <ReactQuill
@@ -144,6 +159,7 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
                     value={text}
                     onChange={(value) => setText(value)}
                     placeholder="Write the page content..."
+                    modules={modules}
                     />
                     </div>
 

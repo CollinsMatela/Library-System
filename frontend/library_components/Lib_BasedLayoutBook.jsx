@@ -6,9 +6,18 @@ import {
   resumeSpeech,
   stopSpeech,
 } from '../utils/speech.js';
-
+import DOMPurify from "dompurify";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css"; // To work the propert of react-quill
 const Lib_BasedLayoutBook = ({book, showText, textSize, textAlignment, isBold, isItalic, theme, pageIndex, nextPage, prevPage, onClose}) => {
-    
+  
+  // turn HTML text to normal text for TTS
+  const htmlToText = (html) => {
+  let temp = document.createElement("div");
+  temp.innerHTML = html;
+
+  return temp.textContent || temp.innerText || "";
+  };
 
     const hasImage = book?.pages[pageIndex]?.pageImage;
     const hasText = book?.pages[pageIndex]?.pageText;
@@ -31,7 +40,7 @@ const Lib_BasedLayoutBook = ({book, showText, textSize, textAlignment, isBold, i
                  
                  
                  <div className="w-fit justify-center items-center flex gap-1">
-                    <button className={`${theme ? "hover:bg-stone-800" : "hover:bg-stone-200"} justify-center items-center flex gap-1 border border-stone-300 rounded-lg p-2 text-stone-800 cursor-pointer`} onClick={() => speak(page.pageText)}>
+                    <button className={`${theme ? "hover:bg-stone-800" : "hover:bg-stone-200"} justify-center items-center flex gap-1 border border-stone-300 rounded-lg p-2 text-stone-800 cursor-pointer`} onClick={() => speak(htmlToText(page.pageText))}>
                         <AudioLines size={15} className={`${theme ? "text-stone-300" : "text-stone-500"}`}/>
                         <h1 className={`${theme ? "text-white" : "text-stone-500"} text-xs`}>Text-To-Speech</h1>
                     </button>
@@ -43,9 +52,32 @@ const Lib_BasedLayoutBook = ({book, showText, textSize, textAlignment, isBold, i
               </header>
               
               {/**Text Container */}
-              <div className={`${showText ? "" : "hidden"}  text-${textAlignment}  w-full ${theme ? "bg-stone-950" : "bg-stone-50"} p-10`}>
-                 <h1 className={`text-${textSize} ${isBold && ('font-bold')} ${isItalic && ('italic')} ${theme ? "text-white" : "text-stone-800"} leading-loose whitespace-pre-line wrap-anywhere`}>{page.pageText}</h1>
-              </div>
+              <div
+              className={`${showText ? "" : "hidden"} w-full ${
+                theme ? "bg-stone-950 text-white" : "bg-stone-50 text-stone-800"
+              } p-10`}
+            >
+              <div
+                className="
+                  leading-loose
+                  wrap-anywhere
+
+                  [&_.ql-align-center]:text-center
+                  [&_.ql-align-right]:text-right
+                  [&_.ql-align-justify]:text-justify
+
+                  [&_h1]:text-4xl
+                  [&_h2]:text-3xl
+                  [&_h3]:text-2xl
+
+                  [&_strong]:font-bold
+                  [&_em]:italic
+                "
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(page.pageText)
+                }}
+              />
+            </div>
 
               <footer className={`${theme ? "bg-stone-950 border-stone-800" : "bg-white border-stone-300"} w-full rounded-b-xl justify-center items-center flex border-t p-4`}>
                 <h1 className={`text-xs ${theme ? "text-white" : "text-stone-800"} p-2`}>Page {index + 1}</h1>

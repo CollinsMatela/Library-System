@@ -3,9 +3,22 @@ import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Tras
 import axios from "axios";
 import {toast} from "react-toastify";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
+
 const Edit_BookPage = ({bookDetails, setBookDetails, fetchBookById, handleImageChange, handleAudioChange, updatePage, showPageUpdateConfirmation, selectedPageIndex, setSelectedPageIndex, isAddPageModal}) => {
 
-    console.log(bookDetails)
+    let modules = {
+    toolbar: [
+        [{ header: [1, 2, 3, false] }],
+        ["bold", "italic", "underline", "strike"],
+        [{ align: [] }],
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ indent: "-1" }, { indent: "+1" }],
+        ["blockquote", "link"],
+        ["clean"],
+    ],
+    };
 
     const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
     const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
@@ -121,15 +134,25 @@ const Edit_BookPage = ({bookDetails, setBookDetails, fetchBookById, handleImageC
                     </div>
                 </div>
 
-                <textarea
-                    className="w-full min-h-[400px] resize-none rounded-xl border border-stone-300 bg-stone-50 p-4 text-sm text-stone-700 leading-7 outline-none transition-all duration-200 focus:border-green-500 focus:ring-2 focus:ring-green-200"
-                    placeholder="Enter the page text..."
-                    value={bookDetails?.pages?.[selectedPageIndex]?.pageText || ""}
-                    onChange={(e) => {
-                        const newPages = [...bookDetails.pages];
-                        newPages[selectedPageIndex].pageText = e.target.value;
-                        setBookDetails({...bookDetails, pages: newPages});
-                    }}
+                <ReactQuill
+                theme="snow"
+                className="w-full"
+                placeholder="Enter the page text..."
+                modules={modules}
+                value={bookDetails?.pages?.[selectedPageIndex]?.pageText || ""}
+                onChange={(value) => {
+                    let newPages = [...bookDetails.pages];
+
+                    newPages[selectedPageIndex] = {
+                    ...newPages[selectedPageIndex],
+                    pageText: value,
+                    };
+
+                    setBookDetails({
+                    ...bookDetails,
+                    pages: newPages,
+                    });
+                }}
                 />
 
                 <div className="flex justify-between items-center mt-3">

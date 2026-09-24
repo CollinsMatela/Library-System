@@ -7,6 +7,7 @@ import {
 } from '../utils/speech.js';
 import { useEffect, useState } from "react";
 import axios from "axios";
+import DOMPurify from "dompurify";
 import TagalogIntroduction from "../src/assets/audio/Tagalog-Introduction.mp3"
 import EnglishIntroduction from "../src/assets/audio/English-Introduction.mp3"
 import { typeEffect } from "../utils/typeEffect.js";
@@ -46,9 +47,9 @@ const Lib_StoryLayoutBook = ({book, isEnd, showText, showImage, pageIndex, nextP
           )}
 
           {!isEnd && (
-            <div className="relative h-full w-full text-lg justify-center items-start flex flex-col bg-gray-50">
+            <div className="relative h-full w-full text-lg justify-center items-start flex flex-col bg-stone-50">
               {/* <header className="absolute top-10 right-10 w-full justify-end items-center flex mb-10 gap-2">
-              <button className="bg-gray-200 rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => AutoStoryTelling(hasText)}><AudioLines className="text-gray-500"/></button>
+              <button className="bg-stone-200 rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => AutoStoryTelling(hasText)}><AudioLines className="text-stone-500"/></button>
               </header> */}
               
               <button className="absolute top-10 right-10 p-2 rounded-xl justify-center items-center flex gap-2 cursor-pointer"
@@ -61,12 +62,35 @@ const Lib_StoryLayoutBook = ({book, isEnd, showText, showImage, pageIndex, nextP
                 
               </button>
               
-              <img src={book?.pages[pageIndex]?.pageImage} className="h-full w-full object-fill" />
+              {!book?.pages[pageIndex]?.pageImage ?
+              (
+                <div className="bg-stone-800 flex flex-col justify-center items-center h-full w-200 gap-5">
+                  <div className="w-28 h-28 rounded-full bg-stone-700/50 flex items-center justify-center">
+                    <ImageOff size={56} className="text-stone-500" />
+                  </div>
+
+                  <div className="text-center">
+                    <h1 className="text-3xl text-stone-700 font-semibold">
+                      No Cover Image
+                    </h1>
+                    <p className="text-sm text-stone-500 mt-1">
+                      This book does not have a page image available.
+                    </p>
+                  </div>
+                </div>
+              )
+              :
+              (
+                <img src={book?.pages[pageIndex]?.pageImage} className="h-full w-full object-fill" />
+              )
+              }
               
-              <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/50 via-black/20 to-transparent px-8 py-8 flex flex-col gap-2 justify-center">
+              
+              <div className="absolute bottom-0 w-full bg-linear-to-t from-black/50 via-black/20 to-transparent px-8 py-8 flex flex-col gap-2 justify-center">
               <p className="w-fit text-xs bg-white px-3 py-1 rounded-lg">{`Page ${pageIndex + 1}.`}</p>
-                <p className="max-w-4xl text-center text-white text-2xl md:text-sm font-medium leading-relaxed drop-shadow-lg">
-                    {hasText}
+                <p 
+                className="max-w-4xl text-center text-white text-2xl md:text-sm font-medium leading-relaxed drop-shadow-lg"
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(hasText) }}>
                 </p>
               </div>
               
@@ -106,13 +130,6 @@ const Lib_StoryLayoutBook = ({book, isEnd, showText, showImage, pageIndex, nextP
             </div>
             )}
 
-
-          {/* Empty state */}
-          {!book?.pages[pageIndex]?.pageImage && (
-            <div className="flex justify-center items-center h-full">
-              <ImageOff size={40} className="text-gray-500" />
-            </div>
-          )}
 
         </div>
     

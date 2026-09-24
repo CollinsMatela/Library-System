@@ -8,7 +8,7 @@ import axios from "axios"
 import useAuthStore from "../store/useAuthStore"
 import { useNavigate } from "react-router-dom"
 import Admin_SideBar from "../components/Admin_Sidebar"
-import {Users, Contact, LibraryBig, Book, SquareGanttChart, CircleAlert, User, LoaderCircle} from 'lucide-react'
+import {Users, Contact, LibraryBig, Book, SquareGanttChart, CircleAlert, User, LoaderCircle, ImageOff} from 'lucide-react'
 import { toast } from "react-toastify"
 import Admin_Header from "../components/Admin_Header"
 
@@ -23,8 +23,6 @@ const Admin_Page = () =>{
     const [books, setBooks] = useState([])
     const [borrows, setBorrows] = useState([])
     const [logbook, setLogbook] = useState([]);
-
-    const newestBookIndex = books.length - 1;
 
     const Pending = borrows.filter((borrow) => borrow.status === 'Pending')
 
@@ -173,43 +171,64 @@ const Admin_Page = () =>{
           (books.length > 0 ? (
             <div className="flex flex-col md:flex-row gap-6">
               {/* Cover */}
+              {!books[0].cover ?
+              (
+              <div className="hidden md:flex w-50 h-72 bg-stone-100 border border-stone-300 shadow-sm rounded-md flex-col items-center justify-center gap-3">
+                <div className="w-14 h-14 rounded-full bg-stone-200 flex items-center justify-center">
+                  <ImageOff size={28} className="text-stone-400" strokeWidth={1.5} />
+                </div>
+
+                <div className="text-center px-4">
+                  <p className="text-sm font-medium text-stone-600">
+                    No Cover Available
+                  </p>
+                  <p className="text-xs text-stone-400 mt-1">
+                    Cover image not provided
+                  </p>
+                </div>
+              </div>
+              )
+              :
+              (
               <img
-                src={books[newestBookIndex].cover}
-                alt={books[newestBookIndex].title}
-                className="hidden md:block w-50 h-72 object-cover shadow-sm rounded-md"
-              />
+                  src={books[0].cover}
+                  alt={books[0].title}
+                  className="hidden md:block w-50 h-72 object-cover shadow-sm rounded-md"
+                />
+              )}
+              
 
               {/* Details */}
               <div className="flex-1 space-y-3">
                 <div>
                   <h3 className="text-sm font-bold text-stone-800">
-                    {books[newestBookIndex].title}
+                    {books[0].title}
                   </h3>
                   <p className="text-stone-500 text-xs">
-                    <span className="">{books[newestBookIndex].author}</span>
+                    <span className="">{books[0].author}</span>
                   </p>
                 </div>
 
                 <div className="hidden md:flex bg-stone-100 justify-start items-start flex-col p-4 rounded-lg">
                     <p className="text-xs text-stone-800 font-semibold">Description</p>
-                    <p className="text-xs text-stone-500 ">{books[newestBookIndex].description || 'No Description'}</p>
+                    <p className="text-xs text-stone-500 ">{books[0].description || 'No Description'}</p>
                   </div>
 
                 <div className="grid grid-cols-3 gap-2">
 
                   <div className="hidden md:flex bg-stone-100 justify-start items-start flex-col p-4 rounded-lg">
                     <p className="text-xs text-stone-800 font-semibold">Category</p>
-                    <p className="text-xs text-stone-500 ">{books[newestBookIndex].category}</p>
+                    <p className="text-xs text-stone-500 ">{books[0].category}</p>
                   </div>
 
                   <div className="hidden md:flex bg-stone-100 justify-start items-start flex-col p-4 rounded-lg">
                     <p className="text-xs text-stone-800 font-semibold">Language</p>
-                    <p className="text-xs text-stone-500 ">{books[newestBookIndex].category}</p>
+                    <p className="text-xs text-stone-500 ">{books[0].category}</p>
                   </div>
 
                   <div className="hidden md:flex bg-stone-100 justify-start items-start flex-col p-4 rounded-lg">
                     <p className="text-xs text-stone-800 font-semibold">Publish Date</p>
-                    <p className="text-xs text-stone-500 ">{new Date(books[newestBookIndex].createdAt).toLocaleDateString()}</p>
+                    <p className="text-xs text-stone-500 ">{new Date(books[0].createdAt).toLocaleDateString()}</p>
                   </div>
                 </div>
               </div>

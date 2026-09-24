@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useRef, useState } from "react"
 import { toast } from "react-toastify";
 import axios from "axios";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 
 const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
     
@@ -74,23 +76,13 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
 
             <div className="bg-white w-5xl rounded-xl">
                 <header className="flex flex-col justify-start items-start p-4 border-b border-stone-300">
-                    <h1 className="text-sm text-stone-500 font-bold">Create New Page</h1>
+                    <h1 className="text-sm text-stone-800 font-bold">Create New Page</h1>
                     <p className="text-xs text-stone-500">Add another page to this book.</p>
+
+                    
                 </header>
 
                 <div className="w-full h-100 p-4 flex flex-col gap-2 overflow-y-auto">
-
-                    {/* Text Container */}
-                    <div className="bg-stone-50 h-full w-full flex flex-col items-center justify-center gap-1">
-                    <textarea
-                    className="w-full h-90 outline-none border border-stone-300 p-4 text-xs rounded-lg"
-                    placeholder="Enter page content..."
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                    />
-                        
-                    </div>
-
                     {bookDetails.category === 'literature' && 
                     (<div className="w-full gap-2 flex">
                        {!image && (
@@ -111,7 +103,7 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
                         <button
                         type="button"
                         onClick={() => imageRef.current?.click()}
-                        className="flex items-center gap-1 rounded-lg bg-blue-200 px-3 py-2 text-xs text-blue-500 border border-blue-500 transition hover:bg-blue-300"
+                        className="flex items-center gap-1 rounded-lg bg-stone-800 px-3 py-2 text-xs text-white transition hover:bg-stone-900"
                         >
                         <ImagePlus size={15} />
                         Choose image
@@ -136,7 +128,7 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
                         <button
                         type="button"
                         onClick={() => audioRef.current?.click()}
-                        className="flex items-center gap-1 rounded-lg bg-blue-200 px-3 py-2 text-xs text-blue-500 border border-blue-500 transition hover:bg-blue-300"
+                        className="flex items-center gap-1 rounded-lg bg-stone-800 px-3 py-2 text-xs text-white transition hover:bg-stone-900"
                         >
                         <AudioLines size={15} />
                         Choose audio
@@ -144,6 +136,18 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
                     </div>
                     )} 
                     </div>)}
+                    {/* Text Container */}
+                    <div className="bg-stone-50 w-full h-full flex flex-col mb-12">
+                    <ReactQuill
+                    className="w-full min-h-20 bg-transparent text-stone-800"
+                    theme="snow"
+                    value={text}
+                    onChange={(value) => setText(value)}
+                    placeholder="Write the page content..."
+                    />
+                    </div>
+
+                    
                     
 
                     {/* Preview Container */}
@@ -201,11 +205,11 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
                 </div>
 
                 <footer className="flex justify-end items-center gap-2 p-4 border-t border-stone-300">
-                  <button className="bg-stone-200 text-stone-500 text-xs justify-center items-center flex border border-stone-500 p-2 rounded-lg hover:bg-stone-300 gap-1" onClick={onClose}>
+                  <button className="flex items-center gap-1 rounded-lg bg-transparent px-3 py-2 text-xs text-stone-500 transition hover:bg-stone-200" onClick={onClose}>
                     Close
                 </button> 
 
-                <button className="bg-blue-200 text-blue-500 text-xs justify-center items-center flex border border-blue-500 p-2 rounded-lg hover:bg-blue-300 gap-1" onClick={SaveNewPage}>
+                <button className="flex items-center gap-1 rounded-lg bg-stone-800 px-3 py-2 text-xs text-white transition hover:bg-stone-900" onClick={SaveNewPage}>
                     <Plus size={15} />
                     <h1>Save</h1>
                 </button>

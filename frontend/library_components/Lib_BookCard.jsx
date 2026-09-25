@@ -15,7 +15,7 @@ const Lib_BookCard = ({ handleViewBook, book, showBorrowModal}) => {
                                     (
                                        <div className="h-full w-full justify-center items-center flex flex-col gap-1">
                                             <ImageOff size={50} className="text-stone-300"/>
-                                            <h1 className="text-xs text-stone-500">Not Available</h1> 
+                                            <h1 className="text-xs text-stone-500">{book.title}</h1> 
                                        </div>
                                     )
                                     :

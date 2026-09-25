@@ -185,7 +185,7 @@ const Edit_BookPage = ({bookDetails, setBookDetails, fetchBookById, handleImageC
                             
                             {/* {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < bookDetails?.pages?.length && ( */}
                             <div className="flex flex-col gap-1">
-                                <button className='bg-stone-200  w-fit justify-center items-center flex gap-2 p-2 text-xs border border-stone-500 bg-stone text-stone-500 cursor-pointer rounded-lg outline-none hover:-translate-y-1'
+                                <button className='bg-stone-800  w-fit justify-center items-center flex gap-2 p-2 text-xs text-white cursor-pointer rounded-lg outline-none hover:bg-stone-900'
                                 onClick={() => imageRef.current.click()}
                                 >
                                 <input
@@ -244,7 +244,7 @@ const Edit_BookPage = ({bookDetails, setBookDetails, fetchBookById, handleImageC
 
                                         {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < bookDetails?.pages?.length && (
                                         <div className="flex flex-col gap-1">
-                                            <button className="bg-stone-200  w-fit justify-center items-center flex gap-2 p-2 text-xs border border-stone-500 bg-stone text-stone-500 cursor-pointer rounded-lg outline-none hover:-translate-y-1"
+                                            <button className="bg-stone-800  w-fit justify-center items-center flex gap-2 p-2 text-xs text-white cursor-pointer rounded-lg outline-none hover:bg-stone-900"
                                             onClick={() => audioRef.current.click()}
                                             >
                                             <input

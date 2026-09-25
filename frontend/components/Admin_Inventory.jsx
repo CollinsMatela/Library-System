@@ -145,10 +145,10 @@ const Admin_Inventory = () => {
                                                     >
                                                     {book.copies > 0 ? "Available" : "Not Available"}
                                                     </h1>
-                                                    <button className="bg-red-600 p-2 rounded-lg w-fit cursor-pointer hover:bg-red-700"
+                                                    <button className="bg-red-600 p-2 rounded-lg justify-center items-center flex gap-1 w-fit cursor-pointer hover:bg-red-700"
                                                     onClick={() => handleDelete(book)}>
                                                         <Trash size={15} className="text-white"/>
-                    
+                                                        <h1 className="text-[10px] text-white">Delete</h1>
                                                     </button>
                             
                                                     

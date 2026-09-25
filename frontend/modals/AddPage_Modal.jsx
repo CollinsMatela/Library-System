@@ -85,7 +85,7 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
 
     return(
         <>
-        <div className="fixed inset-0 bg-black/50 justify-center items-center flex">
+        <div className="fixed inset-0 bg-black/50 z-20 justify-center items-center flex">
 
             <div className="bg-white w-5xl rounded-xl">
                 <header className="flex flex-col justify-start items-start p-4 border-b border-stone-300">

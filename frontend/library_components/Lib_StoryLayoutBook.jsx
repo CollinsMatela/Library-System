@@ -19,7 +19,7 @@ const Lib_StoryLayoutBook = ({book, isEnd, showText, showImage, pageIndex, nextP
     const hasText = book?.pages[pageIndex]?.pageText;
     const hasAudio = book?.pages[pageIndex]?.pageAudio;
 
-    const summary = book?.moral;
+    const summary = book?.moral || "Sorry summary is not available yet. :(";
     const displaySummary = typeEffect(isEnd ? summary : '');
     const [displayText, setDisplayText] = useState('');
     
@@ -27,17 +27,17 @@ const Lib_StoryLayoutBook = ({book, isEnd, showText, showImage, pageIndex, nextP
 
 
     return(
-       <div className="h-screen w-fit justify-center items-center flex flex-col gap-4">
+       <div className="h-screen w-full justify-center items-center flex flex-col gap-4">
 
       
    
-        <div className={`h-full w-full justify-center items-center flex`}>
+        <div className={`h-80 sm:h-125 md:h-170 lg:h-full w-full justify-center items-center flex bg-amber-400`}>
           {/* Text */}
           {isEnd && (
             <div className="h-full w-full justify-center items-center flex flex-col">
-              <div className="w-5xl justify-center items-center flex flex-col gap-6">
-                <h1 className="text-lg font-bold text-white">Story Summary</h1>
-                <p className="text-white leading-relaxed">{displaySummary}</p>
+              <div className="max-w-5xl justify-center items-center flex flex-col gap-6">
+                <h1 className="text-lg font-bold text-yellow-500">SUMMARY OF THE STORY</h1>
+                <p className="text-stone-300 text-xs leading-relaxed">{displaySummary}</p>
                 <button className="text-xs text-white justify-center items-center flex gap-1 cursor-pointer hover:underline"
                 onClick={onClose}
                 ><ChevronLeft size={15}/>Return</button>
@@ -48,17 +48,15 @@ const Lib_StoryLayoutBook = ({book, isEnd, showText, showImage, pageIndex, nextP
 
           {!isEnd && (
             <div className="relative h-full w-full text-lg justify-center items-start flex flex-col bg-stone-50">
-              {/* <header className="absolute top-10 right-10 w-full justify-end items-center flex mb-10 gap-2">
-              <button className="bg-stone-200 rounded-lg px-4 py-2 text-black cursor-pointer hover:-translate-y-1" onClick={() => AutoStoryTelling(hasText)}><AudioLines className="text-stone-500"/></button>
-              </header> */}
               
-              <button className="absolute top-10 right-10 p-2 rounded-xl justify-center items-center flex gap-2 cursor-pointer"
+              
+              <button className="absolute top-2 sm:top-4 md:top-10 right-2 sm:right-4 md:right-10 p-2 rounded-xl justify-center items-center flex gap-2 cursor-pointer"
               onClick={onClose}>
                 <X size={15} className="text-white"/> 
               </button>
-              <button className="absolute left-10 p-4 rounded-full justify-center items-center flex gap-2 bg-white/50 cursor-pointer backdrop-blur-sm"
+              <button className="absolute left-2 sm:left-4 md:left-10  p-3 rounded-full justify-center items-center flex gap-2 bg-white/50 cursor-pointer backdrop-blur-sm"
               onClick={prevPage}>
-                <ArrowLeft size={15}/> 
+                <ArrowLeft size={15} className="text-white"/> 
                 
               </button>
               
@@ -86,13 +84,29 @@ const Lib_StoryLayoutBook = ({book, isEnd, showText, showImage, pageIndex, nextP
               }
               
               
-              <div className="absolute bottom-0 w-full bg-linear-to-t from-black/50 via-black/20 to-transparent px-8 py-8 flex flex-col gap-2 justify-center">
-              <p className="w-fit text-xs bg-white px-3 py-1 rounded-lg">{`Page ${pageIndex + 1}.`}</p>
-                <p 
-                className="max-w-4xl text-center text-white text-2xl md:text-sm font-medium leading-relaxed drop-shadow-lg"
-                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(hasText) }}>
+              <div className="absolute bottom-0 w-full bg-linear-to-t from-black/50 via-black/20 to-transparent px-8 py-8 flex flex-col gap-2 justify-center overflow-hidden">
+                
+                <div className="justify-start items-center flex gap-2">
+                  <p className="w-fit text-xs bg-stone-800/50 p-2 text-white rounded-lg shrink-0">
+                    {`Page ${pageIndex + 1}.`}
                 </p>
-              </div>
+                {!book?.pages[pageIndex]?.pageImage && (<p className="w-fit text-xs bg-stone-800/50 p-2 text-white rounded-lg shrink-0">
+                    Not image supported
+                </p>)}
+                {!book?.pages[pageIndex]?.pageAudio && (<p className="w-fit text-xs bg-stone-800/50 p-2 text-white rounded-lg shrink-0">
+                    Not audio supported
+                </p>)}
+                </div>
+                
+
+                <div
+                    className="text-center text-white text-[8px] md:text-sm font-medium leading-relaxed drop-shadow-lg break-words"
+                    dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(hasText)
+                    }}
+                />
+
+            </div>
               
               
            
@@ -120,10 +134,10 @@ const Lib_StoryLayoutBook = ({book, isEnd, showText, showImage, pageIndex, nextP
            )}
             
 
-              <button className="absolute right-10 p-4 rounded-full justify-center items-center flex gap-2 bg-white/50 cursor-pointer backdrop-blur-sm"
+              <button className="absolute right-2 sm:right-4 md:right-10 p-3 rounded-full justify-center items-center flex gap-2 bg-white/50 cursor-pointer backdrop-blur-sm"
               onClick={nextPage}>
              
-                <ArrowRight size={15}/> 
+                <ArrowRight size={15} className="text-white"/> 
               </button>
 
               

@@ -191,9 +191,12 @@ const Admin_User = () => {
                                     </span>
                                     
                                     <div className=" wrap-break-words gap-1 justify-end flex">
-                                        <button className="bg-transparent text-stone-400 hover:text-blue-500 justify-center items-center flex p-2 cursor-pointer rounded-lg border border-stone-300 hover:border-blue-500" onClick={() => handleViewStudent(user)}><View size={15}/></button>
+                                        <button className="bg-white text-stone-400 hover:text-stone-500 justify-center items-center flex p-2 cursor-pointer rounded-lg border border-stone-300 hover:border-stone-500" onClick={() => handleViewStudent(user)}><View size={15}/></button>
                                         {/* <button className="bg-transparent text-stone-400 hover:text-blue-500 justify-center items-center flex p-2 cursor-pointer rounded-lg border border-stone-300 hover:border-blue-500" onClick={() => handleEditStudent(user)}><UserPen size={15}/></button> */}
-                                        <button className="bg-red-600 text-white justify-center items-center flex p-2 cursor-pointer rounded-lg hover:bg-stone-900" onClick={() => deleteConfirmation(user)}><Trash size={15}/></button>
+                                        <button className="bg-red-600 text-white justify-center items-center flex  gap-1 p-2 cursor-pointer rounded-lg hover:bg-red-700" onClick={() => deleteConfirmation(user)}>
+                                            <Trash size={15}/>
+                                            <h1 className="text-[10px]">Delete</h1>
+                                        </button>
                                     </div>
 
                                 </div>

@@ -1,5 +1,5 @@
 import groq from "../config/groq.js";
-import FictionModel from "../models/Fiction_Model.js";
+import Book_Model from "../models/Books_Model.js"
 
 const SummarizationController = async (req, res) => {
     const { bookId, title, language, texts } = req.body;
@@ -13,7 +13,7 @@ const SummarizationController = async (req, res) => {
 
     try {
         // Find book
-        const book = await FictionModel.findById(bookId);
+        const book = await Book_Model.findById(bookId);
 
         if (!book) {
             return res.status(404).json({
@@ -34,8 +34,8 @@ const SummarizationController = async (req, res) => {
                     Summarize this children's story and provide its moral.
 
                     Return ONLY:
-                    Summary: [80-100 words]
-                    Moral: [1-2 sentences]
+                    Summary: [60-80 words]
+                    Moral: [1 sentences]
 
                     Do not explain your answer.
                     Do not add any other text.

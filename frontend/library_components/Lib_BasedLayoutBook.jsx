@@ -55,7 +55,7 @@ const Lib_BasedLayoutBook = ({book, showText, textSize, textAlignment, isBold, i
               <div
               className={`${showText ? "" : "hidden"} w-full ${
                 theme ? "bg-stone-950 text-white" : "bg-stone-50 text-stone-800"
-              } p-10`}
+              } p-4 sm:p-10`}
             >
               <div
                 className="

@@ -94,11 +94,15 @@ const Admin_Edit = () => {
               const res = await axios.post(`${import.meta.env.VITE_API_URL}/ai-summarization`, bookData)
               setBookDetails((bookDetails) => ({...bookDetails, moral: res.data.summary}))
               toast.success(res.data.message);
-              fetchBookById();
+              
             } catch (error) {
               console.log(error);
-              toast.error(error?.response?.data?.message);
+              toast.error(
+                    error?.response?.data?.message ||
+                    `Request failed with status ${error?.response?.status || "unknown"}`
+                );
             }
+            // fetchBookById();
       }
   
   const handleImageChange = async (e) => {

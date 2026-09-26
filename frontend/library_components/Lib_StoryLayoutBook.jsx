@@ -1,4 +1,4 @@
-import {Book, ArrowLeft, ArrowRight, AudioLines, ImageOff, Eye, VolumeOff, X, ChevronLeft} from "lucide-react";
+import {Book, ArrowLeft, ArrowRight, AudioLines, ImageOff, Eye, VolumeOff, X, ChevronLeft, EarOff} from "lucide-react";
 import {
   speak,
   pauseSpeech,
@@ -31,7 +31,7 @@ const Lib_StoryLayoutBook = ({book, isEnd, showText, showImage, pageIndex, nextP
 
       
    
-        <div className={`h-80 sm:h-125 md:h-170 lg:h-full w-full justify-center items-center flex bg-amber-400`}>
+        <div className={`h-80 sm:h-125 md:h-170 lg:h-full w-full justify-center items-center flex bg-stone-900`}>
           {/* Text */}
           {isEnd && (
             <div className="h-full w-full justify-center items-center flex flex-col">
@@ -47,7 +47,7 @@ const Lib_StoryLayoutBook = ({book, isEnd, showText, showImage, pageIndex, nextP
           )}
 
           {!isEnd && (
-            <div className="relative h-full w-full text-lg justify-center items-start flex flex-col bg-stone-50">
+            <div className="relative h-full w-full text-lg justify-center items-start flex flex-col bg-pink-500">
               
               
               <button className="absolute top-2 sm:top-4 md:top-10 right-2 sm:right-4 md:right-10 p-2 rounded-xl justify-center items-center flex gap-2 cursor-pointer"
@@ -62,16 +62,16 @@ const Lib_StoryLayoutBook = ({book, isEnd, showText, showImage, pageIndex, nextP
               
               {!book?.pages[pageIndex]?.pageImage ?
               (
-                <div className="bg-stone-800 flex flex-col justify-center items-center h-full w-200 gap-5">
-                  <div className="w-28 h-28 rounded-full bg-stone-700/50 flex items-center justify-center">
+                <div className="bg-stone-800 flex flex-col justify-center items-center h-full w-full gap-5">
+                  <div className="hidden w-28 h-28 rounded-full bg-stone-700/50 sm:flex items-center justify-center">
                     <ImageOff size={56} className="text-stone-500" />
                   </div>
 
                   <div className="text-center">
-                    <h1 className="text-3xl text-stone-700 font-semibold">
-                      No Cover Image
+                    <h1 className="sm:hidden text-lg sm:text-4xl text-stone-700 font-bold">
+                      NO IMAGE
                     </h1>
-                    <p className="text-sm text-stone-500 mt-1">
+                    <p className="text-xs sm:text-sm text-stone-500">
                       This book does not have a page image available.
                     </p>
                   </div>
@@ -86,15 +86,19 @@ const Lib_StoryLayoutBook = ({book, isEnd, showText, showImage, pageIndex, nextP
               
               <div className="absolute bottom-0 w-full bg-linear-to-t from-black/50 via-black/20 to-transparent px-8 py-8 flex flex-col gap-2 justify-center overflow-hidden">
                 
-                <div className="justify-start items-center flex gap-2">
-                  <p className="w-fit text-xs bg-stone-800/50 p-2 text-white rounded-lg shrink-0">
+                <div className="justify-start items-start flex gap-1">
+                  <p className="w-fit text-[10px] bg-stone-800/50 p-2 text-stone-500 rounded-lg shrink-0">
                     {`Page ${pageIndex + 1}.`}
                 </p>
-                {!book?.pages[pageIndex]?.pageImage && (<p className="w-fit text-xs bg-stone-800/50 p-2 text-white rounded-lg shrink-0">
-                    Not image supported
+                {!book?.pages[pageIndex]?.pageImage && (<p className="w-fit text-[10px] bg-stone-800/50 p-2 text-stone-500 rounded-lg shrink-0"
+                title="Not image supported">
+                    <ImageOff size={15} className="block sm:hidden"/>
+                    <h1 className="hidden sm:block">Not Image Supported</h1>
                 </p>)}
-                {!book?.pages[pageIndex]?.pageAudio && (<p className="w-fit text-xs bg-stone-800/50 p-2 text-white rounded-lg shrink-0">
-                    Not audio supported
+                {!book?.pages[pageIndex]?.pageAudio && (<p className="w-fit text-[10px] bg-stone-800/50 p-2 text-stone-500 rounded-lg shrink-0"
+                title="Not audio supported">
+                    <EarOff size={15} className="block sm:hidden"/>
+                    <h1 className="hidden sm:block">Not audio supported</h1>
                 </p>)}
                 </div>
                 

@@ -6,7 +6,7 @@ import Confirmation_Popup from "../../popup/Confirmation_Popup";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 
-const Edit_BookPage = ({bookDetails, setBookDetails, fetchBookById, handleImageChange, handleAudioChange, updatePage, showPageUpdateConfirmation, selectedPageIndex, setSelectedPageIndex, isAddPageModal}) => {
+const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAudioChange, updatePage, showPageUpdateConfirmation, selectedPageIndex, setSelectedPageIndex, isAddPageModal}) => {
 
     let modules = {
     toolbar: [

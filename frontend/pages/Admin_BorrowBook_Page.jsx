@@ -294,7 +294,7 @@ const Admin_BorrowBook_Page = () => {
 
               <div className="w-full justify-between items-center flex flex-col px-4 lg:px-10">
 
-                <div className="w-full justify-between items-start flex flex-col md:flex-row mb-2 lg:mb-4">
+                <div className="w-full justify-between items-start flex flex-col sm:flex-row mb-2 lg:mb-4 gap-2">
 
                     <div className="flex items-center justify-start gap-2 w-full ">
                         <div className="bg-stone-800 rounded-lg p-2 text-white justify-center items-center flex">
@@ -307,7 +307,7 @@ const Admin_BorrowBook_Page = () => {
                     </div>
 
             
-                        <select className="bg-white outline-none border border-stone-300 rounded-lg p-2 text-xs text-stone-500"
+                        <select className="bg-white w-full sm:w-fit outline-none border border-stone-300 rounded-lg p-2 text-xs text-stone-500"
                         onChange={(e) => handleStatus(e.target.value)}>
                             <option value="">Select Status</option>
                             <option value="pending">Pending Status</option>

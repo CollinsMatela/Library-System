@@ -32,6 +32,7 @@ const Admin_Edit = () => {
     const [bookDetails, setBookDetails] = useState('')
 
     useEffect(() => {
+        if(!selectedBook) return;
         fetchBookById(selectedBook)
     },[selectedBook])
 
@@ -374,13 +375,13 @@ const Admin_Edit = () => {
     <Edit_BookInformation 
             bookDetails={bookDetails}
             setBookDetails={setBookDetails}
-            fetchBookById={fetchBookById}
+            // fetchBookById={fetchBookById}
             Summarization={AISummarization}
             updateBookInformation={updateBookInformation}
     />
     <Edit_BookPage bookDetails={bookDetails}
                setBookDetails={setBookDetails}
-               fetchBookById={fetchBookById}
+            //    fetchBookById={fetchBookById}
                handleImageChange={handleImageChange}
                handleAudioChange={handleAudioChange}
                updatePage={updatePage}

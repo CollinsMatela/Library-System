@@ -13,9 +13,17 @@ const Admin_Authority = () => {
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
     const [roleConfirmation, setRoleConfirmation] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
+    const [filterRole, setFilterRole] = useState('')
 
     const [selectedLibrarian, setSelectedLibrarian] = useState(null);
     const [selectedNewRole, setSelectedNewRole] = useState('')
+
+    const [filteredRole, setFilteredRole] = useState([]);
+
+    let SystemAdmin = members.filter((m) => m.role?.toLowerCase() === "system administrator");
+    let HeadLibrarian = members.filter((m) => m.role?.toLowerCase() === "head librarian");
+    let ITLibrarian = members.filter((m) => m.role?.toLowerCase() === "it librarian");
+    let AssistantLibrarian = members.filter((m) => m.role?.toLowerCase() === "assistant librarian");
 
     useEffect(() => {
        const loadData = async () => {
@@ -23,7 +31,27 @@ const Admin_Authority = () => {
        }
        loadData()
     },[])
+    useEffect(() => {
+        if (filterRole === "system administrator") {
+        setFilteredRole(SystemAdmin);
+        }
 
+        if (filterRole === "head librarian") {
+        setFilteredRole(HeadLibrarian);
+        }
+
+        if (filterRole === "it librarian") {
+            setFilteredRole(ITLibrarian);
+        }
+
+        if (filterRole === "assistant librarian") {
+            setFilteredRole(AssistantLibrarian);
+        }
+
+        if (filterRole === "") {
+            setFilteredRole(members);
+        }
+    }, [filterRole, members])
     const FetchMembersRequest = async () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/fetch-members`)
@@ -103,61 +131,75 @@ const Admin_Authority = () => {
 
                 <div className="w-full justify-start items-start flex flex-col px-4 lg:px-10">
 
-                    <div className="justify-center items-center flex gap-2 mb-4">
-                                <div className="hidden sm:flex rounded-lg bg-stone-800 p-2 text-white justify-center items-center">
+                    <div className="w-full justify-between items-center flex gap-2 mb-4">
+                            <div className="justify-center items-center flex gap-2">
+                                <div className="flex rounded-lg bg-stone-800 p-2 text-white justify-center items-center">
                                     <Users size={20}/>
                                 </div>
                                 <div>
-                                    <h1 className="text-md font-bold text-stone-800 rounded-full">Authorized List</h1>
-                                    <p className="text-stone-400 text-xs">List of registered authorized people.</p>
+                                    <h1 className="text-md font-bold text-stone-800 rounded-full">Authorized Member</h1>
+                                    <p className="text-stone-400 text-[10px]">List of registered authorized people.</p>
                                 </div>
+                            </div>
+                            
+
+                            <button className="text-[10px] text-white p-2 bg-stone-800 hover:bg-stone-900 justify-center items-center flex gap-1 rounded-lg"
+                            onClick={() => setShowMemberModal(true)}>
+                            <Plus size={15}/>
+                            <h1 className="hidden sm:block">Authorized</h1>
+                            </button>
                     </div>
 
                      <div className="bg-white h-120 w-full border border-stone-300 rounded-lg p-2 space-y-2">
 
-                          <div className="bg-stone-100 px-4 py-3 w-full justify-between items-center border border-stone-300 rounded-lg flex mb-2">
+                          <div className="bg-stone-100 p-2 w-full justify-between items-start border border-stone-300 rounded-lg flex flex-col sm:flex-row mb-2 gap-2">
                              <div>
-                                <h2 className="text-xs font-medium text-stone-700">Authorized Member</h2>
-                                <p className="mt-1 text-xs text-stone-500">
+                                <h2 className="text-[10px] font-medium text-stone-700">Authorized Member</h2>
+                                <p className="mt-1 text-[10px] text-stone-500">
                                     Manage librarian accounts and access permissions.
                                 </p>
                             </div>
 
-                             <button className="text-xs text-white p-2 bg-stone-800 hover:bg-stone-900 justify-center items-center flex gap-1 rounded-lg"
-                             onClick={() => setShowMemberModal(true)}>
-                                <Plus size={15}/>
-                                
-                                </button>
+                             <select className="text-[10px] w-full sm:w-fit text-stone-500 outline-none p-2 bg-white border border-stone-300 justify-center items-center flex gap-1 rounded-lg"
+                             value={filterRole}
+                             onChange={(e) => setFilterRole(e.target.value)}>
+                                 <option value="">Filter Role</option>
+                                 <option value="system administrator">System Administrator</option>
+                                 <option value="head librarian">Head Librarian</option>
+                                 <option value="it librarian">IT Librarian</option>
+                                 <option value="assistant librarian">Assistant Librarian</option>
+                            </select>
                           </div>
-
-                           {members?.length === 0 && 
+                          
+                          <div className="h-100 w-full space-y-2 overflow-auto">
+                           {filteredRole?.length === 0 && 
                             
                                 <div
                                 className="w-full p-6 bg-stone-50 rounded-lg justify-center items-center flex flex-col border border-stone-200">
-                                <h1 className="text-sm font-medium text-stone-500">No librarian found</h1>
-                                <h1 className="text-xs mt-1 text-stone-500">Add new librarian member</h1>
+                                <h1 className="text-xs font-bold text-stone-800">No {filterRole} found</h1>
+                                <h1 className="text-[10px] mt-1 text-stone-500">Add new librarian member</h1>
                                 </div>
                             
                             }
 
-                            {members?.length > 0 && 
-                            members.map((member, index) => (
+                            {filteredRole?.length > 0 && 
+                            filteredRole.map((member, index) => (
                                 <div
                                 key={member._id}
                                 className="w-full bg-stone-50 justify-between items-center flex border border-stone-300 p-2 rounded-lg gap-2">
 
                                 <div className="w-full justify-center items-center flex gap-2">
-                                <h1 className="text-xs text-stone-500">{index + 1}</h1>
+                                <h1 className="text-[10px] text-stone-500">{index + 1}</h1>
                                 <div>
                                     {!member.avatar ? 
                                     (
-                                        <div className="bg-blue-500 h-8 w-8 rounded-full justify-center items-center flex text-white">
+                                        <div className="hidden sm:flex bg-blue-500 h-8 w-8 rounded-full justify-center items-center text-white">
                                             {member.firstname.slice(0,1).toUpperCase()}
                                         </div>
                                     )
                                     :
                                     (
-                                        <div className="p-2 rounded-full">
+                                        <div className="hidden sm:flex p-2 rounded-full">
                                            <img src={member.avatar} className="object-cover" />
                                         </div>
                                     )}
@@ -169,8 +211,8 @@ const Admin_Authority = () => {
                                 </div>
                                 </div>
 
-                                <div className="w-full justify-end items-center flex gap-2">
-                                    <select className="border border-stone-300 p-2 text-[10px] text-stone-500 rounded-lg outline-none"
+                                <div className="w-full justify-end items-center flex gap-1">
+                                    <select className="border border-stone-300 p-2 text-[10px] w-25 sm:w-fit text-stone-500 rounded-lg outline-none"
                                     onChange={(e) => handleUpdateRole(member, e.target.value)}>
                                         <option value="">Select Role</option>
                                         <option value="system administrator">System Administrator</option>
@@ -181,7 +223,7 @@ const Admin_Authority = () => {
                                     <button className="bg-red-500 p-2 rounded-lg hover:bg-red-600 cursor-pointer justify-center items-center flex gap-1"
                                     onClick={() => handleDeleteLibrarian(member)}>
                                         <Trash size={15} className="text-white"/>
-                                        <h1 className="text-[10px] text-white">Delete</h1>
+                                       
                                     </button>
                                 </div>
                                 
@@ -189,7 +231,7 @@ const Admin_Authority = () => {
                             ))
                             }
                      </div>
-
+                     </div>
                     
                 </div>
         </section>

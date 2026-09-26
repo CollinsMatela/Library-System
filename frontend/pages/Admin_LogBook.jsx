@@ -1,16 +1,18 @@
 import Admin_SideBar from "../components/Admin_Sidebar"
-import { Plus, Check, Users, LoaderCircle } from "lucide-react"
+import { Plus, Check, Users, LoaderCircle, Eye } from "lucide-react"
 import LogBookModal from "../modals/LogBookModal"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import axios from 'axios'
 import Confirmation from '../popup/Confirmation_Popup'
 import Admin_Header from "../components/Admin_Header"
+import LogbookViewModal from "../modals/LobookViewModal"
 
 const Admin_LogBook = () => {
     
     const [isLoading, setIsLoading] = useState(false)
     const [showLogBook, setShowLogBook] = useState(false);
+    const [showView, setShowView] = useState(false)
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     
@@ -106,6 +108,11 @@ const Admin_LogBook = () => {
           handleSubmit();
     }
 
+    const handleView = (visitor) => {
+          setSelectedVisitor(visitor)
+          setShowView(true)
+    }
+
     return(
         <>
         {showLogBook && (<LogBookModal logBook={logBook} 
@@ -118,6 +125,13 @@ const Admin_LogBook = () => {
         message={'Is visitor going to leave?'} 
         onConfirm={() => updateLeaveTime(selectedVisitor)} 
         onCancel={() => setShowConfirmation(false)}/>)}
+
+        {showView && (
+            <LogbookViewModal
+            log={selectedVisitor}
+            onClose={() => setShowView(false)}
+            />
+        )}
 
         <Admin_SideBar/>
 
@@ -135,12 +149,12 @@ const Admin_LogBook = () => {
                                 </div>
                                 <div>
                                     <h1 className="text-md font-bold text-stone-800 rounded-full">Record Visit</h1>
-                                    <p className="text-stone-400 text-xs">List of people entered library.</p>
+                                    <p className="text-stone-400 text-[10px]">List of people entered library.</p>
                                 </div>
                             </div>
                             
                             <div>
-                                <button className="bg-stone-800 p-2 rounded-lg text-white text-xs cursor-pointer hover:-translate-y-1 justify-center items-center flex gap-2"
+                                <button className="bg-stone-800 p-2 rounded-lg text-white text-[10px] cursor-pointer hover:-translate-y-1 justify-center items-center flex gap-2"
                                 onClick={() => setShowLogBook(true)}
                                 ><Plus size={15}/> 
                                 <h1>Add Visitor</h1>
@@ -148,19 +162,18 @@ const Admin_LogBook = () => {
                             </div>
                 </div>
                 
-                <div className="bg-white h-120 w-full border-0 lg:border border-stone-300 lg:rounded-xl lg:p-2">
+                <div className="bg-white h-120 w-full border border-stone-300 lg:rounded-xl rounded-lg p-2">
 
                 
-                <div className="hidden lg:grid grid-cols-9 w-full bg-stone-100 rounded-lg border border-stone-300 px-4 py-3 mb-2">
-                            <h1 className="text-xs text-stone-500">No.</h1>
-                            <h1 className="text-xs text-stone-500">Name</h1>
-                            <h1 className="text-xs text-stone-500">Address</h1>
-                            <h1 className="text-xs text-stone-500">Contact</h1>
-                            <h1 className="text-xs text-stone-500">Purpose</h1>
-                            <h1 className="text-xs text-stone-500">Date</h1>
-                            <h1 className="text-xs text-stone-500">Time In</h1>
-                            <h1 className="text-xs text-stone-500">Time Out</h1>
-                            <h1 className="text-xs text-stone-500">Action</h1>
+                <div className="grid grid-cols-4 sm:grid-cols-8 w-full bg-stone-100 rounded-lg border border-stone-300 px-4 py-3 mb-2">
+                            <h1 className="text-[10px] text-stone-500">Name</h1>
+                            <h1 className="hidden sm:block text-[10px] text-stone-500">Address</h1>
+                            <h1 className="hidden sm:block text-[10px] text-stone-500">Contact</h1>
+                            <h1 className="hidden sm:block text-[10px] text-stone-500">Purpose</h1>
+                            <h1 className="hidden sm:block text-[10px] text-stone-500">Date</h1>
+                            <h1 className=" text-[10px] text-stone-500">Time In</h1>
+                            <h1 className=" text-[10px] text-stone-500">Time Out</h1>
+                            <h1 className="text-[10px] text-stone-500">Action</h1>
                 </div>
                 
                 {isLoading ? 
@@ -173,9 +186,9 @@ const Admin_LogBook = () => {
                 (
                     <>
                     {orderedLogBookList.length === 0 && (
-                    <div className="w-full bg-stone-50 border border-stone-300 rounded-xl p-6 text-xs justify-center items-center flex flex-col">
-                       <h1 className="text-xs text-stone-700 font-medium">No visitor listed</h1>
-                       <h1 className="text-xs text-stone-500 mt-1">Try add new library visitor</h1>
+                    <div className="w-full bg-stone-50 border border-stone-300 rounded-xl p-6 text-[10px] justify-center items-center flex flex-col">
+                       <h1 className="text-[10px] text-stone-700 font-medium">No visitor listed</h1>
+                       <h1 className="text-[10px] text-stone-500 mt-1">Try add new library visitor</h1>
                     </div>
                 )}
 
@@ -185,23 +198,26 @@ const Admin_LogBook = () => {
                     key={log._id}
                     className={`w-full bg-stone-50 justify-between items-start flex flex-col lg:flex-row px-2 mb-2 rounded-lg border border-stone-300 border-l-3 ${log.leaveTime ? "border-l-blue-500" : "border-l-yellow-500"}`}
                     >
-                        <div className="grid grid-cols-1 lg:grid-cols-9 gap-2 w-full lg:p-2">
-                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">No.</span>{index + 1}</h1>
-                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">Name:</span>{log.name}</h1>
-                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">Address:</span>{log.address}</h1>
-                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">Contact:</span>{log.contact}</h1>
-                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">Purpose:</span>{log.purpose}</h1>
-                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">Date:</span>{new Date(log.createdAt).toISOString().split("T")[0]}</h1>
-                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">Time In:</span>{new Date(log.createdAt).toLocaleTimeString()}</h1>
-                            <h1 className="text-[10px] text-stone-500 justify-between items-center flex"><span className="lg:hidden">Time Out:</span>{log.leaveTime
+                        <div className="grid grid-cols-4 sm:grid-cols-8 w-full lg:py-2">
+                            <h1 className="text-[10px] text-stone-500 justify-start items-center flex"><span className="lg:hidden"></span>{log.name}</h1>
+                            <h1 className="hidden sm:flex text-[10px] text-stone-500 justify-start items-center"><span className="lg:hidden"></span>{log.address}</h1>
+                            <h1 className="hidden sm:flex text-[10px] text-stone-500 justify-start items-center"><span className="lg:hidden"></span>{log.contact}</h1>
+                            <h1 className="hidden sm:flex text-[10px] text-stone-500 justify-start items-center"><span className="lg:hidden"></span>{log.purpose}</h1>
+                            <h1 className="flex text-[10px] text-stone-500 justify-start items-center"><span className="lg:hidden"></span>{new Date(log.createdAt).toISOString().split("T")[0]}</h1>
+                            <h1 className="flex text-[10px] text-stone-500 justify-start items-center"><span className="lg:hidden"></span>{new Date(log.createdAt).toLocaleTimeString()}</h1>
+                            <h1 className="hidden sm:flex text-[10px] text-stone-500 justify-start items-center"><span className="lg:hidden"></span>{log.leaveTime
                                                                                                     ? new Date(log.leaveTime).toLocaleTimeString()
                                                                                                     : ""}</h1>
-                            <div className="w-full lg:w-fit justify-end items-center flex border-y lg:border-0 border-stone-300 py-2 lg:p-0">
+                            <div className="w-full lg:w-fit justify-start items-center flex py-2 lg:p-0 gap-1">
+                            <button className="p-2 hover:bg-stone-200 rounded-lg transition cursor-pointer"
+                            onClick={() => handleView(log)}>
+                                <Eye size={15} className="text-stone-500"/>
+                            </button>
                             <button 
                             disabled={log.leaveTime}
                             className={`${!log.leaveTime ? "bg-stone-800 hover:bg-stone-900 cursor-pointer text-white" : "bg-stone-200 cursor-not-allowed text-stone-500"} w-fit justify-center items-center flex p-2 rounded-lg gap-1`} 
                             onClick={() => LeaveConfirmation(log)}><Check size={15}/>
-                            <h1 className="text-[10px]">{!log.leaveTime ? "Active" : "Check out"}</h1>
+                            <h1 className="hidden lg:block text-[10px]">{!log.leaveTime ? "In" : "Out"}</h1>
                             </button>   
                             </div>
                         </div>

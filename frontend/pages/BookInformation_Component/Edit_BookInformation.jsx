@@ -3,7 +3,7 @@ import { TextAlignCenter, Pen, Trash, Image, Sparkle, Sparkles, Repeat, PenBox, 
 import axios from "axios";
 import {toast} from "react-toastify";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
-const Edit_BookInformation = ({bookDetails, setBookDetails, fetchBookById, Summarization, updateBookInformation}) => {
+const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updateBookInformation}) => {
 
     console.log(bookDetails)
 

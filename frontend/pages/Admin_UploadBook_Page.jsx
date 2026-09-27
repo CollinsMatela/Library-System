@@ -247,7 +247,7 @@ const Admin_UploadBook_Page = () => {
                             </div>
                             <div>
                                 <h1 className="text-md font-bold text-stone-800 rounded-full">Upload Book</h1>
-                                <p className="text-stone-400 text-xs">Fill in the book details below to upload it.</p>
+                                <p className="text-stone-400 text-[10px]">Fill in the book details below to upload it.</p>
                             </div>
                             
                         </div>
@@ -334,7 +334,7 @@ const Admin_UploadBook_Page = () => {
                     />
 
                     <div className="justify-end items-center flex">
-                        <button className="bg-green-600 text-xs text-white justify-center items-center flex gap-2 p-2 rounded-lg hover:bg-green-700 transition"
+                        <button className="bg-green-600 text-[10px] text-white justify-center items-center flex gap-2 p-2 rounded-lg hover:bg-green-700 transition"
                         onClick={handleConfirmation}>
                             <Plus size={15}/>
                             <h1>Upload Book</h1>

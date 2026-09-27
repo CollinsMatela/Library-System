@@ -150,7 +150,7 @@ const Admin_Authority = () => {
                             </button>
                     </div>
 
-                     <div className="bg-white h-120 w-full border border-stone-300 rounded-lg p-2 space-y-2">
+                     <div className="bg-white min-h-100 w-full border border-stone-300 rounded-lg p-2 space-y-2">
 
                           <div className="bg-stone-100 p-2 w-full justify-between items-start border border-stone-300 rounded-lg flex flex-col sm:flex-row mb-2 gap-2">
                              <div>

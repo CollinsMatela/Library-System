@@ -55,7 +55,7 @@ const BookInformation = ({
                         Primary Details
                     </h2>
 
-                    <p className="text-stone-500 text-xs">
+                    <p className="text-stone-500 text-[10px]">
                         Provide the title and other information of the book.
                     </p>
                 </div>
@@ -66,7 +66,7 @@ const BookInformation = ({
                     <input
                         type="text"
                         placeholder="Title"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
@@ -75,14 +75,14 @@ const BookInformation = ({
                     <input
                         type="text"
                         placeholder="Author"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={author}
                         onChange={(e) => setAuthor(e.target.value)}
                     />
 
                     {/* Language */}
                     <select
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={language}
                         onChange={(e) => setLanguage(e.target.value)}
                     >
@@ -107,7 +107,7 @@ const BookInformation = ({
                     <input
                         type="text"
                         placeholder="Publisher"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={publisher}
                         onChange={(e) => setPublisher(e.target.value)}
                     />
@@ -116,7 +116,7 @@ const BookInformation = ({
                     <input
                         type="text"
                         placeholder="ISBN"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={isbn}
                         onChange={(e) => setIsbn(e.target.value)}
                     />
@@ -133,7 +133,7 @@ const BookInformation = ({
                         Publication Details
                     </h2>
 
-                    <p className="text-stone-500 text-xs">
+                    <p className="text-stone-500 text-[10px]">
                         Provide the publication information of the book.
                     </p>
                 </div>
@@ -146,7 +146,7 @@ const BookInformation = ({
                         min="1900"
                         max={new Date().getFullYear()}
                         placeholder="Publication Year"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={publication}
                         onChange={(e) => setPublication(e.target.value)}
                     />
@@ -155,7 +155,7 @@ const BookInformation = ({
                     <input
                         type="text"
                         placeholder="Edition"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={edition}
                         onChange={(e) => setEdition(e.target.value)}
                     />
@@ -164,7 +164,7 @@ const BookInformation = ({
                     <input
                         type="text"
                         placeholder="Volume"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={volume}
                         onChange={(e) => setVolume(e.target.value)}
                     />
@@ -181,7 +181,7 @@ const BookInformation = ({
                         Classification & Inventory
                     </h2>
 
-                    <p className="text-stone-500 text-xs">
+                    <p className="text-stone-500 text-[10px]">
                         Provide the classification and inventory details.
                     </p>
                 </div>
@@ -192,7 +192,7 @@ const BookInformation = ({
                     <input
                         type="text"
                         placeholder="DDC Classification"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={ddc}
                         onChange={(e) => setDdc(e.target.value)}
                     />
@@ -201,7 +201,7 @@ const BookInformation = ({
                     <input
                         type="text"
                         placeholder="Call Number"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={callNumber}
                         onChange={(e) => setCallNumber(e.target.value)}
                     />
@@ -211,7 +211,7 @@ const BookInformation = ({
                         type="number"
                         min={1}
                         placeholder="Number of Copies"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={copies}
                         onChange={(e) => setCopies(e.target.value)}
                     />
@@ -220,7 +220,7 @@ const BookInformation = ({
                     <input
                         type="text"
                         placeholder="Donated From"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={donatedFrom}
                         onChange={(e) => setDonatedFrom(e.target.value)}
                     />
@@ -228,7 +228,7 @@ const BookInformation = ({
                     {/* Received Date */}
                     <input
                         type="date"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={receivedDate}
                         onChange={(e) => setReceivedDate(e.target.value)}
                     />
@@ -245,7 +245,7 @@ const BookInformation = ({
                         Literature Details
                     </h2>
 
-                    <p className="text-stone-500 text-xs">
+                    <p className="text-stone-500 text-[10px]">
                         Provide additional information for literature books.
                     </p>
                 </div>
@@ -256,7 +256,7 @@ const BookInformation = ({
                     <input
                         type="text"
                         placeholder="Illustrator"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={illustrator}
                         onChange={(e) => setIllustrator(e.target.value)}
                     />
@@ -265,7 +265,7 @@ const BookInformation = ({
                     <input
                         type="text"
                         placeholder="Series"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={series}
                         onChange={(e) => setSeries(e.target.value)}
                     />
@@ -282,14 +282,14 @@ const BookInformation = ({
                         Description
                     </h2>
 
-                    <p className="text-stone-500 text-xs">
+                    <p className="text-stone-500 text-[10px]">
                         Provide a short description of the book.
                     </p>
                 </div>
 
                 <textarea
                     placeholder="Description"
-                    className="w-full bg-white border border-stone-300 p-3 rounded-lg text-stone-600 text-xs resize-none min-h-24"
+                    className="w-full bg-white border border-stone-300 p-3 rounded-lg text-stone-600 text-[10px] resize-none min-h-24"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                 />

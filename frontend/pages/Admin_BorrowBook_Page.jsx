@@ -294,7 +294,7 @@ const Admin_BorrowBook_Page = () => {
 
               <div className="w-full justify-between items-center flex flex-col px-4 lg:px-10">
 
-                <div className="w-full justify-between items-start flex flex-col sm:flex-row mb-2 lg:mb-4 gap-2">
+                <div className="w-full justify-between items-start flex flex-col sm:flex-row mb-4 gap-2">
 
                     <div className="flex items-center justify-start gap-2 w-full ">
                         <div className="bg-stone-800 rounded-lg p-2 text-white justify-center items-center flex">
@@ -302,12 +302,12 @@ const Admin_BorrowBook_Page = () => {
                         </div>
                         <div>
                             <h1 className="text-sm font-bold text-stone-800 rounded-full">Request Information</h1>
-                            <p className="text-stone-400 text-xs">Manage user borrowing books.</p>
+                            <p className="text-stone-400 text-[10px]">Manage user borrowing books.</p>
                         </div>
                     </div>
 
             
-                        <select className="bg-white w-full sm:w-fit outline-none border border-stone-300 rounded-lg p-2 text-xs text-stone-500"
+                        <select className="bg-white w-full sm:w-fit outline-none border border-stone-300 rounded-lg p-2 text-[10px] text-stone-500"
                         onChange={(e) => handleStatus(e.target.value)}>
                             <option value="">Select Status</option>
                             <option value="pending">Pending Status</option>
@@ -325,8 +325,8 @@ const Admin_BorrowBook_Page = () => {
                   <div className="mb-2 w-full">
                       <div className="flex items-center justify-between rounded-lg border border-stone-300 bg-stone-100 px-4 py-3">
                         <div>
-                          <h2 className="text-xs font-medium text-stone-700 capitalize">{`${selectedStatus || "Pending"} Request` || 'Select Status'}</h2>
-                          <p className="mt-1 text-xs text-stone-500">
+                          <h2 className="text-[10px] font-medium text-stone-700 capitalize">{`${selectedStatus || "Pending"} Request` || 'Select Status'}</h2>
+                          <p className="mt-1 text-[10px] text-stone-500">
                             Showing list of request.
                           </p>
                         </div>

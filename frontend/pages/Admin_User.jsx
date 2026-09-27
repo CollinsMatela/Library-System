@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Edit_Student_Modal from "../modals/Edit_Student_Modal"
 import Confirmation_Popup from "../popup/Confirmation_Popup"
 import View_Student_Modal from "../modals/View_Student_Modal"
-import { View, UserPen, Trash, Search, Users, LoaderCircle } from "lucide-react"
+import { View, UserPen, Trash, Search, Users, LoaderCircle, Eye } from "lucide-react"
 import { toast } from "react-toastify"
 import Admin_Header from "../components/Admin_Header"
 
@@ -96,7 +96,7 @@ const Admin_User = () => {
         {/* Student Container */}
                   <div className="w-full px-4 lg:px-10">
 
-                    <div className="w-full justify-between items-start flex flex-col sm:flex-row rounded-t-xl">
+                    <div className="w-full justify-between items-start flex flex-col sm:flex-row rounded-t-xl mb-2">
 
                         <div className="flex items-center justify-start gap-2 mb-4">
                             <div className="bg-stone-800 rounded-lg p-2 text-white justify-center items-center flex">
@@ -104,34 +104,38 @@ const Admin_User = () => {
                             </div>
                             <div>
                                 <h1 className="text-md font-bold text-stone-800 rounded-full">User Accounts</h1>
-                                <p className="text-stone-400 text-xs">Manage student accounts.</p>
+                                <p className="text-stone-400 text-[10px]">Manage student accounts.</p>
                             </div>
                           
                         </div>
                         
-                        <div className="bg-white w-full sm:w-50 justify-between items-center flex border border-stone-300 rounded-lg px-4">
+                        <div className="justify-between items-center flex border border-stone-300 rounded-lg px-2 w-full sm:w-fit">
                             
-                            <input type="search" 
-                                   placeholder="Search by name" 
-                                   className="bg-white py-2 outline-none text-xs"
+                            <input type="search"
+                                   name="title"
+                                   placeholder="Search book title" 
+                                   className="bg-white py-2 outline-none text-[10px] w-full"
                                    value={search}
                                    onChange={(e) => setSearch(e.target.value)}
                             />
-                            <Search size={15} className="text-stone-500"/>
-                             
+                            <div className="h-full py-1 px-2 border-l border-stone-300">
+                              <Search size={15} className="text-stone-800 hover:text-stone-900 cursor-pointer transition"/> 
+                            </div>
+                            
                         </div>
                     </div>
 
-                    <div className="w-full bg-white border-0 md:border border-stone-300 rounded-xl md:p-2">
+                    <div className="w-full bg-white border border-stone-300 rounded-lg p-2">
 
                     
                       {/* Columns */}
-                        <div className="hidden rounded-lg border border-stone-300 w-full bg-stone-100 md:grid md:grid-cols-5 px-4 py-3">
+                        <div className="rounded-lg border border-stone-300 w-full bg-stone-100 grid grid-cols-3 sm:grid-cols-5 px-4 py-3">
         
-                                <h1 className="text-xs text-stone-500">Fullname</h1>
-                                <h1 className="text-xs text-stone-500">Email</h1>
-                                <h1 className="text-xs text-stone-500">Contact</h1>
-                                <h1 className="text-xs text-stone-500">Type</h1>
+                                <h1 className="text-[10px] text-stone-500">Fullname</h1>
+                                <h1 className="hidden sm:block text-[10px] text-stone-500">Email</h1>
+                                <h1 className="hidden sm:block text-[10px] text-stone-500">Contact</h1>
+                                <h1 className="text-[10px] text-stone-500">Role</h1>
+                                <h1 className="text-[10px] text-stone-500">Action</h1>
                             
                         </div>
 
@@ -143,13 +147,13 @@ const Admin_User = () => {
                     )
                     :
                     (
-                      <div className="h-100 w-full rounded-b-xl pb-10">
+                      <div className="min-h-100 w-full rounded-b-xl pb-10">
                         
                         {/* Rows */}
                         {filteredUser.length < 1 && (
-                            <div className="w-full bg-stone-50 border border-stone-200 rounded-xl p-6 text-xs justify-center items-center flex flex-col mt-2">
+                            <div className="w-full bg-stone-50 border border-stone-200 rounded-lg p-6 text-[10px] justify-center items-center flex flex-col mt-2">
                             <h1 className="text-sm text-stone-500 font-medium">No user found</h1>
-                            <h1 className="text-xs text-stone-500 mt-1">No user listed to the list. Keep wait for new users.</h1>
+                            <h1 className="text-[10px] text-stone-500 mt-1">No user listed to the list. Keep wait for new users.</h1>
                             </div>
                         )}
                         {
@@ -158,32 +162,33 @@ const Admin_User = () => {
                                 const updatedCreatedAt = new Date(user.createdAt).toISOString().split("T")[0];;
                                 
                                 return (
-                                <div key={user._id} className="bg-stone-50 gap-2 min-h-12 w-full rounded-lg border border-stone-300 grid grid-cols-2 md:grid-cols-5 justify-start items-center p-2 mt-2 hover:border-blue-500 hover:bg-blue-100 cursor-pointer">
+                                <div key={user._id} className="bg-stone-50 gap-2 min-h-12 w-full rounded-lg border border-stone-300 grid grid-cols-3 sm:grid-cols-5 justify-start items-center p-2 mt-2 hover:bg-stone-100 cursor-pointer">
                                     <div className="w-full justify-start items-center flex gap-2 border-amber-200">
-                                        <h1 className="text-xs text-stone-500 justify-start items-center wrap-break-word">{index + 1}</h1>
+                                        <h1 className="text-[10px] text-stone-500 justify-start items-center wrap-break-word">{index + 1}</h1>
                                         {user.avatar ? (
-                                            <img src={user.avatar} alt="" className="h-8 w-8 rounded-full object-cover"/>
+                                            <img src={user.avatar} alt="" className="hidden sm:block h-8 w-8 rounded-full object-cover"/>
                                         )
                                         :
                                         (
-                                            <div className="h-8 w-8 rounded-full bg-blue-500 justify-center items-center flex text-white">{user.firstname.slice(0,1).toUpperCase()}</div>
+                                            <div className="hidden sm:flex h-8 w-8 rounded-full bg-blue-500 justify-center items-center text-white">{user.firstname.slice(0,1).toUpperCase()}</div>
                                         )}
                                         <h1 className="text-[10px] text-stone-500 justify-start items-center wrap-break-word">{user.firstname} {user.middlename} {user.lastname}</h1>
                                     </div>
                                     
                                     
-                                    <h1 className="hidden md:block text-[10px] text-stone-500 justify-start items-center wrap-break-word">{user.email}</h1>
-                                    <h1 className="hidden md:block text-[10px] text-stone-500 justify-start items-center wrap-break-word">{user.contact}</h1>
+                                    <h1 className="hidden sm:block text-[10px] text-stone-500 justify-start items-center wrap-break-word">{user.email}</h1>
+                                    <h1 className="hidden sm:block text-[10px] text-stone-500 justify-start items-center wrap-break-word">{user.contact}</h1>
+                                    
                                     <span
-                                    className={`hidden text-[10px] md:inline-flex items-center justify-center px-2 py-1 rounded-lg border text-xs w-fit capitalize
+                                    className={`text-[10px] sm:inline-flex items-center justify-center px-2 py-1 rounded-lg border text-[10px] w-fit capitalize
                                         ${
                                         user.role?.toLowerCase() === "student"
-                                            ? "bg-blue-100 text-blue-700"
+                                            ? "bg-blue-500 text-white"
                                             : user.role?.toLowerCase() === "teacher"
-                                            ? "bg-green-100 text-green-700"
+                                            ? "bg-green-500 text-white"
                                             : user.role?.toLowerCase() === "guest"
-                                            ? "bg-stone-100 text-stone-600"
-                                            : "bg-stone-100 text-stone-500"
+                                            ? "bg-stone-500 text-white"
+                                            : "bg-stone-500 text-white"
                                         }
                                     `}
                                     >
@@ -191,11 +196,10 @@ const Admin_User = () => {
                                     </span>
                                     
                                     <div className=" wrap-break-words gap-1 justify-end flex">
-                                        <button className="bg-white text-stone-400 hover:text-stone-500 justify-center items-center flex p-2 cursor-pointer rounded-lg border border-stone-300 hover:border-stone-500" onClick={() => handleViewStudent(user)}><View size={15}/></button>
+                                        <button className="bg-transparent text-stone-800 hover:bg-stone-200 justify-center items-center flex p-2 cursor-pointer rounded-lg" onClick={() => handleViewStudent(user)}><Eye size={15}/></button>
                                         {/* <button className="bg-transparent text-stone-400 hover:text-blue-500 justify-center items-center flex p-2 cursor-pointer rounded-lg border border-stone-300 hover:border-blue-500" onClick={() => handleEditStudent(user)}><UserPen size={15}/></button> */}
                                         <button className="bg-red-600 text-white justify-center items-center flex  gap-1 p-2 cursor-pointer rounded-lg hover:bg-red-700" onClick={() => deleteConfirmation(user)}>
                                             <Trash size={15}/>
-                                            <h1 className="text-[10px]">Del</h1>
                                         </button>
                                     </div>
 

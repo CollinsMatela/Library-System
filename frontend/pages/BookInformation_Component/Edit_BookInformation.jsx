@@ -34,14 +34,14 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
 
 
             {/* ================= BASIC INFORMATION ================= */}
-            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-lg">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
                         Basic Information
                     </h2>
 
-                    <p className="text-stone-500 text-xs">
+                    <p className="text-stone-500 text-[10px]">
                         Provide the basic details of the book.
                     </p>
                 </div>
@@ -52,7 +52,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                     <input
                         type="text"
                         placeholder="Title"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={bookDetails?.title || ""}
                         onChange={(e) => setBookDetails({...bookDetails, title: e.target.value})}
                     />
@@ -61,14 +61,14 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                     <input
                         type="text"
                         placeholder="Author"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={bookDetails?.author || ""}
                         onChange={(e) => setBookDetails({...bookDetails, author: e.target.value})}
                     />
 
                     {/* Language */}
                     <select
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={bookDetails?.language || ""}
                         onChange={(e) => setBookDetails({...bookDetails, language: e.target.value})}
                     >
@@ -93,7 +93,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                     <input
                         type="text"
                         placeholder="Publisher"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={bookDetails?.publisher || ""}
                         onChange={(e) => setBookDetails({...bookDetails, publisher: e.target.value})}
                     />
@@ -102,7 +102,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                     <input
                         type="text"
                         placeholder="ISBN"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={bookDetails?.isbn || ""}
                         onChange={(e) => setBookDetails({...bookDetails, isbn: e.target.value})}
                     />
@@ -112,14 +112,14 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
 
 
             {/* ================= PUBLICATION DETAILS ================= */}
-            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-lg">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
                         Publication Details
                     </h2>
 
-                    <p className="text-stone-500 text-xs">
+                    <p className="text-stone-500 text-[10px]">
                         Provide the publication information of the book.
                     </p>
                 </div>
@@ -132,7 +132,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                         min="1900"
                         max={new Date().getFullYear()}
                         placeholder="Publication Year"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={bookDetails?.publication || '0000'}
                         onChange={(e) => setBookDetails({...bookDetails, publication: e.target.value})}
                     />
@@ -141,7 +141,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                     <input
                         type="text"
                         placeholder="Edition"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={bookDetails?.edition || ""}
                         onChange={(e) => setBookDetails({...bookDetails, edition: e.target.value})}
                     />
@@ -150,7 +150,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                     <input
                         type="text"
                         placeholder="Volume"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={bookDetails?.volume || ""}
                         onChange={(e) => setBookDetails({...bookDetails, volume: e.target.value})}
                     />
@@ -160,14 +160,14 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
 
 
             {/* ================= CLASSIFICATION & INVENTORY ================= */}
-            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-lg">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
                         Classification & Inventory
                     </h2>
 
-                    <p className="text-stone-500 text-xs">
+                    <p className="text-stone-500 text-[10px]">
                         Provide the classification and inventory details.
                     </p>
                 </div>
@@ -178,7 +178,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                     <input
                         type="text"
                         placeholder="DDC Classification"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={bookDetails?.ddc || ""}
                         onChange={(e) => setBookDetails({...bookDetails, ddc: e.target.value})}
                     />
@@ -187,7 +187,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                     <input
                         type="text"
                         placeholder="Call Number"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={bookDetails?.callNumber || ""}
                         onChange={(e) => setBookDetails({...bookDetails, callNumber: e.target.value})}
                     />
@@ -197,7 +197,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                         type="number"
                         min={1}
                         placeholder="Number of Copies"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={bookDetails?.copies || 0}
                         onChange={(e) => setBookDetails({...bookDetails, copies: e.target.value})}
                     />
@@ -206,7 +206,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                     <input
                         type="text"
                         placeholder="Donated From"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={bookDetails?.donatedFrom || ""}
                         onChange={(e) => setBookDetails({...bookDetails, donatedFrom: e.target.value})}
                     />
@@ -214,7 +214,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                     {/* Received Date */}
                     <input
                         type="date"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={
                             bookDetails?.receivedDate
                                 ? new Date(bookDetails.receivedDate).toISOString().split("T")[0]
@@ -228,14 +228,14 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
 
 
             {/* ================= FICTION DETAILS ================= */}
-            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-lg">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
                         Literature Details
                     </h2>
 
-                    <p className="text-stone-500 text-xs">
+                    <p className="text-stone-500 text-[10px]">
                         Provide additional information for literature books.
                     </p>
                 </div>
@@ -246,7 +246,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                     <input
                         type="text"
                         placeholder="Illustrator"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={bookDetails?.illustrator || ""}
                         onChange={(e) => setBookDetails({...bookDetails, illustrator: e.target.value})}
                     />
@@ -255,7 +255,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                     <input
                         type="text"
                         placeholder="Series"
-                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
+                        className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-[10px]"
                         value={bookDetails?.series || ""}
                         onChange={(e) => setBookDetails({...bookDetails, series: e.target.value})}
                     />
@@ -265,21 +265,21 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
 
 
             {/* ================= DESCRIPTION ================= */}
-            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-lg">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
                         Description
                     </h2>
 
-                    <p className="text-stone-500 text-xs">
+                    <p className="text-stone-500 text-[10px]">
                         Provide a short description of the book.
                     </p>
                 </div>
 
                 <textarea
                     placeholder="Description"
-                    className="w-full bg-white border border-stone-300 p-3 rounded-lg text-stone-600 text-xs resize-none min-h-24"
+                    className="w-full bg-white border border-stone-300 p-3 rounded-lg text-stone-600 text-[10px] resize-none min-h-24"
                     value={bookDetails?.description}
                     onChange={(e) => setBookDetails({...bookDetails, description: e.target.value})}
                 />
@@ -289,7 +289,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
             {/* ================= AI Summarization ================= */}
             {
                 bookDetails?.category === "literature" && (
-                    <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+                    <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-lg">
 
                 <div className="w-full flex justify-between items-center">
                     <div>
@@ -297,7 +297,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                         Literature Summary
                         </h2>
 
-                        <p className="text-stone-500 text-xs">
+                        <p className="text-stone-500 text-[10px]">
                             AI-Powered literature summary.
                         </p> 
                     </div>
@@ -305,14 +305,14 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                     <button className="bg-purple-600 justify-center items-center flex gap-1 p-2 rounded-lg hover:bg-purple-700 transition cursor-pointer"
                     onClick={() => Summarization()}>
                         <Sparkles size={15} className="text-white"/> 
-                        <h1 className="hidden sm:block text-xs text-white">AI Summarization</h1>
+                        <h1 className="hidden sm:block text-[10px] text-white">AI Summarization</h1>
                     </button>
                     
                 </div>
 
                 <textarea
                     placeholder="Literature Summary"
-                    className="w-full bg-white border border-stone-300 p-3 rounded-lg text-stone-600 text-xs resize-none min-h-24"
+                    className="w-full bg-white border border-stone-300 p-3 rounded-lg text-stone-600 text-[10px] resize-none min-h-24"
                     value={bookDetails?.moral}
                     onChange={(e) => setBookDetails({...bookDetails, moral: e.target.value})}
                 />

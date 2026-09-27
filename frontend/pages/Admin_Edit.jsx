@@ -297,7 +297,7 @@ const Admin_Edit = () => {
                             </div>
                             <div>
                                 <h1 className="text-sm font-bold text-stone-800 rounded-full">Choose Book</h1>
-                                <p className="text-stone-400 text-xs">Manage to edit your selectede book</p>
+                                <p className="text-stone-400 text-[10px]">Manage to edit your selectede book</p>
                             </div> 
                             </div>
                             
@@ -305,10 +305,10 @@ const Admin_Edit = () => {
     <div className="w-full bg-stone-800 bg-stone-200 border border-stone-300 rounded-lg p-6">
         
         <div className="mb-2">
-            <h1 className="text-xs font-semibold text-stone-100">
+            <h1 className="text-[10px] font-semibold text-stone-100">
                 Find a Book to Edit
             </h1>
-            <p className="text-xs text-stone-500">
+            <p className="text-[10px] text-stone-500">
                 Select a category and choose the book you want to edit.
             </p>
         </div>
@@ -324,7 +324,7 @@ const Admin_Edit = () => {
                         setSelectedCategory(e.target.value)
                         setSelectedBook("")
                     }}
-                    className="w-full bg-stone-700 text-xs text-stone-100 p-2.5 rounded-lg border outline-none border-stone-500 transition"
+                    className="w-full bg-stone-700 text-[10px] text-stone-100 p-2.5 rounded-lg border outline-none border-stone-500 transition"
                 >
                     <option value="">Select category</option>
 
@@ -347,7 +347,7 @@ const Admin_Edit = () => {
                     value={selectedBook}
                     onChange={(e) => setSelectedBook(e.target.value)}
                     disabled={!selectedCategory}
-                    className="w-full bg-stone-700 text-xs text-stone-100 p-2.5 rounded-lg border border-stone-500 outline-none transition disabled:bg-stone-700 disabled:text-stone-500 disabled:cursor-not-allowed"
+                    className="w-full bg-stone-700 text-[10px] text-stone-100 p-2.5 rounded-lg border border-stone-500 outline-none transition disabled:bg-stone-700 disabled:text-stone-500 disabled:cursor-not-allowed"
                 >
                     <option value="">
                         {selectedCategory
@@ -399,7 +399,7 @@ const Admin_Edit = () => {
 
     {/* // Save Button */}
     <div className="w-full justify-end items-center flex px-4 lg:px-10 mb-10">
-    <button className="justify-center items-center flex gap-2 bg-stone-800 p-2 rounded-lg text-xs text-white hover:bg-stone-900 cursor-pointer"
+    <button className="justify-center items-center flex gap-2 bg-stone-800 p-2 rounded-lg text-[10px] text-white hover:bg-stone-900 cursor-pointer"
     onClick={() => {setIsInformationUpdate(true); setErrorMessage("")}}
     >
         <Pen size={15}/> Save Changes 

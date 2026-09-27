@@ -70,14 +70,14 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                         <h2 className="text-md font-bold text-stone-800">
                             Edit Page 
                         </h2>
-                        <p className="text-xs text-stone-500">
+                        <p className="text-[10px] text-stone-500">
                           Manage to edit and update the book page information.
                         </p>
                     </div>
                 </div>
                 
                 <div className="flex gap-2">
-                 <select className='w-fit p-2 text-xs text-stone-500 bg-white border border-stone-300 rounded-lg outline-none'
+                 <select className='w-fit p-2 text-[10px] text-stone-500 bg-white border border-stone-300 rounded-lg outline-none'
                         onChange={(e) => setSelectedPageIndex(parseInt(e.target.value))}
                     >
                         <option value="">Select Page No.</option>
@@ -90,7 +90,7 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                         ))}
                     </select>
 
-                    <button className="bg-stone-800 text-xs text-white rounded-lg justify-center items-center flex gap-1 hover:bg-stone-900 p-2"
+                    <button className="bg-stone-800 text-[10px] text-white rounded-lg justify-center items-center flex gap-1 hover:bg-stone-900 p-2"
                     onClick={isAddPageModal}>
                     <Plus size={15} />
                     <h1 className="hidden sm:block">Add Page</h1>
@@ -100,13 +100,13 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                 </div>
 
             {selectedPageIndex === null && (
-                <div className="w-full p-8 border border-stone-200 rounded-xl bg-stone-50 flex flex-col justify-center items-center text-center">
+                <div className="w-full bg-white p-8 border border-stone-200 rounded-lg flex flex-col justify-center items-center text-center">
 
-                    <h3 className="text-xs font-medium text-stone-700">
+                    <h3 className="text-[10px] font-medium text-stone-700">
                         No page selected
                     </h3>
 
-                    <p className="text-xs text-stone-500 mt-1 max-w-xs">
+                    <p className="text-[10px] text-stone-500 mt-1 max-w-xs">
                         Select a page from the list to view and edit its content.
                     </p>
                 </div>

@@ -144,7 +144,7 @@ const Admin_LogBook = () => {
                 <div className="flex items-start justify-between gap-2 w-full mb-4">
                             
                             <div className="justify-center items-center flex gap-2">
-                                <div className="hidden sm:flex bg-stone-800 rounded-lg border border-stone-200 p-2 text-white justify-center items-center">
+                                <div className="flex bg-stone-800 rounded-lg border border-stone-200 p-2 text-white justify-center items-center">
                                     <Users size={20} className="text-white"/>
                                 </div>
                                 <div>
@@ -162,7 +162,7 @@ const Admin_LogBook = () => {
                             </div>
                 </div>
                 
-                <div className="bg-white h-120 w-full border border-stone-300 lg:rounded-xl rounded-lg p-2">
+                <div className="bg-white min-h-100 w-full border border-stone-300 lg:rounded-xl rounded-lg p-2 ">
 
                 
                 <div className="grid grid-cols-4 sm:grid-cols-8 w-full bg-stone-100 rounded-lg border border-stone-300 px-4 py-3 mb-2">
@@ -176,7 +176,8 @@ const Admin_LogBook = () => {
                             <h1 className="text-[10px] text-stone-500">Action</h1>
                 </div>
                 
-                {isLoading ? 
+                <div className="w-full h-100 sm:overflow-y-auto">
+                    {isLoading ? 
                 (
                 <div className="w-full justify-center items-center flex p-4">
                     <LoaderCircle size={20} className="text-stone-500 animate-spin"/>
@@ -227,6 +228,8 @@ const Admin_LogBook = () => {
                 }
                     </>
                 )}
+                </div>
+                
                 </div>
                 
             </div>

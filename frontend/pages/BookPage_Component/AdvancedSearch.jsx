@@ -3,21 +3,21 @@ import { Search } from "lucide-react";
 import { categories, gradeLevels, subjects, fields } from "../../mockdata";
 
 const inputClassName =
-  "mt-1 w-full rounded-md border border-stone-300 bg-white px-3 py-2 text-xs text-stone-700 outline-none transition placeholder:text-stone-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100";
+  "mt-1 w-full rounded-md border border-stone-300 bg-white px-3 py-2 text-[10px] text-stone-700 outline-none transition placeholder:text-stone-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100";
 
 const AdvancedSearch = ({ filters, onFilterChange, onClear, onSubmit, FindBook }) => {
   return (
     <div className="mb-2 w-full bg-white">
       <form onSubmit={onSubmit} className="w-full overflow-hidden rounded-lg border border-stone-300 bg-white">
         <header className="border-b border-stone-300 p-4">
-          <h1 className="text-xs  text-stone-800">Advanced Searching</h1>
-          <p className="mt-1 text-xs text-stone-500">
+          <h1 className="text-[10px]  text-stone-800">Advanced Searching</h1>
+          <p className="mt-1 text-[10px] text-stone-500">
             Fill in any fields below to find your book.
           </p>
         </header>
 
         <div className="grid grid-cols-1 gap-x-4 gap-y-4 p-4 sm:grid-cols-2 lg:grid-cols-4">
-          <label className="text-xs  text-stone-500">
+          <label className="text-[10px]  text-stone-500">
             Category
             <select name="category" value={filters.category} onChange={onFilterChange} className={inputClassName}>
               <option value="">All categories</option>
@@ -26,7 +26,7 @@ const AdvancedSearch = ({ filters, onFilterChange, onClear, onSubmit, FindBook }
               ))}
             </select>
           </label>
-          <label className="text-xs  text-stone-500">
+          <label className="text-[10px]  text-stone-500">
             Field
             <select name="field" value={filters.field} onChange={onFilterChange} className={inputClassName}>
               <option value="">All fields</option>
@@ -35,7 +35,7 @@ const AdvancedSearch = ({ filters, onFilterChange, onClear, onSubmit, FindBook }
               ))}
             </select>
           </label>
-          <label className="text-xs  text-stone-500">
+          <label className="text-[10px]  text-stone-500">
             Grade Level
             <select name="gradeLevel" value={filters.gradeLevel} onChange={onFilterChange} className={inputClassName}>
               <option value="">All grade levels</option>
@@ -44,7 +44,7 @@ const AdvancedSearch = ({ filters, onFilterChange, onClear, onSubmit, FindBook }
               ))}
             </select>
           </label>
-          <label className="text-xs  text-stone-500">
+          <label className="text-[10px]  text-stone-500">
             Subject
             <select name="subject" value={filters.subject} onChange={onFilterChange} className={inputClassName}>
               <option value="">All subjects</option>
@@ -53,7 +53,7 @@ const AdvancedSearch = ({ filters, onFilterChange, onClear, onSubmit, FindBook }
               ))}
             </select>
           </label>
-          <label className="text-xs  text-stone-500">
+          <label className="text-[10px]  text-stone-500">
             Language
             <select name="language" value={filters.language} onChange={onFilterChange} className={inputClassName}>
               <option value="">All Language</option>
@@ -78,8 +78,8 @@ const AdvancedSearch = ({ filters, onFilterChange, onClear, onSubmit, FindBook }
         </div>
 
         <footer className="flex items-center justify-end gap-2 border-t border-stone-300 p-4">
-          <button type="button" onClick={onClear} className="rounded-lg border border-stone-300 px-3 py-2 text-xs text-stone-500 transition hover:bg-stone-100">Clear</button>
-          <button type="submit" className="rounded-lg border border-stone-800 bg-stone-800 px-3 py-2 text-xs text-white transition hover:bg-stone-900 justify-center items-center flex gap-1" onClick={FindBook}>
+          <button type="button" onClick={onClear} className="rounded-lg border border-stone-300 px-3 py-2 text-[10px] text-stone-500 transition hover:bg-stone-100">Clear</button>
+          <button type="submit" className="rounded-lg border border-stone-800 bg-stone-800 px-3 py-2 text-[10px] text-white transition hover:bg-stone-900 justify-center items-center flex gap-1" onClick={FindBook}>
            <Search size={15}/>
             Find Books
           </button>
@@ -90,7 +90,7 @@ const AdvancedSearch = ({ filters, onFilterChange, onClear, onSubmit, FindBook }
 };
 
 const FilterFields = ({ label, name, type = "text", ...props }) => (
-  <label className="text-xs  text-stone-500">
+  <label className="text-[10px]  text-stone-500">
     {label}
     <input name={name} type={type} className={inputClassName} {...props} />
   </label>

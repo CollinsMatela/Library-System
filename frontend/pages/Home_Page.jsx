@@ -2,6 +2,7 @@ import Navigation from "../components/HomePageNavigation";
 import Footer from "../components/Footer";
 import BooksImage from "../src/assets/books.jpg"
 import User_Page from "../src/assets/user_page.png"
+import MapLocation from "../src/assets/LibraryMap.png"
 import axios from 'axios';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -22,10 +23,10 @@ const Home_Page = () => {
     <>
 
       <Navigation />
-
+<div className="w-full scroll-smooth">
       {/* Content */}
-<section className="bg-white relative z-10 min-h-screen max-w-7xl mx-auto w-full justify-center items-center flex px-6 md:px-12 border-b">
-  <div className="justify-start items-start gap-2 flex h-screen py-20">
+<section id="home" className="bg-white relative z-10 min-h-screen max-w-7xl mx-auto w-full justify-center items-center flex px-6 md:px-12 border-b">
+  <div className="justify-start items-start gap-10 lg:gap-2 flex flex-col lg:flex-row min-h-screen lg:h-screen py-20">
 
     {/* Left Side */}
     <div className="h-full justify-between items-start flex flex-col">
@@ -62,18 +63,18 @@ const Home_Page = () => {
     </div>
 
     {/* Right Side */}
-    <div className="h-full w-full overflow-hidden rounded-lg border-4 border-stone-800 shadow-xl">
+    <div className="h-full w-full rounded-lg border-4 border-stone-800 shadow-xl">
       <img
         src={User_Page}
         alt="User page"
-        className="w-full h-full object-cover"
+        className="w-full h-full rounded-lg object-cover"
       />
     </div>
 
   </div>
 </section>
 
-<section className="min-h-screen w-full py-20 bg-white px-6 md:px-16 border-b">
+<section id="about" className="min-h-screen w-full py-20 bg-white px-6 md:px-16 border-b">
   <div className="max-w-6xl mx-auto grid md:grid-cols-1 gap-12 items-center">
 
     {/* Content */}
@@ -114,16 +115,20 @@ const Home_Page = () => {
 
         <div>
           <h3 className="text-3xl font-bold text-stone-800">Free</h3>
-          <p className="text-stone-500">Community Service</p>
+          <p className="text-stone-500">Access Anytime</p>
         </div>
       </div>
+    </div>
+
+    <div className="w-full border-4 border-stone-800 rounded-lg shadow-xl">
+      <img src={MapLocation} className="h-full w-full object-cover rounded-lg" />
     </div>
 
   </div>
 </section>
 
 
-<section className="min-h-screen w-full py-24 bg-white px-6 md:px-16 border-b">
+<section id="features" className="min-h-screen w-full py-24 bg-white px-6 md:px-16 border-b">
 
   <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-start">
 
@@ -228,7 +233,7 @@ const Home_Page = () => {
 
   </div>
 </section>
-    
+    </div>
       <Footer />
     </>
   );

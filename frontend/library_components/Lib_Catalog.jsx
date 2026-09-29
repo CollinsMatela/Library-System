@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Lib_Navigation from '../library_components/Lib_Navigation'
-import { Search, Book, BookCopy, LoaderCircle, ChevronDown, ChevronUp } from 'lucide-react'
+import { Search, Book, BookCopy, LoaderCircle, ChevronDown, ChevronUp, Info, BookSearch } from 'lucide-react'
 import axios from 'axios';
 import { BrushCleaning, ListFilter, MoveRight, LayoutGrid } from 'lucide-react';
 import Catalog_TypeOfBooks from './CatalogPage_Component/Catalog_TypeOfBooks';
@@ -110,27 +110,31 @@ const Lib_Catalog = () => {
     return (
         <>
        <Lib_Navigation />
-        <section className="min-h-screen bg-stone-50 w-full justify-center items-center flex">
+        <section className="min-h-screen bg-white w-full justify-center items-center flex">
 
                 
 
                 <div className="w-full lg:w-5xl justify-center items-center flex flex-col space-y-4 gap-2">
 
-                    <header className="w-full mt-20 px-4 lg:px-0 justify-between items-center flex">
-                        <div>
-                            <h1 className="text-lg font-bold">Search & Catalog</h1>
-                            <p className="text-stone-600 text-xs">
-                                Fill the fields to find your book.
-                            </p>
-                        </div>
-
-                        <div className='justify-center items-center flex gap-1'>
-                            <div className="justify-between items-center flex border bg-white border-stone-300 rounded-lg px-2 w-full md:w-fit">
+                    <header className="mt-20 w-full px-4 lg:px-0 justify-between items-start sm:items-end flex flex-col sm:flex-row gap-2">
+                            <div className="w-fit p-2 bg-white rounded-lg justify-center items-center flex border border-stone-300 shadow-sm gap-2">
+                              <div className="border border-stone-800 bg-stone-800 p-2 rounded-lg">
+                                <BookSearch size={15} className="text-white"/>
+                              </div>
+                              <div>
+                                  <h1 className="text-sm text-stone-800 font-bold">Search & Catalog</h1>
+                                  <p className=" text-stone-500 text-[10px]">
+                                      Fill and find your desired book
+                                  </p>
+                              </div>
+                            </div>
+                            
+                            <div className="justify-between items-center flex border bg-white border-stone-300 rounded-lg px-2 w-full sm:w-fit">
                             
                             <input type="search"
                                    name="title"
                                    placeholder="Search book title" 
-                                   className="bg-white py-2 outline-none text-xs"
+                                   className="bg-white w-full py-2 outline-none text-xs"
                                    value={advancedSearch.title}
                                    onChange={handleAdvancedSearchChange}
                             />
@@ -140,7 +144,7 @@ const Lib_Catalog = () => {
                             
                             </div>
                         
-                        </div>
+                        
                         
 
                         
@@ -259,7 +263,6 @@ const Lib_Catalog = () => {
             
 
         </section>
-        <Footer/>
          </>
     )
 }

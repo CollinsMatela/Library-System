@@ -2,7 +2,7 @@ import Lib_Navigation from "./Lib_Navigation"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import { X, Hourglass, CheckCheck, Check, CalendarClock, Book, Info, MessageCircle, MessageCircleMore, Loader, LoaderCircle, Ellipse, Calendar, Ellipsis, HandHelping, ClockFading } from "lucide-react"
+import { X, Hourglass, CheckCheck, Check, CalendarClock, Book, Info, MessageCircle, MessageCircleMore, Loader, LoaderCircle, Ellipse, Calendar, Ellipsis, HandHelping, ClockFading, Trash, BookOpen } from "lucide-react"
 import useAuthStore from '../store/useAuthStore'
 import Confirmation from '../popup/Confirmation_Popup'
 import Footer from '../components/Footer'
@@ -112,65 +112,80 @@ const Lib_Borrow = () => {
         onConfirm={() => deleteBorrow(selectedRequest._id)}
         onCancel={() => setConfirmation(false)}
         />)}
-        <section className="min-h-screen w-full bg-stone-50">
         <Lib_Navigation/>
-                    <div className="w-full justify-center items-center flex flex-col rounded-2xl px-4">
+        <section className="min-h-screen w-full justify-center items-start flex bg-white">
+
+                    <div className="w-5xl justify-center items-start flex flex-col rounded-2xl px-4 lg:px-0">
         
-                        <div className='w-full flex flex-col'>
-                            <header className="w-full mt-20">
-                                    <h1 className="text-xl font-bold">Request Status</h1>
-                                    <p className="mt-2 text-stone-600 text-xs">
-                                        Browse educational resources, fiction, and non-fiction books available in the library.
-                                    </p>
-                            </header>
+                        
+                        <header className="w-fit mt-20 p-2 bg-white rounded-lg justify-center items-center flex border border-stone-300 shadow-sm gap-2 mb-4">
+                            <div className="border border-stone-800 bg-stone-800 p-2 rounded-lg">
+                                <Info size={15} className="text-white"/>
+                            </div>
+                            <div>
+                                <h1 className="text-sm text-stone-800 font-bold">Request Status</h1>
+                                <p className=" text-stone-500 text-[10px]">
+                                    Oversee and manage your book request
+                                </p>
+                            </div>
+                                
+                        </header>
+
+                        <div className="w-full flex flex-row mb-4   ">
+
+                            <button
+                                className={`${isPending ? 'border-b-3 border-stone-800' : 'border-b border-stone-300'} 
+                                flex-1 cursor-pointer p-2 justify-center items-center flex rounded-t`}
+                                onClick={() => handlePending()}
+                            >
+                                <h1 className={`${isPending ? 'text-stone-800 font-bold' : 'text-stone-500'} text-xs`}>
+                                    Pending State <span>{pendingList.length || 0}</span>
+                                </h1>
+                            </button>
+
+                            <button
+                                className={`${isApprove ? 'border-b-3 border-stone-800' : 'border-b border-stone-300'} 
+                                flex-1 cursor-pointer p-2 justify-center items-center flex rounded-t`}
+                                onClick={() => handleApprove()}
+                            >
+                                <h1 className={`${isApprove ? 'text-stone-800 font-bold' : 'text-stone-500'} text-xs`}>
+                                    Approved State <span>{approveList.length || 0}</span>
+                                </h1>
+                            </button>
+
+                            <button
+                                className={`${isBorrow ? 'border-b-3 border-stone-800' : 'border-b border-stone-300'} 
+                                flex-1 cursor-pointer p-2 justify-center items-center flex rounded-t`}
+                                onClick={() => handleBorrow()}
+                            >
+                                <h1 className={`${isBorrow ? 'text-stone-800 font-bold' : 'text-stone-500'} text-xs`}>
+                                    Borrowed State <span>{borrowedList.length || 0}</span>
+                                </h1>
+                            </button>
+
+                            <button
+                                className={`${isHistory ? 'border-b-3 border-stone-800' : 'border-b border-stone-300'} 
+                                flex-1 cursor-pointer p-2 justify-center items-center flex rounded-t`}
+                                onClick={() => handleHistory()}
+                            >
+                                <h1 className={`${isHistory ? 'text-stone-800 font-bold' : 'text-stone-500'} text-xs`}>
+                                    History State <span>{historyList.length || 0}</span>
+                                </h1>
+                            </button>
+
                         </div>
+
                         {isLoading ? 
                         (
                             <div className="w-full justify-center items-center flex  mt-4">
-                                <LoaderCircle size={20} className="animate-spin"/>
+                                <LoaderCircle size={20} className="text-stone-500 animate-spin"/>
                             </div>
                         )
                         :
                         (
-                         <div className="w-full flex flex-col lg:flex-row gap-4 my-10">
+                         <div className="w-full flex flex-col lg:flex-row gap-4">
                          
-                            <div  className='w-full lg:w-80 justify-start items-start flex flex-row lg:flex-col gap-2 lg:border-r border-stone-500 pr-4'>
-                                <button
-                                    className={`${isPending ? 'bg-black' : 'border-b border-stone-300'} w-full cursor-pointer p-2 justify-start items-start flex`}
-                                    onClick={() => handlePending()}
-                                >
-                                    <h1 className={`${isPending ? 'text-white' : 'text-stone-500'} text-xs`}>
-                                        Pending Status
-                                    </h1>
-                                </button>
-
-                                <button
-                                    className={`${isApprove ? 'bg-black' : 'border-b border-stone-300'} w-full cursor-pointer p-2 justify-start items-start flex`}
-                                    onClick={() => handleApprove()}
-                                >
-                                    <h1 className={`${isApprove ? 'text-white' : 'text-stone-500'} text-xs`}>
-                                        Approved Status
-                                    </h1>
-                                </button>
-
-                                <button
-                                    className={`${isBorrow ? 'bg-black' : 'border-b border-stone-300'} w-full cursor-pointer p-2 justify-start items-start flex`}
-                                    onClick={() => handleBorrow()}
-                                >
-                                    <h1 className={`${isBorrow ? 'text-white' : 'text-stone-500'} text-xs`}>
-                                        Borrowed Status
-                                    </h1>
-                                </button>
-
-                                <button
-                                    className={`${isHistory ? 'bg-black' : 'border-b border-stone-300'} w-full cursor-pointer p-2 justify-start items-start flex`}
-                                    onClick={() => handleHistory()}
-                                >
-                                    <h1 className={`${isHistory ? 'text-white' : 'text-stone-500'} text-xs`}>
-                                        History Status
-                                    </h1>
-                                </button>
-                            </div>
+                            
                         
 
                          <div className="flex flex-col gap-2 w-full">
@@ -178,28 +193,28 @@ const Lib_Borrow = () => {
                                 {isPending && (
                                     pendingList.length > 0 ? (pendingList.map((pending) => (
                                         
-                                        <div key={pending._id} className="w-full justify-start items-start flex gap-2 border border-stone-300 p-4 rounded-xl">
+                                        <div key={pending._id} className="w-full justify-center items-center flex gap-2 border border-stone-300 p-2 rounded-lg">
                                             <div className="bg-yellow-500 p-2 rounded-lg">
                                             <Ellipsis size={15} className="text-white"/> 
                                             </div>
 
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
+                                            <div className="justify-center items-center flex gap-2 w-full">
                                                 <div className="justify-start items-start flex flex-col w-full">
-                                                    <h1 className="text-sm font-semibold text-stone-800 justify-center items-center flex gap-2">{pending.title} </h1>
-                                                    <h2 className="text-xs text-stone-400">Requested date — {pending.createdAt.split('T')[0]}</h2>
+                                                    <h1 className="text-xs font-semibold text-stone-800 justify-center items-center flex gap-2">{pending.title} </h1>
+                                                    <h2 className="text-[10px] text-stone-400">Requested date — {new Date(pending.createdAt).toDateString()}</h2>
                                                 </div>
 
                                                 <div className="justify-end items-center flex">
-                                                <button className="p-2 text-stone-500 text-xs w-full sm:w-fit justify-center sm:justify-end border border-stone-300 rounded-xl items-center flex gap-1 hover:bg-stone-200 cursor-pointer"
+                                                <button className="p-2 text-white bg-red-600 text-xs w-full sm:w-fit justify-center sm:justify-end rounded-lg items-center flex gap-1 hover:bg-red-700 cursor-pointer"
                                                 title="Remove Request" 
-                                                onClick={() => handleConfirmation(req)}
-                                                ><X size={15}/> Remove
+                                                onClick={() => handleConfirmation(pending)}
+                                                ><Trash size={15}/>
                                                 </button>
                                                 </div>
 
                                                 
 
-                                                </div>
+                                            </div>
                                                 
                                             </div>
                 
@@ -207,9 +222,21 @@ const Lib_Borrow = () => {
                                     )
                                 
                                 )) : (
-                                    <div className="bg-stone-200 w-full rounded-xl justify-center items-center flex p-4">
-                                            <h1 className="text-xs text-stone-500">No Pending Request</h1>
-                                    </div>
+                                    <div className="w-full min-h-40 bg-stone-100 border border-stone-100 rounded-xl flex flex-col justify-center items-center gap-2 p-6">
+                                            <div className="w-10 h-10 rounded-full bg-stone-200 flex justify-center items-center">
+                                                <BookOpen size={18} className="text-stone-400" />
+                                            </div>
+
+                                            <div className="text-center">
+                                                <h1 className="text-xs font-medium text-stone-800">
+                                                    No Pending Request
+                                                </h1>
+
+                                                <p className="text-[10px] text-stone-500 mt-1">
+                                                    You don't have any pending book requests yet.
+                                                </p>
+                                            </div>
+                                        </div>
                                 )
                                     
                                 )}
@@ -218,22 +245,22 @@ const Lib_Borrow = () => {
                                     approveList.length > 0 ? 
                                     (approveList.map((approve) => (
                                         
-                                        <div key={approve._id} className="w-full justify-start items-start flex gap-2 border border-stone-300 p-4 rounded-xl">
+                                        <div key={approve._id} className="w-full justify-center items-center flex gap-2 border border-stone-300 p-2 rounded-lg">
                                             <div className="bg-blue-600 p-2 rounded-lg">
                                             <Check size={15} className="text-white"/> 
                                             </div>
 
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
+                                            <div className="justify-center items-center flex gap-2 w-full">
                                                 <div className="justify-start items-start flex flex-col w-full">
-                                                    <h1 className="text-sm font-semibold text-stone-800 justify-center items-center flex gap-2">{approve.title} </h1>
-                                                    <h2 className="text-xs text-stone-400">Requested date — {approve.createdAt.split('T')[0]}</h2>
+                                                    <h1 className="text-xs font-semibold text-stone-800 justify-center items-center flex gap-2">{approve.title} </h1>
+                                                    <h2 className="text-[10px] text-stone-400">Requested date — {approve.createdAt.split('T')[0]}</h2>
                                                 </div>
 
                                                 <div className="justify-end items-center flex">
-                                                <button className="p-2 text-stone-500 text-xs w-full sm:w-fit justify-center sm:justify-end border border-stone-300 rounded-xl items-center flex gap-1 hover:bg-stone-200 cursor-pointer"
+                                                <button className="p-2 text-white bg-red-600 text-xs w-full sm:w-fit justify-center sm:justify-end rounded-lg items-center flex gap-1 hover:bg-red-700 cursor-pointer"
                                                 title="Remove Request"
-                                                onClick={() => handleConfirmation(req)}
-                                                ><X size={15}/> Remove
+                                                onClick={() => handleConfirmation(approve)}
+                                                ><Trash size={15}/>
                                                 </button>
                                                 </div>
 
@@ -245,8 +272,20 @@ const Lib_Borrow = () => {
                 
                                         
                                     ))) : (
-                                        <div className="bg-stone-200 w-full rounded-xl justify-center items-center flex p-4">
-                                            <h1 className="text-xs text-stone-500">No Approved Request</h1>
+                                        <div className="w-full min-h-40 bg-stone-100 border border-stone-100 rounded-xl flex flex-col justify-center items-center gap-2 p-6">
+                                            <div className="w-10 h-10 rounded-full bg-stone-200 flex justify-center items-center">
+                                                <BookOpen size={18} className="text-stone-400" />
+                                            </div>
+
+                                            <div className="text-center">
+                                                <h1 className="text-xs font-medium text-stone-800">
+                                                    No Approved Request
+                                                </h1>
+
+                                                <p className="text-[10px] text-stone-500 mt-1">
+                                                    You don't have any approved book requests yet.
+                                                </p>
+                                            </div>
                                         </div>
                                     )
                                     
@@ -255,15 +294,15 @@ const Lib_Borrow = () => {
                                 {isBorrow && (
                                     borrowedList.length > 0 ? (borrowedList.map((borrow) => (
                                         
-                                        <div key={borrow._id} className="w-full justify-start items-start flex gap-2 border border-stone-300 p-4 rounded-xl">
+                                        <div key={borrow._id} className="w-full justify-center items-center flex gap-2 border border-stone-300 p-2 rounded-lg">
                                             <div className="bg-orange-600 p-2 rounded-lg">
                                             <ClockFading size={15} className="text-white"/> 
                                             </div>
 
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
+                                            <div className="justify-center items-center flex gap-2 w-full">
                                                 <div className="justify-start items-start flex flex-col w-full">
-                                                    <h1 className="text-sm font-semibold text-stone-800 justify-center items-center flex gap-2">{borrow.title} </h1>
-                                                    <h2 className="text-xs text-stone-400">Return date — {borrow.returnDate.split()[0]}</h2>
+                                                    <h1 className="text-xs font-semibold text-stone-800 justify-center items-center flex gap-2">{borrow.title} </h1>
+                                                    <h2 className="text-[10px] text-stone-400">Return date — {borrow.returnDate.split()[0]}</h2>
                                                 </div>
 
                                                 <div className="border-0 sm:border-l border-stone-300 px-2 flex flex-col">
@@ -281,8 +320,20 @@ const Lib_Borrow = () => {
                 
                                         
                                     ))) : (
-                                         <div className="bg-stone-200 w-full rounded-xl justify-center items-center flex p-4">
-                                            <h1 className="text-xs text-stone-500">No Borrowed Request</h1>
+                                         <div className="w-full min-h-40 bg-stone-100 border border-stone-100 rounded-xl flex flex-col justify-center items-center gap-2 p-6">
+                                            <div className="w-10 h-10 rounded-full bg-stone-200 flex justify-center items-center">
+                                                <BookOpen size={18} className="text-stone-400" />
+                                            </div>
+
+                                            <div className="text-center">
+                                                <h1 className="text-xs font-medium text-stone-800">
+                                                    No Borrowed Book
+                                                </h1>
+
+                                                <p className="text-[10px] text-stone-500 mt-1">
+                                                    You don't have any borrowed book yet.
+                                                </p>
+                                            </div>
                                         </div>
                                     )
                                     
@@ -291,20 +342,19 @@ const Lib_Borrow = () => {
                                 {isHistory && (
                                     historyList.length > 0 ? (historyList.map((history) => (
                                         
-                                        <div key={history._id} className="w-full justify-start items-start flex gap-2 border border-stone-300 p-4 rounded-xl">
+                                        <div key={history._id} className="w-full justify-center items-center flex gap-2 border border-stone-300 p-2 rounded-lg">
                                             <div className="bg-green-600 p-2 rounded-lg">
                                             <CheckCheck size={15} className="text-white"/> 
                                             </div>
 
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
+                                            <div className="justify-center items-center flex gap-2 w-full">
                                                 <div className="justify-start items-start flex flex-col w-full">
-                                                    <h1 className="text-sm font-semibold text-stone-800 justify-center items-center flex gap-2">{history.title} </h1>
-                                                    <h2 className="text-xs text-stone-400">Return Date — {history.returnDate.split()[0]}</h2>
+                                                    <h1 className="text-xs font-semibold text-stone-800 justify-center items-center flex gap-2">{history.title} </h1>
+                                                    <h2 className="text-[10px] text-stone-400">Return Date — {history.returnDate.split()[0]}</h2>
                                                 </div>
 
-                                                <div className="border-0 sm:border-l border-stone-300 px-2 flex flex-col">
-                                                     <h1 className="text-xs text-stone-500">Quantity</h1>
-                                                     <h1 className="text-xs text-stone-500">{history.quantity}</h1>
+                                                <div className="bg-green-600 p-1 rounded-lg flex">
+                                                     <h1 className="text-[10px] text-white">Returned</h1>
                                                 </div>
 
                                                 
@@ -317,8 +367,20 @@ const Lib_Borrow = () => {
                 
                                         
                                     ))) : (
-                                        <div className="bg-stone-200 w-full rounded-xl justify-center items-center flex p-4">
-                                            <h1 className="text-xs text-stone-500">No Borrowed Request</h1>
+                                        <div className="w-full min-h-40 bg-stone-100 border border-stone-100 rounded-xl flex flex-col justify-center items-center gap-2 p-6">
+                                            <div className="w-10 h-10 rounded-full bg-stone-200 flex justify-center items-center">
+                                                <BookOpen size={18} className="text-stone-400" />
+                                            </div>
+
+                                            <div className="text-center">
+                                                <h1 className="text-xs font-medium text-stone-800">
+                                                    No Borrowed History
+                                                </h1>
+
+                                                <p className="text-[10px] text-stone-500 mt-1">
+                                                    You don't have any borrowed history yet.
+                                                </p>
+                                            </div>
                                         </div>
                                     )
                                     
@@ -335,7 +397,6 @@ const Lib_Borrow = () => {
                     </div>
         
                 </section>
-                 <Footer/>
         </>
     )
 }

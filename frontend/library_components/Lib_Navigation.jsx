@@ -32,7 +32,7 @@ const Lib_Navigation = () => {
       <>
       {isConfirmation && (<ConfirmationPopup message={'Do you want to logout?'} onConfirm={() => handleLogout()} onCancel={() => setIsConfirmation(false)}/>)}
 
-        <nav className="fixed z-20 bg-white/50 backdrop-blur-sm h-15 w-full justify-center items-center flex px-6">
+        <nav className="fixed z-20 bg-white/50 backdrop-blur-[2px] h-15 w-full justify-center items-center flex px-4">
 
                        <div className='w-full lg:w-5xl justify-between items-center flex'>
                           <div className='h-full rounded-2xl flex gap-2 justify-center items-center'>
@@ -47,9 +47,9 @@ const Lib_Navigation = () => {
                           </div>
 
                           <div className='hidden lg:flex gap-4 justify-center items-center'>
-                            <button className={`${location.pathname === '/library' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library')}><Blocks size={15}/> Book Browse</button>
-                            <button className={`${location.pathname === '/library/catalog' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/catalog')}><BookSearch size={15}/> Search & Catalog</button>
-                            <button className={`${location.pathname === '/library/borrow-status' ? "border-b-2 border-stone-900 text-stone-900" : "bg-transparent text-stone-500"} py-2 justify-center items-center flex text-xs transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/borrow-status')}><LayoutList size={15}/> Borrow Status</button>
+                            <button className={`${location.pathname === '/library' ? "border-b-2 border-stone-900" : "bg-transparent"} text-stone-800 py-4 justify-center items-center flex text-[10px] transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library')}><Blocks size={15}/> Book Browse</button>
+                            <button className={`${location.pathname === '/library/catalog' ? "border-b-2 border-stone-900" : "bg-transparent"} text-stone-800 py-4 justify-center items-center flex text-[10px] transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/catalog')}><BookSearch size={15}/> Search & Catalog</button>
+                            <button className={`${location.pathname === '/library/borrow-status' ? "border-b-2 border-stone-900" : "bg-transparent"} text-stone-800 py-4 justify-center items-center flex text-[10px] transition-all duration-300 ease-in-out cursor-pointer gap-2`} onClick={() => navigate('/library/borrow-status')}><LayoutList size={15}/> Borrow Status</button>
                            
                            <div className='relative'>
                             <button className=" p-2 justify-center items-center flex font-bold transition-all duration-300 ease-in-out cursor-pointer gap-2 hover:bg-stone-200 hover:text-stone-500 rounded-full"

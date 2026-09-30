@@ -154,12 +154,18 @@ const Library_Page = () => {
         <section className="min-h-screen w-full justify-start items-center flex flex-col bg-white pb-10">
             
             <div className='w-full lg:w-5xl px-4 lg:px-0'>
-            <header className="w-full mt-20">
-                    <h1 className="text-xl font-bold">Browse Books</h1>
-                    <p className="mt-2 text-stone-600 text-xs">
-                        Browse educational resources, fiction, and non-fiction books available in the library.
-                    </p>
-            </header>
+            <header className="w-fit mt-20 p-2 bg-white rounded-lg justify-center items-center flex border border-stone-300 shadow-xs gap-2 mb-4">
+                            <div className="border border-stone-800 bg-stone-800 p-2 rounded-lg">
+                                <Info size={15} className="text-white"/>
+                            </div>
+                            <div>
+                                <h1 className="text-sm text-stone-800 font-bold">Browse Library</h1>
+                                <p className=" text-stone-500 text-[10px]">
+                                    Explore the list published books in library
+                                </p>
+                            </div>
+                                
+                        </header>
 
             <div className="w-full justify-center items-center flex flex-col mt-6 rounded-xl">                   
                     {isLoading ? 
@@ -172,16 +178,16 @@ const Library_Page = () => {
                     (
                         <div className='gap-4 justify-start items-start flex flex-col lg:flex-row w-full'>
 
-                            <div className=' justify-start items-start flex flex-col w-full lg:w-100 gap-2 lg:border border-stone-300 lg:rounded-lg lg:shadow-md bg-white'>
-                                <div className='w-full lg:p-4 border-b border-stone-300'>
-                                    <h1 className='text-lg font-bold text-stone-800'>Selection Section</h1>
-                                    <h1 className='text-xs text-stone-500'>Find your choice</h1>
+                            <div className=' justify-start items-start flex flex-col w-full lg:w-100 gap-2 border-stone-300'>
+                                <div className='w-full lg:py-4 border-b border-stone-300'>
+                                    <h1 className='text-sm font-bold text-stone-800'>Selection Section</h1>
+                                    <h1 className='text-[10px] text-stone-500'>Find your choice</h1>
                                 </div>
                                  
 
-                                 <div className='w-full flex flex-col gap-1 lg:px-4'>
+                                 <div className='w-full flex flex-col gap-1'>
                                     <h1 className='text-xs text-stone-800'>Alphabetical</h1>
-                                    <select className='w-full border border-stone-300 rounded-xl p-2 text-xs text-stone-500'
+                                    <select className='w-full border border-stone-300 outline-none rounded-lg p-2 text-xs text-stone-500'
                                             onChange={(e) => filterByLetter(e.target.value)}
                                     >
                                         {alphabetical.map((item) => (
@@ -194,7 +200,7 @@ const Library_Page = () => {
                                     </select>
                                  </div>
 
-                                 <div className='w-full flex flex-row lg:flex-col gap-1 lg:px-4 overflow-auto'>
+                                 <div className='w-full flex flex-row lg:flex-col gap-1 overflow-auto'>
                                     <h1 className='hidden lg:block text-xs text-stone-800'>Categories</h1>
                                     
                                         {categories.map((item, index) => (
@@ -215,10 +221,10 @@ const Library_Page = () => {
                             </div>
 
                             
-                                <div className='w-full border-0 lg:border border-stone-300 lg:shadow-lg lg:rounded-lg pb-10'>
+                                <div className='w-full border-0 lg:border border-stone-300 lg:rounded-lg pb-10'>
                                 <header className='w-full p-4 border-b border-stone-300'>
-                                    <h1 className='text-lg font-bold text-stone-800 justify-start items-center flex'>Book Collection <ChevronRight size={15}/> <span className='text-stone-500 text-lg'>{selectedTitle || "All"} {selectedLetter}</span></h1>
-                                    <h1 className='text-xs text-stone-500 '>Browse and discover books in the library.</h1>
+                                    <h1 className='text-sm font-bold text-stone-800 justify-start items-center flex'>Book Collection <ChevronRight size={15}/> <span className='text-stone-600'>{selectedTitle || "All"} {selectedLetter}</span></h1>
+                                    <h1 className='text-[10px] text-stone-500 '>Browse and discover books in the library.</h1>
                                 </header>
                             {selectedCategory.length > 0 ? (
                                 <div className='bg-white w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 p-4'>
@@ -239,7 +245,7 @@ const Library_Page = () => {
                             ) : (
                                 <div className="flex w-full flex-col items-center justify-center border-b border-stone-200 bg-stone-50 px-4 py-10 text-center">
 
-                                    <h2 className="text-sm font-medium text-stone-500">
+                                    <h2 className="text-xs font-medium text-stone-800">
                                     No Books found
                                     </h2>
 
@@ -262,7 +268,6 @@ const Library_Page = () => {
             </div>
             
         </section>
-        <Footer/>
          </>
          
     )}

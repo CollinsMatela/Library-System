@@ -148,35 +148,108 @@ const RegistrationPage = () => {
     <>
         {showConfirmationPopup && (<Confirmation_Popup errorMessage={errorMessage} message={'Are you sure to register this user?'} onConfirm={() => {UserRegistration();}} onCancel={() => {setShowConfirmationPopup(false); setErrorMessage("");}} />)}
         {showAccountPopup && (<Account_Popup newAccountDetails={newStudent} closeAccountConfirmation={() => {setShowAccountPopup(false);}}/>)}
-        <section className="bg-stone-100 min-h-screen w-full justify-center items-center flex flex-col pb-20">
-              
-              
+        <section className="bg-white min-h-screen w-full justify-center items-center flex flex-col">
+                  
+                    <div className="w-full lg:w-5xl py-10">
 
-                    <div className="w-5xl mt-10">
-                        <h1 className="text-6xl font-bold text-stone-700 mb-4">REGISTRATION</h1>
-                    
-                    <div className="bg-white w-full md:p-6 rounded-lg border-0 md:border border-stone-300 mb-4 ">
+                    <div className="bg-white w-full md:p-6 rounded-lg border-0 md:border border-stone-300 mb-4 px-2">
                         <div className="flex flex-col items-start justify-start w-full mb-5">
-                                <h1 className="text-md font-bold text-stone-800 rounded-full">Select Role</h1>
-                                <p className="text-stone-400 text-xs">Fill-up the requiered information.</p>
+                                <h1 className="text-md font-bold text-stone-800 rounded-full">Select Type of User</h1>
+                                <p className="text-stone-400 text-xs">Fill-up the required information.</p>
                         </div>
 
-                         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                            <div className="w-full">
-                            <h1 className="text-xs text-stone-500">Role <span className="text-red-500">*</span></h1>
-                            <select className={`border border-stone-300 p-2 text-xs w-full outline-none rounded-lg ${errors.role ? 'border-red-500' : ''}`} 
-                            onChange={(e) => updateField('role', e.target.value)}>
-                                <option value="">Select Role</option>
-                                <option value="student">Student</option>
-                                <option value="teacher">Teacher</option>
-                                <option value="guest">Guest</option>
-                            </select>
-                                
-                            </div>
-                         </div>
+                         <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-3">
+
+    {/* Student */}
+    <div
+        onClick={() => updateField("role", "student")}
+        className={`w-full p-4 rounded-xl border cursor-pointer transition-all
+            ${
+                form.role === "student"
+                    ? "border-stone-800 bg-stone-800 text-white"
+                    : "border-stone-300 bg-white text-stone-700 hover:border-stone-500 hover:bg-stone-50"
+            }
+        `}
+    >
+        <div className="flex flex-col items-start gap-1">
+            <h1 className="text-sm font-semibold">
+                Student
+            </h1>
+
+            <p
+                className={`text-xs ${
+                    form.role === "student"
+                        ? "text-stone-300"
+                        : "text-stone-400"
+                }`}
+            >
+                For students using the library.
+            </p>
+        </div>
+    </div>
+
+
+    {/* Teacher */}
+    <div
+        onClick={() => updateField("role", "teacher")}
+        className={`w-full p-4 rounded-xl border cursor-pointer transition-all
+            ${
+                form.role === "teacher"
+                    ? "border-stone-800 bg-stone-800 text-white"
+                    : "border-stone-300 bg-white text-stone-700 hover:border-stone-500 hover:bg-stone-50"
+            }
+        `}
+    >
+        <div className="flex flex-col items-start gap-1">
+            <h1 className="text-sm font-semibold">
+                Teacher
+            </h1>
+
+            <p
+                className={`text-xs ${
+                    form.role === "teacher"
+                        ? "text-stone-300"
+                        : "text-stone-400"
+                }`}
+            >
+                For teachers using the library.
+            </p>
+        </div>
+    </div>
+
+
+    {/* Guest */}
+    <div
+        onClick={() => updateField("role", "guest")}
+        className={`w-full p-4 rounded-xl border cursor-pointer transition-all
+            ${
+                form.role === "guest"
+                    ? "border-stone-800 bg-stone-800 text-white"
+                    : "border-stone-300 bg-white text-stone-700 hover:border-stone-500 hover:bg-stone-50"
+            }
+        `}
+    >
+        <div className="flex flex-col items-start gap-1">
+            <h1 className="text-sm font-semibold">
+                Guest
+            </h1>
+
+            <p
+                className={`text-xs ${
+                    form.role === "guest"
+                        ? "text-stone-300"
+                        : "text-stone-400"
+                }`}
+            >
+                For visitors and guests.
+            </p>
+        </div>
+    </div>
+
+</div>
                     </div>
 
-                    <div className="bg-white w-full md:p-6 rounded-lg border-0 md:border border-stone-300 mb-4 ">
+                    <div className="bg-white w-full md:p-6 rounded-lg border-0 md:border border-stone-300 mb-4 px-4">
 
                         <div className="flex items-center justify-start gap-2 w-full mb-5">
                             <div>
@@ -377,12 +450,9 @@ const RegistrationPage = () => {
                     </div>
                     
                     {age && age < 18 && (
-                      <div className="bg-white w-full md:p-6 rounded-lg border-0 md:border border-stone-300 mb-4">
+                      <div className="bg-white w-full md:p-6 rounded-lg border-0 md:border border-stone-300 mb-4 px-4">
 
                          <div className="flex items-center justify-start gap-2 w-full mb-5">
-                            <div className="bg-stone-200 p-2 text-white rounded-full justify-center items-center flex">
-                                <User size={20} className="text-stone-500"/>
-                            </div>
                             <div>
                                 <h1 className="text-md font-bold text-stone-800 rounded-full">Parent Information</h1>
                                 <p className="text-stone-400 text-xs">Fill-up the required information.</p>
@@ -425,7 +495,7 @@ const RegistrationPage = () => {
                     )}
 
                     {/* Buttons */}
-                    <div className="w-full justify-end items-center flex gap-1">
+                    <div className="w-full justify-end items-center flex gap-1 px-4">
                         <button className="bg-transparent text-stone-500 h-full w-fit rounded-lg cursor-pointer text-xs p-2 hover:bg-stone-300 justify-center items-center flex gap-2" 
                         onClick={() => navigate(-1)}><ArrowLeft size={15}/> 
                         Cancel

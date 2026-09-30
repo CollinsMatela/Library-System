@@ -10,7 +10,7 @@ const AdvancedSearch = ({ filters, onFilterChange, onClear, onSubmit, FindBook }
     <div className="mb-2 w-full bg-white">
       <form onSubmit={onSubmit} className="w-full overflow-hidden rounded-lg border border-stone-300 bg-white">
         <header className="border-b border-stone-300 p-4">
-          <h1 className="text-[10px]  text-stone-800">Advanced Searching</h1>
+          <h1 className="text-xs font-medium  text-stone-800">Advanced Searching</h1>
           <p className="mt-1 text-[10px] text-stone-500">
             Fill in any fields below to find your book.
           </p>

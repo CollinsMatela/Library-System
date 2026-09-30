@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 import { useState } from "react";
 import useAuthStore from "../store/useAuthStore";
 import { useRef } from "react";
-import { ArrowUp, Check, Trash } from "lucide-react";
+import { ArrowUp, Check, Trash, User } from "lucide-react";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -137,33 +137,40 @@ const Lib_MyAccount = () => {
         <>
 
                 <Lib_Navigation/>
-                <section className="min-h-screen w-full justify-start items-center flex flex-col bg-stone-50 pb-10">
+                <section className="min-h-screen w-full justify-start items-center flex flex-col bg-white pb-10 px-4">
+                    
+                    <div className="w-full lg:w-5xl justify-center items-start flex flex-col mt-20">
+                    <header className="w-fit p-2 bg-white rounded-lg justify-center items-center flex border border-stone-300 shadow-xs gap-2">
+                            <div className="border border-stone-800 bg-stone-800 p-2 rounded-lg">
+                                <User size={15} className="text-white"/>
+                            </div>
+                            <div>
+                                <h1 className="text-xs text-stone-800 font-bold">My Account</h1>
+                                <p className=" text-stone-500 text-[10px]">
+                                    Manage and your personal account
+                                </p>
+                            </div>
+                                
+                        </header>
         
-                    <header className="w-5xl mt-20">
-                            <h1 className="text-xl font-bold">My Account</h1>
-                            <p className="mt-2 text-gray-600 text-xs">
-                                Browse educational resources, fiction, and non-fiction books available in the library.
-                            </p>
-                    </header>
-        
-                    <div className="w-5xl justify-center items-center flex flex-col mt-6 rounded-xl">                   
+                    <div className="w-full justify-center items-center flex flex-col mt-6 rounded-xl">                   
                             
-                                <div className='gap-4 justify-start items-start flex w-full'>
-                                    <div className='w-80 justify-start items-start flex flex-col gap-2 border-r border-stone-500 pr-4'>
-                                         <button className={`${isPersonal ? 'bg-black' : 'border-b border-stone-300'} w-full cursor-pointer p-2 justify-start items-start flex`} onClick={() => handlePersonalInfo()}>
-                                            <h1 className={`${isPersonal ? 'text-white' : 'text-stone-500'} text-xs`}>Personal Information</h1>
+                                <div className='gap-4 justify-start items-start flex flex-col lg:flex-row w-full'>
+                                    <div className='w-full lg:w-80 justify-start items-start flex flex-row lg:flex-col lg:border-r border-stone-500 lg:pr-4'>
+                                         <button className={`${isPersonal ? 'border-b-3 border-stone-800' : 'border-b border-stone-300'} w-full cursor-pointer p-2 justify-center lg:justify-start items-start flex`} onClick={() => handlePersonalInfo()}>
+                                            <h1 className={`${isPersonal ? 'text-stone-800 font-bold' : 'text-stone-500'} text-xs text-center`}>Personal Information</h1>
                                          </button>
-                                         <button className={`${isChangePass ? 'bg-black' : 'border-b border-stone-300'} w-full cursor-pointer p-2 justify-start items-start flex`} onClick={() => handleChangePass()}>
-                                            <h1 className={`${isChangePass ? 'text-white' : 'text-stone-500'} text-xs`}>Change Password</h1>
+                                         <button className={`${isChangePass ? 'border-b-3 border-stone-800' : 'border-b border-stone-300'} w-full cursor-pointer p-2 justify-center lg:justify-start items-start flex`} onClick={() => handleChangePass()}>
+                                            <h1 className={`${isChangePass ? 'text-stone-800 font-bold' : 'text-stone-500'} text-xs`}>Change Password</h1>
                                          </button>
                                     </div>
         
                                     {isPersonal && (
-                                    <div className="w-full bg-white border border-stone-200 rounded-xl p-5">
+                                    <div className="w-full bg-white border border-stone-300 rounded-lg p-4">
                                         
                                         {/* Header */}
                                         <div className="border-b border-stone-200 pb-3 mb-4">
-                                        <h2 className="text-sm font-semibold text-stone-800">
+                                        <h2 className="text-xs font-semibold text-stone-800">
                                             Personal Information
                                         </h2>
                                         <p className="text-xs text-stone-500 mt-1">
@@ -172,11 +179,11 @@ const Lib_MyAccount = () => {
                                         </div>
 
                                         {/* Information */}
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div className="grid grid-cols-1 gap-2">
                                         
                                         {/* Avatar */}
-                                        <div>
-                                            <p className="text-xs text-stone-500">Profile</p>
+                                        <div className="justify-between items-center flex border-b border-stone-300 pb-2">
+                                            <p className="text-xs text-stone-800">Profile</p>
                                             {previewProfile ? 
                                             (
                                                 <div className="justify-between items-center flex gap-1">
@@ -223,65 +230,65 @@ const Lib_MyAccount = () => {
                                             ) 
                                             }
                                         </div>
-                                        <div>
-                                            <p className="text-xs text-stone-500">Role</p>
-                                            <p className="text-sm font-medium text-stone-800 mt-1">
+                                        <div className="justify-between items-center flex border-b border-stone-300 pb-2">
+                                            <p className="text-xs text-stone-800">Role</p>
+                                            <p className="text-xs font-medium text-stone-500 mt-1">
                                             {user.role}
                                             </p>
                                         </div>
 
                                         {/* Last Name */}
-                                        <div>
-                                            <p className="text-xs text-stone-500">Last Name</p>
-                                            <p className="text-sm font-medium text-stone-800 mt-1">
+                                        <div className="justify-between items-center flex border-b border-stone-300 pb-2">
+                                            <p className="text-xs text-stone-800">Last Name</p>
+                                            <p className="text-xs font-medium text-stone-500 mt-1">
                                             {user.lastname}
                                             </p>
                                         </div>
 
                                         {/* First Name */}
-                                        <div>
-                                            <p className="text-xs text-stone-500">First Name</p>
-                                            <p className="text-sm font-medium text-stone-800 mt-1">
+                                        <div className="justify-between items-center flex border-b border-stone-300 pb-2">
+                                            <p className="text-xs text-stone-800">First Name</p>
+                                            <p className="text-xs font-medium text-stone-500 mt-1">
                                             {user.firstname}
                                             </p>
                                         </div>
 
                                         {/* Middle Name */}
-                                        <div>
-                                            <p className="text-xs text-stone-500">Middle Name</p>
-                                            <p className="text-sm font-medium text-stone-800 mt-1">
+                                        <div className="justify-between items-center flex border-b border-stone-300 pb-2">
+                                            <p className="text-xs text-stone-800">Middle Name</p>
+                                            <p className="text-xs font-medium text-stone-500 mt-1">
                                             {user.middlename}
                                             </p>
                                         </div>
 
                                         {/* Extension Name */}
-                                        <div>
-                                            <p className="text-xs text-stone-500">Extension Name</p>
-                                            <p className="text-sm font-medium text-stone-800 mt-1">
+                                        <div className="justify-between items-center flex border-b border-stone-300 pb-2">
+                                            <p className="text-xs text-stone-800">Extension Name</p>
+                                            <p className="text-xs font-medium text-stone-500 mt-1">
                                             {user.extensionname || "—"}
                                             </p>
                                         </div>
 
                                         {/* Date of Birth */}
-                                        <div>
-                                            <p className="text-xs text-stone-500">Date of Birth</p>
-                                            <p className="text-sm font-medium text-stone-800 mt-1">
+                                        <div className="justify-between items-center flex border-b border-stone-300 pb-2">
+                                            <p className="text-xs text-stone-800">Date of Birth</p>
+                                            <p className="text-xs font-medium text-stone-500 mt-1">
                                             {user.month} {user.day}, {user.year}
                                             </p>
                                         </div>
 
                                         {/* Age */}
-                                        <div>
-                                            <p className="text-xs text-stone-500">Age</p>
-                                            <p className="text-sm font-medium text-stone-800 mt-1">
+                                        <div className="justify-between items-center flex border-b border-stone-300 pb-2">
+                                            <p className="text-xs text-stone-800">Age</p>
+                                            <p className="text-xs font-medium text-stone-500 mt-1">
                                             {user.age}
                                             </p>
                                         </div>
 
                                         {/* Sex */}
-                                        <div>
-                                            <p className="text-xs text-stone-500">Sex</p>
-                                            <p className="text-sm font-medium text-stone-800 mt-1">
+                                        <div className="justify-between items-center flex pb-2">
+                                            <p className="text-xs text-stone-800">Sex</p>
+                                            <p className="text-xs font-medium text-stone-500 mt-1">
                                             {user.sex}
                                             </p>
                                         </div>
@@ -295,7 +302,7 @@ const Lib_MyAccount = () => {
                                         
                                         {/* Header */}
                                         <div className="border-b border-stone-200 pb-3 mb-4">
-                                        <h2 className="text-sm font-semibold text-stone-800">
+                                        <h2 className="text-xs font-semibold text-stone-800">
                                             Change Password
                                         </h2>
                                         <p className="text-xs text-stone-500 mt-1">
@@ -303,7 +310,7 @@ const Lib_MyAccount = () => {
                                         </p>
                                         </div>
 
-                                        <div className="grid grid-cols-3 gap-2 mb-4">
+                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
                                             <div className="w-full">
                                                 <h1 className="text-xs text-stone-400">Current Password</h1>
                                                 <input type="password" placeholder="Enter current password" className="p-2  w-full text-xs text-stone-800 outline-none border border-stone-300 rounded-xl"
@@ -319,7 +326,7 @@ const Lib_MyAccount = () => {
                                         </div>
 
                                         <div className={` bg-stone-100 w-full p-3 rounded-xl space-y-2 mb-4`}>
-                                            <p className="text-sm text-stone-800 font-semibold">
+                                            <p className="text-xs text-stone-800 font-semibold">
                                                  Password Requirements
                                             </p>
 
@@ -333,7 +340,7 @@ const Lib_MyAccount = () => {
 
                                         <div className="w-full justify-between items-center flex py-4 border-t border-stone-300">
                                             <h1 className="text-xs italic text-stone-400">Do not forget your new password.</h1>
-                                            <button className="text-xs bg-black p-2 text-white justify-center items-center flex gap-1 cursor-pointer hover:bg-stone-800"
+                                            <button className="text-xs bg-black p-2 rounded-lg text-white justify-center items-center flex gap-1 cursor-pointer hover:bg-stone-800"
                                             onClick={() => handleChangePassword()}><Check size={15}/>Save</button>
                                         </div>
 
@@ -344,9 +351,9 @@ const Lib_MyAccount = () => {
                           </div>   
                                 
                      </div>
-                    
+                    </div>
                 </section>
-                <Footer/>
+
                  </>
       )
 }

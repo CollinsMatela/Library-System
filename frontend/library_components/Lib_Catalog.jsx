@@ -166,10 +166,10 @@ const Lib_Catalog = () => {
             
                 <div className="w-full mb-10">
                   
-                  <div className="w-full border border-stone-200 rounded-lg p-2">
+                  <div className="w-full border border-stone-300 rounded-lg p-2">
 
                     <div className="mb-2 w-full">
-                      <div className="flex items-center justify-between rounded-t-lg bg-stone-100 px-4 py-3">
+                      <div className="flex items-center justify-between rounded-lg bg-stone-200 px-4 py-3">
                         <div>
                           <h2 className="text-xs font-medium text-stone-700">Search results</h2>
                           <p className="mt-1 text-xs text-stone-500">
@@ -190,7 +190,7 @@ const Lib_Catalog = () => {
                     {filtered.length === 0 && (
                         <div className="flex w-full flex-col items-center justify-center rounded-lg border border-stone-200 bg-stone-50 px-4 py-10 text-center">
 
-                        <h2 className="text-sm font-medium text-stone-500">
+                        <h2 className="text-xs font-medium text-stone-800">
                         No books found
                         </h2>
 
@@ -202,37 +202,32 @@ const Lib_Catalog = () => {
 
                     {filtered.length > 0 && (
                     filtered.map((book) => (
-                      <div key={book._id} className="bg-white p-2 hover:bg-stone-100 h-fit w-full rounded-lg border border-stone-300 justify-between items-center flex flex-col transition cursor-pointer mb-1 gap-2"
+                      <div key={book._id} className="bg-white p-2 hover:bg-stone-100 h-fit w-full rounded-lg border border-stone-300 justify-between items-center flex flex-col transition cursor-pointer mb-2 gap-2"
                       onClick={() => handleViewBook(book._id)}
                       >
-                            <div className="w-full flex gap-2 justify-center items-center mb-2">
+                            <div className="w-full flex gap-2 justify-center items-center ">
                               <div className="hidden md:block bg-stone-200 shadow-sm p-2 rounded-full">
                                 <Book size={15} className="text-stone-500"/>
                               </div>
                               
 
                               <div className="w-full">
-                                <div className="flex flex-col md:flex-row justify-between items-start w-full">
+                                <div className="flex flex-col md:flex-row justify-between items-center w-full">
 
-                                  <div className="justify-center items-center flex gap-1">
+                                  <div className="justify-center items-start flex flex-col gap-1">
                                   <h1 className="text-stone-800 font-semibold text-xs">{book?.title}</h1>
-                                  <h1 className="text-stone-400 text-xs">By {book?.author}</h1>
+                                  <h1 className="text-stone-400 text-xs">{book?.author}</h1>
                                   </div>
 
                                   <div className="justify-center items-center flex gap-1">
-                                  <h1 className="text-stone-500 text-xs font-normal p-1 bg-stone-200 rounded-lg border"> {book?.category}</h1>
-                                  <h1 className={`${book?.copies> 0 ? "text-green-500 bg-green-100" : "text-red-500 bg-red-100"} border text-xs p-1 rounded-lg`}>{book?.copies> 0 ? "Available" : "Not Available"}</h1>
+                                  <h1 className="text-stone-500 text-xs font-normal p-1 bg-stone-200 rounded-lg"> {book?.category}</h1>
+                                  <h1 className={`${book?.copies> 0 ? "text-white bg-green-600" : "text-white bg-red-600"} border text-xs p-1 rounded-lg`}>{book?.copies> 0 ? "Available" : "Not Available"}</h1>
                                   </div>
                                   
                                 </div>
                                   
                               </div>
                               
-                            </div>
-
-                            <div className="w-full">
-                              <h1 className="text-xs text-stone-500">Description:</h1>
-                              <h1 className="text-stone-500 text-xs overflow-auto">{book?.description.length > 100 ? `${book?.description.slice(0, 200)}...` : book?.description}</h1>
                             </div>
                             
                     </div>

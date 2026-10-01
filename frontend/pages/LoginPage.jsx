@@ -2,18 +2,13 @@ import {useNavigate} from "react-router-dom";
 import axios from 'axios'
 import useAuthStore from "../store/useAuthStore";
 import { useState } from "react";
-import LoadingScreen from '../loadings/loading'
 import {toast} from 'react-toastify'
 import NaicLibraryLogo from "../src/assets/NaicLibraryLogo.png"
-import { LoaderCircle } from "lucide-react" 
+import { LoaderCircle, Eye, EyeOff, LogIn } from "lucide-react"
 
 const LoginPage = () => {
 
   const setAuth = useAuthStore((state) => state.setAuth);
-
-  const thisUser = useAuthStore((state) => state.user);
-  const thisToken = useAuthStore((state) => state.token);
-  const thisRole = useAuthStore((state) => state.role);
 
   const navigate = useNavigate();
 
@@ -23,9 +18,10 @@ const LoginPage = () => {
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isErrorContainer, setIsErrorContainer] = useState(false);
-  const [Message, setIsMessage ] = useState("");
+  const [Message, setIsMessage] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const confirmation = () => {
        if(email === "") {
@@ -52,22 +48,13 @@ const LoginPage = () => {
 
         try {
           const res = await axios.post(`${import.meta.env.VITE_API_URL}/login`, account);
-          console.log(res.data.message);
           if(res.data.isSuccess){
-            console.log(res.data.message);
-            
             const user = res.data.user;
             const token = res.data.token;
             const role = res.data.role.toLowerCase();
-            
-            console.log("1 API ROLE:", res.data.role);
-            console.log("2 LOGIN ROLE:", role);
 
             setAuth(user, token, role);
 
-            console.log("3 ZUSTAND ROLE:", useAuthStore.getState().role);
-            
-            console.log(role)
             if(user.isChangePassword === false){
               navigate(`/change-password`);
             }
@@ -78,12 +65,11 @@ const LoginPage = () => {
               else if (role === "admin") {
                   navigate("/admin");
               }
-
             }
 
           toast.success(res.data.message);
           }
-          
+
         } catch (error) {
           setIsMessage(error.response?.data?.message || "Login failed. Please try again.");
           toast.warning(error?.response?.data?.message);
@@ -93,64 +79,84 @@ const LoginPage = () => {
         }
   }
 
+  const inputClass = (hasError) =>
+    `border ${hasError ? "border-red-400 bg-red-50/50" : "border-stone-200"} bg-white p-3.5 text-sm w-full outline-none rounded-xl transition-all duration-200 focus:ring-2 focus:ring-stone-300 focus:border-stone-400 hover:border-stone-300`;
+
   return (
-    <section className="h-screen w-full flex flex-col justify-center items-center bg-stone-50">
-     
+    <section className="h-screen w-full flex flex-col justify-center items-center bg-gradient-to-br from-stone-50 via-white to-stone-100">
 
+        <div className="w-80 sm:w-96 bg-white/80 backdrop-blur-sm rounded-2xl border border-stone-200/60 shadow-xl shadow-stone-200/40 p-8">
 
-        <div className="w-80 justify-center items-center flex flex-col mb-4 gap-1">
-          <div className="justify-center items-center flex gap-2 w-full">
-              <img src={NaicLibraryLogo} alt="" className="h-8 w-8 rounded-full"/>
-              <h1 className="text-lg font-extrabold text-stone-900">Naic Municipal Library</h1>
+          {/* Header */}
+          <div className="flex flex-col items-center gap-3 mb-8">
+            <div className="h-14 w-14 rounded-2xl bg-transparent flex items-center justify-center">
+              <img src={NaicLibraryLogo} alt="" className="h-10 w-10 rounded-xl"/>
+            </div>
+            <div className="text-center">
+              <h1 className="text-xl font-extrabold text-stone-900 tracking-tight">Naic Municipal Library</h1>
+              <p className="text-sm text-stone-400 mt-1">Welcome back! Sign in to explore the library.</p>
+            </div>
           </div>
-          <h1 className="text-sm font-medium text-center text-stone-500">Welcome back enter your account and explore the library.</h1>
-        </div>
-        
 
-        <div className={`${isErrorContainer ? "" : "hidden"} bg-red-100 w-80 p-3 justify-center items-center flex rounded-xl mb-4`}>
-            <p className="text-red-500 text-xs">
-              {Message}
-            </p>
-        </div>
+          {/* Error Banner */}
+          {isErrorContainer && (
+            <div className="bg-red-50 border border-red-200 w-full p-3 rounded-xl mb-5">
+              <p className="text-red-500 text-xs text-center">{Message}</p>
+            </div>
+          )}
 
-        <div className={`w-80 justify-center items-start flex flex-col mb-2 gap-1`}>
-          <h1 className="text-sm text-stone-500 font-semibold">Email</h1>
-          <input type="text" className={`${isEmail ? "border-red-500" : "border-stone-300"} bg-white border p-3 text-xs w-full rounded-xl outline-none`}
-          value={email} onChange={(e) => {setEmail(e.target.value)
-                                             if(email){setIsEmail(false)}
-          }}/>
-        </div>
+          {/* Email */}
+          <div className="mb-4">
+            <label className="text-xs font-semibold text-stone-500 mb-1.5 block">Email</label>
+            <input type="text" placeholder="Enter your email" className={inputClass(isEmail)}
+              value={email} onChange={(e) => {setEmail(e.target.value); if(e.target.value){setIsEmail(false)}}} />
+          </div>
 
-        <div className="w-80 justify-center items-start flex flex-col gap-1">
-          <h1 className="text-sm text-stone-500 font-semibold">Password</h1>
-          <input type="password" className={`${isPassword ? "border-red-500" : "border-stone-300"} bg-white border p-3 text-xs w-full rounded-xl outline-none`}
-          value={password} onChange={(e) => {setPassword(e.target.value)
-                                             if(password){setIsPassword(false)}
-          }}/>
-        </div>
+          {/* Password */}
+          <div className="mb-6">
+            <label className="text-xs font-semibold text-stone-500 mb-1.5 block">Password</label>
+            <div className="relative w-full">
+              <input type={showPassword ? "text" : "password"} placeholder="Enter your password"
+                className={`${inputClass(isPassword)} pr-10`}
+                value={password} onChange={(e) => {setPassword(e.target.value); if(e.target.value){setIsPassword(false)}}} />
+              <button type="button" onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 cursor-pointer transition-colors">
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
+          </div>
 
-        <button
-        disabled={isLoading}
-        className={`p-3 w-80 text-sm rounded-xl justify-center items-center flex cursor-pointer outline-none mt-4 ${isLoading ? 'bg-stone-200 text-stone-500 cursor-not-allowed' : "bg-stone-800 hover:bg-stone-900 text-white"}`} 
-        onClick={() => confirmation()}>
-          <h1 className="font-semibold">
-            {isLoading ? <LoaderCircle size={20} className="text-stone-500 animate-spin"/> : `Sign In`}
-          </h1>
+          {/* Sign In */}
+          <button disabled={isLoading}
+            className={`w-full p-3.5 text-sm rounded-xl justify-center items-center flex cursor-pointer outline-none font-semibold transition-all duration-200 ${isLoading ? "bg-stone-200 text-stone-400 cursor-not-allowed" : "bg-stone-800 hover:bg-stone-900 text-white hover:shadow-lg hover:shadow-stone-300 hover:-translate-y-0.5"}`}
+            onClick={() => confirmation()}>
+            {isLoading ? <LoaderCircle size={20} className="animate-spin"/> : <><LogIn size={16} className="mr-2"/> Sign In</>}
+          </button>
+
+          {/* Divider */}
+          <div className="flex items-center gap-3 my-6">
+            <div className="flex-1 h-px bg-stone-200"></div>
+            <span className="text-xs text-stone-400 font-medium">or</span>
+            <div className="flex-1 h-px bg-stone-200"></div>
+          </div>
+
+          {/* Register */}
+          <button className="w-full p-3.5 text-sm rounded-xl justify-center items-center flex cursor-pointer outline-none font-semibold bg-white hover:bg-stone-200 text-stone-600 border border-stone-200 transition-all duration-200 hover:-translate-y-0.5"
+            onClick={() => navigate("/registration")}>
+            No Account? Register
+          </button>
+
+          <button className="w-full p-3.5 text-sm rounded-xl justify-center items-center flex cursor-pointer outline-none font-semibold bg-white hover:bg-stone-200 mt-3.5 transition-all duration-200 hover:-translate-y-0.5"
+            onClick={() => navigate(-1)}>
+            <h1 className="text-sm font-semibold text-stone-600">Cancel</h1>
+          </button>
+          {/* Cancel */}
           
-        </button>
-
-        <div className="mt-4 border-t border-stone-300 justify-center items-center flex flex-col">
-         <button className="bg-stone-100 p-3 w-80 text-stone-500 text-sm rounded-xl mt-4 border border-stone-200 cursor-pointer outline-none" onClick={() => navigate("/registration")}>
-          <h1 className="text-stone-500">No Account? Register</h1>
-        </button>
-        <button className="bg-trnasparent p-3 w-80 text-stone-500 text-sm rounded-xl mt-4 cursor-pointer outline-none" onClick={() => navigate(-1)}>
-          <h1>Cancel</h1>
-        </button> 
         </div>
+
         
 
-      
-   </section>
+    </section>
   );
 };
 

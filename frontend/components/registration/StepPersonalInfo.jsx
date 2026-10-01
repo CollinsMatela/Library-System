@@ -94,7 +94,7 @@ const StepPersonalInfo = ({ form, errors, updateField, age, currentYear, daysInM
 
             {/* Address + Contact - Side by side on desktop */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <SubContainer icon={MapPin} title="Address Info">
+                <SubContainer icon={MapPin} title="Address Information">
                     <div className="w-full space-y-4">
                         <div className="w-full">
                             <h1 className={labelClass}>Home Address <span className="text-red-400">*</span></h1>
@@ -109,7 +109,7 @@ const StepPersonalInfo = ({ form, errors, updateField, age, currentYear, daysInM
                     </div>
                 </SubContainer>
 
-                <SubContainer icon={Phone} title="Contact Info">
+                <SubContainer icon={Phone} title="Contact Information">
                     <div className="w-full space-y-4">
                         <div className="w-full">
                             <h1 className={labelClass}>Email Address <span className="text-red-400">*</span></h1>

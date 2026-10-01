@@ -138,7 +138,7 @@ const Admin_Books_Page = () => {
                             
                         </div>
                         <div className="justify-center items-center flex gap-1 bg-stone-100 border border-stone-300 rounded-lg p-2 w-fit cursor-pointer" onClick={() => setIsAdvanceSearch(isAdvanceSearch => !isAdvanceSearch)}>
-                          <h1 className="text-[10px] text-stone-500">Adv</h1>
+                          <h1 className="text-[10px] text-stone-500">Advanced</h1>
                             {isAdvanceSearch ? 
                             (<ChevronDown size={15} className="text-stone-500"/>)
                             :

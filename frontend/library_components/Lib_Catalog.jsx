@@ -202,35 +202,72 @@ const Lib_Catalog = () => {
 
                     {filtered.length > 0 && (
                     filtered.map((book) => (
-                      <div key={book._id} className="bg-white p-2 hover:bg-stone-100 h-fit w-full rounded-lg border border-stone-300 justify-between items-center flex flex-col transition cursor-pointer mb-2 gap-2"
-                      onClick={() => handleViewBook(book._id)}
+                      <div
+                        key={book._id}
+                        className="group flex flex-row items-center gap-4 p-3 mb-2 bg-white rounded-xl border border-stone-200/60 hover:shadow-lg hover:shadow-stone-200/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
+                        onClick={() => handleViewBook(book._id)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            handleViewBook(book._id);
+                          }
+                        }}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`View book: ${book?.title || "Untitled"}`}
                       >
-                            <div className="w-full flex gap-2 justify-center items-center ">
-                              <div className="hidden md:block bg-stone-200 shadow-sm p-2 rounded-full">
-                                <Book size={15} className="text-stone-500"/>
-                              </div>
-                              
+                        {/* Cover Thumbnail */}
+                        <div className="relative w-12 h-16 sm:w-14 sm:h-20 rounded-lg overflow-hidden bg-gradient-to-br from-stone-100 to-stone-200 shrink-0 shadow-sm">
+                          {book?.cover ? (
+                            <img
+                              src={book.cover}
+                              alt={book.title}
+                              className="object-cover h-full w-full transition-transform duration-500 group-hover:scale-105"
+                              onError={(e) => {
+                                e.target.style.display = "none";
+                                e.target.nextSibling.style.display = "flex";
+                              }}
+                            />
+                          ) : null}
+                          <div
+                            className={`${book?.cover ? "hidden" : "flex"} absolute inset-0 flex items-center justify-center`}
+                            style={{ display: book?.cover ? "none" : "flex" }}
+                          >
+                            <Book size={18} className="text-stone-400" />
+                          </div>
+                        </div>
 
-                              <div className="w-full">
-                                <div className="flex flex-col md:flex-row justify-between items-center w-full">
-
-                                  <div className="justify-center items-start flex flex-col gap-1">
-                                  <h1 className="text-stone-800 font-semibold text-xs">{book?.title}</h1>
-                                  <h1 className="text-stone-400 text-xs">{book?.author}</h1>
-                                  </div>
-
-                                  <div className="justify-center items-center flex gap-1">
-                                  <h1 className="text-stone-500 text-xs font-normal p-1 bg-stone-200 rounded-lg"> {book?.category}</h1>
-                                  <h1 className={`${book?.copies> 0 ? "text-white bg-green-600" : "text-white bg-red-600"} border text-xs p-1 rounded-lg`}>{book?.copies> 0 ? "Available" : "Not Available"}</h1>
-                                  </div>
-                                  
-                                </div>
-                                  
-                              </div>
-                              
-                            </div>
-                            
-                    </div>
+                        {/* Book Info */}
+                        <div className="flex-1 min-w-0">
+                          <h1 className="text-sm font-bold text-stone-800 line-clamp-1 group-hover:text-stone-900 transition-colors">
+                            {book?.title || "Untitled"}
+                          </h1>
+                          <p className="text-xs text-stone-500 mt-0.5 line-clamp-1">
+                            {book?.author || "Unknown Author"}
+                          </p>
+                          <div className="flex items-center gap-2 mt-2">
+                            {book?.category && (
+                              <span className="px-2 py-0.5 bg-stone-100 text-stone-500 text-[10px] font-semibold rounded-md uppercase tracking-wider">
+                                {book.category}
+                              </span>
+                            )}
+                            <span className="flex items-center gap-1.5 text-[11px] font-medium">
+                              <span
+                                className={`h-2 w-2 rounded-full ${
+                                  book?.copies > 0 ? "bg-stone-800" : "bg-stone-300"
+                                }`}
+                              />
+                              <span
+                                className={
+                                  book?.copies > 0 ? "text-stone-700" : "text-stone-400"
+                                }
+                              >
+                                {book?.copies > 0 ? "Available" : "Not Available"}
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     ))
                   )}
                   </>

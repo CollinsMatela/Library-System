@@ -227,7 +227,7 @@ const Library_Page = () => {
                                     <h1 className='text-[10px] text-stone-500 '>Browse and discover books in the library.</h1>
                                 </header>
                             {selectedCategory.length > 0 ? (
-                                <div className='bg-white w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 p-4'>
+                                <div className='bg-white w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-2 p-4'>
                                     
                                     {selectedCategory.map((book) => (
                                         <Lib_BookCard 

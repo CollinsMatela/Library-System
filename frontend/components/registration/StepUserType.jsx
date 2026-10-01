@@ -4,7 +4,7 @@ const StepUserType = ({ form, updateField }) => {
     const roles = [
         { value: "student", label: "Student", description: "For students using the library.", icon: GraduationCap },
         { value: "teacher", label: "Teacher", description: "For teachers using the library.", icon: Users },
-        { value: "guest", label: "Guest", description: "For visitors and guests.", icon: UserCheck },
+        { value: "guest", label: "Guest", description: "For community library users.", icon: UserCheck },
     ];
 
     return (

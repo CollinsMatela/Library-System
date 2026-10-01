@@ -19,7 +19,7 @@ import defaultProfile from '../src/assets/Student.jpg'
 import LoadingScreen from '../loadings/loading'
 import { useNavigate } from 'react-router-dom'
 import BorrowModal from '../modals/BorrowModal'
-import { Book, ChevronRight, Info, LoaderCircle, MoveRight } from 'lucide-react'
+import { Book, BookOpen, ChevronRight, ImageOff, Info, LoaderCircle, MoveRight, Search, UserCircle } from 'lucide-react'
 
 const Library_Page = () => {
     const user = useAuthStore((state) => state.user);
@@ -31,11 +31,18 @@ const Library_Page = () => {
 
     const [books, setBooks] = useState([]);
     const [borrows, setBorrows] = useState([]);
-    
+    const [searchQuery, setSearchQuery] = useState("");
+    const [serchedBooks, setSearchedBooks] = useState([]);
+    useEffect(() => {
+       if (searchQuery.length === 0) {
+        setSearchedBooks([]);
+      } else {
+        setSearchedBooks(books.filter((book) => book.title.toLowerCase().includes(searchQuery.toLowerCase())));
+      }
+       
+    }, [searchQuery])
+    const latestOrderBook = books.slice(0,5);
 
-    const showStories = (genre) => {
-    setSelectedGenre(genre);
-    };
     const [selectedTitle, setSelectedTitle] = useState('');
     const [selectedCategory, setSelectedCategory] = useState([])
     const [selectedLetter, setSelectedLetter] = useState('')
@@ -152,119 +159,149 @@ const Library_Page = () => {
         />)}
         <Lib_Navigation/>
         <section className="min-h-screen w-full justify-start items-center flex flex-col bg-white pb-10">
+
             
             <div className='w-full lg:w-5xl px-4 lg:px-0'>
-            <header className="w-fit mt-20 p-2 bg-white rounded-lg justify-center items-center flex border border-stone-300 shadow-xs gap-2 mb-4">
-                            <div className="border border-stone-800 bg-stone-800 p-2 rounded-lg">
-                                <Info size={15} className="text-white"/>
-                            </div>
-                            <div>
-                                <h1 className="text-sm text-stone-800 font-bold">Browse Library</h1>
-                                <p className=" text-stone-500 text-[10px]">
-                                    Explore the list published books in library
-                                </p>
-                            </div>
-                                
-                        </header>
-
-            <div className="w-full justify-center items-center flex flex-col mt-6 rounded-xl">                   
-                    {isLoading ? 
-                    (
-                    <div className='w-full justify-center items-center flex p-4'>
-                        <LoaderCircle size={20} className='animate-spin'/>
-                    </div>
-                    )
-                    :
-                    (
-                        <div className='gap-4 justify-start items-start flex flex-col lg:flex-row w-full'>
-
-                            <div className=' justify-start items-start flex flex-col w-full lg:w-100 gap-2 border-stone-300'>
-                                <div className='w-full lg:py-4 border-b border-stone-300'>
-                                    <h1 className='text-sm font-bold text-stone-800'>Selection Section</h1>
-                                    <h1 className='text-[10px] text-stone-500'>Find your choice</h1>
+            <header className="w-fit mt-20 p-2 bg-white rounded-lg justify-center items-start flex flex-col gap-2 mb-4">
+                <h1 className="text-2xl font-bold text-stone-800">Welcome back, {user?.firstname} {user?.lastname}! </h1>
+                <p className="text-sm text-stone-500">
+                    Discover books, track your borrowed materials, and explore the library collection.
+                </p>
+            </header>
+            {/**Basic Search */}
+            <div className='w-full'>
+                <h1 className="text-xs mb-2 font-semibold text-stone-800 mt-6">Basic Search</h1>
+                <div className="w-full h-12 rounded-xl border border-stone-300 justify-center items-center flex px-4 gap-2">
+                    <Search size={15} className='text-stone-500 '/>
+                    <input type="text" 
+                        placeholder="Search title of the book..."
+                        className="outline-none bg-transparent text-sm text-stone-500 placeholder:text-stone-500 w-full h-full"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </div>
+                <div className='w-full border border-stone-200 rounded-xl px-4 py-2 mt-2'>
+                    {serchedBooks.length > 0 && (
+                        <div>
+                            <h1 className="text-xs font-semibold text-stone-500 my-2">Search result <span className="bg-stone-800 px-1 text-white text-[10px] rounded-xl">{serchedBooks.length}</span></h1>
+                            {serchedBooks.slice(0, 5).map((book) => (
+                                <div key={book._id} className="py-2 flex items-center gap-3 text-left border-b border-stone-300 hover:border-stone-800 transition-all cursor-pointer">
+                                    <div className="w-10 h-10 rounded-lg bg-stone-800 text-white flex items-center justify-center shrink-0">
+                                        <Book size={18} />
+                                    </div>
+                                    <div className="min-w-0">
+                                        <h2 className="text-xs font-semibold text-stone-800">
+                                            {book.title}
+                                        </h2>
+                                        <p className="text-[10px] text-stone-500 mt-0.5">
+                                            {book.author}
+                                        </p>
+                                    </div>
                                 </div>
-                                 
-
-                                 <div className='w-full flex flex-col gap-1'>
-                                    <h1 className='text-xs text-stone-800'>Alphabetical</h1>
-                                    <select className='w-full border border-stone-300 outline-none rounded-lg p-2 text-xs text-stone-500'
-                                            onChange={(e) => filterByLetter(e.target.value)}
-                                    >
-                                        {alphabetical.map((item) => (
-                                            <option 
-                                            key={item.value}
-                                            value={item.value}>
-                                                {item.label}
-                                            </option>
-                                        ))}
-                                    </select>
-                                 </div>
-
-                                 <div className='w-full flex flex-row lg:flex-col gap-1 overflow-auto'>
-                                    <h1 className='hidden lg:block text-xs text-stone-800'>Categories</h1>
-                                    
-                                        {categories.map((item, index) => (
-                                            <button
-                                            key={index}
-                                            className='py-4 px-10 lg:py-2 lg:px-0 bg-white border lg:border-0 lg:border-b border-stone-300 lg:rounded-none text-[10px] text-stone-800 justify-center lg:justify-start items-center flex cursor-pointer hover:text-stone-800 hover:font-semibold gap-2'
-                                            value={item.value}
-                                            onClick={(e) => {filterByCategory(e.target.value);
-                                                             setSelectedTitle(item.label);
-                                            }}
-                                            >
-                                            <MoveRight size={10} className='hidden lg:block'/>{item.label}
-                                            </button>
-                                        ))}
-                                    
-                                 </div>
-
+                            ))}
+                            <div className="w-full justify-end items-center flex py-4 mt-2">
+                                <button className="text-xs font-semibold text-blue-600 hover:text-blue-700 cursor-pointer" onClick={() => navigate("/library/catalog")}>
+                                    Go to advanced searching
+                                </button>
                             </div>
-
-                            
-                                <div className='w-full border-0 lg:border border-stone-300 lg:rounded-lg pb-10'>
-                                <header className='w-full p-4 border-b border-stone-300'>
-                                    <h1 className='text-sm font-bold text-stone-800 justify-start items-center flex'>Book Collection <ChevronRight size={15}/> <span className='text-stone-600'>{selectedTitle || "All"} {selectedLetter}</span></h1>
-                                    <h1 className='text-[10px] text-stone-500 '>Browse and discover books in the library.</h1>
-                                </header>
-                            {selectedCategory.length > 0 ? (
-                                <div className='bg-white w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-2 p-4'>
-                                    
-                                    {selectedCategory.map((book) => (
-                                        <Lib_BookCard 
-                                        key={book._id}
-                                        book={book}
-                                        handleViewBook={() => handleViewBook(book._id)}
-                                        showBorrowModal={() => handleBorrowModal(book._id)}
-                                        requestBorrow={requestBorrow}
-                                        />
-                                    ))}
-                                </div>
-
-                               
-                                
-                            ) : (
-                                <div className="flex w-full flex-col items-center justify-center border-b border-stone-200 bg-stone-50 px-4 py-10 text-center">
-
-                                    <h2 className="text-xs font-medium text-stone-800">
-                                    No Books found
-                                    </h2>
-
-                                    <p className="mt-1 text-xs text-stone-500">
-                                    There are no available books in this {selectedTitle}
-                                    </p>
-                                </div>
-                            )}
-                          </div>
                         </div>
+                        )}   
+                    </div>
                     
-                    )}
-                    
-
-                 
-                
-                
-
+                </div>
             </div>
+
+            {/** Quick Access */}
+<div className="w-full lg:w-5xl px-4 lg:px-0">
+    <h1 className="text-xs mb-2 font-semibold text-stone-800 mt-6">
+        Quick Access
+    </h1>
+
+    <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-2">
+
+        {/** Search & Catalog */}
+        <button
+            onClick={() => navigate("/library/catalog")}
+            className="w-full p-4 bg-stone-50 border border-stone-200 rounded-xl flex items-center gap-3 text-left hover:bg-stone-100 hover:border-stone-300 transition-all cursor-pointer"
+        >
+            <div className="w-10 h-10 rounded-lg bg-stone-800 text-white flex items-center justify-center shrink-0">
+                <Search size={18} />
+            </div>
+
+            <div className="min-w-0">
+                <h2 className="text-xs font-semibold text-stone-800">
+                    Search & Catalog
+                </h2>
+                <p className="text-[10px] text-stone-500 mt-0.5">
+                    Find books and library materials
+                </p>
+            </div>
+        </button>
+
+        {/** Borrow Status */}
+        <button
+            onClick={() => navigate("/library/borrow-status")}
+            className="w-full p-4 bg-stone-50 border border-stone-200 rounded-xl flex items-center gap-3 text-left hover:bg-stone-100 hover:border-stone-300 transition-all cursor-pointer"
+        >
+            <div className="w-10 h-10 rounded-lg bg-stone-200 text-stone-800 flex items-center justify-center shrink-0">
+                <BookOpen size={18} />
+            </div>
+
+            <div className="min-w-0">
+                <h2 className="text-xs font-semibold text-stone-800">
+                    Borrow Status
+                </h2>
+                <p className="text-[10px] text-stone-500 mt-0.5">
+                    Track your borrowed books
+                </p>
+            </div>
+        </button>
+
+        {/** My Account */}
+        <button
+            onClick={() => navigate("/library/my-account")}
+            className="w-full p-4 bg-stone-50 border border-stone-200 rounded-xl flex items-center gap-3 text-left hover:bg-stone-100 hover:border-stone-300 transition-all cursor-pointer"
+        >
+            <div className="w-10 h-10 rounded-lg bg-stone-200 text-stone-800 flex items-center justify-center shrink-0">
+                <UserCircle size={18} />
+            </div>
+
+            <div className="min-w-0">
+                <h2 className="text-xs font-semibold text-stone-800">
+                    My Account
+                </h2>
+                <p className="text-[10px] text-stone-500 mt-0.5">
+                    Manage your library account
+                </p>
+            </div>
+        </button>
+
+    </div>
+</div>
+
+         {/**Basic Search */}
+            <div className="w-full lg:w-5xl px-4 lg:px-0">
+                <h1 className="text-xs mb-2 font-semibold text-stone-800 mt-6">Latest Books</h1>
+                <div className="w-full justify-center items-start flex gap-2">
+                    {latestOrderBook.length === 0 ? (
+                        <div className="w-full h-full flex items-center justify-center">
+                            <LoaderCircle size={20} className="text-stone-500 animate-spin" />
+                        </div>
+                    ) : (
+                        latestOrderBook.map((book) => (
+                            <div key={book.id} className="w-full h-full flex flex-col items-center text-center ">
+                                {!book.cover ? (
+                                    <div className="w-full h-80 bg-stone-200 rounded-xl flex items-center justify-center">
+                                        <ImageOff size={62} className="text-stone-300" />
+                                    </div>
+                                ) : (
+                                    <img src={book.cover} alt={book.title} className="w-full h-80 object-cover rounded-xl" />
+                                )}
+                                <p className="text-sm text-stone-500 mt-3">{book.title}</p>
+                            </div>
+                        ))
+                    )}
+                </div>
             </div>
             
         </section>

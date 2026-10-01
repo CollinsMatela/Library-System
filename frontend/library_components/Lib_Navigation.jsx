@@ -94,7 +94,7 @@ const Lib_Navigation = () => {
                     {/* Logo */}
                     <div className="flex gap-2 items-center">
                         <div
-                            className="h-9 w-9 rounded-xl bg-stone-800 flex items-center justify-center cursor-pointer shadow-md shadow-stone-300"
+                            className="h-9 w-9 rounded-xl bg-transparent flex items-center justify-center cursor-pointer"
                             onClick={() => navigate("/library")}
                         >
                             <img

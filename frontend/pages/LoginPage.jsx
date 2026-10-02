@@ -60,7 +60,7 @@ const LoginPage = () => {
             }
             else {
               if (["student", "teacher", "guest"].includes(role)) {
-                  navigate("/library");
+                  navigate("/library/home");
               }
               else if (role === "admin") {
                   navigate("/admin");

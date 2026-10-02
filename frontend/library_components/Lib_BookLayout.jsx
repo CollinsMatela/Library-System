@@ -12,7 +12,7 @@ const Lib_BookLayout = ({book, onClose}) => {
     const [showText] = useState(true);
     const [isEnd, setIsEnd] = useState(false);
 
-    const [textSize, setTextSize] = useState('base');
+    const [textSize, setTextSize] = useState('xs');
     const [textAlignment, setTextAlignment] = useState('left');
     const [isBold, setIsBold] = useState(false);
     const [isItalic, setIsItalic] = useState(false);
@@ -49,47 +49,57 @@ const Lib_BookLayout = ({book, onClose}) => {
     const exitSummary = () => setIsEnd(false);
 
     return(
-        <section className="fixed inset-0 bg-black/85 backdrop-blur-xl flex justify-center items-center z-50">
+        <section className="fixed inset-0 bg-black/85 backdrop-blur-xl flex justify-center items-start z-50">
 
-            <div className="relative h-full w-full justify-center bg-transparent items-center flex overflow-y-auto scroll-smooth p-2 sm:px-4">
+            {/* This wrapper is the reader's scroll container - the page behind
+                it is locked, so nowhere else can scroll. It scrolls rather than
+                the section because the section's backdrop-blur makes it the
+                containing block for the fixed chrome (theme/close pills, the
+                page bar, the story lightbox); scrolling the section would drag
+                that chrome out of view with the text. The inner `min-h-full`
+                box is what keeps tall pages reachable from the top while short
+                ones stay vertically centred. */}
+            <div className="relative h-full w-full overflow-y-auto overscroll-contain p-2 sm:px-4">
 
                 {!isLiterature && (
-    <div
-        className={`fixed right-5 top-5 flex gap-1 p-2 rounded-xl shadow-sm border backdrop-blur-xs transition-colors duration-300 ${
-            theme
-                ? "bg-stone-900/85 border-stone-700"
-                : "bg-white/85 border-stone-300"
-        }`}
-    >
-        {/* Theme Button */}
-        <button
-            className={`transition duration-300 ease-in-out shadow-sm p-2 justify-center items-center flex cursor-pointer rounded-xl ${
-                theme
-                    ? "bg-stone-800 text-white"
-                    : "bg-white border border-stone-300 text-stone-500"
-            }`}
-            onClick={() => setTheme(prev => !prev)}
-        >
-            {theme ? <Moon size={15} /> : <Sun size={15} />}
-        </button>
+                <div
+                    className={`fixed right-5 top-5 flex gap-1 p-2 rounded-xl shadow-sm border backdrop-blur-xs transition-colors duration-300 ${
+                        theme
+                            ? "bg-stone-900/85 border-stone-700"
+                            : "bg-white/85 border-stone-300"
+                    }`}
+                >
+                    {/* Theme Button */}
+                    <button
+                        className={`transition duration-300 ease-in-out shadow-sm p-2 justify-center items-center flex cursor-pointer rounded-xl ${
+                            theme
+                                ? "bg-stone-800 text-white"
+                                : "bg-white border border-stone-300 text-stone-500"
+                        }`}
+                        onClick={() => setTheme(prev => !prev)}
+                    >
+                        {theme ? <Moon size={15} /> : <Sun size={15} />}
+                    </button>
 
-        {/* Close Button */}
-        <button
-            className={`p-2 cursor-pointer transition-colors ${
-                theme ? "text-stone-300" : "text-stone-500"
-            }`}
-            onClick={() => {
-                onClose();
-                stopSpeech();
-            }}
-        >
-            <X
-                size={15}
-                className="hover:text-red-500"
-            />
-        </button>
-    </div>
-)}
+                    {/* Close Button */}
+                    <button
+                        className={`p-2 cursor-pointer transition-colors ${
+                            theme ? "text-stone-300" : "text-stone-500"
+                        }`}
+                        onClick={() => {
+                            onClose();
+                            stopSpeech();
+                        }}
+                    >
+                        <X
+                            size={15}
+                            className="hover:text-red-500"
+                        />
+                    </button>
+                </div>
+            )}
+
+                <div className="flex min-h-full w-full items-center justify-center">
 
                 {isLiterature && (
                   <Lib_StoryLayoutBook
@@ -122,6 +132,8 @@ const Lib_BookLayout = ({book, onClose}) => {
                 prevPage={prevPage}
                 onClose={onClose}/>
                 )}
+
+                </div>
 
             </div>
 

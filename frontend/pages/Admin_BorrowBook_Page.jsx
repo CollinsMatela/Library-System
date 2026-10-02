@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import Admin_Sidebar from '../components/Admin_Sidebar'
-import { Check, HandHelping, X } from "lucide-react";
+import { Check, HandHelping, IdCard, IdCardLanyard, Info, X } from "lucide-react";
 import { toast } from "react-toastify";
 import PendingTable from "./Borrowing_Components/PendingTable";
 import ApprovedTable from "./Borrowing_Components/ApprovedTable";
@@ -14,6 +14,8 @@ import HistoryTable from "./Borrowing_Components/HistoryTable";
 import useAuthStore from "../store/useAuthStore";
 import Admin_Header from "../components/Admin_Header";
 import Confirmation_Popup from "../popup/Confirmation_Popup";
+import DepositModal from "../modals/DepositModal";
+import DepositListModal from "../modals/DepositsListModal";
 
 const Admin_BorrowBook_Page = () => {
     const user = useAuthStore((state) => state.user);
@@ -35,10 +37,57 @@ const Admin_BorrowBook_Page = () => {
     const [isApproved, setIsApproved] = useState(false);
     const [isBorrowed, setIsBorrowed] = useState(false);
     const [isHistory, setIsHistory] = useState(false);
+    const [isDeposit, setIsDeposit] = useState(false);
+    const [isDepositList, setIsDepositList] = useState(false);
     const [selectedStatus, setSelectedStatus] = useState('') 
 
     const [returnDate, setReturnDate] = useState({})
     const [quantity, setQuantity] = useState({});
+
+    const [idForm, setIdForm] = useState({
+        idType: '',
+        idNumber: '',
+        idName: '',
+        receivedBy: user?._id || ''
+    });
+    const [deposits, setDeposits] = useState([]);
+    const [depositLoading, setDepositLoading] = useState(false);
+    const DepositRequest = async () => {
+        if(!idForm.idType || !idForm.idNumber || !idForm.idName){
+            setErrorMessage('Please fill all fields.')
+            return;
+        }
+        try {
+          setDepositLoading(true);
+          const res = await axios.post(`${import.meta.env.VITE_API_URL}/deposit-id`, idForm);
+          console.log(res.data.message);
+          toast.success(res.data.message);
+          setIsDeposit(false);
+          setIdForm({
+            idType: '',
+            idNumber: '',
+            idName: '',
+            receivedBy: user?._id || ''
+          });
+        } catch (error) {
+          console.log(error);
+          toast.error(error?.response?.data?.message);
+          setErrorMessage(error?.response?.data?.message)
+        } finally {
+          setDepositLoading(false);
+        }
+    }
+    const fetchDeposits = async () => {
+          try {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-deposits`);
+            console.log(res.data.deposits);
+            setDeposits(res.data.deposits);
+          } catch (error) {
+            console.log(error);
+            toast.error(error?.response?.data?.message);
+            setErrorMessage(error?.response?.data?.message)
+          }
+    }
 
     const fetchAllBorrow = async () => {
           try {
@@ -183,7 +232,14 @@ const Admin_BorrowBook_Page = () => {
     }
 
     useEffect(() => {
-        fetchAllBorrow();
+      const loadData = async () => {
+      try {
+        await Promise.all([fetchAllBorrow(), fetchDeposits()]);
+      } catch (error) {
+        
+      }
+    }
+      loadData();
     },[])
 
     const handlePending = () => {
@@ -287,8 +343,23 @@ const Admin_BorrowBook_Page = () => {
           onConfirm={() => deleteBorrow(selectedRequest)}
           onCancel={() => setDeleteConfirmation(false)}/>
         )}
+        {isDeposit && (
+          <DepositModal
+          onConfirm={DepositRequest}
+          idForm={idForm}
+          setIdForm={setIdForm}
+          depositLoading={depositLoading}
+          onClose={() => setIsDeposit(false)}
+          />
+        )}
+        {isDepositList && (
+          <DepositListModal
+          deposits={deposits}
+          onClose={() => setIsDepositList(false)}
+          />
+        )}
         <Admin_Sidebar/>
-        <section className="bg-stone-50 min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
               <Admin_Header mainText={'Borrowing Management'} subText={'Manage borrow request from users'}/>
 
@@ -306,7 +377,19 @@ const Admin_BorrowBook_Page = () => {
                         </div>
                     </div>
 
-            
+                    <div className="w-full justify-end items-center flex gap-2">
+                      <button 
+                      title="List of physical ID deposit"
+                      className="bg-white p-2 rounded-lg text-stone-800 text-[10px] cursor-pointer hover:bg-stone-200 justify-center items-center flex gap-2"
+                      onClick={() => setIsDepositList(true)}>
+                        <IdCardLanyard size={15}/>
+                      </button>
+                      <button 
+                      className="bg-stone-800 p-2 rounded-lg text-white text-[10px] cursor-pointer hover:bg-stone-900 justify-center items-center flex gap-2"
+                      onClick={() => setIsDeposit(true)}>
+                        <IdCard size={15}/>
+                        <h1>Deposit Id</h1>
+                      </button>
                         <select className="bg-white w-full sm:w-fit outline-none border border-stone-300 rounded-lg p-2 text-[10px] text-stone-500"
                         onChange={(e) => handleStatus(e.target.value)}>
                             <option value="">Select Status</option>
@@ -315,9 +398,17 @@ const Admin_BorrowBook_Page = () => {
                             <option value="borrowed">Borrowed Status</option>
                             <option value="history">History/Record Status</option>
                         </select>
+                    </div>
                         
                     
                     
+                </div>
+
+                <div className="w-full justify-start items-center flex gap-2 bg-stone-100 p-4 rounded-xl mb-4">
+                  <Info size={12} className="text-stone-800"/>
+                  <h1 className="text-xs text-stone-500">
+                    Instruction: To be able to borrow a book, the person must present a valid physical ID.
+                  </h1>
                 </div>
                 
                 <div className="h-120 w-full border border-stone-300 bg-white rounded-lg p-2">

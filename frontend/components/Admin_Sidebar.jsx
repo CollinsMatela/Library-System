@@ -54,6 +54,7 @@ const Admin_SideBar = () => {
     const handleEdit = () => {
           navigate('/admin/edit');
     }
+    
 
     const handleLogout = () =>{
           logout();

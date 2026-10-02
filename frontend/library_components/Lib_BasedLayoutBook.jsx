@@ -31,7 +31,7 @@ import { PROSE_STYLES, QUILL_STYLES, htmlToText } from "../utils/readerHelpers.j
 // controlled props (the parent owns them) but fall back to local state so the
 // reader also works standalone.
 const TEXT_SIZE_SCALE = ["xs", "sm", "base", "lg", "xl"];
-const DEFAULT_TEXT_SIZE = "base";
+const DEFAULT_TEXT_SIZE = "xs";
 
 const TEXT_SIZE_CLASS = {
   xs: "text-xs",
@@ -292,7 +292,9 @@ const Lib_BasedLayoutBook = ({
   return (
     <div
       ref={rootRef}
-      className="mx-auto flex min-h-screen w-full max-w-3xl flex-col px-4 pt-24 pb-32 sm:px-6 sm:pt-28 sm:pb-28"
+      // `pb-24`/`sm:pb-28` reserves clearance for the fixed page bar below, so
+      // the last lines of a long page are never sitting underneath it.
+      className="mx-auto flex min-h-screen w-full max-w-3xl flex-col justify-center pb-24 sm:pb-28"
     >
       {showEmptyState ? (
         <div

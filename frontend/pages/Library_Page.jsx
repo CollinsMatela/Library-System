@@ -180,9 +180,9 @@ const Library_Page = () => {
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
                 </div>
-                <div className='w-full border border-stone-200 rounded-xl px-4 py-2 mt-2'>
+                <div className='w-full rounded-xl py-2'>
                     {serchedBooks.length > 0 && (
-                        <div>
+                        <div className="w-full rounded-xl px-4 py-2 bg-stone-50 border border-stone-300">
                             <h1 className="text-xs font-semibold text-stone-500 my-2">Search result <span className="bg-stone-800 px-1 text-white text-[10px] rounded-xl">{serchedBooks.length}</span></h1>
                             {serchedBooks.slice(0, 5).map((book) => (
                                 <div key={book._id} className="py-2 flex items-center gap-3 text-left border-b border-stone-300 hover:border-stone-800 transition-all cursor-pointer">
@@ -289,7 +289,7 @@ const Library_Page = () => {
                         </div>
                     ) : (
                         latestOrderBook.map((book) => (
-                            <div key={book.id} className="w-full h-full flex flex-col items-center text-center ">
+                            <div key={book._id} className="w-full h-full flex flex-col items-center text-center ">
                                 {!book.cover ? (
                                     <div className="w-full h-80 bg-stone-200 rounded-xl flex items-center justify-center">
                                         <ImageOff size={62} className="text-stone-300" />

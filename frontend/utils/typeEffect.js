@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
 
-export const typeEffect = (text) => {
-    const [displayText, setDisplayText] = useState('')
+/**
+ * Reveals `text` one character at a time.
+ *
+ * @param {string} text  the full string to reveal
+ * @param {number} speed milliseconds between characters
+ * @returns {string} the portion revealed so far
+ */
+export const useTypeEffect = (text, speed = 18) => {
+  const [displayText, setDisplayText] = useState("");
 
-       useEffect(() => {
-       let index = 0;
+  useEffect(() => {
+    let index = 0;
 
-       setDisplayText('')
+    const interval = setInterval(() => {
+      index += 1;
+      setDisplayText(text.slice(0, index));
 
-      const interval = setInterval(() => {
-        setDisplayText(text.slice(0, index + 1));
-        index++;
+      if (index >= text.length) clearInterval(interval);
+    }, speed);
 
-        if (index === text.length) {
-        clearInterval(interval);
-        }
-      }, 50)
-      return () => clearInterval(interval);
-      }, [text])
+    return () => clearInterval(interval);
+  }, [text, speed]);
 
-      return displayText
-}
+  return displayText;
+};

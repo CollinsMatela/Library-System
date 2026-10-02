@@ -64,7 +64,7 @@ function App() {
         <Route path="/admin-login" element={<Admin_Login />} />
         
          <Route element={<ProtectedRoute allowedRoles={["student", "teacher", "guest"]}/>}>
-                <Route path="/library" element={<Library_Page/>}/>
+                <Route path="/library/home" element={<Library_Page/>}/>
                 <Route path="/library/catalog" element={<Lib_Catalog/>}/>
                 <Route path="/library/my-account" element={<Lib_MyAccount/>}/>
                 <Route path="/library/borrow-status" element={<Lib_Borrow/>}/>

@@ -72,7 +72,7 @@ const Lib_Navigation = () => {
     }, [isMenu]);
 
     const navLinks = [
-        { path: "/library", label: "Book Browse", icon: Blocks },
+        { path: "/library/home", label: "Home", icon: Blocks },
         { path: "/library/catalog", label: "Search & Catalog", icon: BookSearch },
         { path: "/library/borrow-status", label: "Borrow Status", icon: LayoutList },
     ];

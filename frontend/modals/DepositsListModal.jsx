@@ -9,8 +9,45 @@ import {
   User,
   X,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
-const depositsListModal = ({ deposits, onClose }) => {
+const depositsListModal = ({ deposits, onClose, returnDeposit, returnDepositLoading }) => {
+  const revesedDeposits = [...deposits].reverse();
+  const [filteredDeposits, setFilteredDeposits] = useState(revesedDeposits);
+  const HeldDeposits = deposits.filter((deposit) => deposit.status === "held").reverse();
+  const ReturnedDeposits = deposits.filter((deposit) => deposit.status === "returned").reverse();
+  
+  const [isAll, setIsAll] = useState(false);
+  const [isHeld, setIsHeld] = useState(false);  
+  const [isReturned, setIsReturned] = useState(false);
+
+  const [searchQuery, setSearchQuery] = useState("");
+  useEffect(() => {
+     if(!searchQuery) {
+        setFilteredDeposits(revesedDeposits);
+     } else {
+        const filtered = deposits.filter((deposit) => {
+          const nameMatch = deposit.idName.toLowerCase().includes(searchQuery.toLowerCase());
+          const idNumberMatch = deposit.idNumber.toLowerCase().includes(searchQuery.toLowerCase());
+          return nameMatch || idNumberMatch;
+        });
+        setFilteredDeposits(filtered.reverse());
+     }
+  },[searchQuery, deposits]);
+
+  const handleHeld = () => {
+       setIsAll(false);
+       setIsHeld(true);
+       setIsReturned(false);
+       setFilteredDeposits(HeldDeposits);
+  }
+  const handleReturned = () => {
+        setIsAll(false);
+        setIsHeld(false);
+        setIsReturned(true);
+        setFilteredDeposits(ReturnedDeposits);
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[2px] p-4">
 
@@ -58,7 +95,8 @@ const depositsListModal = ({ deposits, onClose }) => {
 
             <input
               type="text"
-              readOnly
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search name or ID number"
               className="w-full border border-stone-300 rounded-xl pl-9 pr-3 py-2 text-xs text-stone-500 outline-none bg-white focus:ring-2 focus:ring-stone-300"
             />
@@ -68,21 +106,29 @@ const depositsListModal = ({ deposits, onClose }) => {
           <div className="flex items-center gap-1.5">
             <button
               type="button"
-              className="px-3 py-2 text-xs font-medium rounded-xl bg-stone-800 text-white cursor-pointer transition"
+              className={`px-3 py-2 text-xs font-medium rounded-xl ${isAll ? 'bg-stone-800 text-white' : 'bg-white text-stone-500'} border border-stone-300 hover:bg-stone-200 transition cursor-pointer`}
+              onClick={() => {
+                setIsAll(true);
+                setIsHeld(false);
+                setIsReturned(false);
+                setFilteredDeposits(revesedDeposits);
+              }}
             >
               All
             </button>
 
             <button
               type="button"
-              className="px-3 py-2 text-xs font-medium rounded-xl bg-white border border-stone-300 text-stone-500 hover:bg-stone-200 transition cursor-pointer"
+              className={`px-3 py-2 text-xs font-medium rounded-xl ${isHeld ? 'bg-stone-800 text-white' : 'bg-white text-stone-500'} border border-stone-300 hover:bg-stone-200 transition cursor-pointer`}
+              onClick={handleHeld}
             >
               Held
             </button>
 
             <button
               type="button"
-              className="px-3 py-2 text-xs font-medium rounded-xl bg-white border border-stone-300 text-stone-500 hover:bg-stone-200 transition cursor-pointer"
+              className={`px-3 py-2 text-xs font-medium rounded-xl ${isReturned ? 'bg-stone-800 text-white' : 'bg-white text-stone-500'} border border-stone-300 hover:bg-stone-200 transition cursor-pointer`}
+              onClick={handleReturned}
             >
               Returned
             </button>
@@ -95,7 +141,7 @@ const depositsListModal = ({ deposits, onClose }) => {
 
           {deposits.length > 0 ? (
             <div className="flex flex-col gap-2">
-              {deposits.map((deposit) => (
+              {filteredDeposits.map((deposit) => (
                 <div
                   key={deposit._id}
                   className="w-full rounded-lg bg-stone-50 border border-stone-300 p-3 flex flex-col gap-3"
@@ -178,6 +224,21 @@ const depositsListModal = ({ deposits, onClose }) => {
 
                   </div>
 
+                  {/* Return button */}
+                  <div className="w-full justify-end items-center flex mt-3 border-t border-stone-300">
+                    {deposit.status === "held" && (
+                      <button
+                        type="button"
+                        onClick={() => returnDeposit(deposit)}
+                        disabled={returnDepositLoading === deposit._id}
+                      className={`w-fit mt-3 px-3 py-2 text-xs font-medium text-white bg-stone-800 hover:bg-stone-900 rounded-xl transition ${
+                        returnDepositLoading === deposit._id ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
+                    >
+                      {returnDepositLoading === deposit._id ? "Processing..." : "Return ID"}
+                    </button>
+                  )}
+                  </div>
                 </div>
               ))}
             </div>

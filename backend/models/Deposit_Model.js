@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 
 const IDDepositSchema = new mongoose.Schema(
   {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
     idType: {
       type: String,
       required: true,
@@ -31,12 +35,12 @@ const IDDepositSchema = new mongoose.Schema(
     },
 
     receivedBy: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: true,
     },
 
     returnedBy: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       default: null,
     },
 

@@ -27,6 +27,7 @@ const Admin_BorrowBook_Page = () => {
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [borrowList, setBorrowList] = useState([]);
+    const [users, setUsers] = useState([]);
 
     const Pendings = borrowList.filter((request) => request.status === 'Pending').sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     const Approved = borrowList.filter((request) => request.status === 'Approved').sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -44,6 +45,17 @@ const Admin_BorrowBook_Page = () => {
     const [returnDate, setReturnDate] = useState({})
     const [quantity, setQuantity] = useState({});
 
+    const fetchUsers = async () => {
+    
+            try {
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-users`)
+                console.log(res.data.message);
+                setUsers(res.data.users);
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
     const [idForm, setIdForm] = useState({
         idType: '',
         idNumber: '',
@@ -52,8 +64,9 @@ const Admin_BorrowBook_Page = () => {
     });
     const [deposits, setDeposits] = useState([]);
     const [depositLoading, setDepositLoading] = useState(false);
+    const [returnDepositLoading, setReturnDepositLoading] = useState(null);
     const DepositRequest = async () => {
-        if(!idForm.idType || !idForm.idNumber || !idForm.idName){
+        if(!idForm.userId || !idForm.idType || !idForm.idNumber || !idForm.idName){
             setErrorMessage('Please fill all fields.')
             return;
         }
@@ -64,11 +77,13 @@ const Admin_BorrowBook_Page = () => {
           toast.success(res.data.message);
           setIsDeposit(false);
           setIdForm({
+            userId: '',
             idType: '',
             idNumber: '',
             idName: '',
             receivedBy: user?._id || ''
           });
+          fetchDeposits();
         } catch (error) {
           console.log(error);
           toast.error(error?.response?.data?.message);
@@ -86,6 +101,25 @@ const Admin_BorrowBook_Page = () => {
             console.log(error);
             toast.error(error?.response?.data?.message);
             setErrorMessage(error?.response?.data?.message)
+          }
+    }
+    const returnDeposit = async (deposit) => {
+          try {
+            setReturnDepositLoading(deposit._id);
+            const personReturned = {
+              firstname: user?.firstname,
+              lastname: user?.lastname,
+            }
+            const res = await axios.put(`${import.meta.env.VITE_API_URL}/return-deposit/${deposit._id}`, personReturned);
+            console.log(res.data.message);
+            toast.success(res.data.message);
+            fetchDeposits();
+          } catch (error) {
+            console.log(error);
+            toast.error(error?.response?.data?.message);
+            setErrorMessage(error?.response?.data?.message)
+          } finally {
+            setReturnDepositLoading(null);
           }
     }
 
@@ -234,9 +268,9 @@ const Admin_BorrowBook_Page = () => {
     useEffect(() => {
       const loadData = async () => {
       try {
-        await Promise.all([fetchAllBorrow(), fetchDeposits()]);
+        await Promise.all([fetchAllBorrow(), fetchDeposits(), fetchUsers()]);
       } catch (error) {
-        
+        toast.error("Error loading data. Please try again later.");
       }
     }
       loadData();
@@ -345,6 +379,7 @@ const Admin_BorrowBook_Page = () => {
         )}
         {isDeposit && (
           <DepositModal
+          users={users}
           onConfirm={DepositRequest}
           idForm={idForm}
           setIdForm={setIdForm}
@@ -356,6 +391,8 @@ const Admin_BorrowBook_Page = () => {
           <DepositListModal
           deposits={deposits}
           onClose={() => setIsDepositList(false)}
+          returnDeposit={returnDeposit}
+          returnDepositLoading={returnDepositLoading}
           />
         )}
         <Admin_Sidebar/>

@@ -1,219 +1,323 @@
-import Admin_Sidebar from "../components/Admin_Sidebar"
-import axios from "axios"
-import { useState, useEffect } from "react"
-import Edit_Student_Modal from "../modals/Edit_Student_Modal"
-import Confirmation_Popup from "../popup/Confirmation_Popup"
-import View_Student_Modal from "../modals/View_Student_Modal"
-import { View, UserPen, Trash, Search, Users, LoaderCircle, Eye } from "lucide-react"
-import { toast } from "react-toastify"
-import Admin_Header from "../components/Admin_Header"
+import { useEffect, useState } from "react";
+import { Eye, LoaderCircle, Mail, Phone, Search, Trash, Users } from "lucide-react";
+import Admin_Sidebar from "../components/Admin_Sidebar";
+import Admin_Header from "../components/Admin_Header";
+import View_Student_Modal from "../modals/View_Student_Modal";
+import Confirmation_Popup from "../popup/Confirmation_Popup";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+/* The three kinds of user accounts, and the colour each one gets. */
+const USER_ROLES = [
+    { value: "student", label: "Student", color: "bg-blue-50 text-blue-600 border-blue-200" },
+    { value: "teacher", label: "Teacher", color: "bg-emerald-50 text-emerald-600 border-emerald-200" },
+    { value: "guest", label: "Guest", color: "bg-stone-100 text-stone-600 border-stone-200" },
+];
 
 const Admin_User = () => {
-
     const [users, setUsers] = useState([]);
 
-    const [search, setSearch] = useState('');
-    const [isLoading, setIsLoading]= useState(false);
-    
-    const filteredUser = users.filter((user) => {
-        const fullName = `${user.firstname} ${user.lastname}`.toLowerCase();
-        return fullName.includes(search.toLowerCase());
-    })
+    const [search, setSearch] = useState("");
+    const [filterRole, setFilterRole] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const [selectedUser, setSelectedUser] = useState(null);
-    const [showEditModal, setShowEditModal] = useState(false);
     const [showViewStudent, setShowViewStudent] = useState(false);
     const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
-    const handleEditStudent = (user) => {
-        setSelectedUser(user);
-        setShowEditModal(true);
+    /* Helpers */
+
+    // Build one clean name. Empty parts are skipped so we never get a
+    // double space when somebody has no middlename.
+    const getFullName = (user) => {
+        const first = (user?.firstname || "").trim();
+        const middle = (user?.middlename || "").trim();
+        const last = (user?.lastname || "").trim();
+
+        return `${first} ${middle} ${last}`.replace(/\s+/g, " ").trim();
     };
 
-    const handleRegistration = () => {
-        setShowStudentRegistration(true);
-    };
+    // The role's label and colour, with a plain fallback if the role is unknown.
+    const getRole = (role) =>
+        USER_ROLES.find((item) => item.value === role?.toLowerCase()) || {
+            label: role || "Unknown",
+            color: "bg-stone-100 text-stone-600 border-stone-200",
+        };
 
-    const handleViewStudent = (user) => {
-         setSelectedUser(user);
-         setShowViewStudent(true);
-    }
+    // How many users hold this role, e.g. 12 Students.
+    const countRole = (role) => users.filter((u) => u.role?.toLowerCase() === role).length;
 
-    useEffect(() => {
-       setIsLoading(true)
-       const loadData = async () => {
-             try {
-                await fetchUsers();
-             } catch (error) {
-                console.log(error);
-                toast.error("Failed to load data")
-             } finally {
-                setIsLoading(false)
-             }
-       }
-       loadData()
-    },[])
+    /* Loading the users */
+
     const fetchUsers = async () => {
-
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-users`)
-            console.log(res.data.message);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-users`);
             setUsers(res.data.users);
         } catch (error) {
-            console.log(error)
+            // The admin now actually finds out when the list fails to load.
+            toast.error("Failed to fetch data");
+            setErrorMessage(error.response?.data?.message);
+        } finally {
+            // isLoading only ever turns from true to false. Because it is
+            // already false on later calls, refreshing after a delete never
+            // makes the spinner flash again.
+            setIsLoading(false);
         }
-    }
+    };
+
+    useEffect(() => {
+        fetchUsers();
+    }, []);
+
+    /* Filtering */
+
+    const searchName = search.trim().toLowerCase();
+
+    // Keep the users that match the chosen role AND the search box.
+    const visibleUsers = users.filter((user) => {
+        const matchesRole = filterRole === "" || user.role?.toLowerCase() === filterRole;
+        const matchesName = `${user.firstname} ${user.lastname}`.toLowerCase().includes(searchName);
+
+        return matchesRole && matchesName;
+    });
+
+    /* Viewing and deleting */
+
+    const handleViewStudent = (user) => {
+        setSelectedUser(user);
+        setShowViewStudent(true);
+    };
+
     const deleteConfirmation = (user) => {
-          setSelectedUser(user);
-          setShowConfirmationPopup(true);
-    }
+        setSelectedUser(user);
+        setErrorMessage("");
+        setShowConfirmationPopup(true);
+    };
+
     const deleteStudent = async (userId) => {
-          try {
+        try {
             const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-student/${userId}`);
-            console.log(res.data.message);
             toast.success(res.data.message);
+            setShowConfirmationPopup(false);
+            setSelectedUser(null);
             fetchUsers();
-          } catch (error) {
-            console.log(error)
-            toast.error(error?.response?.data?.message);
-          }
-          setShowConfirmationPopup(false);
-    }
+        } catch (error) {
+            // The popup stays open so the admin can read the reason.
+            toast.error("Failed to delete account");
+            setErrorMessage(error.response?.data?.message);
+        }
+    };
 
-    return(
+    /* A small shared look, so the pill styling is written once. */
+    const pillClass = (isActive) =>
+        `text-xs px-2.5 py-1 rounded-full border cursor-pointer transition-colors flex items-center gap-1.5 ${
+            isActive
+                ? "bg-stone-800 text-white border-stone-800"
+                : "bg-white text-stone-600 border-stone-300 hover:bg-stone-100"
+        }`;
+
+    /* What the list area shows: the spinner, the empty message, or the rows. */
+    const userList = isLoading ? (
+        /* Still loading */
+        <div className="w-full py-12 flex items-center justify-center gap-2 text-stone-400">
+            <LoaderCircle size={20} className="animate-spin" />
+            <span className="text-xs">Loading users...</span>
+        </div>
+    ) : visibleUsers.length === 0 ? (
+        /* Nothing to show */
+        <div className="w-full py-12 px-4 bg-stone-50 rounded-lg border border-dashed border-stone-300 flex flex-col items-center justify-center">
+            <Users size={24} className="text-stone-300" />
+            <p className="text-sm font-medium text-stone-700 mt-2">No users found</p>
+            <p className="text-xs text-stone-500 mt-1 text-center">
+                {search || filterRole
+                    ? "Try a different search or filter."
+                    : "Registered users will appear here."}
+            </p>
+        </div>
+    ) : (
+        /* The rows */
+        <div className="w-full space-y-2">
+            {visibleUsers.map((user) => {
+                const roleInfo = getRole(user.role);
+
+                return (
+                    <div
+                        key={user._id}
+                        className="w-full flex flex-col sm:flex-row sm:items-center gap-3 bg-white border border-stone-200 rounded-lg p-2 hover:border-stone-300 hover:shadow-sm transition"
+                    >
+                        {/* Avatar, name and role */}
+                        <div className="flex items-center gap-3 min-w-0 flex-1">
+                            {user.avatar ? (
+                                <img
+                                    src={user.avatar}
+                                    alt=""
+                                    className="h-8 w-8 rounded-full object-cover shrink-0"
+                                />
+                            ) : (
+                                <div className="h-8 w-8 rounded-full bg-stone-800 text-white shrink-0 flex items-center justify-center text-xs font-semibold">
+                                    {user.firstname?.slice(0, 1).toUpperCase()}
+                                </div>
+                            )}
+
+                            <div className="min-w-0">
+                                <p className="text-xs font-medium text-stone-800 truncate">
+                                    {getFullName(user)}
+                                </p>
+
+                                <span
+                                    className={`inline-flex mt-1 px-2 py-0.5 rounded-full border text-[10px] font-medium ${roleInfo.color}`}
+                                >
+                                    {roleInfo.label}
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Email and contact number */}
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-5 text-[10px] text-stone-500 sm:w-72">
+                            <span className="flex items-center gap-1.5 min-w-0">
+                                <Mail size={13} className="shrink-0" />
+                                <span className="truncate">{user.email || "—"}</span>
+                            </span>
+
+                            <span className="flex items-center gap-1.5 min-w-0">
+                                <Phone size={13} className="shrink-0" />
+                                <span className="truncate">{user.contact || "—"}</span>
+                            </span>
+                        </div>
+
+                        {/* Actions */}
+                        <div className="flex items-center gap-2 sm:justify-end">
+                            <button
+                                type="button"
+                                onClick={() => handleViewStudent(user)}
+                                className="text-[10px] text-stone-600 bg-white border border-stone-300 px-3 py-2 rounded-lg flex items-center gap-1 cursor-pointer hover:bg-stone-100 transition-colors"
+                            >
+                                <Eye size={15} />
+                                View
+                            </button>
+
+                            <button
+                                type="button"
+                                aria-label={`Delete ${getFullName(user)}`}
+                                title="Delete user"
+                                onClick={() => deleteConfirmation(user)}
+                                className="p-2 bg-red-500 hover:bg-red-600 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                            >
+                                <Trash size={15} className="text-white" />
+                            </button>
+                        </div>
+                    </div>
+                );
+            })}
+        </div>
+    );
+
+    return (
         <>
-        {showConfirmationPopup && (<Confirmation_Popup onConfirm={() => deleteStudent(selectedUser?._id)} onCancel={() => setShowConfirmationPopup(false)} />)}
-        {showEditModal && (<Edit_Student_Modal selectedUser={selectedUser} reFetch={() => fetchUsers()} closeEditStudentModal={() => setShowEditModal(false)}/>)}
-        {showViewStudent && (<View_Student_Modal user={selectedUser} onClose={() => setShowViewStudent(false)}/>)}
-         <Admin_Sidebar/>   
-       <section className="bg-stone-50 min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
-              
-              <Admin_Header mainText={'Account Management'} subText={'Manage the registered  users'}/>
-        
-        
-        
+            {showConfirmationPopup && (
+                <Confirmation_Popup
+                    errorMessage={errorMessage}
+                    message={`Delete ${getFullName(selectedUser)}? This cannot be undone.`}
+                    confirmLabel="Delete"
+                    onConfirm={() => deleteStudent(selectedUser?._id)}
+                    onCancel={() => {
+                        setShowConfirmationPopup(false);
+                        setErrorMessage("");
+                    }}
+                />
+            )}
 
-        {/* Student Container */}
-                  <div className="w-full px-4 lg:px-10">
+            {showViewStudent && (
+                <View_Student_Modal
+                    user={selectedUser}
+                    onClose={() => setShowViewStudent(false)}
+                />
+            )}
 
-                    <div className="w-full justify-between items-start flex flex-col sm:flex-row rounded-t-xl mb-2">
+            <Admin_Sidebar />
 
-                        <div className="flex items-center justify-start gap-2 mb-4">
-                            <div className="bg-stone-800 rounded-lg p-2 text-white justify-center items-center flex">
-                              <Users size={20}/>
+            <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
+                <Admin_Header
+                    mainText={"Account Management"}
+                    subText={"Manage the registered users"}
+                />
+
+                <div className="w-full justify-start items-start flex flex-col px-4 lg:px-10 pb-10">
+
+                    {/* Page heading and search */}
+                    <div className="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4">
+                        <div className="flex items-center gap-2">
+                            <div className="flex rounded-lg bg-stone-800 p-2 text-white justify-center items-center">
+                                <Users size={20} />
                             </div>
                             <div>
-                                <h1 className="text-md font-bold text-stone-800 rounded-full">User Accounts</h1>
-                                <p className="text-stone-400 text-[10px]">Manage student accounts.</p>
+                                <h1 className="text-sm font-bold text-stone-800">User Accounts</h1>
+                                <p className="text-stone-400 text-xs">
+                                    Manage student, teacher and guest accounts.
+                                </p>
                             </div>
-                          
                         </div>
-                        
-                        <div className="justify-between items-center flex border border-stone-300 rounded-lg px-2 w-full sm:w-fit">
-                            
-                            <input type="search"
-                                   name="title"
-                                   placeholder="Search book title" 
-                                   className="bg-white py-2 outline-none text-[10px] w-full"
-                                   value={search}
-                                   onChange={(e) => setSearch(e.target.value)}
+
+                        {/* Search */}
+                        <div className="relative w-full lg:w-auto">
+                            <Search
+                                size={14}
+                                className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none"
                             />
-                            <div className="h-full py-1 px-2 border-l border-stone-300">
-                              <Search size={15} className="text-stone-800 hover:text-stone-900 cursor-pointer transition"/> 
-                            </div>
-                            
+                            <input
+                                type="search"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                placeholder="Search name..."
+                                className="w-full lg:w-56 border border-stone-300 bg-white rounded-lg pl-9 pr-3 py-2 text-xs text-stone-600 outline-none focus:ring-2 focus:ring-stone-300"
+                            />
                         </div>
                     </div>
 
-                    <div className="w-full bg-white border border-stone-300 rounded-lg p-2">
+                    {/* Role counts. Clicking one filters the list. */}
+                    <div className="w-full bg-white border border-stone-200 rounded-lg p-3 mb-3">
+                        <div className="w-full flex flex-wrap items-center gap-2">
+                            <p className="text-xs font-medium text-stone-500 mr-1">Filter by role</p>
 
-                    
-                      {/* Columns */}
-                        <div className="rounded-lg border border-stone-300 w-full bg-stone-100 grid grid-cols-3 sm:grid-cols-5 px-4 py-3">
-        
-                                <h1 className="text-[10px] text-stone-500">Fullname</h1>
-                                <h1 className="hidden sm:block text-[10px] text-stone-500">Email</h1>
-                                <h1 className="hidden sm:block text-[10px] text-stone-500">Contact</h1>
-                                <h1 className="text-[10px] text-stone-500">Role</h1>
-                                <h1 className="text-[10px] text-stone-500">Action</h1>
-                            
-                        </div>
+                            <button
+                                type="button"
+                                onClick={() => setFilterRole("")}
+                                className={pillClass(filterRole === "")}
+                            >
+                                All
+                                <span className={filterRole === "" ? "text-stone-300" : "text-stone-400"}>
+                                    {users.length}
+                                </span>
+                            </button>
 
-                    {isLoading ?
-                    (
-                     <div className="w-full justify-center items-center flex p-4">
-                        <LoaderCircle size={20} className="text-stone-500 animate-spin"/>
-                     </div>
-                    )
-                    :
-                    (
-                      <div className="min-h-100 w-full rounded-b-xl pb-10">
-                        
-                        {/* Rows */}
-                        {filteredUser.length < 1 && (
-                            <div className="w-full bg-stone-50 border border-stone-200 rounded-lg p-6 text-[10px] justify-center items-center flex flex-col mt-2">
-                            <h1 className="text-sm text-stone-500 font-medium">No user found</h1>
-                            <h1 className="text-[10px] text-stone-500 mt-1">No user listed to the list. Keep wait for new users.</h1>
-                            </div>
-                        )}
-                        {
-                            filteredUser.map((user, index) => {
-
-                                const updatedCreatedAt = new Date(user.createdAt).toISOString().split("T")[0];;
-                                
-                                return (
-                                <div key={user._id} className="bg-stone-50 gap-2 min-h-12 w-full rounded-lg border border-stone-300 grid grid-cols-3 sm:grid-cols-5 justify-start items-center p-2 mt-2 hover:bg-stone-100 cursor-pointer">
-                                    <div className="w-full justify-start items-center flex gap-2 border-amber-200">
-                                        <h1 className="text-[10px] text-stone-500 justify-start items-center wrap-break-word">{index + 1}</h1>
-                                        {user.avatar ? (
-                                            <img src={user.avatar} alt="" className="hidden sm:block h-8 w-8 rounded-full object-cover"/>
-                                        )
-                                        :
-                                        (
-                                            <div className="hidden sm:flex h-8 w-8 rounded-full bg-blue-500 justify-center items-center text-white">{user.firstname.slice(0,1).toUpperCase()}</div>
-                                        )}
-                                        <h1 className="text-[10px] text-stone-500 justify-start items-center wrap-break-word">{user.firstname} {user.middlename} {user.lastname}</h1>
-                                    </div>
-                                    
-                                    
-                                    <h1 className="hidden sm:block text-[10px] text-stone-500 justify-start items-center wrap-break-word">{user.email}</h1>
-                                    <h1 className="hidden sm:block text-[10px] text-stone-500 justify-start items-center wrap-break-word">{user.contact}</h1>
-                                    
+                            {USER_ROLES.map((item) => (
+                                <button
+                                    key={item.value}
+                                    type="button"
+                                    onClick={() => setFilterRole(item.value)}
+                                    className={pillClass(filterRole === item.value)}
+                                >
+                                    {item.label}
                                     <span
-                                    className={`text-[10px] sm:inline-flex items-center justify-center px-2 py-1 rounded-lg border text-[10px] w-fit capitalize
-                                        ${
-                                        user.role?.toLowerCase() === "student"
-                                            ? "bg-blue-500 text-white"
-                                            : user.role?.toLowerCase() === "teacher"
-                                            ? "bg-green-500 text-white"
-                                            : user.role?.toLowerCase() === "guest"
-                                            ? "bg-stone-500 text-white"
-                                            : "bg-stone-500 text-white"
+                                        className={
+                                            filterRole === item.value ? "text-stone-300" : "text-stone-400"
                                         }
-                                    `}
                                     >
-                                    {user.role}
+                                        {countRole(item.value)}
                                     </span>
-                                    
-                                    <div className=" wrap-break-words gap-1 justify-end flex">
-                                        <button className="bg-transparent text-stone-800 hover:bg-stone-200 justify-center items-center flex p-2 cursor-pointer rounded-lg" onClick={() => handleViewStudent(user)}><Eye size={15}/></button>
-                                        {/* <button className="bg-transparent text-stone-400 hover:text-blue-500 justify-center items-center flex p-2 cursor-pointer rounded-lg border border-stone-300 hover:border-blue-500" onClick={() => handleEditStudent(user)}><UserPen size={15}/></button> */}
-                                        <button className="bg-red-600 text-white justify-center items-center flex  gap-1 p-2 cursor-pointer rounded-lg hover:bg-red-700" onClick={() => deleteConfirmation(user)}>
-                                            <Trash size={15}/>
-                                        </button>
-                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
 
-                                </div>
-                              )
-                              })
-                              }
-                    </div>  
-                    )}
-                    </div>
-                    
-                    </div>
-       </section>
-       </>
-    )
-}
+                    {/* The user list */}
+                    {userList}
+
+                </div>
+            </section>
+        </>
+    );
+};
+
 export default Admin_User;

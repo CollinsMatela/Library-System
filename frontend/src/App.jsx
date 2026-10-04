@@ -12,7 +12,7 @@ import Lib_ViewBook from "../library_components/Lib_ViewBook";
 import Lib_Quiz from "../library_components/Lib_Quiz";
 import LoadingScreen from '../loadings/loading'
 import Profile_Page from "../pages/Profile_Page";
-import Admin_Books_Page from "../pages/Admin_Books_Page";
+import Admin_Catalog from "../pages/Admin_Catalog";
 import Admin_ViewMaterials_Page from "../pages/Admin_ViewMaterials_Page";
 import Admin_User from "../pages/Admin_User";
 import Lib_Catalog from "../library_components/Lib_Catalog";
@@ -76,7 +76,7 @@ function App() {
          <Route element={<ProtectedRoute allowedRoles={["system administrator", "head librarian", "it librarian", "assistant librarian"]} />}>
                 <Route path="/admin" element={<Admin_Page />} />
                 <Route path="/admin/log-book" element={<Admin_LogBook />} />
-                <Route path="/admin/books" element={<Admin_Books_Page />} />
+                <Route path="/admin/catalog" element={<Admin_Catalog />} />
                 <Route path="/admin/book-information/:id" element={<Admin_ViewMaterials_Page />} />
                 <Route path="/admin-change-password" element={<Admin_ChangePassword/>}/>
           </Route>

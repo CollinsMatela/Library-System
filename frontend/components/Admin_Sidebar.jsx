@@ -15,7 +15,7 @@ const Admin_SideBar = () => {
     const isOverview = location.pathname === "/admin";
     const isLogBook = location.pathname === "/admin/log-book";
     const isUploadStory = location.pathname === "/admin/upload-book";
-    const isViewStory = location.pathname === "/admin/books";
+    const isCatalog = location.pathname === "/admin/catalog";
     const isUsersAccount = location.pathname === "/admin/users";
     const isAuthority = location.pathname === "/admin/authority";
     const isBorrowBook = location.pathname === "/admin/borrow-book"
@@ -36,8 +36,8 @@ const Admin_SideBar = () => {
     const handleUploadStory = () => {
           navigate('/admin/upload-book');
     }
-    const handleViewStory = () => {
-          navigate('/admin/books');
+    const handleCatalog = () => {
+          navigate('/admin/catalog');
     }
     const handleUsers = () => {
           navigate('/admin/users');
@@ -111,11 +111,11 @@ const Admin_SideBar = () => {
       </button>
 
       <button disabled={lowAccess}
-      className={`${lowAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isViewStory ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 rounded-lg text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 py-4 px-2`} onClick={handleViewStory}>
+      className={`${lowAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isCatalog ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 rounded-lg text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 py-4 px-2`} onClick={handleCatalog}>
         {lowAccess ?
-        <Lock className={`${isViewStory ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        <Lock className={`${isCatalog ? 'text-white' : 'text-stone-800'}`} size={15}/>
         :
-        <LibraryBig className={`${isViewStory ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        <LibraryBig className={`${isCatalog ? 'text-white' : 'text-stone-800'}`} size={15}/>
         }
         <h1 className="hidden lg:block">Catalog</h1>
       </button>

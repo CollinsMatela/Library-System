@@ -1,8 +1,7 @@
 
-import { ArrowLeft, Plus } from "lucide-react";
-import { toast } from "react-toastify";
+import { ArrowLeft, LoaderCircle, Plus } from "lucide-react";
 
-const LogBookModal = ({ logBook, setLogBook, confirmation, onClose }) => {
+const LogBookModal = ({ logBook, setLogBook, confirmation, onClose, isSubmitting = false }) => {
 
     return (
         <section className="fixed inset-0 z-50 bg-black/50 backdrop-blur-[2px] flex items-center justify-center p-4">
@@ -110,20 +109,27 @@ const LogBookModal = ({ logBook, setLogBook, confirmation, onClose }) => {
 
                     <button
                         type="button"
-                        className="flex items-center gap-1.5 text-xs font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-200 rounded-lg px-3 py-2 transition cursor-pointer"
+                        disabled={isSubmitting}
+                        className="flex items-center gap-1.5 text-xs font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-200 rounded-lg px-3 py-2 transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                         onClick={onClose}
                     >
                         <ArrowLeft size={15} />
                         Back
                     </button>
 
+                    {/* Disabled while saving so a double click cannot
+                        register the same visitor twice. */}
                     <button
                         type="button"
-                        className="flex items-center gap-1.5 text-xs font-medium text-white bg-stone-800 hover:bg-stone-900 rounded-lg px-4 py-2 transition cursor-pointer"
+                        disabled={isSubmitting}
+                        className="flex items-center gap-1.5 text-xs font-medium text-white bg-stone-800 hover:bg-stone-900 rounded-lg px-4 py-2 transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                         onClick={confirmation}
                     >
-                        <Plus size={15} />
-                        Register Visitor
+                        {isSubmitting
+                            ? <LoaderCircle size={15} className="animate-spin" />
+                            : <Plus size={15} />
+                        }
+                        {isSubmitting ? "Registering..." : "Register Visitor"}
                     </button>
 
                 </div>

@@ -8,6 +8,7 @@ const LibrarianSchema = new mongoose.Schema({
       role: {type: String, default:""},
 
       email: {type: String, default:""},
+      contact: {type: String, default:""},
       password: {type: String, default:""},
 
       isChangePassword: {type:Boolean, default: false},

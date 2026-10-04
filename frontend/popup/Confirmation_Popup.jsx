@@ -1,7 +1,7 @@
 
-import { Check, X, TriangleAlert } from "lucide-react";
+import { Check, LoaderCircle, X, TriangleAlert } from "lucide-react";
 
-const Confirmation_Popup = ({ errorMessage, message, onConfirm, onCancel }) => {
+const Confirmation_Popup = ({ errorMessage, message, children, confirmLabel = "Confirm", onConfirm, onCancel, isLoading = false }) => {
     return (
         <section className="fixed inset-0 z-9999 flex items-center justify-center p-4">
             {/* Overlay */}
@@ -31,18 +31,25 @@ const Confirmation_Popup = ({ errorMessage, message, onConfirm, onCancel }) => {
                 </div>
 
                 {/* Content */}
-                <div className="px-6 pt-5 pb-6">
-                    {errorMessage ? (
+                <div className="px-6 pt-5 pb-6 space-y-3">
+                    {/* 1. The error, when the server sent one. */}
+                    {errorMessage && (
                         <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3">
                             <p className="text-xs leading-relaxed text-red-600">
                                 {errorMessage}
                             </p>
                         </div>
-                    ) : (
+                    )}
+
+                    {/* 2. The question. Skipped when the caller passed its own content. */}
+                    {!errorMessage && !children && (
                         <p className="text-sm leading-relaxed text-stone-600">
                             {message || "Are you sure you want to proceed?"}
                         </p>
                     )}
+
+                    {/* 3. Anything extra, like a select box. */}
+                    {children}
                 </div>
 
                 {/* Actions */}
@@ -59,10 +66,13 @@ const Confirmation_Popup = ({ errorMessage, message, onConfirm, onCancel }) => {
                     <button
                         type="button"
                         onClick={onConfirm}
-                        className="h-9 px-4 rounded-lg bg-stone-900 text-white text-xs font-medium flex items-center gap-2 hover:bg-stone-800 transition cursor-pointer"
+                        disabled={isLoading}
+                        className="h-9 px-4 rounded-lg bg-stone-900 text-white text-xs font-medium flex items-center gap-2 hover:bg-stone-800 transition cursor-pointer disabled:bg-stone-400 disabled:cursor-not-allowed"
                     >
-                        <Check size={14} />
-                        Confirm
+                        {isLoading
+                            ? <LoaderCircle size={14} className="animate-spin" />
+                            : <Check size={14} />}
+                        {isLoading ? "Saving..." : confirmLabel}
                     </button>
                 </div>
             </div>

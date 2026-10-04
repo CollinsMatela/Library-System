@@ -52,9 +52,10 @@ export const Add_Member_Controller = async (req, res) => {
     suffix = "",
     role,
     email,
+    contact,
   } = req.body.form ?? {};
 
-  if (!lastname || !firstname || !role || !email) {
+  if (!lastname || !firstname || !role || !email || !contact) {
     return res.status(400).json({ message: "Please complete all required fields." });
   }
 
@@ -77,6 +78,7 @@ export const Add_Member_Controller = async (req, res) => {
       suffix: suffix.trim(),
       role,
       email: email.trim().toLowerCase(),
+      contact: contact.trim(),
       password: hashedPassword,
     });
 

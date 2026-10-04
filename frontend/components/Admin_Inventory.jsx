@@ -1,5 +1,16 @@
 import { useEffect, useState } from "react";
-import { LoaderCircle, ScrollText, Search, Trash } from "lucide-react";
+import {
+    LoaderCircle,
+    ScrollText,
+    Search,
+    Trash,
+    BookText,
+    Calendar,
+    MapPin,
+    User,
+    Clock,
+    Book,
+} from "lucide-react";
 import AdminSidebar from "./Admin_Sidebar";
 import Admin_Header from "./Admin_Header";
 import Confirmation_Popup from "../popup/Confirmation_Popup";
@@ -11,7 +22,9 @@ const Admin_Inventory = () => {
     const [members, setMembers] = useState([]);
 
     const [search, setSearch] = useState("");
-    const [filterDate, setFilterDate] = useState(""); // "" means no date filter
+    const [sortOrder, setSortOrder] = useState("newest"); // "newest" or "oldest"
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 12;
     const [isLoading, setIsLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -92,13 +105,29 @@ const Admin_Inventory = () => {
         fetchMembers();
     }, []);
 
-    /* Searching and filtering by date */
+    // Reset to first page when search or sort changes
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [search, sortOrder]);
+
+    /* Searching and sorting */
+
+    // Sort books by createdAt. Newest first by default.
+    const orderedBooks = [...books].sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+
+        if (sortOrder === "oldest") {
+            return dateA - dateB; // oldest first
+        }
+        return dateB - dateA; // newest first (latest to oldest)
+    });
 
     const searchText = search.trim().toLowerCase();
 
-    // Keep the books that match the search box AND the chosen date.
+    // Keep the books that match the search box.
     // The search box looks at the title, the author and who donated it.
-    const visibleBooks = books.filter((book) => {
+    const visibleBooks = orderedBooks.filter((book) => {
         const title = (book.title || "").toLowerCase();
         const author = (book.author || "").toLowerCase();
         const from = (book.donatedFrom || "").toLowerCase();
@@ -106,11 +135,16 @@ const Admin_Inventory = () => {
         const matchesSearch =
             title.includes(searchText) || author.includes(searchText) || from.includes(searchText);
 
-        // An empty filter date means "any date", so skip the check.
-        const matchesDate = filterDate === "" || toDateKey(book.createdAt) === filterDate;
-
-        return matchesSearch && matchesDate;
+        return matchesSearch;
     });
+
+    // Pagination
+    const totalItems = visibleBooks.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedBooks = visibleBooks.slice(startIndex, endIndex);
 
     /* Deleting */
 
@@ -144,69 +178,86 @@ const Admin_Inventory = () => {
     ) : visibleBooks.length === 0 ? (
         /* Nothing to show */
         <div className="w-full py-12 px-4 bg-stone-50 rounded-lg border border-dashed border-stone-300 flex flex-col items-center justify-center">
-            <ScrollText size={24} className="text-stone-300" />
+            <BookText size={24} className="text-stone-300" />
             <p className="text-sm font-medium text-stone-700 mt-2">No books found</p>
             <p className="text-xs text-stone-500 mt-1 text-center">
-                {search || filterDate
-                    ? "Try a different search or date."
-                    : "Uploaded books will appear here."}
+                {search ? "Try a different search or sort." : "Uploaded books will appear here."}
             </p>
         </div>
     ) : (
         /* The cards */
         <div className="w-full space-y-2">
-            {visibleBooks.map((book) => (
+            {paginatedBooks.map((book) => (
                 <div
                     key={book._id}
-                    className="w-full bg-white border border-stone-200 rounded-lg p-4 hover:border-stone-300 hover:shadow-sm transition"
+                    className="w-full flex flex-col sm:flex-row sm:items-center gap-3 bg-white border border-stone-200 rounded-lg p-2 hover:border-stone-300 hover:shadow-sm transition"
                 >
-                    {/* Title, author, category and the action buttons */}
-                    <div className="flex items-start justify-between gap-3">
-                        <div className="min-w-0">
-                            <p className="text-sm font-semibold text-stone-800 break-words">
+                    {/* Left: Icon, title, author and category */}
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                        {!book.cover ? (
+                            <div className="hidden sm:flex w-15 h-20 shrink-0 rounded-lg bg-stone-100 border border-stone-200 items-center justify-center">
+                            <Book size={16} className="text-stone-500" />
+                            </div>
+                        ) : (
+                            <img src={book.cover} alt={book.title} className="w-15 h-20 rounded-lg object-cover" />
+                        )}
+
+                        <div className="min-w-0 ">
+                            <p className="text-xs font-medium text-stone-800 truncate">
                                 {book.title}
                             </p>
 
-                            <p className="text-xs text-stone-500 mt-0.5 break-words">
+                            <p className="text-[10px] text-stone-500 truncate mt-0.5">
                                 {book.author || "Unknown author"}
                             </p>
-
-                            <span className="inline-flex mt-2 px-2 py-0.5 rounded-full border border-stone-200 bg-stone-100 text-stone-600 text-[10px] font-medium">
+                            <div className="flex gap-1 flex-wrap mt-1">
+                              <span className="inline-flex mt-1 px-2 py-0.5 rounded-full border border-stone-200 bg-stone-100 text-stone-600 text-[10px] font-medium">
                                 {book.category || "Uncategorised"}
                             </span>
-                        </div>
-
-                        <div className="flex items-center gap-2 shrink-0">
-                            <button
-                                type="button"
-                                aria-label={`Delete ${book.title}`}
-                                title="Delete book"
-                                onClick={() => handleDelete(book)}
-                                className="p-2 bg-red-500 hover:bg-red-600 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
-                            >
-                                <Trash size={15} className="text-white" />
-                            </button>
+                            {book.field && (
+                                <span className="inline-flex mt-1 px-2 py-0.5 rounded-full border border-stone-200 bg-stone-100 text-stone-600 text-[10px] font-medium">
+                                    {book.field}
+                                </span>
+                            )}
+                            </div>
+                            
                         </div>
                     </div>
 
-                    {/* One line per detail, so nothing gets squashed */}
-                    <div className="mt-3 pt-3 border-t border-stone-200 space-y-1.5 text-xs text-stone-600">
-                        <p>
-                            <span className="text-stone-400">Donated: </span>
-                            {formatDate(book.receivedDate)}
-                        </p>
-                        <p>
-                            <span className="text-stone-400">Donated From: </span>
-                            {book.donatedFrom || "—"}
-                        </p>
-                        <p>
-                            <span className="text-stone-400">Added By: </span>
-                            {responsiblePerson(book.addedById)}
-                        </p>
-                        <p>
-                            <span className="text-stone-400">Created: </span>
-                            {formatDate(book.createdAt)}
-                        </p>
+                    {/* Middle: Details with icons */}
+                    <div className="grid grid-cols-2 sm:w-80 gap-x-5 gap-y-1 text-[10px] text-stone-500">
+                        <span className="flex items-center gap-1.5 min-w-0">
+                            <Calendar size={13} className="shrink-0" />
+                            <span className="truncate">Donated: {formatDate(book.receivedDate)}</span>
+                        </span>
+
+                        <span className="flex items-center gap-1.5 min-w-0">
+                            <MapPin size={13} className="shrink-0" />
+                            <span className="truncate">Donated From: {book.donatedFrom || "—"}</span>
+                        </span>
+
+                        <span className="flex items-center gap-1.5 min-w-0">
+                            <User size={13} className="shrink-0" />
+                            <span className="truncate">Added By: {responsiblePerson(book.addedById)}</span>
+                        </span>
+
+                        <span className="flex items-center gap-1.5 min-w-0">
+                            <Clock size={13} className="shrink-0" />
+                            <span className="truncate">Created: {formatDate(book.createdAt)}</span>
+                        </span>
+                    </div>
+
+                    {/* Right: Actions */}
+                    <div className="flex items-center gap-2 sm:justify-end">
+                        <button
+                            type="button"
+                            aria-label={`Delete ${book.title}`}
+                            title="Delete book"
+                            onClick={() => handleDelete(book)}
+                            className="text-[10px] p-2 rounded-lg flex items-center gap-1 bg-red-500 hover:bg-red-600 text-white cursor-pointer transition-colors"
+                        >
+                            <Trash size={15} />
+                        </button>
                     </div>
                 </div>
             ))}
@@ -252,7 +303,7 @@ const Admin_Inventory = () => {
                             </div>
                         </div>
 
-                        {/* Search and date filter */}
+                        {/* Search and sort */}
                         <div className="w-full lg:w-auto flex items-center gap-2">
                             <div className="relative flex-1 lg:flex-none">
                                 <Search
@@ -268,19 +319,22 @@ const Admin_Inventory = () => {
                                 />
                             </div>
 
-                            <input
-                                type="date"
-                                value={filterDate}
-                                onChange={(e) => setFilterDate(e.target.value)}
-                                aria-label="Filter by created date"
+                            {/* Sort dropdown (latest to oldest / oldest to latest) */}
+                            <select
+                                value={sortOrder}
+                                onChange={(e) => setSortOrder(e.target.value)}
+                                aria-label="Sort by created date"
                                 className="w-full lg:w-44 shrink-0 border border-stone-300 bg-white rounded-lg px-3 py-2 text-xs text-stone-600 outline-none focus:ring-2 focus:ring-stone-300"
-                            />
+                            >
+                                <option value="newest">Newest first</option>
+                                <option value="oldest">Oldest first</option>
+                            </select>
 
-                            {/* Only show Clear once a date is actually picked */}
-                            {filterDate && (
+                            {/* Show Clear once search is active */}
+                            {search && (
                                 <button
                                     type="button"
-                                    onClick={() => setFilterDate("")}
+                                    onClick={() => setSearch("")}
                                     className="text-xs text-stone-500 hover:text-stone-800 px-2 py-2 cursor-pointer shrink-0"
                                 >
                                     Clear
@@ -291,6 +345,36 @@ const Admin_Inventory = () => {
 
                     {/* The book list */}
                     {bookList}
+
+                    {/* Pagination controls */}
+                    {!isLoading && visibleBooks.length > 0 && totalPages > 1 && (
+                        <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mt-4 px-2">
+                            <p className="text-xs text-stone-500">
+                                Showing {startIndex + 1} - {Math.min(endIndex, totalItems)} of {totalItems}
+                            </p>
+                            <div className="flex items-center gap-2">
+                                <button
+                                    type="button"
+                                    disabled={currentPage === 1}
+                                    onClick={() => setCurrentPage(currentPage - 1)}
+                                    className="text-xs px-3 py-1.5 border border-stone-300 rounded-lg hover:bg-stone-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                >
+                                    Previous
+                                </button>
+                                <span className="text-xs text-stone-600">
+                                    Page {currentPage} of {totalPages}
+                                </span>
+                                <button
+                                    type="button"
+                                    disabled={currentPage === totalPages}
+                                    onClick={() => setCurrentPage(currentPage + 1)}
+                                    className="text-xs px-3 py-1.5 border border-stone-300 rounded-lg hover:bg-stone-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                >
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    )}
 
                 </div>
             </section>

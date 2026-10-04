@@ -231,7 +231,7 @@ const Admin_UploadBook_Page = () => {
         <>
         <Admin_SideBar/>
         {showConfirmation && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={uploadStory} onCancel={() => {setShowConfirmation(false); setErrorMessage("")}}/>)}
-        <section className="bg-stone-50 min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60 pb-10">
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60 pb-10">
               
               <Admin_Header mainText={'Upload Management'} subText={'Upload new books for the library'}/>
 

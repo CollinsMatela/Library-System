@@ -168,7 +168,8 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
             </div>
                     
                     {/**Image Preview */}
-                    <div className="w-full bg-white border border-stone-300 rounded-xl p-4">
+                    {bookDetails?.category?.toLowerCase() === 'literature' && 
+                    (<div className="w-full bg-white border border-stone-300 rounded-xl p-4">
 
                         <div className="flex justify-between items-start gap-3 mb-5">
                             <div className="justify-center items-center flex gap-2">
@@ -227,7 +228,8 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                             </div>
                         )}
 
-                    </div>
+                    </div>)}
+                    
 
                     {/**Audio Preview */}
                         {bookDetails?.category?.toLowerCase() === 'literature' && (

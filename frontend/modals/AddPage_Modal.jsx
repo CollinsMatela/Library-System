@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useRef, useState } from "react"
 import { toast } from "react-toastify";
 import axios from "axios";
+import Ocr from "../utils/ocr";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 
@@ -44,13 +45,29 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
         
                     return response.data.secure_url;
         };
-
+    const ocrRef = useRef(null);
     const imageRef = useRef(null);
     const audioRef = useRef(null);
 
     const [image, setImage] = useState(null);
     const [audio, setAudio] = useState(null);
     const [text, setText] = useState("");
+
+    const [ocrLoading, setOcrLoading] = useState(false);
+
+    const OcrProcess = async (image) => {
+           setOcrLoading(true)
+          try {
+            if(!image) return;
+            const imageToText = await Ocr(image)
+            setText(imageToText);
+          } catch (error) {
+            console.log('Error Processing image:', error);
+            toast.warning('Error Processing image')
+          } finally {
+            setOcrLoading(false)
+          }
+    }
 
     const SaveNewPage = async () => {
     try {
@@ -86,8 +103,35 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
     return(
         <>
         <div className="fixed inset-0 bg-black/50 z-20 justify-center items-center flex">
+            
+            
+            <div className="relative bg-white w-5xl rounded-xl">
+                {ocrLoading && (
+                <div className="absolute inset-0 z-100 flex flex-col items-center justify-center rounded-xl bg-stone-950/90 backdrop-blur-sm">
 
-            <div className="bg-white w-5xl rounded-xl">
+                    {/* Scanning Icon */}
+                    <div className="relative mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-white/20">
+                        <div className="absolute inset-0 rounded-full border border-blue-500 animate-ping opacity-30" />
+
+                        <ImagePlus
+                            size={24}
+                            className="text-white animate-pulse"
+                        />
+                        
+                    </div>
+
+                    {/* Text */}
+                    <h1 className="text-sm font-semibold tracking-widest text-white uppercase">
+                        Scanning Image
+                    </h1>
+
+                    <p className="mt-1 text-xs text-stone-400">
+                        Extracting text...
+                    </p>
+
+                </div>
+            )}
+
                 <header className="flex flex-col justify-start items-start p-4 border-b border-stone-300">
                     <h1 className="text-sm text-stone-800 font-bold">Create New Page</h1>
                     <p className="text-xs text-stone-500">Add another page to this book.</p>
@@ -96,8 +140,72 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
                 </header>
 
                 <div className="w-full h-100 p-4 flex flex-col gap-2 overflow-y-auto">
+                    {/* Text Container */}
+                    <div className="bg-stone-50 w-full h-fit flex flex-col mb-12">
+                    <ReactQuill
+                    className="w-full min-h-20 bg-transparent text-stone-800"
+                    theme="snow"
+                    value={text}
+                    onChange={(value) => setText(value)}
+                    placeholder="Write the page content..."
+                    modules={modules}
+                    />
+                    </div>
+
+                    {/**OCR */}
+                    <div className="flex w-full items-center justify-between gap-4 rounded-xl border border-dashed border-stone-300 bg-stone-50/80 p-4 transition hover:border-stone-400 hover:bg-stone-50">
+
+                    {/* OCR Info */}
+                    <div className="flex items-center gap-3">
+
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-stone-800 text-white shadow-sm">
+                            <ImagePlus size={18} />
+                        </div>
+
+                        <div>
+                            <p className="text-sm font-semibold text-stone-800">
+                                OCR Text Extraction
+                            </p>
+
+                            <p className="mt-0.5 text-xs text-stone-500">
+                                Upload a page image to automatically extract its text.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    {/* Hidden File Input */}
+                    <input
+                        ref={ocrRef}
+                        type="file"
+                        className="hidden"
+                        accept="image/*"
+                        onChange={(e) => OcrProcess(e.target.files[0] || null)}
+                    />
+
+                    {/* Upload Button */}
+                    <button
+                        type="button"
+                        disabled={ocrLoading}
+                        onClick={() => ocrRef.current?.click()}
+                        className={`flex shrink-0 items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-medium shadow-sm transition
+                            ${
+                                ocrLoading
+                                    ? "cursor-not-allowed bg-stone-200 text-stone-400"
+                                    : "bg-stone-800 text-white hover:bg-stone-900 active:scale-[0.98]"
+                            }
+                        `}
+                    >
+                        <ImagePlus size={15} />
+
+                        {ocrLoading ? "Processing..." : "Choose Image"}
+                    </button>
+
+                </div>
+
                     {bookDetails.category === 'literature' && 
-                    (<div className="w-full gap-2 flex">
+                    (<div className="w-full gap-2 flex flex-col">
+
                        {!image && (
                     <div className="flex w-full items-center justify-between gap-3 rounded-lg border border-dashed border-stone-300 bg-stone-50 p-3">
                         <div>
@@ -110,7 +218,7 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
                         type="file"
                         className="hidden"
                         accept="image/*"
-                        onChange={(e) => setImage(e.target.files?.[0] || null)}
+                        onChange={(e) => setImage(e.target.files[0] || null)}
                         />
 
                         <button
@@ -149,22 +257,6 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
                     </div>
                     )} 
                     </div>)}
-
-
-                    {/* Text Container */}
-                    <div className="bg-stone-50 w-full h-full flex flex-col mb-12">
-                    <ReactQuill
-                    className="w-full min-h-20 bg-transparent text-stone-800"
-                    theme="snow"
-                    value={text}
-                    onChange={(value) => setText(value)}
-                    placeholder="Write the page content..."
-                    modules={modules}
-                    />
-                    </div>
-
-                    
-                    
 
                     {/* Preview Container */}
                     {bookDetails.category === 'literature' && (<div className="flex h-100 w-full flex-col gap-3 rounded-lg border border-stone-200 bg-stone-50 p-6">

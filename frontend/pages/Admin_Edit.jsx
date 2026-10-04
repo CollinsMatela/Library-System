@@ -284,7 +284,7 @@ const Admin_Edit = () => {
         />
         )}
 
-        <section className="bg-stone-50 min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
         <Admin_Header mainText={'Editing Management'} subText={'Update the information of book'}/>
     
@@ -302,10 +302,10 @@ const Admin_Edit = () => {
                             </div>
                             
                         </div>
-    <div className="w-full bg-stone-800 bg-stone-200 border border-stone-300 rounded-lg p-6">
+    <div className="w-full bg-white border border-stone-300 rounded-lg p-6">
         
         <div className="mb-2">
-            <h1 className="text-[10px] font-semibold text-stone-100">
+            <h1 className="text-[10px] font-semibold text-stone-800">
                 Find a Book to Edit
             </h1>
             <p className="text-[10px] text-stone-500">

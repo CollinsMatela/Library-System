@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { TextAlignCenter, Pen, Trash, Image, Sparkle, Sparkles, Repeat, PenBox, FilePlay, FileText, Book, BookOpenText, ImageOff } from "lucide-react";
+import { TextAlignCenter, Pen, Trash, Image, Sparkle, Sparkles, Repeat, PenBox, FilePlay, FileText, Book, BookOpenText, ImageOff, Search } from "lucide-react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
@@ -30,11 +30,13 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
     return(
         <>
 
-        <div className="w-full flex flex-col gap-4 my-4 px-4 lg:px-10">
+        
 
+        <div className="w-full flex flex-col gap-4 my-4 px-4 lg:px-10">
+            
 
             {/* ================= BASIC INFORMATION ================= */}
-            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-lg">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-200 shadow-sm md:rounded-lg">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
@@ -112,7 +114,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
 
 
             {/* ================= PUBLICATION DETAILS ================= */}
-            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-lg">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-200 shadow-sm md:rounded-lg">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
@@ -160,7 +162,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
 
 
             {/* ================= CLASSIFICATION & INVENTORY ================= */}
-            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-lg">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-200 shadow-sm md:rounded-lg">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
@@ -228,7 +230,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
 
 
             {/* ================= FICTION DETAILS ================= */}
-            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-lg">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-200 shadow-sm md:rounded-lg">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
@@ -265,7 +267,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
 
 
             {/* ================= DESCRIPTION ================= */}
-            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-lg">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-200 shadow-sm md:rounded-lg">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
@@ -289,7 +291,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
             {/* ================= AI Summarization ================= */}
             {
                 bookDetails?.category === "literature" && (
-                    <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-lg">
+                    <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-200 shadow-sm md:rounded-lg">
 
                 <div className="w-full flex justify-between items-center">
                     <div>

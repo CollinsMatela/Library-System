@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import SearchIcon from '../src/assets/search-svgrepo-com.svg'
 import Admin_Sidebar from '../components/Admin_Sidebar'
-import { Pen, SquarePen } from "lucide-react";
+import { Pen, Search, SquarePen } from "lucide-react";
 import AdvancedSearch from "./BookPage_Component/AdvancedSearch";
 import { toast } from "react-toastify";
 import Edit_BookInformation from "./BookInformation_Component/Edit_BookInformation";
@@ -24,17 +24,30 @@ const Admin_Edit = () => {
     
     const [books, setBooks] = useState([]);
     const [filtered, setFiltered] = useState([]);
-    const [search, setSearch] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
+    const [filteredSearch, setFilteredSearch] = useState([]);
+    const [selectedBook, setSelectedBook] = useState(null);
     const [selectedPageIndex, setSelectedPageIndex] = useState(null);
 
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const [selectedBook, setSelectedBook] = useState('');
     const [bookDetails, setBookDetails] = useState('')
 
     useEffect(() => {
-        if(!selectedBook) return;
-        fetchBookById(selectedBook)
-    },[selectedBook])
+        if (!searchQuery.trim()) {
+            setFilteredSearch([]);
+            return;
+        }
+        const filtered = books.filter((book) => {
+              const title = book.title.toLowerCase().includes(searchQuery.toLowerCase())
+              const author = book.author.toLowerCase().includes(searchQuery.toLowerCase())
+              return title || author
+        })
+        setFilteredSearch(filtered)
+    },[searchQuery])
+
+    useEffect(() => {
+        if(!selectedBook) return
+       fetchBookById(selectedBook); // will pass data on bookDeatails
+    }, [selectedBook])
 
     const [isAdvanceSearch, setIsAdvanceSearch] = useState(false);
     const [advancedSearch, setAdvancedSearch] = useState({
@@ -245,9 +258,9 @@ const Admin_Edit = () => {
       setFiltered([])
     };
 
-    const fetchBookById = async (id) => {
+    const fetchBookById = async (selectedBook) => {
           try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-book/${id}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-book/${selectedBook._id}`);
             setBookDetails(res.data.book);
             console.log(res.data.message);
           } catch (error) {
@@ -288,7 +301,7 @@ const Admin_Edit = () => {
               
         <Admin_Header mainText={'Editing Management'} subText={'Update the information of book'}/>
     
-        <div className="w-full px-4 lg:px-10">
+        <div className="w-full justify-between items-center flex flex-col sm:flex-row px-4 lg:px-10">
 
             <div className="flex items-center justify-start gap-2 w-full mb-4">
                             <div className="w-full justify-start items-start flex gap-2">
@@ -301,78 +314,88 @@ const Admin_Edit = () => {
                             </div> 
                             </div>
                             
+            </div>
+
+            <div className="relative w-full sm:w-100 bg-white border border-stone-200 rounded-xl flex justify-start items-center p-2 gap-2">
+
+                    <Search size={15} className="text-stone-500" />
+
+                    <input
+                        type="search"
+                        placeholder="Search title or author"
+                        className="w-full outline-none text-xs"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+
+                    {filteredSearch.length > 0 && (
+                        <div className="absolute top-full left-0 mt-2 w-full bg-white border border-stone-200 rounded-xl shadow-lg overflow-hidden z-50">
+
+                            {filteredSearch.slice(0,5).map((book) => (
+                                <div
+                                    key={book._id}
+                                    onClick={() => {setSelectedBook(book); setSearchQuery('')}}
+                                    className="p-3 border-b border-stone-100 last:border-none hover:bg-stone-50 cursor-pointer"
+                                >
+                                    {/* Title & Author */}
+                                    <div className="mb-2">
+                                        <h1 className="text-xs font-semibold text-stone-800">
+                                            {book.title}
+                                        </h1>
+
+                                        <p className="text-[10px] text-stone-500">
+                                            {book.author}
+                                        </p>
+                                    </div>
+
+                                    {/* Book Details */}
+                                    <div className="flex flex-wrap gap-2">
+                                        {book.category && (<span className="text-[10px] bg-stone-100 text-stone-600 px-2 py-1 rounded-md">
+                                            {book.category}
+                                        </span>)}
+
+                                        {book.field && (<span className="text-[10px] bg-stone-100 text-stone-600 px-2 py-1 rounded-md">
+                                            {book.field}
+                                        </span>)}
+
+                                        {book.edition && (<span className="text-[10px] bg-stone-100 text-stone-600 px-2 py-1 rounded-md">
+                                            Edition: {book.edition}
+                                        </span>)}
+
+                                        {book.edition && (<span className="text-[10px] bg-stone-100 text-stone-600 px-2 py-1 rounded-md">
+                                            Volume: {book.volume}
+                                        </span>)}
+                                    </div>
+                                </div>
+                            ))}
+
                         </div>
-    <div className="w-full bg-white border border-stone-300 rounded-lg p-6">
+                    )}
+
+                </div>
+
         
-        <div className="mb-2">
-            <h1 className="text-[10px] font-semibold text-stone-800">
-                Find a Book to Edit
-            </h1>
-            <p className="text-[10px] text-stone-500">
-                Select a category and choose the book you want to edit.
-            </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+    <div className="relative w-full">
+        {!bookDetails && (
+                <div className="absolute inset-0 bg-white/70 backdrop-blur-[2px] flex flex-col justify-center items-center text-center">
+                    <div className="flex flex-col items-center gap-2">
+                        <div className="w-10 h-10 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center">
+                            <Search size={18} className="text-stone-500" />
+                        </div>
 
-            {/* Category */}
-            <div className="flex flex-col gap-1.5">
-                
-                <select
-                    value={selectedCategory}
-                    onChange={(e) => {
-                        setSelectedCategory(e.target.value)
-                        setSelectedBook("")
-                    }}
-                    className="w-full bg-stone-700 text-[10px] text-stone-100 p-2.5 rounded-lg border outline-none border-stone-500 transition"
-                >
-                    <option value="">Select category</option>
+                        <h1 className="text-sm font-semibold text-stone-800">
+                            No book selected
+                        </h1>
 
-                    {categories.map((category, index) => (
-                        <option
-                            key={index}
-                            value={category.value}
-                        >
-                            {category.label}
-                        </option>
-                    ))}
-                </select>
-            </div>
-
-            {/* Book */}
-            <div className="flex flex-col gap-1.5">
-                
-
-                <select
-                    value={selectedBook}
-                    onChange={(e) => setSelectedBook(e.target.value)}
-                    disabled={!selectedCategory}
-                    className="w-full bg-stone-700 text-[10px] text-stone-100 p-2.5 rounded-lg border border-stone-500 outline-none transition disabled:bg-stone-700 disabled:text-stone-500 disabled:cursor-not-allowed"
-                >
-                    <option value="">
-                        {selectedCategory
-                            ? "Select book to edit"
-                            : "Select a category first"}
-                    </option>
-
-                    {books
-                        .filter((book) => book.category === selectedCategory)
-                        .map((book) => (
-                            <option
-                                key={book._id}
-                                value={book._id}
-                            >
-                                {book.title}
-                            </option>
-                        ))}
-                </select>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-    <Edit_BookInformation 
+                        <p className="text-xs text-stone-500 max-w-55">
+                            Search and select a book to start editing its details.
+                        </p>
+                    </div>
+                </div>
+            )}
+       <Edit_BookInformation 
             bookDetails={bookDetails}
             setBookDetails={setBookDetails}
             // fetchBookById={fetchBookById}
@@ -404,7 +427,9 @@ const Admin_Edit = () => {
     >
         <Pen size={15}/> Save Changes 
     </button>
+    </div>     
     </div>
+    
 
              
               

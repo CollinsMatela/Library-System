@@ -1,4 +1,4 @@
-import { AudioLines, ImageOff, ImagePlus, Plus } from "lucide-react"
+import { AudioLines, ImageOff, ImagePlus, Plus, ScanText } from "lucide-react"
 import { useEffect } from "react";
 import { useRef, useState } from "react"
 import { toast } from "react-toastify";
@@ -68,8 +68,16 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
             setOcrLoading(false)
           }
     }
-
+    
+    const [saveLoading, setSaveLoading] = useState(false);
     const SaveNewPage = async () => {
+        const plainText = text?.replace(/<[^>]*>/g, "").trim();
+
+        if (!plainText && !image && !audio) {
+            toast.warning("Please provide at least text, an image, or audio.");
+            return;
+        }
+        setSaveLoading(true)
     try {
         const [convertedImage, convertedAudio] = await Promise.all([
             uploadToCloudinary(image, "image"),
@@ -88,14 +96,14 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
             ]
         }));
 
-        toast.info(
-            "Page added temporarily. Click 'Save Information' to save your changes."
-        );
-
+        toast.success("Page added temporarily.");
+        setSaveLoading(false)
         onClose();
     } catch (error) {
         console.error("Upload failed:", error);
         toast.error("Failed to upload page files.");
+    } finally {
+        setSaveLoading(false)
     }
 };
 
@@ -132,9 +140,97 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
                 </div>
             )}
 
-                <header className="flex flex-col justify-start items-start p-4 border-b border-stone-300">
-                    <h1 className="text-sm text-stone-800 font-bold">Create New Page</h1>
-                    <p className="text-xs text-stone-500">Add another page to this book.</p>
+                <header className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 p-4 border-b border-stone-300">
+                    <div>
+                       <h1 className="text-sm text-stone-800 font-bold">Create New Page</h1>
+                    <p className="text-xs text-stone-500">Add another page to this book.</p> 
+                    </div>
+
+                    <div className="justify-center items-center flex flex-row gap-1">
+                    {bookDetails.category === 'literature' &&
+                    (<div className="w-full gap-1 flex flex-row">
+
+                    {!image && (
+                    <div className="flex w-full items-center justify-between gap-3 rounded-lg">
+
+                        <input
+                        ref={imageRef}
+                        type="file"
+                        className="hidden"
+                        accept="image/*"
+                        onChange={(e) => setImage(e.target.files[0] || null)}
+                        />
+
+                        <button
+                        type="button"
+                        onClick={() => imageRef.current?.click()}
+                        title="Choose Image"
+                        className="flex items-center gap-1 rounded-lg bg-white border border-stone-300 px-3 py-2 text-xs text-stone-500 transition hover:bg-stone-100 cursor-pointer"
+                        >
+                        <ImagePlus size={15} />
+                        </button>
+                    </div>
+                    )}
+                    
+                    {!audio && (
+                        <div className="flex w-fit items-center justify-between gap-3 rounded-lg">
+                            
+
+                            <input
+                            ref={audioRef}
+                            type="file"
+                            className="hidden"
+                            accept="audio/*"
+                            onChange={(e) => setAudio(e.target.files?.[0] || null)}
+                            />
+
+                            <button
+                            type="button"
+                            onClick={() => audioRef.current?.click()}
+                            title="Choose Audio"
+                            className="flex items-center gap-1 rounded-lg bg-white border border-stone-300 px-3 py-2 text-xs text-stone-500 transition hover:bg-stone-100 cursor-pointer"
+                            >
+                            <AudioLines size={15} />
+                            </button>
+                        </div>
+                        )} 
+                    </div>)}
+
+                    {/**OCR */}
+                    <div className="flex w-full items-center justify-between gap-4 rounded-lg bg-stone-50/80 transition hover:border-stone-400 hover:bg-stone-50">
+
+                    {/* Hidden File Input */}
+                    <input
+                        ref={ocrRef}
+                        type="file"
+                        className="hidden"
+                        accept="image/*"
+                        onChange={(e) => OcrProcess(e.target.files[0] || null)}
+                    />
+
+                    {/* Upload Button */}
+                    <button
+                        type="button"
+                        disabled={ocrLoading}
+                        onClick={() => ocrRef.current?.click()}
+                        title="Extract image into text"
+                        className={`flex shrink-0 items-center gap-2 rounded-lg px-4 py-2 text-xs font-medium shadow-sm transition cursor-pointer
+                            ${
+                                ocrLoading
+                                    ? "cursor-not-allowed bg-stone-200 text-stone-400"
+                                    : "bg-stone-800 text-white hover:bg-stone-900 active:scale-[0.98]"
+                            }
+                        `}
+                    >
+                        <ScanText size={15} />
+
+                        {ocrLoading ? "Processing..." : "OCR"}
+                    </button>
+
+                    </div>
+                        
+                    </div>
+                    
 
                     
                 </header>
@@ -151,112 +247,6 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
                     modules={modules}
                     />
                     </div>
-
-                    {/**OCR */}
-                    <div className="flex w-full items-center justify-between gap-4 rounded-xl border border-dashed border-stone-300 bg-stone-50/80 p-4 transition hover:border-stone-400 hover:bg-stone-50">
-
-                    {/* OCR Info */}
-                    <div className="flex items-center gap-3">
-
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-stone-800 text-white shadow-sm">
-                            <ImagePlus size={18} />
-                        </div>
-
-                        <div>
-                            <p className="text-sm font-semibold text-stone-800">
-                                OCR Text Extraction
-                            </p>
-
-                            <p className="mt-0.5 text-xs text-stone-500">
-                                Upload a page image to automatically extract its text.
-                            </p>
-                        </div>
-
-                    </div>
-
-                    {/* Hidden File Input */}
-                    <input
-                        ref={ocrRef}
-                        type="file"
-                        className="hidden"
-                        accept="image/*"
-                        onChange={(e) => OcrProcess(e.target.files[0] || null)}
-                    />
-
-                    {/* Upload Button */}
-                    <button
-                        type="button"
-                        disabled={ocrLoading}
-                        onClick={() => ocrRef.current?.click()}
-                        className={`flex shrink-0 items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-medium shadow-sm transition
-                            ${
-                                ocrLoading
-                                    ? "cursor-not-allowed bg-stone-200 text-stone-400"
-                                    : "bg-stone-800 text-white hover:bg-stone-900 active:scale-[0.98]"
-                            }
-                        `}
-                    >
-                        <ImagePlus size={15} />
-
-                        {ocrLoading ? "Processing..." : "Choose Image"}
-                    </button>
-
-                </div>
-
-                    {bookDetails.category === 'literature' && 
-                    (<div className="w-full gap-2 flex flex-col">
-
-                       {!image && (
-                    <div className="flex w-full items-center justify-between gap-3 rounded-lg border border-dashed border-stone-300 bg-stone-50 p-3">
-                        <div>
-                        <p className="text-sm font-medium text-stone-700">Page image</p>
-                        <p className="text-xs text-stone-500">Choose an image for this page.</p>
-                        </div>
-
-                        <input
-                        ref={imageRef}
-                        type="file"
-                        className="hidden"
-                        accept="image/*"
-                        onChange={(e) => setImage(e.target.files[0] || null)}
-                        />
-
-                        <button
-                        type="button"
-                        onClick={() => imageRef.current?.click()}
-                        className="flex items-center gap-1 rounded-lg bg-stone-800 px-3 py-2 text-xs text-white transition hover:bg-stone-900"
-                        >
-                        <ImagePlus size={15} />
-                        Choose image
-                        </button>
-                    </div>
-                    )}
-                    {!audio && (
-                    <div className="flex w-full items-center justify-between gap-3 rounded-lg border border-dashed border-stone-300 bg-stone-50 p-3">
-                        <div>
-                        <p className="text-sm font-medium text-stone-700">Page audio</p>
-                        <p className="text-xs text-stone-500">Choose narration or audio for this page.</p>
-                        </div>
-
-                        <input
-                        ref={audioRef}
-                        type="file"
-                        className="hidden"
-                        accept="audio/*"
-                        onChange={(e) => setAudio(e.target.files?.[0] || null)}
-                        />
-
-                        <button
-                        type="button"
-                        onClick={() => audioRef.current?.click()}
-                        className="flex items-center gap-1 rounded-lg bg-stone-800 px-3 py-2 text-xs text-white transition hover:bg-stone-900"
-                        >
-                        <AudioLines size={15} />
-                        Choose audio
-                        </button>
-                    </div>
-                    )} 
-                    </div>)}
 
                     {/* Preview Container */}
                     {bookDetails.category === 'literature' && (<div className="flex h-100 w-full flex-col gap-3 rounded-lg border border-stone-200 bg-stone-50 p-6">
@@ -317,9 +307,11 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
                     Close
                 </button> 
 
-                <button className="flex items-center gap-1 rounded-lg bg-stone-800 px-3 py-2 text-xs text-white transition hover:bg-stone-900" onClick={SaveNewPage}>
-                    <Plus size={15} />
-                    <h1>Save</h1>
+                <button className={`flex items-center gap-1 rounded-lg ${saveLoading ? "bg-stone-200 animate-pulse text-stone-400" : "bg-stone-800 hover:bg-stone-900 text-white"} px-4 py-2 text-xs transition`} 
+                onClick={SaveNewPage}
+                disabled={saveLoading}>
+                    <Plus size={15} className={saveLoading ? "hidden" : "block"}/>
+                    <h1>{saveLoading ? "...Saving" : "Save"}</h1>
                 </button>
                 </footer>
                 

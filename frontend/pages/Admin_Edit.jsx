@@ -90,10 +90,11 @@ const Admin_Edit = () => {
     
                 return response.data.secure_url;
     };
-
+  
+  const [summaryLoading, setSummaryLoading] = useState(false);
   const AISummarization = async () => {
+            setSummaryLoading(true)
             try {
-
                 let texts = bookDetails.pages.map((p) => p.pageText);
                 if(texts.length === 0){
                     toast.warning('No page texts found')
@@ -108,13 +109,16 @@ const Admin_Edit = () => {
               const res = await axios.post(`${import.meta.env.VITE_API_URL}/ai-summarization`, bookData)
               setBookDetails((bookDetails) => ({...bookDetails, moral: res.data.summary}))
               toast.success(res.data.message);
-              
+              setSummaryLoading(false)
+
             } catch (error) {
               console.log(error);
               toast.error(
                     error?.response?.data?.message ||
                     `Request failed with status ${error?.response?.status || "unknown"}`
                 );
+            } finally {
+                setSummaryLoading(false)
             }
             // fetchBookById();
       }
@@ -171,7 +175,7 @@ const Admin_Edit = () => {
             console.log(res.data.message);
             setErrorMessage("");
             toast.success(res.data.message);
-            fetchBookById(bookDetails._id);
+            // fetchBookById(bookDetails._id);
             setIsInformationUpdate(false);
         } catch (error) {
             console.error("Error updating book information:", error);
@@ -379,8 +383,8 @@ const Admin_Edit = () => {
 
     <div className="relative w-full">
         {!bookDetails && (
-                <div className="absolute inset-0 bg-white/70 backdrop-blur-[2px] flex flex-col justify-center items-center text-center">
-                    <div className="flex flex-col items-center gap-2">
+                <div className="absolute inset-0 bg-white/70 backdrop-blur-[2px] flex flex-col justify-start items-center text-center">
+                    <div className="flex flex-col items-center gap-2 mt-40">
                         <div className="w-10 h-10 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center">
                             <Search size={18} className="text-stone-500" />
                         </div>
@@ -400,6 +404,7 @@ const Admin_Edit = () => {
             setBookDetails={setBookDetails}
             // fetchBookById={fetchBookById}
             Summarization={AISummarization}
+            summaryLoading={summaryLoading}
             updateBookInformation={updateBookInformation}
     />
     <Edit_BookPage bookDetails={bookDetails}

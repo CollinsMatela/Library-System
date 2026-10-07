@@ -248,7 +248,7 @@ const Admin_Inventory = () => {
                     </div>
 
                     {/* Right: Actions */}
-                    <div className="flex items-center gap-2 sm:justify-end">
+                    {/* <div className="flex items-center gap-2 sm:justify-end">
                         <button
                             type="button"
                             aria-label={`Delete ${book.title}`}
@@ -258,7 +258,7 @@ const Admin_Inventory = () => {
                         >
                             <Trash size={15} />
                         </button>
-                    </div>
+                    </div> */}
                 </div>
             ))}
         </div>

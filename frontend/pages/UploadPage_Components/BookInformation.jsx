@@ -48,7 +48,7 @@ const BookInformation = ({
         <div className="w-full flex flex-col gap-4 my-4">
 
             {/* ================= BASIC INFORMATION ================= */}
-            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-200 shadow-sm md:rounded-xl">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
@@ -126,7 +126,7 @@ const BookInformation = ({
 
 
             {/* ================= PUBLICATION DETAILS ================= */}
-            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-200 shadow-sm md:rounded-xl">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
@@ -174,7 +174,7 @@ const BookInformation = ({
 
 
             {/* ================= CLASSIFICATION & INVENTORY ================= */}
-            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col gap-3 shadow-sm md:p-6 border-0 md:border border-stone-200 md:rounded-xl">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
@@ -238,7 +238,7 @@ const BookInformation = ({
 
 
             {/* ================= FICTION DETAILS ================= */}
-            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col shadow-sm gap-3 md:p-6 border-0 md:border border-stone-200 md:rounded-xl">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">
@@ -275,7 +275,7 @@ const BookInformation = ({
 
 
             {/* ================= DESCRIPTION ================= */}
-            <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-300 md:rounded-xl">
+            <div className="bg-white w-full flex flex-col shadow-sm gap-3 md:p-6 border-0 md:border border-stone-200 md:rounded-xl">
 
                 <div>
                     <h2 className="text-stone-700 text-sm font-bold">

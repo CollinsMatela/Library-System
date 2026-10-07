@@ -20,7 +20,7 @@ const Admin_UploadBook_Page = () => {
         const [errorMessage, setErrorMessage] = useState("");
         const [showConfirmation, setShowConfirmation] = useState(false);
 
-        
+        const navigate = useNavigate()
 
         // Book Information
         const [selectedCategoryOfBook, setSelectedCategoryOfBook] = useState("");
@@ -155,9 +155,10 @@ const Admin_UploadBook_Page = () => {
 
         setShowConfirmation(true);
     };
-
+   
+   const [uploadLoading, setUploadLoading] = useState(false)
    const uploadStory = async () => {
-
+    setUploadLoading(true)
     try {
 
         const bookData = {
@@ -210,6 +211,7 @@ const Admin_UploadBook_Page = () => {
             toast.success(res.data.message);
             resetForm();
             uploadNotification();
+            setUploadLoading(false)
         }
 
     } catch (error) {
@@ -225,12 +227,20 @@ const Admin_UploadBook_Page = () => {
             error?.response?.data?.message ||
             "Failed to upload book."
         );
+    } finally {
+        setUploadLoading(false)
     }
 };
       return(
         <>
         <Admin_SideBar/>
-        {showConfirmation && (<Confirmation_Popup errorMessage={errorMessage} onConfirm={uploadStory} onCancel={() => {setShowConfirmation(false); setErrorMessage("")}}/>)}
+        {showConfirmation && 
+        (<Confirmation_Popup 
+            errorMessage={errorMessage} 
+            onConfirm={uploadStory} 
+            onCancel={() => {setShowConfirmation(false); setErrorMessage("");}}
+            isLoading={uploadLoading}
+        />)}
         <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60 pb-10">
               
               <Admin_Header mainText={'Upload Management'} subText={'Upload new books for the library'}/>
@@ -334,10 +344,11 @@ const Admin_UploadBook_Page = () => {
                     />
 
                     <div className="justify-end items-center flex">
-                        <button className="bg-green-600 text-[10px] text-white justify-center items-center flex gap-2 p-2 rounded-lg hover:bg-green-700 transition"
+                        <button className={`${uploadLoading ? "bg-stone-200 text-stone-500" : "bg-stone-800 hover:bg-stone-900 text-white"} text-[10px] justify-center items-center flex gap-2 p-2 rounded-lg hover:bg-stone-900 transition`}
+                        disabled={uploadLoading}
                         onClick={handleConfirmation}>
                             <Plus size={15}/>
-                            <h1>Upload Book</h1>
+                            <h1>{uploadLoading ? "...Uploading" : "Upload book"}</h1>
                         </button>
                     </div>
                    

@@ -300,7 +300,7 @@ const Admin_Catalog = () => {
 
           {/* Previous and next */}
           {!isLoading && totalPages > 1 && (
-            <div className="flex flex-wrap items-center justify-between gap-3 mt-3 pt-3 border-t border-stone-200">
+            <div className="w-full flex flex-wrap items-center justify-between gap-3 mt-3 pt-3 border-t border-stone-200">
               <p className="text-xs text-stone-500">
                 Showing {firstIndex + 1}-{Math.min(firstIndex + BOOKS_PER_PAGE, filtered.length)} of {filtered.length} books
               </p>

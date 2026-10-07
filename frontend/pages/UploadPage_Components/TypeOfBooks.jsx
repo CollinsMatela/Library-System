@@ -11,7 +11,7 @@ const TypeOfBooks = ({selectedCategoryOfBook, setSelectedCategoryOfBook, field, 
     if (selectedCategoryOfBook.toLowerCase() === "philosophy/psychology") {
         return (
             <select
-                className="bg-white border border-stone-300 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
+                className="bg-white border border-stone-200 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
                 value={field}
                 onChange={(e) => setField(e.target.value)}
             >
@@ -26,7 +26,7 @@ const TypeOfBooks = ({selectedCategoryOfBook, setSelectedCategoryOfBook, field, 
     if (selectedCategoryOfBook.toLowerCase() === "social sciences") {
         return (
             <select
-                className="bg-white border border-stone-300 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
+                className="bg-white border border-stone-200 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
                 value={field}
                 onChange={(e) => setField(e.target.value)}
             >
@@ -50,7 +50,7 @@ const TypeOfBooks = ({selectedCategoryOfBook, setSelectedCategoryOfBook, field, 
             <select
                 value={field}
                 onChange={(e) => setField(e.target.value)}
-                className="bg-white border border-stone-300 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
+                className="bg-white border border-stone-200 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
             >
                 <option value="">Select Technology Field</option>
                 <option value="medicine">Medicine</option>
@@ -67,7 +67,7 @@ const TypeOfBooks = ({selectedCategoryOfBook, setSelectedCategoryOfBook, field, 
             <select
                 value={field}
                 onChange={(e) => setField(e.target.value)}
-                className="bg-white border border-stone-300 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
+                className="bg-white border border-stone-200 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
             >
                 <option value="">Select The Arts Field</option>
                 <option value="architecture">Architecture</option>
@@ -85,7 +85,7 @@ if (selectedCategoryOfBook.toLowerCase() === "textbooks") {
     return (
         <>
             <select
-                className="bg-white border border-stone-300 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
+                className="bg-white border border-stone-200 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
             >
@@ -98,7 +98,7 @@ if (selectedCategoryOfBook.toLowerCase() === "textbooks") {
             </select>
 
             <select
-                className="bg-white border border-stone-300 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
+                className="bg-white border border-stone-200 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
                 value={gradeLevel}
                 onChange={(e) => setGradeLevel(e.target.value)}
             >
@@ -118,7 +118,7 @@ if (selectedCategoryOfBook.toLowerCase() === "textbooks") {
 };
 
     return(
-        <div className="bg-white w-full grid md:p-6 border-0 md:border border-stone-300 md:rounded-xl gap-2">
+        <div className="bg-white w-full shadow-sm grid md:p-6 border-0 md:border border-stone-200 md:rounded-xl gap-2">
 
             <header>
                     <h1 className="text-stone-700 text-sm font-bold">Category Details</h1>

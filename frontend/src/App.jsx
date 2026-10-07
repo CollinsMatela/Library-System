@@ -10,7 +10,6 @@ import Change_Password_Page from "../pages/Change_Password_Page"
 import Not_Found_Page from "../pages/Not_Found_Page";
 import Lib_ViewBook from "../library_components/Lib_ViewBook";
 import Lib_Quiz from "../library_components/Lib_Quiz";
-import LoadingScreen from '../loadings/loading'
 import Profile_Page from "../pages/Profile_Page";
 import Admin_Catalog from "../pages/Admin_Catalog";
 import Admin_ViewMaterials_Page from "../pages/Admin_ViewMaterials_Page";
@@ -96,8 +95,6 @@ function App() {
                 <Route path="/admin/authority" element={<Admin_Authority />} />            
           </Route>
           
-
-         <Route path="/loading" element={<LoadingScreen/>}/>
          <Route path="*" element={<Not_Found_Page/>}/>
 
       </Routes>

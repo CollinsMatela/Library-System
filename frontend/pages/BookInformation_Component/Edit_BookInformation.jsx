@@ -135,7 +135,7 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                         max={new Date().getFullYear()}
                         placeholder="Publication Year"
                         className="bg-white border border-stone-300 p-2 rounded-lg text-stone-600 text-xs"
-                        value={bookDetails?.publication || '0000'}
+                        value={bookDetails?.publication || ''}
                         onChange={(e) => setBookDetails({...bookDetails, publication: e.target.value})}
                     />
 

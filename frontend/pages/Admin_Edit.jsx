@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import SearchIcon from '../src/assets/search-svgrepo-com.svg'
 import Admin_Sidebar from '../components/Admin_Sidebar'
-import { Pen, Search, SquarePen } from "lucide-react";
+import { Pen, Search, SquarePen, FileText, BookOpenText } from "lucide-react";
 import AdvancedSearch from "./BookPage_Component/AdvancedSearch";
 import { toast } from "react-toastify";
 import Edit_BookInformation from "./BookInformation_Component/Edit_BookInformation";
@@ -20,7 +20,6 @@ const Admin_Edit = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isInformationUpdate, setIsInformationUpdate] = useState(false);
     const [isAddPageModal, setIsAddPageModal] = useState(false);
-    const [isConfirmation, setIsConfirmation] = useState(false);
     
     const [books, setBooks] = useState([]);
     const [filtered, setFiltered] = useState([]);
@@ -30,6 +29,18 @@ const Admin_Edit = () => {
     const [selectedPageIndex, setSelectedPageIndex] = useState(null);
 
     const [bookDetails, setBookDetails] = useState('')
+
+    // ============ TABS ============
+    // Which tab is currently open ("information", "page" or "preview")
+    const [activeTab, setActiveTab] = useState("information");
+
+    // The three tabs, defined in one easy-to-read list.
+    // To add a new tab later, just add another item here.
+    const tabs = [
+        { id: "information", label: "Edit Book Information", icon: SquarePen },
+        { id: "page", label: "Edit Book Page", icon: FileText },
+        { id: "preview", label: "Preview Book Detail", icon: BookOpenText },
+    ];
 
     useEffect(() => {
         if (!searchQuery.trim()) {
@@ -123,9 +134,10 @@ const Admin_Edit = () => {
             // fetchBookById();
       }
   
+  const [changeImageLoading, setChangeImageLoading] = useState(false)
   const handleImageChange = async (e) => {
+        setChangeImageLoading(true)
         const file = e.target.files[0];
-
         if (!file) return;
 
         try {
@@ -139,13 +151,16 @@ const Admin_Edit = () => {
                 : page
             ),
             }));
-
+            setChangeImageLoading(false)
         } catch (error) {
             console.error("Image upload failed:", error);
+        } finally {
+            setChangeImageLoading(false)
         }
     };
-
+    const [changeAudioLoading, setAudioLoading] = useState(false)
     const handleAudioChange = async (e) => {
+        setAudioLoading(true)
         const file = e.target.files[0];
 
         if (!file) return;
@@ -160,15 +175,17 @@ const Admin_Edit = () => {
                 return page;
             })});
 
-            setAudioPreview(URL.createObjectURL(file));
-
+            setAudioLoading(false)
         } catch (error) {
             console.error("Audio upload failed:", error);
+        } finally {
+            setAudioLoading(false)
         }
     };
-
+    
+    const [savedLoading, setSavedLoading] = useState(false)
     const updateBookInformation = async () => {
-
+        setSavedLoading(true)
         try {
             
             const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-book/${bookDetails._id}`, {bookDetails});
@@ -177,10 +194,13 @@ const Admin_Edit = () => {
             toast.success(res.data.message);
             // fetchBookById(bookDetails._id);
             setIsInformationUpdate(false);
+            setSavedLoading(false)
         } catch (error) {
             console.error("Error updating book information:", error);
             setErrorMessage(error?.response?.data?.message || "An error occurred while updating the book information.");
             toast.error(error?.response?.data?.message || "An error occurred while updating the book information.");
+        } finally {
+            setSavedLoading(false)
         }
     }
 
@@ -202,7 +222,6 @@ const Admin_Edit = () => {
             toast.success(res.data.message);
             setErrorMessage("");
             fetchBookById(bookDetails._id);
-            setIsBookPageUpdate(false);
             
           } catch (error) {
             console.error("Error updating page:", error);
@@ -279,16 +298,11 @@ const Admin_Edit = () => {
         <>
         <Admin_Sidebar/>
 
-        {isConfirmation && (<Confirmation_Popup 
-        errorMessage={errorMessage}
-        message={'Are you sure to delete this book?'}
-        onConfirm={() => deleteBook(bookDetails._id)} 
-        onCancel={() => setIsConfirmation(false)}/>)}
-
         {isInformationUpdate && (
         <Confirmation_Popup
         errorMessage={errorMessage}
         message={'Are you sure to update the book information?'}
+        isLoading={savedLoading}
         onConfirm={updateBookInformation}
         onCancel={() => setIsInformationUpdate(false)}
         />)}
@@ -304,23 +318,43 @@ const Admin_Edit = () => {
         <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
         <Admin_Header mainText={'Editing Management'} subText={'Update the information of book'}/>
-    
-        <div className="w-full justify-between items-center flex flex-col sm:flex-row px-4 lg:px-10">
 
-            <div className="flex items-center justify-start gap-2 w-full mb-4">
-                            <div className="w-full justify-start items-start flex gap-2">
-                               <div className="bg-stone-800 rounded-lg p-2 text-white justify-center items-center flex">
-                                <SquarePen size={20}/>
-                            </div>
-                            <div>
-                                <h1 className="text-sm font-bold text-stone-800 rounded-full">Choose Book</h1>
-                                <p className="text-stone-400 text-[10px]">Manage to edit your selectede book</p>
-                            </div> 
-                            </div>
-                            
+        {/* ================= TABS BAR =================
+            Left side: the tab buttons
+            Right side: the search input
+        */}
+        <div className="w-full px-4 lg:px-10 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+
+            {/* ===== LEFT: TAB BUTTONS ===== */}
+            <div className="flex flex-wrap items-center gap-2">
+                {tabs.map((tab) => {
+                    // A tab cannot be used until a book is selected
+                    const isDisabled = !bookDetails;
+                    const isActive = activeTab === tab.id;
+
+                    return (
+                        <button
+                            key={tab.id}
+                            type="button"
+                            onClick={() => { if (!isDisabled) setActiveTab(tab.id); }}
+                            disabled={isDisabled}
+                            className={[
+                                "flex items-center gap-2 p-2 rounded-lg text-xs border transition cursor-pointer",
+                                isActive
+                                    ? "bg-stone-800 text-white border-stone-800"
+                                    : "bg-white text-stone-600 border-stone-200 hover:bg-stone-50",
+                                isDisabled ? "opacity-40 cursor-not-allowed" : "",
+                            ].join(" ")}
+                        >
+                            <tab.icon size={15} />
+                            {tab.label}
+                        </button>
+                    );
+                })}
             </div>
 
-            <div className="relative w-full sm:w-100 bg-white border border-stone-200 rounded-xl flex justify-start items-center p-2 gap-2">
+            {/* ===== RIGHT: SEARCH INPUT ===== */}
+            <div className="relative w-full sm:w-80 bg-white border border-stone-200 rounded-xl flex justify-start items-center p-2 gap-2">
 
                     <Search size={15} className="text-stone-500" />
 
@@ -378,12 +412,14 @@ const Admin_Edit = () => {
 
                 </div>
 
-        
         </div>
 
-    <div className="relative w-full">
+    {/* ================= TAB CONTENT ================= */}
+    <div className="w-full">
+
+        {/* ---- Empty state: no book selected yet ---- */}
         {!bookDetails && (
-                <div className="absolute inset-0 bg-white/70 backdrop-blur-[2px] flex flex-col justify-start items-center text-center">
+                <div className="w-full flex flex-col justify-start items-center text-center">
                     <div className="flex flex-col items-center gap-2 mt-40">
                         <div className="w-10 h-10 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center">
                             <Search size={18} className="text-stone-500" />
@@ -399,6 +435,9 @@ const Admin_Edit = () => {
                     </div>
                 </div>
             )}
+
+        {/* ---- Edit Book Information tab ---- */}
+        {bookDetails && activeTab === "information" && (
        <Edit_BookInformation 
             bookDetails={bookDetails}
             setBookDetails={setBookDetails}
@@ -406,26 +445,36 @@ const Admin_Edit = () => {
             Summarization={AISummarization}
             summaryLoading={summaryLoading}
             updateBookInformation={updateBookInformation}
+            
     />
+        )}
+
+        {/* ---- Edit Book Page tab ---- */}
+        {bookDetails && activeTab === "page" && (
     <Edit_BookPage bookDetails={bookDetails}
                setBookDetails={setBookDetails}
             //    fetchBookById={fetchBookById}
                handleImageChange={handleImageChange}
                handleAudioChange={handleAudioChange}
                updatePage={updatePage}
-               showPageUpdateConfirmation={() => {setIsBookPageUpdate(true); setErrorMessage("")}}
                selectedPageIndex={selectedPageIndex}
                setSelectedPageIndex={setSelectedPageIndex}
                isAddPageModal={() => setIsAddPageModal(true)}
+               changeImageLoading={changeImageLoading}
+               changeAudioLoading={changeAudioLoading}
     />
-    {bookDetails && (<Preview_BookInformation
+        )}
+
+        {/* ---- Preview Book Detail tab ---- */}
+        {bookDetails && activeTab === "preview" && (
+    <Preview_BookInformation
                bookDetails={bookDetails}
                setBookDetails={setBookDetails}
-    />)}
-    
-    
+    />
+        )}
 
-    {/* // Save Button */}
+    {/* // Save Button (works for the selected book) */}
+    {bookDetails && (
     <div className="w-full justify-end items-center flex px-4 lg:px-10 mb-10">
     <button className="justify-center items-center flex gap-2 bg-stone-800 p-2 rounded-lg text-[10px] text-white hover:bg-stone-900 cursor-pointer"
     onClick={() => {setIsInformationUpdate(true); setErrorMessage("")}}
@@ -433,6 +482,7 @@ const Admin_Edit = () => {
         <Pen size={15}/> Save Changes 
     </button>
     </div>     
+    )}
     </div>
     
 

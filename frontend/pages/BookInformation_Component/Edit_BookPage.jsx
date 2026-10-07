@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Image, Sparkle, Sparkles, Repeat, PenBox, FilePlay, FileText, BookDashed, Info, Plus } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Image, Sparkle, Sparkles, Repeat, PenBox, FilePlay, FileText, BookDashed, Info, Plus, Images, AudioLines } from "lucide-react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
+import LoadingContainer from "../../loadings/loadingContainer";
 
-const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAudioChange, updatePage, showPageUpdateConfirmation, selectedPageIndex, setSelectedPageIndex, isAddPageModal}) => {
+const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAudioChange, updatePage, showPageUpdateConfirmation, selectedPageIndex, setSelectedPageIndex, isAddPageModal, changeImageLoading, changeAudioLoading}) => {
 
     let modules = {
     toolbar: [
@@ -60,21 +61,8 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
             
             <div className="flex flex-col w-full gap-2 py-4">
 
-            <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
-                <div className="justify-center items-center flex gap-2">
-                    <div className="bg-stone-800 rounded-lg p-2">
-                        <FileText size={20} className="text-white" />
-                    </div>
-
-                    <div>
-                        <h2 className="text-md font-bold text-stone-800">
-                            Edit Page 
-                        </h2>
-                        <p className="text-[10px] text-stone-500">
-                          Manage to edit and update the book page information.
-                        </p>
-                    </div>
-                </div>
+            <div className="flex flex-col sm:flex-row justify-end items-start gap-3">
+                
                 
                 <div className="flex gap-2">
                  <select className='w-fit p-2 text-[10px] text-stone-500 bg-white border border-stone-300 rounded-lg outline-none'
@@ -100,9 +88,9 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                 </div>
 
             {selectedPageIndex === null && (
-                <div className="w-full bg-white p-8 border border-stone-200 rounded-lg flex flex-col justify-center items-center text-center">
+                <div className="w-full bg-stone-100 p-8 border border-stone-200 rounded-lg flex flex-col justify-center items-center text-center">
 
-                    <h3 className="text-[10px] font-medium text-stone-700">
+                    <h3 className="text-xs font-medium text-stone-700">
                         No page selected
                     </h3>
 
@@ -120,7 +108,7 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                 {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < bookDetails?.pages?.length && (
                 <div className="w-full flex flex-col gap-4">
 
-                <div className="w-full bg-white border border-stone-300 rounded-xl p-4">
+                <div className="w-full bg-white border border-stone-200 shadow-sm rounded-lg p-4">
 
                 <div className="flex items-center gap-3 mb-5">
 
@@ -169,13 +157,15 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                     
                     {/**Image Preview */}
                     {bookDetails?.category?.toLowerCase() === 'literature' && 
-                    (<div className="w-full bg-white border border-stone-300 rounded-xl p-4">
-
+                    (<div className="relative w-full bg-white border border-stone-200 shadow-sm rounded-lg p-4">
+                        {changeImageLoading && (
+                            <LoadingContainer icon={<Images size={15} className="text-white animate-pulse"/>} maintext={'Processing Image'} subtext={'Updating Image'}/>
+                        )}
                         <div className="flex justify-between items-start gap-3 mb-5">
                             <div className="justify-center items-center flex gap-2">
 
                                     <div>
-                                        <h2 className="text-md font-bold text-stone-800">
+                                        <h2 className="text-sm font-bold text-stone-800">
                                             Page Image
                                         </h2>
                                         <p className="text-xs text-stone-500">
@@ -186,7 +176,8 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                             
                             {/* {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < bookDetails?.pages?.length && ( */}
                             <div className="flex flex-col gap-1">
-                                <button className='bg-stone-800  w-fit justify-center items-center flex gap-2 p-2 text-xs text-white cursor-pointer rounded-lg outline-none hover:bg-stone-900'
+                                <button className={`${changeImageLoading ? "bg-stone-200 text-stone-500" : "bg-stone-800 hover:bg-stone-900 text-white"}  w-fit justify-center items-center flex gap-2 p-2 text-xs cursor-pointer rounded-lg outline-none`}
+                                disabled={changeImageLoading}
                                 onClick={() => imageRef.current.click()}
                                 >
                                 <input
@@ -196,7 +187,7 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                                     className="hidden"
                                 />
                                 <Image size={15} />
-                                <h1 className="hidden sm:block">Change Page Image</h1>
+                                <h1 className="hidden sm:block text-[10px]">{changeImageLoading ? "...Updating" : "Update Image"}</h1>
                                 </button>
                             </div>  
                             {/* )} */}
@@ -233,12 +224,15 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
 
                     {/**Audio Preview */}
                         {bookDetails?.category?.toLowerCase() === 'literature' && (
-                            <div className="w-full justify-start items-start flex flex-col p-4 bg-white border border-stone-300 rounded-xl mb-2">
+                            <div className="relative w-full bg-white border border-stone-200 shadow-sm rounded-lg p-4">
+                                {changeAudioLoading && (
+                                    <LoadingContainer icon={<AudioLines size={15} className="text-white animate-pulse"/>} maintext={'Processing Audio'} subtext={'Updating Audio'}/>
+                                )}
                                 <div className="flex justify-between items-start gap-2 mb-5 w-full">
                                         
                                         <div className="justify-center items-center flex gap-2">
                                             <div>
-                                                    <h2 className="text-md font-bold text-stone-800">Narration Audio</h2>
+                                                    <h2 className="text-sm font-bold text-stone-800">Narration Audio</h2>
                                                     <p className="text-xs text-stone-500">Update the audio narration of this page.</p>
                                             </div>
                                         </div>
@@ -246,7 +240,8 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
 
                                         {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < bookDetails?.pages?.length && (
                                         <div className="flex flex-col gap-1">
-                                            <button className="bg-stone-800  w-fit justify-center items-center flex gap-2 p-2 text-xs text-white cursor-pointer rounded-lg outline-none hover:bg-stone-900"
+                                            <button className={`${changeAudioLoading ? "bg-stone-200 text-stone-500" : "bg-stone-800 hover:bg-stone-900 text-white"}  w-fit justify-center items-center flex gap-2 p-2 text-xs cursor-pointer rounded-lg outline-none`}
+                                            disabled={changeAudioLoading}
                                             onClick={() => audioRef.current.click()}
                                             >
                                             <input
@@ -256,8 +251,8 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                                                 onChange={handleAudioChange}
                                                 className="hidden"
                                             />
-                                            <Image size={15} />
-                                            <h1 className="hidden sm:block">Change Page Audio</h1>
+                                            <AudioLines size={15} />
+                                            <h1 className="hidden sm:block text-[10px]">{changeAudioLoading ? "...Updating" : "Update Audio"}</h1>
                                             </button>
                                         </div>  
                                         )}

@@ -74,8 +74,8 @@ const Admin_SideBar = () => {
         
        <div className="hidden md:flex justify-center lg:justify-start items-center lg:gap-2 p-3 border-b border-stone-300">
         
-          <div className="bg-white rounded-full h-8 w-8 flex justify-center items-center">
-              <img src={NaicLogo} alt="Little Me Logo" className="h-full w-full object-cover"/>
+          <div className="bg-white rounded-full h-10   w-10 flex justify-center items-center">
+              <img src={NaicLogo} className="h-full w-full object-cover"/>
           </div>
           
           <div>

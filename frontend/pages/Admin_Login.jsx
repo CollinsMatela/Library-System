@@ -2,7 +2,7 @@ import {useNavigate} from "react-router-dom";
 import axios from 'axios'
 import useAuthStore from "../store/useAuthStore";
 import { useState } from "react";
-import LoadingScreen from '../loadings/loading'
+
 import {toast} from 'react-toastify'
 import NaicLibraryLogo from "../src/assets/NaicLibraryLogo.png"
 import { LoaderCircle } from "lucide-react" 

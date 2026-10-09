@@ -329,6 +329,11 @@ const Admin_BorrowBook_Page = () => {
 
     const openSubmitPopup = (request) => {
         setErrorMessage("");
+        let userDeposit = deposits.find((deposit) => deposit.userId.toString() === request.userId.toString() && deposit.status === "held")
+        if(!userDeposit){
+            toast.warning("The user must deposit 1 valid ID before borrowing.")
+            return
+        }
         if (!request) {
             toast.warning("No selected request");
             return;

@@ -97,6 +97,7 @@ const Lib_StoryLayoutBook = ({
   const pageImage = page?.pageImage;
   const pageAudio = page?.pageAudio;
   const pageText = page?.pageText;
+  const pageVideo = page?.pageVideo;
 
   const language = (book?.language || "").toLowerCase();
   const isFilipino = language === "filipino";
@@ -104,6 +105,8 @@ const Lib_StoryLayoutBook = ({
   const introSrc = isFilipino ? TagalogIntroduction : EnglishIntroduction;
 
   const isFirst = pageIndex <= 0;
+
+  const hasVideo = Boolean(pageVideo);
 
   const imageState = !pageImage
     ? "error"
@@ -442,7 +445,7 @@ const isPlayingAudio = !isIntroDone || narration.status === "playing";
   // audio or readable text before there is anything to hear.
   const canPlayNarration = !isIntroDone || narration.source !== null;
 
-  const hasImage = Boolean(pageImage) && imageState !== "error";
+  const hasImage = Boolean(pageImage) && imageState !== "error" && !hasVideo;
   const progress = totalPages
     ? Math.min(100, Math.round(((pageIndex + 1) / totalPages) * 100))
     : 0;
@@ -570,15 +573,24 @@ const isPlayingAudio = !isIntroDone || narration.status === "playing";
         onTouchEnd={handleTouchEnd}
       >
         <div className="relative aspect-[4/3] sm:aspect-[3/2]">
-          {hasImage ? (
+          {hasVideo ? (
+            <video
+              src={pageVideo}
+              controls
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 h-full w-full object-contain bg-black/20"
+              aria-label={`Video for page ${pageIndex + 1} of ${totalPages}`}
+            />
+          ) : hasImage ? (
             <>
               {imageState === "loading" && (
                 <div className="absolute inset-0 animate-pulse bg-stone-800/60" />
               )}
 
-              {/* Fills any letterbox so the margin reads as intentional rather
-                  than broken. object-cover is right here: filling and blurring
-                  is the intent. */}
               <img
                 src={pageImage}
                 alt=""
@@ -754,7 +766,7 @@ const isPlayingAudio = !isIntroDone || narration.status === "playing";
                 )}
               </button>
 
-              {hasImage && (
+              {hasImage && !hasVideo && (
                 <button
                   type="button"
                   onClick={() => setZoomedImage(pageImage)}
@@ -804,7 +816,7 @@ const isPlayingAudio = !isIntroDone || narration.status === "playing";
 
       {/* Full-screen illustration. Detached from the controls, so it carries its
           own close affordance and page counter. */}
-      {isZoomed && pageImage && (
+      {isZoomed && pageImage && !hasVideo && (
         <div
           role="dialog"
           aria-modal="true"

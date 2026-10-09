@@ -52,6 +52,9 @@ import AdminLoginRoute from "./routes/AdminLoginRoute.js"
 
 import DepositRoute from "./routes/DepositRoute.js";
 
+import VideoGenerationRoute from "./routes/VideoGenerationRoute.js"
+import SavePageVideoRoute from "./routes/SavePageVideoRoute.js"
+
 console.log("🔥 SERVER FILE STARTED");
 const app = express();
 
@@ -138,6 +141,9 @@ app.use("/", SendEmailRoute);
 app.use("/", Member_Route);
 app.use("/", AdminLoginRoute);
 app.use("/", DepositRoute);
+
+app.use("/", VideoGenerationRoute);
+app.use("/", SavePageVideoRoute);
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');

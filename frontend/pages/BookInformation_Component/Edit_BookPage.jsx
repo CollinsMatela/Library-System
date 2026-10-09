@@ -6,8 +6,9 @@ import Confirmation_Popup from "../../popup/Confirmation_Popup";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import LoadingContainer from "../../loadings/loadingContainer";
+import VideoGenerationModal from "../../modals/videoGenerationModal";
 
-const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAudioChange, updatePage, showPageUpdateConfirmation, selectedPageIndex, setSelectedPageIndex, isAddPageModal, changeImageLoading, changeAudioLoading}) => {
+const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAudioChange, showPageUpdateConfirmation, selectedPageIndex, setSelectedPageIndex, isAddPageModal, changeImageLoading, changeAudioLoading}) => {
 
     let modules = {
     toolbar: [
@@ -21,12 +22,10 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
     ],
     };
 
-    const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-    const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
-
     const [errorMessage, setErrorMessage] = useState("");
     const [isBookInformationUpdate, setIsBookInformationUpdate] = useState(false);
     const [isBookPageUpdate, setIsBookPageUpdate] = useState(false);
+    const [isVideoGenerationModal, setIsVideoGenerationModal] = useState(false);
 
     const [selectedNewImage, setSelectedNewImage] = useState(null);
     
@@ -46,14 +45,105 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
           setIsBookPageUpdate(true)
     }
 
+    const [videoGenerationLoading, setVideoGenerationLoading] = useState(false)
+    const AIVideoGeneration = async (image, prompt, aspectRatio) => {
+          setVideoGenerationLoading(true)
+          try {
+            const data = {
+                bookId: bookDetails._id,
+                pageId: bookDetails.pages[selectedPageIndex]._id,
+                pageIndex: selectedPageIndex,
+                image: image,
+                prompt: prompt,
+                aspectRatio: aspectRatio
+            }
+            console.log(data)
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/video-generation`, data)
+            console.log(res.data.message);
+            toast.success(res.data.message)
+            return { videoUrl: res.data.video }
+          } catch (error) {
+            console.log(error)
+            // Let the modal show the error message to the user.
+            throw error
+          } finally {
+            setVideoGenerationLoading(false)
+          }
+    }
+
+    const handleVideoGeneration = () => {
+          // A page must be selected first.
+          if(selectedPageIndex === null || Number.isNaN(selectedPageIndex)) {
+            return toast.warning('Select Page to edit')
+          }
+
+          // A newly added page is only stored in memory until the book is saved,
+          // so it has no database _id yet and cannot generate a video.
+          const selectedPage = bookDetails?.pages?.[selectedPageIndex]
+          if(!selectedPage?._id) {
+            return toast.warning('Please save this new page before generating a video.')
+          }
+
+          setIsVideoGenerationModal(true)
+    }
+
+    const [videoSaveLoading, setVideoSaveLoading] = useState(false)
+    // Final approval: send the generated video to the backend,
+    // which saves it to Cloudinary and stores the URL in the page.
+    const SavePageVideo = async (videoUrl) => {
+          // Make sure the page exists in the database before saving to it.
+          const selectedPage = bookDetails?.pages?.[selectedPageIndex]
+          if(!selectedPage?._id) {
+            return toast.warning('Please save this new page before saving a video.')
+          }
+
+          setVideoSaveLoading(true)
+          try {
+            const data = {
+                bookId: bookDetails._id,
+                pageId: bookDetails.pages[selectedPageIndex]._id,
+                videoUrl: videoUrl
+            }
+            const res = await axios.put(`${import.meta.env.VITE_API_URL}/save-page-video`, data)
+
+            // Update the local book so the saved video is kept without a reload.
+            setBookDetails((current) => ({
+                ...current,
+                pages: current.pages.map((page, index) =>
+                    index === selectedPageIndex
+                        ? { ...page, pageVideo: res.data.pageVideo }
+                        : page
+                )
+            }))
+
+            toast.success(res.data.message)
+            setIsVideoGenerationModal(false)
+          } catch (error) {
+            console.log(error)
+            toast.error(
+                    error?.response?.data?.message ||
+                    `Request failed with save video`
+                );
+          } finally {
+            setVideoSaveLoading(false)
+          }
+    }
+
     return(
         <>
-        {isBookPageUpdate && (<Confirmation_Popup
-        errorMessage={errorMessage}
-        message={'Are you sure to update the book page?'}
-        onConfirm={updatePage}
-        onCancel={() => setIsBookPageUpdate(false)}
-        />)}
+
+        {isVideoGenerationModal && (
+                    <VideoGenerationModal 
+                    onClose={() => setIsVideoGenerationModal(false)}
+                    page={bookDetails.pages[selectedPageIndex]}
+                    pageNumber={selectedPageIndex + 1}
+                    bookTitle={bookDetails.title}
+                    AIVideoGeneration={AIVideoGeneration}
+                    videoGenerationLoading={videoGenerationLoading}
+                    onSaveVideo={SavePageVideo}
+                    videoSaveLoading={videoSaveLoading}
+                    />
+        )}
 
         <div className="w-full flex flex-col px-4 lg:px-10">
 
@@ -61,14 +151,13 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
             
             <div className="flex flex-col w-full gap-2 py-4">
 
-            <div className="flex flex-col sm:flex-row justify-end items-start gap-3">
-                
-                
+            <div className="flex  justify-between items-center gap-2 w-full">
+                <h1 className="text-xs text-stone-500">Find your page to manage</h1>
                 <div className="flex gap-2">
-                 <select className='w-fit p-2 text-[10px] text-stone-500 bg-white border border-stone-300 rounded-lg outline-none'
+                 <select className='w-fit p-2 text-[10px] text-stone-800 bg-white border border-stone-300 rounded-lg outline-none'
                         onChange={(e) => setSelectedPageIndex(parseInt(e.target.value))}
                     >
-                        <option value="">Select Page No.</option>
+                        <option value="">Page No.</option>
                         {bookDetails?.pages?.map((page, index) => (
                             <option 
                             key={index} 
@@ -81,8 +170,9 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                     <button className="bg-stone-800 text-[10px] text-white rounded-lg justify-center items-center flex gap-1 hover:bg-stone-900 p-2"
                     onClick={isAddPageModal}>
                     <Plus size={15} />
-                    <h1 className="hidden sm:block">Add Page</h1>
-                    </button>  
+                    <h1>Add Page</h1>
+                    </button>
+
                 </div>
                     
                 </div>
@@ -175,7 +265,14 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                             </div>
                             
                             {/* {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < bookDetails?.pages?.length && ( */}
-                            <div className="flex flex-col gap-1">
+                            <div className="flex flex-row gap-1">
+                                <button 
+                                title="Do you want to generate video"
+                                className="bg-white hover:bg-stone-100 p-2 rounded-lg border border-stone-300"
+                                onClick={handleVideoGeneration}>
+                                <Sparkles size={15} className="text-stone-800"/> 
+                                </button>
+
                                 <button className={`${changeImageLoading ? "bg-stone-200 text-stone-500" : "bg-stone-800 hover:bg-stone-900 text-white"}  w-fit justify-center items-center flex gap-2 p-2 text-xs cursor-pointer rounded-lg outline-none`}
                                 disabled={changeImageLoading}
                                 onClick={() => imageRef.current.click()}
@@ -189,6 +286,8 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                                 <Image size={15} />
                                 <h1 className="hidden sm:block text-[10px]">{changeImageLoading ? "...Updating" : "Update Image"}</h1>
                                 </button>
+
+                                
                             </div>  
                             {/* )} */}
                         </div>
@@ -289,6 +388,28 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                             </div>
                             
                         )}
+
+                    {/* Saved Video (the final approval result) */}
+                    {bookDetails?.pages?.[selectedPageIndex]?.pageVideo && (
+                        <div className="w-full bg-white border border-stone-200 shadow-sm rounded-lg p-4">
+                            <div className="mb-5">
+                                <h2 className="text-sm font-bold text-stone-800">
+                                    Saved Video
+                                </h2>
+                                <p className="text-xs text-stone-500">
+                                    This page's saved animation. You can play it here.
+                                </p>
+                            </div>
+
+                            <video
+                                src={bookDetails.pages[selectedPageIndex].pageVideo}
+                                controls
+                                loop
+                                muted
+                                className="w-full max-h-80 rounded-lg border border-stone-200 bg-stone-50 object-contain"
+                            />
+                        </div>
+                    )}
                 </div>
             )}
                 

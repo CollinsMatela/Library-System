@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import SearchIcon from '../src/assets/search-svgrepo-com.svg'
 import Admin_Sidebar from '../components/Admin_Sidebar'
-import { Pen, Search, SquarePen, FileText, BookOpenText } from "lucide-react";
+import { Pen, Search, SquarePen, FileText, BookOpenText, Sparkles } from "lucide-react";
 import AdvancedSearch from "./BookPage_Component/AdvancedSearch";
 import { toast } from "react-toastify";
 import Edit_BookInformation from "./BookInformation_Component/Edit_BookInformation";
@@ -13,6 +13,7 @@ import AddPage_Modal from "../modals/AddPage_Modal";
 import Confirmation_Popup from "../popup/Confirmation_Popup";
 import { categories } from "../mockdata";
 import Admin_Header from "../components/Admin_Header";
+import VideoGenerationModal from "../modals/videoGenerationModal";
 
 const Admin_Edit = () => {
     const navigate = useNavigate();
@@ -20,6 +21,7 @@ const Admin_Edit = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isInformationUpdate, setIsInformationUpdate] = useState(false);
     const [isAddPageModal, setIsAddPageModal] = useState(false);
+    // const [isVideoGenerationModal, setIsVideoGenerationModal] = useState(false);
     
     const [books, setBooks] = useState([]);
     const [filtered, setFiltered] = useState([]);
@@ -37,9 +39,9 @@ const Admin_Edit = () => {
     // The three tabs, defined in one easy-to-read list.
     // To add a new tab later, just add another item here.
     const tabs = [
-        { id: "information", label: "Edit Book Information", icon: SquarePen },
-        { id: "page", label: "Edit Book Page", icon: FileText },
-        { id: "preview", label: "Preview Book Detail", icon: BookOpenText },
+        { id: "information", label: "Information", icon: SquarePen },
+        { id: "page", label: "Page", icon: FileText },
+        { id: "preview", label: "Preview", icon: BookOpenText },
     ];
 
     useEffect(() => {
@@ -101,6 +103,7 @@ const Admin_Edit = () => {
     
                 return response.data.secure_url;
     };
+    
   
   const [summaryLoading, setSummaryLoading] = useState(false);
   const AISummarization = async () => {
@@ -158,6 +161,8 @@ const Admin_Edit = () => {
             setChangeImageLoading(false)
         }
     };
+
+    
     const [changeAudioLoading, setAudioLoading] = useState(false)
     const handleAudioChange = async (e) => {
         setAudioLoading(true)
@@ -192,7 +197,6 @@ const Admin_Edit = () => {
             console.log(res.data.message);
             setErrorMessage("");
             toast.success(res.data.message);
-            // fetchBookById(bookDetails._id);
             setIsInformationUpdate(false);
             setSavedLoading(false)
         } catch (error) {
@@ -203,33 +207,6 @@ const Admin_Edit = () => {
             setSavedLoading(false)
         }
     }
-
-    const updatePage = async () => {
-        
-            const currentPage = bookDetails.pages[selectedPageIndex];
-
-            const bookPageData = {
-                bookId: bookDetails._id,
-                pageId: currentPage._id,
-                pageText: currentPage.pageText,
-                pageImage: currentPage.pageImage,
-                pageAudio: currentPage.pageAudio
-            };
-
-          try {
-            const res = await axios.put(`${import.meta.env.VITE_API_URL}/update-page`, bookPageData);
-            console.log("Page updated successfully:", res.data.message);
-            toast.success(res.data.message);
-            setErrorMessage("");
-            fetchBookById(bookDetails._id);
-            
-          } catch (error) {
-            console.error("Error updating page:", error);
-            setErrorMessage(error?.response?.data?.message || "An error occurred while updating the page.");
-            toast.error(error?.response?.data?.message || "An error occurred while updating the page.");
-          }
-    }
-
 
     useEffect(() => {
       setIsLoading(true)
@@ -314,6 +291,7 @@ const Admin_Edit = () => {
         setBookDetails={setBookDetails}
         />
         )}
+        
 
         <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
@@ -326,7 +304,7 @@ const Admin_Edit = () => {
         <div className="w-full px-4 lg:px-10 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
 
             {/* ===== LEFT: TAB BUTTONS ===== */}
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-row items-center">
                 {tabs.map((tab) => {
                     // A tab cannot be used until a book is selected
                     const isDisabled = !bookDetails;
@@ -339,21 +317,25 @@ const Admin_Edit = () => {
                             onClick={() => { if (!isDisabled) setActiveTab(tab.id); }}
                             disabled={isDisabled}
                             className={[
-                                "flex items-center gap-2 p-2 rounded-lg text-xs border transition cursor-pointer",
+                                "flex items-center w-full sm:w-fit gap-2 p-2 text-xs border-b-2 transition cursor-pointer px-2",
                                 isActive
-                                    ? "bg-stone-800 text-white border-stone-800"
+                                    ? "bg-white text-stone-800 border-stone-800"
                                     : "bg-white text-stone-600 border-stone-200 hover:bg-stone-50",
                                 isDisabled ? "opacity-40 cursor-not-allowed" : "",
                             ].join(" ")}
                         >
                             <tab.icon size={15} />
-                            {tab.label}
+                            
+                            <h1 className="text-xs">{tab.label}</h1>
                         </button>
                     );
                 })}
             </div>
 
             {/* ===== RIGHT: SEARCH INPUT ===== */}
+            <div className="w-full sm:w-fit justify-end items-center flex gap-1">
+               
+            
             <div className="relative w-full sm:w-80 bg-white border border-stone-200 rounded-xl flex justify-start items-center p-2 gap-2">
 
                     <Search size={15} className="text-stone-500" />
@@ -413,6 +395,7 @@ const Admin_Edit = () => {
                 </div>
 
         </div>
+        </div>
 
     {/* ================= TAB CONTENT ================= */}
     <div className="w-full">
@@ -456,7 +439,6 @@ const Admin_Edit = () => {
             //    fetchBookById={fetchBookById}
                handleImageChange={handleImageChange}
                handleAudioChange={handleAudioChange}
-               updatePage={updatePage}
                selectedPageIndex={selectedPageIndex}
                setSelectedPageIndex={setSelectedPageIndex}
                isAddPageModal={() => setIsAddPageModal(true)}

@@ -51,6 +51,7 @@ import Member_Route from "./routes/Member_Route.js";
 import AdminLoginRoute from "./routes/AdminLoginRoute.js"
 
 import DepositRoute from "./routes/DepositRoute.js";
+import Admin_ProfileRoute from "./routes/Admin_ProfileRoute.js"
 
 import VideoGenerationRoute from "./routes/VideoGenerationRoute.js"
 import SavePageVideoRoute from "./routes/SavePageVideoRoute.js"
@@ -141,6 +142,7 @@ app.use("/", SendEmailRoute);
 app.use("/", Member_Route);
 app.use("/", AdminLoginRoute);
 app.use("/", DepositRoute);
+app.use("/", Admin_ProfileRoute);
 
 app.use("/", VideoGenerationRoute);
 app.use("/", SavePageVideoRoute);

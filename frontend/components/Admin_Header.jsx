@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ChevronDown, LogOut } from "lucide-react";
+import { ChevronDown, LogOut, User } from "lucide-react";
 import useAuthStore from "../store/useAuthStore";
 import Confirmation_Popup from "../popup/Confirmation_Popup";
 
@@ -111,8 +111,8 @@ const Admin_Header = ({ mainText, subText }) => {
 
                 {/* Page title */}
                 <div>
-                    <h1 className="text-sm font-bold text-stone-800">{mainText}</h1>
-                    <p className="text-stone-400 text-xs">{subText}</p>
+                    <h1 className="text-sm font-bold text-stone-800">{mainText || "Demo"}</h1>
+                    <p className="text-stone-400 text-xs">{subText || "Demo"}</p>
                 </div>
 
                 {/* Profile menu */}
@@ -136,10 +136,10 @@ const Admin_Header = ({ mainText, subText }) => {
                     </button>
 
                     {isProfile && (
-                        <div className="absolute z-9999 w-50 right-0 top-full mt-1.5 bg-white flex flex-col justify-start items-start border border-stone-300 rounded-lg gap-1">
+                        <div className="absolute z-9999 w-60 right-0 top-full mt-1.5 bg-white flex flex-col justify-start items-start shadow-xl border border-stone-200 rounded-xl gap-1">
 
                             {/* Who is logged in */}
-                            <div className="w-full flex items-center gap-2 p-4 border-b border-stone-300 bg-stone-50 rounded-t-lg">
+                            <div className="w-full flex items-center gap-2 p-4 border-b border-stone-300 bg-white rounded-t-xl">
                                 <ProfileAvatar user={user} />
                                 <div>
                                     <p className="text-xs text-stone-700 font-semibold">
@@ -154,10 +154,20 @@ const Admin_Header = ({ mainText, subText }) => {
                             {/* Logout */}
                             <button
                                 type="button"
-                                onClick={openLogoutConfirmation}
-                                className="w-full flex items-center gap-2 text-xs text-stone-500 p-1 text-start hover:bg-red-50 hover:text-red-500 transition cursor-pointer px-4 mb-1"
+                                onClick={() => navigate(`/admin/profile/${user._id}`)}
+                                className="w-full flex items-center gap-2 text-xs text-stone-500 px-4 py-2 text-start hover:bg-stone-100 transition cursor-pointer mb-1"
                             >
-                                <LogOut size={14} />
+                                <User size={15} />
+                                My Account
+                            </button>
+
+                            {/* Logout */}
+                            <button
+                                type="button"
+                                onClick={openLogoutConfirmation}
+                                className="w-full flex items-center gap-2 text-xs text-stone-500 px-4 py-2 text-start hover:bg-stone-100 hover:text-red-500 transition cursor-pointer mb-1"
+                            >
+                                <LogOut size={15} />
                                 Logout
                             </button>
                         </div>

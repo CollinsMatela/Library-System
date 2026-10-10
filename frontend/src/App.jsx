@@ -10,7 +10,6 @@ import Change_Password_Page from "../pages/Change_Password_Page"
 import Not_Found_Page from "../pages/Not_Found_Page";
 import Lib_ViewBook from "../library_components/Lib_ViewBook";
 import Lib_Quiz from "../library_components/Lib_Quiz";
-import Profile_Page from "../pages/Profile_Page";
 import Admin_Catalog from "../pages/Admin_Catalog";
 import Admin_ViewMaterials_Page from "../pages/Admin_ViewMaterials_Page";
 import Admin_User from "../pages/Admin_User";
@@ -26,6 +25,7 @@ import Admin_Edit from "../pages/Admin_Edit";
 import Admin_Login from "../pages/Admin_Login";
 import Admin_ChangePassword from "../pages/Admin_ChangePassword";
 import Admin_Authority from "../pages/Admin_Authority";
+import Admin_Profile from "../pages/Admin_Profile";
 
 
 const ProtectedRoute = ({ allowedRoles }) => {
@@ -78,6 +78,7 @@ function App() {
                 <Route path="/admin/catalog" element={<Admin_Catalog />} />
                 <Route path="/admin/book-information/:id" element={<Admin_ViewMaterials_Page />} />
                 <Route path="/admin-change-password" element={<Admin_ChangePassword/>}/>
+                <Route path="/admin/profile/:id" element={<Admin_Profile/>}/>
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={["system administrator", "head librarian", "it librarian"]} />}>

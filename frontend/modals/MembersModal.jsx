@@ -28,18 +28,6 @@ const MembersModal = ({ onClose, reFetch }) => {
     // What the admin has typed so far.
     const [form, setForm] = useState({ ...EMPTY_MEMBER });
 
-    /*
-     * Errors are stored as messages, not true/false.
-     * A field has an error only when its key holds a message, for example:
-     * errors = { email: "Please enter a valid email address." }
-     * That way the form can print the message straight away with
-     * {errors.email}.
-     */
-    const [errors, setErrors] = useState({});
-
-    // Message coming back from the server, e.g. "email already exists".
-    const [errorMessage, setErrorMessage] = useState("");
-
     // Details for the "Save this account" screen that shows the temp password.
     const [newAccount, setNewAccount] = useState(null);
 
@@ -50,69 +38,64 @@ const MembersModal = ({ onClose, reFetch }) => {
     // and stop the button from being clicked twice.
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // One shared look for every input and select, so the error styling
-    // only has to be written once.
-    const inputClass = (error) =>
-        `w-full border rounded-lg text-xs p-2 outline-none transition-colors focus:ring-2 focus:ring-stone-300 ${
-            error ? "border-red-400 bg-red-50" : "border-stone-300"
-        }`;
+    // One shared look for every input and select.
+    const inputClass =
+        "w-full border border-stone-300 rounded-lg text-xs p-2 outline-none transition-colors focus:ring-2 focus:ring-stone-300";
 
     const labelClass = "text-xs text-stone-500 block mb-1";
 
     // The label for the chosen role, used in the confirmation message.
     const selectedRole = position.find((pos) => pos.value === form.role);
 
-    // Runs on every keystroke. Saves the value and clears that one error
-    // so the red border disappears as soon as the admin starts fixing it.
+    // Runs on every keystroke and saves the value.
     const updateField = (field, value) => {
         setForm((current) => ({ ...current, [field]: value }));
-        setErrors((current) => ({ ...current, [field]: "" }));
     };
 
     // Clears every field so the form is empty and ready for the next member.
     const resetForm = () => {
         setForm({ ...EMPTY_MEMBER });
-        setErrors({});
-        setErrorMessage("");
     };
 
-    // Checks the whole form. Returns true when everything is valid.
+    // Checks the form one field at a time and stops at the first problem.
+    // Shows a simple toast message instead of highlighting the fields.
     const validateForm = () => {
-        const nextErrors = {};
-
         if (!form.lastname.trim()) {
-            nextErrors.lastname = "Lastname is required.";
+            toast.warning("Please enter your lastname.");
+            return false;
         }
 
         if (!form.firstname.trim()) {
-            nextErrors.firstname = "Firstname is required.";
-        }
-
-        if (!form.role) {
-            nextErrors.role = "Please select a role.";
+            toast.warning("Please enter your firstname.");
+            return false;
         }
 
         if (!form.email.trim()) {
-            nextErrors.email = "Email is required.";
-        } else if (!EMAIL_PATTERN.test(form.email.trim())) {
-            nextErrors.email = "Please enter a valid email address.";
+            toast.warning("Please enter your email.");
+            return false;
+        }
+
+        if (!EMAIL_PATTERN.test(form.email.trim())) {
+            toast.warning("Please enter a valid email address.");
+            return false;
         }
 
         if (!form.contact.trim()) {
-            nextErrors.contact = "Contact number is required.";
-        } else if (!CONTACT_PATTERN.test(form.contact.trim())) {
-            nextErrors.contact = "Use 11 digits that start with 09.";
+            toast.warning("Please enter your contact number.");
+            return false;
         }
 
-        setErrors(nextErrors);
-
-        const hasError = Object.keys(nextErrors).length > 0;
-
-        if (hasError) {
-            toast.warning("Please fix the highlighted fields.");
+        if (!CONTACT_PATTERN.test(form.contact.trim())) {
+            toast.warning("Contact number must be 11 digits and start with 09.");
+            return false;
         }
 
-        return !hasError;
+        if (!form.role) {
+            toast.warning("Please select a role.");
+            return false;
+        }
+
+        return true;
     };
 
     // The "Add" button. Check the form FIRST, then ask for confirmation,
@@ -120,7 +103,6 @@ const MembersModal = ({ onClose, reFetch }) => {
     const handleAddClick = () => {
         if (!validateForm()) return;
 
-        setErrorMessage(""); // clears any message from a previous attempt
         setShowConfirmation(true);
     };
 
@@ -149,7 +131,6 @@ const MembersModal = ({ onClose, reFetch }) => {
             reFetch();
         } catch (error) {
             const message = error.response?.data?.message || "Something went wrong. Please try again.";
-            setErrorMessage(message);
             toast.error(message);
         } finally {
             // Runs whether the request worked or failed, so the button
@@ -158,19 +139,22 @@ const MembersModal = ({ onClose, reFetch }) => {
         }
     };
 
+    // Small numbered badge used in every section header.
+    const stepBadge = (number) => (
+        <span className="h-6 w-6 rounded-full bg-stone-800 text-white text-[11px] font-bold flex items-center justify-center shrink-0">
+            {number}
+        </span>
+    );
+
     return (
         <>
             {/* Ask for confirmation before saving. */}
             {showConfirmation && (
                 <Confirmation_Popup
-                    errorMessage={errorMessage}
                     message={`Add ${form.firstname} ${form.lastname} as ${selectedRole?.label}?`}
                     confirmLabel="Add"
                     onConfirm={submitForm}
-                    onCancel={() => {
-                        setShowConfirmation(false);
-                        setErrorMessage("");
-                    }}
+                    onCancel={() => setShowConfirmation(false)}
                     isLoading={isSubmitting}
                 />
             )}
@@ -187,11 +171,11 @@ const MembersModal = ({ onClose, reFetch }) => {
             )}
 
             {/* The form itself. */}
-            <section className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 overflow-y-auto">
-                <div className="w-full max-w-2xl max-h-[90vh] flex flex-col bg-white rounded-lg border border-stone-300 overflow-hidden">
+            <section className="fixed inset-0 z-50 bg-black/50 backdrop-blur-[2px] flex items-center justify-center p-4 overflow-y-auto">
+                <div className="w-full max-w-2xl max-h-[90vh] flex flex-col bg-white rounded-xl border border-stone-300 overflow-hidden">
 
                     {/* Header */}
-                    <header className="bg-stone-200 px-4 py-3 border-b border-stone-300">
+                    <header className="bg-white px-4 py-3 border-b border-stone-300">
                         <h1 className="text-sm font-semibold text-stone-700">Add New Member</h1>
                         <p className="text-xs text-stone-500">
                             Fill in the required fields to create the librarian account.
@@ -201,14 +185,17 @@ const MembersModal = ({ onClose, reFetch }) => {
                     {/* Body - this is the only part that scrolls. */}
                     <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
 
-                        {/* Personal Information */}
+                        {/* Section 1 - Personal Information */}
                         <div className="border border-stone-300 rounded-lg p-4 space-y-3">
-                            <div>
-                                <h1 className="text-xs font-semibold text-stone-700">Personal Information</h1>
-                                <p className="text-xs text-stone-500">Name and how to reach this librarian.</p>
+                            <div className="flex items-center gap-2">
+                                {stepBadge(1)}
+                                <div>
+                                    <h2 className="text-xs font-semibold text-stone-700">Personal Information</h2>
+                                    <p className="text-[10px] text-stone-500">Enter the member's full name.</p>
+                                </div>
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
 
                                 <div className="w-full">
                                     <label htmlFor="lastname" className={labelClass}>
@@ -220,11 +207,8 @@ const MembersModal = ({ onClose, reFetch }) => {
                                         placeholder="Enter Lastname"
                                         value={form.lastname}
                                         onChange={(e) => updateField("lastname", e.target.value)}
-                                        className={inputClass(errors.lastname)}
+                                        className={inputClass}
                                     />
-                                    {errors.lastname && (
-                                        <p className="text-[10px] text-red-500 mt-1">{errors.lastname}</p>
-                                    )}
                                 </div>
 
                                 <div className="w-full">
@@ -237,11 +221,8 @@ const MembersModal = ({ onClose, reFetch }) => {
                                         placeholder="Enter Firstname"
                                         value={form.firstname}
                                         onChange={(e) => updateField("firstname", e.target.value)}
-                                        className={inputClass(errors.firstname)}
+                                        className={inputClass}
                                     />
-                                    {errors.firstname && (
-                                        <p className="text-[10px] text-red-500 mt-1">{errors.firstname}</p>
-                                    )}
                                 </div>
 
                                 <div className="w-full">
@@ -252,7 +233,7 @@ const MembersModal = ({ onClose, reFetch }) => {
                                         placeholder="Enter Middlename"
                                         value={form.middlename}
                                         onChange={(e) => updateField("middlename", e.target.value)}
-                                        className={inputClass(errors.middlename)}
+                                        className={inputClass}
                                     />
                                 </div>
 
@@ -264,11 +245,26 @@ const MembersModal = ({ onClose, reFetch }) => {
                                         placeholder="e.g. Jr., III"
                                         value={form.suffix}
                                         onChange={(e) => updateField("suffix", e.target.value)}
-                                        className={inputClass(errors.suffix)}
+                                        className={inputClass}
                                     />
                                 </div>
 
-                                <div className="w-full sm:col-span-2">
+                            </div>
+                        </div>
+
+                        {/* Section 2 - Account Details */}
+                        <div className="border border-stone-300 rounded-lg p-4 space-y-3">
+                            <div className="flex items-center gap-2">
+                                {stepBadge(2)}
+                                <div>
+                                    <h2 className="text-xs font-semibold text-stone-700">Account Details</h2>
+                                    <p className="text-[10px] text-stone-500">Login email and contact number.</p>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+                                <div className="w-full">
                                     <label htmlFor="email" className={labelClass}>
                                         Email <span className="text-red-500">*</span>
                                     </label>
@@ -278,14 +274,11 @@ const MembersModal = ({ onClose, reFetch }) => {
                                         placeholder="Enter Email"
                                         value={form.email}
                                         onChange={(e) => updateField("email", e.target.value)}
-                                        className={inputClass(errors.email)}
+                                        className={inputClass}
                                     />
-                                    {errors.email && (
-                                        <p className="text-[10px] text-red-500 mt-1">{errors.email}</p>
-                                    )}
                                 </div>
 
-                                <div className="w-full sm:col-span-2">
+                                <div className="w-full">
                                     <label htmlFor="contact" className={labelClass}>
                                         Contact Number <span className="text-red-500">*</span>
                                     </label>
@@ -297,21 +290,21 @@ const MembersModal = ({ onClose, reFetch }) => {
                                         placeholder="09171234567"
                                         value={form.contact}
                                         onChange={(e) => updateField("contact", e.target.value)}
-                                        className={inputClass(errors.contact)}
+                                        className={inputClass}
                                     />
-                                    {errors.contact && (
-                                        <p className="text-[10px] text-red-500 mt-1">{errors.contact}</p>
-                                    )}
                                 </div>
 
                             </div>
                         </div>
 
-                        {/* Librarian Role */}
+                        {/* Section 3 - Authority Role */}
                         <div className="border border-stone-300 rounded-lg p-4 space-y-3">
-                            <div>
-                                <h1 className="text-xs font-semibold text-stone-700">Authority Role</h1>
-                                <p className="text-xs text-stone-500">Select the type of authorization.</p>
+                            <div className="flex items-center gap-2">
+                                {stepBadge(3)}
+                                <div>
+                                    <h2 className="text-xs font-semibold text-stone-700">Authority Role</h2>
+                                    <p className="text-[10px] text-stone-500">Select the type of authorization.</p>
+                                </div>
                             </div>
 
                             <div className="w-full sm:w-64">
@@ -322,7 +315,7 @@ const MembersModal = ({ onClose, reFetch }) => {
                                     id="role"
                                     value={form.role}
                                     onChange={(e) => updateField("role", e.target.value)}
-                                    className={inputClass(errors.role)}
+                                    className={inputClass}
                                 >
                                     <option value="">Select Role</option>
                                     {position.map((pos) => (
@@ -331,9 +324,6 @@ const MembersModal = ({ onClose, reFetch }) => {
                                         </option>
                                     ))}
                                 </select>
-                                {errors.role && (
-                                    <p className="text-[10px] text-red-500 mt-1">{errors.role}</p>
-                                )}
                             </div>
                         </div>
 

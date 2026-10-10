@@ -90,8 +90,9 @@ const Lib_MyAccount = () => {
 
                 const newProfile = await uploadToCloudinary(profile)
 
-                if(newProfile){
-                    toast.info('Processing the image.')
+                if(!newProfile){
+                    toast.warning('Failed to proccess the avatar')
+                    return
                 }
                 const data = {
                     userId: user._id,
@@ -139,21 +140,20 @@ const Lib_MyAccount = () => {
                 <Lib_Navigation/>
                 <section className="min-h-screen w-full justify-start items-center flex flex-col bg-white pb-10 px-4">
                     
+                        
                     <div className="w-full lg:w-5xl justify-center items-start flex flex-col mt-20">
-                    <header className="w-fit p-2 bg-white rounded-lg justify-center items-center flex border border-stone-300 shadow-xs gap-2">
+                    <header className="w-fit bg-white rounded-lg justify-center items-center flex gap-3 mb-4">
                             <div className="border border-stone-800 bg-stone-800 p-2 rounded-lg">
                                 <User size={15} className="text-white"/>
                             </div>
                             <div>
-                                <h1 className="text-xs text-stone-800 font-bold">My Account</h1>
-                                <p className=" text-stone-500 text-[10px]">
-                                    Manage and your personal account
+                                <h1 className="text-sm text-stone-800 font-bold">My Account</h1>
+                                <p className="text-stone-500 text-xs">
+                                    View your personal information.
                                 </p>
                             </div>
-                                
                         </header>
-        
-                    <div className="w-full justify-center items-center flex flex-col mt-6 rounded-xl">                   
+                    <div className="w-full justify-center items-center flex flex-col rounded-xl">                   
                             
                                 <div className='gap-4 justify-start items-start flex flex-col lg:flex-row w-full'>
                                     <div className='w-full lg:w-80 justify-start items-start flex flex-row lg:flex-col lg:border-r border-stone-500 lg:pr-4'>

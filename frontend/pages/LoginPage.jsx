@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAuthStore from "../store/useAuthStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import NaicLibraryLogo from "../src/assets/NaicLibraryLogo.png";
 import NaicImage2 from "../src/assets/NaicImage2.png";
@@ -12,9 +12,21 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
 
-  // Form values
-  const [email, setEmail] = useState("");
+  let savedAccountDetails = {}
+  
+  try {
+   savedAccountDetails = JSON.parse(localStorage.getItem('accountDetails') || "{}")
+  } catch (error) {
+    localStorage.removeItem('accountDetails')
+  }
+  
+// Form values
+  const [email, setEmail] = useState(savedAccountDetails.email || "");
   const [password, setPassword] = useState("");
+  // Saved Info
+  useEffect(() => {
+     localStorage.setItem('accountDetails', JSON.stringify({email: email}))
+  }, [email])
 
   // Small flags used to show red borders / error message
   const [isEmail, setIsEmail] = useState(false);
@@ -242,7 +254,7 @@ const LoginPage = () => {
           {/* Register */}
           <button
             type="button"
-            onClick={() => navigate("/registration")}
+            onClick={() => {navigate("/registration"); localStorage.removeItem('accountDetails')}}
             className="w-full p-3.5 text-sm rounded-xl flex items-center justify-center font-semibold bg-white border border-stone-200 text-stone-600 outline-none cursor-pointer transition-all duration-200 hover:bg-stone-100 hover:-translate-y-0.5"
           >
             No Account? Register
@@ -251,7 +263,7 @@ const LoginPage = () => {
           {/* Cancel button */}
           <button
             type="button"
-            onClick={() => navigate(-1)}
+            onClick={() => {navigate(-1); localStorage.removeItem('accountDetails')}}
             className="w-full p-3.5 text-sm rounded-xl flex items-center justify-center font-semibold text-stone-500 outline-none cursor-pointer transition-all duration-200 hover:bg-stone-100 hover:text-stone-700"
           >
             Cancel

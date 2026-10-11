@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAuthStore from "../store/useAuthStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { toast } from "sonner";
 import NaicLibraryLogo from "../src/assets/NaicLibraryLogo.png";
@@ -12,10 +12,27 @@ const Admin_Login = () => {
   const setAuth = useAuthStore((state) => state.setAuth);
 
   const navigate = useNavigate();
+  
+  let savedData = {};
 
+  try {
+      savedData = JSON.parse(
+          localStorage.getItem('authorizedAccount') || "{}"
+      );
+  } catch (error) {
+      localStorage.removeItem('authorizedAccount');
+  }
   // Form values
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(savedData.email || "");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem(
+    'authorizedAccount',
+    JSON.stringify({ email: email })
+  );
+
+  },[email])
 
   // Small flags used to show red borders / error message
   const [isEmail, setIsEmail] = useState(false);
@@ -62,6 +79,7 @@ const Admin_Login = () => {
         const role = res.data.role.toLowerCase();
 
         setAuth(user, token, role);
+        localStorage.removeItem('authorizedAccount');
 
         if (user.isChangePassword === false) {
           navigate(`/admin-change-password`);
@@ -233,7 +251,7 @@ const Admin_Login = () => {
           {/* Cancel button */}
           <button
             type="button"
-            onClick={() => navigate(-1)}
+            onClick={() => {navigate(-1); localStorage.removeItem('authorizedAccount');}}
             className="w-full p-3.5 text-sm rounded-xl font-semibold text-stone-400 outline-none cursor-pointer transition-all duration-200 hover:bg-stone-800 hover:text-stone-200"
           >
             Cancel

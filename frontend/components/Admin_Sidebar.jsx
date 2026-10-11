@@ -70,7 +70,7 @@ const Admin_SideBar = () => {
         message={'Are you sure to logout?'}
         />
       )}
-      <aside className="fixed bottom-0 md:top-0 md:left-0 z-40 h-fit md:h-full w-full md:w-20 lg:w-60 bg-white border-t md:border-t-0 md:border-r border-stone-300">
+      <aside className="fixed bottom-0 md:top-0 md:left-0 z-10 h-fit md:h-full w-full md:w-20 lg:w-60 bg-white border-t md:border-t-0 md:border-r border-stone-300">
         
        <div className="hidden md:flex justify-center lg:justify-start items-center lg:gap-2 p-3 border-b border-stone-300">
         

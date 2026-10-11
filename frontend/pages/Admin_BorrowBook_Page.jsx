@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { HandHelping, IdCard, IdCardLanyard, Info, LoaderCircle, Search } from "lucide-react";
 
 import Admin_Sidebar from "../components/Admin_Sidebar";

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { Toaster } from "sonner";
 import useAuthStore from "../store/useAuthStore";
 import Home_Page from '../pages/Home_Page'
 import Admin_Page from '../pages/Admin_Page'
@@ -54,7 +54,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ToastContainer />
+      <Toaster position="bottom-right" theme="dark" richColors/>
       <Routes>
         <Route path="/" element={<Home_Page/>}/>
         <Route path="/unauthorized" element={<Unauthorized_Page/>}/>

@@ -6,7 +6,7 @@ import LogBookModal from "../modals/LogBookModal";
 import LogbookViewModal from "../modals/LobookViewModal";
 import Confirmation from "../popup/Confirmation_Popup";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 const Admin_LogBook = () => {
     const [logBookList, setLogBookList] = useState([]);

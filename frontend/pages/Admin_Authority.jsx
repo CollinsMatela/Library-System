@@ -5,7 +5,7 @@ import Admin_Header from "../components/Admin_Header";
 import MembersModal from "../modals/MembersModal";
 import Confirmation_Popup from "../popup/Confirmation_Popup";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { position } from "../mockdata";
 
 /* Each role gets its own colour so the list is quick to scan. */
@@ -235,9 +235,9 @@ const Admin_Authority = () => {
                             aria-label={`Delete ${getFullName(member)}`}
                             title="Delete member"
                             onClick={() => handleDeleteLibrarian(member)}
-                            className="p-2 bg-red-500 hover:bg-red-600 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                            className="p-2 bg-white hover:bg-stone-200 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
                         >
-                            <Trash size={15} className="text-white" />
+                            <Trash size={15} className="text-red-600" />
                         </button>
                     </div>
                 </div>

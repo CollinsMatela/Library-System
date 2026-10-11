@@ -15,7 +15,7 @@ import AdminSidebar from "./Admin_Sidebar";
 import Admin_Header from "./Admin_Header";
 import Confirmation_Popup from "../popup/Confirmation_Popup";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 const Admin_Inventory = () => {
     const [books, setBooks] = useState([]);

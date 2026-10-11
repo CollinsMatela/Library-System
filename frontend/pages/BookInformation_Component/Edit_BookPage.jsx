@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Image, Sparkle, Sparkles, Repeat, PenBox, FilePlay, FileText, BookDashed, Info, Plus, Images, AudioLines } from "lucide-react";
 import axios from "axios";
-import {toast} from "react-toastify";
+import { toast } from "sonner";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";

@@ -1,6 +1,6 @@
 
 import { BookOpenText, BookOpen, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, X, Plus, Image, Sparkle, Sparkles, ImageOff } from "lucide-react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import axios from "axios";
 const PreviewBook = ({preview, type, category, pages, title, description, moral, setMoral, language, author, publication, file, fileInputRef, openFileExplorer, handleImagePreview, handleConfirmation, setFile, setPreview}) => {
 

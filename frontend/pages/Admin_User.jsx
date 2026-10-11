@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Eye, LoaderCircle, Mail, Phone, Search, Trash, Users } from "lucide-react";
 import Admin_Sidebar from "../components/Admin_Sidebar";
 import Admin_Header from "../components/Admin_Header";
-import View_Student_Modal from "../modals/View_Student_Modal";
+import UserViewModal from "../modals/UserViewModal";
 import Confirmation_Popup from "../popup/Confirmation_Popup";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 /* The three kinds of user accounts, and the colour each one gets. */
 const USER_ROLES = [
@@ -174,7 +174,7 @@ const Admin_User = () => {
                         </div>
 
                         {/* Email and contact number */}
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-5 text-[10px] text-stone-500 sm:w-72">
+                        <div className="flex flex-col gap-2 text-[10px] text-stone-500 w-full sm:w-50 md:w-72">
                             <span className="flex items-center gap-1.5 min-w-0">
                                 <Mail size={13} className="shrink-0" />
                                 <span className="truncate">{user.email || "—"}</span>
@@ -187,7 +187,7 @@ const Admin_User = () => {
                         </div>
 
                         {/* Actions */}
-                        <div className="flex items-center gap-2 sm:justify-end">
+                        <div className="flex items-end gap-1 w-full sm:w-fit justify-end">
                             <button
                                 type="button"
                                 onClick={() => handleViewStudent(user)}
@@ -202,9 +202,9 @@ const Admin_User = () => {
                                 aria-label={`Delete ${getFullName(user)}`}
                                 title="Delete user"
                                 onClick={() => deleteConfirmation(user)}
-                                className="p-2 bg-red-500 hover:bg-red-600 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                                className="p-2 rounded-lg flex items-center hover:bg-red-100 justify-center cursor-pointer transition-colors"
                             >
-                                <Trash size={15} className="text-white" />
+                                <Trash size={15} className="text-red-500" />
                             </button>
                         </div>
                     </div>
@@ -229,7 +229,7 @@ const Admin_User = () => {
             )}
 
             {showViewStudent && (
-                <View_Student_Modal
+                <UserViewModal
                     user={selectedUser}
                     onClose={() => setShowViewStudent(false)}
                 />

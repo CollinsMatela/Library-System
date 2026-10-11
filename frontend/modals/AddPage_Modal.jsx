@@ -1,7 +1,7 @@
 import { AudioLines, ImageOff, ImagePlus, Plus, ScanText } from "lucide-react"
 import { useEffect } from "react";
 import { useRef, useState } from "react"
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import axios from "axios";
 import Ocr from "../utils/ocr";
 import ReactQuill from "react-quill-new";
@@ -110,10 +110,10 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
 
     return(
         <>
-        <div className="fixed inset-0 bg-black/50 z-20 justify-center items-center flex">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-[2px] z-20 justify-center items-center flex">
             
             
-            <div className="relative bg-white w-5xl rounded-xl">
+            <div className="relative bg-white w-3xl rounded-xl">
                 {ocrLoading && (
                 <div className="absolute inset-0 z-100 flex flex-col items-center justify-center rounded-xl bg-stone-950/90 backdrop-blur-sm">
 
@@ -214,11 +214,11 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
                         disabled={ocrLoading}
                         onClick={() => ocrRef.current?.click()}
                         title="Extract image into text"
-                        className={`flex shrink-0 items-center gap-2 rounded-lg px-4 py-2 text-xs font-medium shadow-sm transition cursor-pointer
+                        className={`flex shrink-0 items-center gap-2 rounded-lg px-4 py-2 text-xs font-medium border border-stone-300 transition cursor-pointer
                             ${
                                 ocrLoading
                                     ? "cursor-not-allowed bg-stone-200 text-stone-400"
-                                    : "bg-stone-800 text-white hover:bg-stone-900 active:scale-[0.98]"
+                                    : "bg-white text-stone-500 hover:bg-stone-100 "
                             }
                         `}
                     >
@@ -307,7 +307,7 @@ const AddPage_Modal = ({onClose, bookDetails, setBookDetails, saveNewPage}) => {
                     Close
                 </button> 
 
-                <button className={`flex items-center gap-1 rounded-lg ${saveLoading ? "bg-stone-200 animate-pulse text-stone-400" : "bg-stone-800 hover:bg-stone-900 text-white"} px-4 py-2 text-xs transition`} 
+                <button className={`flex items-center gap-1 cursor-pointer rounded-lg ${saveLoading ? "bg-stone-200 animate-pulse text-stone-400" : "bg-stone-800 hover:bg-stone-900 text-white"} px-4 py-2 text-xs transition`} 
                 onClick={SaveNewPage}
                 disabled={saveLoading}>
                     <Plus size={15} className={saveLoading ? "hidden" : "block"}/>

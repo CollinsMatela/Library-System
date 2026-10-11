@@ -8,7 +8,7 @@ import BookInformation from "./UploadPage_Components/BookInformation";
 import TypeOfBooks from "./UploadPage_Components/TypeOfBooks";
 import PreviewBook from "./UploadPage_Components/PreviewBook"
 import {  X, Plus, Image, Save, AudioLines, FilePlay, Pencil, ImageOff, Info, ArrowUp, Pen, BookPlus } from "lucide-react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import Admin_Header from "../components/Admin_Header";
 import useAuthStore from "../store/useAuthStore";
 

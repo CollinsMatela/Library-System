@@ -5,7 +5,7 @@ import SearchIcon from '../src/assets/search-svgrepo-com.svg'
 import Admin_Sidebar from '../components/Admin_Sidebar'
 import { Pen, Search, SquarePen, FileText, BookOpenText, Sparkles } from "lucide-react";
 import AdvancedSearch from "./BookPage_Component/AdvancedSearch";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import Edit_BookInformation from "./BookInformation_Component/Edit_BookInformation";
 import Edit_BookPage from "./BookInformation_Component/Edit_BookPage";
 import Preview_BookInformation from "./BookInformation_Component/Preview_BookInformation";

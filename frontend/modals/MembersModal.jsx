@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { Plus } from "lucide-react";
 import { position } from "../mockdata";
 import Confirmation_Popup from "../popup/Confirmation_Popup";
@@ -172,21 +172,21 @@ const MembersModal = ({ onClose, reFetch }) => {
 
             {/* The form itself. */}
             <section className="fixed inset-0 z-50 bg-black/50 backdrop-blur-[2px] flex items-center justify-center p-4 overflow-y-auto">
-                <div className="w-full max-w-2xl max-h-[90vh] flex flex-col bg-white rounded-xl border border-stone-300 overflow-hidden">
+                <div className="w-full max-w-2xl max-h-[70vh] flex flex-col bg-white rounded-xl overflow-hidden">
 
                     {/* Header */}
                     <header className="bg-white px-4 py-3 border-b border-stone-300">
-                        <h1 className="text-sm font-semibold text-stone-700">Add New Member</h1>
+                        <h1 className="text-sm font-semibold text-stone-700">Add Authorized Person</h1>
                         <p className="text-xs text-stone-500">
                             Fill in the required fields to create the librarian account.
                         </p>
                     </header>
 
                     {/* Body - this is the only part that scrolls. */}
-                    <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+                    <div className="flex-1 overflow-y-auto p-4 space-y-3">
 
                         {/* Section 1 - Personal Information */}
-                        <div className="border border-stone-300 rounded-lg p-4 space-y-3">
+                        <div className=" rounded-lg p-4 space-y-3">
                             <div className="flex items-center gap-2">
                                 {stepBadge(1)}
                                 <div>
@@ -253,7 +253,7 @@ const MembersModal = ({ onClose, reFetch }) => {
                         </div>
 
                         {/* Section 2 - Account Details */}
-                        <div className="border border-stone-300 rounded-lg p-4 space-y-3">
+                        <div className=" rounded-lg p-4 space-y-3">
                             <div className="flex items-center gap-2">
                                 {stepBadge(2)}
                                 <div>
@@ -298,7 +298,7 @@ const MembersModal = ({ onClose, reFetch }) => {
                         </div>
 
                         {/* Section 3 - Authority Role */}
-                        <div className="border border-stone-300 rounded-lg p-4 space-y-3">
+                        <div className="rounded-lg p-4 space-y-3">
                             <div className="flex items-center gap-2">
                                 {stepBadge(3)}
                                 <div>

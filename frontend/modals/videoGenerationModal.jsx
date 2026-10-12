@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { X, Sparkles, ImageOff, Video, Lock, Check } from "lucide-react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import DOMPurify from "dompurify";
 
 // The text we show in the prompt box by default.

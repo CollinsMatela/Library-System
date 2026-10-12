@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore"
 import { useState } from "react";
-import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User, ArrowUp, Home, BookUser, ScrollText, Package, SquarePen, ShieldCog, Lock, Pen, Square, Plus } from 'lucide-react'
+import { AppWindow, FileUp, LibraryBig, Users, Contact, LogOut, HandHelping, User, ArrowUp, Home, BookUser, ScrollText, Package, SquarePen, ShieldCog, Lock, Pen, Square, Plus, FileText } from 'lucide-react'
 import NaicLogo from '../src/assets/NaicLibraryLogo.png'
 import Confirmation_Popup from "../popup/Confirmation_Popup";
 
@@ -21,6 +21,7 @@ const Admin_SideBar = () => {
     const isBorrowBook = location.pathname === "/admin/borrow-book"
     const isInventory = location.pathname === "/admin/inventory";
     const isEdit = location.pathname === "/admin/edit"
+    const isReport = location.pathname === "/admin/report"
 
     const lowAccess = !["assistant librarian", "it librarian", "head librarian", "system administrator"].includes(user?.role) // Librarian Assistant
     const midAccess = !["it librarian", "head librarian", "system administrator"].includes(user?.role) // IT Librarian
@@ -53,6 +54,9 @@ const Admin_SideBar = () => {
     }
     const handleEdit = () => {
           navigate('/admin/edit');
+    }
+    const handleReport = () => {
+          navigate('/admin/report')
     }
     
 
@@ -148,6 +152,16 @@ const Admin_SideBar = () => {
         <Package className={`${isInventory ? 'text-white' : 'text-stone-800'}`} size={15}/>
         }
         <h1 className="hidden lg:block">Inventory</h1>
+      </button>
+
+      <button disabled={midAccess}
+      className={`${midAccess ? "bg-stone-100 cursor-not-allowed" : ""} ${isReport ? "bg-stone-900 text-white" : "hover:bg-stone-100 text-stone-800"} h-10 rounded-lg text-[10px] justify-center lg:justify-start items-center flex font-normal gap-2  hover:border-none mt-1 py-4 px-2 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-stone-300`} onClick={handleReport} title="Report">
+        {midAccess ?
+        <Lock className={`${isReport ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        :
+        <FileText className={`${isReport ? 'text-white' : 'text-stone-800'}`} size={15}/>
+        }
+        <h1 className="hidden lg:block">Report</h1>
       </button>
 
       <button disabled={highAccess}

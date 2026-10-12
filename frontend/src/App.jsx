@@ -26,6 +26,7 @@ import Admin_Login from "../pages/Admin_Login";
 import Admin_ChangePassword from "../pages/Admin_ChangePassword";
 import Admin_Authority from "../pages/Admin_Authority";
 import Admin_Profile from "../pages/Admin_Profile";
+import Admin_Report from "../components/Admin_Report";
 
 
 const ProtectedRoute = ({ allowedRoles }) => {
@@ -85,6 +86,7 @@ function App() {
                 <Route path="/admin/upload-book" element={<Admin_UploadBook_Page />} />
                 <Route path="/admin/edit" element={<Admin_Edit />} />
                 <Route path="/admin/inventory" element={<Admin_Inventory />} />
+                <Route path="/admin/report" element={<Admin_Report/>}/>
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={["system administrator", "head librarian"]} />}>

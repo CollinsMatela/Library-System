@@ -21,11 +21,6 @@ const ReportFirstContainer = ({ reportData, setReportData }) => {
     const pastBooks = reportData.pastCollection.books;
     const pastMaterials = reportData.pastCollection.non_books_materials;
     const TotalOfPastCollection = pastBooks + pastMaterials;
-    useEffect(() => {
-        setReportData((current) => ({
-            ...current, pastCollection: {...current.pastCollection, non_books_materials: pastMaterialsTotal}
-        }))
-    }, [pastMaterialsTotal])
 
     // Add up the totals. Simple addition only.
     const totalBooks =
@@ -44,16 +39,20 @@ const ReportFirstContainer = ({ reportData, setReportData }) => {
         reportData.purchased.maps +
         reportData.purchased.newspaper +
         reportData.purchased.magazines;
-    
-    // Non-Books Materials is every non-book item: the two Non-Books inputs
-    // plus all the purchased non-book items.
-    const totalNonBooksMaterials = totalNonBooks + totalOtherCollection;
 
-    // Grand Total Collection = current collection (beginning of month)
-    // plus the newly added items (Books + Non-Books Materials).
+    const totalNonBooksMaterials = totalNonBooks + totalOtherCollection;
     const newBooks = reportData.fromNationalLibrary.books + reportData.fromDonations.books + reportData.purchased.books;
     const newMaterials = totalOtherCollection
     const grandTotalCollection = TotalOfPastCollection + newBooks + newMaterials + reportData.fromNationalLibrary.non_books + reportData.fromDonations.non_books;
+
+    useEffect(() => {
+        setReportData((current) => ({
+            ...current, pastCollection: {...current.pastCollection, non_books_materials: pastMaterialsTotal}
+        }))
+    }, [pastMaterialsTotal])
+    useEffect(() => {
+          setReportData((current) => ({...current, totalCollection: grandTotalCollection}))
+    },[grandTotalCollection])
 
     return (
         <div className="w-full px-4 md:px-6 bg-white">
@@ -98,7 +97,7 @@ const ReportFirstContainer = ({ reportData, setReportData }) => {
                                     className={`${inputClass} bg-stone-100 cursor-not-allowed`}
                                     placeholder="0"
                                     value={pastMaterialsTotal ?? 0}
-                                    
+                                    readOnly
                                 />
                             </div>
                         </div>

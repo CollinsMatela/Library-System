@@ -37,7 +37,7 @@ const ReportModal = ({ reportData, setReportData, onClose, onSave, isSaving = fa
                 aria-modal="true"
                 aria-labelledby="report-modal-title"
                 onClick={(event) => event.stopPropagation()}
-                className="relative flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-2xl"
+                className="relative flex max-h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-2xl"
             >
                 {/* Header */}
                 <header className="flex items-start justify-between gap-3 border-b border-stone-200 px-6 py-5">

@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 
 const ReportSchema = new mongoose.Schema({
     month: {
-        type: String,
-        default: ""
+        type: Number,
+        default: 0
     },
     year: {
         type: Number,

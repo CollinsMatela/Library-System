@@ -114,3 +114,29 @@ export const fetchReportsByMonthAndYear = async (req, res) => {
         });
     }
 };
+
+export const DeleteReport = async (req, res) => {
+      const {id} = req.params;
+      console.log(id)
+      try {
+        if(!id){
+            res.status(400).json({message: "Resport Id is missing"})
+            return
+        }
+        const report = await ReportModel.findById(id)
+        if(!report) {
+            res.status(404).json({message: "Report is not found"})
+            return
+        }
+
+        await ReportModel.findByIdAndDelete(report._id)
+        res.status(200).json({message: 'Successfully deleted report'})
+
+      } catch (error) {
+        console.error("fetchReportsByMonthAndYear error:", error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+      }
+}

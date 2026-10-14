@@ -6,6 +6,8 @@ const LogBookController = async (req, res) => {
       name,
       address,
       contact,
+      gender,
+      age,
       purpose,
       leaveTime,
     } = req.body;
@@ -26,6 +28,8 @@ const LogBookController = async (req, res) => {
       name,
       address,
       contact,
+      gender,
+      age,
       purpose,
       leaveTime,
     });

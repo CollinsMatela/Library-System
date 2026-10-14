@@ -27,6 +27,8 @@ const Admin_LogBook = () => {
         name: "",
         address: "",
         contact: "",
+        gender: "",
+        age: "",
         purpose: "",
         leaveTime: null,
     });
@@ -98,12 +100,16 @@ const Admin_LogBook = () => {
         const name = (log.name || "").toLowerCase();
         const address = (log.address || "").toLowerCase();
         const contact = (log.contact || "").toLowerCase();
+        const gender = (log.gender || "").toLowerCase();
+        const age = String(log.age || "").toLowerCase();
         const purpose = (log.purpose || "").toLowerCase();
 
         const matchesSearch =
             name.includes(searchText) ||
             address.includes(searchText) ||
             contact.includes(searchText) ||
+            gender.includes(searchText) ||
+            age.includes(searchText) ||
             purpose.includes(searchText);
 
         // "" shows everyone. "inside" means still here, "left" means gone.
@@ -123,6 +129,8 @@ const Admin_LogBook = () => {
             name: "",
             address: "",
             contact: "",
+            gender: "",
+            age: "",
             purpose: "",
         }));
     };
@@ -146,7 +154,7 @@ const Admin_LogBook = () => {
         }
     };
 
-    // All four of these are required by the database, so check them all here.
+    // Required fields check
     const confirmation = () => {
         if (!logBook.name || !logBook.address || !logBook.contact || !logBook.purpose) {
             toast.warning("Please fill in the name, address, contact number and purpose.");
@@ -240,7 +248,7 @@ const Admin_LogBook = () => {
                     </div>
 
                     {/* Contact, address and the times */}
-                    <div className="grid grid-cols-2 sm:w-80 gap-x-5 gap-y-1 text-[10px] text-stone-500">
+                    <div className="grid grid-cols-2 sm:w-96 gap-x-5 gap-y-1 text-[10px] text-stone-500">
                         <span className="flex items-center gap-1.5 min-w-0">
                             <Phone size={13} className="shrink-0" />
                             <span className="truncate">{log.contact || "—"}</span>
@@ -252,11 +260,21 @@ const Admin_LogBook = () => {
                         </span>
 
                         <span className="flex items-center gap-1.5 min-w-0">
+                            <User size={13} className="shrink-0" />
+                            <span className="truncate">Gender: {log.gender || "N/A"}</span>
+                        </span>
+
+                        <span className="flex items-center gap-1.5 min-w-0">
+                            <User size={13} className="shrink-0" />
+                            <span className="truncate">Age: {log.age || "N/A"}</span>
+                        </span>
+
+                        <span className="flex items-center gap-1.5 min-w-0 col-span-2">
                             <LogIn size={13} className="shrink-0" />
                             <span className="truncate">In {formatDateTime(log.createdAt)}</span>
                         </span>
 
-                        <span className="flex items-center gap-1.5 min-w-0">
+                        <span className="flex items-center gap-1.5 min-w-0 col-span-2">
                             <LogOut size={13} className="shrink-0" />
                             <span className="truncate">
                                 Out {log.leaveTime ? formatDateTime(log.leaveTime) : "Still inside"}

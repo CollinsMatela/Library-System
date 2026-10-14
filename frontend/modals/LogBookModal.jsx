@@ -82,6 +82,50 @@ const LogBookModal = ({ logBook, setLogBook, confirmation, onClose, isSubmitting
                         />
                     </div>
 
+                    {/* Gender */}
+                    <div className="flex flex-col gap-1.5">
+                        <label className="text-xs font-medium text-stone-700">
+                            Gender
+                        </label>
+
+                        <select
+                            className="w-full text-xs bg-white border border-stone-300 rounded-lg px-3 py-2.5 outline-none transition focus:border-stone-500 focus:ring-2 focus:ring-stone-200"
+                            value={logBook.gender || ""}
+                            onChange={(e) =>
+                                setLogBook((prev) => ({
+                                    ...prev,
+                                    gender: e.target.value
+                                }))
+                            }
+                        >
+                            <option value="">Select gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    {/* Age */}
+                    <div className="flex flex-col gap-1.5">
+                        <label className="text-xs font-medium text-stone-700">
+                            Age
+                        </label>
+
+                        <input
+                            type="number"
+                            placeholder="Enter age"
+                            min="0"
+                            className="w-full text-xs bg-white border border-stone-300 rounded-lg px-3 py-2.5 outline-none transition focus:border-stone-500 focus:ring-2 focus:ring-stone-200"
+                            value={logBook.age || ""}
+                            onChange={(e) =>
+                                setLogBook((prev) => ({
+                                    ...prev,
+                                    age: e.target.value
+                                }))
+                            }
+                        />
+                    </div>
+
                     {/* Purpose */}
                     <div className="flex flex-col gap-1.5">
                         <label className="text-xs font-medium text-stone-700">

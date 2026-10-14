@@ -89,6 +89,22 @@ const LogbookViewModal = ({ log, onClose }) => {
                                 </div>
                             </div>
 
+                            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <p className="text-xs text-stone-400">Gender</p>
+                                    <p className="text-xs font-medium text-stone-800 break-words">
+                                        {log?.gender || "—"}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <p className="text-xs text-stone-400">Age</p>
+                                    <p className="text-xs font-medium text-stone-800 break-words">
+                                        {log?.age || "—"}
+                                    </p>
+                                </div>
+                            </div>
+
                             <div className="mt-4">
                                 <p className="text-xs text-stone-400">Address</p>
                                 <p className="text-xs font-medium text-stone-800 break-words">

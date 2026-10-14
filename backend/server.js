@@ -55,6 +55,7 @@ import Admin_ProfileRoute from "./routes/Admin_ProfileRoute.js"
 
 import VideoGenerationRoute from "./routes/VideoGenerationRoute.js"
 import SavePageVideoRoute from "./routes/SavePageVideoRoute.js"
+import ReportRoute from "./routes/ReportRoute.js"
 
 console.log("🔥 SERVER FILE STARTED");
 const app = express();
@@ -146,6 +147,7 @@ app.use("/", Admin_ProfileRoute);
 
 app.use("/", VideoGenerationRoute);
 app.use("/", SavePageVideoRoute);
+app.use("/", ReportRoute)
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');

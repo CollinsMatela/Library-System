@@ -16,6 +16,14 @@ const LogBookSchema = new mongoose.Schema(
       type: String,
 
     },
+    gender: {
+      type: String,
+
+    },
+    age: {
+      type: Number,
+
+    },
     purpose: {
       type: String,
       required: true,

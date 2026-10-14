@@ -1,13 +1,31 @@
+import { useEffect } from "react";
+
 const ReportFirstContainer = ({ reportData, setReportData }) => {
     // Shared input style so every field looks the same.
     const inputClass =
         "border border-stone-300 px-2 py-1.5 text-xs w-full outline-none rounded-lg transition-all duration-200 focus:ring-2 focus:ring-stone-300 focus:border-stone-400 hover:border-stone-300";
-
+    
     // Shared label style so every label looks the same.
     const labelClass = "text-xs font-semibold text-stone-500 mb-1 block";
 
     // Shared section title style so every title looks the same.
     const titleClass = "text-xs font-bold text-stone-700 mb-3 block";
+
+    const pastMaterialsTotal = 
+        reportData.pastMaterials.clippings +
+        reportData.pastMaterials.electronics +
+        reportData.pastMaterials.government_publication +
+        reportData.pastMaterials.maps +
+        reportData.pastMaterials.newspaper +
+        reportData.pastMaterials.magazines;
+    const pastBooks = reportData.pastCollection.books;
+    const pastMaterials = reportData.pastCollection.non_books_materials;
+    const TotalOfPastCollection = pastBooks + pastMaterials;
+    useEffect(() => {
+        setReportData((current) => ({
+            ...current, pastCollection: {...current.pastCollection, non_books_materials: pastMaterialsTotal}
+        }))
+    }, [pastMaterialsTotal])
 
     // Add up the totals. Simple addition only.
     const totalBooks =
@@ -26,44 +44,200 @@ const ReportFirstContainer = ({ reportData, setReportData }) => {
         reportData.purchased.maps +
         reportData.purchased.newspaper +
         reportData.purchased.magazines;
-
+    
     // Non-Books Materials is every non-book item: the two Non-Books inputs
     // plus all the purchased non-book items.
     const totalNonBooksMaterials = totalNonBooks + totalOtherCollection;
 
     // Grand Total Collection = current collection (beginning of month)
     // plus the newly added items (Books + Non-Books Materials).
-    const grandTotalCollection =
-        reportData.totalCollection + totalBooks + totalNonBooksMaterials;
+    const newBooks = reportData.fromNationalLibrary.books + reportData.fromDonations.books + reportData.purchased.books;
+    const newMaterials = totalOtherCollection
+    const grandTotalCollection = TotalOfPastCollection + newBooks + newMaterials + reportData.fromNationalLibrary.non_books + reportData.fromDonations.non_books;
 
     return (
-        <div className="w-full p-4 md:p-6">
+        <div className="w-full px-4 md:px-6 bg-white">
             {/** Single container holding every section */}
             <div className="w-full bg-white rounded-lg border border-stone-300 shadow-sm">
                 {/** Header: collection at the beginning of the month */}
                 <div className="p-4 border-b border-stone-300">
-                    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+                    <div className="flex flex-col gap-4">
                         <div>
                             <h1 className="text-sm font-bold text-stone-800">
-                                Collection at the Beginning of the Month
+                                Collection at the Beginning of the Month (Past Record)
                             </h1>
                             <p className="text-xs text-stone-400 mt-1">
-                                Total collection before any new additions.
+                                Manually encode the past record of books and non-books materials before adding new data.
                             </p>
                         </div>
-                        <div className="w-full md:w-40">
-                            <h1 className={labelClass}>Total Collection</h1>
-                            <input
-                                type="number"
-                                className={inputClass}
-                                value={reportData.totalCollection}
-                                onChange={(e) =>
-                                    setReportData((prevData) => ({
-                                        ...prevData,
-                                        totalCollection: Number(e.target.value),
-                                    }))
-                                }
-                            />
+
+                        {/* Past record inputs */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                                <h1 className={labelClass}>Past Books</h1>
+                                <input
+                                    type="number"
+                                    className={inputClass}
+                                    placeholder="0"
+                                    value={reportData.pastCollection?.books ?? 0}
+                                    onChange={(e) =>
+                                        setReportData((prevData) => ({
+                                            ...prevData,
+                                            pastCollection: {
+                                                ...prevData.pastCollection,
+                                                books: Number(e.target.value),
+                                            },
+                                        }))
+                                    }
+                                />
+                            </div>
+                            <div>
+                                <h1 className={labelClass}>Past Non-Books Materials</h1>
+                                <input
+                                    type="number"
+                                    className={`${inputClass} bg-stone-100 cursor-not-allowed`}
+                                    placeholder="0"
+                                    value={pastMaterialsTotal ?? 0}
+                                    
+                                />
+                            </div>
+                        </div>
+
+                        {/* Past purchased breakdown */}
+                        <div>
+                            <h1 className={labelClass}>Materials Breakdown</h1>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                <div>
+                                    <label className="text-[11px] text-stone-500 block mb-1">
+                                        Clippings, Pamphlets, etc
+                                    </label>
+                                    <input
+                                        type="number"
+                                        className={inputClass}
+                                        placeholder="0"
+                                        value={reportData.pastMaterials?.clippings ?? 0}
+                                        onChange={(e) =>
+                                            setReportData((prevData) => ({
+                                                ...prevData,
+                                                pastMaterials: {
+                                                    ...prevData.pastMaterials,
+                                                    clippings: Number(e.target.value),
+                                                },
+                                            }))
+                                        }
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-[11px] text-stone-500 block mb-1">
+                                        Electronic Resources
+                                    </label>
+                                    <input
+                                        type="number"
+                                        className={inputClass}
+                                        placeholder="0"
+                                        value={reportData.pastMaterials?.electronics ?? 0}
+                                        onChange={(e) =>
+                                            setReportData((prevData) => ({
+                                                ...prevData,
+                                                pastMaterials: {
+                                                    ...prevData.pastMaterials,
+                                                    electronics: Number(e.target.value),
+                                                },
+                                            }))
+                                        }
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-[11px] text-stone-500 block mb-1">
+                                        Government Publication
+                                    </label>
+                                    <input
+                                        type="number"
+                                        className={inputClass}
+                                        placeholder="0"
+                                        value={reportData.pastMaterials?.government_publication ?? 0}
+                                        onChange={(e) =>
+                                            setReportData((prevData) => ({
+                                                ...prevData,
+                                                pastMaterials: {
+                                                    ...prevData.pastMaterials,
+                                                    government_publication: Number(e.target.value),
+                                                },
+                                            }))
+                                        }
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-[11px] text-stone-500 block mb-1">
+                                        Maps
+                                    </label>
+                                    <input
+                                        type="number"
+                                        className={inputClass}
+                                        placeholder="0"
+                                        value={reportData.pastMaterials?.maps ?? 0}
+                                        onChange={(e) =>
+                                            setReportData((prevData) => ({
+                                                ...prevData,
+                                                pastMaterials: {
+                                                    ...prevData.pastMaterials,
+                                                    maps: Number(e.target.value),
+                                                },
+                                            }))
+                                        }
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-[11px] text-stone-500 block mb-1">
+                                        Newspaper / Tabloid
+                                    </label>
+                                    <input
+                                        type="number"
+                                        className={inputClass}
+                                        placeholder="0"
+                                        value={reportData.pastMaterials?.newspaper ?? 0}
+                                        onChange={(e) =>
+                                            setReportData((prevData) => ({
+                                                ...prevData,
+                                                pastMaterials: {
+                                                    ...prevData.pastMaterials,
+                                                    newspaper: Number(e.target.value),
+                                                },
+                                            }))
+                                        }
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-[11px] text-stone-500 block mb-1">
+                                        Serials / Magazine
+                                    </label>
+                                    <input
+                                        type="number"
+                                        className={inputClass}
+                                        placeholder="0"
+                                        value={reportData.pastMaterials?.magazines ?? 0}
+                                        onChange={(e) =>
+                                            setReportData((prevData) => ({
+                                                ...prevData,
+                                                pastMaterials: {
+                                                    ...prevData.pastMaterials,
+                                                    magazines: Number(e.target.value),
+                                                },
+                                            }))
+                                        }
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Computed past total */}
+                        <div className="bg-stone-50 border border-stone-300 rounded-lg px-3 py-2 flex justify-between items-center">
+                            <span className="text-xs font-semibold text-stone-600">
+                                Past Total Collection (Computed)
+                            </span>
+                            <span className="text-xs font-bold text-stone-800">
+                                {TotalOfPastCollection}
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -158,6 +332,23 @@ const ReportFirstContainer = ({ reportData, setReportData }) => {
                         Purchased from Local Funds / In-House Preparation
                     </h1>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div>
+                            <h1 className={labelClass}>Books</h1>
+                            <input
+                                type="number"
+                                className={inputClass}
+                                value={reportData.purchased.books}
+                                onChange={(e) =>
+                                    setReportData((prevData) => ({
+                                        ...prevData,
+                                        purchased: {
+                                            ...prevData.purchased,
+                                            books: Number(e.target.value),
+                                        },
+                                    }))
+                                }
+                            />
+                        </div>
                         <div>
                             <h1 className={labelClass}>Clippings, Pamphlets, etc</h1>
                             <input
@@ -270,33 +461,149 @@ const ReportFirstContainer = ({ reportData, setReportData }) => {
                         Summary of all collected materials.
                     </p>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <div className="bg-stone-50 border border-stone-300 rounded-lg p-3">
-                            <p className="text-xs font-semibold text-stone-500 uppercase tracking-wide">Books</p>
-                            <p className="text-2xl font-bold text-stone-800 mt-1">{totalBooks}</p>
-                        </div>
-                        <div className="bg-stone-50 border border-stone-300 rounded-lg p-3">
-                            <p className="text-xs font-semibold text-stone-500 uppercase tracking-wide">Non-Books Materials</p>
-                            <p className="text-2xl font-bold text-stone-800 mt-1">{totalNonBooksMaterials}</p>
-                        </div>
-                    </div>
+                    {/* Helper to format numbers nicely */}
+                    {(() => {
+                        const formatNumber = (num) => {
+                            // Show 0 if the value is empty or not a number
+                            const value = Number(num) || 0;
+                            return value.toLocaleString("en-PH");
+                        };
 
-                    <ul className="mt-3 space-y-1 text-xs text-stone-500">
-                        <li>Clippings, Pamphlets, etc: {reportData.purchased.clippings}</li>
-                        <li>Electronic Resources: {reportData.purchased.electronics}</li>
-                        <li>Government Publication: {reportData.purchased.government_publication}</li>
-                        <li>Maps: {reportData.purchased.maps}</li>
-                        <li>Newspaper / Tabloids: {reportData.purchased.newspaper}</li>
-                        <li>Serials / Magazine: {reportData.purchased.magazines}</li>
-                    </ul>
+                        return (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                {/* CURRENT COLLECTION - Collection at the beginning of the month */}
+                                <div className="bg-stone-50 border border-stone-300 rounded-lg p-3">
+                                    <h2 className="text-xs font-bold text-stone-700 mb-2">
+                                        Current Collection (Beginning of Month)
+                                    </h2>
+                                    <div className="justify-between items-center flex mb-1.5">
+                                        <p className="text-xs font-semibold text-stone-500 uppercase tracking-wide">
+                                            Books
+                                        </p>
+                                        <p className="text-xs font-medium text-stone-800">
+                                            {formatNumber(pastBooks) ?? 0}
+                                        </p>
+                                    </div>
 
-                    {/** Grand Total Collection */}
-                    <div className="mt-4 bg-stone-800 text-white rounded-lg px-4 py-3 flex items-center justify-between">
-                        <p className="text-xs font-semibold uppercase tracking-wide text-stone-300">
-                            Grand Total Collection
-                        </p>
-                        <p className="text-2xl font-bold">{grandTotalCollection}</p>
-                    </div>
+                                    <div className="justify-between items-center flex mb-1.5">
+                                        <p className="text-xs font-semibold text-stone-500 uppercase tracking-wide">
+                                            Non-Books Materials
+                                        </p>
+                                        <p className="text-xs font-medium text-stone-800">
+                                            {formatNumber(pastMaterials) ?? 0}
+                                        </p>
+                                    </div>
+                                    {/* Past breakdown of purchased non-book items */}
+                                    <div className="mt-2 mb-2">
+                                        <p className="text-[11px] font-semibold text-stone-600 mb-1">
+                                            Breakdown
+                                        </p>
+                                        <ul className="space-y-0.5 text-[11px] text-stone-500">
+                                            <li className="flex justify-between">
+                                                <span>Clippings, Pamphlets, etc:</span>
+                                                <span>{formatNumber(reportData.pastMaterials.clippings)}</span>
+                                            </li>
+                                            <li className="flex justify-between">
+                                                <span>Electronic Resources:</span>
+                                                <span>{formatNumber(reportData.pastMaterials.electronics)}</span>
+                                            </li>
+                                            <li className="flex justify-between">
+                                                <span>Government Publication:</span>
+                                                <span>{formatNumber(reportData.pastMaterials.government_publication)}</span>
+                                            </li>
+                                            <li className="flex justify-between">
+                                                <span>Maps:</span>
+                                                <span>{formatNumber(reportData.pastMaterials.maps)}</span>
+                                            </li>
+                                            <li className="flex justify-between">
+                                                <span>Newspaper / Tabloids:</span>
+                                                <span>{formatNumber(reportData.pastMaterials?.newspaper ?? 0)}</span>
+                                            </li>
+                                            <li className="flex justify-between">
+                                                <span>Serials / Magazine:</span>
+                                                <span>{formatNumber(reportData.pastMaterials?.magazines ?? 0)}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div className="justify-between items-center flex pt-2 border-t border-stone-300 mt-2">
+                                        <p className="text-xs font-bold text-stone-700 uppercase tracking-wide">
+                                            Past Total Collection
+                                        </p>
+                                        <p className="text-xs font-bold text-stone-800">
+                                            {formatNumber(TotalOfPastCollection ?? 0)}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* UPDATED COLLECTION - Newly added items this month */}
+                                <div className="bg-stone-50 border border-stone-300 rounded-lg p-3">
+                                    <h2 className="text-xs font-bold text-stone-700 mb-2">
+                                        Updated Collection (New Additions)
+                                    </h2>
+                                    <div className="justify-between items-center flex mb-1.5">
+                                        <p className="text-xs font-semibold text-stone-500 uppercase tracking-wide">
+                                            Books 
+                                        </p>
+                                        <p className="text-xs font-medium text-stone-800">
+                                            {formatNumber(totalBooks)}
+                                        </p>
+                                    </div>
+
+                                    <div className="justify-between items-center flex mb-1.5">
+                                        <p className="text-xs font-semibold text-stone-500 uppercase tracking-wide">
+                                            Non-Books Materials 
+                                        </p>
+                                        <p className="text-xs font-medium text-stone-800">
+                                            {formatNumber(totalNonBooksMaterials)}
+                                        </p>
+                                    </div>
+
+                                    {/* Breakdown of purchased non-book items */}
+                                    <div className="mt-2 mb-2">
+                                        <p className="text-[11px] font-semibold text-stone-600 mb-1">
+                                            Breakdown
+                                        </p>
+                                        <ul className="space-y-0.5 text-[11px] text-stone-500">
+                                            <li className="flex justify-between">
+                                                <span>Clippings, Pamphlets, etc:</span>
+                                                <span>{formatNumber(reportData.purchased.clippings)}</span>
+                                            </li>
+                                            <li className="flex justify-between">
+                                                <span>Electronic Resources:</span>
+                                                <span>{formatNumber(reportData.purchased.electronics)}</span>
+                                            </li>
+                                            <li className="flex justify-between">
+                                                <span>Government Publication:</span>
+                                                <span>{formatNumber(reportData.purchased.government_publication)}</span>
+                                            </li>
+                                            <li className="flex justify-between">
+                                                <span>Maps:</span>
+                                                <span>{formatNumber(reportData.purchased.maps)}</span>
+                                            </li>
+                                            <li className="flex justify-between">
+                                                <span>Newspaper / Tabloids:</span>
+                                                <span>{formatNumber(reportData.purchased?.newspaper ?? 0)}</span>
+                                            </li>
+                                            <li className="flex justify-between">
+                                                <span>Serials / Magazine:</span>
+                                                <span>{formatNumber(reportData.purchased?.magazines ?? 0)}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div className="justify-between items-center flex pt-2 border-t border-stone-300 mt-2">
+                                        <p className="text-xs font-bold text-stone-700 uppercase tracking-wide">
+                                            Grand Total Collection
+                                        </p>
+                                        <p className="text-xs font-bold text-stone-800">
+                                            {formatNumber(grandTotalCollection ?? 0)}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })()}
                 </div>
             </div>
         </div>

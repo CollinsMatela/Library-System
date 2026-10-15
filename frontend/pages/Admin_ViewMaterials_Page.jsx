@@ -10,6 +10,7 @@ import {
   LoaderCircle,
 } from "lucide-react";
 import { toast } from "react-toastify";
+import EmptyState from "../components/EmptyState";
 
 /* ------------------------------------------------------------------
    DetailRow
@@ -178,15 +179,10 @@ const Admin_ViewMaterials_Page = () => {
 
           {/* Finished, but nothing came back */}
           {!isLoading && !bookDetails && !errorMessage && (
-            <div className="w-full py-12 px-4 bg-stone-50 rounded-lg border border-dashed border-stone-300 flex flex-col items-center justify-center">
-              <Book size={24} className="text-stone-300" />
-              <p className="text-sm font-medium text-stone-700 mt-2">
-                Book not found
-              </p>
-              <p className="text-xs text-stone-500 mt-1 text-center">
-                This material may have been removed.
-              </p>
-            </div>
+            <div className="h-fit w-80 bg-black">
+                  <EmptyState title="No Book Found" description="This book is not available."
+                  />  
+                </div>
           )}
 
           {/* Loaded successfully */}
@@ -194,7 +190,7 @@ const Admin_ViewMaterials_Page = () => {
             <div className="w-full flex flex-col md:flex-row gap-6">
               {/* -------- Book cover -------- */}
               <div className="w-full md:w-72 lg:w-96 shrink-0">
-                <div className="w-full max-w-80 md:max-w-none bg-stone-100 border border-stone-200 rounded-xl overflow-hidden flex items-center justify-center">
+                <div className="w-full max-w-80 md:max-w-none rounded-xl overflow-hidden flex items-center justify-center">
                   {bookDetails?.cover ? (
                     <img
                       src={bookDetails.cover}
@@ -202,12 +198,11 @@ const Admin_ViewMaterials_Page = () => {
                       className="w-full aspect-[3/4] object-cover"
                     />
                   ) : (
-                    <div className="w-full aspect-[3/4] flex flex-col items-center justify-center gap-2">
-                      <ImageOff size={50} className="text-stone-300" />
-                      <p className="text-xs text-stone-400">
-                        No cover available
-                      </p>
-                    </div>
+                    <div className="h-fit w-80 bg-black">
+                    <EmptyState title="No Cover Found" description="Edit and add cover of this book."
+      
+                    />  
+                  </div>
                   )}
                 </div>
               </div>

@@ -14,12 +14,12 @@ const Admin_SideBar = () => {
 
     const isOverview = location.pathname === "/admin";
     const isLogBook = location.pathname === "/admin/log-book";
-    const isUploadStory = location.pathname === "/admin/upload-book";
+    const isUploadStory = location.pathname === "/admin/book-registration";
     const isCatalog = location.pathname === "/admin/catalog";
     const isUsersAccount = location.pathname === "/admin/users";
     const isAuthority = location.pathname === "/admin/authority";
     const isBorrowBook = location.pathname === "/admin/borrow-book"
-    const isInventory = location.pathname === "/admin/inventory";
+    const isInventory = location.pathname === "/admin/book-record";
     const isEdit = location.pathname === "/admin/edit"
     const isReport = location.pathname === "/admin/report"
 
@@ -35,7 +35,7 @@ const Admin_SideBar = () => {
           navigate('/admin/log-book');
     }
     const handleUploadStory = () => {
-          navigate('/admin/upload-book');
+          navigate('/admin/book-registration');
     }
     const handleCatalog = () => {
           navigate('/admin/catalog');
@@ -50,7 +50,7 @@ const Admin_SideBar = () => {
           navigate('/admin/borrow-book');
     }
     const handleInventory = () => {
-          navigate('/admin/inventory');
+          navigate('/admin/book-record');
     }
     const handleEdit = () => {
           navigate('/admin/edit');
@@ -131,7 +131,7 @@ const Admin_SideBar = () => {
         :
         <Plus className={`${isUploadStory ? 'text-white' : 'text-stone-800'}`} size={15}/>
         }
-        <h1 className="hidden lg:block">Upload</h1>
+        <h1 className="hidden lg:block">Book Registration</h1>
       </button>
 
       <button disabled={midAccess}
@@ -151,7 +151,7 @@ const Admin_SideBar = () => {
         :
         <Package className={`${isInventory ? 'text-white' : 'text-stone-800'}`} size={15}/>
         }
-        <h1 className="hidden lg:block">Inventory</h1>
+        <h1 className="hidden lg:block">Book Record</h1>
       </button>
 
       <button disabled={midAccess}

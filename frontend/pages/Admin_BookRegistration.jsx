@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import Admin_Header from "../components/Admin_Header";
 import useAuthStore from "../store/useAuthStore";
 
-const Admin_UploadBook_Page = () => {
+const Admin_BookRegistration = () => {
         const user = useAuthStore((state) => state.user);
         const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
         const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
@@ -250,16 +250,7 @@ const Admin_UploadBook_Page = () => {
                         {/* Story Details */}
                         <div className=" w-full flex flex-col">
 
-                        <div className="flex items-center justify-start gap-2 mb-4">
-                            <div className="hidden sm:flex rounded-lg bg-stone-800 p-2 text-white justify-center items-center">
-                            <BookPlus size={20} className="text-white"/>
-                            </div>
-                            <div>
-                                <h1 className="text-md font-bold text-stone-800 rounded-full">Upload Book</h1>
-                                <p className="text-stone-400 text-[10px]">Fill in the book details below to upload it.</p>
-                            </div>
-                            
-                        </div>
+                        
 
                        <TypeOfBooks
                        selectedCategoryOfBook={selectedCategoryOfBook}
@@ -358,4 +349,4 @@ const Admin_UploadBook_Page = () => {
         </>
       )
 }
-export default Admin_UploadBook_Page;
+export default Admin_BookRegistration;

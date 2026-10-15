@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Image, Sparkle, Sparkles, Repeat, PenBox, FilePlay, FileText, BookDashed, Info, Plus, Images, AudioLines } from "lucide-react";
+import { BookOpenText, Play, CheckCheck, Book, HandHelping, ArrowLeft, Pen, Trash, Image, Sparkle, Sparkles, Repeat, PenBox, FilePlay, FileText, BookDashed, Info, Plus, Images, AudioLines, Calendar } from "lucide-react";
 import axios from "axios";
 import { toast } from "sonner";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
@@ -7,6 +7,7 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import LoadingContainer from "../../loadings/loadingContainer";
 import VideoGenerationModal from "../../modals/videoGenerationModal";
+import EmptyState from "../../components/EmptyState";
 
 const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAudioChange, showPageUpdateConfirmation, selectedPageIndex, setSelectedPageIndex, isAddPageModal, changeImageLoading, changeAudioLoading}) => {
 
@@ -153,8 +154,10 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
 
             <div className="flex  justify-between items-center gap-2 w-full">
                 <h1 className="text-xs text-stone-500">Find your page to manage</h1>
-                <div className="flex gap-2">
-                 <select className='w-fit p-2 text-[10px] text-stone-800 bg-white border border-stone-300 rounded-lg outline-none'
+                <div className="flex gap-1">
+                    <div className="justify-center items-center flex">
+                        <Calendar size={12} className="text-stone-800"/>
+                 <select className='w-fit p-2 text-[10px] text-stone-800 bg-white outline-none'
                         onChange={(e) => setSelectedPageIndex(parseInt(e.target.value))}
                     >
                         <option value="">Page No.</option>
@@ -166,8 +169,10 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                             </option>
                         ))}
                     </select>
+                    </div>
+                
 
-                    <button className="bg-stone-800 text-[10px] text-white rounded-lg justify-center items-center flex gap-1 hover:bg-stone-900 p-2"
+                    <button className="bg-stone-800 text-[10px] text-white rounded-full justify-center items-center flex gap-1 hover:bg-stone-900 p-2"
                     onClick={isAddPageModal}>
                     <Plus size={15} />
                     <h1>Add Page</h1>
@@ -178,16 +183,7 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                 </div>
 
             {selectedPageIndex === null && (
-                <div className="w-full bg-stone-100 p-8 border border-stone-200 rounded-lg flex flex-col justify-center items-center text-center">
-
-                    <h3 className="text-xs font-medium text-stone-700">
-                        No page selected
-                    </h3>
-
-                    <p className="text-[10px] text-stone-500 mt-1 max-w-xs">
-                        Select a page from the list to view and edit its content.
-                    </p>
-                </div>
+                <EmptyState title="No Page selected" description="Select a page from the list to view and edit its content."/>
             )}
 
             <div className="flex gap-2">
@@ -268,12 +264,12 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                             <div className="flex flex-row gap-1">
                                 <button 
                                 title="Do you want to generate video"
-                                className="bg-white hover:bg-stone-100 p-2 rounded-lg border border-stone-300"
+                                className="bg-white hover:bg-stone-100 p-2"
                                 onClick={handleVideoGeneration}>
                                 <Sparkles size={15} className="text-stone-800"/> 
                                 </button>
 
-                                <button className={`${changeImageLoading ? "bg-stone-200 text-stone-500" : "bg-stone-800 hover:bg-stone-900 text-white"}  w-fit justify-center items-center flex gap-2 p-2 text-xs cursor-pointer rounded-lg outline-none`}
+                                <button className={`${changeImageLoading ? "bg-stone-200 text-stone-500" : "bg-stone-800 hover:bg-stone-900 text-white"}  w-fit justify-center items-center flex gap-2 p-2 text-xs cursor-pointer rounded-full outline-none`}
                                 disabled={changeImageLoading}
                                 onClick={() => imageRef.current.click()}
                                 >
@@ -305,17 +301,7 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                                 />
                             </div>
                         ) : (
-                            <div className="w-full h-72 border-2 border-dashed border-stone-300 rounded-xl bg-stone-50 flex flex-col justify-center items-center">
-                                <Image size={20} className="text-stone-400 mb-3" />
-
-                                <h3 className="font-semibold text-stone-700 text-sm">
-                                    No Image Uploaded
-                                </h3>
-
-                                <p className="text-xs text-stone-500 text-center mt-1">
-                                    Upload an image to preview it here.
-                                </p>
-                            </div>
+                            <EmptyState title="No Image Uploaded" description="Select a image to preview the as displayed page image."/>
                         )}
 
                     </div>)}
@@ -339,7 +325,7 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
 
                                         {selectedPageIndex !== null && selectedPageIndex >= 0 && selectedPageIndex < bookDetails?.pages?.length && (
                                         <div className="flex flex-col gap-1">
-                                            <button className={`${changeAudioLoading ? "bg-stone-200 text-stone-500" : "bg-stone-800 hover:bg-stone-900 text-white"}  w-fit justify-center items-center flex gap-2 p-2 text-xs cursor-pointer rounded-lg outline-none`}
+                                            <button className={`${changeAudioLoading ? "bg-stone-200 text-stone-500" : "bg-stone-800 hover:bg-stone-900 text-white"}  w-fit justify-center items-center flex gap-2 p-2 text-xs cursor-pointer rounded-full outline-none`}
                                             disabled={changeAudioLoading}
                                             onClick={() => audioRef.current.click()}
                                             >
@@ -368,19 +354,7 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                                         }
                                     />
                                     :
-                                    <div className="w-full rounded-xl border-2 border-dashed border-stone-300 bg-stone-50 p-6 flex flex-col items-center justify-center text-center">
-                                        <div className="p-3 rounded-full bg-stone-200 mb-3">
-                                            <FilePlay size={20} className="text-stone-500" />
-                                        </div>
-
-                                        <h2 className="text-stone-700 text-sm font-semibold">
-                                            No Narration Audio
-                                        </h2>
-
-                                        <p className="text-xs text-stone-500 mt-1">
-                                            Upload an audio narration to preview it here.
-                                        </p>
-                                    </div>
+                                    <EmptyState title="No Narration Uploaded" description="Select a audio naration to preview the as displayed page audio."/>
                                 }
                                     
 

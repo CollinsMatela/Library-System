@@ -10,12 +10,14 @@ import {
     User,
     Clock,
     Book,
+    ImageOff,
 } from "lucide-react";
 import AdminSidebar from "./Admin_Sidebar";
 import Admin_Header from "./Admin_Header";
 import Confirmation_Popup from "../popup/Confirmation_Popup";
 import axios from "axios";
 import { toast } from "sonner";
+import EmptyState from "./EmptyState";
 
 const Admin_Inventory = () => {
     const [books, setBooks] = useState([]);
@@ -23,6 +25,7 @@ const Admin_Inventory = () => {
 
     const [search, setSearch] = useState("");
     const [sortOrder, setSortOrder] = useState("newest"); // "newest" or "oldest"
+    const [timeFilter, setTimeFilter] = useState("all"); // time-based filter: all, today, yesterday, thisWeek, last7, thisMonth, last30, thisYear, older30
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 12;
     const [isLoading, setIsLoading] = useState(true);
@@ -72,6 +75,67 @@ const Admin_Inventory = () => {
         return `${person.firstname} ${person.lastname}`;
     };
 
+    /* Time-based filtering (by createdAt) */
+    // Filter books by time range. Week starts on Monday (calendar week).
+    const getBooksInTimeRange = (bookList, filter) => {
+        if (filter === "all") return bookList;
+
+        const now = new Date();
+        // Start of today (midnight) so we compare calendar days, not exact times
+        const startOfToday = new Date(now);
+        startOfToday.setHours(0, 0, 0, 0);
+
+        // Start of yesterday (midnight)
+        const startOfYesterday = new Date(startOfToday);
+        startOfYesterday.setDate(startOfYesterday.getDate() - 1);
+
+        // Start of this week (Monday)
+        const startOfThisWeek = new Date(startOfToday);
+        const day = startOfThisWeek.getDay(); // 0 = Sunday, 1 = Monday, ...
+        const daysToMonday = day === 0 ? 6 : day - 1;
+        startOfThisWeek.setDate(startOfThisWeek.getDate() - daysToMonday);
+
+        // Rolling windows from start of today (including today)
+        const last7Start = new Date(startOfToday);
+        last7Start.setDate(last7Start.getDate() - 6); // last 7 days including today
+
+        const last30Start = new Date(startOfToday);
+        last30Start.setDate(last30Start.getDate() - 29); // last 30 days including today
+
+        // Start of month and year
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const startOfYear = new Date(now.getFullYear(), 0, 1);
+
+        return bookList.filter((book) => {
+            const created = new Date(book.createdAt);
+            if (Number.isNaN(created.getTime())) return false; // skip invalid dates safely
+
+            switch (filter) {
+                case "today":
+                    return created >= startOfToday;
+                case "yesterday":
+                    // Books created yesterday only: >= yesterday midnight and < today midnight
+                    return created >= startOfYesterday && created < startOfToday;
+                case "thisWeek":
+                    // Books created from Monday of this week onward
+                    return created >= startOfThisWeek;
+                case "last7":
+                    return created >= last7Start;
+                case "thisMonth":
+                    return created >= startOfMonth;
+                case "last30":
+                    return created >= last30Start;
+                case "thisYear":
+                    return created >= startOfYear;
+                case "older30":
+                    // Books created strictly before the last 30 days window (older than 30 days)
+                    return created < last30Start;
+                default:
+                    return true;
+            }
+        });
+    };
+
     /* Loading the data */
 
     const fetchBooks = async () => {
@@ -105,15 +169,18 @@ const Admin_Inventory = () => {
         fetchMembers();
     }, []);
 
-    // Reset to first page when search or sort changes
+    // Reset to first page when search, sort, or time filter changes
     useEffect(() => {
         setCurrentPage(1);
-    }, [search, sortOrder]);
+    }, [search, sortOrder, timeFilter]);
 
-    /* Searching and sorting */
+    /* Searching, filtering by time, and sorting */
 
-    // Sort books by createdAt. Newest first by default.
-    const orderedBooks = [...books].sort((a, b) => {
+    // 1) Filter by time range first (by createdAt). Week starts on Monday (calendar week).
+    const booksFilteredByTime = getBooksInTimeRange(books, timeFilter);
+
+    // 2) Sort within that time range by createdAt (newest/oldest as chosen).
+    const orderedBooks = [...booksFilteredByTime].sort((a, b) => {
         const dateA = new Date(a.createdAt);
         const dateB = new Date(b.createdAt);
 
@@ -177,33 +244,27 @@ const Admin_Inventory = () => {
         </div>
     ) : visibleBooks.length === 0 ? (
         /* Nothing to show */
-        <div className="w-full py-12 px-4 bg-stone-50 rounded-lg border border-dashed border-stone-300 flex flex-col items-center justify-center">
-            <BookText size={24} className="text-stone-300" />
-            <p className="text-sm font-medium text-stone-700 mt-2">No books found</p>
-            <p className="text-xs text-stone-500 mt-1 text-center">
-                {search ? "Try a different search or sort." : "Uploaded books will appear here."}
-            </p>
-        </div>
+        <EmptyState title="No Book Record Found" description="registered books will appear"/>
     ) : (
         /* The cards */
-        <div className="w-full space-y-2">
+        <div className="w-full">
             {paginatedBooks.map((book) => (
                 <div
                     key={book._id}
-                    className="w-full flex flex-col sm:flex-row sm:items-center gap-3 bg-white border border-stone-200 rounded-lg p-2 hover:border-stone-300 hover:shadow-sm transition"
+                    className="w-full flex flex-col sm:flex-row sm:items-center gap-3 bg-white border-b border-stone-300 p-2 hover:bg-stone-100 hover:shadow-sm transition"
                 >
                     {/* Left: Icon, title, author and category */}
                     <div className="flex items-center gap-3 min-w-0 flex-1">
                         {!book.cover ? (
-                            <div className="hidden sm:flex w-15 h-20 shrink-0 rounded-lg bg-stone-100 border border-stone-200 items-center justify-center">
-                            <Book size={16} className="text-stone-500" />
+                            <div className="hidden sm:flex w-15 h-20 shrink-0 items-center justify-center">
+                            <ImageOff size={16} className="text-yellow-500" />
                             </div>
                         ) : (
                             <img src={book.cover} alt={book.title} className="w-15 h-20 rounded-lg object-cover" />
                         )}
 
                         <div className="min-w-0 ">
-                            <p className="text-xs font-medium text-stone-800 truncate">
+                            <p className="text-[11px] text-stone-800 truncate capitalize">
                                 {book.title}
                             </p>
 
@@ -283,7 +344,7 @@ const Admin_Inventory = () => {
 
             <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
                 <Admin_Header
-                    mainText={"Inventory Management"}
+                    mainText={"Book Record"}
                     subText={"Oversee the record of books"}
                 />
 
@@ -291,20 +352,10 @@ const Admin_Inventory = () => {
 
                     {/* Page heading and search */}
                     <div className="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4">
-                        <div className="flex items-center gap-2">
-                            <div className="flex rounded-lg bg-stone-800 p-2 text-white justify-center items-center">
-                                <ScrollText size={20} />
-                            </div>
-                            <div>
-                                <h1 className="text-sm font-bold text-stone-800">Inventory Record</h1>
-                                <p className="text-stone-400 text-xs">
-                                    Manage book inventory records.
-                                </p>
-                            </div>
-                        </div>
+                        
 
                         {/* Search and sort */}
-                        <div className="w-full lg:w-auto flex items-center gap-2">
+                        <div className="w-full flex justify-between items-center gap-2">
                             <div className="relative flex-1 lg:flex-none">
                                 <Search
                                     size={14}
@@ -317,20 +368,7 @@ const Admin_Inventory = () => {
                                     placeholder="Search title, author or donor..."
                                     className="w-full lg:w-64 border border-stone-300 bg-white rounded-lg pl-9 pr-3 py-2 text-xs text-stone-600 outline-none focus:ring-2 focus:ring-stone-300"
                                 />
-                            </div>
-
-                            {/* Sort dropdown (latest to oldest / oldest to latest) */}
-                            <select
-                                value={sortOrder}
-                                onChange={(e) => setSortOrder(e.target.value)}
-                                aria-label="Sort by created date"
-                                className="w-full lg:w-44 shrink-0 border border-stone-300 bg-white rounded-lg px-3 py-2 text-xs text-stone-600 outline-none focus:ring-2 focus:ring-stone-300"
-                            >
-                                <option value="newest">Newest first</option>
-                                <option value="oldest">Oldest first</option>
-                            </select>
-
-                            {/* Show Clear once search is active */}
+                                {/* Show Clear once search is active */}
                             {search && (
                                 <button
                                     type="button"
@@ -340,6 +378,29 @@ const Admin_Inventory = () => {
                                     Clear
                                 </button>
                             )}
+                            </div>
+
+                            {/* Time filter dropdown (filter by createdAt; week starts Monday) */}
+                            <select
+                                value={timeFilter}
+                                onChange={(e) => setTimeFilter(e.target.value)}
+                                aria-label="Filter by time period"
+                                className="w-fit lg:w-44 shrink-0 border border-stone-300 bg-white rounded-lg px-3 py-2 text-xs text-stone-600 outline-none focus:ring-2 focus:ring-stone-300"
+                            >
+                                <option value="all">All</option>
+                                <option value="today">Today</option>
+                                <option value="yesterday">Yesterday</option>
+                                <option value="thisWeek">This Week (Mon–Sun)</option>
+                                <option value="last7">Last 7 Days</option>
+                                <option value="thisMonth">This Month</option>
+                                <option value="last30">Last 30 Days</option>
+                                <option value="thisYear">This Year</option>
+                                <option value="older30">Older than 30 Days</option>
+                            </select>
+
+                           
+
+                            
                         </div>
                     </div>
 

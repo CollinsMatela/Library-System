@@ -7,6 +7,7 @@ import Confirmation_Popup from "../popup/Confirmation_Popup";
 import axios from "axios";
 import { toast } from "sonner";
 import { position } from "../mockdata";
+import EmptyState from "../components/EmptyState";
 
 /* Each role gets its own colour so the list is quick to scan. */
 const ROLE_COLORS = {
@@ -160,15 +161,7 @@ const Admin_Authority = () => {
         </div>
     ) : visibleMembers.length === 0 ? (
         /* Nothing to show */
-        <div className="w-full py-12 px-4 bg-stone-50 rounded-lg border border-dashed border-stone-300 flex flex-col items-center justify-center">
-            <Users size={24} className="text-stone-300" />
-            <p className="text-sm font-medium text-stone-700 mt-2">No members found</p>
-            <p className="text-xs text-stone-500 mt-1 text-center">
-                {searchText || filterRole
-                    ? "Try a different search or filter."
-                    : "Click Authorized to add your first librarian."}
-            </p>
-        </div>
+        <EmptyState title="No Authority Found" description="Request from user will appear" action={() => setShowMemberModal(true)} actionName={"Add Authorized"}/>
     ) : (
         /* The list */
         <div className="w-full space-y-2">
@@ -308,19 +301,9 @@ const Admin_Authority = () => {
 
                     {/* Page heading, search and the add button */}
                     <div className="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4">
-                        <div className="flex items-center gap-2">
-                            <div className="flex rounded-lg bg-stone-800 p-2 text-white justify-center items-center">
-                                <Users size={20} />
-                            </div>
-                            <div>
-                                <h1 className="text-sm font-bold text-stone-800">Authorized Member</h1>
-                                <p className="text-stone-400 text-xs">
-                                    List of registered authorized people.
-                                </p>
-                            </div>
-                        </div>
+                        
 
-                        <div className="w-full lg:w-auto flex items-center gap-2">
+                        <div className="w-full justify-between flex items-center gap-2">
                             {/* Search */}
                             <div className="relative flex-1 lg:flex-none">
                                 <Search
@@ -339,7 +322,7 @@ const Admin_Authority = () => {
                             <button
                                 type="button"
                                 onClick={() => setShowMemberModal(true)}
-                                className="text-[10px] text-white bg-stone-800 hover:bg-stone-900 px-4 py-2 rounded-lg flex items-center justify-center gap-1 cursor-pointer transition-colors shrink-0"
+                                className="text-[10px] text-white bg-stone-800 hover:bg-stone-900 px-4 py-2 rounded-full flex items-center justify-center gap-1 cursor-pointer transition-colors shrink-0"
                             >
                                 <Plus size={15} />
                                 Authorized
@@ -350,7 +333,7 @@ const Admin_Authority = () => {
                     {/* Role counts. Clicking one filters the list. */}
                     <div className="w-full bg-white border border-stone-200 rounded-lg p-3 mb-3">
                         <div className="w-full flex flex-wrap items-center gap-2">
-                            <p className="text-xs font-medium text-stone-500 mr-1">Filter by role</p>
+                            <p className="text-[11px] text-stone-500 mr-1">Filter by role</p>
 
                             <button
                                 type="button"

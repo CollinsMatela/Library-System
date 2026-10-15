@@ -4,6 +4,7 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import Confirmation_Popup from "../../popup/Confirmation_Popup";
 import LoadingContainer from "../../loadings/loadingContainer";
+import EmptyState from "../../components/EmptyState";
 
 const Preview_BookInformation = ({bookDetails, setBookDetails}) => {
     
@@ -83,19 +84,23 @@ const Preview_BookInformation = ({bookDetails, setBookDetails}) => {
             )
             :
             (
-                <div className="h-100 w-full max-w-80 bg-stone-100 border border-stone-300 rounded-lg justify-center items-center flex flex-col gap-1">
-                    <ImageOff size={50} className="text-stone-300"/>
+                <div className="h-fit w-80 bg-black">
+                  <EmptyState title="No Book Cover" description="Select a image to preview the as displayed page image."
+                  action={(e) => coverRef.current.click()}
+                  actionName={'Add Cover'}
+                  />  
                 </div>
+                
             )}
             
             <div className="w-full">
-            <button className={`${coverLoading ? "bg-stone-200 text-stone-500" : "bg-stone-800 hover:bg-stone-900 text-white"}  w-full sm:w-fit justify-center items-center flex gap-2 p-2 text-xs cursor-pointer rounded-lg outline-none`}
+            {bookDetails.cover && <button className={`${coverLoading ? "bg-stone-200 text-stone-500" : "bg-stone-800 hover:bg-stone-900 text-white"}  w-full sm:w-fit justify-center items-center flex gap-2 p-2 text-xs cursor-pointer rounded-full outline-none`}
             disabled={coverLoading}
             onClick={(e) => coverRef.current.click()}>
                         <Plus size={15} className="text-white"/>
                         {!bookDetails?.cover && (<h1 className="text-[10px] text-white">{coverLoading ? "...Uploading" : "Add Cover"}</h1>)}
                         {bookDetails?.cover && (<h1 className="text-[10px] text-white">{coverLoading ? "...Uploading" : "Change Cover"}</h1>)}
-            </button>
+            </button>}
 
 
             <input 
@@ -115,7 +120,7 @@ const Preview_BookInformation = ({bookDetails, setBookDetails}) => {
 
             <div className="w-full justify-between items-start flex flex-col border-stone-300 border-b pb-4">
                 <div className="w-full flex flex-col gap-2">
-                    <h1 className="text-stone-500 text-xl font-bold italic">{bookDetails?.title || "Book name"}</h1>
+                    <h1 className="text-stone-800 text-xl font-bold">{bookDetails?.title || "Book name"}</h1>
                     <h1 className="text-xs text-stone-500">{bookDetails?.author || "Unknown Author"}</h1>
                 </div>
 

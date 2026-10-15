@@ -328,11 +328,11 @@ const Edit_BookInformation = ({bookDetails, setBookDetails, Summarization, updat
                         </p> 
                     </div>
 
-                    <button className="bg-violet-100 border border-violet-400 justify-center items-center flex gap-1 p-2 rounded-lg hover:bg-violet-200 transition cursor-pointer"
+                    <button className="bg-stone-800 justify-center items-center flex gap-1 p-2 rounded-full hover:bg-stone-900 transition cursor-pointer"
                     disabled={summaryLoading}
                     onClick={() => Summarization()}>
-                        <Sparkles size={15} className="text-violet-600"/> 
-                        <h1 className="hidden sm:block text-xs text-violet-500">{summaryLoading ? "Generating..." : "Generate Summary"}</h1>
+                        <Sparkles size={12} className="text-white"/> 
+                        <h1 className="hidden sm:block text-[10px] text-white">{summaryLoading ? "Generating..." : "Generate Summary"}</h1>
                     </button>
                     
                 </div>

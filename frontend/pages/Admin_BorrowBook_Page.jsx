@@ -13,6 +13,7 @@ import ApprovedTable from "./Borrowing_Components/ApprovedTable";
 import BorrowedTable from "./Borrowing_Components/BorrowedTable";
 import HistoryTable from "./Borrowing_Components/HistoryTable";
 import useAuthStore from "../store/useAuthStore";
+import EmptyState from "../components/EmptyState";
 
 /* Which tab is open, and what status each tab shows.
    Using one state instead of 4 true/false flags keeps things simple. */
@@ -371,15 +372,7 @@ const Admin_BorrowBook_Page = () => {
             <span className="text-xs">Loading requests...</span>
         </div>
     ) : visibleRequests.length === 0 ? (
-        <div className="w-full py-12 px-4 bg-stone-50 rounded-lg border border-dashed border-stone-300 flex flex-col items-center justify-center">
-            <HandHelping size={24} className="text-stone-300" />
-            <p className="text-sm font-medium text-stone-700 mt-2">No requests found</p>
-            <p className="text-xs text-stone-500 mt-1 text-center">
-                {searchText
-                    ? "Try a different search."
-                    : "Requests from users will appear here."}
-            </p>
-        </div>
+        <EmptyState title={`No ${activeTab} found`} description="Request from user will appear"/>
     ) : (
         <>
             {activeTab === "pending" && (
@@ -526,22 +519,10 @@ const Admin_BorrowBook_Page = () => {
                 <div className="w-full justify-start items-start flex flex-col px-4 lg:px-10 pb-10">
 
                     {/* Page heading, search and the deposit buttons */}
-                    <div className="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4">
-                        <div className="flex items-center gap-2">
-                            <div className="flex rounded-lg bg-stone-800 p-2 text-white justify-center items-center">
-                                <HandHelping size={20} />
-                            </div>
-                            <div>
-                                <h1 className="text-sm font-bold text-stone-800">Request Information</h1>
-                                <p className="text-stone-400 text-xs">
-                                    Manage user borrowing books.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="w-full lg:w-auto flex items-center gap-2">
-                            {/* Search by book title or borrower name */}
-                            <div className="relative flex-1 lg:flex-none">
+                    <div className="w-full flex lg:items-center justify-between gap-3 mb-4">
+                        
+                        {/* Search by book title or borrower name */}
+                            <div className="relative w-full">
                                 <Search
                                     size={14}
                                     className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none"
@@ -555,11 +536,13 @@ const Admin_BorrowBook_Page = () => {
                                 />
                             </div>
 
+                        <div className="w-fit lg:w-auto flex items-center gap-2">
+
                             <button
                                 type="button"
                                 title="List of physical ID deposit"
                                 onClick={() => setIsDepositList(true)}
-                                className="text-stone-800 bg-white border border-stone-300 p-2 rounded-lg cursor-pointer hover:bg-stone-100 flex justify-center items-center transition-colors shrink-0"
+                                className="text-stone-800 bg-white p-2 rounded-lg cursor-pointer hover:bg-stone-100 flex justify-center items-center transition-colors shrink-0"
                             >
                                 <IdCardLanyard size={15} />
                             </button>
@@ -567,7 +550,7 @@ const Admin_BorrowBook_Page = () => {
                             <button
                                 type="button"
                                 onClick={() => setIsDeposit(true)}
-                                className="text-[10px] text-white bg-stone-800 hover:bg-stone-900 px-4 py-2 rounded-lg flex items-center justify-center gap-1 cursor-pointer transition-colors shrink-0"
+                                className="text-[10px] text-white bg-stone-800 hover:bg-stone-900 px-4 py-2 rounded-full flex items-center justify-center gap-1 cursor-pointer transition-colors shrink-0"
                             >
                                 <IdCard size={15} />
                                 Deposit Id
@@ -578,7 +561,7 @@ const Admin_BorrowBook_Page = () => {
                     {/* Status filters. Clicking one switches the list. */}
                     <div className="w-full bg-white border border-stone-200 rounded-lg p-3 mb-3">
                         <div className="w-full flex flex-wrap items-center gap-2">
-                            <p className="text-xs font-medium text-stone-500 mr-1">Filter by status</p>
+                            <p className="text-[11px] text-stone-500 mr-1">Filter by status</p>
 
                             {TABS.map((tab) => (
                                 <button

@@ -4,7 +4,7 @@ import useAuthStore from "../store/useAuthStore";
 import Home_Page from '../pages/Home_Page'
 import Admin_Page from '../pages/Admin_Page'
 import Library_Page from '../pages/Library_Page'
-import Admin_UploadBook_Page from '../pages/Admin_UploadBook_Page'
+import Admin_BookRegistration from '../pages/Admin_BookRegistration'
 import Unauthorized_Page from "../pages/Unauthorized_Page";
 import Change_Password_Page from "../pages/Change_Password_Page"
 import Not_Found_Page from "../pages/Not_Found_Page";
@@ -83,9 +83,9 @@ function App() {
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={["system administrator", "head librarian", "it librarian"]} />}>
-                <Route path="/admin/upload-book" element={<Admin_UploadBook_Page />} />
+                <Route path="/admin/book-registration" element={<Admin_BookRegistration />} />
                 <Route path="/admin/edit" element={<Admin_Edit />} />
-                <Route path="/admin/inventory" element={<Admin_Inventory />} />
+                <Route path="/admin/book-record" element={<Admin_Inventory />} />
                 <Route path="/admin/report" element={<Admin_Report/>}/>
           </Route>
 

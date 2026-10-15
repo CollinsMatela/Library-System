@@ -7,6 +7,7 @@ import LogbookViewModal from "../modals/LobookViewModal";
 import Confirmation from "../popup/Confirmation_Popup";
 import axios from "axios";
 import { toast } from "sonner";
+import EmptyState from "../components/EmptyState";
 
 const Admin_LogBook = () => {
     const [logBookList, setLogBookList] = useState([]);
@@ -206,15 +207,7 @@ const Admin_LogBook = () => {
         </div>
     ) : visibleLogBook.length === 0 ? (
         /* Nothing to show */
-        <div className="w-full py-12 px-4 bg-stone-50 rounded-lg border border-dashed border-stone-300 flex flex-col items-center justify-center">
-            <Users size={24} className="text-stone-300" />
-            <p className="text-sm font-medium text-stone-700 mt-2">No visitors found</p>
-            <p className="text-xs text-stone-500 mt-1 text-center">
-                {search || statusFilter
-                    ? "Try a different search or filter."
-                    : "Registered visitors will appear here."}
-            </p>
-        </div>
+        <EmptyState title="No Visitor Found" description="Visitor will appear hear"/>
     ) : (
         /* The cards */
         <div className="w-full space-y-2">
@@ -341,20 +334,10 @@ const Admin_LogBook = () => {
                 <div className="w-full justify-start items-start flex flex-col px-4 lg:px-10 pb-10">
 
                     {/* Page heading, search and the add button */}
-                    <div className="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4">
-                        <div className="flex items-center gap-2">
-                            <div className="bg-stone-800 p-2 rounded-lg text-white flex items-center justify-center">
-                                <Users size={20} />
-                            </div>
-                            <div>
-                                <h1 className="text-sm font-bold text-stone-800">Record Visit</h1>
-                                <p className="text-xs text-stone-400">
-                                    List of people who entered the library.
-                                </p>
-                            </div>
-                        </div>
+                    <div className="w-full flex lg:items-center justify-between gap-3 mb-4">
+                        
 
-                        <div className="flex items-center gap-2">
+                       
                             {/* Search */}
                             <div className="relative w-full lg:w-auto">
                                 <Search
@@ -374,12 +357,12 @@ const Admin_LogBook = () => {
                             <button
                                 type="button"
                                 onClick={handleAddVisitor}
-                                className="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg bg-stone-800 text-white text-[10px] font-medium hover:bg-stone-900 transition-colors cursor-pointer"
+                                className="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-full bg-stone-800 text-white text-[10px] font-medium hover:bg-stone-900 transition-colors cursor-pointer"
                             >
                                 <Plus size={15} />
                                 Add Visitor
                             </button>
-                        </div>
+                        
                     </div>
 
                     {/* Filter counts. Clicking one filters the list. */}

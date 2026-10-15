@@ -6,6 +6,7 @@ import UserViewModal from "../modals/UserViewModal";
 import Confirmation_Popup from "../popup/Confirmation_Popup";
 import axios from "axios";
 import { toast } from "sonner";
+import EmptyState from "../components/EmptyState";
 
 /* The three kinds of user accounts, and the colour each one gets. */
 const USER_ROLES = [
@@ -126,15 +127,7 @@ const Admin_User = () => {
         </div>
     ) : visibleUsers.length === 0 ? (
         /* Nothing to show */
-        <div className="w-full py-12 px-4 bg-stone-50 rounded-lg border border-dashed border-stone-300 flex flex-col items-center justify-center">
-            <Users size={24} className="text-stone-300" />
-            <p className="text-sm font-medium text-stone-700 mt-2">No users found</p>
-            <p className="text-xs text-stone-500 mt-1 text-center">
-                {search || filterRole
-                    ? "Try a different search or filter."
-                    : "Registered users will appear here."}
-            </p>
-        </div>
+        <EmptyState title="No User Found" description="Request from user will appear"/>
     ) : (
         /* The rows */
         <div className="w-full space-y-2">
@@ -247,17 +240,7 @@ const Admin_User = () => {
 
                     {/* Page heading and search */}
                     <div className="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4">
-                        <div className="flex items-center gap-2">
-                            <div className="flex rounded-lg bg-stone-800 p-2 text-white justify-center items-center">
-                                <Users size={20} />
-                            </div>
-                            <div>
-                                <h1 className="text-sm font-bold text-stone-800">User Accounts</h1>
-                                <p className="text-stone-400 text-xs">
-                                    Manage student, teacher and guest accounts.
-                                </p>
-                            </div>
-                        </div>
+                        
 
                         {/* Search */}
                         <div className="relative w-full lg:w-auto">
@@ -278,7 +261,7 @@ const Admin_User = () => {
                     {/* Role counts. Clicking one filters the list. */}
                     <div className="w-full bg-white border border-stone-200 rounded-lg p-3 mb-3">
                         <div className="w-full flex flex-wrap items-center gap-2">
-                            <p className="text-xs font-medium text-stone-500 mr-1">Filter by role</p>
+                            <p className="text-[11px] text-stone-500 mr-1">Filter by role</p>
 
                             <button
                                 type="button"

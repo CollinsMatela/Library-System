@@ -8,6 +8,7 @@ import { Calendar, FileText, LoaderCircle, Pencil, Plus, Printer, Trash2 } from 
 import useAuthStore from "../store/useAuthStore"
 import Confirmation_Popup from "../popup/Confirmation_Popup"
 import NaicLogo from '../src/assets/NaicLibraryLogo.png'
+import EmptyState from "../components/EmptyState"
 import '../src/index.css'
 
 const Admin_Report = () => {
@@ -231,41 +232,22 @@ const Admin_Report = () => {
             
             {/** Main Container*/}
             <div className="w-full px-4 lg:px-10">
-                <div className="flex justify-between items-center gap-2 mb-2">
-                    <div className="justify-start items-center flex gap-2 w-full">
-                        <div className="flex rounded-lg bg-stone-800 p-2 text-white justify-center items-center">
-                                <FileText size={20} />
-                            </div>
-                            <div>
-                                <h1 className="text-sm font-bold text-stone-800">Library Monthly Report</h1>
-                                <p className="text-stone-400 text-xs">
-                                    Manage monthly report of library.
-                                </p>
-                            </div>
-                    </div>
-                    
 
-                    <div className="w-full justify-end items-end flex">
-                    <button className="py-2 px-4 rounded-lg bg-stone-800 justify-center items-center flex gap-1 hover:bg-stone-900 cursor-pointer"
-                    onClick={() => setIsReportModal(true)}>
-                    <Plus size={15} className="text-white"/>
-                    <h1 className="text-[10px] text-white">Add Report</h1>
-                    </button>
-                    </div>
-                </div>
+                    
+             
                 {/**Filter by month and year container */}
-                <div className="w-full px-4 p-2 border border-stone-200 rounded-xl shadow-sm justify-center items-center flex">
+                <div className="w-full py-2 border-b border-stone-300 justify-center items-center flex">
                     <div className="w-full justify-start items-center flex gap-2">
-                        <h1 className="text-xs text-stone-700 font-medium">Filter by months</h1>
+                        <h1 className="text-[11px] text-stone-500">Filter by months</h1>
                     
                     </div>
                     <div className="flex gap-2">
-                         <div className="w-fit justify-center items-center flex">
-                          <Calendar size={12}/>
+                         <div className="w-fit justify-center items-center flex border border-stone-300 rounded-full p-2">
+                          <Calendar size={12} className="text-stone-500"/>
                     <select
                         defaultValue=""
                         onChange={(e) => filterHelper(Number(e.target.value), selectedYear)}
-                        className=" bg-white p-2 text-black outline-none text-xs"
+                        className=" bg-white text-stone-500 outline-none text-[11px]"
                     >
                         <option value="" disabled>
                             Month
@@ -278,12 +260,12 @@ const Admin_Report = () => {
                         ))}
                     </select>
                     </div>
-                    <div className="w-fit justify-center items-center flex">
-                        <Calendar size={12}/>
+                    <div className="w-fit justify-center items-center flex border border-stone-300 rounded-full p-2">
+                        <Calendar size={12} className="text-stone-500"/>
                         <select
                         value={selectedYear}
                         onChange={(e) => setSelectedYear(e.target.value)}
-                        className=" bg-white p-2 text-black outline-none text-xs"
+                        className=" bg-white text-stone-500 outline-none text-[11px] px-2"
                     >
                         {years.map((year) => (
                             <option key={year} value={year}>
@@ -292,6 +274,15 @@ const Admin_Report = () => {
                         ))}
                     </select>
                     </div>
+                    </div>
+
+
+                    <div className="w-full justify-end items-end flex">
+                    <button className="py-2 px-4 rounded-full bg-stone-800 justify-center items-center flex gap-1 hover:bg-stone-900 cursor-pointer"
+                    onClick={() => setIsReportModal(true)}>
+                    <Plus size={15} className="text-white"/>
+                    <h1 className="text-[10px] text-white">Add Report</h1>
+                    </button>
                     </div>
                    
                     
@@ -304,14 +295,7 @@ const Admin_Report = () => {
                 <div className="w-full grid grid-cols-1 gap-4 mt-4">
                     {!selectedReport || selectedReport.length === 0 ? 
                     (
-                        <div className="flex w-full flex-col items-center justify-center gap-1 rounded-xl border border-dashed border-stone-300 bg-stone-50 px-4 py-8 text-center">
-                            <h1 className="text-sm font-semibold text-stone-700">
-                                No Monthly Report Found
-                            </h1>
-                            <p className="text-xs text-stone-500">
-                                There is no report available for the selected month and year.
-                            </p>
-                        </div>
+                        <EmptyState title="No Monthly Report" description="No existing report in selected month and year" action={() => setIsReportModal(true)} actionName={"Create Report"}/>
                     )
                     :
                     (

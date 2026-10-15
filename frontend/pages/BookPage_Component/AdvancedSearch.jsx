@@ -136,7 +136,7 @@ const AdvancedSearch = ({
       >
         <span className="flex items-center gap-2 min-w-0">
           <ListFilter size={15} className="text-stone-500 shrink-0" />
-          <span className="text-xs font-medium text-stone-800">Advanced Filters</span>
+          <span className="text-[11px] text-stone-500">Advanced Filters</span>
           {activeCount > 0 && (
             <span className="bg-stone-800 text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full shrink-0">
               {activeCount}

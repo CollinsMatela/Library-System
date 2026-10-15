@@ -14,6 +14,7 @@ import Confirmation_Popup from "../popup/Confirmation_Popup";
 import { categories } from "../mockdata";
 import Admin_Header from "../components/Admin_Header";
 import VideoGenerationModal from "../modals/videoGenerationModal";
+import EmptyState from "../components/EmptyState";
 
 const Admin_Edit = () => {
     const navigate = useNavigate();
@@ -293,7 +294,7 @@ const Admin_Edit = () => {
         )}
         
 
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
+        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60 pb-20">
               
         <Admin_Header mainText={'Editing Management'} subText={'Update the information of book'}/>
 
@@ -304,7 +305,7 @@ const Admin_Edit = () => {
         <div className="w-full px-4 lg:px-10 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
 
             {/* ===== LEFT: TAB BUTTONS ===== */}
-            <div className="flex flex-row items-center">
+            <div className="sticky flex flex-row items-center gap-1">
                 {tabs.map((tab) => {
                     // A tab cannot be used until a book is selected
                     const isDisabled = !bookDetails;
@@ -317,16 +318,16 @@ const Admin_Edit = () => {
                             onClick={() => { if (!isDisabled) setActiveTab(tab.id); }}
                             disabled={isDisabled}
                             className={[
-                                "flex items-center w-full sm:w-fit gap-2 p-2 text-xs border-b-2 transition cursor-pointer px-2",
+                                "flex items-center w-full sm:w-fit gap-2 text-xs border transition cursor-pointer p-2 rounded-full",
                                 isActive
-                                    ? "bg-white text-stone-800 border-stone-800"
+                                    ? "text-stone-800 bg-stone-800 text-white"
                                     : "bg-white text-stone-600 border-stone-200 hover:bg-stone-50",
                                 isDisabled ? "opacity-40 cursor-not-allowed" : "",
                             ].join(" ")}
                         >
-                            <tab.icon size={15} />
+                            <tab.icon size={12} />
                             
-                            <h1 className="text-xs">{tab.label}</h1>
+                            <h1 className="text-[10px]">{tab.label}</h1>
                         </button>
                     );
                 })}
@@ -402,21 +403,7 @@ const Admin_Edit = () => {
 
         {/* ---- Empty state: no book selected yet ---- */}
         {!bookDetails && (
-                <div className="w-full flex flex-col justify-start items-center text-center">
-                    <div className="flex flex-col items-center gap-2 mt-40">
-                        <div className="w-10 h-10 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center">
-                            <Search size={18} className="text-stone-500" />
-                        </div>
-
-                        <h1 className="text-sm font-semibold text-stone-800">
-                            No book selected
-                        </h1>
-
-                        <p className="text-xs text-stone-500 max-w-55">
-                            Search and select a book to start editing its details.
-                        </p>
-                    </div>
-                </div>
+                <EmptyState title="No Book Found" description="Search and select the book you want to edit"/>
             )}
 
         {/* ---- Edit Book Information tab ---- */}
@@ -457,8 +444,9 @@ const Admin_Edit = () => {
 
     {/* // Save Button (works for the selected book) */}
     {bookDetails && (
-    <div className="w-full justify-end items-center flex px-4 lg:px-10 mb-10">
-    <button className="justify-center items-center flex gap-2 bg-stone-800 p-2 rounded-lg text-[10px] text-white hover:bg-stone-900 cursor-pointer"
+    <div className="h-12 fixed bottom-0 left-0 md:left-20 lg:left-60 right-0 bg-white/50 backdrop-blur-[2px] justify-between items-center flex gap-3 px-4 lg:px-10 z-10">
+    <h1 className="text-[10px] text-stone-500">Editing Actions</h1>
+    <button className="justify-center items-center flex gap-2 bg-stone-800 p-2 rounded-full text-[10px] text-white hover:bg-stone-900 cursor-pointer"
     onClick={() => {setIsInformationUpdate(true); setErrorMessage("")}}
     >
         <Pen size={15}/> Save Changes 

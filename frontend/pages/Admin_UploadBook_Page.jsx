@@ -113,19 +113,19 @@ const Admin_UploadBook_Page = () => {
             toast.warning('Select Category')
             return;
         }
-        if 
-        (
-            selectedCategoryOfBook.toLowerCase() === "philosophy/psychology" ||
-            selectedCategoryOfBook.toLowerCase() === "social sciences" ||
-            selectedCategoryOfBook.toLowerCase() === "technology / applied sciences" ||
-            selectedCategoryOfBook.toLowerCase() === "the arts"
-        )
-         {
-            if (!field) {
-                toast.warning("Select Field.");
-                return;
-            }
-        }
+        // if 
+        // (
+        //     selectedCategoryOfBook.toLowerCase() === "philosophy/psychology" ||
+        //     selectedCategoryOfBook.toLowerCase() === "social sciences" ||
+        //     selectedCategoryOfBook.toLowerCase() === "technology / applied sciences" ||
+        //     selectedCategoryOfBook.toLowerCase() === "the arts"
+        // )
+        //  {
+        //     if (!field) {
+        //         toast.warning("Select Field.");
+        //         return;
+        //     }
+        // }
       
         if (!title) {
             toast.warning('Enter Title')
@@ -196,7 +196,6 @@ const Admin_UploadBook_Page = () => {
             series,
 
             // Non-Fiction
-            field,
             subject,
             gradeLevel,
         };
@@ -265,8 +264,7 @@ const Admin_UploadBook_Page = () => {
                        <TypeOfBooks
                        selectedCategoryOfBook={selectedCategoryOfBook}
                        setSelectedCategoryOfBook={setSelectedCategoryOfBook}
-                       field={field}
-                       setField={setField}
+
                        subject={subject}
                        setSubject={setSubject}
                        gradeLevel={gradeLevel}

@@ -79,11 +79,6 @@ const BookSchema = new mongoose.Schema({
     },
 
     // Non-fiction-specific
-    field: {
-        type: String,
-        default: ""
-    },
-
     subject: {
         type: String,
         default: ""

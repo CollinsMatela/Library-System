@@ -2,85 +2,12 @@ import { TextAlignCenter, User } from "lucide-react";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { categories, gradeLevels, subjects } from "../../mockdata";
-const TypeOfBooks = ({selectedCategoryOfBook, setSelectedCategoryOfBook, field, setField,
+const TypeOfBooks = ({selectedCategoryOfBook, setSelectedCategoryOfBook,
                       subject, setSubject, gradeLevel, setGradeLevel
 }) => {
 
     const renderCategoryFields = () => {
     
-    if (selectedCategoryOfBook.toLowerCase() === "philosophy/psychology") {
-        return (
-            <select
-                className="bg-white border border-stone-200 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
-                value={field}
-                onChange={(e) => setField(e.target.value)}
-            >
-                <option value="">Select Philisophy & Psychology Field</option>
-                <option value="logic">Logic</option>
-                <option value="ethics">Ethics</option>
-                
-            </select>
-        );
-    }
-
-    if (selectedCategoryOfBook.toLowerCase() === "social sciences") {
-        return (
-            <select
-                className="bg-white border border-stone-200 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
-                value={field}
-                onChange={(e) => setField(e.target.value)}
-            >
-                <option value="">Select Social Science Field</option>
-                <option value="Political Science">Political Science</option>
-                <option value="Economics">Economics</option>
-                <option value="Law">Law</option>
-                <option value="Public Administration">Public Administration</option>
-                <option value="Education">Education</option>
-                <option value="Commerce">Commerce</option>
-                <option value="Customs">Customs</option>
-                <option value="Etiquette">Etiquette</option>
-                <option value="Folklore">Folklore</option>
-                <option value="Other">Other</option>
-            </select>
-        );
-    }
-
-    if (selectedCategoryOfBook.toLowerCase() === "technology / applied sciences") {
-        return (
-            <select
-                value={field}
-                onChange={(e) => setField(e.target.value)}
-                className="bg-white border border-stone-200 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
-            >
-                <option value="">Select Technology Field</option>
-                <option value="medicine">Medicine</option>
-                <option value="engineering">Engineering</option>
-                <option value="agriculture">Agriculture</option>
-                <option value="home economics">Home Economics</option>
-                <option value="Other">Other</option>
-            </select>
-        );
-    }
-
-    if (selectedCategoryOfBook.toLowerCase() === "the arts") {
-        return (
-            <select
-                value={field}
-                onChange={(e) => setField(e.target.value)}
-                className="bg-white border border-stone-200 p-2 rounded-lg text-stone-500 text-[10px] mt-2"
-            >
-                <option value="">Select The Arts Field</option>
-                <option value="architecture">Architecture</option>
-                <option value="sculpture">Sculpture</option>
-                <option value="drawing">Drawing</option>
-                <option value="printing & paintings">Printing & Paintings</option>
-                <option value="photography">Photography</option>
-                <option value="music">Music</option>
-                <option value="recreational & Performming Arts">Recreational & Performing Arts</option>
-                <option value="Other">Other</option>
-            </select>
-        );
-    }
 if (selectedCategoryOfBook.toLowerCase() === "textbooks") {
     return (
         <>

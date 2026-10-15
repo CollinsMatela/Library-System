@@ -3,7 +3,6 @@ import Books_Model from "../models/Books_Model.js";
 const Upload_Manually_Controller = async (req, res) => {
     const {
         category,
-        field,
         title,
         author,
         description,
@@ -27,35 +26,6 @@ const Upload_Manually_Controller = async (req, res) => {
     } = req.body;
 
     try {
-        console.log("========== RECEIVED BOOK DATA ==========");
-
-        console.log({
-            category,
-            field,
-            title,
-            author,
-            description,
-            language,
-            publication,
-            publisher,
-            isbn,
-            illustrator,
-            moral,
-            edition,
-            volume,
-            ddc,
-            copies,
-            callNumber,
-            subject,
-            gradeLevel,
-            series,
-            donatedFrom,
-            receivedDate,
-            addedById
-        });
-
-        console.log("========================================");
-
         // Create book
         const book = await Books_Model.create({
             category,
@@ -75,7 +45,6 @@ const Upload_Manually_Controller = async (req, res) => {
             series,
 
             // Non-Fiction
-            field,
             subject,
             gradeLevel,
             ddc,

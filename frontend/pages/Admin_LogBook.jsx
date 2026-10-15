@@ -249,25 +249,7 @@ const Admin_LogBook = () => {
 
                     {/* Contact, address and the times */}
                     <div className="grid grid-cols-2 sm:w-96 gap-x-5 gap-y-1 text-[10px] text-stone-500">
-                        <span className="flex items-center gap-1.5 min-w-0">
-                            <Phone size={13} className="shrink-0" />
-                            <span className="truncate">{log.contact || "—"}</span>
-                        </span>
-
-                        <span className="flex items-center gap-1.5 min-w-0">
-                            <MapPin size={13} className="shrink-0" />
-                            <span className="truncate">{log.address || "—"}</span>
-                        </span>
-
-                        <span className="flex items-center gap-1.5 min-w-0">
-                            <User size={13} className="shrink-0" />
-                            <span className="truncate">Gender: {log.gender || "N/A"}</span>
-                        </span>
-
-                        <span className="flex items-center gap-1.5 min-w-0">
-                            <User size={13} className="shrink-0" />
-                            <span className="truncate">Age: {log.age || "N/A"}</span>
-                        </span>
+                        
 
                         <span className="flex items-center gap-1.5 min-w-0 col-span-2">
                             <LogIn size={13} className="shrink-0" />

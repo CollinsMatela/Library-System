@@ -15,7 +15,7 @@ const ProfileAvatar = ({ user, size = "h-8 w-8" }) => {
 
     if (user?.avatar) {
         return (
-            <div className={`${size} shrink-0 rounded-full overflow-hidden bg-stone-200`}>
+            <div className={`${size} border-2 border-stone-200 shrink-0 rounded-full overflow-hidden bg-stone-200`}>
                 <img
                     src={user.avatar}
                     alt={`${user?.firstname || "User"} profile`}
@@ -26,7 +26,7 @@ const ProfileAvatar = ({ user, size = "h-8 w-8" }) => {
     }
 
     return (
-        <div className={`${size} shrink-0 rounded-full bg-stone-800 flex justify-center items-center`}>
+        <div className={`${size} border-2 border-stone-200 shrink-0 rounded-full bg-stone-800 flex justify-center items-center`}>
             <span className="text-xs font-bold text-white">{initial}</span>
         </div>
     );
@@ -107,12 +107,12 @@ const Admin_Header = ({ mainText, subText }) => {
                 />
             )}
 
-            <header className="w-full bg-white justify-between items-start flex mb-10 border-0 lg:border-b border-stone-300 p-3 px-4 md:px-10">
+            <header className="w-full bg-white justify-between items-center border-b border-stone-300 flex p-3 px-4">
 
                 {/* Page title */}
                 <div>
-                    <h1 className="text-sm font-bold text-stone-800">{mainText || "Demo"}</h1>
-                    <p className="text-stone-400 text-xs">{subText || "Demo"}</p>
+                    <h1 className="text-sm font-semibold text-stone-800">{mainText || "Demo"}</h1>
+                    <h1 className="text-[10px] text-stone-400">{subText || "Demo"}</h1>
                 </div>
 
                 {/* Profile menu */}

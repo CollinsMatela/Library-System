@@ -12,7 +12,6 @@ import EmptyState from "../components/EmptyState";
 const EMPTY_FILTERS = {
   title: "",
   category: "",
-  field: "",
   gradeLevel: "",
   subject: "",
   author: "",
@@ -25,8 +24,6 @@ const EMPTY_FILTERS = {
   ddc: "",
   callNumber: "",
   copies: "",
-  donatedFrom: "",
-  receivedDate: "",
   illustrator: "",
   series: "",
 };
@@ -164,7 +161,7 @@ const Admin_Catalog = () => {
         <Link
           key={book._id}
           to={`/admin/book-information/${book._id}`}
-          className="flex items-center gap-3 p-2 bg-white border-b border-stone-300 hover:bg-stone-100 hover:shadow-sm transition"
+          className="flex items-center gap-3 p-2 bg-white border-b border-stone-300 hover:bg-stone-100 transition"
         >
           {!book.cover ? (
             <div className="hidden sm:flex w-15 h-20 shrink-0 items-center justify-center">
@@ -175,7 +172,7 @@ const Admin_Catalog = () => {
           )}
 
           <div className="min-w-0 flex-1">
-            <p className="text-xs text-stone-800 wrap-break-words capitalize">
+            <p className="text-xs font-medium text-stone-800 wrap-break-words capitalize">
               {book.title || "Untitled"}
             </p>
 
@@ -184,22 +181,16 @@ const Admin_Catalog = () => {
             </p>
 
             <div className="mt-2 flex flex-wrap items-center gap-2">
-              <span className="px-2 py-0.5 rounded-full border border-stone-200 bg-stone-100 text-stone-600 text-[10px] font-medium">
+              <span className="px-2 py-0.5 rounded-full border border-stone-300 bg-stone-100 text-stone-600 text-[10px] font-medium capitalize">
                 Shelf Location: {book.category || "Uncategorised"}
               </span>
-
-              {book.field && (
-                <span className="px-2 py-0.5 rounded-full border border-stone-200 bg-stone-100 text-stone-600 text-[10px] font-medium">
-                Field: {book.field || "Uncategorised"}
-              </span>
-              )}
 
               {/* Availability */}
               <span
                 className={`px-2 py-0.5 rounded-full border text-[10px] font-medium ${
                   book.copies > 0
                     ? "bg-green-50 text-green-700 border-green-200"
-                    : "bg-stone-100 text-stone-500 border-stone-200"
+                    : "bg-stone-100 text-stone-500 border-stone-300"
                 }`}
               >
                 {book.copies > 0 ? "Available" : "Not Available"}
@@ -208,7 +199,7 @@ const Admin_Catalog = () => {
           </div>
 
           {/* Makes it obvious that the card opens something */}
-          <ChevronRight size={16} className="hidden sm:block text-stone-300 shrink-0" />
+          <h1 className="text-stone-500 text-[10px] italic">View More Details</h1>
         </Link>
       ))}
     </div>
@@ -218,46 +209,13 @@ const Admin_Catalog = () => {
     <>
       <Admin_Sidebar />
 
-      <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
+      <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60 pb-10">
         <Admin_Header
           mainText={"Catalog Management"}
           subText={"Find the specific book you wanted"}
         />
 
-        <div className="w-full justify-start items-start flex flex-col px-4 lg:px-10 pb-10">
-
-          {/* Page heading and search */}
-          <div className="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4">
-           
-
-            {/* Search — filters as you type, no button needed */}
-            <div className="relative w-full lg:w-72">
-              <Search
-                size={15}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none"
-              />
-              <input
-                type="search"
-                name="title"
-                value={filters.title}
-                onChange={handleFilterChange}
-                placeholder="Search title or author"
-                aria-label="Search by title or author"
-                className="w-full pl-9 pr-9 py-2 bg-white border border-stone-300 rounded-lg text-xs text-stone-700 outline-none transition placeholder:text-stone-400 focus:ring-2 focus:ring-stone-300"
-              />
-
-              {filters.title && (
-                <button
-                  type="button"
-                  onClick={clearSearch}
-                  aria-label="Clear search"
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700 cursor-pointer"
-                >
-                  <X size={14} />
-                </button>
-              )}
-            </div>
-          </div>
+        <div className="w-full justify-start items-start flex flex-col px-4 pb-10 mt-4">
 
           {/* The advanced filters, collapsed by default */}
           <AdvancedSearch
@@ -281,8 +239,8 @@ const Admin_Catalog = () => {
 
           {/* Previous and next */}
           {!isLoading && totalPages > 1 && (
-            <div className="w-full flex flex-wrap items-center justify-between gap-3 mt-3 pt-3 border-t border-stone-200">
-              <p className="text-xs text-stone-500">
+            <div className="w-full flex items-center justify-end sm:justify-between gap-3 pt-3">
+              <p className="hidden sm:block text-xs text-stone-500">
                 Showing {firstIndex + 1}-{Math.min(firstIndex + BOOKS_PER_PAGE, filtered.length)} of {filtered.length} books
               </p>
 

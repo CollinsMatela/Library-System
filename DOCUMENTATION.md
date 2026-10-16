@@ -996,7 +996,7 @@ Subfolders: `UploadPage_Components/` (`TypeOfBooks`, `BookInformation`, `Fiction
 
 **`library_components/`** — `Lib_Navigation`, `Lib_Catalog`, `Lib_BookCard`, `Lib_ViewBook`, `Lib_BookLayout` (reader shell), `Lib_BasedLayoutBook` (text reader), `Lib_StoryLayoutBook` (story reader with audio/video/TTS), `Lib_Quiz`, `Lib_Borrow`, `Lib_MyAccount`, `Lib_Shelf`, `Lib_Story_Buttons`, `Lib_KindergartenBooks`/`Lib_FirstGradeBooks`/`Lib_SecondGradeBooks`/`Lib_ThirdGradeBooks`/`Lib_FourthGradeBooks`. Unused filter forms: `Lib_FilterStoryBooks`, `Lib_FilterWorkBooks`, `Lib_FilterReferenceBooks`, `Lib_FilterEducationalBooks`, `Lib_FilterChildrensBooks`; `CatalogPage_Component/` (`Catalog_TypeOfBooks`, `Catalog_BookInformation`).
 
-**`modals/`** — In use: `BorrowModal`, `AddPage_Modal` (OCR → Quill → upload), `videoGenerationModal`, `NotificationModal`, `QuizResultModal`, `DepositModal`, `DepositsListModal`, `MembersModal`, `LogBookModal`, `LobookViewModal`, `View_Student_Modal`. Unused: `View_Employee_Modal`, `Edit_Student_Modal`, `Edit_Employee_Modal`, `RegisterEmployeeModal`, `InventoryModal`, `Edit_Question_Modal`.
+**`modals/`** — In use: `BorrowModal`, `AddPage_Modal` (OCR → Quill → upload), `videoGenerationModal`, `NotificationModal`, `QuizResultModal`, `DepositModal`, `DepositsListModal`, `MembersModal`, `LogBookModal`, `LogbookViewModal`, `View_Student_Modal`. Unused: `View_Employee_Modal`, `Edit_Student_Modal`, `Edit_Employee_Modal`, `RegisterEmployeeModal`, `InventoryModal`, `Edit_Question_Modal`.
 
 **`popup/`** — `Confirmation_Popup` (generic confirm), `Account_Conformation` (one-time member credentials), `LibrarianAccount` (one-time librarian credentials).
 

@@ -3,9 +3,9 @@ import { Search, ChevronDown, ListFilter } from "lucide-react";
 import { categories, gradeLevels, subjects, fields } from "../../mockdata";
 
 const inputClassName =
-  "mt-1 w-full rounded-md border border-stone-300 bg-white px-3 py-2 text-xs text-stone-700 outline-none transition placeholder:text-stone-400 focus:border-stone-500 focus:ring-2 focus:ring-stone-100";
+  "mt-1 w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-xs text-stone-500 outline-none transition";
 
-const labelClassName = "text-xs text-stone-500";
+const labelClassName = "text-xs font-medium text-stone-500";
 
 const AdvancedSearch = ({
   filters,
@@ -22,6 +22,8 @@ const AdvancedSearch = ({
 
   const fieldsGrid = (
     <div className="grid grid-cols-1 gap-x-4 gap-y-4 p-4 sm:grid-cols-2 lg:grid-cols-4">
+      <FilterFields label="Title" name="title" value={filters.title} onChange={onFilterChange} placeholder="e.g., Harry Potter" />
+      <FilterFields label="Author" name="author" value={filters.author} onChange={onFilterChange} placeholder="e.g., Jose Rizal" />
       <label className={labelClassName}>
         Category
         <select name="category" value={filters.category} onChange={onFilterChange} className={inputClassName}>
@@ -32,14 +34,26 @@ const AdvancedSearch = ({
         </select>
       </label>
       <label className={labelClassName}>
-        Field
-        <select name="field" value={filters.field} onChange={onFilterChange} className={inputClassName}>
-          <option value="">All fields</option>
-          {fields.map((field) => (
-            <option key={field.value} value={field.value}>{field.label}</option>
-          ))}
+        Language
+        <select name="language" value={filters.language} onChange={onFilterChange} className={inputClassName}>
+          <option value="">All Language</option>
+          <option value="english">English</option>
+          <option value="filipino">Filipino</option>
+          <option value="english & filipino">English &amp; filipino</option>
         </select>
       </label>
+      
+      <FilterFields label="Publisher" name="publisher" value={filters.publisher} onChange={onFilterChange} placeholder="Enter publisher" />
+      <FilterFields label="ISBN" name="isbn" value={filters.isbn} onChange={onFilterChange} placeholder="Enter ISBN" />
+      <FilterFields label="Publication Year" name="publication" value={filters.publication} onChange={onFilterChange} type="number" placeholder="e.g., 2024" />
+      <FilterFields label="Edition" name="edition" value={filters.edition} onChange={onFilterChange} placeholder="e.g., 2nd edition" />
+      <FilterFields label="Volume" name="volume" value={filters.volume} onChange={onFilterChange} placeholder="e.g., Volume 1" />
+      <FilterFields label="DDC Classification" name="ddc" value={filters.ddc} onChange={onFilterChange} placeholder="e.g., 500" />
+      <FilterFields label="Call Number" name="callNumber" value={filters.callNumber} onChange={onFilterChange} placeholder="Enter call number" />
+      <FilterFields label="Number of Copies" name="copies" value={filters.copies} onChange={onFilterChange} type="number" min="1" placeholder="e.g., 5" />
+      <FilterFields label="Illustrator" name="illustrator" value={filters.illustrator} onChange={onFilterChange} placeholder="Enter illustrator" />
+      <FilterFields label="Series" name="series" value={filters.series} onChange={onFilterChange} placeholder="Enter series name" />
+
       <label className={labelClassName}>
         Grade Level
         <select name="gradeLevel" value={filters.gradeLevel} onChange={onFilterChange} className={inputClassName}>
@@ -58,28 +72,6 @@ const AdvancedSearch = ({
           ))}
         </select>
       </label>
-      <label className={labelClassName}>
-        Language
-        <select name="language" value={filters.language} onChange={onFilterChange} className={inputClassName}>
-          <option value="">All Language</option>
-          <option value="english">English</option>
-          <option value="filipino">Filipino</option>
-          <option value="english & filipino">English &amp; filipino</option>
-        </select>
-      </label>
-      <FilterFields label="Author" name="author" value={filters.author} onChange={onFilterChange} placeholder="e.g., Jose Rizal" />
-      <FilterFields label="Publisher" name="publisher" value={filters.publisher} onChange={onFilterChange} placeholder="Enter publisher" />
-      <FilterFields label="ISBN" name="isbn" value={filters.isbn} onChange={onFilterChange} placeholder="Enter ISBN" />
-      <FilterFields label="Publication Year" name="publication" value={filters.publication} onChange={onFilterChange} type="number" placeholder="e.g., 2024" />
-      <FilterFields label="Edition" name="edition" value={filters.edition} onChange={onFilterChange} placeholder="e.g., 2nd edition" />
-      <FilterFields label="Volume" name="volume" value={filters.volume} onChange={onFilterChange} placeholder="e.g., Volume 1" />
-      <FilterFields label="DDC Classification" name="ddc" value={filters.ddc} onChange={onFilterChange} placeholder="e.g., 500" />
-      <FilterFields label="Call Number" name="callNumber" value={filters.callNumber} onChange={onFilterChange} placeholder="Enter call number" />
-      <FilterFields label="Number of Copies" name="copies" value={filters.copies} onChange={onFilterChange} type="number" min="1" placeholder="e.g., 5" />
-      <FilterFields label="Donated From" name="donatedFrom" value={filters.donatedFrom} onChange={onFilterChange} placeholder="Enter donor name" />
-      <FilterFields label="Received Date" name="receivedDate" value={filters.receivedDate} onChange={onFilterChange} type="date" />
-      <FilterFields label="Illustrator" name="illustrator" value={filters.illustrator} onChange={onFilterChange} placeholder="Enter illustrator" />
-      <FilterFields label="Series" name="series" value={filters.series} onChange={onFilterChange} placeholder="Enter series name" />
     </div>
   );
 
@@ -136,7 +128,7 @@ const AdvancedSearch = ({
       >
         <span className="flex items-center gap-2 min-w-0">
           <ListFilter size={15} className="text-stone-500 shrink-0" />
-          <span className="text-[11px] text-stone-500">Advanced Filters</span>
+          <span className="text-[11px] text-stone-800 font-semibold">Advanced Filters</span>
           {activeCount > 0 && (
             <span className="bg-stone-800 text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full shrink-0">
               {activeCount}
@@ -145,12 +137,15 @@ const AdvancedSearch = ({
         </span>
         <ChevronDown
           size={15}
-          className={`text-stone-400 transition-transform shrink-0 ${isOpen ? "rotate-180" : ""}`}
+          className={`text-stone-500 transition-transform shrink-0 ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
 
+      
+
       {isOpen && (
         <form onSubmit={onSubmit} className="border-t border-stone-300">
+          
           {fieldsGrid}
           {footer}
         </form>

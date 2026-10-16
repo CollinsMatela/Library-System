@@ -3,7 +3,7 @@ import { Baby, Check, Eye, LoaderCircle, LogIn, LogOut, MapPin, Phone, Plus, Sea
 import Admin_SideBar from "../components/Admin_Sidebar";
 import Admin_Header from "../components/Admin_Header";
 import LogBookModal from "../modals/LogBookModal";
-import LogbookViewModal from "../modals/LobookViewModal";
+import LogbookViewModal from "../modals/LogbookViewModal";
 import Confirmation from "../popup/Confirmation_Popup";
 import axios from "axios";
 import { toast } from "sonner";

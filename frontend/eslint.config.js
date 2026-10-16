@@ -23,7 +23,10 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // Uppercase names are components/icons. Core no-unused-vars does not
+      // count JSX element usage (<Icon />) without eslint-plugin-react, so
+      // ignore uppercase params too and avoid false positives.
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^[A-Z_]' }],
     },
   },
 ])

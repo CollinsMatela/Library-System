@@ -7,7 +7,7 @@ import FictionBookInformation from "./UploadPage_Components/FictionBookInformati
 import BookInformation from "./UploadPage_Components/BookInformation";
 import TypeOfBooks from "./UploadPage_Components/TypeOfBooks";
 import PreviewBook from "./UploadPage_Components/PreviewBook"
-import {  X, Plus, Image, Save, AudioLines, FilePlay, Pencil, ImageOff, Info, ArrowUp, Pen, BookPlus } from "lucide-react";
+import {  X, Plus, Image, Save, AudioLines, FilePlay, Pencil, ImageOff, Info, ArrowUp, Pen, BookPlus, RotateCwIcon, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import Admin_Header from "../components/Admin_Header";
 import useAuthStore from "../store/useAuthStore";
@@ -35,9 +35,8 @@ const Admin_BookRegistration = () => {
         const [copies, setCopies] = useState(1);
         const [callNumber, setCallNumber] = useState("");
         const [donatedFrom, setDonatedFrom] = useState("")
-        const [receivedDate, setReceivedDate] = useState(new Date()); // Default to today's date
+        const [receivedDate, setReceivedDate] = useState(null); // Default to today's date
         const [illustrator, setIllustrator] = useState("");
-        const [moral, setMoral] = useState("");
         const [series, setSeries] = useState("");
         const [field, setField] = useState("")
         const [subject, setSubject] = useState(""); 
@@ -87,12 +86,9 @@ const Admin_BookRegistration = () => {
             setCopies(1);
             setCallNumber("");
             setDonatedFrom("");
-            setReceivedDate(
-                new Date().toISOString().split("T")[0]
-            );
+            setReceivedDate(null);
 
             setIllustrator("");
-            setMoral("");
             setSeries("");
         };
         
@@ -113,20 +109,7 @@ const Admin_BookRegistration = () => {
             toast.warning('Select Category')
             return;
         }
-        // if 
-        // (
-        //     selectedCategoryOfBook.toLowerCase() === "philosophy/psychology" ||
-        //     selectedCategoryOfBook.toLowerCase() === "social sciences" ||
-        //     selectedCategoryOfBook.toLowerCase() === "technology / applied sciences" ||
-        //     selectedCategoryOfBook.toLowerCase() === "the arts"
-        // )
-        //  {
-        //     if (!field) {
-        //         toast.warning("Select Field.");
-        //         return;
-        //     }
-        // }
-      
+ 
         if (!title) {
             toast.warning('Enter Title')
             return;
@@ -240,18 +223,13 @@ const Admin_BookRegistration = () => {
             onCancel={() => {setShowConfirmation(false); setErrorMessage("");}}
             isLoading={uploadLoading}
         />)}
-        <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60 pb-10">
+        <section className="bg-white min-h-[92vh] w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60">
               
-              <Admin_Header mainText={'Upload Management'} subText={'Upload new books for the library'}/>
+              <Admin_Header mainText={'Book Registration'} subText={'Register the books from library'}/>
 
                 {/* MANUALLY UPLOAD STORY CONTAINER */}
-                <div className={`w-full flex flex-col rounded-xl gap-10 px-4 md:px-10`}>
+                <div className={`w-full flex flex-col rounded-xl px-4 mt-4`}>
                     
-                        {/* Story Details */}
-                        <div className=" w-full flex flex-col">
-
-                        
-
                        <TypeOfBooks
                        selectedCategoryOfBook={selectedCategoryOfBook}
                        setSelectedCategoryOfBook={setSelectedCategoryOfBook}
@@ -325,27 +303,37 @@ const Admin_BookRegistration = () => {
                         illustrator={illustrator}
                         setIllustrator={setIllustrator}
 
-                        moral={moral}
-                        setMoral={setMoral}
-
                         series={series}
                         setSeries={setSeries}
                     />
-
-                    <div className="justify-end items-center flex">
-                        <button className={`${uploadLoading ? "bg-stone-200 text-stone-500" : "bg-stone-800 hover:bg-stone-900 text-white"} text-[10px] justify-center items-center flex gap-2 p-2 rounded-lg hover:bg-stone-900 transition`}
-                        disabled={uploadLoading}
-                        onClick={handleConfirmation}>
-                            <Plus size={15}/>
-                            <h1>{uploadLoading ? "...Uploading" : "Upload book"}</h1>
-                        </button>
-                    </div>
-                   
+          
                 </div>
-
-                         </div>
+                
                     
         </section>
+        <footer className="h-[8vh] w-full justify-start items-center flex border-t border-stone-300 bg-stone-100 md:pl-20 lg:pl-60 mb-10 md:mb-0">
+            <div className="w-full justify-between items-center flex px-4">
+                <h1 className="text-stone-500 text-[10px]">Book Registration Action</h1>
+                
+                <div className="w-fit flex gap-1">
+                    <button className={`bg-white border border-stone-300 text-[10px] justify-center items-center flex gap-2 p-2 rounded-full hover:bg-stone-100 transition`}
+                    disabled={uploadLoading}
+                    onClick={resetForm}>
+                        <RotateCcw size={15} className="text-stone-500"/>
+                        <h1 className="text-stone-500">Reset</h1>
+                    </button>
+                    <button className={`${uploadLoading ? "bg-stone-200 text-stone-500" : "bg-stone-800 hover:bg-stone-900 text-white"} text-[10px] justify-center items-center flex gap-2 p-2 rounded-full hover:bg-stone-900 transition`}
+                    disabled={uploadLoading}
+                    onClick={handleConfirmation}>
+                        <Plus size={15}/>
+                        <h1>{uploadLoading ? "...Uploading" : "Upload book"}</h1>
+                    </button>
+                </div>
+                
+            </div>
+            
+            
+        </footer>
         </>
       )
 }

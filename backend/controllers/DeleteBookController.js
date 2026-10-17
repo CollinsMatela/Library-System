@@ -2,6 +2,7 @@ import Books_Model from "../models/Books_Model.js";
 
 const DeleteBookController = async (req, res) => {
     const {bookId} = req.params;
+    console.log('ID:', bookId)
     try {
         const book = await Books_Model.findById(bookId);
 

@@ -146,7 +146,7 @@ const Edit_BookPage = ({bookDetails, setBookDetails, handleImageChange, handleAu
                     />
         )}
 
-        <div className="w-full flex flex-col px-4 lg:px-10">
+        <div className="w-full flex flex-col px-4">
 
             
             

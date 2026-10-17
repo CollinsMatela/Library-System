@@ -84,7 +84,7 @@ function App() {
 
           <Route element={<ProtectedRoute allowedRoles={["system administrator", "head librarian", "it librarian"]} />}>
                 <Route path="/admin/book-registration" element={<Admin_BookRegistration />} />
-                <Route path="/admin/edit" element={<Admin_Edit />} />
+                <Route path="/admin/book-management" element={<Admin_Edit />} />
                 <Route path="/admin/book-record" element={<Admin_Inventory />} />
                 <Route path="/admin/report" element={<Admin_Report/>}/>
           </Route>

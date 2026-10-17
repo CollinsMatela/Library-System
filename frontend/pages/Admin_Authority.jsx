@@ -11,10 +11,10 @@ import EmptyState from "../components/EmptyState";
 
 /* Each role gets its own colour so the list is quick to scan. */
 const ROLE_COLORS = {
-    "system administrator": "bg-red-50 text-red-600 border-red-200",
-    "head librarian": "bg-purple-50 text-purple-600 border-purple-200",
-    "it librarian": "bg-blue-50 text-blue-600 border-blue-200",
-    "assistant librarian": "bg-green-50 text-green-600 border-green-200",
+    "system administrator": "bg-red-50 text-red-600 border-red-300",
+    "head librarian": "bg-purple-50 text-purple-600 border-purple-300",
+    "it librarian": "bg-blue-50 text-blue-600 border-blue-300",
+    "assistant librarian": "bg-green-50 text-green-600 border-green-300",
 };  
 
 const Admin_Authority = () => {
@@ -168,7 +168,7 @@ const Admin_Authority = () => {
             {visibleMembers.map((member) => (
                 <div
                     key={member._id}
-                    className="w-full flex flex-col sm:flex-row sm:items-center gap-3 bg-white border border-stone-200 rounded-lg p-2 hover:border-stone-300 hover:shadow-sm transition"
+                    className="w-full flex flex-col sm:flex-row sm:items-center gap-3 bg-white border border-stone-300 rounded-lg p-2 hover:border-stone-300 hover: transition"
                 >
                     {/* Avatar, name and role */}
                     <div className="flex items-center gap-3 min-w-0 flex-1">
@@ -191,7 +191,7 @@ const Admin_Authority = () => {
 
                             <span
                                 className={`inline-flex mt-1 px-2 py-0.5 rounded-full border text-[10px] font-medium ${
-                                    ROLE_COLORS[member.role] || "bg-stone-100 text-stone-600 border-stone-200"
+                                    ROLE_COLORS[member.role] || "bg-stone-100 text-stone-600 border-stone-300"
                                 }`}
                             >
                                 {getRoleLabel(member.role)}
@@ -228,7 +228,7 @@ const Admin_Authority = () => {
                             aria-label={`Delete ${getFullName(member)}`}
                             title="Delete member"
                             onClick={() => handleDeleteLibrarian(member)}
-                            className="p-2 bg-white hover:bg-stone-200 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                            className="p-2 bg-white hover:bg-stone-300 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
                         >
                             <Trash size={15} className="text-red-600" />
                         </button>
@@ -297,7 +297,7 @@ const Admin_Authority = () => {
                     subText={"Manage the authorized librarian account"}
                 />
 
-                <div className="w-full justify-start items-start flex flex-col px-4 lg:px-10 pb-10">
+                <div className="w-full justify-start items-start flex flex-col px-4 mt-4 pb-10">
 
                     {/* Page heading, search and the add button */}
                     <div className="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4">
@@ -331,7 +331,7 @@ const Admin_Authority = () => {
                     </div>
 
                     {/* Role counts. Clicking one filters the list. */}
-                    <div className="w-full bg-white border border-stone-200 rounded-lg p-3 mb-3">
+                    <div className="w-full bg-white border border-stone-300 rounded-lg p-3 mb-3">
                         <div className="w-full flex flex-wrap items-center gap-2">
                             <p className="text-[11px] text-stone-500 mr-1">Filter by role</p>
 

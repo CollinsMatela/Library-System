@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import SearchIcon from '../src/assets/search-svgrepo-com.svg'
 import Admin_Sidebar from '../components/Admin_Sidebar'
-import { Pen, Search, SquarePen, FileText, BookOpenText, Sparkles } from "lucide-react";
+import { Pen, Search, SquarePen, FileText, BookOpenText, Sparkles, Trash } from "lucide-react";
 import AdvancedSearch from "./BookPage_Component/AdvancedSearch";
 import { toast } from "sonner";
 import Edit_BookInformation from "./BookInformation_Component/Edit_BookInformation";
@@ -22,6 +22,7 @@ const Admin_Edit = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isInformationUpdate, setIsInformationUpdate] = useState(false);
     const [isAddPageModal, setIsAddPageModal] = useState(false);
+    const [deleteConfirmation, setDeleteConfirmation] = useState(false);
     // const [isVideoGenerationModal, setIsVideoGenerationModal] = useState(false);
     
     const [books, setBooks] = useState([]);
@@ -208,6 +209,25 @@ const Admin_Edit = () => {
             setSavedLoading(false)
         }
     }
+    const [deleteLoading, setDeleteLoading] = useState(false)
+    const deleteBook = async () => {
+          setDeleteLoading(true)
+          try {
+        
+            const res = await axios.delete(`${import.meta.env.VITE_API_URL}/delete-book/${bookDetails._id}`)
+            toast.success(res.data.message)
+            fetchBooks();
+            setDeleteConfirmation(false)
+            setSelectedBook(null)
+            setBookDetails(null)
+          } catch (error) {
+            console.error("Error deleting book:", error);
+            setErrorMessage(error?.response?.data?.message || "An error occurred while updating the book information.");
+            toast.error(error?.response?.data?.message || "An error occurred while updating the book information.");
+          } finally {
+            setDeleteLoading(false)
+          }
+    }
 
     useEffect(() => {
       setIsLoading(true)
@@ -285,6 +305,16 @@ const Admin_Edit = () => {
         onCancel={() => setIsInformationUpdate(false)}
         />)}
 
+        {deleteConfirmation && (
+            <Confirmation_Popup
+            errorMessage={errorMessage}
+            message={'Are you sure to delete this book?'}
+            isLoading={deleteLoading}
+            onConfirm={deleteBook}
+            onCancel={() => setDeleteConfirmation(false)}
+            />
+        )}
+
         {isAddPageModal && (
         <AddPage_Modal
         onClose={() => setIsAddPageModal(false)}
@@ -296,13 +326,13 @@ const Admin_Edit = () => {
 
         <section className="bg-white min-h-screen w-full justify-start items-start flex flex-col md:pl-20 lg:pl-60 pb-20">
               
-        <Admin_Header mainText={'Editing Management'} subText={'Update the information of book'}/>
+        <Admin_Header mainText={'Book Management'} subText={'Update the information of book'}/>
 
         {/* ================= TABS BAR =================
             Left side: the tab buttons
             Right side: the search input
         */}
-        <div className="w-full px-4 lg:px-10 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+        <div className="w-full px-4 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 my-4">
 
             {/* ===== LEFT: TAB BUTTONS ===== */}
             <div className="sticky flex flex-row items-center gap-1">
@@ -337,7 +367,7 @@ const Admin_Edit = () => {
             <div className="w-full sm:w-fit justify-end items-center flex gap-1">
                
             
-            <div className="relative w-full sm:w-80 bg-white border border-stone-200 rounded-xl flex justify-start items-center p-2 gap-2">
+            <div className="relative w-full sm:w-80 bg-white border border-stone-300 rounded-lg flex justify-start items-center p-2 gap-2">
 
                     <Search size={15} className="text-stone-500" />
 
@@ -444,13 +474,21 @@ const Admin_Edit = () => {
 
     {/* // Save Button (works for the selected book) */}
     {bookDetails && (
-    <div className="h-12 fixed bottom-0 left-0 md:left-20 lg:left-60 right-0 bg-white/50 backdrop-blur-[2px] justify-between items-center flex gap-3 px-4 lg:px-10 z-10">
+    <div className="h-[8vh] fixed bottom-0 left-0 md:left-20 lg:left-60 right-0 bg-stone-100 border-t border-stone-300 backdrop-blur-[2px] justify-between items-center flex gap-3 px-4 z-10">
     <h1 className="text-[10px] text-stone-500">Editing Actions</h1>
-    <button className="justify-center items-center flex gap-2 bg-stone-800 p-2 rounded-full text-[10px] text-white hover:bg-stone-900 cursor-pointer"
-    onClick={() => {setIsInformationUpdate(true); setErrorMessage("")}}
-    >
-        <Pen size={15}/> Save Changes 
-    </button>
+    <div className="flex gap-1">
+        <button className="justify-center items-center flex gap-2 bg-white border border-red-500 p-2 rounded-full text-[10px] hover:bg-red-100 cursor-pointer"
+        onClick={() => {setDeleteConfirmation(true); setErrorMessage("")}}
+        >
+            <Trash size={15} className="text-red-500"/> <h1 className="text-red-500">Delete</h1>
+        </button>
+        <button className="justify-center items-center flex gap-2 bg-stone-800 p-2 rounded-full text-[10px] text-white hover:bg-stone-900 cursor-pointer"
+        onClick={() => {setIsInformationUpdate(true); setErrorMessage("")}}
+        >
+            <Pen size={15}/> Save Changes 
+        </button>
+    </div>
+    
     </div>     
     )}
     </div>

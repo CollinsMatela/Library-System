@@ -10,9 +10,9 @@ import EmptyState from "../components/EmptyState";
 
 /* The three kinds of user accounts, and the colour each one gets. */
 const USER_ROLES = [
-    { value: "student", label: "Student", color: "bg-blue-50 text-blue-600 border-blue-200" },
-    { value: "teacher", label: "Teacher", color: "bg-emerald-50 text-emerald-600 border-emerald-200" },
-    { value: "guest", label: "Guest", color: "bg-stone-100 text-stone-600 border-stone-200" },
+    { value: "student", label: "Student", color: "bg-blue-50 text-blue-600 border-blue-300" },
+    { value: "teacher", label: "Teacher", color: "bg-emerald-50 text-emerald-600 border-emerald-300" },
+    { value: "guest", label: "Guest", color: "bg-stone-100 text-stone-600 border-stone-300" },
 ];
 
 const Admin_User = () => {
@@ -43,7 +43,7 @@ const Admin_User = () => {
     const getRole = (role) =>
         USER_ROLES.find((item) => item.value === role?.toLowerCase()) || {
             label: role || "Unknown",
-            color: "bg-stone-100 text-stone-600 border-stone-200",
+            color: "bg-stone-100 text-stone-600 border-stone-300",
         };
 
     // How many users hold this role, e.g. 12 Students.
@@ -137,7 +137,7 @@ const Admin_User = () => {
                 return (
                     <div
                         key={user._id}
-                        className="w-full flex flex-col sm:flex-row sm:items-center gap-3 bg-white border border-stone-200 rounded-lg p-2 hover:border-stone-300 hover:shadow-sm transition"
+                        className="w-full flex flex-col sm:flex-row sm:items-center gap-3 bg-white border border-stone-300 rounded-lg p-2 hover:border-stone-300 hover:shadow-sm transition"
                     >
                         {/* Avatar, name and role */}
                         <div className="flex items-center gap-3 min-w-0 flex-1">
@@ -236,7 +236,7 @@ const Admin_User = () => {
                     subText={"Manage the registered users"}
                 />
 
-                <div className="w-full justify-start items-start flex flex-col px-4 lg:px-10 pb-10">
+                <div className="w-full justify-start items-start flex flex-col px-4 mt-4 pb-10">
 
                     {/* Page heading and search */}
                     <div className="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4">
@@ -259,7 +259,7 @@ const Admin_User = () => {
                     </div>
 
                     {/* Role counts. Clicking one filters the list. */}
-                    <div className="w-full bg-white border border-stone-200 rounded-lg p-3 mb-3">
+                    <div className="w-full bg-white border border-stone-300 rounded-lg p-3 mb-3">
                         <div className="w-full flex flex-wrap items-center gap-2">
                             <p className="text-[11px] text-stone-500 mr-1">Filter by role</p>
 

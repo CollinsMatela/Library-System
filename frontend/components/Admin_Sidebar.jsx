@@ -20,7 +20,7 @@ const Admin_SideBar = () => {
     const isAuthority = location.pathname === "/admin/authority";
     const isBorrowBook = location.pathname === "/admin/borrow-book"
     const isInventory = location.pathname === "/admin/book-record";
-    const isEdit = location.pathname === "/admin/edit"
+    const isEdit = location.pathname === "/admin/book-management"
     const isReport = location.pathname === "/admin/report"
 
     const lowAccess = !["assistant librarian", "it librarian", "head librarian", "system administrator"].includes(user?.role) // Librarian Assistant
@@ -53,7 +53,7 @@ const Admin_SideBar = () => {
           navigate('/admin/book-record');
     }
     const handleEdit = () => {
-          navigate('/admin/edit');
+          navigate('/admin/book-management');
     }
     const handleReport = () => {
           navigate('/admin/report')
@@ -141,7 +141,7 @@ const Admin_SideBar = () => {
         :
         <SquarePen className={`${isEdit ? 'text-white' : 'text-stone-800'}`} size={15}/>
         }
-        <h1 className="hidden lg:block">Edit</h1>
+        <h1 className="hidden lg:block">Book Management</h1>
       </button>
 
       <button disabled={midAccess}

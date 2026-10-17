@@ -231,12 +231,12 @@ const Admin_Report = () => {
             <Admin_Header mainText={'Report'} subText={'Create monthly library report'}/>
             
             {/** Main Container*/}
-            <div className="w-full px-4 lg:px-10">
+            <div className="w-full px-4 mt-4">
 
                     
              
                 {/**Filter by month and year container */}
-                <div className="w-full py-2 border-b border-stone-300 justify-center items-center flex">
+                <div className="w-full justify-center items-center flex">
                     <div className="w-full justify-start items-center flex gap-2">
                         <h1 className="text-[11px] text-stone-500">Filter by months</h1>
                     
@@ -292,7 +292,7 @@ const Admin_Report = () => {
 
                 
 
-                <div className="w-full grid grid-cols-1 gap-4 mt-4">
+                <div className="w-full grid grid-cols-1 gap-4 mt-2">
                     {!selectedReport || selectedReport.length === 0 ? 
                     (
                         <EmptyState title="No Monthly Report" description="No existing report in selected month and year" action={() => setIsReportModal(true)} actionName={"Create Report"}/>

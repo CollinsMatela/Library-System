@@ -516,33 +516,33 @@ const Admin_BorrowBook_Page = () => {
                     subText={"Manage borrow request from users"}
                 />
 
-                <div className="w-full justify-start items-start flex flex-col px-4 lg:px-10 pb-10">
+                <div className="w-full justify-start items-start flex flex-col px-4 pb-10">
 
                     {/* Page heading, search and the deposit buttons */}
-                    <div className="w-full flex lg:items-center justify-between gap-3 mb-4">
+                    <div className="w-full flex lg:items-center justify-between gap-1 my-4">
                         
                         {/* Search by book title or borrower name */}
-                            <div className="relative w-full">
-                                <Search
-                                    size={14}
-                                    className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none"
-                                />
-                                <input
-                                    type="search"
-                                    value={searchText}
-                                    onChange={(e) => setSearchText(e.target.value)}
-                                    placeholder="Search book or borrower..."
-                                    className="w-full lg:w-56 border border-stone-300 bg-white rounded-lg pl-9 pr-3 py-2 text-xs text-stone-600 outline-none focus:ring-2 focus:ring-stone-300"
-                                />
-                            </div>
+                        <div className="relative w-full lg:w-fit">
+                            <Search
+                                size={14}
+                                className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none"
+                            />
+                            <input
+                                type="search"
+                                value={searchText}
+                                onChange={(e) => setSearchText(e.target.value)}
+                                placeholder="Search book or borrower..."
+                                className="w-full lg:w-56 border border-stone-300 bg-white rounded-lg pl-9 pr-3 py-2 text-xs text-stone-600 outline-none focus:ring-2 focus:ring-stone-300"
+                            />
+                        </div>
 
-                        <div className="w-fit lg:w-auto flex items-center gap-2">
+                        <div className="w-fit justify-end flex items-center gap-1 shrink-0">
 
                             <button
                                 type="button"
                                 title="List of physical ID deposit"
                                 onClick={() => setIsDepositList(true)}
-                                className="text-stone-800 bg-white p-2 rounded-lg cursor-pointer hover:bg-stone-100 flex justify-center items-center transition-colors shrink-0"
+                                className="text-stone-800 bg-white p-2 rounded-lg cursor-pointer hover:bg-stone-100 flex justify-center items-center"
                             >
                                 <IdCardLanyard size={15} />
                             </button>
@@ -550,7 +550,7 @@ const Admin_BorrowBook_Page = () => {
                             <button
                                 type="button"
                                 onClick={() => setIsDeposit(true)}
-                                className="text-[10px] text-white bg-stone-800 hover:bg-stone-900 px-4 py-2 rounded-full flex items-center justify-center gap-1 cursor-pointer transition-colors shrink-0"
+                                className="text-[10px] text-white bg-stone-800 hover:bg-stone-900 px-4 py-2 rounded-full flex items-center justify-center gap-1 cursor-pointer"
                             >
                                 <IdCard size={15} />
                                 Deposit Id

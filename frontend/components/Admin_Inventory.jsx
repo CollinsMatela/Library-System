@@ -348,10 +348,10 @@ const Admin_Inventory = () => {
                     subText={"Oversee the record of books"}
                 />
 
-                <div className="w-full justify-start items-start flex flex-col px-4 lg:px-10 pb-10">
+                <div className="w-full justify-start items-start flex flex-col px-4 pb-10 mt-4">
 
                     {/* Page heading and search */}
-                    <div className="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4">
+                    <div className="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-2">
                         
 
                         {/* Search and sort */}

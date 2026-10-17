@@ -175,7 +175,6 @@ const Admin_BookRegistration = () => {
 
             // Literature / Fiction
             illustrator,
-            moral,
             series,
 
             // Non-Fiction

@@ -54,7 +54,7 @@ const Preview_BookInformation = ({bookDetails, setBookDetails}) => {
 
       return(
         <>
-        <div className="w-full px-4 lg:px-10 mb-4">
+        <div className="w-full px-4 mb-4">
 
         {/* ================= DESCRIPTION ================= */}
             <div className="bg-white w-full flex flex-col gap-3 md:p-6 border-0 md:border border-stone-200 shadow-sm md:rounded-lg">

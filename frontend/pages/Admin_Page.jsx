@@ -21,6 +21,7 @@ import {
 import useAuthStore from "../store/useAuthStore";
 import Admin_SideBar from "../components/Admin_Sidebar";
 import Admin_Header from "../components/Admin_Header";
+import EmptyState from "../components/EmptyState";
 
 /* ------------------------------------------------------------------
    isToday
@@ -99,14 +100,10 @@ const SectionCard = ({ title, subtitle, icon, children }) => {
 ------------------------------------------------------------------ */
 const CoverPlaceholder = ({ className = "h-48 w-full" }) => {
     return (
-        <div
-            className={`flex flex-col items-center justify-center gap-2 rounded-md border border-stone-300 bg-stone-100 shadow-sm ${className}`}
-        >
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-200">
-                <ImageOff size={18} className="text-stone-400" strokeWidth={1.5} />
-            </div>
-            <p className="text-xs text-stone-500">No cover available</p>
+        <div className={`${className} border border-stone-300 rounded-xl`}>
+        <EmptyState description="No Cover Available"/>
         </div>
+        
     );
 };
 

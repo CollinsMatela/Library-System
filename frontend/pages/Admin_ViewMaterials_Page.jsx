@@ -142,7 +142,7 @@ const Admin_ViewMaterials_Page = () => {
         {/* ---------------- Page header ---------------- */}
         <header className="w-full bg-white justify-between items-center border-b border-stone-300 flex p-3 px-4">
           <div className="mt-1">
-            <h1 className="text-sm font-bold text-stone-800">
+            <h1 className="text-sm font-semibold text-stone-800">
               Book Information
             </h1>
             <p className="text-[10px] text-stone-400">
@@ -198,7 +198,7 @@ const Admin_ViewMaterials_Page = () => {
                     className="bg-stone-100 h-100 w-full max-w-80 object-cover object-top rounded-lg"
                   />
                 ) : (
-                  <div className="h-fit w-full lg:w-80 bg-black">
+                  <div className="h-fit w-full lg:w-80 border border-stone-300 rounded-xl">
                     <EmptyState
                       title="No Cover Found"
                       description="This book does not have a cover image yet."

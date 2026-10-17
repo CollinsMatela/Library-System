@@ -5,6 +5,7 @@ import NotificationModal from "../modals/NotificationModal";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
     LogOut,
+    House,
     Blocks,
     BookSearch,
     BellDot,
@@ -72,9 +73,9 @@ const Lib_Navigation = () => {
     }, [isMenu]);
 
     const navLinks = [
-        { path: "/library/home", label: "Home", icon: Blocks },
-        { path: "/library/catalog", label: "Search & Catalog", icon: BookSearch },
-        { path: "/library/borrow-status", label: "Borrow Status", icon: LayoutList },
+        { path: "/library/home", label: "Home", icon: House },
+        { path: "/library/catalog", label: "Catalog", icon: BookSearch },
+        { path: "/library/borrow-status", label: "Status", icon: LayoutList },
     ];
 
     const isActive = (path) => location.pathname === path;
@@ -123,8 +124,8 @@ const Lib_Navigation = () => {
                                     className={`${
                                         isActive(link.path)
                                             ? "bg-stone-100 text-stone-900"
-                                            : "text-stone-500 hover:bg-stone-50 hover:text-stone-700"
-                                    } px-3 py-2 rounded-lg flex items-center gap-2 text-xs font-medium transition-all duration-200 cursor-pointer`}
+                                            : "text-stone-500 hover:bg-stone-50 hover:text-stone-800"
+                                    } px-3 py-2 rounded-lg flex items-center gap-2 text-[10px] transition-all duration-200 cursor-pointer`}
                                     onClick={() => navigate(link.path)}
                                 >
                                     <Icon size={15} />
@@ -140,7 +141,7 @@ const Lib_Navigation = () => {
                                 onClick={() => setIsNotification((prev) => !prev)}
                             >
                                 <BellDot
-                                    size={18}
+                                    size={15}
                                     className={`${
                                         isNotification ? "text-stone-900" : "text-stone-500"
                                     }`}

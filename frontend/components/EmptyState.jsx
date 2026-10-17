@@ -15,7 +15,7 @@ const EmptyState = ({ icon: Icon = FileText, title, description, action, actionN
   return (
     <div
       className={clsx(
-        "w-full h-full bg-white flex flex-col justify-center items-center gap-3 p-6",
+        "w-full h-full bg-white flex flex-col justify-center items-center gap-3 p-6 rounded-xl",
         className
       )}
     >

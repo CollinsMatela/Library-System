@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import useAuthStore from '../store/useAuthStore'
 import Confirmation from '../popup/Confirmation_Popup'
 import Footer from '../components/Footer'
+import EmptyState from "../components/EmptyState"
 
 const STATUS_CONFIG = {
   pending: { icon: Ellipsis, color: "bg-yellow-500", badge: "bg-yellow-100 text-yellow-700", label: "Pending" },
@@ -50,28 +51,7 @@ const SkeletonCard = () => (
   </div>
 )
 
-const EmptyState = ({ message, submessage, showCTA }) => {
-  const navigate = useNavigate()
-  return (
-    <div className="w-full min-h-48 bg-stone-50 border border-stone-200 rounded-xl flex flex-col justify-center items-center gap-3 p-6">
-      <div className="w-14 h-14 rounded-full bg-stone-100 flex justify-center items-center">
-        <BookOpen size={24} className="text-stone-400" />
-      </div>
-      <div className="text-center">
-        <h1 className="text-sm font-semibold text-stone-700">{message}</h1>
-        <p className="text-xs text-stone-400 mt-1">{submessage}</p>
-      </div>
-      {showCTA && (
-        <button
-          onClick={() => navigate("/library/catalog")}
-          className="mt-2 px-4 py-2 bg-stone-800 text-white text-xs font-medium rounded-lg hover:bg-stone-700 transition cursor-pointer"
-        >
-          Browse Books
-        </button>
-      )}
-    </div>
-  )
-}
+
 
 const StatusTimeline = ({ status }) => {
   const currentIdx = STATUS_STEPS.indexOf(status)
@@ -117,7 +97,8 @@ const Lib_Borrow = () => {
     const approveList = latestOrder.filter((z) => z.status.toLowerCase() === 'approved');
     const borrowedList = latestOrder.filter((z) => z.status.toLowerCase() === 'borrowed');
     const historyList = latestOrder.filter((z) => z.status.toLowerCase() === 'returned');
-
+    
+    const navigate = useNavigate();
     const fetchBorrow = async () => {
           try {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-borrow/${user._id}`);
@@ -348,25 +329,25 @@ const Lib_Borrow = () => {
                             {isPending && (
                                 pendingList.length > 0
                                     ? pendingList.map((pending, i) => renderCard(pending, i))
-                                    : <EmptyState message="No Pending Request" submessage="You don't have any pending book requests yet." showCTA />
+                                    : <EmptyState title="No Pending Request" description="You don't have any pending book requests yet." action={() => navigate('/library/catalog')} actionName={"Go to Catalog"} />
                             )}
 
                             {isApprove && (
                                 approveList.length > 0
                                     ? approveList.map((approve, i) => renderCard(approve, i))
-                                    : <EmptyState message="No Approved Request" submessage="You don't have any approved book requests yet." showCTA />
+                                    : <EmptyState title="No Pending Request" description="You don't have any pending book requests yet." action={() => navigate('/library/catalog')} actionName={"Go to Catalog"} />
                             )}
 
                             {isBorrow && (
                                 borrowedList.length > 0
                                     ? borrowedList.map((borrow, i) => renderCard(borrow, i, false))
-                                    : <EmptyState message="No Borrowed Book" submessage="You don't have any borrowed book yet." showCTA />
+                                    : <EmptyState title="No Pending Request" description="You don't have any pending book requests yet." action={() => navigate('/library/catalog')} actionName={"Go to Catalog"} />
                             )}
 
                             {isHistory && (
                                 historyList.length > 0
                                     ? historyList.map((history, i) => renderCard(history, i, false))
-                                    : <EmptyState message="No Borrow History" submessage="You don't have any borrowed history yet." />
+                                    : <EmptyState title="No Pending Request" description="You don't have any pending book requests yet." action={() => navigate('/library/catalog')} actionName={"Go to Catalog"} />
                             )}
 
                         </div>

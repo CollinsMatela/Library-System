@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Search, Book, BookSearch, ListFilter, X, ChevronLeft, ChevronRight, LoaderCircle } from "lucide-react";
+import { Book, BookSearch, X, ChevronLeft, ChevronRight, LoaderCircle } from "lucide-react";
 import { toast } from "react-toastify";
 import Lib_Navigation from "../library_components/Lib_Navigation";
 import AdvancedSearch from "../pages/BookPage_Component/AdvancedSearch";
+import EmptyState from "../components/EmptyState";
 
 const EMPTY_FILTERS = {
   title: "",
@@ -104,7 +105,7 @@ const BookCard = ({ book, index }) => {
   return (
     <Link
       to={`/library/view-book/${book._id}`}
-      className="group flex flex-row items-center gap-4 p-3 rounded-xl border border-stone-200 bg-white hover:border-stone-300 hover:shadow-lg hover:shadow-stone-200/60 hover:-translate-y-0.5 transition-all duration-300 animate-[fadeIn_0.3s_ease-out]"
+      className="group flex flex-row items-center gap-4 p-3 rounded-xl border border-stone-300 bg-white hover:border-stone-300 hover:shadow-lg hover:shadow-stone-200/60 hover:-translate-y-0.5 transition-all duration-300 animate-[fadeIn_0.3s_ease-out]"
       style={{ animationDelay: `${index * 40}ms` }}
       aria-label={`View book: ${book.title || "Untitled"}`}
     >
@@ -156,26 +157,8 @@ const BookCard = ({ book, index }) => {
 };
 
 const EmptyResults = ({ hasFilters, onClear }) => (
-  <div className="w-full min-h-56 bg-stone-50 border border-stone-200 rounded-xl flex flex-col justify-center items-center gap-3 p-6 text-center">
-    <div className="w-14 h-14 rounded-full bg-stone-100 flex items-center justify-center">
-      <BookSearch size={24} className="text-stone-400" />
-    </div>
-    <div>
-      <h2 className="text-sm font-semibold text-stone-700">No books found</h2>
-      <p className="text-xs text-stone-400 mt-1 max-w-xs">
-        {hasFilters
-          ? "Try changing or clearing your search filters."
-          : "The catalog is empty right now. Please check back later."}
-      </p>
-    </div>
-    {hasFilters && (
-      <button
-        onClick={onClear}
-        className="mt-1 px-4 py-2 bg-stone-800 text-white text-xs font-medium rounded-lg hover:bg-stone-700 transition cursor-pointer"
-      >
-        Clear all filters
-      </button>
-    )}
+  <div className="w-full min-h-56 bg-white border border-stone-200 rounded-xl flex flex-col justify-center items-center gap-3 p-6 text-center">
+    <EmptyState title="No Result Found" description="Try to filter again the information" action={onClear} actionName={'Clear Filter'}/>
   </div>
 );
 
@@ -183,8 +166,6 @@ const Lib_Catalog = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [books, setBooks] = useState([]);
-  const [query, setQuery] = useState("");
-  const [debouncedQuery, setDebouncedQuery] = useState("");
   const [filters, setFilters] = useState(EMPTY_FILTERS);
   const [page, setPage] = useState(1);
 
@@ -212,12 +193,6 @@ const Lib_Catalog = () => {
     loadData();
   }, []);
 
-  // Debounce the live search box so filtering doesn't run on every keystroke.
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedQuery(query), 300);
-    return () => clearTimeout(timer);
-  }, [query]);
-
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters((current) => ({ ...current, [name]: value }));
@@ -225,7 +200,6 @@ const Lib_Catalog = () => {
 
   const clearFilters = () => {
     setFilters(EMPTY_FILTERS);
-    setQuery("");
   };
 
   const removeFilter = (name) => {
@@ -238,24 +212,26 @@ const Lib_Catalog = () => {
   );
 
   const filtered = useMemo(() => {
-    const q = debouncedQuery.trim().toLowerCase();
+    const searchText = String(filters.title || "").trim().toLowerCase();
 
     return books.filter((book) => {
-      // Header box matches title OR author.
-      if (q) {
-        const title = String(book.title || "").toLowerCase();
-        const author = String(book.author || "").toLowerCase();
-        if (!title.includes(q) && !author.includes(q)) return false;
-      }
+      const title = String(book.title || "").toLowerCase();
+      const author = String(book.author || "").toLowerCase();
 
-      // Advanced fields refine on top, all AND-ed together.
-      return activeFilters.every(([key, value]) => {
-        // `title` is owned by the header box, not the advanced panel.
+      // Title from advanced search matches title OR author
+      const matchesSearch = searchText
+        ? title.includes(searchText) || author.includes(searchText)
+        : true;
+
+      // Other advanced filters
+      const matchesFilters = activeFilters.every(([key, value]) => {
         if (key === "title") return true;
         return matches(book, key, value);
       });
+
+      return matchesSearch && matchesFilters;
     });
-  }, [books, debouncedQuery, activeFilters]);
+  }, [books, filters, activeFilters]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -264,10 +240,10 @@ const Lib_Catalog = () => {
     currentPage * PAGE_SIZE
   );
 
-  // Any change to the query or filters sends the user back to the first page.
+  // Any change to filters sends the user back to the first page.
   useEffect(() => {
     setPage(1);
-  }, [debouncedQuery, filters]);
+  }, [filters]);
 
   const pageNumbers = useMemo(() => {
     const window = 2;
@@ -276,7 +252,7 @@ const Lib_Catalog = () => {
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   }, [currentPage, totalPages]);
 
-  const hasFilters = activeFilters.length > 0 || debouncedQuery.trim().length > 0;
+  const hasFilters = activeFilters.length > 0;
 
   return (
      <>
@@ -298,31 +274,6 @@ const Lib_Catalog = () => {
                 </p>
               </div>
             </div>
-
-            {/* Live search — matches title or author */}
-            <div className="relative w-full sm:w-80">
-              <Search
-                size={15}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none"
-              />
-              <input
-                type="search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search by title or author"
-                aria-label="Search by title or author"
-                className="w-full h-10 pl-9 pr-9 bg-white border border-stone-200 rounded-lg text-xs text-stone-700 outline-none transition placeholder:text-stone-400 focus:border-stone-500 focus:ring-2 focus:ring-stone-100"
-              />
-              {query && (
-                <button
-                  onClick={() => setQuery("")}
-                  aria-label="Clear search"
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700 transition-colors cursor-pointer"
-                >
-                  <X size={14} />
-                </button>
-              )}
-            </div>
           </header>
 
           <AdvancedSearch
@@ -335,11 +286,11 @@ const Lib_Catalog = () => {
           />
 
           {/* Results */}
-          <div className="w-full rounded-xl border border-stone-200 p-3 sm:p-4 bg-white">
+          <div className="w-full bg-white">
 
-            <div className="flex items-center justify-between gap-3 rounded-lg bg-stone-100 px-4 py-3 mb-3">
+            <div className="flex items-center justify-between gap-3 rounded-lg bg-white border border-stone-300 px-4 py-3 mb-3">
               <div className="min-w-0">
-                <h2 className="text-xs font-semibold text-stone-700">Search results</h2>
+                <h2 className="text-sm font-semibold text-stone-800">Search results</h2>
                 <p className="mt-0.5 text-xs text-stone-500 truncate">
                   {isLoading
                     ? "Loading the catalog…"
@@ -359,32 +310,18 @@ const Lib_Catalog = () => {
             {/* Active filter chips */}
             {hasFilters && !isLoading && (
               <div className="flex flex-wrap items-center gap-2 mb-3">
-                {debouncedQuery.trim() && (
+                {activeFilters.map(([key, value]) => (
                   <button
-                    onClick={() => setQuery("")}
+                    key={key}
+                    onClick={() => removeFilter(key)}
                     className="inline-flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 text-[11px] font-medium rounded-full transition-colors cursor-pointer"
                   >
                     <span className="max-w-[14rem] truncate">
-                      Search: {debouncedQuery.trim()}
+                      {FIELD_LABELS[key] || key}: {value}
                     </span>
                     <X size={12} className="shrink-0" />
                   </button>
-                )}
-
-                {activeFilters
-                  .filter(([key]) => key !== "title")
-                  .map(([key, value]) => (
-                    <button
-                      key={key}
-                      onClick={() => removeFilter(key)}
-                      className="inline-flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 text-[11px] font-medium rounded-full transition-colors cursor-pointer"
-                    >
-                      <span className="max-w-[14rem] truncate">
-                        {FIELD_LABELS[key] || key}: {value}
-                      </span>
-                      <X size={12} className="shrink-0" />
-                    </button>
-                  ))}
+                ))}
 
                 <button
                   onClick={clearFilters}

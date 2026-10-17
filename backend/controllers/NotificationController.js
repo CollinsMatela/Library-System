@@ -47,6 +47,10 @@ export const ApprovedNotification = async (req, res) => {
 
         })
 
+        if(notification){
+          console.log('Notification Information:', notification)
+        }
+
         res.status(200).json({message: 'Successfully created upload notification'});
        } catch (error) {
         console.log(error)

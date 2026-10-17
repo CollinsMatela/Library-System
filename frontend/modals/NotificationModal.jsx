@@ -28,12 +28,9 @@ const NotificationModal = ({ onClose }) => {
 
     useEffect(() => {
         const UserNotification = notifications
-            .filter((notif) => notif.recipient === user._id)
+            .filter((notif) => notif.recipient === user._id || notif.recipient === null)
             .reverse();
-        const GlobalNotification = notifications
-            .filter((notif) => notif.recipient === null)
-            .reverse();
-        setFilteredNotification([...GlobalNotification, ...UserNotification]);
+        setFilteredNotification([...UserNotification]);
     }, [notifications]);
 
     useEffect(() => {
@@ -84,7 +81,7 @@ const NotificationModal = ({ onClose }) => {
     };
 
     return (
-        <div className="absolute right-0 top-full mt-2 w-[calc(100vw-2rem)] max-w-sm bg-white rounded-2xl shadow-2xl shadow-stone-300/50 border border-stone-200/60 overflow-hidden z-50">
+        <div className="absolute right-0 top-full mt-2 w-sm max-w-sm bg-white rounded-2xl shadow-2xl shadow-stone-300/50 border border-stone-200/60 overflow-hidden z-50">
             {/* Header */}
             <div className="w-full flex justify-between items-center p-4 border-b border-stone-200/80 bg-stone-50/50">
                 <div className="flex items-center gap-2.5">
@@ -107,6 +104,7 @@ const NotificationModal = ({ onClose }) => {
                     <ArrowLeft size={16} className="text-stone-500" />
                 </button>
             </div>
+           
 
             {/* Content */}
             {isLoading ? (
@@ -117,7 +115,7 @@ const NotificationModal = ({ onClose }) => {
                     />
                 </div>
             ) : (
-                <div className="w-full max-h-80 overflow-y-auto">
+                <div className="w-full max-h-100 overflow-y-auto">
                     {filteredNotification.length === 0 && (
                         <div className="m-4 p-4 bg-stone-50 rounded-xl flex justify-center items-center gap-2 border border-stone-200/60">
                             <Info size={16} className="text-stone-400" />
@@ -128,7 +126,7 @@ const NotificationModal = ({ onClose }) => {
                     )}
 
                     {filteredNotification.length > 0 &&
-                        filteredNotification.map((notif, index) => (
+                        filteredNotification.slice(0, 50).map((notif, index) => (
                             <div
                                 key={notif._id || index}
                                 className="w-full px-4 py-3 border-b border-stone-100 hover:bg-stone-50 transition-colors cursor-pointer flex gap-3"
